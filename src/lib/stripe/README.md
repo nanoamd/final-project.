@@ -1,6 +1,8 @@
 # lib/stripe
 
-Stripe SDK initialization.
+Browser-side Stripe setup.
 
-- Server-side Stripe (secret key) is constructed here and consumed only from `server/`.
-- Browser publishable-key usage (Stripe.js) is set up separately for Client Components.
+- `client.ts` — lazily loads and memoizes Stripe.js using the publishable key,
+  for use in Client Components.
+
+The secret-key Stripe client lives in `server/stripe/` (server-only), never here.
