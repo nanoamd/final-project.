@@ -7,18 +7,18 @@ feature means deleting a single folder.
 
 ## Layers
 
-| Layer            | Path                  | Responsibility |
-|------------------|-----------------------|----------------|
-| Routing          | `app/`                | Next.js App Router. Thin layouts, pages, and route handlers. No business logic. |
-| UI primitives    | `components/ui/`      | shadcn/ui generated primitives. App-agnostic, no feature imports. |
-| Shared UI        | `components/shared/`  | Composite components reused across features. |
-| Layout UI        | `components/layout/`  | App shell: header, footer, navigation. |
-| Features         | `features/`           | Domain modules (vertical slices). The heart of the app. |
-| Shared hooks     | `hooks/`              | Globally-reused React hooks. |
-| Libraries        | `lib/`                | Leaf utilities and third-party client setup (Supabase, Stripe, Sanity). |
-| Server logic     | `server/`             | **Server-only.** Data access, server actions, webhook processing. Holds secrets. |
-| Config           | `config/`             | Site config, constants, route map, feature flags. |
-| Types            | `types/`              | Globally-shared TypeScript types. |
+| Layer         | Path                 | Responsibility                                                                   |
+| ------------- | -------------------- | -------------------------------------------------------------------------------- |
+| Routing       | `app/`               | Next.js App Router. Thin layouts, pages, and route handlers. No business logic.  |
+| UI primitives | `components/ui/`     | shadcn/ui generated primitives. App-agnostic, no feature imports.                |
+| Shared UI     | `components/shared/` | Composite components reused across features.                                     |
+| Layout UI     | `components/layout/` | App shell: header, footer, navigation.                                           |
+| Features      | `features/`          | Domain modules (vertical slices). The heart of the app.                          |
+| Shared hooks  | `hooks/`             | Globally-reused React hooks.                                                     |
+| Libraries     | `lib/`               | Leaf utilities and third-party client setup (Supabase, Stripe, Sanity).          |
+| Server logic  | `server/`            | **Server-only.** Data access, server actions, webhook processing. Holds secrets. |
+| Config        | `config/`            | Site config, constants, route map, feature flags.                                |
+| Types         | `types/`             | Globally-shared TypeScript types.                                                |
 
 ## Dependency direction
 

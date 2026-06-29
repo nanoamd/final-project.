@@ -14,5 +14,6 @@ features/<name>/
 ```
 
 Rules:
+
 - Features must not import from other features. Share via `components/shared/` or `server/`.
 - Consume a feature through its `index.ts` barrel, not its internal files.
