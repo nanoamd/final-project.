@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+# A newer push to the same ref cancels an in-progress run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Format, lint, typecheck, build
+    runs-on: ubuntu-latest
+    env:
+      # CI has no real secrets; these checks don't need them. Keeps the build
+      # green and stays correct once @/env is wired into the build.
+      SKIP_ENV_VALIDATION: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Reads the pnpm version from the "packageManager" field in package.json.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      # Reads the Node version from .nvmrc; caches the pnpm store.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
