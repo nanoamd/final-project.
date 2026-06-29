@@ -7,8 +7,9 @@ import { env } from "@/env";
 /**
  * Server-side Stripe client (secret key). Never import this from client code.
  *
- * The API version is intentionally left to the SDK's pinned default so the
- * types stay in sync with the installed library; pin it explicitly here once
- * the integration is built and tested against a known version.
+ * The API version is pinned explicitly so that upgrading the Stripe SDK is a
+ * deliberate, reviewed change rather than a silent behavioural shift.
  */
-export const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  apiVersion: "2026-06-24.dahlia",
+});
