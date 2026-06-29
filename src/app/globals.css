@@ -4,6 +4,50 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ----------------------------------------------------------------------------
+   Brand design tokens — Scandinavian luxury (Project Kaiku)
+   Warm whites, soft greys, light wood tones, dark charcoal accents.
+---------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  /* Surfaces */
+  --color-canvas: #f6f2ec; /* warm white — primary background */
+  --color-paper: #fbf9f5; /* card / raised surface */
+  --color-sand: #ece2d4; /* light wood / warm neutral */
+  --color-clay: #d9c9b4; /* deeper warm neutral */
+  --color-stone: #c4bdb1; /* soft grey */
+  --color-mist: #ece6dc; /* tinted neutral block */
+  --color-line: #e2dbce; /* hairline borders */
+
+  /* Ink */
+  --color-ink: #221f1b; /* primary text */
+  --color-charcoal: #28251f; /* dark accent surfaces */
+  --color-graphite: #4a463f; /* secondary dark */
+  --color-muted: #6f685e; /* secondary text */
+
+  /* Restrained natural accent — used sparingly */
+  --color-moss: #4c5747;
+  --color-moss-deep: #3a4435;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-feature-settings: "ss01";
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--color-charcoal);
+    color: var(--color-canvas);
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
