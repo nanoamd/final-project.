@@ -4,8 +4,6 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -35,9 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="bg-canvas text-ink flex min-h-full flex-col font-sans">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        {children}
       </body>
     </html>
   );
