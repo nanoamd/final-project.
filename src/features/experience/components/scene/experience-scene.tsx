@@ -33,6 +33,64 @@ const SAUNA_GLOW = new THREE.Color("#ffb15c");
 
 const PATIO_STONE = new THREE.Color("#a39a8a");
 
+const TREE_TRUNK = new THREE.Color("#4a3826");
+const TREE_CANOPY_A = new THREE.Color("#24462b");
+const TREE_CANOPY_B = new THREE.Color("#2f5233");
+
+/**
+ * A distant tree line framing the garden. Previously the ground was a bare
+ * 40x40 plane, small enough that its edge was visible within the camera's
+ * dolly range — reading as a floating disc/stage rather than a garden that
+ * actually extends past what the camera can see. These sit beyond the
+ * planting/props, always present, with the enlarged ground + fog (below)
+ * hiding the plane's edge behind them instead of showing it directly.
+ */
+const TREES: { position: readonly [number, number, number]; scale: number }[] =
+  [
+    { position: [-8, 0, -4], scale: 1.6 },
+    { position: [7.5, 0, -5], scale: 1.3 },
+    { position: [-9.5, 0, 3], scale: 1.8 },
+    { position: [9, 0, 4], scale: 1.5 },
+    { position: [-3, 0, -9], scale: 1.4 },
+    { position: [4, 0, -10], scale: 1.7 },
+  ];
+
+/** A simple trunk + overlapping canopy clusters — same low-poly language as the shrubs. */
+function Tree({ scale }: { scale: number }) {
+  return (
+    <group scale={scale}>
+      <mesh position={[0, 0.6, 0]}>
+        <cylinderGeometry args={[0.12, 0.18, 1.2, 6]} />
+        <meshStandardMaterial color={TREE_TRUNK} roughness={0.9} flatShading />
+      </mesh>
+      <mesh position={[0, 1.5, 0]}>
+        <icosahedronGeometry args={[0.75, 0]} />
+        <meshStandardMaterial
+          color={TREE_CANOPY_A}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+      <mesh position={[0.4, 1.3, 0.3]}>
+        <icosahedronGeometry args={[0.55, 0]} />
+        <meshStandardMaterial
+          color={TREE_CANOPY_B}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+      <mesh position={[-0.35, 1.25, -0.25]}>
+        <icosahedronGeometry args={[0.5, 0]} />
+        <meshStandardMaterial
+          color={TREE_CANOPY_A}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+    </group>
+  );
+}
+
 const FLAME_INNER = new THREE.Color("#ffe08a");
 const FLAME_OUTER = new THREE.Color("#ff7a2e");
 
@@ -104,6 +162,37 @@ const FAIRY_LIGHTS: {
   };
 });
 
+/**
+ * A fixed per-angle radius multiplier so the patio reads as a natural,
+ * irregular stone terrace instead of a perfect circle — seen mostly from its
+ * near half at the camera's low angle, a true circle looked like a flat
+ * geometric semi-circle sitting on the grass rather than part of a garden.
+ */
+const PATIO_RADIUS_JITTER = [
+  1, 0.93, 1.06, 0.88, 1.1, 0.95, 1.03, 0.9, 1.08, 0.96, 1.02, 0.85, 1.12, 0.94,
+  1.05, 0.89, 1.07, 0.97, 1.01, 0.86, 1.11, 0.93, 1.04, 0.98,
+];
+
+function buildPatioShape(): THREE.Shape {
+  const shape = new THREE.Shape();
+  const count = PATIO_RADIUS_JITTER.length;
+  for (let i = 0; i <= count; i++) {
+    const idx = i % count;
+    const angle = (idx / count) * Math.PI * 2;
+    const r = 3.4 * (PATIO_RADIUS_JITTER[idx] ?? 1);
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+    if (i === 0) {
+      shape.moveTo(x, y);
+    } else {
+      shape.lineTo(x, y);
+    }
+  }
+  return shape;
+}
+
+const SOIL_TONE = new THREE.Color("#3b2f22");
+
 const SHRUB_TONE_A = new THREE.Color("#2f5233");
 const SHRUB_TONE_B = new THREE.Color("#3f6b3f");
 
@@ -125,6 +214,10 @@ const SHRUBS: {
 function Shrub() {
   return (
     <>
+      <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[0.55, 12]} />
+        <meshStandardMaterial color={SOIL_TONE} roughness={0.95} />
+      </mesh>
       <mesh position={[0, 0.3, 0]}>
         <icosahedronGeometry args={[0.35, 0]} />
         <meshStandardMaterial
@@ -190,6 +283,8 @@ function applyFlatMaterial(object: THREE.Object3D, color: THREE.Color) {
 export function ExperienceScene() {
   const { scene, camera } = useThree();
 
+  const patioShape = React.useMemo(() => buildPatioShape(), []);
+
   const groundRef = React.useRef<THREE.Mesh>(null);
   const sunRef = React.useRef<THREE.DirectionalLight>(null);
   const ambientRef = React.useRef<THREE.AmbientLight>(null);
@@ -198,6 +293,7 @@ export function ExperienceScene() {
   const firePitGroupRef = React.useRef<THREE.Group>(null);
   const fireGlowRef = React.useRef<THREE.PointLight>(null);
   const saunaGlowRef = React.useRef<THREE.PointLight>(null);
+  const fogRef = React.useRef<THREE.Fog>(null);
   const patioRef = React.useRef<THREE.Mesh>(null);
   const shrubRefs = React.useRef<(THREE.Group | null)[]>([]);
   const flameRefs = React.useRef<(THREE.Mesh | null)[]>([]);
@@ -244,6 +340,9 @@ export function ExperienceScene() {
     // Sky & ground colour journey — the through-line of the whole piece.
     if (scene.background instanceof THREE.Color) {
       scene.background.copy(SKY_START).lerp(SKY_END, p);
+      if (fogRef.current) {
+        fogRef.current.color.copy(scene.background);
+      }
     }
     if (groundRef.current) {
       const mat = groundRef.current.material as THREE.MeshStandardMaterial;
@@ -368,13 +467,24 @@ export function ExperienceScene() {
 
   return (
     <>
+      <fog ref={fogRef} attach="fog" args={[SKY_START, 18, 62]} />
+
       <ambientLight ref={ambientRef} intensity={0.5} />
       <directionalLight ref={sunRef} position={[4, 6, 3]} intensity={0.6} />
 
       <mesh ref={groundRef} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[40, 40]} />
+        <planeGeometry args={[220, 220]} />
         <meshStandardMaterial color={GROUND_START} roughness={0.95} />
       </mesh>
+
+      {TREES.map((tree) => (
+        <group
+          key={tree.position.join(",")}
+          position={[tree.position[0], tree.position[1], tree.position[2]]}
+        >
+          <Tree scale={tree.scale} />
+        </group>
+      ))}
 
       <mesh
         ref={patioRef}
@@ -382,7 +492,7 @@ export function ExperienceScene() {
         rotation={[-Math.PI / 2, 0, 0]}
         receiveShadow
       >
-        <circleGeometry args={[3.4, 48]} />
+        <shapeGeometry args={[patioShape]} />
         <meshStandardMaterial
           color={PATIO_STONE}
           roughness={0.85}
