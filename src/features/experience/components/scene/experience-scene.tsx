@@ -19,14 +19,17 @@ import { progressStore } from "@/features/experience/lib/progress-store";
  */
 
 const SKY_START = new THREE.Color("#c7c2b8"); // flat, overcast
-const SKY_END = new THREE.Color("#1c2436"); // blue-hour dusk
+const SKY_END = new THREE.Color("#141b2c"); // deep blue-hour dusk
 
 const GROUND_START = new THREE.Color("#8a8672"); // patchy, dry
-const GROUND_END = new THREE.Color("#33502f"); // lush green
+const GROUND_END = new THREE.Color("#233d22"); // rich, deep green
 
 const SAUNA_TIMBER = new THREE.Color("#2a1d14");
 const LOUNGE_TONE = new THREE.Color("#3a362c");
 const FIRE_PIT_TONE = new THREE.Color("#26221d");
+
+const FIRE_GLOW = new THREE.Color("#ff7a2e");
+const SAUNA_GLOW = new THREE.Color("#ffb15c");
 
 /** Remap a value from [inMin, inMax] to [0, 1], clamped. */
 function remap(value: number, inMin: number, inMax: number) {
@@ -71,6 +74,8 @@ export function ExperienceScene() {
   const saunaGroupRef = React.useRef<THREE.Group>(null);
   const loungeGroupRef = React.useRef<THREE.Group>(null);
   const firePitGroupRef = React.useRef<THREE.Group>(null);
+  const fireGlowRef = React.useRef<THREE.PointLight>(null);
+  const saunaGlowRef = React.useRef<THREE.PointLight>(null);
 
   const sauna = useGLTF("/experience/models/sauna.glb");
   const lounge = useGLTF("/experience/models/lounge-fire-pit.glb");
@@ -166,6 +171,19 @@ export function ExperienceScene() {
       firePitGroupRef.current.scale.setScalar(0.85 + reveal * 0.15);
     }
 
+    // Warm glow lights ignite as their props settle in — this is what the
+    // bloom pass catches to give the scene actual atmosphere instead of flat
+    // shading. Sauna glow suggests warmth glimpsed through the door; the fire
+    // pit glow anticipates the eventual flame.
+    if (saunaGlowRef.current) {
+      const reveal = easeOutCubic(remap(p, 0.45, 0.65));
+      saunaGlowRef.current.intensity = reveal * 3.5;
+    }
+    if (fireGlowRef.current) {
+      const reveal = easeOutCubic(remap(p, 0.8, 1));
+      fireGlowRef.current.intensity = reveal * 6;
+    }
+
     // A slow, cinematic camera dolly — pulls back and rises slightly. The
     // look-at target rises with it too, so the horizon (and sky) comes into
     // frame by the end instead of the camera staying pitched down at the
@@ -189,17 +207,48 @@ export function ExperienceScene() {
         <meshStandardMaterial color={GROUND_START} roughness={0.95} />
       </mesh>
 
-      <group ref={saunaGroupRef} position={[-1.4, 0, -0.5]}>
+      <group
+        ref={saunaGroupRef}
+        position={[0, 0, -0.6]}
+        rotation={[0, THREE.MathUtils.degToRad(35), 0]}
+      >
         <primitive object={sauna.scene} />
       </group>
 
-      <group ref={loungeGroupRef} position={[1.6, 0, 0.8]} scale={0.6}>
+      <group
+        ref={loungeGroupRef}
+        position={[2.1, 0, 0.9]}
+        scale={0.6}
+        rotation={[0, THREE.MathUtils.degToRad(-25), 0]}
+      >
         <primitive object={lounge.scene} />
       </group>
 
-      <group ref={firePitGroupRef} position={[-0.3, 0, 1.5]} scale={0.7}>
+      <group
+        ref={firePitGroupRef}
+        position={[-2.0, 0, 0.9]}
+        scale={0.7}
+        rotation={[0, THREE.MathUtils.degToRad(25), 0]}
+      >
         <primitive object={firePit.scene} />
       </group>
+
+      <pointLight
+        ref={saunaGlowRef}
+        color={SAUNA_GLOW}
+        position={[0.3, 0.5, -0.2]}
+        intensity={0}
+        distance={4}
+        decay={2}
+      />
+      <pointLight
+        ref={fireGlowRef}
+        color={FIRE_GLOW}
+        position={[-1.8, 0.3, 0.9]}
+        intensity={0}
+        distance={5}
+        decay={2}
+      />
     </>
   );
 }
