@@ -31,6 +31,57 @@ const FIRE_PIT_TONE = new THREE.Color("#26221d");
 const FIRE_GLOW = new THREE.Color("#ff7a2e");
 const SAUNA_GLOW = new THREE.Color("#ffb15c");
 
+const PATIO_STONE = new THREE.Color("#a39a8a");
+
+const SHRUB_TONE_A = new THREE.Color("#2f5233");
+const SHRUB_TONE_B = new THREE.Color("#3f6b3f");
+
+/** Procedural shrubs: position, final scale, and the progress range they grow in over. */
+const SHRUBS: {
+  position: readonly [number, number, number];
+  base: number;
+  range: readonly [number, number];
+}[] = [
+  { position: [-3.2, 0, -1.4], base: 0.9, range: [0.08, 0.28] },
+  { position: [3.0, 0, -1.0], base: 0.75, range: [0.14, 0.34] },
+  { position: [-3.6, 0, 1.6], base: 1.0, range: [0.22, 0.42] },
+  { position: [3.7, 0, 1.9], base: 0.85, range: [0.3, 0.5] },
+  { position: [-1.1, 0, -2.6], base: 0.7, range: [0.38, 0.58] },
+  { position: [1.4, 0, -2.9], base: 0.95, range: [0.46, 0.66] },
+];
+
+/** A small cluster of overlapping low-poly spheres reads as a shrub without needing a modelled asset. */
+function Shrub() {
+  return (
+    <>
+      <mesh position={[0, 0.3, 0]}>
+        <icosahedronGeometry args={[0.35, 0]} />
+        <meshStandardMaterial
+          color={SHRUB_TONE_A}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+      <mesh position={[0.25, 0.22, 0.1]}>
+        <icosahedronGeometry args={[0.26, 0]} />
+        <meshStandardMaterial
+          color={SHRUB_TONE_B}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+      <mesh position={[-0.2, 0.18, -0.15]}>
+        <icosahedronGeometry args={[0.22, 0]} />
+        <meshStandardMaterial
+          color={SHRUB_TONE_A}
+          roughness={0.9}
+          flatShading
+        />
+      </mesh>
+    </>
+  );
+}
+
 /** Remap a value from [inMin, inMax] to [0, 1], clamped. */
 function remap(value: number, inMin: number, inMax: number) {
   return Math.min(1, Math.max(0, (value - inMin) / (inMax - inMin)));
@@ -76,6 +127,8 @@ export function ExperienceScene() {
   const firePitGroupRef = React.useRef<THREE.Group>(null);
   const fireGlowRef = React.useRef<THREE.PointLight>(null);
   const saunaGlowRef = React.useRef<THREE.PointLight>(null);
+  const patioRef = React.useRef<THREE.Mesh>(null);
+  const shrubRefs = React.useRef<(THREE.Group | null)[]>([]);
 
   const sauna = useGLTF("/experience/models/sauna.glb");
   const lounge = useGLTF("/experience/models/lounge-fire-pit.glb");
@@ -184,6 +237,22 @@ export function ExperienceScene() {
       fireGlowRef.current.intensity = reveal * 6;
     }
 
+    // Paving fades in as the ground transforms, grounding the sauna in an
+    // actual gathering space rather than bare earth.
+    if (patioRef.current) {
+      const mat = patioRef.current.material as THREE.MeshStandardMaterial;
+      mat.opacity = easeOutCubic(remap(p, 0.15, 0.4));
+    }
+
+    // Shrubs grow in one by one across the timeline, staggered so the garden
+    // fills in gradually rather than popping in all at once.
+    SHRUBS.forEach((shrub, i) => {
+      const group = shrubRefs.current[i];
+      if (!group) return;
+      const reveal = easeOutCubic(remap(p, shrub.range[0], shrub.range[1]));
+      group.scale.setScalar(reveal * shrub.base);
+    });
+
     // A slow, cinematic camera dolly — pulls back and rises slightly. The
     // look-at target rises with it too, so the horizon (and sky) comes into
     // frame by the end instead of the camera staying pitched down at the
@@ -206,6 +275,34 @@ export function ExperienceScene() {
         <planeGeometry args={[40, 40]} />
         <meshStandardMaterial color={GROUND_START} roughness={0.95} />
       </mesh>
+
+      <mesh
+        ref={patioRef}
+        position={[0, 0.02, -0.2]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        receiveShadow
+      >
+        <circleGeometry args={[3.4, 48]} />
+        <meshStandardMaterial
+          color={PATIO_STONE}
+          roughness={0.85}
+          transparent
+          opacity={0}
+        />
+      </mesh>
+
+      {SHRUBS.map((shrub, i) => (
+        <group
+          key={shrub.position.join(",")}
+          ref={(el) => {
+            shrubRefs.current[i] = el;
+          }}
+          position={[shrub.position[0], shrub.position[1], shrub.position[2]]}
+          scale={0}
+        >
+          <Shrub />
+        </group>
+      ))}
 
       <group
         ref={saunaGroupRef}
