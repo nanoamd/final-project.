@@ -20,7 +20,7 @@ export const buttonVariants = cva(
           "text-ink underline decoration-line decoration-1 underline-offset-[6px] hover:decoration-ink",
         onDark:
           "border border-canvas/40 text-canvas hover:bg-canvas hover:text-ink",
-        accent: "bg-ember text-canvas hover:bg-ember-deep",
+        accent: "bg-brass text-basalt-deep hover:bg-brass-deep",
       },
       size: {
         sm: "h-9 px-5 text-[13px]",

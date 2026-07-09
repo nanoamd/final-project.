@@ -31,10 +31,14 @@
   --color-moss: #4c5747;
   --color-moss-deep: #3a4435;
 
-  /* Signature accent — the one colour allowed to mean something. Used the
-     way a supplier uses a wax seal, not the way a SaaS product uses a CTA. */
-  --color-ember: #a6461f;
-  --color-ember-deep: #7f3417;
+  /* Homepage hero only: a dark, immersive treatment distinct from the light
+     "canvas" surface the rest of the site uses. Basalt is the dark ground;
+     terracotta is the wordmark/highlight colour; brass is the CTA accent. */
+  --color-basalt: #2b1a12;
+  --color-basalt-deep: #190f0a;
+  --color-terracotta: #d97757;
+  --color-brass: #b8935a;
+  --color-brass-deep: #93763f;
 }
 
 /* Slow, subtle hero-image zoom — the one moment of ambient motion on the

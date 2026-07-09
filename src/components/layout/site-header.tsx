@@ -18,50 +18,18 @@ export function SiteHeader() {
       <Container className="flex h-18 items-center justify-between gap-6">
         <AppLink
           href="/"
-          className="font-display text-ink text-[1.6rem] leading-none tracking-tight"
+          className="font-display text-terracotta text-[1.6rem] leading-none tracking-tight"
         >
           {siteConfig.name}
         </AppLink>
 
-        {/* Desktop navigation */}
+        {/* Desktop navigation — kept deliberately minimal: the wordmark and
+            one destination. Everything else still exists and is reachable
+            from the footer; it just isn't competing for attention here. */}
         <nav className="hidden items-center gap-8 lg:flex">
-          {primaryNav.map((item) =>
-            item.children ? (
-              <div key={item.href} className="group relative">
-                <AppLink href={item.href} className={navLinkClass}>
-                  {item.label}
-                </AppLink>
-                <div className="invisible absolute top-full left-1/2 z-50 w-[34rem] -translate-x-1/2 pt-4 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <div className="border-line bg-paper grid grid-cols-2 gap-1 border p-3 shadow-[0_24px_60px_-30px_rgba(34,31,27,0.4)]">
-                    {item.children.map((child) => (
-                      <AppLink
-                        key={child.href}
-                        href={child.href}
-                        className="hover:bg-sand flex flex-col gap-1 rounded-md px-4 py-3 transition-colors"
-                      >
-                        <span className="text-ink text-[15px] font-medium">
-                          {child.label}
-                        </span>
-                        {child.description ? (
-                          <span className="text-muted text-[13px] leading-snug">
-                            {child.description}
-                          </span>
-                        ) : null}
-                      </AppLink>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <AppLink
-                key={item.href}
-                href={item.href}
-                className={navLinkClass}
-              >
-                {item.label}
-              </AppLink>
-            ),
-          )}
+          <AppLink href="/shop" className={navLinkClass}>
+            Shop
+          </AppLink>
         </nav>
 
         {/* Utilities */}
@@ -80,15 +48,6 @@ export function SiteHeader() {
               )}
             </AppLink>
           ))}
-          <AppLink
-            href="/quote"
-            className={cn(
-              buttonVariants({ variant: "primary", size: "sm" }),
-              "hidden md:inline-flex",
-            )}
-          >
-            Request a quote
-          </AppLink>
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -111,7 +70,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   return (
     <div className="bg-canvas fixed inset-0 z-50 flex flex-col lg:hidden">
       <div className="border-line flex h-18 items-center justify-between border-b px-6">
-        <span className="font-display text-[1.6rem] leading-none tracking-tight">
+        <span className="font-display text-terracotta text-[1.6rem] leading-none tracking-tight">
           {siteConfig.name}
         </span>
         <button
