@@ -14,19 +14,6 @@ export function SiteHeader() {
 
   return (
     <header className="border-line bg-canvas/85 sticky top-0 z-50 border-b backdrop-blur-md">
-      {/* Announcement bar */}
-      <div className="border-line/70 bg-charcoal text-canvas hidden border-b md:block">
-        <Container className="text-canvas/75 flex h-9 items-center justify-between text-[12px] tracking-wide">
-          <span>{siteConfig.tagline}</span>
-          <AppLink
-            href="/quote"
-            className="hover:text-canvas transition-colors"
-          >
-            Request a quote →
-          </AppLink>
-        </Container>
-      </div>
-
       {/* Main bar */}
       <Container className="flex h-18 items-center justify-between gap-6">
         <AppLink

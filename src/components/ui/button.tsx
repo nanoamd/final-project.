@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  *   <Link className={buttonVariants({ variant: "primary" })}>…</Link>
  */
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-wide whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-charcoal disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-wide whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -20,6 +20,7 @@ export const buttonVariants = cva(
           "text-ink underline decoration-line decoration-1 underline-offset-[6px] hover:decoration-ink",
         onDark:
           "border border-canvas/40 text-canvas hover:bg-canvas hover:text-ink",
+        accent: "bg-ember text-canvas hover:bg-ember-deep",
       },
       size: {
         sm: "h-9 px-5 text-[13px]",

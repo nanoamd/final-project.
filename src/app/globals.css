@@ -30,6 +30,22 @@
   /* Restrained natural accent — used sparingly */
   --color-moss: #4c5747;
   --color-moss-deep: #3a4435;
+
+  /* Signature accent — the one colour allowed to mean something. Used the
+     way a supplier uses a wax seal, not the way a SaaS product uses a CTA. */
+  --color-ember: #a6461f;
+  --color-ember-deep: #7f3417;
+}
+
+/* Slow, subtle hero-image zoom — the one moment of ambient motion on the
+   homepage's first viewport. */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @layer base {
