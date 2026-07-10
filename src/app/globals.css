@@ -52,10 +52,21 @@
   }
 }
 
+/* Lenis smooth scroll — recommended base styles. When Lenis is active it
+   stamps `.lenis` on <html>; native smooth-scroll must be off so the two
+   don't fight. Anchor jumps are handled by Lenis instead. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);

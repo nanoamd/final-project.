@@ -1,25 +1,20 @@
-import { BuyingGuides } from "@/features/storefront/components/home/buying-guides";
-import { EditorialSection } from "@/features/storefront/components/home/editorial-section";
-import { FeaturedCategories } from "@/features/storefront/components/home/featured-categories";
 import { FeaturedProducts } from "@/features/storefront/components/home/featured-products";
-import { GuidedBuyingCta } from "@/features/storefront/components/home/guided-buying-cta";
 import { Hero } from "@/features/storefront/components/home/hero";
-import { JournalSignup } from "@/features/storefront/components/home/journal-signup";
-import { ValueProposition } from "@/features/storefront/components/home/value-proposition";
-import { WhyChooseUs } from "@/features/storefront/components/home/why-choose-us";
+import { RitualPillars } from "@/features/storefront/components/home/ritual-pillars";
 
+/**
+ * Homepage in transition to the photography-led direction: hero, the
+ * scroll-animated ritual pillars, then the product grid. The older
+ * illustration-based sections (value prop, why-choose-us, buying guides,
+ * journal signup) are paused while the visual language is rebuilt around real
+ * photography — they still exist and can be reintroduced once reskinned.
+ */
 export function HomePage() {
   return (
     <>
       <Hero />
-      <ValueProposition />
-      <FeaturedCategories />
-      <EditorialSection />
+      <RitualPillars />
       <FeaturedProducts />
-      <WhyChooseUs />
-      <BuyingGuides />
-      <GuidedBuyingCta />
-      <JournalSignup />
     </>
   );
 }
