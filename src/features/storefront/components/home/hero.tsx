@@ -1,32 +1,30 @@
+import Image from "next/image";
+
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
-const GRAIN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
-
 /**
- * The first viewport. Basalt ground (dark, clay-toned — no green), brass as
- * the CTA/highlight accent. The background stands in for a real photograph —
- * swap the tonal div below for an <Image> once Kaiku has its own shoot; the
- * layout, copy and motion don't need to change when it lands.
+ * The first viewport, now carried by a real photograph (fire against black —
+ * CC0 placeholder, to be swapped for Kaiku's own shoot). The image is mirrored
+ * so the flames sit bottom-right and the headline reads over the dark left.
  */
 export function Hero() {
   return (
     <section className="bg-basalt relative isolate flex min-h-[100dvh] flex-col overflow-hidden">
       <div aria-hidden className="absolute inset-0">
-        <div
-          className="absolute inset-0 animate-[hero-zoom_9s_ease-out_forwards] motion-reduce:animate-none"
-          style={{
-            background:
-              "radial-gradient(120% 90% at 20% 84%, color-mix(in srgb, var(--color-brass) 30%, transparent), transparent 60%), var(--color-basalt)",
-          }}
+        <Image
+          src="/images/hero-fire.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="scale-x-[-1] animate-[hero-zoom_12s_ease-out_forwards] object-cover motion-reduce:animate-none"
         />
-        <div
-          className="absolute inset-0 opacity-[0.05] mix-blend-overlay"
-          style={{ backgroundImage: GRAIN }}
-        />
-        <div className="from-basalt via-basalt/40 absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t to-transparent" />
+        {/* Legibility + mood: darken the left where the text sits, and settle
+            the whole frame into the basalt palette. */}
+        <div className="from-basalt/95 via-basalt/45 absolute inset-0 bg-gradient-to-r to-transparent" />
+        <div className="from-basalt absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t to-transparent" />
       </div>
 
       <Container className="relative mt-auto flex flex-col pt-32 pb-20 sm:pb-24 lg:pb-28">
@@ -35,7 +33,7 @@ export function Hero() {
             Build the home{" "}
             <span className="text-brass">you never want to leave.</span>
           </h1>
-          <p className="animate-in fade-in slide-in-from-bottom-3 text-canvas/70 mt-6 max-w-md text-lg leading-relaxed text-pretty delay-150 duration-700 motion-reduce:animate-none">
+          <p className="animate-in fade-in slide-in-from-bottom-3 text-canvas/75 mt-6 max-w-md text-lg leading-relaxed text-pretty delay-150 duration-700 motion-reduce:animate-none">
             See your future garden before you build it.
           </p>
           <div className="animate-in fade-in slide-in-from-bottom-2 mt-10 flex flex-wrap items-center gap-4 delay-300 duration-700 motion-reduce:animate-none">
