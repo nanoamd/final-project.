@@ -47,30 +47,30 @@ export function Hero() {
         ref={frameRef}
         className="relative h-[68vh] max-h-[600px] min-h-[440px] w-full touch-none select-none"
       >
-        {/* AFTER — warm, lit, full width underneath. */}
+        {/* AFTER — the transformed garden, full width underneath. */}
         <div className="absolute inset-0">
           <Image
-            src="/images/steam-lake.jpg"
+            src="/images/garden-after.jpg"
             alt="Your garden, transformed"
             fill
             priority
             sizes="100vw"
-            className="object-cover [filter:saturate(1.3)_brightness(0.95)_sepia(0.28)_hue-rotate(-14deg)]"
+            className="object-cover"
           />
         </div>
 
-        {/* BEFORE — cold, dark, clipped to the left of the handle. */}
+        {/* BEFORE — the same garden today, clipped to the left of the handle. */}
         <div
           className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
         >
           <Image
-            src="/images/steam-lake.jpg"
+            src="/images/garden-before.jpg"
             alt="Your garden today"
             fill
             priority
             sizes="100vw"
-            className="object-cover [filter:grayscale(0.75)_brightness(0.42)_contrast(1.05)]"
+            className="object-cover"
           />
         </div>
 

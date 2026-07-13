@@ -10,3 +10,5 @@ photography.
 - dark-water.jpg — StockSnap (CC0)
 - cold-ripple.jpg — StockSnap (CC0)
 - cedar.jpg — StockSnap (CC0)
+
+- garden-before.jpg / garden-after.jpg — PLACEHOLDER (to be replaced with Kaiku's own before/after garden render)
