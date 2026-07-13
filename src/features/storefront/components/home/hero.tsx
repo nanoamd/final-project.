@@ -7,10 +7,10 @@ import { AppLink } from "@/components/ui/app-link";
 
 /**
  * Hero — a faithful recreation of the Kaiku concept: a draggable before/after
- * garden slider with the transformation copy anchored to the lower-left. The
- * imagery here is placeholder (one photo in two grades) pending the real
- * before/after garden pair; layout, type and spacing are measured to the
- * concept.
+ * garden slider with the transformation copy anchored to the lower-left.
+ * Scaled to ~65–70vh so the trust bar peeks in on a laptop rather than filling
+ * the screen. Imagery is placeholder (one photo, two grades) pending the real
+ * before/after garden pair.
  */
 export function Hero() {
   const [pos, setPos] = React.useState(50);
@@ -45,7 +45,7 @@ export function Hero() {
     <section className="bg-basalt relative isolate overflow-hidden">
       <div
         ref={frameRef}
-        className="relative h-[calc(100svh-72px)] max-h-[760px] min-h-[600px] w-full touch-none select-none"
+        className="relative h-[68vh] max-h-[600px] min-h-[440px] w-full touch-none select-none"
       >
         {/* AFTER — warm, lit, full width underneath. */}
         <div className="absolute inset-0">
@@ -90,11 +90,11 @@ export function Hero() {
               dragging.current = true;
               e.currentTarget.setPointerCapture(e.pointerId);
             }}
-            className="bg-brass text-basalt-deep pointer-events-auto absolute top-1/2 left-1/2 flex size-[46px] -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.55)]"
+            className="bg-brass text-basalt-deep pointer-events-auto absolute top-1/2 left-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full shadow-[0_4px_18px_rgba(0,0,0,0.55)]"
           >
             <svg
-              width="22"
-              height="22"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -108,37 +108,39 @@ export function Hero() {
           </button>
         </div>
 
-        {/* Hero copy — lower-left, measured to the concept. */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-[9%]">
-          <div className="max-w-[440px]">
-            <p className="text-brass mb-[18px] text-[12px] font-medium tracking-[0.2em] uppercase">
+        {/* Hero copy — lower-left, measured to the concept, scaled ~15% down. */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-[7%]">
+          <div className="max-w-[420px]">
+            <p className="text-brass mb-[14px] text-[11px] font-medium tracking-[0.2em] uppercase">
               Inside. Outside. Every detail.
             </p>
-            <h1 className="font-display text-canvas text-[3.35rem] leading-[0.98] tracking-[-0.01em]">
+            <h1 className="font-display text-canvas text-[2.85rem] leading-[0.98] tracking-[-0.01em]">
               Transform
               <br />
               how you
               <br />
-              <span className="text-brass italic">live.</span>
+              <span className="text-brass">live.</span>
             </h1>
-            <p className="text-canvas/85 mt-[22px] text-[17px] leading-[1.5]">
+            <p className="text-canvas/85 mt-[18px] text-[15px] leading-[1.5]">
               Premium products.
               <br />
-              Expert design.
+              Expert guidance.
               <br />
-              Timeless living.
+              Considered design.
+              <br />
+              Beautiful spaces, inside and out.
             </p>
-            <div className="mt-[30px] flex flex-col gap-[12px]">
+            <div className="mt-[24px] flex flex-col gap-[10px]">
               <AppLink
                 href="/shop"
-                className="bg-brass text-basalt-deep hover:bg-brass-deep flex h-[54px] w-full items-center justify-center gap-2 rounded-[10px] text-[13px] font-semibold tracking-[0.14em] uppercase transition-colors"
+                className="bg-brass text-basalt-deep hover:bg-brass-deep flex h-[46px] w-full items-center justify-center gap-2 rounded-[8px] text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
               >
-                Explore Collections
+                Explore Collection
                 <span aria-hidden>→</span>
               </AppLink>
               <AppLink
                 href="/guided-buying"
-                className="text-canvas flex h-[54px] w-full items-center justify-center rounded-[10px] border border-white/25 text-[13px] font-medium tracking-[0.14em] uppercase transition-colors hover:border-white/60"
+                className="text-canvas flex h-[46px] w-full items-center justify-center rounded-[8px] border border-white/25 text-[12px] font-medium tracking-[0.14em] uppercase transition-colors hover:border-white/60"
               >
                 Garden Studio
               </AppLink>

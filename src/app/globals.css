@@ -31,15 +31,18 @@
   --color-moss: #4c5747;
   --color-moss-deep: #3a4435;
 
-  /* Homepage hero only: a dark, immersive treatment distinct from the light
-     "canvas" surface the rest of the site uses. Basalt is the dark ground;
-     terracotta is the wordmark/highlight colour; brass is the CTA accent. */
+  /* Dark, immersive homepage treatment. Basalt is the near-black ground;
+     "ember" is the single accent — a darker, richer burnt orange (premium
+     architectural lighting / firelight, never gold, brown or brass). Used
+     only on logo, primary buttons, active states, icons and small
+     highlights — photography carries the warmth, not the UI. The `brass`
+     token names are kept so existing utilities resolve to the new colour. */
   --color-basalt: #14100c;
   --color-basalt-deep: #0b0805;
   --color-basalt-raise: #1c1712;
-  --color-terracotta: #d97757;
-  --color-brass: #c9a24e;
-  --color-brass-deep: #a5842f;
+  --color-terracotta: #c0562a;
+  --color-brass: #c0562a;
+  --color-brass-deep: #9c4420;
 }
 
 /* Slow, subtle hero-image zoom — the one moment of ambient motion on the
