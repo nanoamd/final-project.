@@ -1,20 +1,23 @@
-import { FeaturedProducts } from "@/features/storefront/components/home/featured-products";
+import { AiDesignStudio } from "@/features/storefront/components/home/ai-design-studio";
+import { FeaturedCollections } from "@/features/storefront/components/home/featured-collections";
 import { Hero } from "@/features/storefront/components/home/hero";
-import { RitualPillars } from "@/features/storefront/components/home/ritual-pillars";
+import { ShopByRoom } from "@/features/storefront/components/home/shop-by-room";
+import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 
 /**
- * Homepage in transition to the photography-led direction: hero, the
- * scroll-animated ritual pillars, then the product grid. The older
- * illustration-based sections (value prop, why-choose-us, buying guides,
- * journal signup) are paused while the visual language is rebuilt around real
- * photography — they still exist and can be reintroduced once reskinned.
+ * The photography-led, whole-home homepage built to the approved dark + gold
+ * direction: a before/after garden slider hero, trust bar, AI Design Studio,
+ * Shop by Room, and Featured Collections. Card imagery is tonal placeholder
+ * pending real photography.
  */
 export function HomePage() {
   return (
-    <>
+    <div className="bg-basalt">
       <Hero />
-      <RitualPillars />
-      <FeaturedProducts />
-    </>
+      <TrustBar />
+      <AiDesignStudio />
+      <ShopByRoom />
+      <FeaturedCollections />
+    </div>
   );
 }

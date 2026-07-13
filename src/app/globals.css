@@ -34,11 +34,12 @@
   /* Homepage hero only: a dark, immersive treatment distinct from the light
      "canvas" surface the rest of the site uses. Basalt is the dark ground;
      terracotta is the wordmark/highlight colour; brass is the CTA accent. */
-  --color-basalt: #2b1a12;
-  --color-basalt-deep: #190f0a;
+  --color-basalt: #14100c;
+  --color-basalt-deep: #0b0805;
+  --color-basalt-raise: #1c1712;
   --color-terracotta: #d97757;
-  --color-brass: #b8935a;
-  --color-brass-deep: #93763f;
+  --color-brass: #c9a24e;
+  --color-brass-deep: #a5842f;
 }
 
 /* Slow, subtle hero-image zoom — the one moment of ambient motion on the
