@@ -1,23 +1,24 @@
-import { AiDesignStudio } from "@/features/storefront/components/home/ai-design-studio";
-import { FeaturedCollections } from "@/features/storefront/components/home/featured-collections";
+import { DesignedForLiving } from "@/features/storefront/components/home/designed-for-living";
+import { GardenStudio } from "@/features/storefront/components/home/garden-studio";
 import { Hero } from "@/features/storefront/components/home/hero";
-import { ShopByRoom } from "@/features/storefront/components/home/shop-by-room";
+import { ShopByCategory } from "@/features/storefront/components/home/shop-by-category";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 
 /**
- * The photography-led, whole-home homepage built to the approved dark + gold
- * direction: a before/after garden slider hero, trust bar, AI Design Studio,
- * Shop by Room, and Featured Collections. Card imagery is tonal placeholder
- * pending real photography.
+ * Home — the cinematic, editorial storefront on the near-black ground:
+ * an asymmetric split hero, a four-up trust bar, the Shop by Category rail,
+ * the Garden Studio before/after visualiser, and the closing "designed for
+ * how you live" band. Photography is a small licensed set with tonal
+ * placeholders where a real image isn't available yet.
  */
 export function HomePage() {
   return (
     <div className="bg-basalt">
       <Hero />
       <TrustBar />
-      <AiDesignStudio />
-      <ShopByRoom />
-      <FeaturedCollections />
+      <ShopByCategory />
+      <GardenStudio />
+      <DesignedForLiving />
     </div>
   );
 }

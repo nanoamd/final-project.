@@ -24,6 +24,13 @@ export interface Category {
   tone: SurfaceTone;
   /** True once real products exist; false renders an honest "coming soon". */
   available: boolean;
+  /**
+   * Indicative catalog size shown in the collection sidebar and card meta.
+   * Placeholder figure standing in for real supplier counts.
+   */
+  productCount?: number;
+  /** Real photograph path once available; otherwise a tonal placeholder. */
+  image?: string;
 }
 
 export interface ProductSpec {
@@ -34,6 +41,12 @@ export interface ProductSpec {
 export interface ProductFaq {
   question: string;
   answer: string;
+}
+
+/** A configurable choice on the product page (e.g. Size, Heater option). */
+export interface ProductOption {
+  label: string;
+  values: string[];
 }
 
 export interface Product {
@@ -55,4 +68,16 @@ export interface Product {
   delivery: string;
   warranty: string;
   faqs: ProductFaq[];
+  /** Stock-keeping reference shown on the product page. */
+  sku?: string;
+  /** Aggregate rating (0–5) — placeholder catalog metadata. */
+  rating?: number;
+  /** Number of reviews behind the rating — placeholder metadata. */
+  reviewCount?: number;
+  /** Configurable options (Size, Heater option, …). */
+  options?: ProductOption[];
+  /** Real photograph path once available; otherwise a tonal placeholder. */
+  image?: string;
+  /** Curated "you may also like" slugs; falls back to category siblings. */
+  relatedSlugs?: string[];
 }

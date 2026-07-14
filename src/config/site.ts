@@ -28,7 +28,7 @@ export type NavGroup = {
   children?: NavLink[];
 };
 
-/** Primary navigation. Designed to expand as categories are added. */
+/** Primary navigation — the top-level bar in the header. */
 export const primaryNav: NavGroup[] = [
   {
     label: "Shop",
@@ -40,27 +40,43 @@ export const primaryNav: NavGroup[] = [
         description: "Cabin, barrel and panoramic saunas for the garden.",
       },
       {
-        label: "Sauna Heaters",
-        href: "/shop/sauna-heaters",
-        description: "Electric and wood-burning heaters, correctly sized.",
-      },
-      {
-        label: "Cold Plunge",
-        href: "/shop/cold-plunge",
+        label: "Cold Plunges",
+        href: "/shop/cold-plunges",
         description: "Cold therapy tubs for recovery and resilience.",
       },
       {
-        label: "Chillers",
-        href: "/shop/chillers",
-        description: "Water chillers that hold a precise temperature.",
+        label: "Pergolas",
+        href: "/shop/pergolas",
+        description: "Louvred and fixed-roof shade structures.",
+      },
+      {
+        label: "Fire Pits & Heating",
+        href: "/shop/fire-pits",
+        description: "Fire pits and heaters that extend the evening.",
       },
     ],
   },
-  { label: "Learn", href: "/learn" },
-  { label: "Compare", href: "/compare" },
-  { label: "Guided Buying", href: "/guided-buying" },
+  { label: "Outdoor Living", href: "/shop" },
+  { label: "Wellness", href: "/shop/wellness-accessories" },
   { label: "Inspiration", href: "/inspiration" },
+  { label: "Trade", href: "/about" },
   { label: "About", href: "/about" },
+];
+
+/**
+ * Collection sub-navigation — the secondary bar shown on shop routes. Labels
+ * are brand-coherent (the garden/outdoor range) rather than the generic
+ * room-based template labels.
+ */
+export const collectionsNav: NavLink[] = [
+  { label: "All Collections", href: "/shop" },
+  { label: "Saunas & Wellness", href: "/shop/outdoor-saunas" },
+  { label: "Cold Plunges", href: "/shop/cold-plunges" },
+  { label: "Structures", href: "/shop/pergolas" },
+  { label: "Furniture", href: "/shop/garden-furniture" },
+  { label: "Fire & Heating", href: "/shop/fire-pits" },
+  { label: "Lighting", href: "/shop/lighting" },
+  { label: "New In", href: "/shop" },
 ];
 
 /** Utility actions, right-aligned in the header. */
@@ -76,9 +92,10 @@ export const footerNav: NavGroup[] = [
     href: "/shop",
     children: [
       { label: "Outdoor Saunas", href: "/shop/outdoor-saunas" },
-      { label: "Sauna Heaters", href: "/shop/sauna-heaters" },
-      { label: "Cold Plunge", href: "/shop/cold-plunge" },
-      { label: "Chillers", href: "/shop/chillers" },
+      { label: "Cold Plunges", href: "/shop/cold-plunges" },
+      { label: "Pergolas", href: "/shop/pergolas" },
+      { label: "Fire Pits & Heating", href: "/shop/fire-pits" },
+      { label: "Garden Furniture", href: "/shop/garden-furniture" },
     ],
   },
   {

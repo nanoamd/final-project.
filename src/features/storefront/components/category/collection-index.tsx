@@ -1,0 +1,346 @@
+import {
+  ChevronDown,
+  Columns3,
+  CookingPot,
+  Droplets,
+  Flame,
+  Home,
+  LayoutGrid,
+  Leaf,
+  Lightbulb,
+  type LucideIcon,
+  Package,
+  Rows3,
+  Sofa,
+  Sprout,
+  Warehouse,
+  Waves,
+} from "lucide-react";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+
+import { AppLink } from "@/components/ui/app-link";
+import { TrustBar } from "@/features/storefront/components/home/trust-bar";
+import {
+  categories,
+  getCategory,
+  getProductsByCategory,
+  TOTAL_PRODUCTS,
+} from "@/features/storefront/data/catalog";
+import { formatPrice } from "@/lib/format";
+import type { Category, Product } from "@/types/catalog";
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  "outdoor-saunas": Warehouse,
+  "cold-plunges": Droplets,
+  pergolas: Columns3,
+  "garden-furniture": Sofa,
+  "fire-pits": Flame,
+  "outdoor-kitchens": CookingPot,
+  lighting: Lightbulb,
+  planters: Sprout,
+  "water-features": Waves,
+  "outdoor-storage": Package,
+  "privacy-screens": Rows3,
+  "garden-rooms": Home,
+  "wellness-accessories": Leaf,
+};
+
+/**
+ * Collection — the dark, editorial browse experience. With no `categorySlug`
+ * it is the "All Collections" index (a grid of category tiles); with a slug it
+ * narrows to a single collection (a grid of product tiles). Both share the
+ * breadcrumb hero, the category sidebar and the Garden Studio promo.
+ */
+export function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
+  const active = categorySlug ? getCategory(categorySlug) : undefined;
+  if (categorySlug && !active) notFound();
+
+  const products = active ? getProductsByCategory(active.slug) : [];
+
+  return (
+    <div className="bg-basalt">
+      <CollectionHero category={active} />
+
+      <div className="mx-auto max-w-[1440px] px-6 pb-16 sm:px-8 lg:px-12">
+        <div className="grid gap-10 lg:grid-cols-[248px_1fr] lg:gap-12">
+          <Sidebar activeSlug={active?.slug} />
+
+          <div>
+            <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
+              <p className="text-canvas/55 text-[13px]">
+                {active
+                  ? `Showing ${active.name}`
+                  : "Showing all collections"}
+              </p>
+              <div className="text-canvas/70 flex items-center gap-2 text-[13px]">
+                <span className="text-canvas/45">Sort by:</span>
+                Featured
+                <ChevronDown className="size-4" strokeWidth={1.6} aria-hidden />
+              </div>
+            </div>
+
+            {active ? (
+              products.length ? (
+                <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-3">
+                  {products.map((product) => (
+                    <ProductTile key={product.slug} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyCollection name={active.name} />
+              )
+            ) : (
+              <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+                {categories.map((category) => (
+                  <CategoryTile key={category.slug} category={category} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <TrustBar />
+    </div>
+  );
+}
+
+function CollectionHero({ category }: { category?: Category }) {
+  const title = category?.name ?? "Premium outdoor living";
+  const crumb = category?.name ?? "All Collections";
+  return (
+    <section className="border-b border-white/10">
+      <div className="mx-auto grid max-w-[1440px] items-stretch gap-8 px-6 py-12 sm:px-8 lg:grid-cols-[1fr_0.95fr] lg:gap-12 lg:px-12 lg:py-14">
+        <div className="flex flex-col justify-center">
+          <p className="text-brass mb-5 flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase">
+            <AppLink href="/shop" className="hover:text-canvas transition-colors">
+              Shop
+            </AppLink>
+            <span aria-hidden className="text-brass/50">
+              /
+            </span>
+            <span>{crumb}</span>
+          </p>
+          {category ? (
+            <h1 className="text-canvas font-display text-[2.6rem] leading-[1.02] tracking-[-0.01em] sm:text-[3.4rem]">
+              {title}
+            </h1>
+          ) : (
+            <h1 className="text-canvas font-display text-[2.6rem] leading-[1.02] tracking-[-0.01em] sm:text-[3.4rem]">
+              Premium outdoor living,
+              <br />
+              curated for <span className="text-brass italic">every space.</span>
+            </h1>
+          )}
+          <p className="text-canvas/65 mt-5 max-w-md text-[15px] leading-relaxed">
+            {category?.description ??
+              "Timeless design. The finest materials. Built for life outdoors."}
+          </p>
+        </div>
+
+        <div className="relative min-h-[220px] overflow-hidden rounded-xl lg:min-h-0">
+          <Image
+            src={category?.image ?? "/images/garden-after.jpg"}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 45vw"
+            className="object-cover"
+          />
+          <div className="from-basalt/50 absolute inset-0 bg-gradient-to-r to-transparent" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Sidebar({ activeSlug }: { activeSlug?: string }) {
+  const allActive = !activeSlug;
+  return (
+    <aside className="hidden flex-col gap-8 py-8 lg:flex">
+      <div>
+        <p className="text-canvas/45 mb-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
+          Browse Categories
+        </p>
+        <ul className="flex flex-col">
+          <SidebarLink
+            href="/shop"
+            icon={LayoutGrid}
+            label="All Collections"
+            count={TOTAL_PRODUCTS}
+            active={allActive}
+          />
+          {categories.map((category) => (
+            <SidebarLink
+              key={category.slug}
+              href={`/shop/${category.slug}`}
+              icon={CATEGORY_ICONS[category.slug] ?? Leaf}
+              label={category.name}
+              count={category.productCount}
+              active={category.slug === activeSlug}
+            />
+          ))}
+        </ul>
+      </div>
+
+      <GardenStudioCard />
+    </aside>
+  );
+}
+
+function SidebarLink({
+  href,
+  icon: Icon,
+  label,
+  count,
+  active,
+}: {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+  count?: number;
+  active?: boolean;
+}) {
+  return (
+    <li>
+      <AppLink
+        href={href}
+        className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] transition-colors ${
+          active
+            ? "bg-brass/10 text-brass"
+            : "text-canvas/70 hover:bg-white/5 hover:text-canvas"
+        }`}
+      >
+        <Icon
+          className={`size-[18px] shrink-0 ${active ? "text-brass" : "text-canvas/45 group-hover:text-canvas/70"}`}
+          strokeWidth={1.5}
+          aria-hidden
+        />
+        <span className="flex-1">{label}</span>
+        {typeof count === "number" ? (
+          <span
+            className={`text-[12px] tabular-nums ${active ? "text-brass/80" : "text-canvas/35"}`}
+          >
+            {count}
+          </span>
+        ) : null}
+      </AppLink>
+    </li>
+  );
+}
+
+function GardenStudioCard() {
+  return (
+    <div className="border-white/8 bg-basalt-raise rounded-xl border p-5">
+      <p className="text-brass mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
+        Garden Studio
+      </p>
+      <p className="text-canvas font-display text-[22px] leading-tight">
+        Visualise it in your space
+      </p>
+      <p className="text-canvas/55 mt-3 text-[13px] leading-relaxed">
+        Upload a photo of your garden and see our products in your space
+        instantly.
+      </p>
+      <AppLink
+        href="/guided-buying"
+        className="border-brass/50 text-brass hover:bg-brass mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md border text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors hover:text-white"
+      >
+        Try Garden Studio <span aria-hidden>→</span>
+      </AppLink>
+      <div className="border-white/8 relative mx-auto mt-6 aspect-[9/16] w-[62%] overflow-hidden rounded-[1.4rem] border-4 border-black/60">
+        <Image
+          src="/images/garden-after.jpg"
+          alt=""
+          fill
+          sizes="160px"
+          className="object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+function CategoryTile({ category }: { category: Category }) {
+  const Icon = CATEGORY_ICONS[category.slug] ?? Leaf;
+  return (
+    <AppLink
+      href={`/shop/${category.slug}`}
+      className="group border-white/8 hover:border-brass/40 relative block aspect-[4/3] overflow-hidden rounded-xl border transition-colors"
+    >
+      {category.image ? (
+        <Image
+          src={category.image}
+          alt={category.name}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+        />
+      ) : (
+        <div className="from-basalt-card to-basalt absolute inset-0 flex items-center justify-center bg-gradient-to-br">
+          <Icon className="text-brass/60 size-8" strokeWidth={1.2} aria-hidden />
+        </div>
+      )}
+      <div className="from-basalt/95 via-basalt/20 absolute inset-0 bg-gradient-to-t to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-4">
+        <p className="text-canvas font-display text-[18px] leading-tight">
+          {category.name}
+        </p>
+        <p className="text-brass mt-1 flex items-center gap-1.5 text-[11px] font-medium tracking-[0.1em] uppercase">
+          {category.productCount ?? 0} Products <span aria-hidden>→</span>
+        </p>
+      </div>
+    </AppLink>
+  );
+}
+
+function ProductTile({ product }: { product: Product }) {
+  return (
+    <AppLink
+      href={`/shop/${product.category}/${product.slug}`}
+      className="group border-white/8 hover:border-brass/40 relative block overflow-hidden rounded-xl border transition-colors"
+    >
+      <div className="relative aspect-[4/5]">
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 1024px) 50vw, 30vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+          />
+        ) : (
+          <div className="from-basalt-card to-basalt absolute inset-0 bg-gradient-to-br" />
+        )}
+        <div className="from-basalt/90 absolute inset-0 bg-gradient-to-t to-transparent" />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 p-4">
+        <p className="text-canvas font-display text-[17px] leading-tight">
+          {product.name}
+        </p>
+        <p className="text-brass mt-1 text-[13px]">
+          From {formatPrice(product.priceFrom)}
+        </p>
+      </div>
+    </AppLink>
+  );
+}
+
+function EmptyCollection({ name }: { name: string }) {
+  return (
+    <div className="border-white/8 mt-8 flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-20 text-center">
+      <p className="text-canvas font-display text-2xl">{name} — coming soon</p>
+      <p className="text-canvas/55 mt-3 max-w-sm text-[14px] leading-relaxed">
+        We&rsquo;re curating this collection now. In the meantime, our team can
+        source and specify pieces for you directly.
+      </p>
+      <AppLink
+        href="/guided-buying"
+        className="border-brass/50 text-brass hover:bg-brass mt-6 flex h-11 items-center gap-2 rounded-md border px-6 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors hover:text-white"
+      >
+        Speak to our team <span aria-hidden>→</span>
+      </AppLink>
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { categories, CategoryPage, getCategory } from "@/features/storefront";
+import { categories, CollectionIndex, getCategory } from "@/features/storefront";
 
 export function generateStaticParams() {
   return categories.map((category) => ({ category: category.slug }));
@@ -25,5 +25,5 @@ export default async function Page({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  return <CategoryPage slug={category} />;
+  return <CollectionIndex categorySlug={category} />;
 }

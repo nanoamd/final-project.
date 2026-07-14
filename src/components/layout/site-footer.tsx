@@ -7,13 +7,13 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-charcoal text-canvas mt-auto">
+    <footer className="bg-basalt-deep text-canvas mt-auto">
       <Container className="py-20 md:py-24">
         <div className="grid gap-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div className="flex max-w-sm flex-col gap-6">
             <AppLink
               href="/"
-              className="font-display text-3xl leading-none tracking-tight"
+              className="text-brass font-display text-2xl leading-none font-medium tracking-[0.34em] uppercase"
             >
               {siteConfig.name}
             </AppLink>

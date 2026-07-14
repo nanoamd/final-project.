@@ -12,37 +12,40 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
-  /* Surfaces */
-  --color-canvas: #f6f2ec; /* warm white — primary background */
-  --color-paper: #fbf9f5; /* card / raised surface */
+  /* Light surfaces — the warm, editorial ground used on product pages and
+     other reading-led routes. Off-white paper, pure-white cards, cool ink. */
+  --color-canvas: #f4f2ed; /* warm off-white — primary light background */
+  --color-paper: #ffffff; /* card / raised surface */
   --color-sand: #ece2d4; /* light wood / warm neutral */
   --color-clay: #d9c9b4; /* deeper warm neutral */
   --color-stone: #c4bdb1; /* soft grey */
   --color-mist: #ece6dc; /* tinted neutral block */
-  --color-line: #e2dbce; /* hairline borders */
+  --color-line: #e6e2d9; /* hairline borders on light */
 
   /* Ink */
-  --color-ink: #221f1b; /* primary text */
-  --color-charcoal: #28251f; /* dark accent surfaces */
-  --color-graphite: #4a463f; /* secondary dark */
-  --color-muted: #6f685e; /* secondary text */
+  --color-ink: #1b1b1d; /* primary text */
+  --color-charcoal: #1a1a1d; /* dark accent surfaces */
+  --color-graphite: #48474a; /* secondary dark */
+  --color-muted: #6b6a67; /* secondary text */
 
   /* Restrained natural accent — used sparingly */
   --color-moss: #4c5747;
   --color-moss-deep: #3a4435;
 
-  /* Dark, immersive homepage treatment. Basalt is the near-black ground;
-     "ember" is the single accent — a darker, richer burnt orange (premium
-     architectural lighting / firelight, never gold, brown or brass). Used
-     only on logo, primary buttons, active states, icons and small
-     highlights — photography carries the warmth, not the UI. The `brass`
-     token names are kept so existing utilities resolve to the new colour. */
-  --color-basalt: #14100c;
-  --color-basalt-deep: #0b0805;
-  --color-basalt-raise: #1c1712;
+  /* Dark, cinematic treatment for Home and Collection. Basalt is the
+     near-black ground (#0B0B0C); "raise" and "card" step up for panels and
+     tiles. The single accent is a burnt orange — architectural firelight,
+     never gold, brown or brass. Used only on the wordmark, primary buttons,
+     active states, icons and small highlights; photography carries the
+     warmth, not the UI. The `brass` token names are kept so existing
+     utilities keep resolving to the accent. */
+  --color-basalt: #0b0b0c; /* page ground */
+  --color-basalt-deep: #060607; /* footer / deepest */
+  --color-basalt-raise: #121214; /* raised panel */
+  --color-basalt-card: #1a1a1d; /* tile / card surface */
   --color-terracotta: #c0562a;
-  --color-brass: #c0562a;
-  --color-brass-deep: #9c4420;
+  --color-brass: #c65a2c; /* burnt-orange accent */
+  --color-brass-deep: #a5471f;
 }
 
 /* Slow, subtle hero-image zoom — the one moment of ambient motion on the

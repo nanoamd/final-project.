@@ -1,151 +1,96 @@
-"use client";
-
 import Image from "next/image";
-import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
+import { getProduct } from "@/features/storefront/data/catalog";
+import { formatPrice } from "@/lib/format";
 
 /**
- * Hero — a faithful recreation of the Kaiku concept: a draggable before/after
- * garden slider with the transformation copy anchored to the lower-left.
- * Scaled to ~65–70vh so the trust bar peeks in on a laptop rather than filling
- * the screen. Imagery is placeholder (one photo, two grades) pending the real
- * before/after garden pair.
+ * Home hero — an editorial split. A large serif statement and two calls to
+ * action sit on the near-black ground to the left; a single cinematic garden
+ * photograph fills the right, with a floating product card anchored into its
+ * lower corner. Deliberately asymmetric — not a centred banner.
  */
 export function Hero() {
-  const [pos, setPos] = React.useState(50);
-  const frameRef = React.useRef<HTMLDivElement>(null);
-  const dragging = React.useRef(false);
-
-  const setFromClientX = React.useCallback((clientX: number) => {
-    const el = frameRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const pct = ((clientX - rect.left) / rect.width) * 100;
-    setPos(Math.min(97, Math.max(3, pct)));
-  }, []);
-
-  React.useEffect(() => {
-    function move(e: PointerEvent) {
-      if (!dragging.current) return;
-      setFromClientX(e.clientX);
-    }
-    function up() {
-      dragging.current = false;
-    }
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-    return () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-  }, [setFromClientX]);
+  const featured = getProduct("auroom-horizon-sauna");
 
   return (
     <section className="bg-basalt relative isolate overflow-hidden">
-      <div
-        ref={frameRef}
-        className="relative h-[68vh] max-h-[600px] min-h-[440px] w-full touch-none select-none"
-      >
-        {/* AFTER — the transformed garden, full width underneath. */}
-        <div className="absolute inset-0">
+      <div className="mx-auto grid max-w-[1440px] items-stretch lg:grid-cols-[0.92fr_1.08fr]">
+        {/* Left — statement */}
+        <div className="flex flex-col justify-center px-6 py-16 sm:px-8 lg:py-24 lg:pr-14 lg:pl-12">
+          <p className="text-brass mb-7 flex items-center gap-3 text-[11px] font-medium tracking-[0.24em] uppercase">
+            Outdoor Living, Reimagined
+            <span aria-hidden className="bg-brass/50 h-px w-10" />
+          </p>
+          <h1 className="text-canvas font-display text-[3.4rem] leading-[0.94] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.1rem]">
+            Spaces
+            <br />
+            that slow
+            <br />
+            <span className="text-brass italic">life down</span>
+          </h1>
+          <p className="text-canvas/70 mt-8 max-w-sm text-[15px] leading-relaxed">
+            Timeless design. Premium materials.
+            <br />
+            Beautiful spaces, built for life outdoors.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <AppLink
+              href="/shop"
+              className="bg-brass hover:bg-brass-deep flex h-12 items-center gap-2 rounded-md px-7 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors"
+            >
+              Explore Collections
+              <span aria-hidden>→</span>
+            </AppLink>
+            <AppLink
+              href="/about"
+              className="text-canvas/85 hover:text-canvas flex items-center gap-2 text-[12px] font-medium tracking-[0.16em] uppercase transition-colors"
+            >
+              Our Story <span aria-hidden>→</span>
+            </AppLink>
+          </div>
+        </div>
+
+        {/* Right — cinematic image with floating product card */}
+        <div className="relative min-h-[440px] lg:min-h-[40rem]">
           <Image
             src="/images/garden-after.jpg"
-            alt="Your garden, transformed"
+            alt="A lit garden terrace at dusk"
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 1024px) 100vw, 55vw"
             className="object-cover"
           />
-        </div>
+          <div className="from-basalt/70 pointer-events-none absolute inset-0 bg-gradient-to-r via-transparent to-transparent" />
+          <div className="from-basalt/60 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
 
-        {/* BEFORE — the same garden today, clipped to the left of the handle. */}
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-        >
-          <Image
-            src="/images/garden-before.jpg"
-            alt="Your garden today"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-
-        {/* Left-weighted darkening so the copy reads over the before side. */}
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(11,8,5,0.92)_0%,rgba(11,8,5,0.55)_38%,rgba(11,8,5,0.15)_68%,transparent_100%)]" />
-        <div className="from-basalt pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t to-transparent" />
-
-        {/* Divider + handle */}
-        <div
-          className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white/75"
-          style={{ left: `${pos}%` }}
-        >
-          <button
-            type="button"
-            aria-label="Drag to reveal the transformation"
-            onPointerDown={(e) => {
-              dragging.current = true;
-              e.currentTarget.setPointerCapture(e.pointerId);
-            }}
-            className="bg-brass text-basalt-deep pointer-events-auto absolute top-1/2 left-1/2 flex size-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full shadow-[0_4px_18px_rgba(0,0,0,0.55)]"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.9"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
+          {featured ? (
+            <AppLink
+              href={`/shop/${featured.category}/${featured.slug}`}
+              className="group border-white/12 bg-basalt/70 hover:border-brass/40 absolute right-5 bottom-5 flex items-center gap-4 rounded-xl border p-3 backdrop-blur-md transition-colors sm:right-8 sm:bottom-8"
             >
-              <path d="M9 6l-4 6 4 6M15 6l4 6-4 6" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Hero copy — lower-left, measured to the concept, scaled ~15% down. */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-end px-6 pb-[7%]">
-          <div className="max-w-[420px]">
-            <p className="text-brass mb-[14px] text-[11px] font-medium tracking-[0.2em] uppercase">
-              Inside. Outside. Every detail.
-            </p>
-            <h1 className="font-display text-canvas text-[2.85rem] leading-[0.98] tracking-[-0.01em]">
-              Transform
-              <br />
-              how you
-              <br />
-              <span className="text-brass">live.</span>
-            </h1>
-            <p className="text-canvas/85 mt-[18px] text-[15px] leading-[1.5]">
-              Premium products.
-              <br />
-              Expert guidance.
-              <br />
-              Considered design.
-              <br />
-              Beautiful spaces, inside and out.
-            </p>
-            <div className="mt-[24px] flex flex-col gap-[10px]">
-              <AppLink
-                href="/shop"
-                className="bg-brass text-basalt-deep hover:bg-brass-deep flex h-[46px] w-full items-center justify-center gap-2 rounded-[8px] text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-              >
-                Explore Collection
-                <span aria-hidden>→</span>
-              </AppLink>
-              <AppLink
-                href="/guided-buying"
-                className="text-canvas flex h-[46px] w-full items-center justify-center rounded-[8px] border border-white/25 text-[12px] font-medium tracking-[0.14em] uppercase transition-colors hover:border-white/60"
-              >
-                Garden Studio
-              </AppLink>
-            </div>
-          </div>
+              <span className="relative block size-16 shrink-0 overflow-hidden rounded-lg">
+                <Image
+                  src={featured.image ?? "/images/steam-lake.jpg"}
+                  alt=""
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="pr-3">
+                <span className="text-canvas block text-[14px] font-medium">
+                  {featured.name}
+                </span>
+                <span className="text-brass mt-0.5 block text-[13px]">
+                  From {formatPrice(featured.priceFrom)}
+                </span>
+                <span className="text-canvas/60 group-hover:text-canvas mt-1.5 flex items-center gap-1.5 text-[10px] font-medium tracking-[0.16em] uppercase transition-colors">
+                  Explore Wellness <span aria-hidden>→</span>
+                </span>
+              </span>
+            </AppLink>
+          ) : null}
         </div>
       </div>
     </section>
