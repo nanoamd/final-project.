@@ -36,7 +36,7 @@ export function SiteFooter({
   return (
     <footer className="bg-basalt-deep text-canvas mt-auto">
       <Container className="py-20 md:py-24">
-        <div className="grid gap-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div className="flex max-w-sm flex-col gap-6">
             <AppLink
               href="/"

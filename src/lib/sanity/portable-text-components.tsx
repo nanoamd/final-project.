@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { PortableTextComponents } from "@portabletext/react";
+import Image from "next/image";
 
 /**
  * Shared PortableText renderer config for page/post/buying-guide bodies —

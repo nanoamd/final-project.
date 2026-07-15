@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 
-import { ComingSoon } from "@/components/shared/coming-soon";
+import { GenericPage } from "@/features/storefront/components/content/generic-page";
+import { getPageBySlug } from "@/lib/sanity/queries";
 
-export const metadata: Metadata = { title: "About" };
+export const revalidate = 60;
 
-export default function AboutPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageBySlug("about");
+  return { title: page?.title ?? "About" };
+}
+
+export default async function AboutPage() {
+  const page = await getPageBySlug("about");
   return (
-    <ComingSoon
-      eyebrow="About"
-      title="A knowledge-first retailer"
-      intro="We're building the UK's most considered garden wellness platform — one where the advice is as carefully made as the products. More on our approach, and the people behind it, soon."
+    <GenericPage
+      page={page}
+      fallbackTitle="A knowledge-first retailer"
+      fallbackIntro="We're building the UK's most considered garden wellness platform — one where the advice is as carefully made as the products. More on our approach, and the people behind it, soon."
     />
   );
 }

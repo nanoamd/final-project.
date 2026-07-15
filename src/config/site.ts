@@ -103,6 +103,7 @@ export const footerNav: NavGroup[] = [
     href: "/learn",
     children: [
       { label: "Buying Guides", href: "/learn" },
+      { label: "Journal", href: "/journal" },
       { label: "Compare", href: "/compare" },
       { label: "Guided Buying", href: "/guided-buying" },
       { label: "Inspiration", href: "/inspiration" },
@@ -114,8 +115,19 @@ export const footerNav: NavGroup[] = [
     children: [
       { label: "About", href: "/about" },
       { label: "Request a Quote", href: "/quote" },
-      { label: "Contact", href: "/about" },
-      { label: "Trade Enquiries", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Trade Enquiries", href: "/contact" },
+    ],
+  },
+  {
+    label: "Support",
+    href: "/faq",
+    children: [
+      { label: "FAQ", href: "/faq" },
+      { label: "Delivery", href: "/delivery" },
+      { label: "Returns", href: "/returns" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms & Conditions", href: "/terms" },
     ],
   },
 ];
