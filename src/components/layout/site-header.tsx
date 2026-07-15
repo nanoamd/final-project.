@@ -6,13 +6,15 @@ import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  collectionsNav,
-  primaryNav,
-  siteConfig,
-  utilityNav,
-} from "@/config/site";
+import { collectionsNav, primaryNav, siteConfig, utilityNav } from "@/config/site";
 import { cn } from "@/lib/utils";
+import type { SanityNavigation } from "@/types/sanity-content";
+
+interface NavLink {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
 
 /**
  * Site header — theme-aware chrome shared by every storefront route.
@@ -21,10 +23,28 @@ import { cn } from "@/lib/utils";
  * The Product page renders on warm off-white, so the header inverts to light.
  * Theme is derived from the route: a product-detail path (/shop/x/y) is light,
  * everything else is dark. The collection sub-nav appears on shop routes only.
+ *
+ * Nav content comes from the Sanity `navigation` singleton (via a prop from
+ * the server layout), falling back to the static config when it's empty or
+ * unreachable, so the header looks identical either way.
  */
-export function SiteHeader() {
+export function SiteHeader({
+  nav,
+  siteName,
+}: {
+  nav?: SanityNavigation | null;
+  siteName?: string;
+}) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = React.useState(false);
+
+  const brandName = siteName ?? siteConfig.name;
+  const primaryLinks: NavLink[] = nav?.headerLinks?.length
+    ? nav.headerLinks
+    : primaryNav;
+  const collectionsLinks: NavLink[] = nav?.collectionsBarLinks?.length
+    ? nav.collectionsBarLinks
+    : collectionsNav;
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
@@ -39,12 +59,12 @@ export function SiteHeader() {
 
   // Longest-prefix match so /shop highlights "Shop" and a deeper category
   // route highlights its own item.
-  const activePrimary = [...primaryNav]
+  const activePrimary = [...primaryLinks]
     .filter((item) => item.href !== "/" && pathname.startsWith(item.href))
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
   const activeCollection =
-    collectionsNav
+    collectionsLinks
       .filter((item) => item.href !== "/shop" && pathname.startsWith(item.href))
       .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? "/shop";
 
@@ -55,11 +75,11 @@ export function SiteHeader() {
           href="/"
           className="text-brass font-display text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase"
         >
-          {siteConfig.name}
+          {brandName}
         </AppLink>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {primaryNav.map((item) => {
+          {primaryLinks.map((item) => {
             const active = item.href === activePrimary;
             return (
               <AppLink
@@ -101,7 +121,7 @@ export function SiteHeader() {
             <User className="size-[18px]" strokeWidth={1.6} />
           </AppLink>
           <AppLink
-            href="/account"
+            href="/cart"
             aria-label="Basket"
             className={cn(
               "relative flex size-10 items-center justify-center rounded-full transition-colors",
@@ -130,7 +150,7 @@ export function SiteHeader() {
       {isShopRoute ? (
         <div className={cn("border-t", t.subBar)}>
           <div className="mx-auto flex h-11 max-w-[1440px] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12 [scrollbar-width:none]">
-            {collectionsNav.map((item) => {
+            {collectionsLinks.map((item) => {
               const active = item.href === activeCollection;
               return (
                 <AppLink
@@ -152,7 +172,9 @@ export function SiteHeader() {
         </div>
       ) : null}
 
-      {open ? <MobileMenu onClose={() => setOpen(false)} /> : null}
+      {open ? (
+        <MobileMenu links={primaryLinks} brandName={brandName} onClose={() => setOpen(false)} />
+      ) : null}
     </header>
   );
 }
@@ -175,12 +197,20 @@ const light = {
   subLink: "text-ink/50 hover:text-ink",
 };
 
-function MobileMenu({ onClose }: { onClose: () => void }) {
+function MobileMenu({
+  links,
+  brandName,
+  onClose,
+}: {
+  links: NavLink[];
+  brandName: string;
+  onClose: () => void;
+}) {
   return (
     <div className="bg-basalt fixed inset-0 z-50 flex flex-col lg:hidden">
       <div className="flex h-18 items-center justify-between border-b border-white/10 px-6">
         <span className="text-brass font-display text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase">
-          {siteConfig.name}
+          {brandName}
         </span>
         <button
           type="button"
@@ -193,7 +223,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-6 py-8">
-        {primaryNav.map((item) => (
+        {links.map((item) => (
           <div key={item.label} className="border-b border-white/10 py-1">
             <AppLink
               href={item.href}

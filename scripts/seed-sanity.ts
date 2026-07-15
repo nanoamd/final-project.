@@ -1003,6 +1003,8 @@ async function seedNavigation() {
 async function seedHomepage() {
   console.log("Homepage...");
   const heroImage = imageField(await uploadImage("images/garden-after.jpg"));
+  const gardenStudioBeforeImage = imageField(await uploadImage("images/garden-before.jpg"));
+  const gardenStudioAfterImage = imageField(await uploadImage("images/garden-after.jpg"));
   const gardenStudioImages = await Promise.all(
     ["images/garden-after.jpg", "images/cedar.jpg", "images/steam-lake.jpg", "images/dark-water.jpg"].map(
       async (p) => imageField(await uploadImage(p)),
@@ -1053,6 +1055,8 @@ async function seedHomepage() {
     gardenStudioHeadline: "See it. Love it. Live in it.",
     gardenStudioBody:
       "Transform your space with Garden Studio. Upload a photo of your garden and explore endless possibilities — see your future space before you commit to it.",
+    gardenStudioBeforeImage,
+    gardenStudioAfterImage,
     gardenStudioImages,
     gardenStudioCta: {
       _type: "link",

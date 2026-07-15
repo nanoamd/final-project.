@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getProduct, ProductDetail, products } from "@/features/storefront";
+import { ProductDetail } from "@/features/storefront";
+import { getProduct, getProductParams } from "@/lib/sanity/queries";
 
-export function generateStaticParams() {
-  return products.map((product) => ({
-    category: product.category,
-    product: product.slug,
-  }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  return getProductParams();
 }
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ category: string; product: string }>;
 }): Promise<Metadata> {
   const { product } = await params;
-  const found = getProduct(product);
+  const found = await getProduct(product);
   return {
     title: found?.name ?? "Product",
     description: found?.summary,
@@ -29,7 +29,7 @@ export default async function Page({
   params: Promise<{ category: string; product: string }>;
 }) {
   const { category, product } = await params;
-  const found = getProduct(product);
+  const found = await getProduct(product);
   if (!found || found.category !== category) notFound();
   return <ProductDetail product={found} />;
 }

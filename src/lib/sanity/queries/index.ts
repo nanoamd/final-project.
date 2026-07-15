@@ -13,9 +13,11 @@ export { getPost, getPosts } from "@/lib/sanity/queries/post";
 export {
   getFeaturedProducts,
   getProduct,
+  getProductParams,
   getProductsByCategory,
   getProductsBySlugs,
   getRelatedProducts,
+  getTotalProductCount,
   searchProducts,
 } from "@/lib/sanity/queries/product";
 export {

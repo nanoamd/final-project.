@@ -22,6 +22,8 @@ const HOMEPAGE_QUERY = /* groq */ `
   gardenStudioEyebrow,
   gardenStudioHeadline,
   gardenStudioBody,
+  "gardenStudioBeforeImage": gardenStudioBeforeImage.asset->url,
+  "gardenStudioAfterImage": gardenStudioAfterImage.asset->url,
   "gardenStudioImages": gardenStudioImages[].asset->url,
   "gardenStudioCta": gardenStudioCta ${LINK_PROJECTION},
   designedForLivingHeadline,

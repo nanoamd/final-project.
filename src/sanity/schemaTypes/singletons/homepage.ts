@@ -93,6 +93,20 @@ export const homepage = defineType({
     defineField({ name: "gardenStudioHeadline", type: "string", group: "gardenStudio" }),
     defineField({ name: "gardenStudioBody", type: "text", rows: 3, group: "gardenStudio" }),
     defineField({
+      name: "gardenStudioBeforeImage",
+      title: "Before image (slider)",
+      type: "image",
+      options: { hotspot: true },
+      group: "gardenStudio",
+    }),
+    defineField({
+      name: "gardenStudioAfterImage",
+      title: "After image (slider)",
+      type: "image",
+      options: { hotspot: true },
+      group: "gardenStudio",
+    }),
+    defineField({
       name: "gardenStudioImages",
       title: "Scene thumbnails",
       type: "array",

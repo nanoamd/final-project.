@@ -209,6 +209,8 @@ export interface SanityHomepage {
   gardenStudioEyebrow?: string;
   gardenStudioHeadline?: string;
   gardenStudioBody?: string;
+  gardenStudioBeforeImage?: string | null;
+  gardenStudioAfterImage?: string | null;
   gardenStudioImages?: string[];
   gardenStudioCta?: SanityLink | null;
   designedForLivingHeadline?: string;

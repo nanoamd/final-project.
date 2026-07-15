@@ -5,8 +5,9 @@ import Image from "next/image";
 import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
+import type { SanityLink } from "@/types/sanity-content";
 
-const THUMBS = [
+const DEFAULT_THUMBS = [
   "/images/garden-after.jpg",
   "/images/cedar.jpg",
   "/images/steam-lake.jpg",
@@ -21,16 +22,31 @@ const LENSES = [
   { icon: Flower2, label: "Decor" },
 ];
 
+export interface GardenStudioContent {
+  eyebrow?: string;
+  headline?: string;
+  body?: string;
+  beforeImage?: string | null;
+  afterImage?: string | null;
+  thumbnails?: string[];
+  cta?: SanityLink | null;
+}
+
 /**
  * Garden Studio — the visualiser moment. A draggable before/after reveal sits
  * between an editorial statement and a strip of scene thumbnails, with the
  * design lenses below. Outcome-led throughout: it sells what you get to see,
  * never the technology behind it.
  */
-export function GardenStudio() {
+export function GardenStudio({ content }: { content?: GardenStudioContent }) {
   const [pos, setPos] = React.useState(50);
   const frameRef = React.useRef<HTMLDivElement>(null);
   const dragging = React.useRef(false);
+
+  const afterImage = content?.afterImage ?? "/images/garden-after.jpg";
+  const beforeImage = content?.beforeImage ?? "/images/garden-before.jpg";
+  const thumbs = content?.thumbnails?.length ? content.thumbnails : DEFAULT_THUMBS;
+  const cta = content?.cta ?? { label: "Visualise Your Garden", href: "/guided-buying" };
 
   const setFromClientX = React.useCallback((clientX: number) => {
     const el = frameRef.current;
@@ -63,26 +79,31 @@ export function GardenStudio() {
           {/* Left — statement */}
           <div>
             <p className="text-brass mb-4 text-[12px] font-medium tracking-[0.24em] uppercase">
-              Garden Studio
+              {content?.eyebrow ?? "Garden Studio"}
             </p>
             <h2 className="text-canvas font-display text-4xl leading-[1.02] tracking-tight sm:text-5xl">
-              See it.
-              <br />
-              <span className="text-brass italic">Love it.</span>
-              <br />
-              Live in it.
+              {content?.headline ? (
+                content.headline
+              ) : (
+                <>
+                  See it.
+                  <br />
+                  <span className="text-brass italic">Love it.</span>
+                  <br />
+                  Live in it.
+                </>
+              )}
             </h2>
             <p className="text-canvas/65 mt-6 max-w-sm text-[15px] leading-relaxed">
-              Transform your space with Garden Studio. Upload a photo of your
-              garden and explore endless possibilities — see your future space
-              before you commit to it.
+              {content?.body ??
+                "Transform your space with Garden Studio. Upload a photo of your garden and explore endless possibilities — see your future space before you commit to it."}
             </p>
             <div className="mt-8 flex flex-col items-start gap-4">
               <AppLink
-                href="/guided-buying"
+                href={cta.href}
                 className="bg-brass hover:bg-brass-deep flex h-12 items-center gap-2 rounded-md px-7 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors"
               >
-                Visualise Your Garden
+                {cta.label}
                 <span aria-hidden>→</span>
               </AppLink>
               <AppLink
@@ -103,7 +124,7 @@ export function GardenStudio() {
                 className="border-white/8 relative aspect-[16/10] touch-none overflow-hidden rounded-xl border select-none"
               >
                 <Image
-                  src="/images/garden-after.jpg"
+                  src={afterImage}
                   alt="Your garden, transformed"
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
@@ -114,7 +135,7 @@ export function GardenStudio() {
                   style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
                 >
                   <Image
-                    src="/images/garden-before.jpg"
+                    src={beforeImage}
                     alt="Your garden today"
                     fill
                     sizes="(max-width: 1024px) 100vw, 55vw"
@@ -161,7 +182,7 @@ export function GardenStudio() {
 
               {/* Thumbnail strip */}
               <div className="hidden w-[72px] flex-col gap-3 sm:flex">
-                {THUMBS.map((src, i) => (
+                {thumbs.map((src, i) => (
                   <span
                     key={src}
                     className={`relative block aspect-square overflow-hidden rounded-lg border ${

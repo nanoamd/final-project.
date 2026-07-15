@@ -17,11 +17,11 @@ import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
 import { formatPriceExact } from "@/lib/format";
-import type { Product } from "@/types/catalog";
+import type { SanityProduct } from "@/types/sanity-content";
 
 const FEATURE_ICONS: LucideIcon[] = [Trees, Square, Armchair, Flame, Sun];
 
-export function ProductSummary({ product }: { product: Product }) {
+export function ProductSummary({ product }: { product: SanityProduct }) {
   const [selected, setSelected] = React.useState<Record<string, number>>(() =>
     Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
   );
@@ -112,7 +112,7 @@ export function ProductSummary({ product }: { product: Product }) {
 
       <div className="border-line border-t pt-6">
         <p className="text-ink text-[1.9rem] leading-none font-medium">
-          {formatPriceExact(product.priceFrom)}
+          {formatPriceExact(product.price)}
         </p>
         <p className="text-muted mt-2 text-[13px]">
           Tax included. Shipping calculated at checkout.
@@ -120,9 +120,11 @@ export function ProductSummary({ product }: { product: Product }) {
         <div className="text-graphite mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
           <span className="flex items-center gap-2">
             <Truck className="text-ink/50 size-[18px]" strokeWidth={1.5} aria-hidden />
-            Free UK delivery
+            {product.stockStatus}
           </span>
-          <span className="text-muted">Delivered in 3–6 weeks</span>
+          {product.deliveryLeadTime ? (
+            <span className="text-muted">Delivered in {product.deliveryLeadTime}</span>
+          ) : null}
         </div>
       </div>
 

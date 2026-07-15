@@ -1,10 +1,10 @@
 "use client";
 
-import { Gem, Headset, Leaf, type LucideIcon,ShieldCheck, Star } from "lucide-react";
+import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck, Star } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
-import type { Product } from "@/types/catalog";
+import type { SanityProduct } from "@/types/sanity-content";
 
 const BAND_FEATURES: { icon: LucideIcon; title: string; copy: string }[] = [
   { icon: Gem, title: "Finest materials", copy: "Sustainably sourced Thermowood" },
@@ -13,7 +13,7 @@ const BAND_FEATURES: { icon: LucideIcon; title: string; copy: string }[] = [
   { icon: Headset, title: "Expert support", copy: "Our team is here to help" },
 ];
 
-export function ProductTabs({ product }: { product: Product }) {
+export function ProductTabs({ product }: { product: SanityProduct }) {
   const tabs = [
     { id: "description", label: "Description" },
     { id: "specifications", label: "Specifications" },
@@ -59,7 +59,7 @@ export function ProductTabs({ product }: { product: Product }) {
   );
 }
 
-function DescriptionPanel({ product }: { product: Product }) {
+function DescriptionPanel({ product }: { product: SanityProduct }) {
   return (
     <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
       <div>
@@ -88,20 +88,25 @@ function DescriptionPanel({ product }: { product: Product }) {
         </div>
       </div>
 
-      <div className="border-line relative aspect-[4/3] overflow-hidden rounded-2xl border lg:aspect-auto">
-        <Image
-          src={product.image ?? "/images/cedar.jpg"}
-          alt={product.name}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover"
-        />
-      </div>
+      {product.image ? (
+        <div className="border-line relative aspect-[4/3] overflow-hidden rounded-2xl border lg:aspect-auto">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function SpecsPanel({ product }: { product: Product }) {
+function SpecsPanel({ product }: { product: SanityProduct }) {
+  if (!product.specs.length) {
+    return <p className="text-muted text-[14px]">Specifications coming soon.</p>;
+  }
   return (
     <dl className="grid max-w-3xl gap-x-10 gap-y-0 sm:grid-cols-2">
       {product.specs.map((spec) => (
@@ -117,26 +122,31 @@ function SpecsPanel({ product }: { product: Product }) {
   );
 }
 
-function DeliveryPanel({ product }: { product: Product }) {
+function DeliveryPanel({ product }: { product: SanityProduct }) {
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
       <div>
         <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
           Delivery
         </h3>
-        <p className="text-graphite mt-3 leading-relaxed">{product.delivery}</p>
+        <p className="text-graphite mt-3 leading-relaxed">
+          {product.deliveryNotes ?? "Delivery details confirmed at quotation."}
+        </p>
       </div>
       <div>
         <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
           Warranty & Returns
         </h3>
-        <p className="text-graphite mt-3 leading-relaxed">{product.warranty}</p>
+        <p className="text-graphite mt-3 leading-relaxed">
+          {product.warrantyNotes ??
+            "Comprehensive manufacturer warranty — exact terms confirmed at quotation."}
+        </p>
       </div>
     </div>
   );
 }
 
-function ReviewsPanel({ product }: { product: Product }) {
+function ReviewsPanel({ product }: { product: SanityProduct }) {
   return (
     <div className="flex flex-col items-start gap-4">
       <div className="flex items-center gap-4">

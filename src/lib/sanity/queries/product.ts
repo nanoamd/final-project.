@@ -121,3 +121,30 @@ export async function searchProducts(
   if (!term.trim()) return [];
   return sanityFetch<SanityProduct[]>(SEARCH_PRODUCTS_QUERY, { term, limit }, []);
 }
+
+const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[_type == "product"])`;
+
+export async function getTotalProductCount(): Promise<number> {
+  return sanityFetch<number>(TOTAL_PRODUCT_COUNT_QUERY, {}, 0);
+}
+
+const PRODUCT_PARAMS_QUERY = /* groq */ `
+*[_type == "product" && defined(category->slug.current)] | order(_createdAt desc) [0...$limit] {
+  "category": category->slug.current,
+  "slug": slug.current
+}`;
+
+/**
+ * Slug pairs for generateStaticParams. Capped (not the full catalog) so a
+ * 10,000+ product store never turns `next build` into a full-catalog crawl —
+ * uncapped slugs still render on demand via ISR (dynamicParams stays true).
+ */
+export async function getProductParams(
+  limit = 200,
+): Promise<{ category: string; slug: string }[]> {
+  return sanityFetch<{ category: string; slug: string }[]>(
+    PRODUCT_PARAMS_QUERY,
+    { limit },
+    [],
+  );
+}

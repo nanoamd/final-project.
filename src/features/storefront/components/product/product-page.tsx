@@ -3,16 +3,16 @@ import { ProductGallery } from "@/features/storefront/components/product/product
 import { ProductSummary } from "@/features/storefront/components/product/product-summary";
 import { ProductTabs } from "@/features/storefront/components/product/product-tabs";
 import { RelatedProducts } from "@/features/storefront/components/product/related-products";
-import { getRelatedProducts } from "@/features/storefront/data/catalog";
-import type { Product } from "@/types/catalog";
+import { getRelatedProducts } from "@/lib/sanity/queries/product";
+import type { SanityProduct } from "@/types/sanity-content";
 
 /**
  * Product — the warm, editorial detail page on off-white. A gallery and a
  * configurable summary sit above a tabbed information band and a "you may also
  * like" carousel. The header inverts to its light theme on these routes.
  */
-export function ProductDetail({ product }: { product: Product }) {
-  const related = getRelatedProducts(product, 4);
+export async function ProductDetail({ product }: { product: SanityProduct }) {
+  const related = await getRelatedProducts(product, 4);
 
   return (
     <div className="bg-canvas text-ink">
@@ -37,11 +37,7 @@ export function ProductDetail({ product }: { product: Product }) {
         </nav>
 
         <div className="mt-8 grid gap-10 pb-16 lg:grid-cols-2 lg:gap-14">
-          <ProductGallery
-            image={product.image}
-            illustration={product.illustration}
-            name={product.name}
-          />
+          <ProductGallery images={product.gallery} name={product.name} />
           <ProductSummary product={product} />
         </div>
       </div>

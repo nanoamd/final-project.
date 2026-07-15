@@ -1,50 +1,18 @@
-import {
-  ChevronDown,
-  Columns3,
-  CookingPot,
-  Droplets,
-  Flame,
-  Home,
-  LayoutGrid,
-  Leaf,
-  Lightbulb,
-  type LucideIcon,
-  Package,
-  Rows3,
-  Sofa,
-  Sprout,
-  Warehouse,
-  Waves,
-} from "lucide-react";
+import { ChevronDown, LayoutGrid, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { AppLink } from "@/components/ui/app-link";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
+import { formatPrice } from "@/lib/format";
+import { resolveIcon } from "@/lib/icons";
 import {
-  categories,
+  getCategories,
   getCategory,
   getProductsByCategory,
-  TOTAL_PRODUCTS,
-} from "@/features/storefront/data/catalog";
-import { formatPrice } from "@/lib/format";
-import type { Category, Product } from "@/types/catalog";
-
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  "outdoor-saunas": Warehouse,
-  "cold-plunges": Droplets,
-  pergolas: Columns3,
-  "garden-furniture": Sofa,
-  "fire-pits": Flame,
-  "outdoor-kitchens": CookingPot,
-  lighting: Lightbulb,
-  planters: Sprout,
-  "water-features": Waves,
-  "outdoor-storage": Package,
-  "privacy-screens": Rows3,
-  "garden-rooms": Home,
-  "wellness-accessories": Leaf,
-};
+  getTotalProductCount,
+} from "@/lib/sanity/queries";
+import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
 
 /**
  * Collection — the dark, editorial browse experience. With no `categorySlug`
@@ -52,11 +20,18 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
  * narrows to a single collection (a grid of product tiles). Both share the
  * breadcrumb hero, the category sidebar and the Garden Studio promo.
  */
-export function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
-  const active = categorySlug ? getCategory(categorySlug) : undefined;
+export async function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
+  const [categories, totalProducts] = await Promise.all([
+    getCategories(),
+    getTotalProductCount(),
+  ]);
+
+  const active = categorySlug
+    ? ((await getCategory(categorySlug)) ?? undefined)
+    : undefined;
   if (categorySlug && !active) notFound();
 
-  const products = active ? getProductsByCategory(active.slug) : [];
+  const products = active ? await getProductsByCategory(active.slug) : [];
 
   return (
     <div className="bg-basalt">
@@ -64,14 +39,16 @@ export function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
 
       <div className="mx-auto max-w-[1440px] px-6 pb-16 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[248px_1fr] lg:gap-12">
-          <Sidebar activeSlug={active?.slug} />
+          <Sidebar
+            categories={categories}
+            totalProducts={totalProducts}
+            activeSlug={active?.slug}
+          />
 
           <div>
             <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
               <p className="text-canvas/55 text-[13px]">
-                {active
-                  ? `Showing ${active.name}`
-                  : "Showing all collections"}
+                {active ? `Showing ${active.name}` : "Showing all collections"}
               </p>
               <div className="text-canvas/70 flex items-center gap-2 text-[13px]">
                 <span className="text-canvas/45">Sort by:</span>
@@ -93,7 +70,11 @@ export function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
             ) : (
               <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
                 {categories.map((category) => (
-                  <CategoryTile key={category.slug} category={category} />
+                  <CategoryTile
+                    key={category.slug}
+                    category={category}
+                    icon={resolveIcon(category.iconName)}
+                  />
                 ))}
               </div>
             )}
@@ -106,7 +87,7 @@ export function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
   );
 }
 
-function CollectionHero({ category }: { category?: Category }) {
+function CollectionHero({ category }: { category?: SanityCategory }) {
   const title = category?.name ?? "Premium outdoor living";
   const crumb = category?.name ?? "All Collections";
   return (
@@ -155,7 +136,15 @@ function CollectionHero({ category }: { category?: Category }) {
   );
 }
 
-function Sidebar({ activeSlug }: { activeSlug?: string }) {
+function Sidebar({
+  categories,
+  totalProducts,
+  activeSlug,
+}: {
+  categories: SanityCategory[];
+  totalProducts: number;
+  activeSlug?: string;
+}) {
   const allActive = !activeSlug;
   return (
     <aside className="hidden flex-col gap-8 py-8 lg:flex">
@@ -168,14 +157,14 @@ function Sidebar({ activeSlug }: { activeSlug?: string }) {
             href="/shop"
             icon={LayoutGrid}
             label="All Collections"
-            count={TOTAL_PRODUCTS}
+            count={totalProducts}
             active={allActive}
           />
           {categories.map((category) => (
             <SidebarLink
               key={category.slug}
               href={`/shop/${category.slug}`}
-              icon={CATEGORY_ICONS[category.slug] ?? Leaf}
+              icon={resolveIcon(category.iconName)}
               label={category.name}
               count={category.productCount}
               active={category.slug === activeSlug}
@@ -262,8 +251,13 @@ function GardenStudioCard() {
   );
 }
 
-function CategoryTile({ category }: { category: Category }) {
-  const Icon = CATEGORY_ICONS[category.slug] ?? Leaf;
+function CategoryTile({
+  category,
+  icon: Icon,
+}: {
+  category: SanityCategory;
+  icon: LucideIcon;
+}) {
   return (
     <AppLink
       href={`/shop/${category.slug}`}
@@ -288,14 +282,14 @@ function CategoryTile({ category }: { category: Category }) {
           {category.name}
         </p>
         <p className="text-brass mt-1 flex items-center gap-1.5 text-[11px] font-medium tracking-[0.1em] uppercase">
-          {category.productCount ?? 0} Products <span aria-hidden>→</span>
+          {category.productCount} Products <span aria-hidden>→</span>
         </p>
       </div>
     </AppLink>
   );
 }
 
-function ProductTile({ product }: { product: Product }) {
+function ProductTile({ product }: { product: SanityProduct }) {
   return (
     <AppLink
       href={`/shop/${product.category}/${product.slug}`}
@@ -320,7 +314,7 @@ function ProductTile({ product }: { product: Product }) {
           {product.name}
         </p>
         <p className="text-brass mt-1 text-[13px]">
-          From {formatPrice(product.priceFrom)}
+          From {formatPrice(product.price)}
         </p>
       </div>
     </AppLink>
