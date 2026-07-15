@@ -34,7 +34,10 @@ export const env = createEnv({
   server: {
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
     SANITY_API_READ_TOKEN: z.string().min(1),
-    SANITY_REVALIDATE_SECRET: z.string().min(1),
+    // Optional: only needed to enable the /api/revalidate webhook. Every
+    // page already has a 60s ISR floor, so this is a supplementary feature,
+    // not something that should block the whole app from booting.
+    SANITY_REVALIDATE_SECRET: z.string().min(1).optional(),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
   },
