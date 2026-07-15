@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Statically type <Link href> and router calls; broken internal links fail the build.
   typedRoutes: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
+    ],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
