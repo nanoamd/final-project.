@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { CartProvider } from "@/hooks/use-cart";
 import { getNavigation } from "@/lib/sanity/queries/navigation";
 import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
 
@@ -20,10 +21,12 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
   const [nav, settings] = await Promise.all([getNavigation(), getSiteSettings()]);
 
   return (
-    <SmoothScroll>
-      <SiteHeader nav={nav} siteName={settings?.siteName} />
-      <main className="flex-1">{children}</main>
-      <SiteFooter nav={nav} settings={settings} />
-    </SmoothScroll>
+    <CartProvider>
+      <SmoothScroll>
+        <SiteHeader nav={nav} siteName={settings?.siteName} />
+        <main className="flex-1">{children}</main>
+        <SiteFooter nav={nav} settings={settings} />
+      </SmoothScroll>
+    </CartProvider>
   );
 }

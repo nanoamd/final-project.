@@ -7,6 +7,7 @@ import * as React from "react";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { collectionsNav, primaryNav, siteConfig, utilityNav } from "@/config/site";
+import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 import type { SanityNavigation } from "@/types/sanity-content";
 
@@ -37,6 +38,7 @@ export function SiteHeader({
 }) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = React.useState(false);
+  const { count } = useCart();
 
   const brandName = siteName ?? siteConfig.name;
   const primaryLinks: NavLink[] = nav?.headerLinks?.length
@@ -129,9 +131,11 @@ export function SiteHeader({
             )}
           >
             <ShoppingBag className="size-[18px]" strokeWidth={1.6} />
-            <span className="bg-brass absolute top-1 right-1 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold text-white">
-              0
-            </span>
+            {count > 0 ? (
+              <span className="bg-brass absolute top-1 right-1 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold text-white">
+                {count > 9 ? "9+" : count}
+              </span>
+            ) : null}
           </AppLink>
           <button
             type="button"

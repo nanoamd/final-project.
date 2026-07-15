@@ -16,15 +16,40 @@ import {
 import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
+import { useCart } from "@/hooks/use-cart";
 import { formatPriceExact } from "@/lib/format";
 import type { SanityProduct } from "@/types/sanity-content";
 
 const FEATURE_ICONS: LucideIcon[] = [Trees, Square, Armchair, Flame, Sun];
 
 export function ProductSummary({ product }: { product: SanityProduct }) {
+  const { addItem } = useCart();
   const [selected, setSelected] = React.useState<Record<string, number>>(() =>
     Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
   );
+  const [added, setAdded] = React.useState(false);
+
+  function handleAddToBasket() {
+    const selectedOptions = product.options?.length
+      ? Object.fromEntries(
+          product.options.map((option) => [
+            option.label,
+            option.values[selected[option.label] ?? 0] ?? option.values[0]!,
+          ]),
+        )
+      : undefined;
+
+    addItem({
+      slug: product.slug,
+      category: product.category,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      selectedOptions,
+    });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 2000);
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -131,9 +156,10 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
       <div className="flex flex-col gap-3">
         <button
           type="button"
+          onClick={handleAddToBasket}
           className="bg-ink hover:bg-ink/90 text-canvas flex h-13 w-full items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
         >
-          Add to Basket
+          {added ? "Added ✓" : "Add to Basket"}
         </button>
         <AppLink
           href="/quote"
