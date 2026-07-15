@@ -251,7 +251,9 @@ const CATEGORIES = [
 async function seedCategories() {
   console.log("Categories...");
   for (const cat of CATEGORIES) {
-    const heroImage = cat.image ? imageField(await uploadImage(cat.image)) : undefined;
+    const heroImage = cat.image
+      ? imageField(await uploadImage(cat.image))
+      : undefined;
     await client.createOrReplace({
       _id: `category-${cat.slug}`,
       _type: "category",
@@ -295,9 +297,16 @@ const PRODUCTS = [
     options: [
       {
         label: "Size",
-        values: ["Small (2–4 People)", "Medium (4–6 People)", "Large (6–8 People)"],
+        values: [
+          "Small (2–4 People)",
+          "Medium (4–6 People)",
+          "Large (6–8 People)",
+        ],
       },
-      { label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] },
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
     ],
     specs: [
       { label: "Capacity", value: "2–8 people (by size)" },
@@ -358,7 +367,10 @@ const PRODUCTS = [
     ],
     options: [
       { label: "Size", values: ["Medium (4–6 People)", "Large (6–8 People)"] },
-      { label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] },
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
     ],
     specs: [
       { label: "Capacity", value: "4–6 people" },
@@ -399,7 +411,12 @@ const PRODUCTS = [
       "Full-height glass door for a sense of openness",
       "Ergonomic two-tier benching in knot-free aspen",
     ],
-    options: [{ label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] }],
+    options: [
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
+    ],
     specs: [
       { label: "Capacity", value: "2–3 people" },
       { label: "External footprint", value: "1.9m × 1.7m" },
@@ -444,7 +461,12 @@ const PRODUCTS = [
       "Available with electric or wood-burning heater",
       "Tongue-and-groove thermowood staves",
     ],
-    options: [{ label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] }],
+    options: [
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
+    ],
     specs: [
       { label: "Capacity", value: "4 people" },
       { label: "Length", value: "2.4m" },
@@ -650,6 +672,9 @@ const PRODUCTS = [
 
 async function seedProducts() {
   console.log("Products...");
+  // Two passes: products can reference each other via relatedSlugs, so every
+  // product must exist before any relatedProducts reference is written —
+  // otherwise Sanity rejects the mutation with a dangling-reference error.
   for (const p of PRODUCTS) {
     const gallery = p.image ? [imageField(await uploadImage(p.image))] : [];
     await client.createOrReplace({
@@ -675,9 +700,17 @@ async function seedProducts() {
       deliveryNotes: p.deliveryNotes,
       warrantyNotes: p.warrantyNotes,
       stockStatus: "In Stock",
-      relatedProducts: (p.relatedSlugs ?? []).map((slug) => ref(`product-${slug}`)),
       faqs: p.faqs,
     });
+  }
+  for (const p of PRODUCTS) {
+    if (!p.relatedSlugs?.length) continue;
+    await client
+      .patch(`product-${p.slug}`)
+      .set({
+        relatedProducts: p.relatedSlugs.map((slug) => ref(`product-${slug}`)),
+      })
+      .commit();
   }
 }
 
@@ -763,7 +796,12 @@ async function seedEditorial() {
     ],
   });
 
-  const faqs: { question: string; answer: string; topic: string; order: number }[] = [
+  const faqs: {
+    question: string;
+    answer: string;
+    topic: string;
+    order: number;
+  }[] = [
     {
       question: "Do I need planning permission for an outdoor sauna?",
       answer:
@@ -1003,12 +1041,19 @@ async function seedNavigation() {
 async function seedHomepage() {
   console.log("Homepage...");
   const heroImage = imageField(await uploadImage("images/garden-after.jpg"));
-  const gardenStudioBeforeImage = imageField(await uploadImage("images/garden-before.jpg"));
-  const gardenStudioAfterImage = imageField(await uploadImage("images/garden-after.jpg"));
+  const gardenStudioBeforeImage = imageField(
+    await uploadImage("images/garden-before.jpg"),
+  );
+  const gardenStudioAfterImage = imageField(
+    await uploadImage("images/garden-after.jpg"),
+  );
   const gardenStudioImages = await Promise.all(
-    ["images/garden-after.jpg", "images/cedar.jpg", "images/steam-lake.jpg", "images/dark-water.jpg"].map(
-      async (p) => imageField(await uploadImage(p)),
-    ),
+    [
+      "images/garden-after.jpg",
+      "images/cedar.jpg",
+      "images/steam-lake.jpg",
+      "images/dark-water.jpg",
+    ].map(async (p) => imageField(await uploadImage(p))),
   );
 
   await client.createOrReplace({
@@ -1034,10 +1079,34 @@ async function seedHomepage() {
     },
     heroFeaturedProduct: ref("product-auroom-horizon-sauna"),
     trustBarItems: [
-      { _type: "trustBarItem", _key: "t1", iconName: "truck", title: "Premium Delivery", copy: "White glove delivery across the UK" },
-      { _type: "trustBarItem", _key: "t2", iconName: "shield-check", title: "Quality Guaranteed", copy: "The finest materials, built to last" },
-      { _type: "trustBarItem", _key: "t3", iconName: "sparkles", title: "Designed to Inspire", copy: "Timeless pieces for beautiful spaces" },
-      { _type: "trustBarItem", _key: "t4", iconName: "headset", title: "Expert Support", copy: "Our team is here to help you every step" },
+      {
+        _type: "trustBarItem",
+        _key: "t1",
+        iconName: "truck",
+        title: "Premium Delivery",
+        copy: "White glove delivery across the UK",
+      },
+      {
+        _type: "trustBarItem",
+        _key: "t2",
+        iconName: "shield-check",
+        title: "Quality Guaranteed",
+        copy: "The finest materials, built to last",
+      },
+      {
+        _type: "trustBarItem",
+        _key: "t3",
+        iconName: "sparkles",
+        title: "Designed to Inspire",
+        copy: "Timeless pieces for beautiful spaces",
+      },
+      {
+        _type: "trustBarItem",
+        _key: "t4",
+        iconName: "headset",
+        title: "Expert Support",
+        copy: "Our team is here to help you every step",
+      },
     ],
     shopByCategoryEyebrow: "Shop by Category",
     shopByCategoryTiles: [
@@ -1066,9 +1135,27 @@ async function seedHomepage() {
     },
     designedForLivingHeadline: "Timeless pieces. Beautiful spaces.",
     designedForLivingCards: [
-      { _type: "livingCard", _key: "c1", title: "Sustainable Choices", copy: "Thoughtfully sourced, responsibly made.", image: imageField(await uploadImage("images/cedar.jpg")) },
-      { _type: "livingCard", _key: "c2", title: "Built to Last", copy: "Premium materials that stand the test of time.", image: imageField(await uploadImage("images/hero-fire.jpg")) },
-      { _type: "livingCard", _key: "c3", title: "Trusted by Thousands", copy: "Rated excellent by our customers.", image: imageField(await uploadImage("images/steam-lake.jpg")) },
+      {
+        _type: "livingCard",
+        _key: "c1",
+        title: "Sustainable Choices",
+        copy: "Thoughtfully sourced, responsibly made.",
+        image: imageField(await uploadImage("images/cedar.jpg")),
+      },
+      {
+        _type: "livingCard",
+        _key: "c2",
+        title: "Built to Last",
+        copy: "Premium materials that stand the test of time.",
+        image: imageField(await uploadImage("images/hero-fire.jpg")),
+      },
+      {
+        _type: "livingCard",
+        _key: "c3",
+        title: "Trusted by Thousands",
+        copy: "Rated excellent by our customers.",
+        image: imageField(await uploadImage("images/steam-lake.jpg")),
+      },
     ],
   });
 }
