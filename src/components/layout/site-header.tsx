@@ -1,12 +1,17 @@
 "use client";
 
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, Sparkles, User, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
-import { collectionsNav, primaryNav, siteConfig, utilityNav } from "@/config/site";
+import {
+  collectionsNav,
+  primaryNav,
+  siteConfig,
+  utilityNav,
+} from "@/config/site";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 import type { SanityNavigation } from "@/types/sanity-content";
@@ -113,6 +118,16 @@ export function SiteHeader({
             <Search className="size-[18px]" strokeWidth={1.6} />
           </AppLink>
           <AppLink
+            href="/tools"
+            aria-label="Tools"
+            className={cn(
+              "hidden size-10 items-center justify-center rounded-full transition-colors sm:flex",
+              t.icon,
+            )}
+          >
+            <Sparkles className="size-[18px]" strokeWidth={1.6} />
+          </AppLink>
+          <AppLink
             href="/account"
             aria-label="Account"
             className={cn(
@@ -153,7 +168,7 @@ export function SiteHeader({
 
       {isShopRoute ? (
         <div className={cn("border-t", t.subBar)}>
-          <div className="mx-auto flex h-11 max-w-[1440px] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12 [scrollbar-width:none]">
+          <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12">
             {collectionsLinks.map((item) => {
               const active = item.href === activeCollection;
               return (
@@ -177,7 +192,11 @@ export function SiteHeader({
       ) : null}
 
       {open ? (
-        <MobileMenu links={primaryLinks} brandName={brandName} onClose={() => setOpen(false)} />
+        <MobileMenu
+          links={primaryLinks}
+          brandName={brandName}
+          onClose={() => setOpen(false)}
+        />
       ) : null}
     </header>
   );

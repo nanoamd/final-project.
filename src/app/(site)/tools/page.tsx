@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+
+export const metadata: Metadata = {
+  title: "Tools",
+  description: "Free tools to help you plan your garden.",
+};
+
+const TOOLS = [
+  {
+    href: "/tools/garden-visualiser",
+    title: "AI Garden Visualiser",
+    description:
+      "Upload a photo of your garden and see it redesigned with a sauna, hot tub or decking.",
+  },
+] as const;
+
+export default function ToolsPage() {
+  return (
+    <Container className="py-20 md:py-28">
+      <div className="mx-auto max-w-2xl">
+        <Eyebrow>Tools</Eyebrow>
+        <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
+          Free planning tools
+        </h1>
+        <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
+          A few things to help you picture the finished garden before you buy.
+        </p>
+
+        <div className="mt-12 flex flex-col gap-4">
+          {TOOLS.map((tool) => (
+            <Link
+              key={tool.href}
+              href={tool.href}
+              className="border-line hover:border-ink rounded-xl border p-6 transition-colors"
+            >
+              <p className="text-ink font-display text-xl">{tool.title}</p>
+              <p className="text-muted mt-2 text-[14px] leading-relaxed">
+                {tool.description}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </Container>
+  );
+}
