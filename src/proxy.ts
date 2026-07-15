@@ -11,9 +11,12 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all request paths except Next.js internals and static assets, so the
-  // proxy never blocks CSS/JS/images from loading.
+  // Run on all request paths except Next.js internals, static assets, API
+  // routes and the Sanity Studio. /api/** is excluded so this never adds
+  // Supabase-health latency to Stripe webhook delivery (which has its own
+  // timeout/retry semantics); /studio/** is excluded since Studio has its
+  // own auth and doesn't need the storefront session refreshed.
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api/|studio/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

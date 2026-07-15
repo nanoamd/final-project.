@@ -12,6 +12,7 @@ export { getPageBySlug } from "@/lib/sanity/queries/page";
 export { getPost, getPosts } from "@/lib/sanity/queries/post";
 export {
   getFeaturedProducts,
+  getMerchantFeedProducts,
   getProduct,
   getProductParams,
   getProductsByCategory,

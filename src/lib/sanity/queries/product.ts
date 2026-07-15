@@ -148,3 +148,40 @@ export async function getProductParams(
     [],
   );
 }
+
+export interface MerchantFeedProduct {
+  slug: string;
+  category: string;
+  title: string;
+  summary: string;
+  price: number;
+  currency: string;
+  image: string | null;
+  brand: string | null;
+  gtin: string | null;
+  mpn: string | null;
+  sku: string | null;
+  stockStatus: string;
+}
+
+const MERCHANT_FEED_QUERY = /* groq */ `
+*[_type == "product" && defined(category->slug.current)] {
+  "slug": slug.current,
+  "category": category->slug.current,
+  "title": title,
+  summary,
+  price,
+  currency,
+  "image": gallery[0].asset->url,
+  "brand": brand->name,
+  gtin,
+  mpn,
+  sku,
+  stockStatus
+}`;
+
+/** Full, uncapped product list for the Google Merchant Center feed — unlike
+ * page generation, a merchant feed genuinely needs every product. */
+export async function getMerchantFeedProducts(): Promise<MerchantFeedProduct[]> {
+  return sanityFetch<MerchantFeedProduct[]>(MERCHANT_FEED_QUERY, {}, []);
+}
