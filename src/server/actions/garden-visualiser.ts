@@ -197,6 +197,17 @@ async function locateHotspots(
 export async function visualiseGarden(
   formData: FormData,
 ): Promise<VisualiseGardenResult> {
+  try {
+    return await runVisualiseGarden(formData);
+  } catch (err) {
+    console.error("visualiseGarden: threw", err);
+    return { ok: false, error: "Something went wrong. Please try again." };
+  }
+}
+
+async function runVisualiseGarden(
+  formData: FormData,
+): Promise<VisualiseGardenResult> {
   if (!env.OPENAI_API_KEY) {
     return {
       ok: false,
@@ -254,6 +265,10 @@ export async function visualiseGarden(
   );
   form.append("prompt", buildPrompt(products));
   form.append("size", "1024x1024");
+  // "high"/"auto" quality regularly took ~60s in testing, right at the edge
+  // of (and in production, sometimes past) serverless function time limits.
+  // "medium" is markedly faster while still producing a convincing composite.
+  form.append("quality", "medium");
 
   const response = await fetch("https://api.openai.com/v1/images/edits", {
     method: "POST",
