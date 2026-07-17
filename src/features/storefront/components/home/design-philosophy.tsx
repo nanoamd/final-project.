@@ -10,8 +10,8 @@ export function DesignPhilosophy() {
       <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-20 lg:px-12 lg:py-28">
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-[5/4]">
           <Image
-            src="/images/cold-ripple.jpg"
-            alt="Still water at dawn"
+            src="/images/design-philosophy-hero.png"
+            alt="Considered outdoor furniture on a modern architectural terrace"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
