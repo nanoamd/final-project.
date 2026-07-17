@@ -11,6 +11,12 @@ import {
 
 export const revalidate = 60;
 
+// The visualiser's server action makes two sequential OpenAI calls (image
+// generation, then hotspot detection) that can take 30-40s combined —
+// well past Vercel's default serverless function timeout. This raises the
+// cap for Server Actions invoked from this page.
+export const maxDuration = 60;
+
 export const metadata: Metadata = {
   title: "AI Design Studio",
   description:

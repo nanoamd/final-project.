@@ -262,6 +262,11 @@ export async function visualiseGarden(
   });
 
   if (!response.ok) {
+    console.error(
+      "visualiseGarden: image edit request failed",
+      response.status,
+      await response.text(),
+    );
     return {
       ok: false,
       error: "Something went wrong generating your image. Please try again.",
