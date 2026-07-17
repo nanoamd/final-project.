@@ -7,29 +7,47 @@ import crypto from "node:crypto";
 import { cookies } from "next/headers";
 
 import { env } from "@/env";
+import { getFeaturedProducts, getProductsBySlugs } from "@/lib/sanity/queries";
 
 const WEEKLY_LIMIT = 3;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const COOKIE_NAME = "gv_u";
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+const MAX_PRODUCTS = 4;
 // Non-critical fallback — worst case a visitor without RATE_LIMIT_SECRET set
 // can reset their own usage count by clearing cookies. Not a security boundary.
 const FALLBACK_SECRET = "kaiku-garden-visualiser-fallback-secret";
 
-const PRESETS: Record<string, string> = {
-  sauna:
-    "Add a modern cedar outdoor sauna cabin to this garden. Keep the existing layout, lighting and perspective realistic and unchanged elsewhere.",
-  hotTub:
-    "Add a stylish hot tub with simple deck seating to this garden. Keep the existing layout, lighting and perspective realistic and unchanged elsewhere.",
-  decking:
-    "Add warm timber decking, ambient lighting and simple outdoor furniture to this garden. Keep the existing layout, lighting and perspective realistic and unchanged elsewhere.",
-};
+export interface VisualiserProduct {
+  slug: string;
+  name: string;
+  category: string;
+  image?: string | null;
+  price: number;
+  currency: string;
+}
+
+export interface VisualiserHotspot {
+  slug: string;
+  name: string;
+  category: string;
+  image?: string | null;
+  price: number;
+  currency: string;
+  /** Percentage (0-100) position within the generated image. */
+  x: number;
+  y: number;
+}
 
 export interface VisualiseGardenResult {
   ok: boolean;
   imageDataUrl?: string;
+  hotspots?: VisualiserHotspot[];
   error?: string;
 }
+
+export type VisualiserSelection =
+  { mode: "manual"; productSlugs: string[] } | { mode: "auto" };
 
 function sign(payload: string) {
   const secret = env.RATE_LIMIT_SECRET ?? FALLBACK_SECRET;
@@ -65,25 +83,125 @@ async function writeUsage(count: number) {
   });
 }
 
+/** A small, real, in-stock selection for "let Kaiku design it for me". */
+async function pickAutoProducts(): Promise<VisualiserProduct[]> {
+  const featured = await getFeaturedProducts(3);
+  return featured.map(toVisualiserProduct);
+}
+
+function toVisualiserProduct(p: {
+  slug: string;
+  name: string;
+  category: string;
+  image?: string | null;
+  price: number;
+  currency: string;
+}): VisualiserProduct {
+  return {
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    image: p.image,
+    price: p.price,
+    currency: p.currency,
+  };
+}
+
+function buildPrompt(products: VisualiserProduct[]) {
+  const list = products.map((p) => `- ${p.name}`).join("\n");
+  return `Add the following real products into this garden photo, placed naturally and realistically at true-to-life scale:\n${list}\n\nKeep the existing layout, lighting and perspective realistic and unchanged elsewhere. Each product should be clearly visible and identifiable, not partially hidden.`;
+}
+
 /**
- * Generates an AI-redesigned version of an uploaded garden photo. Usage is
- * capped per visitor via a signed, httpOnly cookie (not surfaced to the
- * user beyond a generic "try again later" message when exhausted).
+ * Uses a cheap vision-capable chat model to locate each product within the
+ * generated image, since the image-generation model itself returns no
+ * coordinates. Best-effort — a product missing from the response just gets
+ * no hotspot rather than failing the whole generation.
+ */
+async function locateHotspots(
+  imageDataUrl: string,
+  products: VisualiserProduct[],
+): Promise<Map<string, { x: number; y: number }>> {
+  const positions = new Map<string, { x: number; y: number }>();
+  if (!products.length) return positions;
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: `Find these products in the image and return their center point as a percentage of image width/height (0-100, 0 = left/top). Products: ${products.map((p) => p.name).join(", ")}. Respond with strict JSON: {"items": [{"name": "<exact product name>", "x": <number>, "y": <number>}]}. Omit any product you can't locate.`,
+              },
+              { type: "image_url", image_url: { url: imageDataUrl } },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("locateHotspots: OpenAI request failed", response.status);
+      return positions;
+    }
+
+    const data = (await response.json()) as {
+      choices?: { message?: { content?: string } }[];
+    };
+    const content = data.choices?.[0]?.message?.content;
+    if (!content) return positions;
+
+    const parsed = JSON.parse(content) as {
+      items?: { name?: string; x?: number; y?: number }[];
+    };
+    for (const item of parsed.items ?? []) {
+      const match = products.find(
+        (p) => p.name.toLowerCase() === item.name?.toLowerCase(),
+      );
+      if (match && typeof item.x === "number" && typeof item.y === "number") {
+        positions.set(match.slug, {
+          x: Math.min(97, Math.max(3, item.x)),
+          y: Math.min(97, Math.max(3, item.y)),
+        });
+      }
+    }
+  } catch (err) {
+    console.error("locateHotspots: request threw", err);
+  }
+
+  return positions;
+}
+
+/**
+ * Generates an AI-redesigned version of an uploaded garden photo with real
+ * products from the catalog added in, then locates each one in the result so
+ * the UI can render tap-to-reveal product cards. Usage is capped per visitor
+ * via a signed, httpOnly cookie (not surfaced beyond a generic message).
+ *
+ * Takes a FormData (photo file + JSON-encoded selection) rather than a
+ * base64 string argument — Next's server-action argument serialization has
+ * an internal size/nesting limit that a several-MB base64 string trips,
+ * independent of the `serverActions.bodySizeLimit` config. FormData with a
+ * real File/Blob is transported as binary instead and doesn't hit it.
  */
 export async function visualiseGarden(
-  imageDataUrl: string,
-  presetKey: string,
+  formData: FormData,
 ): Promise<VisualiseGardenResult> {
   if (!env.OPENAI_API_KEY) {
     return {
       ok: false,
       error: "This tool isn't available right now — check back soon.",
     };
-  }
-
-  const prompt = PRESETS[presetKey];
-  if (!prompt) {
-    return { ok: false, error: "Choose a style to try." };
   }
 
   const used = await readUsage();
@@ -95,16 +213,37 @@ export async function visualiseGarden(
     };
   }
 
-  const match = /^data:(image\/\w+);base64,(.+)$/.exec(imageDataUrl);
-  const mimeType = match?.[1];
-  const base64 = match?.[2];
-  if (!mimeType || !base64) {
+  const selectionRaw = formData.get("selection");
+  const selection =
+    typeof selectionRaw === "string"
+      ? (JSON.parse(selectionRaw) as VisualiserSelection)
+      : null;
+  if (!selection) {
+    return { ok: false, error: "Something went wrong. Please try again." };
+  }
+
+  const products =
+    selection.mode === "auto"
+      ? await pickAutoProducts()
+      : (
+          await getProductsBySlugs(
+            selection.productSlugs.slice(0, MAX_PRODUCTS),
+          )
+        ).map(toVisualiserProduct);
+
+  if (!products.length) {
+    return { ok: false, error: "Choose at least one product to add." };
+  }
+
+  const photo = formData.get("photo");
+  if (!(photo instanceof File) || !photo.type.startsWith("image/")) {
     return { ok: false, error: "Please upload a valid photo." };
   }
-  const imageBuffer = Buffer.from(base64, "base64");
-  if (!imageBuffer.length || imageBuffer.length > MAX_UPLOAD_BYTES) {
+  if (photo.size > MAX_UPLOAD_BYTES) {
     return { ok: false, error: "Please upload a photo under 8MB." };
   }
+  const imageBuffer = Buffer.from(await photo.arrayBuffer());
+  const mimeType = photo.type;
 
   const form = new FormData();
   form.append("model", "gpt-image-1-mini");
@@ -113,7 +252,7 @@ export async function visualiseGarden(
     new Blob([new Uint8Array(imageBuffer)], { type: mimeType }),
     "garden",
   );
-  form.append("prompt", prompt);
+  form.append("prompt", buildPrompt(products));
   form.append("size", "1024x1024");
 
   const response = await fetch("https://api.openai.com/v1/images/edits", {
@@ -138,7 +277,14 @@ export async function visualiseGarden(
     };
   }
 
+  const resultImageDataUrl = `data:image/png;base64,${resultBase64}`;
+  const positions = await locateHotspots(resultImageDataUrl, products);
+
+  const hotspots: VisualiserHotspot[] = products
+    .filter((p) => positions.has(p.slug))
+    .map((p) => ({ ...p, ...positions.get(p.slug)! }));
+
   await writeUsage(used + 1);
 
-  return { ok: true, imageDataUrl: `data:image/png;base64,${resultBase64}` };
+  return { ok: true, imageDataUrl: resultImageDataUrl, hotspots };
 }

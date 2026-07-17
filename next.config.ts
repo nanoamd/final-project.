@@ -42,6 +42,14 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
     ],
   },
+  experimental: {
+    serverActions: {
+      // The garden visualiser server action receives an uploaded photo as a
+      // base64 data URL — up to ~8MB raw, which is ~11MB once base64-encoded.
+      // Default limit is 1MB.
+      bodySizeLimit: "12mb",
+    },
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
