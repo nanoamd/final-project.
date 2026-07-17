@@ -1,8 +1,21 @@
+import { AiDesignStudio } from "@/features/storefront/components/home/ai-design-studio";
+import { BuyingGuides } from "@/features/storefront/components/home/buying-guides";
+import { CustomerJourney } from "@/features/storefront/components/home/customer-journey";
+import { DesignPhilosophy } from "@/features/storefront/components/home/design-philosophy";
 import { DesignedForLiving } from "@/features/storefront/components/home/designed-for-living";
+import { EditorialJournal } from "@/features/storefront/components/home/editorial-journal";
+import { FeaturedCollection } from "@/features/storefront/components/home/featured-collection";
+import { FeaturedTransformation } from "@/features/storefront/components/home/featured-transformation";
 import { GardenStudio } from "@/features/storefront/components/home/garden-studio";
 import { Hero } from "@/features/storefront/components/home/hero";
+import { HomeCategories } from "@/features/storefront/components/home/home-categories";
+import { InspirationGallery } from "@/features/storefront/components/home/inspiration-gallery";
+import { JournalSignup } from "@/features/storefront/components/home/journal-signup";
+import { Materials } from "@/features/storefront/components/home/materials";
 import { ShopByCategory } from "@/features/storefront/components/home/shop-by-category";
+import { SupplierStandards } from "@/features/storefront/components/home/supplier-standards";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
+import { WhyKaiku } from "@/features/storefront/components/home/why-kaiku";
 import { getHomepage } from "@/lib/sanity/queries/homepage";
 import { getProduct } from "@/lib/sanity/queries/product";
 
@@ -57,6 +70,19 @@ export async function HomePage() {
         headline={homepage?.designedForLivingHeadline}
         cards={homepage?.designedForLivingCards}
       />
+      <FeaturedTransformation />
+      <FeaturedCollection />
+      <EditorialJournal />
+      <DesignPhilosophy />
+      <Materials />
+      <InspirationGallery />
+      <HomeCategories />
+      <CustomerJourney />
+      <WhyKaiku />
+      <SupplierStandards />
+      <BuyingGuides />
+      <AiDesignStudio />
+      <JournalSignup />
     </div>
   );
 }

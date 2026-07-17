@@ -1,78 +1,65 @@
-import { SectionHeading } from "@/components/shared/section-heading";
 import { AppLink } from "@/components/ui/app-link";
-import { buttonVariants } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
-import { Section } from "@/components/ui/section";
-import type { IllustrationKind, SurfaceTone } from "@/types/catalog";
 
-type Guide = {
-  topic: string;
-  title: string;
-  tone: SurfaceTone;
-  illustration: IllustrationKind;
-};
-
-const guides: Guide[] = [
-  {
-    topic: "Specification",
-    title: "How to size a sauna heater correctly",
-    tone: "charcoal",
-    illustration: "heater",
-  },
-  {
-    topic: "Planning",
-    title: "Planning permission for garden saunas",
-    tone: "sand",
-    illustration: "sauna",
-  },
-  {
-    topic: "Getting started",
-    title: "Sauna or cold plunge: where to begin",
-    tone: "stone",
-    illustration: "plunge",
-  },
+const GUIDES = [
+  { title: "The Pergola Guide", topic: "Structures" },
+  { title: "Choosing the Right Fire Pit", topic: "Fire & Heating" },
+  { title: "An Outdoor Furniture Primer", topic: "Furniture" },
+  { title: "Outdoor Kitchens, Planned Properly", topic: "Kitchens" },
+  { title: "Principles of Garden Lighting", topic: "Lighting" },
+  { title: "A Short Guide to Materials", topic: "Materials" },
 ];
 
+/**
+ * Buying Guides — a dense, text-led index of the considered writing behind
+ * the catalog. Deliberately no photography here, for rhythm against the
+ * image-heavy sections either side of it.
+ */
 export function BuyingGuides() {
   return (
-    <Section>
-      <Container>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            className="max-w-2xl"
-            eyebrow="Learn"
-            title="Buy with confidence"
-            intro="Practical, jargon-free guides to the decisions that matter most before a considered purchase."
-          />
+    <section className="bg-canvas">
+      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 sm:mb-14">
+          <div>
+            <p className="text-muted mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
+              Buying Guides
+            </p>
+            <h2 className="text-ink font-display text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+              Learn before you buy
+            </h2>
+          </div>
           <AppLink
             href="/learn"
-            className={buttonVariants({ variant: "quiet" })}
+            className="text-ink hidden shrink-0 items-center gap-2 text-[12px] font-medium tracking-[0.16em] uppercase sm:flex"
           >
-            All buying guides
+            All Guides <span aria-hidden>→</span>
           </AppLink>
         </div>
-        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {guides.map((guide) => (
-            <AppLink key={guide.title} href="/learn" className="group block">
-              <div className="overflow-hidden">
-                <PlaceholderImage
-                  tone={guide.tone}
-                  illustration={guide.illustration}
-                  aspect="aspect-[4/3]"
-                  className="transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                />
+
+        <div className="border-line divide-line grid divide-y border-t sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:border-l">
+          {GUIDES.map((guide) => (
+            <AppLink
+              key={guide.title}
+              href="/learn"
+              className="group flex items-center justify-between gap-4 px-1 py-5 sm:px-6"
+            >
+              <div>
+                <p className="text-muted text-[11px] font-medium tracking-[0.12em] uppercase">
+                  {guide.topic}
+                </p>
+                <p className="text-ink font-display mt-1 text-lg tracking-tight sm:text-xl">
+                  {guide.title}
+                </p>
               </div>
-              <p className="text-muted mt-5 text-[12px] tracking-[0.18em] uppercase">
-                {guide.topic}
-              </p>
-              <h3 className="text-ink decoration-line mt-2 text-lg leading-snug font-medium underline-offset-4 group-hover:underline">
-                {guide.title}
-              </h3>
+              <span
+                aria-hidden
+                className="text-ink shrink-0 transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
             </AppLink>
           ))}
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

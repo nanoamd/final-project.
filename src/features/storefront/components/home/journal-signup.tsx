@@ -1,23 +1,24 @@
 import { Newsletter } from "@/components/shared/newsletter";
-import { SectionHeading } from "@/components/shared/section-heading";
-import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
 
+/**
+ * Newsletter — minimal, centred, closing the homepage before the footer.
+ * Reuses the existing shared Newsletter form; only the framing is new.
+ */
 export function JournalSignup() {
   return (
-    <Section className="border-line border-t">
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <SectionHeading
-            eyebrow="The journal"
-            title="Considered writing on garden wellness"
-            intro="Occasional notes on saunas, cold therapy and building a wellness garden that lasts. Useful, never noise."
-          />
-          <div className="lg:justify-self-end">
-            <Newsletter tone="light" />
-          </div>
+    <section className="bg-basalt-deep">
+      <div className="mx-auto max-w-lg px-6 py-16 text-center sm:px-8 sm:py-20 lg:py-24">
+        <h2 className="text-canvas font-display text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+          Stay Inspired
+        </h2>
+        <p className="text-canvas/60 mt-4 text-[15px] leading-relaxed">
+          Design inspiration, buying guides and carefully selected new arrivals
+          — occasionally, never as noise.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Newsletter tone="dark" />
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

@@ -4,9 +4,21 @@ import { AppLink } from "@/components/ui/app-link";
 import type { LivingCard } from "@/types/sanity-content";
 
 const DEFAULT_CARDS: LivingCard[] = [
-  { title: "Sustainable Choices", copy: "Thoughtfully sourced, responsibly made.", image: "/images/cedar.jpg" },
-  { title: "Built to Last", copy: "Premium materials that stand the test of time.", image: "/images/hero-fire.jpg" },
-  { title: "Trusted by Thousands", copy: "Rated excellent by our customers.", image: "/images/steam-lake.jpg" },
+  {
+    title: "Sustainable Choices",
+    copy: "Thoughtfully sourced, responsibly made.",
+    image: "/images/cedar.jpg",
+  },
+  {
+    title: "Built to Last",
+    copy: "Premium materials that stand the test of time.",
+    image: "/images/hero-fire.jpg",
+  },
+  {
+    title: "Trusted by Thousands",
+    copy: "Rated excellent by our customers.",
+    image: "/images/steam-lake.jpg",
+  },
 ];
 
 /**
@@ -21,7 +33,9 @@ export function DesignedForLiving({
   cards?: LivingCard[];
 }) {
   const list = cards?.length ? cards : DEFAULT_CARDS;
-  const headlineLines = (headline ?? "Timeless pieces.\nBeautiful spaces.").split("\n");
+  const headlineLines = (
+    headline ?? "Timeless pieces.\nBeautiful spaces."
+  ).split("\n");
 
   return (
     <section className="bg-basalt border-b border-white/10">
@@ -50,27 +64,27 @@ export function DesignedForLiving({
             </AppLink>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
             {list.map((card) => (
               <div
                 key={card.title}
-                className="border-white/8 relative aspect-[4/5] overflow-hidden rounded-xl border"
+                className="relative aspect-square overflow-hidden rounded-lg border border-white/8 sm:aspect-[4/5] sm:rounded-xl"
               >
                 {card.image ? (
                   <Image
                     src={card.image}
                     alt=""
                     fill
-                    sizes="(max-width: 640px) 100vw, 28vw"
+                    sizes="(max-width: 640px) 33vw, 28vw"
                     className="object-cover"
                   />
                 ) : null}
                 <div className="from-basalt/95 via-basalt/30 absolute inset-0 bg-gradient-to-t to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <p className="text-canvas text-[11px] font-semibold tracking-[0.14em] uppercase">
+                <div className="absolute inset-x-0 bottom-0 p-2 sm:p-5">
+                  <p className="text-canvas text-[9px] font-semibold tracking-[0.06em] uppercase sm:text-[11px] sm:tracking-[0.14em]">
                     {card.title}
                   </p>
-                  <p className="text-canvas/65 mt-1.5 text-[13px] leading-snug">
+                  <p className="text-canvas/65 mt-1 hidden text-[13px] leading-snug sm:mt-1.5 sm:block">
                     {card.copy}
                   </p>
                 </div>
