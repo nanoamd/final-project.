@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { CartProvider } from "@/hooks/use-cart";
+import { getDepartments } from "@/lib/sanity/queries/department";
 import { getNavigation } from "@/lib/sanity/queries/navigation";
 import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
 
@@ -17,13 +18,25 @@ import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
  * Navigation and site settings are fetched once here and passed down, so
  * both header and footer share a single Sanity read per request.
  */
-export default async function SiteLayout({ children }: { children: ReactNode }) {
-  const [nav, settings] = await Promise.all([getNavigation(), getSiteSettings()]);
+export default async function SiteLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const [nav, settings, departments] = await Promise.all([
+    getNavigation(),
+    getSiteSettings(),
+    getDepartments(),
+  ]);
 
   return (
     <CartProvider>
       <SmoothScroll>
-        <SiteHeader nav={nav} siteName={settings?.siteName} />
+        <SiteHeader
+          nav={nav}
+          siteName={settings?.siteName}
+          rooms={departments}
+        />
         <main className="flex-1">{children}</main>
         <SiteFooter nav={nav} settings={settings} />
       </SmoothScroll>

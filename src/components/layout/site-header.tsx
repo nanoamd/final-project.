@@ -14,7 +14,10 @@ import {
 } from "@/config/site";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
-import type { SanityNavigation } from "@/types/sanity-content";
+import type {
+  SanityDepartment,
+  SanityNavigation,
+} from "@/types/sanity-content";
 
 interface NavLink {
   label: string;
@@ -37,9 +40,11 @@ interface NavLink {
 export function SiteHeader({
   nav,
   siteName,
+  rooms,
 }: {
   nav?: SanityNavigation | null;
   siteName?: string;
+  rooms?: SanityDepartment[];
 }) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = React.useState(false);
@@ -49,13 +54,19 @@ export function SiteHeader({
   const primaryLinks: NavLink[] = nav?.headerLinks?.length
     ? nav.headerLinks
     : primaryNav;
-  const collectionsLinks: NavLink[] = nav?.collectionsBarLinks?.length
-    ? nav.collectionsBarLinks
-    : collectionsNav;
+  // Rooms (departments) drive the shop sub-nav when available, falling back
+  // to the static category list only if Sanity has no departments yet.
+  const roomLinks: NavLink[] =
+    rooms?.map((room) => ({
+      label: room.name,
+      href:
+        room.slug === "outdoor-living" ? "/shop" : `/shop/room/${room.slug}`,
+    })) ?? collectionsNav;
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
-  const isProductPage = isShopRoute && segments.length >= 3;
+  const isProductPage =
+    isShopRoute && segments[1] !== "room" && segments.length >= 3;
   const isCollection = isShopRoute && !isProductPage;
   const isHome = pathname === "/";
   // Home and Collection render on the near-black ground; everything else
@@ -70,8 +81,8 @@ export function SiteHeader({
     .filter((item) => item.href !== "/" && pathname.startsWith(item.href))
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
-  const activeCollection =
-    collectionsLinks
+  const activeRoom =
+    roomLinks
       .filter((item) => item.href !== "/shop" && pathname.startsWith(item.href))
       .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? "/shop";
 
@@ -169,8 +180,8 @@ export function SiteHeader({
       {isShopRoute ? (
         <div className={cn("border-t", t.subBar)}>
           <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12">
-            {collectionsLinks.map((item) => {
-              const active = item.href === activeCollection;
+            {roomLinks.map((item) => {
+              const active = item.href === activeRoom;
               return (
                 <AppLink
                   key={item.label}

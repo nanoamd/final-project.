@@ -9,21 +9,35 @@ import { resolveIcon } from "@/lib/icons";
 import {
   getCategories,
   getCategory,
+  getDepartments,
   getProductsByCategory,
   getTotalProductCount,
 } from "@/lib/sanity/queries";
-import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
+import type {
+  SanityCategory,
+  SanityDepartment,
+  SanityProduct,
+} from "@/types/sanity-content";
 
 /**
  * Collection — the dark, editorial browse experience. With no `categorySlug`
  * it is the "All Collections" index (a grid of category tiles); with a slug it
- * narrows to a single collection (a grid of product tiles). Both share the
+ * narrows to a single collection (a grid of product tiles). With a `roomSlug`
+ * instead, it narrows the category grid to one department ("room") — used by
+ * `/shop/room/[room]`, which the header's room tabs link to. Both share the
  * breadcrumb hero, the category sidebar and the Garden Studio promo.
  */
-export async function CollectionIndex({ categorySlug }: { categorySlug?: string }) {
-  const [categories, totalProducts] = await Promise.all([
+export async function CollectionIndex({
+  categorySlug,
+  roomSlug,
+}: {
+  categorySlug?: string;
+  roomSlug?: string;
+}) {
+  const [allCategories, totalProducts, departments] = await Promise.all([
     getCategories(),
     getTotalProductCount(),
+    roomSlug ? getDepartments() : Promise.resolve([]),
   ]);
 
   const active = categorySlug
@@ -31,11 +45,20 @@ export async function CollectionIndex({ categorySlug }: { categorySlug?: string 
     : undefined;
   if (categorySlug && !active) notFound();
 
+  const room = roomSlug
+    ? (departments.find((d) => d.slug === roomSlug) ?? undefined)
+    : undefined;
+  if (roomSlug && !room) notFound();
+
+  const categories = room
+    ? allCategories.filter((c) => c.departmentSlug === room.slug)
+    : allCategories;
+
   const products = active ? await getProductsByCategory(active.slug) : [];
 
   return (
     <div className="bg-basalt">
-      <CollectionHero category={active} />
+      <CollectionHero category={active} room={room} />
 
       <div className="mx-auto max-w-[1440px] px-6 pb-16 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[248px_1fr] lg:gap-12">
@@ -43,12 +66,17 @@ export async function CollectionIndex({ categorySlug }: { categorySlug?: string 
             categories={categories}
             totalProducts={totalProducts}
             activeSlug={active?.slug}
+            allHref={room ? `/shop/room/${room.slug}` : "/shop"}
           />
 
           <div>
             <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
               <p className="text-canvas/55 text-[13px]">
-                {active ? `Showing ${active.name}` : "Showing all collections"}
+                {active
+                  ? `Showing ${active.name}`
+                  : room
+                    ? `Showing ${room.name}`
+                    : "Showing all collections"}
               </p>
               <div className="text-canvas/70 flex items-center gap-2 text-[13px]">
                 <span className="text-canvas/45">Sort by:</span>
@@ -67,7 +95,7 @@ export async function CollectionIndex({ categorySlug }: { categorySlug?: string 
               ) : (
                 <EmptyCollection name={active.name} />
               )
-            ) : (
+            ) : categories.length ? (
               <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
                 {categories.map((category) => (
                   <CategoryTile
@@ -77,6 +105,8 @@ export async function CollectionIndex({ categorySlug }: { categorySlug?: string 
                   />
                 ))}
               </div>
+            ) : (
+              <EmptyCollection name={room?.name ?? "This room"} />
             )}
           </div>
         </div>
@@ -87,23 +117,46 @@ export async function CollectionIndex({ categorySlug }: { categorySlug?: string 
   );
 }
 
-function CollectionHero({ category }: { category?: SanityCategory }) {
-  const title = category?.name ?? "Premium outdoor living";
-  const crumb = category?.name ?? "All Collections";
+function CollectionHero({
+  category,
+  room,
+}: {
+  category?: SanityCategory;
+  room?: SanityDepartment;
+}) {
+  const title = category?.name ?? room?.name ?? "Premium outdoor living";
+  const crumb = category?.name ?? room?.name ?? "All Collections";
+  const shopHref = room ? `/shop/room/${room.slug}` : "/shop";
   return (
     <section className="border-b border-white/10">
       <div className="mx-auto grid max-w-[1440px] items-stretch gap-8 px-6 py-12 sm:px-8 lg:grid-cols-[1fr_0.95fr] lg:gap-12 lg:px-12 lg:py-14">
         <div className="flex flex-col justify-center">
           <p className="text-brass mb-5 flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase">
-            <AppLink href="/shop" className="hover:text-canvas transition-colors">
+            <AppLink
+              href="/shop"
+              className="hover:text-canvas transition-colors"
+            >
               Shop
             </AppLink>
+            {category && room ? (
+              <>
+                <span aria-hidden className="text-brass/50">
+                  /
+                </span>
+                <AppLink
+                  href={shopHref}
+                  className="hover:text-canvas transition-colors"
+                >
+                  {room.name}
+                </AppLink>
+              </>
+            ) : null}
             <span aria-hidden className="text-brass/50">
               /
             </span>
             <span>{crumb}</span>
           </p>
-          {category ? (
+          {category || room ? (
             <h1 className="text-canvas font-display text-[2.6rem] leading-[1.02] tracking-[-0.01em] sm:text-[3.4rem]">
               {title}
             </h1>
@@ -111,18 +164,20 @@ function CollectionHero({ category }: { category?: SanityCategory }) {
             <h1 className="text-canvas font-display text-[2.6rem] leading-[1.02] tracking-[-0.01em] sm:text-[3.4rem]">
               Premium outdoor living,
               <br />
-              curated for <span className="text-brass italic">every space.</span>
+              curated for{" "}
+              <span className="text-brass italic">every space.</span>
             </h1>
           )}
           <p className="text-canvas/65 mt-5 max-w-md text-[15px] leading-relaxed">
             {category?.description ??
+              room?.description ??
               "Timeless design. The finest materials. Built for life outdoors."}
           </p>
         </div>
 
         <div className="relative min-h-[220px] overflow-hidden rounded-xl lg:min-h-0">
           <Image
-            src={category?.image ?? "/images/garden-after.jpg"}
+            src={category?.image ?? room?.image ?? "/images/garden-after.jpg"}
             alt=""
             fill
             priority
@@ -140,10 +195,12 @@ function Sidebar({
   categories,
   totalProducts,
   activeSlug,
+  allHref,
 }: {
   categories: SanityCategory[];
   totalProducts: number;
   activeSlug?: string;
+  allHref: string;
 }) {
   const allActive = !activeSlug;
   return (
@@ -154,7 +211,7 @@ function Sidebar({
         </p>
         <ul className="flex flex-col">
           <SidebarLink
-            href="/shop"
+            href={allHref}
             icon={LayoutGrid}
             label="All Collections"
             count={totalProducts}
@@ -198,7 +255,7 @@ function SidebarLink({
         className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] transition-colors ${
           active
             ? "bg-brass/10 text-brass"
-            : "text-canvas/70 hover:bg-white/5 hover:text-canvas"
+            : "text-canvas/70 hover:text-canvas hover:bg-white/5"
         }`}
       >
         <Icon
@@ -221,7 +278,7 @@ function SidebarLink({
 
 function GardenStudioCard() {
   return (
-    <div className="border-white/8 bg-basalt-raise rounded-xl border p-5">
+    <div className="bg-basalt-raise rounded-xl border border-white/8 p-5">
       <p className="text-brass mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
         Garden Studio
       </p>
@@ -238,7 +295,7 @@ function GardenStudioCard() {
       >
         Try Garden Studio <span aria-hidden>→</span>
       </AppLink>
-      <div className="border-white/8 relative mx-auto mt-6 aspect-[9/16] w-[62%] overflow-hidden rounded-[1.4rem] border-4 border-black/60">
+      <div className="relative mx-auto mt-6 aspect-[9/16] w-[62%] overflow-hidden rounded-[1.4rem] border-4 border-black/60 border-white/8">
         <Image
           src="/images/garden-after.jpg"
           alt=""
@@ -261,7 +318,7 @@ function CategoryTile({
   return (
     <AppLink
       href={`/shop/${category.slug}`}
-      className="group border-white/8 hover:border-brass/40 relative block aspect-[4/3] overflow-hidden rounded-xl border transition-colors"
+      className="group hover:border-brass/40 relative block aspect-[4/3] overflow-hidden rounded-xl border border-white/8 transition-colors"
     >
       {category.image ? (
         <Image
@@ -273,7 +330,11 @@ function CategoryTile({
         />
       ) : (
         <div className="from-basalt-card to-basalt absolute inset-0 flex items-center justify-center bg-gradient-to-br">
-          <Icon className="text-brass/60 size-8" strokeWidth={1.2} aria-hidden />
+          <Icon
+            className="text-brass/60 size-8"
+            strokeWidth={1.2}
+            aria-hidden
+          />
         </div>
       )}
       <div className="from-basalt/95 via-basalt/20 absolute inset-0 bg-gradient-to-t to-transparent" />
@@ -293,7 +354,7 @@ function ProductTile({ product }: { product: SanityProduct }) {
   return (
     <AppLink
       href={`/shop/${product.category}/${product.slug}`}
-      className="group border-white/8 hover:border-brass/40 relative block overflow-hidden rounded-xl border transition-colors"
+      className="group hover:border-brass/40 relative block overflow-hidden rounded-xl border border-white/8 transition-colors"
     >
       <div className="relative aspect-[4/5]">
         {product.image ? (
@@ -323,7 +384,7 @@ function ProductTile({ product }: { product: SanityProduct }) {
 
 function EmptyCollection({ name }: { name: string }) {
   return (
-    <div className="border-white/8 mt-8 flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-20 text-center">
+    <div className="mt-8 flex flex-col items-center justify-center rounded-xl border border-dashed border-white/8 px-6 py-20 text-center">
       <p className="text-canvas font-display text-2xl">{name} — coming soon</p>
       <p className="text-canvas/55 mt-3 max-w-sm text-[14px] leading-relaxed">
         We&rsquo;re curating this collection now. In the meantime, our team can
