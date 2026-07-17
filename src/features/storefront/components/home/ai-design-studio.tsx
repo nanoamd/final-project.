@@ -8,19 +8,22 @@ const STEPS = [
     n: "1",
     kicker: "Upload",
     title: "A photo of your own space",
-    image: "/images/steam-lake.jpg",
+    image:
+      "/images/92f31eb81be4d873ea3b15253c95eb02c58b533bb7bdd276e3a8f4905ab13a0b.jpeg",
   },
   {
     n: "2",
     kicker: "Choose",
     title: "A direction — sauna, hot tub, decking",
-    image: "/images/cedar.jpg",
+    image:
+      "/images/7588bce6a676f339fa54e4f9b3a5c081331c8e32ebdd7f428682ff0e5dd4a465.jpeg",
   },
   {
     n: "3",
     kicker: "See It",
     title: "Your space, redesigned in seconds",
-    image: "/images/hero-fire.jpg",
+    image:
+      "/images/49031908f80dbbb69df00cb698ea23d483fe0a254fc4b8ca539dda682aed2d09.jpeg",
   },
 ];
 
