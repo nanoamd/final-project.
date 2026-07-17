@@ -21,6 +21,46 @@ interface CategoryWithProducts {
 
 type Step = "room" | "products" | "upload" | "result";
 
+// Vercel's serverless functions enforce a hard ~4.5MB request body limit that
+// can't be raised in config — a phone photo easily exceeds that. Downscaling
+// and re-encoding client-side keeps uploads well under it regardless of what
+// the visitor picks.
+const MAX_UPLOAD_DIMENSION = 1600;
+const UPLOAD_JPEG_QUALITY = 0.82;
+
+async function compressPhoto(file: File): Promise<File> {
+  if (typeof createImageBitmap !== "function") return file;
+
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    return file;
+  }
+
+  const scale = Math.min(
+    1,
+    MAX_UPLOAD_DIMENSION / Math.max(bitmap.width, bitmap.height),
+  );
+  const width = Math.round(bitmap.width * scale);
+  const height = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return file;
+  ctx.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close();
+
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg", UPLOAD_JPEG_QUALITY),
+  );
+  if (!blob) return file;
+
+  return new File([blob], "photo.jpg", { type: "image/jpeg" });
+}
+
 export function GardenVisualiserTool({
   departments,
   categories,
@@ -55,13 +95,14 @@ export function GardenVisualiserTool({
     );
   }
 
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
-    setPhotoFile(file);
+    const compressed = await compressPhoto(file);
+    setPhotoFile(compressed);
     setPhotoPreview((prev) => {
       if (prev) URL.revokeObjectURL(prev);
-      return URL.createObjectURL(file);
+      return URL.createObjectURL(compressed);
     });
   }
 
