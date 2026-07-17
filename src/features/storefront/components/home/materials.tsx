@@ -4,22 +4,26 @@ const MATERIALS = [
   {
     name: "Timber",
     note: "Warms with age, never fades to plastic.",
-    image: "/images/cedar.jpg",
+    image:
+      "/images/e8ec9091149d1640fadc32989c670332f9300ab175575be9e662686d4313de14.jpeg",
   },
   {
     name: "Stone",
     note: "Cold underfoot, unmoved by decades of weather.",
-    image: "/images/dark-water.jpg",
+    image:
+      "/images/1c49fd093da79eb297a40ad088ca6222255d8c42679c9f35a10ecbfde9789175.jpeg",
   },
   {
     name: "Steel",
     note: "Engineered to carry weight quietly, for a very long time.",
-    image: "/images/steam-lake.jpg",
+    image:
+      "/images/9798c4c912d0100060e53f0486a5e92c8b39cf929319f8b7fcc15aa94f394db2.jpeg",
   },
   {
     name: "Flame & Ember",
     note: "The one material that was never meant to last forever — by design.",
-    image: "/images/hero-fire.jpg",
+    image:
+      "/images/d76af2aac8d7432a8de9d7e1b59df60cdeab8988e151ce1c19149d938695d648.jpeg",
   },
 ];
 
