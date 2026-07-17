@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 const IMAGES = [
-  { src: "/images/garden-after.jpg", label: "Evening, terrace" },
-  { src: "/images/hero-fire.jpg", label: "Fire, after dark" },
-  { src: "/images/cedar.jpg", label: "Cedar interior" },
-  { src: "/images/steam-lake.jpg", label: "Steam, first light" },
-  { src: "/images/dark-water.jpg", label: "Still water" },
-  { src: "/images/cold-ripple.jpg", label: "Cold plunge, dawn" },
+  { src: "/images/image-1784323811220.webp", label: "Evening, terrace" },
+  { src: "/images/image-1784323790719.webp", label: "Fire, after dark" },
+  { src: "/images/image-1784323799552.webp", label: "Cedar interior" },
+  { src: "/images/image-1784323803462.webp", label: "Steam, first light" },
+  { src: "/images/image-1784323815382.webp", label: "Still water" },
+  { src: "/images/image-1784323795679.webp", label: "Cold plunge, dawn" },
 ];
 
 /**
@@ -26,14 +26,16 @@ export function InspirationGallery() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:grid-rows-2">
           {IMAGES.map((image, i) => (
             <div
               key={image.src}
               className={`group relative overflow-hidden rounded-lg ${
                 i === 0
-                  ? "col-span-2 aspect-[16/9] lg:col-span-1 lg:aspect-[3/4]"
-                  : "aspect-square lg:aspect-[3/4]"
+                  ? "col-span-2 aspect-[16/9] lg:col-span-1 lg:row-span-2 lg:aspect-auto"
+                  : i === 5
+                    ? "aspect-square lg:hidden"
+                    : "aspect-square lg:aspect-[3/4]"
               }`}
             >
               <Image
