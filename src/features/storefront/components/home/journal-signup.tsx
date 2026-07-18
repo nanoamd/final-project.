@@ -1,4 +1,5 @@
 import { Newsletter } from "@/components/shared/newsletter";
+import { subscribeToNewsletter } from "@/server/actions/newsletter";
 
 /**
  * Newsletter — minimal, centred, closing the homepage before the footer.
@@ -16,7 +17,7 @@ export function JournalSignup() {
           — occasionally, never as noise.
         </p>
         <div className="mt-8 flex justify-center">
-          <Newsletter tone="dark" />
+          <Newsletter tone="dark" onSubscribe={subscribeToNewsletter} />
         </div>
       </div>
     </section>

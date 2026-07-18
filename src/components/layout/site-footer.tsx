@@ -1,8 +1,14 @@
-import { Newsletter } from "@/components/shared/newsletter";
+import {
+  Newsletter,
+  type NewsletterSubscribeResult,
+} from "@/components/shared/newsletter";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { footerNav, siteConfig } from "@/config/site";
-import type { SanityNavigation, SanitySiteSettings } from "@/types/sanity-content";
+import type {
+  SanityNavigation,
+  SanitySiteSettings,
+} from "@/types/sanity-content";
 
 interface FooterColumn {
   title: string;
@@ -16,9 +22,11 @@ interface FooterColumn {
 export function SiteFooter({
   nav,
   settings,
+  onNewsletterSubscribe,
 }: {
   nav?: SanityNavigation | null;
   settings?: SanitySiteSettings | null;
+  onNewsletterSubscribe: (email: string) => Promise<NewsletterSubscribeResult>;
 }) {
   const year = new Date().getFullYear();
   const siteName = settings?.siteName ?? siteConfig.name;
@@ -44,12 +52,14 @@ export function SiteFooter({
             >
               {siteName}
             </AppLink>
-            <p className="text-canvas/65 text-sm leading-relaxed">{description}</p>
+            <p className="text-canvas/65 text-sm leading-relaxed">
+              {description}
+            </p>
             <div className="mt-2 flex flex-col gap-3">
               <p className="text-canvas/45 text-[12px] tracking-[0.18em] uppercase">
                 Considered writing, occasionally
               </p>
-              <Newsletter tone="dark" />
+              <Newsletter tone="dark" onSubscribe={onNewsletterSubscribe} />
             </div>
           </div>
 
@@ -78,9 +88,12 @@ export function SiteFooter({
       <div className="border-canvas/12 border-t">
         <Container className="text-canvas/50 flex flex-col items-start justify-between gap-3 py-6 text-[13px] sm:flex-row sm:items-center">
           <p>
-            © {year} {legalName}. A garden wellness platform in development.
+            © {year} {legalName}. Premium home improvement, curated.
           </p>
-          <AppLink href={`mailto:${email}`} className="hover:text-canvas transition-colors">
+          <AppLink
+            href={`mailto:${email}`}
+            className="hover:text-canvas transition-colors"
+          >
             {email}
           </AppLink>
         </Container>

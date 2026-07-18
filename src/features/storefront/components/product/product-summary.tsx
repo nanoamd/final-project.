@@ -8,7 +8,6 @@ import {
   Scale,
   Share2,
   Square,
-  Star,
   Sun,
   Trees,
   Truck,
@@ -61,28 +60,11 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
           {product.name}
         </h1>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-          {typeof product.rating === "number" ? (
-            <div className="flex items-center gap-2.5">
-              <StarRating rating={product.rating} />
-              <span className="text-ink text-[14px] font-medium">
-                {product.rating.toFixed(1)}
-              </span>
-              {product.reviewCount ? (
-                <span className="text-muted text-[13px]">
-                  ({product.reviewCount} reviews)
-                </span>
-              ) : null}
-            </div>
-          ) : (
-            <span />
-          )}
-          {product.sku ? (
-            <span className="text-muted text-[12px] tracking-[0.08em] uppercase">
-              SKU: {product.sku}
-            </span>
-          ) : null}
-        </div>
+        {product.sku ? (
+          <p className="text-muted mt-4 text-[12px] tracking-[0.08em] uppercase">
+            SKU: {product.sku}
+          </p>
+        ) : null}
       </div>
 
       <p className="text-graphite max-w-prose text-[15px] leading-relaxed">
@@ -144,11 +126,17 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
         </p>
         <div className="text-graphite mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
           <span className="flex items-center gap-2">
-            <Truck className="text-ink/50 size-[18px]" strokeWidth={1.5} aria-hidden />
+            <Truck
+              className="text-ink/50 size-[18px]"
+              strokeWidth={1.5}
+              aria-hidden
+            />
             {product.stockStatus}
           </span>
           {product.deliveryLeadTime ? (
-            <span className="text-muted">Delivered in {product.deliveryLeadTime}</span>
+            <span className="text-muted">
+              Delivered in {product.deliveryLeadTime}
+            </span>
           ) : null}
         </div>
       </div>
@@ -186,30 +174,10 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
           type="button"
           className="hover:text-ink flex items-center gap-2 transition-colors"
         >
-          <Heart className="size-4" strokeWidth={1.5} aria-hidden /> Save for later
+          <Heart className="size-4" strokeWidth={1.5} aria-hidden /> Save for
+          later
         </button>
       </div>
     </div>
-  );
-}
-
-function StarRating({ rating }: { rating: number }) {
-  const pct = Math.max(0, Math.min(100, (rating / 5) * 100));
-  return (
-    <span className="relative inline-flex" aria-hidden>
-      <span className="text-ink/20 flex">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="size-[15px]" fill="currentColor" stroke="none" />
-        ))}
-      </span>
-      <span
-        className="text-brass absolute inset-0 flex overflow-hidden"
-        style={{ width: `${pct}%` }}
-      >
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="size-[15px] shrink-0" fill="currentColor" stroke="none" />
-        ))}
-      </span>
-    </span>
   );
 }

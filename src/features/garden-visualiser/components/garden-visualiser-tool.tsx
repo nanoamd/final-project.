@@ -323,7 +323,7 @@ function ProductsStep({
           Not sure what you want yet?
         </p>
         <Button type="button" onClick={onAuto} className="mt-1">
-          Let Kaiku design my garden for me
+          Let Kaiku design my space for me
         </Button>
       </div>
 

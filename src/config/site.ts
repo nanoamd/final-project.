@@ -8,9 +8,9 @@
 export const siteConfig = {
   name: "Kaiku",
   legalName: "Project Kaiku Ltd",
-  tagline: "Garden wellness, considered",
+  tagline: "Premium home improvement, considered",
   description:
-    "A considered approach to garden wellness. Outdoor saunas, cold plunge and recovery — chosen with expert guidance, built to last a lifetime.",
+    "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
   url: "https://example.com",
   email: "hello@example.com",
   phone: "+44 (0)20 0000 0000",
@@ -35,9 +35,9 @@ export const primaryNav: NavGroup[] = [
     href: "/shop",
     children: [
       {
-        label: "Outdoor Saunas",
+        label: "Saunas & Wellness",
         href: "/shop/outdoor-saunas",
-        description: "Cabin, barrel and panoramic saunas for the garden.",
+        description: "Cabin, barrel and panoramic saunas for the home.",
       },
       {
         label: "Cold Plunges",
@@ -45,28 +45,29 @@ export const primaryNav: NavGroup[] = [
         description: "Cold therapy tubs for recovery and resilience.",
       },
       {
-        label: "Pergolas",
+        label: "Pergolas & Structures",
         href: "/shop/pergolas",
-        description: "Louvred and fixed-roof shade structures.",
+        description: "Louvred and fixed-roof architectural structures.",
       },
       {
         label: "Fire Pits & Heating",
         href: "/shop/fire-pits",
-        description: "Fire pits and heaters that extend the evening.",
+        description: "Fire features and heaters that extend the evening.",
       },
     ],
   },
-  { label: "Outdoor Living", href: "/shop" },
+  { label: "Collections", href: "/shop" },
   { label: "Wellness", href: "/shop/wellness-accessories" },
   { label: "Inspiration", href: "/inspiration" },
-  { label: "Trade", href: "/about" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 /**
  * Collection sub-navigation — the secondary bar shown on shop routes. Labels
- * are brand-coherent (the garden/outdoor range) rather than the generic
- * room-based template labels.
+ * are brand-coherent (the premium home improvement range) rather than the
+ * generic room-based template labels. This is a fallback only: the header
+ * prefers Sanity-sourced departments when available.
  */
 export const collectionsNav: NavLink[] = [
   { label: "All Collections", href: "/shop" },

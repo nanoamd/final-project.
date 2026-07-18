@@ -45,8 +45,13 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
 
   const afterImage = content?.afterImage ?? "/images/garden-after.jpg";
   const beforeImage = content?.beforeImage ?? "/images/garden-before.jpg";
-  const thumbs = content?.thumbnails?.length ? content.thumbnails : DEFAULT_THUMBS;
-  const cta = content?.cta ?? { label: "Visualise Your Garden", href: "/guided-buying" };
+  const thumbs = content?.thumbnails?.length
+    ? content.thumbnails
+    : DEFAULT_THUMBS;
+  const cta = content?.cta ?? {
+    label: "Visualise Your Space",
+    href: "/tools/garden-visualiser",
+  };
 
   const setFromClientX = React.useCallback((clientX: number) => {
     const el = frameRef.current;
@@ -79,7 +84,7 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
           {/* Left — statement */}
           <div>
             <p className="text-brass mb-4 text-[12px] font-medium tracking-[0.24em] uppercase">
-              {content?.eyebrow ?? "Garden Studio"}
+              {content?.eyebrow ?? "Design Studio"}
             </p>
             <h2 className="text-canvas font-display text-4xl leading-[1.02] tracking-tight sm:text-5xl">
               {content?.headline ? (
@@ -96,7 +101,7 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
             </h2>
             <p className="text-canvas/65 mt-6 max-w-sm text-[15px] leading-relaxed">
               {content?.body ??
-                "Transform your space with Garden Studio. Upload a photo of your garden and explore endless possibilities — see your future space before you commit to it."}
+                "Transform any room with the Design Studio. Upload a photo of your own space and explore endless possibilities — see it before you commit to a single piece."}
             </p>
             <div className="mt-8 flex flex-col items-start gap-4">
               <AppLink
@@ -121,11 +126,11 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
               {/* Before / after reveal */}
               <div
                 ref={frameRef}
-                className="border-white/8 relative aspect-[16/10] touch-none overflow-hidden rounded-xl border select-none"
+                className="relative aspect-[16/10] touch-none overflow-hidden rounded-xl border border-white/8 select-none"
               >
                 <Image
                   src={afterImage}
-                  alt="Your garden, transformed"
+                  alt="Your space, transformed"
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
                   className="object-cover"
@@ -136,7 +141,7 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
                 >
                   <Image
                     src={beforeImage}
-                    alt="Your garden today"
+                    alt="Your space today"
                     fill
                     sizes="(max-width: 1024px) 100vw, 55vw"
                     className="object-cover"

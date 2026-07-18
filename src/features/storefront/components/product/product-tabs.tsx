@@ -1,14 +1,22 @@
 "use client";
 
-import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck, Star } from "lucide-react";
+import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
 import type { SanityProduct } from "@/types/sanity-content";
 
 const BAND_FEATURES: { icon: LucideIcon; title: string; copy: string }[] = [
-  { icon: Gem, title: "Finest materials", copy: "Sustainably sourced Thermowood" },
-  { icon: ShieldCheck, title: "Built to last", copy: "Weatherproof & low maintenance" },
+  {
+    icon: Gem,
+    title: "Finest materials",
+    copy: "Sustainably sourced Thermowood",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Built to last",
+    copy: "Weatherproof & low maintenance",
+  },
   { icon: Leaf, title: "Wellness at home", copy: "Relax, recover & reconnect" },
   { icon: Headset, title: "Expert support", copy: "Our team is here to help" },
 ];
@@ -18,14 +26,14 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
     { id: "description", label: "Description" },
     { id: "specifications", label: "Specifications" },
     { id: "delivery", label: "Delivery & Returns" },
-    { id: "reviews", label: `Reviews (${product.reviewCount ?? 0})` },
+    { id: "reviews", label: "Reviews" },
   ] as const;
   const [active, setActive] = React.useState<string>("description");
 
   return (
     <div className="border-line border-t">
       <div className="mx-auto max-w-[1280px] px-6 sm:px-8 lg:px-12">
-        <div className="flex gap-8 overflow-x-auto [scrollbar-width:none]">
+        <div className="flex [scrollbar-width:none] gap-8 overflow-x-auto">
           {tabs.map((tab) => {
             const isActive = active === tab.id;
             return (
@@ -49,8 +57,12 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
 
       <div className="border-line border-t">
         <div className="mx-auto max-w-[1280px] px-6 py-14 sm:px-8 lg:px-12">
-          {active === "description" ? <DescriptionPanel product={product} /> : null}
-          {active === "specifications" ? <SpecsPanel product={product} /> : null}
+          {active === "description" ? (
+            <DescriptionPanel product={product} />
+          ) : null}
+          {active === "specifications" ? (
+            <SpecsPanel product={product} />
+          ) : null}
           {active === "delivery" ? <DeliveryPanel product={product} /> : null}
           {active === "reviews" ? <ReviewsPanel product={product} /> : null}
         </div>
@@ -68,9 +80,7 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
         </h2>
         <p className="text-graphite mt-5 leading-relaxed">{product.summary}</p>
         <p className="text-graphite mt-4 leading-relaxed">
-          Crafted from premium materials and built with precision, the{" "}
-          {product.name} is as durable as it is beautiful — a considered
-          addition to any garden and a space you&rsquo;ll return to for years.
+          {`Crafted from premium materials and built with precision, the ${product.name} is as durable as it is beautiful — a considered addition to any room and a space you'll return to for years.`}
         </p>
 
         <div className="mt-9 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
@@ -81,8 +91,12 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
                 strokeWidth={1.4}
                 aria-hidden
               />
-              <p className="text-ink text-[13px] font-semibold">{feature.title}</p>
-              <p className="text-muted text-[12px] leading-snug">{feature.copy}</p>
+              <p className="text-ink text-[13px] font-semibold">
+                {feature.title}
+              </p>
+              <p className="text-muted text-[12px] leading-snug">
+                {feature.copy}
+              </p>
             </div>
           ))}
         </div>
@@ -105,7 +119,9 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
 
 function SpecsPanel({ product }: { product: SanityProduct }) {
   if (!product.specs.length) {
-    return <p className="text-muted text-[14px]">Specifications coming soon.</p>;
+    return (
+      <p className="text-muted text-[14px]">Specifications coming soon.</p>
+    );
   }
   return (
     <dl className="grid max-w-3xl gap-x-10 gap-y-0 sm:grid-cols-2">
@@ -148,26 +164,10 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
 
 function ReviewsPanel({ product }: { product: SanityProduct }) {
   return (
-    <div className="flex flex-col items-start gap-4">
-      <div className="flex items-center gap-4">
-        <span className="text-ink font-display text-5xl">
-          {(product.rating ?? 0).toFixed(1)}
-        </span>
-        <div>
-          <span className="text-brass flex">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-4" fill="currentColor" stroke="none" />
-            ))}
-          </span>
-          <p className="text-muted mt-1 text-[13px]">
-            Based on {product.reviewCount ?? 0} verified purchases
-          </p>
-        </div>
-      </div>
+    <div className="flex flex-col items-start gap-3">
+      <p className="text-ink font-display text-xl">No reviews yet</p>
       <p className="text-graphite max-w-prose text-[14px] leading-relaxed">
-        Individual reviews are being migrated to the new storefront. Our
-        specialists are happy to share detailed customer references for the{" "}
-        {product.name} on request.
+        {`The ${product.name} is newly listed, so there's nothing to show here yet. Get in touch and our team can share more detail or put you in contact with an existing customer.`}
       </p>
     </div>
   );

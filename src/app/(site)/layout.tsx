@@ -7,6 +7,7 @@ import { CartProvider } from "@/hooks/use-cart";
 import { getDepartments } from "@/lib/sanity/queries/department";
 import { getNavigation } from "@/lib/sanity/queries/navigation";
 import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
+import { subscribeToNewsletter } from "@/server/actions/newsletter";
 
 /**
  * Chrome for every standard storefront route (header + footer) plus smooth
@@ -38,7 +39,11 @@ export default async function SiteLayout({
           rooms={departments}
         />
         <main className="flex-1">{children}</main>
-        <SiteFooter nav={nav} settings={settings} />
+        <SiteFooter
+          nav={nav}
+          settings={settings}
+          onNewsletterSubscribe={subscribeToNewsletter}
+        />
       </SmoothScroll>
     </CartProvider>
   );

@@ -6,7 +6,7 @@ import { PlaceholderImage } from "@/components/ui/placeholder-image";
 
 /** Honest placeholder for routes that are designed but not yet built out. */
 export function ComingSoon({
-  eyebrow = "In development",
+  eyebrow = "Coming soon",
   title,
   intro,
 }: {
@@ -27,16 +27,16 @@ export function ComingSoon({
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <AppLink
-              href="/shop/outdoor-saunas"
+              href="/shop"
               className={buttonVariants({ variant: "primary" })}
             >
-              Explore the saunas
+              Explore the collection
             </AppLink>
             <AppLink
-              href="/guided-buying"
+              href="/contact"
               className={buttonVariants({ variant: "secondary" })}
             >
-              Guided buying
+              Get in touch
             </AppLink>
           </div>
         </div>

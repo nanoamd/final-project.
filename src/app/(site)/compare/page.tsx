@@ -8,8 +8,8 @@ export default function ComparePage() {
   return (
     <ComingSoon
       eyebrow="Compare"
-      title="Honest, side-by-side comparison"
-      intro="Compare saunas, heaters and cold therapy on the specifications that actually matter — never weighted by who pays the most. In development."
+      title="Side-by-side comparison"
+      intro="Compare products across a category on the specifications that actually matter, laid out side by side. This tool is coming soon."
     />
   );
 }

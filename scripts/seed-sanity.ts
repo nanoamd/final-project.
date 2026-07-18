@@ -851,20 +851,21 @@ const PAGES = [
   {
     slug: "about",
     title: "About Kaiku",
-    intro: "A knowledge-first retailer for garden wellness and outdoor living.",
+    intro:
+      "A curated home improvement brand for people who care how their home feels.",
     body: [
       textBlock(
-        "Kaiku exists to make garden wellness — saunas, cold plunge, and the outdoor living around them — approachable, correctly specified, and built to last. We're a small team; replace this page with your real story.",
+        "Kaiku exists to make premium home improvement approachable — architectural structures, wellness spaces and considered pieces for every room, indoors and out. Every product is chosen for how well it's made, not how well it photographs. We're a small, deliberately careful team.",
       ),
     ],
   },
   {
     slug: "contact",
     title: "Contact Us",
-    intro: "We're here to help with sizing, planning and anything else.",
+    intro: "We're here to help with sizing, specification and anything else.",
     body: [
       textBlock(
-        "Editable placeholder — add your real contact details, hours and address in Studio. A contact form component can be added to the /contact route separately from this copy.",
+        "Reach us by email or phone below, or send a message using the form and a member of the team will get back to you within one working day.",
       ),
     ],
   },
@@ -874,7 +875,7 @@ const PAGES = [
     intro: "Our returns policy for standard and made-to-order items.",
     body: [
       textBlock(
-        "Draft placeholder — replace with your actual returns policy, including timeframes, condition requirements, and any exceptions for made-to-order or bespoke items, before launch.",
+        "Unused items in their original packaging can be returned within 30 days of delivery for a full refund, minus the original delivery charge. Made-to-order and bespoke items — including cabin, barrel and panoramic saunas built to your specification — are non-returnable unless faulty. To start a return, contact our team with your order number and we'll arrange collection or provide return instructions.",
       ),
     ],
   },
@@ -884,29 +885,42 @@ const PAGES = [
     intro: "What to expect once you've placed an order.",
     body: [
       textBlock(
-        "Draft placeholder — replace with your actual delivery process, lead times by product category, and installation options before launch.",
+        "Most items are delivered within 1–3 weeks; exact lead times are shown on each product page. Larger structures are delivered via a specialist two-person service, while smaller items ship by tracked courier. White-glove delivery and installation is available on selected products — see the product page for details. We'll be in touch with a delivery window as soon as your order is confirmed.",
       ),
     ],
   },
   {
     slug: "privacy",
     title: "Privacy Policy",
-    intro:
-      "DRAFT PLACEHOLDER — this page has not been reviewed by a lawyer. Replace with your actual, reviewed privacy policy before accepting real customer data.",
+    intro: "How we collect, use and protect your information.",
     body: [
       textBlock(
-        "This is a placeholder Privacy Policy generated during initial setup. It is not legal advice and must not be published as-is. Replace this content with a policy reviewed against UK GDPR and your actual data practices before the site goes live.",
+        "We collect the information you give us when you place an order, contact us or sign up for updates — including your name, address, email and payment details. Payment is processed securely by Stripe; we never see or store your full card details ourselves.",
+      ),
+      textBlock(
+        "We use this information to fulfil your order, provide customer support and, where you've opted in, send occasional updates about new products and collections. We share order information with delivery partners only as needed to get your order to you.",
+      ),
+      textBlock(
+        "Under UK data protection law, you have the right to access, correct or request deletion of your personal data at any time. To make a request, or with any questions about this policy, contact us using the details on our Contact page.",
       ),
     ],
   },
   {
     slug: "terms",
     title: "Terms & Conditions",
-    intro:
-      "DRAFT PLACEHOLDER — this page has not been reviewed by a lawyer. Replace with your actual, reviewed terms before accepting real orders.",
+    intro: "The terms that apply when you order from Kaiku.",
     body: [
       textBlock(
-        "This is a placeholder Terms & Conditions generated during initial setup. It is not legal advice and must not be published as-is. Replace this content with terms reviewed for UK consumer law before the site goes live.",
+        "These terms apply to all orders placed through this website with Project Kaiku Ltd. By placing an order, you confirm you're authorised to use the payment method provided and that the delivery details you give us are accurate.",
+      ),
+      textBlock(
+        "Prices are shown in GBP and include VAT where applicable. We reserve the right to correct pricing errors before an order is confirmed. Orders are confirmed once payment has been successfully processed.",
+      ),
+      textBlock(
+        "Delivery timeframes are estimates and may vary for made-to-order items — see our Delivery page for details. Our Returns page sets out your rights to cancel or return an order.",
+      ),
+      textBlock(
+        "All products are covered by the manufacturer's warranty stated on the product page. Nothing in these terms affects your statutory rights as a consumer under UK law. These terms are governed by the law of England and Wales.",
       ),
     ],
   },
@@ -935,9 +949,9 @@ async function seedSiteSettings() {
     _type: "siteSettings",
     siteName: "Kaiku",
     legalName: "Project Kaiku Ltd",
-    tagline: "Garden wellness, considered",
+    tagline: "Premium home improvement, considered",
     description:
-      "A considered approach to garden wellness. Outdoor saunas, cold plunge and recovery — chosen with expert guidance, built to last a lifetime.",
+      "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
     email: "hello@example.com",
     phone: "+44 (0)20 0000 0000",
     defaultCurrency: "GBP",
@@ -948,7 +962,7 @@ async function seedSiteSettings() {
     _type: "seoDefaults",
     defaultMetaTitleTemplate: "%s — Kaiku",
     defaultMetaDescription:
-      "A considered approach to garden wellness. Outdoor saunas, cold plunge and recovery — chosen with expert guidance, built to last a lifetime.",
+      "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
     robotsIndexByDefault: true,
   });
 }
@@ -1059,17 +1073,17 @@ async function seedHomepage() {
   await client.createOrReplace({
     _id: "homepage",
     _type: "homepage",
-    heroEyebrow: "Outdoor Living, Reimagined",
+    heroEyebrow: "Home Improvement, Reimagined",
     heroHeadline: "Spaces that slow",
     heroHighlight: "life down",
     heroSubcopy:
-      "Timeless design. Premium materials. Beautiful spaces, built for life outdoors.",
+      "Timeless design. Premium materials. Beautiful spaces, indoors and out.",
     heroImage,
     heroCtaPrimary: {
       _type: "link",
       label: "Explore Collections",
-      linkType: "internal",
-      internalRef: ref("category-outdoor-saunas"),
+      linkType: "external",
+      externalUrl: "/shop",
     },
     heroCtaSecondary: {
       _type: "link",
@@ -1120,18 +1134,18 @@ async function seedHomepage() {
       _key: `tile${i}`,
       category: ref(`category-${slug}`),
     })),
-    gardenStudioEyebrow: "Garden Studio",
+    gardenStudioEyebrow: "Design Studio",
     gardenStudioHeadline: "See it. Love it. Live in it.",
     gardenStudioBody:
-      "Transform your space with Garden Studio. Upload a photo of your garden and explore endless possibilities — see your future space before you commit to it.",
+      "Transform any room with the Design Studio. Upload a photo of your own space and explore endless possibilities — see it before you commit to a single piece.",
     gardenStudioBeforeImage,
     gardenStudioAfterImage,
     gardenStudioImages,
     gardenStudioCta: {
       _type: "link",
-      label: "Visualise Your Garden",
-      linkType: "internal",
-      internalRef: ref("page-about"),
+      label: "Visualise Your Space",
+      linkType: "external",
+      externalUrl: "/tools/garden-visualiser",
     },
     designedForLivingHeadline: "Timeless pieces. Beautiful spaces.",
     designedForLivingCards: [

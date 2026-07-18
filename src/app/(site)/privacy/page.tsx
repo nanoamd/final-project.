@@ -16,7 +16,7 @@ export default async function PrivacyPage() {
     <GenericPage
       page={page}
       fallbackTitle="Privacy Policy"
-      fallbackIntro="Our privacy policy is being finalised and reviewed before publication — it will explain exactly what we collect, why, and how it's protected."
+      fallbackIntro="How we collect, use and protect your information."
     />
   );
 }

@@ -6,25 +6,48 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
+export interface NewsletterSubscribeResult {
+  ok: boolean;
+  error?: string;
+}
+
 /**
- * Newsletter sign-up. The submit is intentionally a client-only confirmation —
- * there is no email provider wired yet, and we will not fake a subscription.
- * Replace `onSubmit` with a server action once an ESP is connected.
+ * Purely presentational — the actual subscribe call is injected via
+ * `onSubscribe` rather than imported directly, since shared-ui components
+ * aren't allowed to depend on server actions (see eslint boundaries config).
+ * Callers in `feature`/`app` scope pass in the real server action.
  */
 export function Newsletter({
   tone = "dark",
   className,
+  onSubscribe,
 }: {
   tone?: "dark" | "light";
   className?: string;
+  onSubscribe: (email: string) => Promise<NewsletterSubscribeResult>;
 }) {
   const [email, setEmail] = React.useState("");
   const [submitted, setSubmitted] = React.useState(false);
+  const [pending, setPending] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  function onSubmit(event: React.FormEvent) {
+  async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     if (!email.trim()) return;
-    setSubmitted(true);
+    setPending(true);
+    setError(null);
+    try {
+      const result = await onSubscribe(email);
+      if (!result.ok) {
+        setError(result.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setPending(false);
+    }
   }
 
   if (submitted) {
@@ -36,41 +59,52 @@ export function Newsletter({
           className,
         )}
       >
-        Thank you. We&rsquo;ll be in touch with considered writing on garden
-        wellness — never noise.
+        Thank you. We&rsquo;ll be in touch with considered writing on home
+        improvement and design — never noise.
       </p>
     );
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className={cn(
-        "flex w-full max-w-md flex-col gap-3 sm:flex-row",
-        className,
-      )}
-    >
-      <Input
-        type="email"
-        required
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        placeholder="Email address"
-        aria-label="Email address"
-        className={cn(
-          tone === "dark" &&
-            "border-canvas/25 text-canvas placeholder:text-canvas/45 focus-visible:border-canvas bg-transparent",
-        )}
-      />
-      <Button
-        type="submit"
-        className={cn(
-          "shrink-0",
-          tone === "dark" && "bg-canvas text-ink hover:bg-sand",
-        )}
+    <div className={cn("flex w-full max-w-md flex-col gap-2", className)}>
+      <form
+        onSubmit={onSubmit}
+        className="flex w-full flex-col gap-3 sm:flex-row"
       >
-        Subscribe
-      </Button>
-    </form>
+        <Input
+          type="email"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Email address"
+          aria-label="Email address"
+          className={cn(
+            tone === "dark" &&
+              "border-canvas/25 text-canvas placeholder:text-canvas/45 focus-visible:border-canvas bg-transparent",
+          )}
+        />
+        <Button
+          type="submit"
+          disabled={pending}
+          className={cn(
+            "shrink-0",
+            tone === "dark" && "bg-canvas text-ink hover:bg-sand",
+          )}
+        >
+          {pending ? "Subscribing…" : "Subscribe"}
+        </Button>
+      </form>
+      {error ? (
+        <p
+          className={cn(
+            "text-[13px]",
+            tone === "dark" ? "text-canvas/70" : "text-red-600",
+          )}
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
+    </div>
   );
 }

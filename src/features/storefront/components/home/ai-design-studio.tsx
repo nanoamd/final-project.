@@ -45,7 +45,7 @@ export function AiDesignStudio() {
             </h2>
             <p className="text-canvas/70 mt-5 max-w-sm text-[15px] leading-relaxed">
               A considered purchase deserves more than a product photo. Upload a
-              photo of your own garden and see it redesigned — genuinely, not
+              photo of your own space and see it redesigned — genuinely, not
               gimmick.
             </p>
             <AppLink

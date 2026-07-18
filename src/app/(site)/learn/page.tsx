@@ -8,7 +8,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Buying Guides",
   description:
-    "Practical, jargon-free buying guides on saunas, cold therapy and building a wellness garden that lasts.",
+    "Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts.",
 };
 
 export default async function LearnPage() {
@@ -18,11 +18,11 @@ export default async function LearnPage() {
     <ArticleList
       eyebrow="Buying Guides"
       title="In-depth guides, honestly written"
-      intro="Practical, jargon-free buying guides on saunas, cold therapy and building a wellness garden that lasts."
+      intro="Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts."
       basePath="/learn"
       articles={guides}
       emptyTitle="In-depth guides, publishing soon"
-      emptyIntro="Practical, jargon-free buying guides on saunas, cold therapy and building a wellness garden that lasts. This is where our knowledge base will live."
+      emptyIntro="Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts. This is where our knowledge base will live."
     />
   );
 }

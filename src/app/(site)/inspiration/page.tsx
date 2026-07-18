@@ -8,8 +8,8 @@ export default function InspirationPage() {
   return (
     <ComingSoon
       eyebrow="Inspiration"
-      title="Real gardens, considered installations"
-      intro="A gathering of beautifully made garden wellness spaces and the rituals built around them. We're curating it now."
+      title="Real spaces, thoughtfully finished"
+      intro="A gathering of beautifully finished homes and the rituals built around them. We're curating it now."
     />
   );
 }

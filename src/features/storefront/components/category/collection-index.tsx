@@ -280,20 +280,19 @@ function GardenStudioCard() {
   return (
     <div className="bg-basalt-raise rounded-xl border border-white/8 p-5">
       <p className="text-brass mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
-        Garden Studio
+        Design Studio
       </p>
       <p className="text-canvas font-display text-[22px] leading-tight">
         Visualise it in your space
       </p>
       <p className="text-canvas/55 mt-3 text-[13px] leading-relaxed">
-        Upload a photo of your garden and see our products in your space
-        instantly.
+        Upload a photo of any room and see our products in your space instantly.
       </p>
       <AppLink
-        href="/guided-buying"
+        href="/tools/garden-visualiser"
         className="border-brass/50 text-brass hover:bg-brass mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md border text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors hover:text-white"
       >
-        Try Garden Studio <span aria-hidden>→</span>
+        Try Design Studio <span aria-hidden>→</span>
       </AppLink>
       <div className="relative mx-auto mt-6 aspect-[9/16] w-[62%] overflow-hidden rounded-[1.4rem] border-4 border-black/60 border-white/8">
         <Image
@@ -387,14 +386,14 @@ function EmptyCollection({ name }: { name: string }) {
     <div className="mt-8 flex flex-col items-center justify-center rounded-xl border border-dashed border-white/8 px-6 py-20 text-center">
       <p className="text-canvas font-display text-2xl">{name} — coming soon</p>
       <p className="text-canvas/55 mt-3 max-w-sm text-[14px] leading-relaxed">
-        We&rsquo;re curating this collection now. In the meantime, our team can
-        source and specify pieces for you directly.
+        We&rsquo;re curating this collection now. Browse another category, or
+        get in touch and we&rsquo;ll let you know as soon as it&rsquo;s ready.
       </p>
       <AppLink
-        href="/guided-buying"
+        href="/contact"
         className="border-brass/50 text-brass hover:bg-brass mt-6 flex h-11 items-center gap-2 rounded-md border px-6 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors hover:text-white"
       >
-        Speak to our team <span aria-hidden>→</span>
+        Get in touch <span aria-hidden>→</span>
       </AppLink>
     </div>
   );

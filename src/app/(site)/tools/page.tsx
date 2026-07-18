@@ -6,15 +6,15 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "Tools",
-  description: "Free tools to help you plan your garden.",
+  description: "Free tools to help you plan your space.",
 };
 
 const TOOLS = [
   {
     href: "/tools/garden-visualiser",
-    title: "AI Garden Visualiser",
+    title: "AI Design Studio",
     description:
-      "Upload a photo of your garden and see it redesigned with a sauna, hot tub or decking.",
+      "Upload a photo of your own space and see it redesigned with real products from Kaiku.",
   },
 ] as const;
 
@@ -27,7 +27,7 @@ export default function ToolsPage() {
           Free planning tools
         </h1>
         <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
-          A few things to help you picture the finished garden before you buy.
+          A few things to help you picture the finished space before you buy.
         </p>
 
         <div className="mt-12 flex flex-col gap-4">

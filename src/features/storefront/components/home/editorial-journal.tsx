@@ -6,7 +6,7 @@ const ARTICLES = [
   {
     title: "Designing Spaces You'll Love for Years",
     excerpt:
-      "The difference between a garden that photographs well once and one that earns its place in daily life.",
+      "The difference between a space that photographs well once and one that earns its place in daily life.",
     image: "/images/steam-lake.jpg",
     href: "/journal",
   },

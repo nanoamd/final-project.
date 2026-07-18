@@ -16,7 +16,7 @@ export default async function ReturnsPage() {
     <GenericPage
       page={page}
       fallbackTitle="Our returns policy"
-      fallbackIntro="Our full returns policy, including timeframes and made-to-order exceptions, is being finalised — get in touch and we'll confirm the details for your order directly."
+      fallbackIntro="Unused items in their original packaging can be returned within 30 days of delivery for a full refund. Made-to-order and bespoke items are non-returnable unless faulty — get in touch and we'll confirm the details for your order directly."
     />
   );
 }

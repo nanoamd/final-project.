@@ -25,7 +25,7 @@ export interface HeroContent {
  * so the hero looks identical before content is set.
  */
 export function Hero({ content }: { content?: HeroContent }) {
-  const eyebrow = content?.eyebrow ?? "Outdoor Living, Reimagined";
+  const eyebrow = content?.eyebrow ?? "Home Improvement, Reimagined";
   const headline = content?.headline ?? "Spaces\nthat slow";
   const highlight = content?.highlight ?? "life down";
   const image = content?.image ?? "/images/garden-after.jpg";
@@ -76,7 +76,7 @@ export function Hero({ content }: { content?: HeroContent }) {
                 <>
                   Timeless design. Premium materials.
                   <br />
-                  Beautiful spaces, built for life outdoors.
+                  Beautiful spaces, indoors and out.
                 </>
               )}
             </p>

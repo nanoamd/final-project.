@@ -16,7 +16,7 @@ export default async function TermsPage() {
     <GenericPage
       page={page}
       fallbackTitle="Terms & Conditions"
-      fallbackIntro="Our terms and conditions are being finalised and reviewed before publication."
+      fallbackIntro="The terms that apply when you order from Kaiku."
     />
   );
 }

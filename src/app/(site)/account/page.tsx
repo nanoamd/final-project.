@@ -8,8 +8,8 @@ export default function AccountPage() {
   return (
     <ComingSoon
       eyebrow="Account"
-      title="Your saved briefs and quotes"
-      intro="Save the products you're considering, return to your guided-buying brief, and track quotations. Accounts arrive alongside checkout."
+      title="Your orders and saved pieces"
+      intro="Track your orders, save the products you're considering, and revisit past quotations — all in one place. Accounts are next on our roadmap; for now, checkout works as a guest and order confirmations are sent by email."
     />
   );
 }

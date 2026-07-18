@@ -8,8 +8,8 @@ export default function GuidedBuyingPage() {
   return (
     <ComingSoon
       eyebrow="Coming next"
-      title="A consultant in software form"
-      intro="Answer a few questions about your space, goals and budget, and we'll recommend a complete, correctly-specified setup — and explain exactly why. This is the heart of the platform, and it's what we're building next."
+      title="Your personal shopping assistant"
+      intro="Answer a few questions about your space, goals and budget, and we'll recommend a complete, tailored setup — and explain exactly why. This is coming soon."
     />
   );
 }

@@ -16,7 +16,7 @@ export default async function DeliveryPage() {
     <GenericPage
       page={page}
       fallbackTitle="What to expect once you order"
-      fallbackIntro="Delivery windows vary by product and are shown on each product page. Our full delivery and installation process is being finalised — get in touch for specifics on your order."
+      fallbackIntro="Delivery windows vary by product and are shown on each product page. White-glove delivery and installation is available on selected products — get in touch for specifics on your order."
     />
   );
 }

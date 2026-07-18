@@ -9,7 +9,7 @@ export default function QuotePage() {
     <ComingSoon
       eyebrow="Request a quote"
       title="A considered, no-obligation quotation"
-      intro="Tell us about your space and how you intend to use it, and we'll prepare a complete, correctly-specified quotation. The full request flow is being built next."
+      intro="Tell us about your space and how you intend to use it, and we'll prepare a complete, tailored quotation. This form is coming soon — in the meantime, get in touch directly and our team will help."
     />
   );
 }

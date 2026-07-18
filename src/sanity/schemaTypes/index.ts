@@ -3,8 +3,10 @@ import { brand } from "./documents/brand";
 import { buyingGuide } from "./documents/buying-guide";
 import { category } from "./documents/category";
 import { collection } from "./documents/collection";
+import { contactSubmission } from "./documents/contact-submission";
 import { department } from "./documents/department";
 import { faq } from "./documents/faq";
+import { newsletterSubscriber } from "./documents/newsletter-subscriber";
 import { page } from "./documents/page";
 import { post } from "./documents/post";
 import { product } from "./documents/product";
@@ -51,6 +53,8 @@ export const schemaTypes = [
   buyingGuide,
   faq,
   page,
+  contactSubmission,
+  newsletterSubscriber,
   // Singletons
   homepage,
   navigation,

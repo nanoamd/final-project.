@@ -4,18 +4,29 @@ import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { submitContactForm } from "@/server/actions/contact";
 
-/**
- * The submit is intentionally a client-only confirmation — there is no
- * email/inbox provider wired yet, and we will not fake a delivered message.
- * Replace `onSubmit` with a server action once one is connected.
- */
 export function ContactForm() {
   const [submitted, setSubmitted] = React.useState(false);
+  const [pending, setPending] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  function onSubmit(event: React.FormEvent) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    setPending(true);
+    setError(null);
+    try {
+      const result = await submitContactForm(new FormData(event.currentTarget));
+      if (!result.ok) {
+        setError(result.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setPending(false);
+    }
   }
 
   if (submitted) {
@@ -56,9 +67,14 @@ export function ContactForm() {
           className="border-line bg-paper text-ink placeholder:text-muted focus-visible:border-ink rounded-lg border px-4 py-3 text-[15px] outline-none"
         />
       </label>
-      <Button type="submit" className="mt-2 self-start">
-        Send message
+      <Button type="submit" disabled={pending} className="mt-2 self-start">
+        {pending ? "Sending…" : "Send message"}
       </Button>
+      {error ? (
+        <p className="text-[13px] text-red-600" role="alert">
+          {error}
+        </p>
+      ) : null}
     </form>
   );
 }
