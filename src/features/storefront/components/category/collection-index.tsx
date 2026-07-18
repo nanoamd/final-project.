@@ -99,7 +99,7 @@ export async function CollectionIndex({
               )
             ) : categories.length ? (
               <div className="mt-8">
-                <CategoryAccordion categories={categories} />
+                <CategoryAccordion categories={categories} room={room} />
               </div>
             ) : (
               <EmptyCollection name={room?.name ?? "This room"} />

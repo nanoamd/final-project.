@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Loader2, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -8,7 +8,11 @@ import { AppLink } from "@/components/ui/app-link";
 import { formatPrice } from "@/lib/format";
 import { resolveIcon } from "@/lib/icons";
 import { fetchCategoryProducts } from "@/server/actions/products";
-import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
+import type {
+  SanityCategory,
+  SanityDepartment,
+  SanityProduct,
+} from "@/types/sanity-content";
 
 /**
  * Room page's category grid — clicking a category expands its products
@@ -20,8 +24,10 @@ import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
  */
 export function CategoryAccordion({
   categories,
+  room,
 }: {
   categories: SanityCategory[];
+  room?: SanityDepartment;
 }) {
   const [expandedSlug, setExpandedSlug] = React.useState<string | null>(null);
   const [loadingSlug, setLoadingSlug] = React.useState<string | null>(null);
@@ -58,6 +64,12 @@ export function CategoryAccordion({
             onSelect={() => handleSelect(category.slug)}
           />
         ))}
+        {room ? (
+          <ShopAllTile
+            href={`/shop/room/${room.slug}/all`}
+            roomName={room.name}
+          />
+        ) : null}
       </div>
 
       {expandedSlug ? (
@@ -95,6 +107,22 @@ export function CategoryAccordion({
         </div>
       ) : null}
     </div>
+  );
+}
+
+function ShopAllTile({ href, roomName }: { href: string; roomName: string }) {
+  return (
+    <AppLink
+      href={href}
+      className="group border-brass/25 hover:border-brass bg-basalt-card/40 relative flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border text-center transition-colors"
+    >
+      <span className="bg-brass text-basalt-deep flex size-12 items-center justify-center rounded-full transition-transform group-hover:scale-110">
+        <ArrowUpRight className="size-6" strokeWidth={2} />
+      </span>
+      <span className="text-canvas font-display px-4 text-[16px] leading-tight">
+        Shop All {roomName}
+      </span>
+    </AppLink>
   );
 }
 
