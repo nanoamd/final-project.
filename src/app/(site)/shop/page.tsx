@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ShopPage() {
-  return <CollectionIndex />;
+  return <CollectionIndex roomSlug="outdoor-living" />;
 }

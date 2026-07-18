@@ -87,8 +87,9 @@ export function SiteHeader({
 
   const activeRoom =
     roomLinks
-      .filter((item) => item.href !== "/shop" && pathname.startsWith(item.href))
-      .sort((a, b) => b.href.length - a.href.length)[0]?.href ?? "/shop";
+      .filter((item) => pathname.startsWith(item.href))
+      .sort((a, b) => b.href.length - a.href.length)[0]?.href ??
+    (pathname === "/shop" ? "/shop/room/outdoor-living" : undefined);
 
   return (
     <header className={cn("sticky top-0 z-50 backdrop-blur-md", t.header)}>
