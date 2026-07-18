@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { CartProvider } from "@/hooks/use-cart";
+import { getCategories } from "@/lib/sanity/queries/category";
 import { getDepartments } from "@/lib/sanity/queries/department";
 import { getNavigation } from "@/lib/sanity/queries/navigation";
 import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
@@ -24,10 +25,11 @@ export default async function SiteLayout({
 }: {
   children: ReactNode;
 }) {
-  const [nav, settings, departments] = await Promise.all([
+  const [nav, settings, departments, categories] = await Promise.all([
     getNavigation(),
     getSiteSettings(),
     getDepartments(),
+    getCategories(),
   ]);
 
   return (
@@ -37,6 +39,7 @@ export default async function SiteLayout({
           nav={nav}
           siteName={settings?.siteName}
           rooms={departments}
+          categories={categories}
         />
         <main className="flex-1">{children}</main>
         <SiteFooter

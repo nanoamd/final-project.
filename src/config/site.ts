@@ -56,6 +56,7 @@ export const primaryNav: NavGroup[] = [
       },
     ],
   },
+  { label: "Tools", href: "/tools" },
   { label: "Collections", href: "/shop" },
   { label: "Wellness", href: "/shop/wellness-accessories" },
   { label: "Inspiration", href: "/inspiration" },

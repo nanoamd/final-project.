@@ -979,8 +979,8 @@ async function seedNavigation() {
         link: {
           _type: "link",
           label: "Shop",
-          linkType: "internal",
-          internalRef: ref("category-outdoor-saunas"),
+          linkType: "external",
+          externalUrl: "/shop",
         },
         children: [
           {
@@ -1005,6 +1005,16 @@ async function seedNavigation() {
             internalRef: ref("category-pergolas"),
           },
         ],
+      },
+      {
+        _type: "headerLink",
+        _key: "tools",
+        link: {
+          _type: "link",
+          label: "Tools",
+          linkType: "external",
+          externalUrl: "/tools",
+        },
       },
     ],
     collectionsBarLinks: CATEGORIES.slice(0, 6).map((cat, i) => ({

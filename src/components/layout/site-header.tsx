@@ -4,6 +4,7 @@ import { Menu, Search, ShoppingBag, Sparkles, User, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
+import { ShopMegaMenu } from "@/components/shared/shop-mega-menu";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import {
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 import type {
+  SanityCategory,
   SanityDepartment,
   SanityNavigation,
 } from "@/types/sanity-content";
@@ -41,13 +43,16 @@ export function SiteHeader({
   nav,
   siteName,
   rooms,
+  categories,
 }: {
   nav?: SanityNavigation | null;
   siteName?: string;
   rooms?: SanityDepartment[];
+  categories?: SanityCategory[];
 }) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = React.useState(false);
+  const [shopMenuOpen, setShopMenuOpen] = React.useState(false);
   const { count } = useCart();
 
   const brandName = siteName ?? siteConfig.name;
@@ -99,20 +104,34 @@ export function SiteHeader({
         <nav className="hidden items-center gap-8 lg:flex">
           {primaryLinks.map((item) => {
             const active = item.href === activePrimary;
+            const isShop = item.href === "/shop";
             return (
-              <AppLink
+              <div
                 key={item.label}
-                href={item.href}
-                className={cn(
-                  "relative text-[12px] font-medium tracking-[0.16em] uppercase transition-colors",
-                  active ? t.navActive : t.navLink,
-                )}
+                className="relative"
+                onMouseEnter={() => isShop && setShopMenuOpen(true)}
+                onMouseLeave={() => isShop && setShopMenuOpen(false)}
               >
-                {item.label}
-                {active ? (
-                  <span className="bg-brass absolute -bottom-2 left-0 h-px w-full" />
+                <AppLink
+                  href={item.href}
+                  className={cn(
+                    "relative text-[12px] font-medium tracking-[0.16em] uppercase transition-colors",
+                    active ? t.navActive : t.navLink,
+                  )}
+                >
+                  {item.label}
+                  {active ? (
+                    <span className="bg-brass absolute -bottom-2 left-0 h-px w-full" />
+                  ) : null}
+                </AppLink>
+                {isShop && rooms?.length ? (
+                  <ShopMegaMenu
+                    rooms={rooms}
+                    categories={categories ?? []}
+                    onNavigate={() => setShopMenuOpen(false)}
+                  />
                 ) : null}
-              </AppLink>
+              </div>
             );
           })}
         </nav>
