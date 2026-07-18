@@ -14,8 +14,8 @@ const STEPS = [
 export function CustomerJourney() {
   return (
     <section className="bg-basalt">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-        <p className="text-brass mb-8 text-center text-[11px] font-medium tracking-[0.24em] uppercase sm:mb-12">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+        <p className="text-brass mb-6 text-center text-[11px] font-medium tracking-[0.24em] uppercase sm:mb-12">
           How It Works
         </p>
 

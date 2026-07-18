@@ -34,13 +34,13 @@ const STEPS = [
 export function AiDesignStudio() {
   return (
     <section className="bg-basalt border-b border-white/10">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
           <div>
             <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
               The Design Studio
             </p>
-            <h2 className="text-canvas font-display text-3xl leading-[1.05] tracking-tight text-balance sm:text-4xl">
+            <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight text-balance sm:text-4xl">
               See it in your space before you commit
             </h2>
             <p className="text-canvas/70 mt-5 max-w-sm text-[15px] leading-relaxed">

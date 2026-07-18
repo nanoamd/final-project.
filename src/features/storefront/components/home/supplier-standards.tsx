@@ -29,12 +29,12 @@ const STANDARDS = [
 export function SupplierStandards() {
   return (
     <section className="bg-basalt border-y border-white/10">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
-        <div className="mx-auto mb-10 max-w-xl text-center sm:mb-14">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mx-auto mb-6 max-w-xl text-center sm:mb-14">
           <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
             Who We Work With
           </p>
-          <h2 className="text-canvas font-display text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+          <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight sm:text-4xl">
             Every supplier earns their place
           </h2>
         </div>

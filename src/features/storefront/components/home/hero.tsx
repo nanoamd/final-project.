@@ -43,7 +43,7 @@ export function Hero({ content }: { content?: HeroContent }) {
 
   return (
     <section className="bg-basalt relative isolate overflow-hidden">
-      <div className="relative min-h-[620px] lg:min-h-[40rem]">
+      <div className="relative min-h-[480px] lg:min-h-[40rem]">
         <Image
           src={image}
           alt="A lit garden terrace at dusk"
@@ -58,12 +58,12 @@ export function Hero({ content }: { content?: HeroContent }) {
         <div className="from-basalt/40 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent" />
 
         <div className="relative mx-auto flex h-full max-w-[1440px] items-center">
-          <div className="flex flex-col justify-center px-6 py-16 sm:px-8 lg:max-w-xl lg:py-24 lg:pl-12">
+          <div className="flex flex-col justify-center px-6 py-10 sm:px-8 lg:max-w-xl lg:py-24 lg:pl-12">
             <p className="text-brass mb-7 flex items-center gap-3 text-[11px] font-medium tracking-[0.24em] uppercase">
               {eyebrow}
               <span aria-hidden className="bg-brass/50 h-px w-10" />
             </p>
-            <h1 className="text-canvas font-display text-[3.4rem] leading-[0.94] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.1rem]">
+            <h1 className="text-canvas font-display text-[2.5rem] leading-[0.96] tracking-[-0.02em] sm:text-[4.5rem] lg:text-[5.1rem]">
               {headlineLines.map((line, i) => (
                 <React.Fragment key={i}>
                   {line}

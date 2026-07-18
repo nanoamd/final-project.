@@ -5,11 +5,31 @@ import { AppLink } from "@/components/ui/app-link";
 import type { CategoryTile } from "@/types/sanity-content";
 
 const DEFAULT_TILES: CategoryTile[] = [
-  { categorySlug: "pergolas", categoryName: "Pergolas", image: "/images/garden-after.jpg" },
-  { categorySlug: "garden-furniture", categoryName: "Outdoor Furniture", image: "/images/steam-lake.jpg" },
-  { categorySlug: "outdoor-saunas", categoryName: "Saunas & Wellness", image: "/images/cedar.jpg" },
-  { categorySlug: "outdoor-kitchens", categoryName: "Outdoor Kitchens", image: null },
-  { categorySlug: "fire-pits", categoryName: "Fire & Heating", image: "/images/hero-fire.jpg" },
+  {
+    categorySlug: "pergolas",
+    categoryName: "Pergolas",
+    image: "/images/garden-after.jpg",
+  },
+  {
+    categorySlug: "garden-furniture",
+    categoryName: "Outdoor Furniture",
+    image: "/images/steam-lake.jpg",
+  },
+  {
+    categorySlug: "outdoor-saunas",
+    categoryName: "Saunas & Wellness",
+    image: "/images/cedar.jpg",
+  },
+  {
+    categorySlug: "outdoor-kitchens",
+    categoryName: "Outdoor Kitchens",
+    image: null,
+  },
+  {
+    categorySlug: "fire-pits",
+    categoryName: "Fire & Heating",
+    image: "/images/hero-fire.jpg",
+  },
 ];
 
 /**
@@ -28,8 +48,8 @@ export function ShopByCategory({
 
   return (
     <section className="bg-basalt border-b border-white/10">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 lg:px-12 lg:py-20">
-        <div className="mb-8 flex items-end justify-between gap-6">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 lg:px-12 lg:py-20">
+        <div className="mb-6 flex items-end justify-between gap-6">
           <p className="text-brass text-[12px] font-medium tracking-[0.24em] uppercase">
             {eyebrow ?? "Shop by Category"}
           </p>
@@ -46,7 +66,7 @@ export function ShopByCategory({
             <AppLink
               key={tile.categorySlug}
               href={`/shop/${tile.categorySlug}`}
-              className="group border-white/8 hover:border-brass/40 relative block aspect-[3/4] overflow-hidden rounded-xl border transition-colors"
+              className="group hover:border-brass/40 relative block aspect-[3/4] overflow-hidden rounded-xl border border-white/8 transition-colors"
             >
               {tile.image ? (
                 <Image

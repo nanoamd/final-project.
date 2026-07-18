@@ -32,7 +32,7 @@ export function FeaturedCollection() {
             <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
               The Sauna Collection
             </p>
-            <h2 className="text-canvas font-display text-3xl leading-[1.05] tracking-tight text-balance sm:text-4xl lg:text-[3.25rem]">
+            <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight text-balance sm:text-4xl lg:text-[3.25rem]">
               Cedar, steam and the quiet that follows
             </h2>
             <p className="text-canvas/70 mt-5 max-w-md text-[15px] leading-relaxed">

@@ -17,13 +17,13 @@ const GUIDES = [
 export function BuyingGuides() {
   return (
     <section className="bg-canvas">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 sm:mb-14">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-6 sm:mb-14">
           <div>
             <p className="text-muted mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
               Buying Guides
             </p>
-            <h2 className="text-ink font-display text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+            <h2 className="text-ink font-display text-2xl leading-[1.05] tracking-tight sm:text-4xl">
               Learn before you buy
             </h2>
           </div>

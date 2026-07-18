@@ -16,12 +16,12 @@ const IMAGES = [
 export function InspirationGallery() {
   return (
     <section className="bg-basalt">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
-        <div className="mx-auto mb-10 max-w-xl text-center sm:mb-14">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mx-auto mb-6 max-w-xl text-center sm:mb-14">
           <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
             Inspiration
           </p>
-          <h2 className="text-canvas font-display text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+          <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight sm:text-4xl">
             Spaces worth spending an evening in
           </h2>
         </div>
@@ -46,9 +46,6 @@ export function InspirationGallery() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="from-basalt/70 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <p className="text-canvas absolute bottom-3 left-3 text-[11px] font-medium tracking-[0.1em] uppercase opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                {image.label}
-              </p>
             </div>
           ))}
         </div>

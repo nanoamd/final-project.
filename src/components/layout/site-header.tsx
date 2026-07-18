@@ -124,7 +124,7 @@ export function SiteHeader({
                     <span className="bg-brass absolute -bottom-2 left-0 h-px w-full" />
                   ) : null}
                 </AppLink>
-                {isShop && rooms?.length ? (
+                {isShop && shopMenuOpen && rooms?.length ? (
                   <ShopMegaMenu
                     rooms={rooms}
                     categories={categories ?? []}

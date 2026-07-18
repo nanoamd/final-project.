@@ -79,7 +79,7 @@ export function GardenStudio({ content }: { content?: GardenStudioContent }) {
 
   return (
     <section className="bg-basalt border-b border-white/10">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 lg:px-12 lg:py-20">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 lg:px-12 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-14">
           {/* Left — statement */}
           <div>

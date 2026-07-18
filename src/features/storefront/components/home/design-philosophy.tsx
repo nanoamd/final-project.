@@ -7,7 +7,7 @@ import Image from "next/image";
 export function DesignPhilosophy() {
   return (
     <section className="bg-basalt border-y border-white/10">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-20 lg:px-12 lg:py-28">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 py-10 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-20 lg:px-12 lg:py-28">
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl lg:aspect-[5/4]">
           <Image
             src="/images/design-philosophy-hero.png"
@@ -22,7 +22,7 @@ export function DesignPhilosophy() {
           <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
             Our Philosophy
           </p>
-          <h2 className="text-canvas font-display text-3xl leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]">
+          <h2 className="text-canvas font-display text-2xl leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]">
             We buy for the decade, not the season
           </h2>
           <div className="text-canvas/70 mt-6 flex flex-col gap-4 text-[15px] leading-relaxed sm:text-base">

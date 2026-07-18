@@ -5,7 +5,7 @@
 export function WhyKaiku() {
   return (
     <section className="bg-canvas">
-      <div className="mx-auto max-w-3xl px-6 py-16 text-center sm:px-8 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-3xl px-6 py-10 text-center sm:px-8 sm:py-20 lg:py-28">
         <p className="text-muted mb-5 text-[11px] font-medium tracking-[0.24em] uppercase sm:mb-6">
           Why We Exist
         </p>

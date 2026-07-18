@@ -12,12 +12,12 @@ import { AppLink } from "@/components/ui/app-link";
 export function FeaturedTransformation() {
   return (
     <section className="bg-canvas">
-      <div className="mx-auto max-w-[1440px] px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
-        <div className="mx-auto mb-10 max-w-xl text-center sm:mb-14">
+      <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
+        <div className="mx-auto mb-6 max-w-xl text-center sm:mb-14">
           <p className="text-muted mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
             A Kaiku Transformation
           </p>
-          <h2 className="text-ink font-display text-3xl leading-[1.05] tracking-tight text-balance sm:text-4xl lg:text-5xl">
+          <h2 className="text-ink font-display text-2xl leading-[1.05] tracking-tight text-balance sm:text-4xl lg:text-5xl">
             Designed around the way you live
           </h2>
           <p className="text-muted mt-4 text-[15px] leading-relaxed sm:text-base">
