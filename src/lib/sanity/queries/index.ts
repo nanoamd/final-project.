@@ -16,6 +16,7 @@ export {
   getProduct,
   getProductParams,
   getProductsByCategory,
+  getProductsByDepartment,
   getProductsBySlugs,
   getRelatedProducts,
   getTotalProductCount,

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { AppLink } from "@/components/ui/app-link";
+import { buttonVariants } from "@/components/ui/button";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { formatPrice } from "@/lib/format";
 import { resolveIcon } from "@/lib/icons";
@@ -173,6 +174,17 @@ function CollectionHero({
               room?.description ??
               "Timeless design. The finest materials. Built for life outdoors."}
           </p>
+          {room ? (
+            <AppLink
+              href={`/shop/room/${room.slug}/all`}
+              className={buttonVariants({
+                variant: "accent",
+                className: "mt-7 w-fit",
+              })}
+            >
+              Shop All {room.name}
+            </AppLink>
+          ) : null}
         </div>
 
         <div className="relative min-h-[220px] overflow-hidden rounded-xl lg:min-h-0">

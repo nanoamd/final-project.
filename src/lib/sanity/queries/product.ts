@@ -53,6 +53,12 @@ const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
 const FEATURED_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product"] | order(_createdAt desc) [0...$limit] ${PRODUCT_PROJECTION}`;
 
+const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
+*[_type == "product" && category->department->slug.current == $departmentSlug]
+  | order(_createdAt desc)
+  [0...$limit]
+  ${PRODUCT_PROJECTION}`;
+
 const PRODUCTS_BY_SLUGS_QUERY = /* groq */ `
 *[_type == "product" && slug.current in $slugs] ${PRODUCT_PROJECTION}`;
 
@@ -69,7 +75,11 @@ const SEARCH_PRODUCTS_QUERY = /* groq */ `
   ${PRODUCT_PROJECTION}`;
 
 export async function getProduct(slug: string): Promise<SanityProduct | null> {
-  return sanityFetch<SanityProduct | null>(PRODUCT_BY_SLUG_QUERY, { slug }, null);
+  return sanityFetch<SanityProduct | null>(
+    PRODUCT_BY_SLUG_QUERY,
+    { slug },
+    null,
+  );
 }
 
 export async function getProductsByCategory(
@@ -87,7 +97,21 @@ export async function getFeaturedProducts(limit = 4): Promise<SanityProduct[]> {
   return sanityFetch<SanityProduct[]>(FEATURED_PRODUCTS_QUERY, { limit }, []);
 }
 
-export async function getProductsBySlugs(slugs: string[]): Promise<SanityProduct[]> {
+/** Every product across every category in a room — powers the room's "Shop All" page. */
+export async function getProductsByDepartment(
+  departmentSlug: string,
+  limit = 200,
+): Promise<SanityProduct[]> {
+  return sanityFetch<SanityProduct[]>(
+    PRODUCTS_BY_DEPARTMENT_QUERY,
+    { departmentSlug, limit },
+    [],
+  );
+}
+
+export async function getProductsBySlugs(
+  slugs: string[],
+): Promise<SanityProduct[]> {
   if (!slugs.length) return [];
   return sanityFetch<SanityProduct[]>(PRODUCTS_BY_SLUGS_QUERY, { slugs }, []);
 }
@@ -119,7 +143,11 @@ export async function searchProducts(
   limit = 12,
 ): Promise<SanityProduct[]> {
   if (!term.trim()) return [];
-  return sanityFetch<SanityProduct[]>(SEARCH_PRODUCTS_QUERY, { term, limit }, []);
+  return sanityFetch<SanityProduct[]>(
+    SEARCH_PRODUCTS_QUERY,
+    { term, limit },
+    [],
+  );
 }
 
 const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[_type == "product"])`;
@@ -182,6 +210,8 @@ const MERCHANT_FEED_QUERY = /* groq */ `
 
 /** Full, uncapped product list for the Google Merchant Center feed — unlike
  * page generation, a merchant feed genuinely needs every product. */
-export async function getMerchantFeedProducts(): Promise<MerchantFeedProduct[]> {
+export async function getMerchantFeedProducts(): Promise<
+  MerchantFeedProduct[]
+> {
   return sanityFetch<MerchantFeedProduct[]>(MERCHANT_FEED_QUERY, {}, []);
 }

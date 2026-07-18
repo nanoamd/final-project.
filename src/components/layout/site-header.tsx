@@ -69,12 +69,19 @@ export function SiteHeader({
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
+  const isShopAllPage =
+    isShopRoute && segments[1] === "room" && segments[3] === "all";
   const isProductPage =
-    isShopRoute && segments[1] !== "room" && segments.length >= 3;
-  const isCollection = isShopRoute && !isProductPage;
+    isShopRoute &&
+    segments[1] !== "room" &&
+    segments.length >= 3 &&
+    !isShopAllPage;
+  const isCollection = isShopRoute && !isProductPage && !isShopAllPage;
   const isHome = pathname === "/";
   // Home and Collection render on the near-black ground; everything else
-  // (product, and the reading-led light pages) takes the light header.
+  // (product, Shop All, and the reading-led light pages) takes the light
+  // header — Shop All is a white commercial-browsing page, not the dark
+  // editorial collection index.
   const theme: "light" | "dark" = isHome || isCollection ? "dark" : "light";
 
   const t = theme === "dark" ? dark : light;
@@ -196,7 +203,7 @@ export function SiteHeader({
         </div>
       </div>
 
-      {isShopRoute ? (
+      {isShopRoute && !isShopAllPage ? (
         <div className={cn("border-t", t.subBar)}>
           <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12">
             {roomLinks.map((item) => {
