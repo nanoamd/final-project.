@@ -31,10 +31,7 @@ export function ShopMegaMenu({
     <div className="bg-basalt/98 fixed inset-x-0 top-[72px] border-b border-white/10 backdrop-blur-md">
       <div className="mx-auto grid max-w-[1440px] grid-cols-3 gap-x-8 gap-y-10 px-6 py-10 sm:px-8 lg:grid-cols-6 lg:px-12">
         {columns.map(({ room, categories: roomCategories }) => {
-          const roomHref =
-            room.slug === "outdoor-living"
-              ? "/shop"
-              : `/shop/room/${room.slug}`;
+          const roomHref = `/shop/room/${room.slug}`;
           const shown = roomCategories.slice(0, MAX_CATEGORIES_PER_ROOM);
           return (
             <div key={room.slug} className="flex flex-col gap-3">

@@ -64,8 +64,7 @@ export function SiteHeader({
   const roomLinks: NavLink[] =
     rooms?.map((room) => ({
       label: room.name,
-      href:
-        room.slug === "outdoor-living" ? "/shop" : `/shop/room/${room.slug}`,
+      href: `/shop/room/${room.slug}`,
     })) ?? collectionsNav;
 
   const segments = pathname.split("/").filter(Boolean);
