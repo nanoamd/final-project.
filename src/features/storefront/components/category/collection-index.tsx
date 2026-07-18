@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
+import { CategoryAccordion } from "@/features/storefront/components/category/category-accordion";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { formatPrice } from "@/lib/format";
 import { resolveIcon } from "@/lib/icons";
@@ -97,14 +98,8 @@ export async function CollectionIndex({
                 <EmptyCollection name={active.name} />
               )
             ) : categories.length ? (
-              <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-                {categories.map((category) => (
-                  <CategoryTile
-                    key={category.slug}
-                    category={category}
-                    icon={resolveIcon(category.iconName)}
-                  />
-                ))}
+              <div className="mt-8">
+                <CategoryAccordion categories={categories} />
               </div>
             ) : (
               <EmptyCollection name={room?.name ?? "This room"} />
@@ -316,48 +311,6 @@ function GardenStudioCard() {
         />
       </div>
     </div>
-  );
-}
-
-function CategoryTile({
-  category,
-  icon: Icon,
-}: {
-  category: SanityCategory;
-  icon: LucideIcon;
-}) {
-  return (
-    <AppLink
-      href={`/shop/${category.slug}`}
-      className="group hover:border-brass/40 relative block aspect-[4/3] overflow-hidden rounded-xl border border-white/8 transition-colors"
-    >
-      {category.image ? (
-        <Image
-          src={category.image}
-          alt={category.name}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-        />
-      ) : (
-        <div className="from-basalt-card to-basalt absolute inset-0 flex items-center justify-center bg-gradient-to-br">
-          <Icon
-            className="text-brass/60 size-8"
-            strokeWidth={1.2}
-            aria-hidden
-          />
-        </div>
-      )}
-      <div className="from-basalt/95 via-basalt/20 absolute inset-0 bg-gradient-to-t to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 p-4">
-        <p className="text-canvas font-display text-[18px] leading-tight">
-          {category.name}
-        </p>
-        <p className="text-brass mt-1 flex items-center gap-1.5 text-[11px] font-medium tracking-[0.1em] uppercase">
-          {category.productCount} Products <span aria-hidden>→</span>
-        </p>
-      </div>
-    </AppLink>
   );
 }
 
