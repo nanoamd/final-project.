@@ -83,7 +83,21 @@ const DEPARTMENTS = [
   { slug: "bathroom", title: "Bathroom", order: 5 },
   { slug: "lighting", title: "Lighting", order: 6 },
   { slug: "decor", title: "Decor", order: 7 },
+  { slug: "sauna", title: "Sauna", order: 8 },
+  { slug: "cold-plunge", title: "Cold Plunge", order: 9 },
+  { slug: "outdoor-kitchen", title: "Outdoor Kitchen", order: 10 },
 ];
+
+// Categories below default to "outdoor-living" (Garden); these override to
+// their actual department so the mega menu doesn't dump every outdoor
+// category into one Garden column.
+const CATEGORY_DEPARTMENT_OVERRIDES: Record<string, string> = {
+  "outdoor-saunas": "sauna",
+  "wellness-accessories": "sauna",
+  "cold-plunges": "cold-plunge",
+  "outdoor-kitchens": "outdoor-kitchen",
+  lighting: "lighting",
+};
 
 async function seedDepartments() {
   console.log("Departments...");
@@ -259,7 +273,9 @@ async function seedCategories() {
       _type: "category",
       title: cat.title,
       slug: { _type: "slug", current: cat.slug },
-      department: ref("department-outdoor-living"),
+      department: ref(
+        `department-${CATEGORY_DEPARTMENT_OVERRIDES[cat.slug] ?? "outdoor-living"}`,
+      ),
       tagline: cat.tagline,
       description: cat.description,
       iconName: CATEGORY_ICONS[cat.slug] ?? "leaf",
