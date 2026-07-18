@@ -26,13 +26,13 @@ export function InspirationGallery() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:grid-rows-2">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-2">
           {IMAGES.map((image, i) => (
             <div
               key={image.src}
               className={`group relative overflow-hidden rounded-lg ${
                 i === 0
-                  ? "col-span-2 aspect-[16/9] lg:col-span-1 lg:row-span-2 lg:aspect-auto"
+                  ? "col-span-2 aspect-[16/9] lg:hidden"
                   : i === 5
                     ? "aspect-square lg:hidden"
                     : "aspect-square lg:aspect-[3/4]"

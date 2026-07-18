@@ -1073,7 +1073,7 @@ async function seedHomepage() {
   await client.createOrReplace({
     _id: "homepage",
     _type: "homepage",
-    heroEyebrow: "Home Improvement, Reimagined",
+    heroEyebrow: "Carefully Curated Home Improvement Products",
     heroHeadline: "Spaces that slow",
     heroHighlight: "life down",
     heroSubcopy:

@@ -25,7 +25,8 @@ export interface HeroContent {
  * so the hero looks identical before content is set.
  */
 export function Hero({ content }: { content?: HeroContent }) {
-  const eyebrow = content?.eyebrow ?? "Home Improvement, Reimagined";
+  const eyebrow =
+    content?.eyebrow ?? "Carefully Curated Home Improvement Products";
   const headline = content?.headline ?? "Spaces\nthat slow";
   const highlight = content?.highlight ?? "life down";
   const image = content?.image ?? "/images/garden-after.jpg";
