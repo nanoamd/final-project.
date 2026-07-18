@@ -13,7 +13,6 @@ export const siteConfig = {
     "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
   url: "https://example.com",
   email: "hello@example.com",
-  phone: "+44 (0)20 0000 0000",
 } as const;
 
 export type NavLink = {
@@ -128,7 +127,9 @@ export const footerNav: NavGroup[] = [
       { label: "FAQ", href: "/faq" },
       { label: "Delivery", href: "/delivery" },
       { label: "Returns", href: "/returns" },
+      { label: "Warranty", href: "/warranty" },
       { label: "Privacy Policy", href: "/privacy" },
+      { label: "Cookie Policy", href: "/cookies" },
       { label: "Terms & Conditions", href: "/terms" },
     ],
   },

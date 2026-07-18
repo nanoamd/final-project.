@@ -72,6 +72,16 @@ function ref(id: string) {
   return { _type: "reference", _ref: id };
 }
 
+function externalLink(key: string, label: string, url: string) {
+  return {
+    _type: "link",
+    _key: key,
+    label,
+    linkType: "external",
+    externalUrl: url,
+  };
+}
+
 // --- Departments -------------------------------------------------------------
 
 const DEPARTMENTS = [
@@ -828,15 +838,29 @@ async function seedEditorial() {
     {
       question: "What areas do you deliver to?",
       answer:
-        "We deliver across UK mainland. Delivery windows are shown on each product page and confirmed again at checkout.",
+        "We deliver across the UK, and further afield wherever our suppliers can fulfil an order. If your order includes items from more than one supplier, expect them to arrive as separate deliveries.",
       topic: "Delivery",
       order: 0,
     },
     {
       question: "Can I return a product if it doesn't fit my space?",
       answer:
-        "Yes — see our Returns page for the full policy and timeframes for made-to-order items.",
+        "Yes — eligible items can be returned within 14 days of receipt. Change-of-mind returns are at your own cost; if an item arrives faulty, damaged or incorrect, we cover return shipping. See our Returns page for the full policy.",
       topic: "Returns",
+      order: 0,
+    },
+    {
+      question: "What warranty do your products come with?",
+      answer:
+        "Every product carries whatever warranty its manufacturer provides. We manage the entire claims process on your behalf, so you only ever need to contact us — see our Warranty page for details.",
+      topic: "Products",
+      order: 1,
+    },
+    {
+      question: "How can I contact Kaiku?",
+      answer:
+        "The quickest way is by email via our Contact page. We don't yet offer phone support during this initial launch phase.",
+      topic: "Support",
       order: 0,
     },
     {
@@ -852,15 +876,33 @@ async function seedEditorial() {
   }
 }
 
-// --- Pages (Contact/Returns/Delivery/Privacy/Terms/About) -------------------
+// --- Pages (Contact/Returns/Delivery/Warranty/Privacy/Cookies/Terms/About) --
 
-function textBlock(text: string) {
+let pageBlockCounter = 0;
+function textBlock(text: string, style: "normal" | "h2" = "normal") {
+  pageBlockCounter += 1;
   return {
     _type: "block",
-    _key: `b-${text.slice(0, 12).replace(/\W/g, "")}`,
-    style: "normal",
-    children: [{ _type: "span", _key: "s", text }],
+    _key: `b${pageBlockCounter}`,
+    style,
+    children: [{ _type: "span", _key: `s${pageBlockCounter}`, text }],
   };
+}
+function heading(text: string) {
+  return textBlock(text, "h2");
+}
+function bulletList(items: string[]) {
+  return items.map((text) => {
+    pageBlockCounter += 1;
+    return {
+      _type: "block",
+      _key: `b${pageBlockCounter}`,
+      style: "normal",
+      listItem: "bullet" as const,
+      level: 1,
+      children: [{ _type: "span", _key: `s${pageBlockCounter}`, text }],
+    };
+  });
 }
 
 const PAGES = [
@@ -868,10 +910,32 @@ const PAGES = [
     slug: "about",
     title: "About Kaiku",
     intro:
-      "A curated home improvement brand for people who care how their home feels.",
+      "A curated home improvement retailer for people who want their home to feel considered, not compromised.",
     body: [
+      heading("Why Kaiku exists"),
       textBlock(
-        "Kaiku exists to make premium home improvement approachable — architectural structures, wellness spaces and considered pieces for every room, indoors and out. Every product is chosen for how well it's made, not how well it photographs. We're a small, deliberately careful team.",
+        "Kaiku exists to make premium home improvement simpler, more inspiring and more trustworthy — a place to find products chosen for how well they're made, not how well they photograph. Creating a home you love should begin with confidence, not confusion.",
+      ),
+      heading("What we won't sell"),
+      textBlock(
+        "We don't select products because they're inexpensive. Every item earns its place through quality, durability and craftsmanship — the kind of home improvement that's built to last rather than to trend.",
+      ),
+      heading("How we choose our suppliers"),
+      textBlock(
+        "Every supplier is chosen for their product quality, reputation, craftsmanship, reliability, customer support and warranty standards — and for how well they fit a genuinely premium retailer.",
+      ),
+      heading("Our values"),
+      ...bulletList([
+        "Curated over crowded",
+        "Premium without pretension",
+        "Trust before transactions",
+        "Design-led home improvement",
+        "Technology that improves buying decisions",
+        "Products built to last",
+      ]),
+      heading("Where we're headed"),
+      textBlock(
+        "Our aim is to become one of the UK's most trusted premium home improvement retailers — known for the quality of what we sell, the depth of our guidance, and for making significant home purchases feel simple rather than overwhelming.",
       ),
     ],
   },
@@ -881,17 +945,30 @@ const PAGES = [
     intro: "We're here to help with sizing, specification and anything else.",
     body: [
       textBlock(
-        "Reach us by email or phone below, or send a message using the form and a member of the team will get back to you within one working day.",
+        "Send a message using the form below and our team will get back to you directly — we don't outsource support, so you're always speaking with someone who knows the products.",
       ),
     ],
   },
   {
     slug: "returns",
-    title: "Returns",
-    intro: "Our returns policy for standard and made-to-order items.",
+    title: "Returns & Refunds",
+    intro: "Our returns and refunds policy.",
     body: [
+      heading("Change of mind"),
       textBlock(
-        "Unused items in their original packaging can be returned within 30 days of delivery for a full refund, minus the original delivery charge. Made-to-order and bespoke items — including cabin, barrel and panoramic saunas built to your specification — are non-returnable unless faulty. To start a return, contact our team with your order number and we'll arrange collection or provide return instructions.",
+        "If you change your mind, eligible items can be returned within 14 days of receipt, in line with UK consumer law. Items must be unused, in their original packaging and complete with all accessories. Return shipping is paid by the customer for change-of-mind returns.",
+      ),
+      heading("Faulty, damaged or incorrect items"),
+      textBlock(
+        "If an item arrives faulty, damaged or incorrect, we arrange and cover the cost of return shipping. Depending on the situation, we'll offer a repair, replacement, replacement parts or a full refund.",
+      ),
+      heading("Made-to-order products"),
+      textBlock(
+        "Once a made-to-order item has entered production, it can no longer be cancelled unless required by law. Please make sure your specification is confirmed before production begins.",
+      ),
+      heading("How refunds work"),
+      textBlock(
+        "Refunds are issued to your original payment method as quickly as possible once we've received and inspected the returned item. To start a return, contact us with your order number and we'll guide you through the next steps.",
       ),
     ],
   },
@@ -900,8 +977,52 @@ const PAGES = [
     title: "Delivery",
     intro: "What to expect once you've placed an order.",
     body: [
+      heading("Where we deliver"),
       textBlock(
-        "Most items are delivered within 1–3 weeks; exact lead times are shown on each product page. Larger structures are delivered via a specialist two-person service, while smaller items ship by tracked courier. White-glove delivery and installation is available on selected products — see the product page for details. We'll be in touch with a delivery window as soon as your order is confirmed.",
+        "We deliver across the UK, and further afield wherever our suppliers are able to fulfil an order. Availability and delivery pricing vary by product, destination and the delivery option you choose at checkout.",
+      ),
+      heading("How orders are fulfilled"),
+      textBlock(
+        "Most orders are shipped directly by the supplier who makes or holds the product, rather than from a Kaiku warehouse. If your order includes items from more than one supplier, expect them to arrive as separate deliveries.",
+      ),
+      heading("Installation"),
+      textBlock(
+        "Where a supplier offers installation, it's available to select at checkout or on request — see the product page for details.",
+      ),
+      heading("Staying updated"),
+      textBlock(
+        "You'll receive updates at each stage of your order: confirmation, supplier acceptance, dispatch, tracking information and a delivery reminder.",
+      ),
+      heading("If something goes wrong"),
+      textBlock(
+        "Contact us directly rather than the supplier — we manage the relationship and stay your single point of contact until any delivery issue is resolved.",
+      ),
+    ],
+  },
+  {
+    slug: "warranty",
+    title: "Warranty",
+    intro: "How product warranties work at Kaiku.",
+    body: [
+      heading("How our warranty works"),
+      textBlock(
+        "Kaiku doesn't offer a separate warranty of its own — every product is covered by whatever warranty its manufacturer or supplier provides, for the length of time they specify. We manage the entire claim on your behalf, so you only ever need to contact us.",
+      ),
+      heading("Making a claim"),
+      textBlock(
+        "To start a claim, contact us with your order number, proof of purchase, a description of the fault, photographs, and any relevant serial numbers. We'll take it from there.",
+      ),
+      heading("What's covered"),
+      textBlock(
+        "Depending on the manufacturer's policy, a valid claim may result in a repair, replacement parts, a full product replacement, or a refund.",
+      ),
+      heading("What isn't covered"),
+      textBlock(
+        "Warranties don't typically cover damage from incorrect installation, misuse, accidental damage, unauthorised commercial use, normal wear and tear, poor maintenance or unauthorised modification.",
+      ),
+      heading("If there's no manufacturer warranty"),
+      textBlock(
+        "If a fault develops outside the returns window and no manufacturer warranty applies, get in touch anyway — we assess these situations case by case and a refund or other resolution may still be possible.",
       ),
     ],
   },
@@ -910,14 +1031,60 @@ const PAGES = [
     title: "Privacy Policy",
     intro: "How we collect, use and protect your information.",
     body: [
+      heading("Information we collect"),
       textBlock(
-        "We collect the information you give us when you place an order, contact us or sign up for updates — including your name, address, email and payment details. Payment is processed securely by Stripe; we never see or store your full card details ourselves.",
+        "To create an account and place an order, we collect your name, email address, phone number, billing and delivery addresses and, where relevant, company details. An account is required to place an order.",
       ),
+      heading("Payment information"),
       textBlock(
-        "We use this information to fulfil your order, provide customer support and, where you've opted in, send occasional updates about new products and collections. We share order information with delivery partners only as needed to get your order to you.",
+        "We never store your card details. Payments are processed securely by third-party providers such as Stripe, PayPal and Klarna — even where you choose to pay with Klarna, your payment information is handled by Klarna directly, not stored by us.",
       ),
+      heading("Marketing"),
       textBlock(
-        "Under UK data protection law, you have the right to access, correct or request deletion of your personal data at any time. To make a request, or with any questions about this policy, contact us using the details on our Contact page.",
+        "We only send marketing communications if you've actively opted in, and you can unsubscribe at any time.",
+      ),
+      heading("Analytics"),
+      textBlock(
+        "We use tools including Google Analytics, Microsoft Clarity, Meta Pixel and Google Search Console to understand how the site is used and to improve it.",
+      ),
+      heading("The AI Visualiser"),
+      textBlock(
+        "Photos you upload to the AI Visualiser are processed only to generate your requested visualisation and are automatically deleted after a limited retention period — they're never used for any other purpose.",
+      ),
+      heading("Who we share information with"),
+      textBlock(
+        "We share information only where necessary — with suppliers, delivery partners, payment providers and installation partners — or where we're legally required to.",
+      ),
+      heading("Your rights"),
+      textBlock(
+        "You can access, correct, delete or export your personal data, and withdraw marketing consent, at any time by contacting us. This policy is governed by the law of England and Wales.",
+      ),
+      heading("Cookies"),
+      textBlock(
+        "We use cookies to keep you signed in, remember your basket, understand site usage and personalise your experience — see our Cookie Policy for details.",
+      ),
+    ],
+  },
+  {
+    slug: "cookies",
+    title: "Cookie Policy",
+    intro: "How Kaiku uses cookies on this website.",
+    body: [
+      heading("What cookies we use"),
+      textBlock(
+        "We use cookies for four main purposes: keeping you signed in to your account, remembering the contents of your basket, understanding how visitors use our site, and personalising your experience.",
+      ),
+      heading("Essential cookies"),
+      textBlock(
+        "These keep your account session and basket working and can't be switched off, as the site won't function correctly without them.",
+      ),
+      heading("Analytics cookies"),
+      textBlock(
+        "These help us understand how the site is used so we can improve it, via tools including Google Analytics and Microsoft Clarity.",
+      ),
+      heading("Managing cookies"),
+      textBlock(
+        "You can control or delete cookies through your browser settings at any time. Blocking essential cookies may affect how well the site works.",
       ),
     ],
   },
@@ -926,17 +1093,33 @@ const PAGES = [
     title: "Terms & Conditions",
     intro: "The terms that apply when you order from Kaiku.",
     body: [
+      heading("Pricing and order acceptance"),
       textBlock(
-        "These terms apply to all orders placed through this website with Project Kaiku Ltd. By placing an order, you confirm you're authorised to use the payment method provided and that the delivery details you give us are accurate.",
+        "If a pricing error occurs, we may cancel the order and issue a full refund. An order is only accepted once payment has been received, we've reviewed it, and the relevant supplier has accepted it for fulfilment.",
       ),
+      heading("Product availability and information"),
       textBlock(
-        "Prices are shown in GBP and include VAT where applicable. We reserve the right to correct pricing errors before an order is confirmed. Orders are confirmed once payment has been successfully processed.",
+        "If a product becomes unavailable after you've ordered it, we'll explain the situation and let you choose between an alternative, waiting, or a full refund. Product information is provided in good faith from supplier data; occasionally minor errors or specification changes may occur despite our best efforts, and product images are illustrative — colours, finishes and natural materials can vary.",
       ),
+      heading("Your responsibilities"),
       textBlock(
-        "Delivery timeframes are estimates and may vary for made-to-order items — see our Delivery page for details. Our Returns page sets out your rights to cancel or return an order.",
+        "Before delivery and installation, you're responsible for confirming access routes, any required planning permission, electrical requirements, foundations, ground preparation, building regulations and any other site-specific requirements.",
       ),
+      heading("Events beyond our control"),
       textBlock(
-        "All products are covered by the manufacturer's warranty stated on the product page. Nothing in these terms affects your statutory rights as a consumer under UK law. These terms are governed by the law of England and Wales.",
+        "We aren't liable for delays caused by exceptional circumstances outside our reasonable control, including severe weather, shipping disruption or industrial action.",
+      ),
+      heading("Fraud and misuse"),
+      textBlock(
+        "We may refuse, suspend or cancel orders or accounts where we reasonably suspect fraud, abuse or misuse.",
+      ),
+      heading("Intellectual property"),
+      textBlock(
+        "Kaiku owns the branding, website design, the AI Visualiser, and all original content, buying guides, graphics and logos on this site, unless otherwise stated.",
+      ),
+      heading("Governing law"),
+      textBlock(
+        "These terms are governed by the law of England and Wales. Nothing here affects your statutory rights as a consumer.",
       ),
     ],
   },
@@ -969,7 +1152,6 @@ async function seedSiteSettings() {
     description:
       "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
     email: "hello@example.com",
-    phone: "+44 (0)20 0000 0000",
     defaultCurrency: "GBP",
   });
 
@@ -1055,6 +1237,18 @@ async function seedNavigation() {
       },
       {
         _type: "footerColumn",
+        _key: "discover",
+        title: "Discover",
+        links: [
+          externalLink("d1", "Buying Guides", "/learn"),
+          externalLink("d2", "Journal", "/journal"),
+          externalLink("d3", "Compare", "/compare"),
+          externalLink("d4", "Guided Buying", "/guided-buying"),
+          externalLink("d5", "Inspiration", "/inspiration"),
+        ],
+      },
+      {
+        _type: "footerColumn",
         _key: "company",
         title: "Company",
         links: [
@@ -1065,12 +1259,64 @@ async function seedNavigation() {
             linkType: "internal",
             internalRef: ref("page-about"),
           },
+          externalLink("quote", "Request a Quote", "/quote"),
           {
             _type: "link",
             _key: "contact",
             label: "Contact",
             linkType: "internal",
             internalRef: ref("page-contact"),
+          },
+          externalLink("trade", "Trade Enquiries", "/contact"),
+        ],
+      },
+      {
+        _type: "footerColumn",
+        _key: "support",
+        title: "Support",
+        links: [
+          externalLink("faq", "FAQ", "/faq"),
+          {
+            _type: "link",
+            _key: "delivery",
+            label: "Delivery",
+            linkType: "internal",
+            internalRef: ref("page-delivery"),
+          },
+          {
+            _type: "link",
+            _key: "returns",
+            label: "Returns",
+            linkType: "internal",
+            internalRef: ref("page-returns"),
+          },
+          {
+            _type: "link",
+            _key: "warranty",
+            label: "Warranty",
+            linkType: "internal",
+            internalRef: ref("page-warranty"),
+          },
+          {
+            _type: "link",
+            _key: "privacy",
+            label: "Privacy Policy",
+            linkType: "internal",
+            internalRef: ref("page-privacy"),
+          },
+          {
+            _type: "link",
+            _key: "cookies",
+            label: "Cookie Policy",
+            linkType: "internal",
+            internalRef: ref("page-cookies"),
+          },
+          {
+            _type: "link",
+            _key: "terms",
+            label: "Terms & Conditions",
+            linkType: "internal",
+            internalRef: ref("page-terms"),
           },
         ],
       },
