@@ -15,6 +15,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   "brand": brand->{ "slug": slug.current, name, "logo": logo.asset->url },
   tagline,
   summary,
+  description,
   price,
   compareAtPrice,
   currency,

@@ -14,10 +14,12 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
+import { Newsletter } from "@/components/shared/newsletter";
 import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { formatPriceExact } from "@/lib/format";
+import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
 
 const FEATURE_ICONS: LucideIcon[] = [Trees, Square, Armchair, Flame, Sun];
@@ -32,6 +34,7 @@ function isGardenRelevant(departmentSlug?: string | null): boolean {
 }
 
 export function ProductSummary({ product }: { product: SanityProduct }) {
+  const isComingSoon = product.stockStatus === "Coming Soon";
   const { addItem } = useCart();
   const [selected, setSelected] = React.useState<Record<string, number>>(() =>
     Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
@@ -152,19 +155,38 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <button
-          type="button"
-          onClick={handleAddToBasket}
-          className="bg-ink hover:bg-ink/90 text-canvas flex h-13 w-full items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-        >
-          {added ? "Added ✓" : "Add to Basket"}
-        </button>
-        <AppLink
-          href="/quote"
-          className="border-ink/25 text-ink hover:border-ink flex h-13 w-full items-center justify-center rounded-lg border text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-        >
-          Request a Quote
-        </AppLink>
+        {isComingSoon ? (
+          <div className="border-line bg-sand/20 rounded-lg border p-5">
+            <p className="text-ink text-[13px] font-semibold tracking-[0.04em]">
+              Still in production
+            </p>
+            <p className="text-graphite mt-1.5 text-[13px] leading-relaxed">
+              This one isn&rsquo;t available to order yet. Sign up and
+              we&rsquo;ll email you the moment it&rsquo;s ready.
+            </p>
+            <Newsletter
+              tone="light"
+              className="mt-4"
+              onSubscribe={subscribeToNewsletter}
+            />
+          </div>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={handleAddToBasket}
+              className="bg-ink hover:bg-ink/90 text-canvas flex h-13 w-full items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+            >
+              {added ? "Added ✓" : "Add to Basket"}
+            </button>
+            <AppLink
+              href="/quote"
+              className="border-ink/25 text-ink hover:border-ink flex h-13 w-full items-center justify-center rounded-lg border text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+            >
+              Request a Quote
+            </AppLink>
+          </>
+        )}
         {isGardenRelevant(product.departmentSlug) ? (
           <AppLink
             href={`/tools/garden-visualiser?product=${product.slug}`}

@@ -146,7 +146,13 @@ export const product = defineType({
       type: "string",
       group: "logistics",
       options: {
-        list: ["In Stock", "Out of Stock", "Backorder", "Made to Order"],
+        list: [
+          "In Stock",
+          "Out of Stock",
+          "Backorder",
+          "Made to Order",
+          "Coming Soon",
+        ],
       },
       initialValue: "In Stock",
     }),

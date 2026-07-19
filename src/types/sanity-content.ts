@@ -39,7 +39,7 @@ export interface SanityWeight {
 }
 
 export type StockStatus =
-  "In Stock" | "Out of Stock" | "Backorder" | "Made to Order";
+  "In Stock" | "Out of Stock" | "Backorder" | "Made to Order" | "Coming Soon";
 
 export interface SanityProductDownload {
   label?: string;
@@ -91,6 +91,7 @@ export interface SanityProduct {
   brand?: SanityBrand | null;
   tagline?: string;
   summary: string;
+  description?: PortableTextBlock[];
   price: number;
   compareAtPrice?: number | null;
   currency: string;

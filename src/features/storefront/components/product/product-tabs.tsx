@@ -1,9 +1,11 @@
 "use client";
 
+import { PortableText } from "@portabletext/react";
 import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
+import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type { SanityProduct } from "@/types/sanity-content";
 
 const BAND_FEATURES: { icon: LucideIcon; title: string; copy: string }[] = [
@@ -79,9 +81,18 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
           Designed for wellness. Built for life.
         </h2>
         <p className="text-graphite mt-5 leading-relaxed">{product.summary}</p>
-        <p className="text-graphite mt-4 leading-relaxed">
-          {`Crafted from premium materials and built with precision, the ${product.name} is as durable as it is beautiful — a considered addition to any room and a space you'll return to for years.`}
-        </p>
+        {product.description?.length ? (
+          <div className="mt-4">
+            <PortableText
+              value={product.description}
+              components={portableTextComponents}
+            />
+          </div>
+        ) : (
+          <p className="text-graphite mt-4 leading-relaxed">
+            {`Crafted from premium materials and built with precision, the ${product.name} is as durable as it is beautiful — a considered addition to any room and a space you'll return to for years.`}
+          </p>
+        )}
 
         <div className="mt-9 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
           {BAND_FEATURES.map((feature) => (
