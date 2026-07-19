@@ -28,7 +28,7 @@ export function ProductGallery({
       <PlaceholderImage
         tone="sand"
         illustration="leaf"
-        aspect="aspect-square"
+        aspect="aspect-[3/2]"
         className="rounded-2xl"
       />
     );
@@ -38,7 +38,7 @@ export function ProductGallery({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-2xl border">
+      <div className="border-line bg-paper relative aspect-[3/2] overflow-hidden rounded-2xl border">
         <Image
           key={active}
           src={current}
@@ -84,7 +84,13 @@ export function ProductGallery({
                     : "hover:border-ink/30",
                 )}
               >
-                <Image src={src} alt="" fill sizes="80px" className="object-cover" />
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
               </button>
             ))}
           </div>

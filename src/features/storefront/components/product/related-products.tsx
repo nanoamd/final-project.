@@ -48,7 +48,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
 
         <div
           ref={scroller}
-          className="-mx-6 flex snap-x gap-5 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0 [scrollbar-width:none]"
+          className="-mx-6 flex snap-x [scrollbar-width:none] gap-5 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0"
         >
           {products.map((product) => (
             <AppLink
@@ -57,7 +57,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
               className="group w-[70%] shrink-0 snap-start sm:w-[calc((100%-3.75rem)/4)]"
             >
               {product.image ? (
-                <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-xl border">
+                <div className="border-line bg-paper relative aspect-[3/2] overflow-hidden rounded-xl border">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -70,7 +70,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
                 <PlaceholderImage
                   tone="sand"
                   illustration="leaf"
-                  aspect="aspect-square"
+                  aspect="aspect-[3/2]"
                   className="rounded-xl"
                 />
               )}

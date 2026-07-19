@@ -52,14 +52,14 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
 
       <ProductTabs product={product} />
 
-      <RelatedProducts products={related} />
-
       <RelatedContent
         buyingGuides={relatedContent.buyingGuides}
         posts={relatedContent.posts}
         productSlug={product.slug}
         departmentSlug={product.departmentSlug}
       />
+
+      <RelatedProducts products={related} />
     </div>
   );
 }
