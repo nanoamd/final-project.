@@ -14,15 +14,11 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Homepage")
         .id("homepage")
-        .child(
-          S.document().schemaType("homepage").documentId("homepage"),
-        ),
+        .child(S.document().schemaType("homepage").documentId("homepage")),
       S.listItem()
         .title("Navigation")
         .id("navigation")
-        .child(
-          S.document().schemaType("navigation").documentId("navigation"),
-        ),
+        .child(S.document().schemaType("navigation").documentId("navigation")),
       S.listItem()
         .title("Site Settings")
         .id("siteSettings")
@@ -63,10 +59,25 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem("page").title("Pages"),
             ]),
         ),
+      S.listItem()
+        .title("Submissions")
+        .child(
+          S.list()
+            .title("Submissions")
+            .items([
+              S.documentTypeListItem("contactSubmission").title(
+                "Contact Form Messages",
+              ),
+              S.documentTypeListItem("newsletterSubscriber").title(
+                "Newsletter Subscribers",
+              ),
+            ]),
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>
-          item.getId() && !SINGLETON_TYPES.has(item.getId() as string) &&
+          item.getId() &&
+          !SINGLETON_TYPES.has(item.getId() as string) &&
           ![
             "department",
             "category",
@@ -79,6 +90,8 @@ export const structure: StructureResolver = (S) =>
             "author",
             "faq",
             "page",
+            "contactSubmission",
+            "newsletterSubscriber",
           ].includes(item.getId() as string),
       ),
     ]);
