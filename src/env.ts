@@ -42,7 +42,17 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
     // Optional: only needed for the AI garden visualiser tool. Without it,
     // that one tool shows an "unavailable" state — nothing else is affected.
-    OPENAI_API_KEY: z.string().min(1).optional(),
+    // Stripped down to printable ASCII: dashboard env-var UIs (Vercel
+    // included) can silently inject stray non-ASCII characters (e.g. a
+    // bullet point from a masked-value copy-paste) into a pasted secret,
+    // which then crashes any fetch() call using it in a header with
+    // "Cannot convert argument to a ByteString" — a real key never
+    // legitimately contains those characters, so stripping them is safe.
+    OPENAI_API_KEY: z
+      .string()
+      .min(1)
+      .optional()
+      .transform((val) => val?.replace(/[^\x21-\x7E]/g, "")),
     // Optional: signs the anonymous per-visitor usage cookie for that tool.
     // Falls back to a fixed in-code value if unset (non-critical — worst
     // case a visitor resets their own usage count by clearing cookies).
