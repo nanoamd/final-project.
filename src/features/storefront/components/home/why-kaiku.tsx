@@ -10,14 +10,13 @@ export function WhyKaiku() {
           Why We Exist
         </p>
         <h2 className="text-ink font-display text-[1.7rem] leading-[1.25] tracking-tight text-balance sm:text-3xl lg:text-4xl">
-          Most of what&rsquo;s sold for the home is built to be replaced. We
-          started Kaiku because we didn&rsquo;t want to buy that way, and
-          suspected we weren&rsquo;t alone.
+          Most home goods are sold on a lifestyle photo. We&rsquo;d rather show
+          you the actual specification.
         </h2>
         <p className="text-muted mt-6 text-[15px] leading-relaxed sm:text-base">
-          Every product carries a decision behind it — a supplier we trust, a
-          material that ages well, a design we&rsquo;d still choose in ten
-          years. That&rsquo;s the only test that matters to us.
+          Every product on Kaiku comes with the real materials, dimensions and
+          trade-offs behind it, not just the marketing — and our buying guides
+          are researched and fact-checked, not generated and hoped for.
         </p>
       </div>
     </section>
