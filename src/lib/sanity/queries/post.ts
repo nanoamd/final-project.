@@ -10,7 +10,8 @@ const POST_PROJECTION = /* groq */ `{
   body,
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
-  tags
+  tags,
+  "relatedProducts": relatedProducts[]->{"slug": slug.current}
 }`;
 
 const POSTS_QUERY = /* groq */ `
@@ -22,9 +23,10 @@ const POSTS_QUERY = /* groq */ `
 const POST_BY_SLUG_QUERY = /* groq */ `
 *[_type == "post" && slug.current == $slug][0] ${POST_PROJECTION}`;
 
-export async function getPosts(
-  { limit = 12, offset = 0 }: { limit?: number; offset?: number } = {},
-): Promise<SanityPost[]> {
+export async function getPosts({
+  limit = 12,
+  offset = 0,
+}: { limit?: number; offset?: number } = {}): Promise<SanityPost[]> {
   return sanityFetch<SanityPost[]>(
     POSTS_QUERY,
     { start: offset, end: offset + limit },

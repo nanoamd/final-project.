@@ -11,6 +11,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   "name": title,
   "category": category->slug.current,
   "categoryName": category->title,
+  "departmentSlug": category->department->slug.current,
   "brand": brand->{ "slug": slug.current, name, "logo": logo.asset->url },
   tagline,
   summary,

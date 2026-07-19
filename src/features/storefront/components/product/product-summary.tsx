@@ -15,11 +15,21 @@ import {
 import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
+import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { formatPriceExact } from "@/lib/format";
 import type { SanityProduct } from "@/types/sanity-content";
 
 const FEATURE_ICONS: LucideIcon[] = [Trees, Square, Armchair, Flame, Sun];
+
+function isGardenRelevant(departmentSlug?: string | null): boolean {
+  return Boolean(
+    departmentSlug &&
+    (GARDEN_VISUALISER_DEPARTMENT_SLUGS as readonly string[]).includes(
+      departmentSlug,
+    ),
+  );
+}
 
 export function ProductSummary({ product }: { product: SanityProduct }) {
   const { addItem } = useCart();
@@ -155,6 +165,14 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
         >
           Request a Quote
         </AppLink>
+        {isGardenRelevant(product.departmentSlug) ? (
+          <AppLink
+            href={`/tools/garden-visualiser?product=${product.slug}`}
+            className="border-ink/25 text-ink hover:border-ink flex h-13 w-full items-center justify-center rounded-lg border text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+          >
+            See it in your garden
+          </AppLink>
+        ) : null}
       </div>
 
       <div className="text-muted flex items-center justify-center gap-8 text-[12px]">

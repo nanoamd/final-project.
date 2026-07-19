@@ -39,10 +39,7 @@ export interface SanityWeight {
 }
 
 export type StockStatus =
-  | "In Stock"
-  | "Out of Stock"
-  | "Backorder"
-  | "Made to Order";
+  "In Stock" | "Out of Stock" | "Backorder" | "Made to Order";
 
 export interface SanityProductDownload {
   label?: string;
@@ -119,6 +116,7 @@ export interface SanityProduct {
   rating?: number;
   reviewCount?: number;
   faqs: SanityProductFaq[];
+  departmentSlug?: string | null;
 }
 
 export interface SanityCollection {
@@ -142,6 +140,15 @@ export interface SanityAuthor {
   bio?: string;
 }
 
+export interface SanityRelatedProductRef {
+  slug: string;
+}
+
+export interface SanityRelatedCategoryRef {
+  slug: string;
+  name: string;
+}
+
 export interface SanityPost {
   slug: string;
   title: string;
@@ -151,6 +158,7 @@ export interface SanityPost {
   author?: SanityAuthor | null;
   publishedAt: string;
   tags?: string[];
+  relatedProducts?: SanityRelatedProductRef[];
 }
 
 export interface SanityBuyingGuide {
@@ -161,6 +169,8 @@ export interface SanityBuyingGuide {
   body: PortableTextBlock[];
   author?: SanityAuthor | null;
   publishedAt: string;
+  relatedCategory?: SanityRelatedCategoryRef | null;
+  relatedProducts?: SanityRelatedProductRef[];
 }
 
 export interface SanityPage {

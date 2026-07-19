@@ -2,8 +2,10 @@ import { AppLink } from "@/components/ui/app-link";
 import { ProductGallery } from "@/features/storefront/components/product/product-gallery";
 import { ProductSummary } from "@/features/storefront/components/product/product-summary";
 import { ProductTabs } from "@/features/storefront/components/product/product-tabs";
+import { RelatedContent } from "@/features/storefront/components/product/related-content";
 import { RelatedProducts } from "@/features/storefront/components/product/related-products";
 import { getRelatedProducts } from "@/lib/sanity/queries/product";
+import { getRelatedContentForProduct } from "@/lib/sanity/queries/related-content";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
@@ -12,7 +14,13 @@ import type { SanityProduct } from "@/types/sanity-content";
  * like" carousel. The header inverts to its light theme on these routes.
  */
 export async function ProductDetail({ product }: { product: SanityProduct }) {
-  const related = await getRelatedProducts(product, 4);
+  const [related, relatedContent] = await Promise.all([
+    getRelatedProducts(product, 4),
+    getRelatedContentForProduct({
+      productSlug: product.slug,
+      categorySlug: product.category,
+    }),
+  ]);
 
   return (
     <div className="bg-canvas text-ink">
@@ -45,6 +53,11 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
       <ProductTabs product={product} />
 
       <RelatedProducts products={related} />
+
+      <RelatedContent
+        buyingGuides={relatedContent.buyingGuides}
+        posts={relatedContent.posts}
+      />
     </div>
   );
 }

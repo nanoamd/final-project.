@@ -6,6 +6,7 @@ import { GardenVisualiserTool } from "@/features/garden-visualiser";
 import {
   getCategories,
   getDepartments,
+  getProduct,
   getProductsByCategory,
 } from "@/lib/sanity/queries";
 
@@ -23,10 +24,17 @@ export const metadata: Metadata = {
     "Upload a photo of your own space, add real products from Kaiku, and see it redesigned in seconds.",
 };
 
-export default async function GardenVisualiserPage() {
-  const [departments, categories] = await Promise.all([
+export default async function GardenVisualiserPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ product?: string }>;
+}) {
+  const { product: productSlug } = await searchParams;
+
+  const [departments, categories, initialProduct] = await Promise.all([
     getDepartments(),
     getCategories(),
+    productSlug ? getProduct(productSlug) : Promise.resolve(null),
   ]);
 
   const categoriesWithProducts = await Promise.all(
@@ -39,6 +47,14 @@ export default async function GardenVisualiserPage() {
         products: await getProductsByCategory(c.slug),
       })),
   );
+
+  const initialSelection =
+    initialProduct && initialProduct.departmentSlug
+      ? {
+          departmentSlug: initialProduct.departmentSlug,
+          productSlug: initialProduct.slug,
+        }
+      : undefined;
 
   return (
     <div className="bg-basalt">
@@ -60,6 +76,7 @@ export default async function GardenVisualiserPage() {
         <GardenVisualiserTool
           departments={departments}
           categories={categoriesWithProducts}
+          initialSelection={initialSelection}
         />
       </Container>
     </div>

@@ -61,17 +61,40 @@ async function compressPhoto(file: File): Promise<File> {
   return new File([blob], "photo.jpg", { type: "image/jpeg" });
 }
 
+interface InitialSelection {
+  departmentSlug: string;
+  productSlug: string;
+}
+
 export function GardenVisualiserTool({
   departments,
   categories,
+  initialSelection,
 }: {
   departments: SanityDepartment[];
   categories: CategoryWithProducts[];
+  initialSelection?: InitialSelection;
 }) {
-  const [step, setStep] = React.useState<Step>("room");
-  const [room, setRoom] = React.useState<string | null>(null);
+  // A deep link (e.g. from a product page's "See it in your garden" button)
+  // resumes the wizard mid-flow: room pre-picked, product pre-toggled, landed
+  // on the "products" step. Only consulted once, on mount — after that this
+  // behaves exactly like the normal wizard.
+  const hasRoomForInitialSelection = Boolean(
+    initialSelection &&
+    categories.some(
+      (c) => c.departmentSlug === initialSelection.departmentSlug,
+    ),
+  );
+  const [step, setStep] = React.useState<Step>(
+    hasRoomForInitialSelection ? "products" : "room",
+  );
+  const [room, setRoom] = React.useState<string | null>(
+    hasRoomForInitialSelection ? initialSelection!.departmentSlug : null,
+  );
   const [mode, setMode] = React.useState<"manual" | "auto" | null>(null);
-  const [selected, setSelected] = React.useState<string[]>([]);
+  const [selected, setSelected] = React.useState<string[]>(
+    hasRoomForInitialSelection ? [initialSelection!.productSlug] : [],
+  );
   const [photoFile, setPhotoFile] = React.useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<{

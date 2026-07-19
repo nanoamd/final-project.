@@ -9,7 +9,9 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   "coverImage": coverImage.asset->url,
   body,
   "author": author-> ${AUTHOR_PROJECTION},
-  publishedAt
+  publishedAt,
+  "relatedCategory": relatedCategory->{"slug": slug.current, "name": title},
+  "relatedProducts": relatedProducts[]->{"slug": slug.current}
 }`;
 
 const BUYING_GUIDES_QUERY = /* groq */ `
@@ -21,9 +23,10 @@ const BUYING_GUIDES_QUERY = /* groq */ `
 const BUYING_GUIDE_BY_SLUG_QUERY = /* groq */ `
 *[_type == "buyingGuide" && slug.current == $slug][0] ${BUYING_GUIDE_PROJECTION}`;
 
-export async function getBuyingGuides(
-  { limit = 12, offset = 0 }: { limit?: number; offset?: number } = {},
-): Promise<SanityBuyingGuide[]> {
+export async function getBuyingGuides({
+  limit = 12,
+  offset = 0,
+}: { limit?: number; offset?: number } = {}): Promise<SanityBuyingGuide[]> {
   return sanityFetch<SanityBuyingGuide[]>(
     BUYING_GUIDES_QUERY,
     { start: offset, end: offset + limit },

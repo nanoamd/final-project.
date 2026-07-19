@@ -22,6 +22,7 @@ export {
   getTotalProductCount,
   searchProducts,
 } from "@/lib/sanity/queries/product";
+export { getRelatedContentForProduct } from "@/lib/sanity/queries/related-content";
 export {
   getSeoDefaults,
   getSiteSettings,
