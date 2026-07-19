@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import { env } from "@/env";
 import { sanityClient } from "@/lib/sanity/client";
+import { createClient } from "@/lib/supabase/server";
 import { stripe } from "@/server/stripe/client";
 
 export interface CheckoutLineInput {
@@ -43,7 +44,9 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
   }
 
   const slugs = [...new Set(lines.map((line) => line.slug))];
-  const products = await sanityClient.fetch<PriceLookup[]>(PRICE_LOOKUP_QUERY, { slugs });
+  const products = await sanityClient.fetch<PriceLookup[]>(PRICE_LOOKUP_QUERY, {
+    slugs,
+  });
 
   const lineItems = lines.map((line) => {
     const product = products.find((p) => p.slug === line.slug);
@@ -66,11 +69,22 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     };
   });
 
+  // Signed-in customers get their order linked to their account (via
+  // client_reference_id, read back out in the Stripe webhook) so it shows up
+  // in their order history — guest checkout still works exactly as before.
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
     success_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    ...(user
+      ? { client_reference_id: user.id, customer_email: user.email }
+      : {}),
   });
 
   if (!session.url) {
