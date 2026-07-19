@@ -34,8 +34,8 @@ export function InspirationGallery() {
                 i === 0
                   ? "col-span-2 aspect-[16/9] lg:hidden"
                   : i === 5
-                    ? "aspect-square lg:hidden"
-                    : "aspect-square lg:aspect-[3/4]"
+                    ? "aspect-[3/2] lg:hidden"
+                    : "aspect-[3/2]"
               }`}
             >
               <Image

@@ -50,14 +50,14 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
         </div>
       </div>
 
-      <ProductTabs product={product} />
-
       <RelatedContent
         buyingGuides={relatedContent.buyingGuides}
         posts={relatedContent.posts}
         productSlug={product.slug}
         departmentSlug={product.departmentSlug}
       />
+
+      <ProductTabs product={product} />
 
       <RelatedProducts products={related} />
     </div>
