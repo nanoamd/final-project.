@@ -10,10 +10,7 @@ export const PLANNED_TOOLS_BY_DEPARTMENT: Record<string, string[]> = {
     "Garden Furniture Material & Weather Resilience Selector",
     "Patio/Deck Size & Furniture Layout Calculator",
   ],
-  sauna: [
-    "Home Sauna Size & Capacity Calculator",
-    "Sauna Ventilation & Heat Retention Checker",
-  ],
+  sauna: ["Sauna Ventilation & Heat Retention Checker"],
   "cold-plunge": [
     "Cold Plunge Size, Water Volume & Chiller Calculator",
     "Cold Plunge Drainage & Water Change Planner",

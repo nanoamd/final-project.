@@ -1,0 +1,17 @@
+/**
+ * Real, working tools per department, beyond the AI Garden Visualiser
+ * (handled separately via GARDEN_VISUALISER_DEPARTMENT_SLUGS since it takes
+ * a product param). Shown alongside — and ahead of — the "coming soon"
+ * placeholders in the product page's Tools column.
+ */
+export const REAL_TOOLS_BY_DEPARTMENT: Record<
+  string,
+  { title: string; href: string }[]
+> = {
+  sauna: [
+    {
+      title: "Sauna Size & Capacity Calculator",
+      href: "/tools/sauna-size-calculator",
+    },
+  ],
+};

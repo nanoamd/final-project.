@@ -3,6 +3,7 @@ import Image from "next/image";
 import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { PLANNED_TOOLS_BY_DEPARTMENT } from "@/config/planned-tools";
+import { REAL_TOOLS_BY_DEPARTMENT } from "@/config/real-tools";
 import type { SanityBuyingGuide, SanityPost } from "@/types/sanity-content";
 
 interface ContentItem {
@@ -48,6 +49,11 @@ export function RelatedContent({
       title: "AI Garden Visualiser",
       href: `/tools/garden-visualiser?product=${productSlug}`,
     });
+  }
+  for (const tool of (departmentSlug &&
+    REAL_TOOLS_BY_DEPARTMENT[departmentSlug]) ||
+    []) {
+    tools.push(tool);
   }
   const planned = departmentSlug
     ? (PLANNED_TOOLS_BY_DEPARTMENT[departmentSlug] ?? [])

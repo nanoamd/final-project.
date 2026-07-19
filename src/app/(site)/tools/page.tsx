@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
@@ -15,6 +15,12 @@ const TOOLS = [
     title: "AI Design Studio",
     description:
       "Upload a photo of your own space and see it redesigned with real products from Kaiku.",
+  },
+  {
+    href: "/tools/sauna-size-calculator",
+    title: "Sauna Size & Capacity Calculator",
+    description:
+      "Tell us how many people will use it and we'll match you against our real in-stock saunas.",
   },
 ] as const;
 
@@ -32,7 +38,7 @@ export default function ToolsPage() {
 
         <div className="mt-12 flex flex-col gap-4">
           {TOOLS.map((tool) => (
-            <Link
+            <AppLink
               key={tool.href}
               href={tool.href}
               className="border-line hover:border-ink rounded-xl border p-6 transition-colors"
@@ -41,7 +47,7 @@ export default function ToolsPage() {
               <p className="text-muted mt-2 text-[14px] leading-relaxed">
                 {tool.description}
               </p>
-            </Link>
+            </AppLink>
           ))}
         </div>
       </div>
