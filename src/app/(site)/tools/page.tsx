@@ -22,6 +22,12 @@ const TOOLS = [
     description:
       "Tell us how many people will use it and we'll match you against our real in-stock saunas.",
   },
+  {
+    href: "/tools/cold-plunge-size-calculator",
+    title: "Cold Plunge Size & Capacity Calculator",
+    description:
+      "Tell us how many people will use it and we'll match you against our real in-stock cold plunges.",
+  },
 ] as const;
 
 export default function ToolsPage() {

@@ -14,4 +14,10 @@ export const REAL_TOOLS_BY_DEPARTMENT: Record<
       href: "/tools/sauna-size-calculator",
     },
   ],
+  "cold-plunge": [
+    {
+      title: "Cold Plunge Size & Capacity Calculator",
+      href: "/tools/cold-plunge-size-calculator",
+    },
+  ],
 };

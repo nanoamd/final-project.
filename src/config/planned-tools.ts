@@ -12,7 +12,7 @@ export const PLANNED_TOOLS_BY_DEPARTMENT: Record<string, string[]> = {
   ],
   sauna: ["Sauna Ventilation & Heat Retention Checker"],
   "cold-plunge": [
-    "Cold Plunge Size, Water Volume & Chiller Calculator",
+    "Cold Plunge Chiller Sizing Calculator",
     "Cold Plunge Drainage & Water Change Planner",
   ],
   "outdoor-kitchen": ["Outdoor Kitchen Layout & Utility Planner"],
