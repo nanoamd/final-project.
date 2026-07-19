@@ -57,6 +57,8 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
       <RelatedContent
         buyingGuides={relatedContent.buyingGuides}
         posts={relatedContent.posts}
+        productSlug={product.slug}
+        departmentSlug={product.departmentSlug}
       />
     </div>
   );
