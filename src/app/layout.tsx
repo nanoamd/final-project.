@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-canvas text-ink flex min-h-full flex-col font-sans">
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );

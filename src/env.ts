@@ -64,6 +64,9 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_DATASET: z.string().min(1),
     NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    // Optional: enables Google Analytics 4 tracking. Without it, the site
+    // just renders with no analytics script — nothing else is affected.
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().min(1).optional(),
   },
 
   /**
@@ -88,6 +91,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_API_VERSION: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   },
 
   /**
