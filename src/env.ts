@@ -47,6 +47,9 @@ export const env = createEnv({
     // Falls back to a fixed in-code value if unset (non-critical — worst
     // case a visitor resets their own usage count by clearing cookies).
     RATE_LIMIT_SECRET: z.string().min(1).optional(),
+    // Optional: the one Supabase account allowed into /admin. Without it,
+    // /admin is unreachable for everyone (fails closed, not open).
+    ADMIN_EMAIL: z.string().min(1).optional(),
   },
 
   /**
@@ -76,6 +79,7 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     RATE_LIMIT_SECRET: process.env.RATE_LIMIT_SECRET,
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

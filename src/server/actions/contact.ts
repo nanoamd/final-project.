@@ -2,32 +2,11 @@
 
 import "server-only";
 
-import { createClient } from "@sanity/client";
-
-import { env } from "@/env";
+import { getSanityWriteClient } from "@/server/sanity/write-client";
 
 export interface ContactFormResult {
   ok: boolean;
   error?: string;
-}
-
-/**
- * Writes to Sanity directly using SANITY_API_WRITE_TOKEN, read straight from
- * process.env rather than the validated env.ts schema — same precedent as
- * scripts/seed-sanity.ts. It's genuinely optional: if it's unset (e.g. a
- * preview deploy without the token), the action fails soft with a clear
- * error instead of a fake success message.
- */
-function getWriteClient() {
-  const token = process.env.SANITY_API_WRITE_TOKEN;
-  if (!token) return null;
-  return createClient({
-    projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: env.NEXT_PUBLIC_SANITY_DATASET,
-    apiVersion: env.NEXT_PUBLIC_SANITY_API_VERSION,
-    token,
-    useCdn: false,
-  });
 }
 
 export async function submitContactForm(
@@ -48,7 +27,7 @@ export async function submitContactForm(
     return { ok: false, error: "Please fill in every field." };
   }
 
-  const client = getWriteClient();
+  const client = getSanityWriteClient();
   if (!client) {
     return {
       ok: false,

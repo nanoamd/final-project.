@@ -97,14 +97,37 @@ export const product = defineType({
     }),
 
     // Identifiers & Supplier ----------------------------------------------
-    defineField({ name: "sku", title: "SKU", type: "string", group: "identifiers" }),
-    defineField({ name: "gtin", title: "GTIN / EAN", type: "string", group: "identifiers" }),
-    defineField({ name: "mpn", title: "MPN", type: "string", group: "identifiers" }),
+    defineField({
+      name: "sku",
+      title: "SKU",
+      type: "string",
+      group: "identifiers",
+    }),
+    defineField({
+      name: "gtin",
+      title: "GTIN / EAN",
+      type: "string",
+      group: "identifiers",
+    }),
+    defineField({
+      name: "mpn",
+      title: "MPN",
+      type: "string",
+      group: "identifiers",
+    }),
     defineField({
       name: "supplier",
       type: "reference",
       group: "identifiers",
       to: [{ type: "supplier" }],
+    }),
+    defineField({
+      name: "sourceUrl",
+      title: "Source URL",
+      type: "url",
+      group: "identifiers",
+      description:
+        "The supplier page this product was imported from, if created via the admin URL importer.",
     }),
 
     // Logistics -------------------------------------------------------------
