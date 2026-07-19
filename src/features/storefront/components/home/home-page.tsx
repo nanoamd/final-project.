@@ -70,13 +70,13 @@ export async function HomePage() {
         headline={homepage?.designedForLivingHeadline}
         cards={homepage?.designedForLivingCards}
       />
-      <BuyingGuides />
       <FeaturedTransformation />
       <FeaturedCollection />
       <EditorialJournal />
       <DesignPhilosophy />
       <Materials />
       <InspirationGallery />
+      <BuyingGuides />
       <HomeCategories />
       <CustomerJourney />
       <WhyKaiku />
