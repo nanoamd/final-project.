@@ -18,13 +18,29 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
 });
 
+const defaultTitle = `${siteConfig.name} — ${siteConfig.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    default: defaultTitle,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: defaultTitle,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    images: [{ url: "/images/garden-after.jpg", width: 1717, height: 916 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: siteConfig.description,
+    images: ["/images/garden-after.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

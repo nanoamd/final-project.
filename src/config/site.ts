@@ -11,8 +11,8 @@ export const siteConfig = {
   tagline: "Premium home improvement, considered",
   description:
     "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
-  url: "https://example.com",
-  email: "hello@example.com",
+  url: "https://kaikuhome.com",
+  email: "hello@kaikuhome.com",
 } as const;
 
 export type NavLink = {
