@@ -3,6 +3,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
+import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type { SanityAuthor } from "@/types/sanity-content";
@@ -16,6 +17,7 @@ export function ArticleDetail({
   author,
   publishedAt,
   body,
+  relatedCategory,
 }: {
   eyebrowLabel: string;
   backHref: string;
@@ -24,6 +26,7 @@ export function ArticleDetail({
   author?: SanityAuthor | null;
   publishedAt: string;
   body: PortableTextBlock[];
+  relatedCategory?: { slug: string; name: string } | null;
 }) {
   return (
     <article>
@@ -53,7 +56,13 @@ export function ArticleDetail({
       {coverImage ? (
         <Container>
           <div className="border-line relative aspect-[16/9] w-full overflow-hidden rounded-2xl border">
-            <Image src={coverImage} alt="" fill sizes="100vw" className="object-cover" />
+            <Image
+              src={coverImage}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
           </div>
         </Container>
       ) : null}
@@ -61,6 +70,17 @@ export function ArticleDetail({
       <Container className="py-14">
         <div className="mx-auto max-w-2xl">
           <PortableText value={body} components={portableTextComponents} />
+
+          {relatedCategory ? (
+            <div className="border-line mt-10 border-t pt-10">
+              <AppLink
+                href={`/shop/${relatedCategory.slug}`}
+                className={buttonVariants({ className: "w-fit" })}
+              >
+                Shop {relatedCategory.name} →
+              </AppLink>
+            </div>
+          ) : null}
         </div>
       </Container>
     </article>

@@ -18,7 +18,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const guide = await getBuyingGuide(slug);
-  return { title: guide?.title ?? "Buying Guides", description: guide?.excerpt };
+  return {
+    title: guide?.title ?? "Buying Guides",
+    description: guide?.excerpt,
+  };
 }
 
 export default async function BuyingGuidePage({
@@ -39,6 +42,7 @@ export default async function BuyingGuidePage({
       author={guide.author}
       publishedAt={guide.publishedAt}
       body={guide.body}
+      relatedCategory={guide.relatedCategory}
     />
   );
 }
