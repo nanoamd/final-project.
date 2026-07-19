@@ -8,6 +8,12 @@ export const REAL_TOOLS_BY_DEPARTMENT: Record<
   string,
   { title: string; href: string }[]
 > = {
+  "outdoor-living": [
+    {
+      title: "Garden Furniture Material & Weather Resilience Selector",
+      href: "/tools/garden-furniture-material-selector",
+    },
+  ],
   sauna: [
     {
       title: "Sauna Size & Capacity Calculator",

@@ -6,10 +6,7 @@
  * short display names.
  */
 export const PLANNED_TOOLS_BY_DEPARTMENT: Record<string, string[]> = {
-  "outdoor-living": [
-    "Garden Furniture Material & Weather Resilience Selector",
-    "Patio/Deck Size & Furniture Layout Calculator",
-  ],
+  "outdoor-living": ["Patio/Deck Size & Furniture Layout Calculator"],
   sauna: ["Sauna Ventilation & Heat Retention Checker"],
   "cold-plunge": [
     "Cold Plunge Chiller Sizing Calculator",

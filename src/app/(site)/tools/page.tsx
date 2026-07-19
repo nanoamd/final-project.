@@ -28,6 +28,12 @@ const TOOLS = [
     description:
       "Tell us how many people will use it and we'll match you against our real in-stock cold plunges.",
   },
+  {
+    href: "/tools/garden-furniture-material-selector",
+    title: "Garden Furniture Material & Weather Resilience Selector",
+    description:
+      "Answer three questions about where it'll live and how much upkeep you want, and we'll match you to the right material.",
+  },
 ] as const;
 
 export default function ToolsPage() {
