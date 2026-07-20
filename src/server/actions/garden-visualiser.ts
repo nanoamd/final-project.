@@ -7,7 +7,10 @@ import crypto from "node:crypto";
 import { cookies } from "next/headers";
 
 import { env } from "@/env";
-import { getFeaturedProducts, getProductsBySlugs } from "@/lib/sanity/queries";
+import {
+  getProductsByDepartment,
+  getProductsBySlugs,
+} from "@/lib/sanity/queries";
 
 const WEEKLY_LIMIT = 3;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -47,7 +50,8 @@ export interface VisualiseGardenResult {
 }
 
 export type VisualiserSelection =
-  { mode: "manual"; productSlugs: string[] } | { mode: "auto" };
+  | { mode: "manual"; productSlugs: string[] }
+  | { mode: "auto"; departmentSlug: string };
 
 function sign(payload: string) {
   const secret = env.RATE_LIMIT_SECRET ?? FALLBACK_SECRET;
@@ -83,10 +87,22 @@ async function writeUsage(count: number) {
   });
 }
 
-/** A small, real, in-stock selection for "let Kaiku design it for me". */
-async function pickAutoProducts(): Promise<VisualiserProduct[]> {
-  const featured = await getFeaturedProducts(3);
-  return featured.map(toVisualiserProduct);
+/**
+ * A small, real selection for "let Kaiku design it for me" — scoped to the
+ * room the visitor actually picked (not the whole catalog, which today skews
+ * heavily toward whichever department was most recently updated) and
+ * randomised so repeat visits to the same room see variety rather than the
+ * same fixed set every time. Prefers purchasable stock, but falls back to
+ * whatever's in the department rather than showing nothing.
+ */
+async function pickAutoProducts(
+  departmentSlug: string,
+): Promise<VisualiserProduct[]> {
+  const products = await getProductsByDepartment(departmentSlug);
+  const purchasable = products.filter((p) => p.stockStatus !== "Coming Soon");
+  const pool = purchasable.length ? purchasable : products;
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 3).map(toVisualiserProduct);
 }
 
 function toVisualiserProduct(p: {
@@ -109,7 +125,7 @@ function toVisualiserProduct(p: {
 
 function buildPrompt(products: VisualiserProduct[]) {
   const list = products.map((p) => `- ${p.name}`).join("\n");
-  return `Add the following real products into this garden photo, placed naturally and realistically at true-to-life scale:\n${list}\n\nKeep the existing layout, lighting and perspective realistic and unchanged elsewhere. Each product should be clearly visible and identifiable, not partially hidden.`;
+  return `Add the following real products into this garden photo, placed naturally and realistically at true-to-life scale:\n${list}\n\nDo not alter, resurface, regrow, or replace any existing element already in the photo — the lawn, patio, paving, decking, fencing, planting and sky must stay exactly as they are; only add the listed items on top of or within the existing scene. Keep the existing layout, lighting and perspective realistic and unchanged elsewhere. Each product should be clearly visible, identifiable and not partially hidden. Do not include any text, labels, signage, watermarks, or writing of any kind anywhere in the image.`;
 }
 
 /**
@@ -235,7 +251,7 @@ async function runVisualiseGarden(
 
   const products =
     selection.mode === "auto"
-      ? await pickAutoProducts()
+      ? await pickAutoProducts(selection.departmentSlug)
       : (
           await getProductsBySlugs(
             selection.productSlugs.slice(0, MAX_PRODUCTS),

@@ -131,12 +131,13 @@ export function GardenVisualiserTool({
 
   async function onGenerate() {
     if (!photoFile || !mode) return;
+    if (mode === "auto" && !room) return;
     setPending(true);
     setError(null);
     try {
       const selection =
         mode === "auto"
-          ? { mode: "auto" as const }
+          ? { mode: "auto" as const, departmentSlug: room! }
           : { mode: "manual" as const, productSlugs: selected };
       const formData = new FormData();
       formData.append("photo", photoFile);
