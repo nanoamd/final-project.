@@ -19,11 +19,19 @@ export const REAL_TOOLS_BY_DEPARTMENT: Record<
       title: "Sauna Size & Capacity Calculator",
       href: "/tools/sauna-size-calculator",
     },
+    {
+      title: "Contrast Therapy Protocol Builder",
+      href: "/tools/contrast-therapy-planner",
+    },
   ],
   "cold-plunge": [
     {
       title: "Cold Plunge Size & Capacity Calculator",
       href: "/tools/cold-plunge-size-calculator",
+    },
+    {
+      title: "Contrast Therapy Protocol Builder",
+      href: "/tools/contrast-therapy-planner",
     },
   ],
 };

@@ -34,6 +34,12 @@ const TOOLS = [
     description:
       "Answer three questions about where it'll live and how much upkeep you want, and we'll match you to the right material.",
   },
+  {
+    href: "/tools/contrast-therapy-planner",
+    title: "Contrast Therapy Protocol Builder",
+    description:
+      "Answer three questions about your goal, experience and time available, and we'll build you a real hot/cold session plan.",
+  },
 ] as const;
 
 export default function ToolsPage() {
