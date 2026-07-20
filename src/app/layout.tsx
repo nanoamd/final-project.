@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-canvas text-ink flex min-h-full flex-col font-sans">
         {children}
         <GoogleAnalytics />
+        <Analytics />
       </body>
     </html>
   );
