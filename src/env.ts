@@ -77,6 +77,13 @@ export const env = createEnv({
     // Optional: enables Google Analytics 4 tracking. Without it, the site
     // just renders with no analytics script — nothing else is affected.
     NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().min(1).optional(),
+    // Optional: site-ownership verification codes and Meta Pixel ID. Each
+    // renders nothing until set — safe to ship ahead of actually having
+    // accounts with these services. See .env.example for where to get each.
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().min(1).optional(),
+    NEXT_PUBLIC_BING_SITE_VERIFICATION: z.string().min(1).optional(),
+    NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION: z.string().min(1).optional(),
+    NEXT_PUBLIC_META_PIXEL_ID: z.string().min(1).optional(),
   },
 
   /**
@@ -102,6 +109,13 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    NEXT_PUBLIC_BING_SITE_VERIFICATION:
+      process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION,
+    NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION:
+      process.env.NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION,
+    NEXT_PUBLIC_META_PIXEL_ID: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   },
 
   /**
