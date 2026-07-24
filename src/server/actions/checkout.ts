@@ -86,6 +86,9 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     // in (see each product's deliveryNotes), so this is a real delivery
     // address collector, not a paid shipping calculator.
     shipping_address_collection: { allowed_countries: ["GB"] },
+    // Needed to actually fulfil an order via a trade supplier's order form
+    // (delivery/installation booking requires calling the customer).
+    phone_number_collection: { enabled: true },
     shipping_options: [
       {
         shipping_rate_data: {

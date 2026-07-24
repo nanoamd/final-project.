@@ -28,6 +28,7 @@ export interface OrderSummary {
   status: string;
   lineItems: OrderLineItem[];
   shippingAddress: OrderShippingAddress | null;
+  phone: string | null;
 }
 
 interface OrderRow {
@@ -42,6 +43,7 @@ interface OrderRow {
     amount_total?: number | null;
   }[];
   shipping_address: OrderShippingAddress | null;
+  phone: string | null;
 }
 
 export async function listOrders(): Promise<OrderSummary[]> {
@@ -72,5 +74,6 @@ export async function listOrders(): Promise<OrderSummary[]> {
         }))
       : [],
     shippingAddress: row.shipping_address ?? null,
+    phone: row.phone ?? null,
   }));
 }

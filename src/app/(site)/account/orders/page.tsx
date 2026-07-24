@@ -95,6 +95,11 @@ export default async function AccountOrdersPage() {
                   </p>
                 </div>
               ) : null}
+              {order.phone ? (
+                <p className="text-muted mt-3 text-[13px]">
+                  Phone: {order.phone}
+                </p>
+              ) : null}
             </li>
           ))}
         </ul>

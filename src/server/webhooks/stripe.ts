@@ -49,6 +49,7 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
             ? session.payment_intent
             : (session.payment_intent?.id ?? null),
         email: session.customer_details?.email ?? "",
+        phone: session.customer_details?.phone ?? null,
         amount_total: session.amount_total ?? 0,
         currency: session.currency ?? "gbp",
         status: "paid",

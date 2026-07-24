@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
@@ -44,6 +44,13 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: ["/images/garden-after.jpg"],
   },
+  other: {
+    "msapplication-config": "/browserconfig.xml",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#c65a2c",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
