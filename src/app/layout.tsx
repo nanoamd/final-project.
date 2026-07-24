@@ -5,9 +5,11 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { CookieConsentBanner } from "@/components/shared/cookie-consent-banner";
 import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/shared/json-ld";
 import { siteConfig } from "@/config/site";
+import { CookieConsentProvider } from "@/hooks/use-cookie-consent";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -62,8 +64,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-canvas text-ink flex min-h-full flex-col font-sans">
         <OrganizationJsonLd />
         <WebsiteJsonLd />
-        {children}
-        <GoogleAnalytics />
+        <CookieConsentProvider>
+          {children}
+          <GoogleAnalytics />
+          <CookieConsentBanner />
+        </CookieConsentProvider>
         <Analytics />
       </body>
     </html>
