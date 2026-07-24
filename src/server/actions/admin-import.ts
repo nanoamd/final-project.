@@ -17,7 +17,11 @@ export interface ImportProductResult {
   url?: string;
 }
 
-const MAX_BATCH_URLS = 25;
+// Kept low relative to the 60s maxDuration set on the import page's route:
+// each URL is a sequential page fetch + AI extraction + image upload, so a
+// larger batch risks the whole request getting cut off mid-way with no
+// clear signal about which URLs actually completed.
+const MAX_BATCH_URLS = 5;
 
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_HTML_BYTES = 2_000_000;
