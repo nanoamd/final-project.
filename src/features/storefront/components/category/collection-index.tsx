@@ -2,6 +2,7 @@ import { ChevronDown, LayoutGrid, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+import { BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { CategoryAccordion } from "@/features/storefront/components/category/category-accordion";
@@ -123,35 +124,57 @@ function CollectionHero({
   const title = category?.name ?? room?.name ?? "Premium outdoor living";
   const crumb = category?.name ?? room?.name ?? "All Collections";
   const shopHref = room ? `/shop/room/${room.slug}` : "/shop";
+  const currentHref = category
+    ? `/shop/${category.slug}`
+    : room
+      ? `/shop/room/${room.slug}`
+      : "/shop";
+
+  const breadcrumbItems = [
+    { name: "Shop", url: "/shop" },
+    ...(category && room ? [{ name: room.name, url: shopHref }] : []),
+    { name: crumb, url: currentHref },
+  ];
+
   return (
     <section className="border-b border-white/10">
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <div className="mx-auto grid max-w-[1440px] items-stretch gap-8 px-6 py-12 sm:px-8 lg:grid-cols-[1fr_0.95fr] lg:gap-12 lg:px-12 lg:py-14">
         <div className="flex flex-col justify-center">
-          <p className="text-brass mb-5 flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase">
-            <AppLink
-              href="/shop"
-              className="hover:text-canvas transition-colors"
-            >
-              Shop
-            </AppLink>
-            {category && room ? (
-              <>
-                <span aria-hidden className="text-brass/50">
-                  /
-                </span>
+          <nav
+            aria-label="Breadcrumb"
+            className="text-brass mb-5 text-[11px] font-medium tracking-[0.2em] uppercase"
+          >
+            <ol className="flex items-center gap-2">
+              <li>
                 <AppLink
-                  href={shopHref}
+                  href="/shop"
                   className="hover:text-canvas transition-colors"
                 >
-                  {room.name}
+                  Shop
                 </AppLink>
-              </>
-            ) : null}
-            <span aria-hidden className="text-brass/50">
-              /
-            </span>
-            <span>{crumb}</span>
-          </p>
+              </li>
+              {category && room ? (
+                <>
+                  <li aria-hidden className="text-brass/50">
+                    /
+                  </li>
+                  <li>
+                    <AppLink
+                      href={shopHref}
+                      className="hover:text-canvas transition-colors"
+                    >
+                      {room.name}
+                    </AppLink>
+                  </li>
+                </>
+              ) : null}
+              <li aria-hidden className="text-brass/50">
+                /
+              </li>
+              <li aria-current="page">{crumb}</li>
+            </ol>
+          </nav>
           {category || room ? (
             <h1 className="text-canvas font-display text-[2.6rem] leading-[1.02] tracking-[-0.01em] sm:text-[3.4rem]">
               {title}

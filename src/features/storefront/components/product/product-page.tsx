@@ -1,3 +1,4 @@
+import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { ProductGallery } from "@/features/storefront/components/product/product-gallery";
 import { ProductSummary } from "@/features/storefront/components/product/product-summary";
@@ -22,10 +23,39 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
     }),
   ]);
 
+  const productUrl = `/shop/${product.category}/${product.slug}`;
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "All Collections", url: "/shop" },
+    { name: product.categoryName, url: `/shop/${product.category}` },
+    { name: product.name, url: productUrl },
+  ];
+
   return (
     <div className="bg-canvas text-ink">
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <ProductJsonLd
+        product={{
+          name: product.name,
+          description: product.summary,
+          image: product.image ?? product.gallery?.[0],
+          sku: product.sku,
+          gtin: product.gtin,
+          mpn: product.mpn,
+          brandName: product.brand?.name,
+          price: product.price,
+          currency: product.currency,
+          stockStatus: product.stockStatus,
+          url: productUrl,
+          rating: product.rating,
+          reviewCount: product.reviewCount,
+        }}
+      />
       <div className="mx-auto max-w-[1280px] px-6 pt-8 sm:px-8 lg:px-12">
-        <nav className="text-muted flex flex-wrap items-center gap-2 text-[12px]">
+        <nav
+          aria-label="Breadcrumb"
+          className="text-muted flex flex-wrap items-center gap-2 text-[12px]"
+        >
           <AppLink href="/" className="hover:text-ink transition-colors">
             Home
           </AppLink>
@@ -41,7 +71,9 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
             {product.categoryName}
           </AppLink>
           <span aria-hidden>/</span>
-          <span className="text-ink">{product.name}</span>
+          <span className="text-ink" aria-current="page">
+            {product.name}
+          </span>
         </nav>
 
         <div className="mt-8 grid gap-10 pb-16 lg:grid-cols-2 lg:gap-14">

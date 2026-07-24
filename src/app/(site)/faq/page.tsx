@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ComingSoon } from "@/components/shared/coming-soon";
+import { FaqJsonLd } from "@/components/shared/json-ld";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getFaqs } from "@/lib/sanity/queries";
@@ -32,6 +33,7 @@ export default async function FaqPage() {
 
   return (
     <Container className="py-20 md:py-28">
+      <FaqJsonLd faqs={faqs} />
       <div className="mx-auto max-w-2xl">
         <Eyebrow>FAQ</Eyebrow>
         <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
