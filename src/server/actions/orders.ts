@@ -8,6 +8,18 @@ export interface OrderLineItem {
   amountTotal: number | null;
 }
 
+export interface OrderShippingAddress {
+  name: string;
+  address: {
+    line1: string | null;
+    line2: string | null;
+    city: string | null;
+    postal_code: string | null;
+    state: string | null;
+    country: string | null;
+  };
+}
+
 export interface OrderSummary {
   id: string;
   createdAt: string;
@@ -15,6 +27,7 @@ export interface OrderSummary {
   currency: string;
   status: string;
   lineItems: OrderLineItem[];
+  shippingAddress: OrderShippingAddress | null;
 }
 
 interface OrderRow {
@@ -28,6 +41,7 @@ interface OrderRow {
     quantity?: number | null;
     amount_total?: number | null;
   }[];
+  shipping_address: OrderShippingAddress | null;
 }
 
 export async function listOrders(): Promise<OrderSummary[]> {
@@ -57,5 +71,6 @@ export async function listOrders(): Promise<OrderSummary[]> {
           amountTotal: li.amount_total ?? null,
         }))
       : [],
+    shippingAddress: row.shipping_address ?? null,
   }));
 }

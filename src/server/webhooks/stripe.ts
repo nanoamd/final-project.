@@ -57,7 +57,8 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
           quantity: item.quantity,
           amount_total: item.amount_total,
         })),
-        shipping_address: session.customer_details?.address ?? null,
+        shipping_address:
+          session.collected_information?.shipping_details ?? null,
       },
       { onConflict: "stripe_session_id" },
     );

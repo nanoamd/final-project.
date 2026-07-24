@@ -82,6 +82,19 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     line_items: lineItems,
     success_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    // UK-only for now — every product's price already has delivery folded
+    // in (see each product's deliveryNotes), so this is a real delivery
+    // address collector, not a paid shipping calculator.
+    shipping_address_collection: { allowed_countries: ["GB"] },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: { amount: 0, currency: "gbp" },
+          display_name: "Free UK Delivery",
+        },
+      },
+    ],
     ...(user
       ? { client_reference_id: user.id, customer_email: user.email }
       : {}),

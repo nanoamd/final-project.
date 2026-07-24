@@ -73,6 +73,25 @@ export default async function AccountOrdersPage() {
                   ))}
                 </ul>
               ) : null}
+              {order.shippingAddress ? (
+                <div className="border-line/60 mt-4 border-t pt-4">
+                  <p className="text-muted text-[11px] tracking-[0.1em] uppercase">
+                    Delivery address
+                  </p>
+                  <p className="text-ink/80 mt-1 text-[14px] leading-relaxed">
+                    {order.shippingAddress.name}
+                    <br />
+                    {[
+                      order.shippingAddress.address.line1,
+                      order.shippingAddress.address.line2,
+                      order.shippingAddress.address.city,
+                      order.shippingAddress.address.postal_code,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </p>
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>
