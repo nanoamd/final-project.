@@ -50,7 +50,7 @@ export function TrustBar({ items }: { items?: TrustBarItem[] }) {
                 strokeWidth={1.4}
                 aria-hidden
               />
-              <div>
+              <div className="min-h-[3.25rem] lg:min-h-0">
                 <p className="text-canvas text-[11px] font-semibold tracking-[0.1em] uppercase lg:text-[12px] lg:tracking-[0.12em]">
                   {item.title}
                 </p>
