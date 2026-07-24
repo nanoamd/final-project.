@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 
@@ -69,6 +70,13 @@ export default function AdminLoginPage() {
             {error}
           </p>
         ) : null}
+
+        <Link
+          href="/admin/forgot-password"
+          className="mt-4 block text-sm text-neutral-500 hover:text-neutral-900"
+        >
+          Forgot password?
+        </Link>
       </form>
     </div>
   );
