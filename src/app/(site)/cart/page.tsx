@@ -29,7 +29,9 @@ export default function CartPage() {
       );
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Something went wrong — please try again.",
+        err instanceof Error
+          ? err.message
+          : "Something went wrong — please try again.",
       );
       setCheckingOut(false);
     }
@@ -42,7 +44,9 @@ export default function CartPage() {
         <h1 className="font-display text-ink mt-3 text-3xl tracking-tight">
           Your basket is empty
         </h1>
-        <p className="text-muted mt-3">Explore the collection to find something for your garden.</p>
+        <p className="text-muted mt-3">
+          Explore the collection to find something for your space.
+        </p>
         <AppLink
           href="/shop"
           className="bg-ink text-canvas mt-8 inline-flex h-12 items-center justify-center rounded-lg px-8 text-[12px] font-semibold tracking-[0.14em] uppercase"
@@ -68,7 +72,13 @@ export default function CartPage() {
               <li key={key} className="flex gap-5 py-6 first:pt-0">
                 <div className="border-line bg-paper relative size-24 shrink-0 overflow-hidden rounded-lg border">
                   {item.image ? (
-                    <Image src={item.image} alt={item.name} fill sizes="96px" className="object-cover" />
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="96px"
+                      className="object-cover"
+                    />
                   ) : null}
                 </div>
                 <div className="flex flex-1 flex-col gap-2">
@@ -98,7 +108,11 @@ export default function CartPage() {
                         type="button"
                         aria-label="Decrease quantity"
                         onClick={() =>
-                          updateQuantity(item.slug, item.quantity - 1, item.selectedOptions)
+                          updateQuantity(
+                            item.slug,
+                            item.quantity - 1,
+                            item.selectedOptions,
+                          )
                         }
                         className="text-ink/60 hover:text-ink flex size-8 items-center justify-center"
                       >
@@ -111,7 +125,11 @@ export default function CartPage() {
                         type="button"
                         aria-label="Increase quantity"
                         onClick={() =>
-                          updateQuantity(item.slug, item.quantity + 1, item.selectedOptions)
+                          updateQuantity(
+                            item.slug,
+                            item.quantity + 1,
+                            item.selectedOptions,
+                          )
                         }
                         className="text-ink/60 hover:text-ink flex size-8 items-center justify-center"
                       >
@@ -120,7 +138,9 @@ export default function CartPage() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => removeItem(item.slug, item.selectedOptions)}
+                      onClick={() =>
+                        removeItem(item.slug, item.selectedOptions)
+                      }
                       aria-label="Remove item"
                       className="text-muted hover:text-ink flex items-center gap-1.5 text-[12px] transition-colors"
                     >
@@ -137,12 +157,16 @@ export default function CartPage() {
         <div className="border-line bg-paper h-fit rounded-xl border p-6">
           <div className="flex items-center justify-between text-[15px]">
             <span className="text-muted">Subtotal</span>
-            <span className="text-ink font-medium">{formatPriceExact(subtotal)}</span>
+            <span className="text-ink font-medium">
+              {formatPriceExact(subtotal)}
+            </span>
           </div>
           <p className="text-muted mt-2 text-[13px]">
             Tax included. Shipping calculated at checkout.
           </p>
-          {error ? <p className="text-brass mt-4 text-[13px]">{error}</p> : null}
+          {error ? (
+            <p className="text-brass mt-4 text-[13px]">{error}</p>
+          ) : null}
           <button
             type="button"
             onClick={handleCheckout}
