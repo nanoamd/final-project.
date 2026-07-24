@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ArticleDetail } from "@/features/storefront/components/content/article-detail";
 import { getPost, getPosts } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -18,7 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  return { title: post?.title ?? "Journal", description: post?.excerpt };
+  return buildMetadata({
+    title: post?.title ?? "Journal",
+    description: post?.excerpt ?? "Stories and ideas from Kaiku.",
+    path: `/journal/${slug}`,
+    image: post?.coverImage ?? undefined,
+  });
 }
 
 export default async function JournalArticlePage({

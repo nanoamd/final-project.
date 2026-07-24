@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 
 import { ArticleList } from "@/features/storefront/components/content/article-list";
 import { getPosts } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Journal",
   description:
     "Editorial and writing on home improvement, wellness living and outdoor living.",
-};
+  path: "/journal",
+});
 
 export default async function JournalPage() {
   const posts = await getPosts({ limit: 24 });

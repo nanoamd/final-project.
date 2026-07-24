@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 
 import { ComingSoon } from "@/components/shared/coming-soon";
 
-export const metadata: Metadata = { title: "Inspiration" };
+// This route is currently a placeholder shell shared across several
+// not-yet-built pages — noindexed until real content replaces it, to avoid
+// several near-identical "coming soon" pages reading as duplicate content.
+export const metadata: Metadata = {
+  title: "Inspiration",
+  robots: { index: false, follow: true },
+};
 
 export default function InspirationPage() {
   return (

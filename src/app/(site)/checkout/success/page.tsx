@@ -7,7 +7,10 @@ import { ClearCartOnMount } from "@/features/storefront/components/content/clear
 import { formatPriceExact } from "@/lib/format";
 import { stripe } from "@/server/stripe/client";
 
-export const metadata: Metadata = { title: "Order Confirmed" };
+export const metadata: Metadata = {
+  title: "Order Confirmed",
+  robots: { index: false, follow: false },
+};
 
 export default async function CheckoutSuccessPage({
   searchParams,
@@ -35,7 +38,7 @@ export default async function CheckoutSuccessPage({
       <h1 className="font-display text-ink mt-6 text-3xl tracking-tight sm:text-4xl">
         Thank you for your order
       </h1>
-      <p className="text-muted mt-3 max-w-md mx-auto">
+      <p className="text-muted mx-auto mt-3 max-w-md">
         {email
           ? `A confirmation has been sent to ${email}.`
           : "Your order has been placed."}

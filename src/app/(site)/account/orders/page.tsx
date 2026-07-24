@@ -7,7 +7,10 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { createClient } from "@/lib/supabase/server";
 import { listOrders } from "@/server/actions/orders";
 
-export const metadata: Metadata = { title: "Order History" };
+export const metadata: Metadata = {
+  title: "Order History",
+  robots: { index: false, follow: false },
+};
 
 function formatOrderTotal(amountTotal: number, currency: string) {
   return new Intl.NumberFormat("en-GB", {

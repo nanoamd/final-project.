@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 
 import { ArticleList } from "@/features/storefront/components/content/article-list";
 import { getBuyingGuides } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Buying Guides",
   description:
     "Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts.",
-};
+  path: "/learn",
+});
 
 export default async function LearnPage() {
   const guides = await getBuyingGuides({ limit: 24 });

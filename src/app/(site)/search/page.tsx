@@ -9,7 +9,13 @@ import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { formatPriceExact } from "@/lib/format";
 import { searchProducts } from "@/lib/sanity/queries";
 
-export const metadata: Metadata = { title: "Search" };
+// Search result pages are thin, near-duplicate content that shouldn't
+// compete with real category/product pages in Google — standard practice
+// is to noindex them while still letting links from them be followed.
+export const metadata: Metadata = {
+  title: "Search",
+  robots: { index: false, follow: true },
+};
 
 export default async function SearchPage({
   searchParams,
@@ -29,7 +35,10 @@ export default async function SearchPage({
 
       <form action="/search" method="get" className="mt-8 max-w-lg">
         <label className="border-line bg-paper focus-within:border-ink flex h-13 items-center gap-3 rounded-full border px-5">
-          <SearchIcon className="text-muted size-4 shrink-0" strokeWidth={1.8} />
+          <SearchIcon
+            className="text-muted size-4 shrink-0"
+            strokeWidth={1.8}
+          />
           <input
             type="search"
             name="q"

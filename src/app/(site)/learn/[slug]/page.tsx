@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ArticleDetail } from "@/features/storefront/components/content/article-detail";
 import { getBuyingGuide, getBuyingGuides } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -18,10 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const guide = await getBuyingGuide(slug);
-  return {
+  return buildMetadata({
     title: guide?.title ?? "Buying Guides",
-    description: guide?.excerpt,
-  };
+    description: guide?.excerpt ?? "Considered buying guides from Kaiku.",
+    path: `/learn/${slug}`,
+    image: guide?.coverImage ?? undefined,
+  });
 }
 
 export default async function BuyingGuidePage({

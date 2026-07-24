@@ -4,14 +4,16 @@ import { CapacityMatchCalculator } from "@/components/shared/capacity-match-calc
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getProductsByDepartment } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Cold Plunge Size & Capacity Calculator",
   description:
     "Find the right cold plunge for how many people will actually use it, matched against real in-stock tubs.",
-};
+  path: "/tools/cold-plunge-size-calculator",
+});
 
 export default async function ColdPlungeSizeCalculatorPage() {
   const products = await getProductsByDepartment("cold-plunge");

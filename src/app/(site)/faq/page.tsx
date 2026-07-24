@@ -4,13 +4,16 @@ import { ComingSoon } from "@/components/shared/coming-soon";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getFaqs } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Frequently Asked Questions",
-  description: "Answers to common questions about delivery, returns and our products.",
-};
+  description:
+    "Answers to common questions about delivery, returns and our products.",
+  path: "/faq",
+});
 
 export default async function FaqPage() {
   const faqs = await getFaqs();
@@ -46,7 +49,9 @@ export default async function FaqPage() {
                   .filter((f) => f.topic === topic)
                   .map((faq) => (
                     <div key={faq.question} className="py-5">
-                      <dt className="text-ink text-[15px] font-medium">{faq.question}</dt>
+                      <dt className="text-ink text-[15px] font-medium">
+                        {faq.question}
+                      </dt>
                       <dd className="text-graphite mt-2 text-[14px] leading-relaxed">
                         {faq.answer}
                       </dd>

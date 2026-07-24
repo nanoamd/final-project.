@@ -9,6 +9,7 @@ import {
   getProduct,
   getProductsByCategory,
 } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -18,11 +19,12 @@ export const revalidate = 60;
 // cap for Server Actions invoked from this page.
 export const maxDuration = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "AI Design Studio",
   description:
     "Upload a photo of your own space, add real products from Kaiku, and see it redesigned in seconds.",
-};
+  path: "/tools/garden-visualiser",
+});
 
 export default async function GardenVisualiserPage({
   searchParams,

@@ -7,7 +7,10 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { createClient } from "@/lib/supabase/server";
 import { signOutCustomer } from "@/server/actions/customer-auth";
 
-export const metadata: Metadata = { title: "Account" };
+export const metadata: Metadata = {
+  title: "Account",
+  robots: { index: false, follow: false },
+};
 
 export default async function AccountPage() {
   const supabase = await createClient();

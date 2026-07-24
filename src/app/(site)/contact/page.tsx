@@ -6,12 +6,17 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { ContactForm } from "@/features/storefront/components/content/contact-form";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import { getPageBySlug, getSiteSettings } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("contact");
-  return { title: page?.title ?? "Contact Us" };
+  return buildMetadata({
+    title: page?.title ?? "Contact Us",
+    description: page?.intro ?? "Get in touch with the Kaiku team.",
+    path: "/contact",
+  });
 }
 
 export default async function ContactPage() {
@@ -22,7 +27,8 @@ export default async function ContactPage() {
 
   const title = page?.title ?? "Contact Us";
   const intro =
-    page?.intro ?? "We're here to help with sizing, planning and anything else.";
+    page?.intro ??
+    "We're here to help with sizing, planning and anything else.";
 
   return (
     <Container className="py-20 md:py-28">
@@ -32,11 +38,16 @@ export default async function ContactPage() {
           <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
             {title}
           </h1>
-          <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">{intro}</p>
+          <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
+            {intro}
+          </p>
 
           {page?.body?.length ? (
             <div className="mt-8">
-              <PortableText value={page.body} components={portableTextComponents} />
+              <PortableText
+                value={page.body}
+                components={portableTextComponents}
+              />
             </div>
           ) : null}
 

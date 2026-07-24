@@ -3,12 +3,14 @@ import type { Metadata } from "next";
 import { ContrastTherapyBuilder } from "@/components/shared/contrast-therapy-builder";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Contrast Therapy Protocol Builder",
   description:
     "Answer three questions about your goal, experience and time available, and get a real, personalised hot/cold contrast therapy session plan.",
-};
+  path: "/tools/contrast-therapy-planner",
+});
 
 export default function ContrastTherapyPlannerPage() {
   return (

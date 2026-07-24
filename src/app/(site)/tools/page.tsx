@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Tools",
   description: "Free tools to help you plan your space.",
-};
+  path: "/tools",
+});
 
 const TOOLS = [
   {

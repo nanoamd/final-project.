@@ -2,12 +2,19 @@ import type { Metadata } from "next";
 
 import { GenericPage } from "@/features/storefront/components/content/generic-page";
 import { getPageBySlug } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("returns");
-  return { title: page?.title ?? "Returns" };
+  return buildMetadata({
+    title: page?.title ?? "Returns",
+    description:
+      page?.intro ??
+      "Unused items in their original packaging can be returned within 30 days of delivery for a full refund.",
+    path: "/returns",
+  });
 }
 
 export default async function ReturnsPage() {

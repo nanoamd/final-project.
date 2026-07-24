@@ -3,12 +3,14 @@ import type { Metadata } from "next";
 import { FurnitureMaterialSelector } from "@/components/shared/furniture-material-selector";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Garden Furniture Material & Weather Resilience Selector",
   description:
     "Answer three questions about where your furniture will live and how much upkeep you want, and we'll match you to the right material.",
-};
+  path: "/tools/garden-furniture-material-selector",
+});
 
 export default function GardenFurnitureMaterialSelectorPage() {
   return (

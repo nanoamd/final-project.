@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 
-export const metadata: Metadata = { title: "Checkout Cancelled" };
+export const metadata: Metadata = {
+  title: "Checkout Cancelled",
+  robots: { index: false, follow: false },
+};
 
 export default function CheckoutCancelPage() {
   return (
@@ -12,7 +15,8 @@ export default function CheckoutCancelPage() {
         Checkout cancelled
       </h1>
       <p className="text-muted mt-3">
-        No payment was taken. Your basket is still here whenever you&rsquo;re ready.
+        No payment was taken. Your basket is still here whenever you&rsquo;re
+        ready.
       </p>
       <AppLink
         href="/cart"

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 
 import { ComingSoon } from "@/components/shared/coming-soon";
 
-export const metadata: Metadata = { title: "Compare" };
+// See inspiration/page.tsx — same placeholder-shell reasoning applies.
+export const metadata: Metadata = {
+  title: "Compare",
+  robots: { index: false, follow: true },
+};
 
 export default function ComparePage() {
   return (

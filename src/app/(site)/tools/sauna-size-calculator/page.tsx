@@ -4,14 +4,16 @@ import { CapacityMatchCalculator } from "@/components/shared/capacity-match-calc
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { getProductsByDepartment } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Sauna Size & Capacity Calculator",
   description:
     "Find the right sauna size for how many people will actually use it, matched against real in-stock saunas.",
-};
+  path: "/tools/sauna-size-calculator",
+});
 
 export default async function SaunaSizeCalculatorPage() {
   const products = await getProductsByDepartment("sauna");

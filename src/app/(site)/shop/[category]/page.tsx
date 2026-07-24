@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { CollectionIndex } from "@/features/storefront";
 import { getCategories, getCategory } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
@@ -17,10 +18,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category } = await params;
   const found = await getCategory(category);
-  return {
+  return buildMetadata({
     title: found?.name ?? "Shop",
-    description: found?.description,
-  };
+    description:
+      found?.description ??
+      "Browse the full Kaiku collection — premium outdoor living and wellness pieces.",
+    path: `/shop/${category}`,
+    image: found?.image ?? undefined,
+  });
 }
 
 export default async function Page({

@@ -8,7 +8,10 @@ import { AddressBook } from "@/features/storefront/components/account/address-bo
 import { createClient } from "@/lib/supabase/server";
 import { listAddresses } from "@/server/actions/addresses";
 
-export const metadata: Metadata = { title: "Saved Addresses" };
+export const metadata: Metadata = {
+  title: "Saved Addresses",
+  robots: { index: false, follow: false },
+};
 
 export default async function AccountAddressesPage() {
   const supabase = await createClient();

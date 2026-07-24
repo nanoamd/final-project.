@@ -2,12 +2,19 @@ import type { Metadata } from "next";
 
 import { GenericPage } from "@/features/storefront/components/content/generic-page";
 import { getPageBySlug } from "@/lib/sanity/queries";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("delivery");
-  return { title: page?.title ?? "Delivery" };
+  return buildMetadata({
+    title: page?.title ?? "Delivery",
+    description:
+      page?.intro ??
+      "Delivery windows vary by product and are shown on each product page.",
+    path: "/delivery",
+  });
 }
 
 export default async function DeliveryPage() {
