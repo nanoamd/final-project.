@@ -4,29 +4,35 @@ import Link from "next/link";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import type { ImportProductResult } from "@/server/actions/admin-import";
-import { importProductFromUrl } from "@/server/actions/admin-import";
+import { importProductsFromUrls } from "@/server/actions/admin-import";
 
 export default function AdminImportPage() {
   const [pending, setPending] = React.useState(false);
-  const [result, setResult] = React.useState<ImportProductResult | null>(null);
+  const [results, setResults] = React.useState<ImportProductResult[] | null>(
+    null,
+  );
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const url = new FormData(event.currentTarget).get("url");
-    if (typeof url !== "string" || !url.trim()) return;
+    const raw = new FormData(event.currentTarget).get("urls");
+    if (typeof raw !== "string") return;
+
+    const urls = raw
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+    if (!urls.length) return;
 
     setPending(true);
-    setResult(null);
+    setResults(null);
     try {
-      const outcome = await importProductFromUrl(url.trim());
-      setResult(outcome);
+      const outcome = await importProductsFromUrls(urls);
+      setResults(outcome);
     } catch {
-      setResult({
-        ok: false,
-        error: "Something went wrong. Please try again.",
-      });
+      setResults([
+        { ok: false, error: "Something went wrong. Please try again." },
+      ]);
     } finally {
       setPending(false);
     }
@@ -40,50 +46,70 @@ export default function AdminImportPage() {
       >
         ← Dashboard
       </Link>
-      <h1 className="font-display mt-3 text-2xl">Import product from URL</h1>
+      <h1 className="font-display mt-3 text-2xl">Import products from URLs</h1>
       <p className="mt-2 max-w-lg text-sm text-neutral-500">
-        Paste a supplier&rsquo;s product page. We&rsquo;ll pull out a title,
-        price, description, specs and hero image, and save it as a draft product
-        for you to check and publish in Sanity Studio — nothing goes live
-        automatically.
+        Paste one or more supplier product pages, one per line (up to 25 at
+        once). For each, we&rsquo;ll pull out a title, price, description, specs
+        and hero image, and save it as a draft product for you to check and
+        publish in Sanity Studio — nothing goes live automatically.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-6 flex max-w-lg gap-3">
-        <Input
-          type="url"
-          name="url"
+      <form onSubmit={onSubmit} className="mt-6 max-w-lg">
+        <textarea
+          name="urls"
           required
-          placeholder="https://supplier.example.com/product/..."
+          rows={8}
+          placeholder={
+            "https://supplier.example.com/product/one\nhttps://supplier.example.com/product/two"
+          }
+          className="w-full rounded-lg border border-neutral-300 p-3 font-mono text-[13px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none"
         />
-        <Button type="submit" disabled={pending}>
-          {pending ? "Importing…" : "Import"}
+        <Button type="submit" disabled={pending} className="mt-3">
+          {pending ? "Importing…" : "Import all"}
         </Button>
       </form>
 
-      {result ? (
-        result.ok ? (
-          <div className="mt-6 max-w-lg rounded-xl border border-neutral-200 bg-white p-6">
-            <p className="font-display text-lg">
-              Draft created: {result.title}
-            </p>
-            <p className="mt-1 text-sm text-neutral-500">
-              Review the extracted details, fix anything the importer missed,
-              and publish when it&rsquo;s ready.
-            </p>
-            {result.studioUrl ? (
-              <a
-                href={result.studioUrl}
-                className="mt-4 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4"
-              >
-                Review in Sanity Studio →
-              </a>
-            ) : null}
-          </div>
-        ) : (
-          <p className="mt-4 max-w-lg text-[13px] text-red-600" role="alert">
-            {result.error}
-          </p>
-        )
+      {results ? (
+        <ul className="mt-6 flex max-w-lg flex-col gap-3">
+          {results.map((result, index) => (
+            <li
+              key={index}
+              className="rounded-xl border border-neutral-200 bg-white p-5"
+            >
+              {result.ok ? (
+                <>
+                  <p className="font-display text-lg">
+                    Draft created: {result.title}
+                  </p>
+                  {result.url ? (
+                    <p className="mt-1 truncate text-[12px] text-neutral-400">
+                      {result.url}
+                    </p>
+                  ) : null}
+                  {result.studioUrl ? (
+                    <a
+                      href={result.studioUrl}
+                      className="mt-3 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4"
+                    >
+                      Review in Sanity Studio →
+                    </a>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  <p className="text-[13px] text-red-600" role="alert">
+                    {result.error}
+                  </p>
+                  {result.url ? (
+                    <p className="mt-1 truncate text-[12px] text-neutral-400">
+                      {result.url}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
       ) : null}
     </div>
   );

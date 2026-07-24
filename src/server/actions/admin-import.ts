@@ -14,7 +14,10 @@ export interface ImportProductResult {
   error?: string;
   title?: string;
   studioUrl?: string;
+  url?: string;
 }
+
+const MAX_BATCH_URLS = 25;
 
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_HTML_BYTES = 2_000_000;
@@ -283,13 +286,14 @@ export async function importProductFromUrl(
     !!adminEmail &&
     user.email.toLowerCase() === adminEmail.toLowerCase();
   if (!authorized) {
-    return { ok: false, error: "Unauthorized." };
+    return { ok: false, error: "Unauthorized.", url };
   }
 
   if (!env.OPENAI_API_KEY) {
     return {
       ok: false,
       error: "This tool isn't available right now — OPENAI_API_KEY isn't set.",
+      url,
     };
   }
   const writeClient = getSanityWriteClient();
@@ -298,12 +302,17 @@ export async function importProductFromUrl(
       ok: false,
       error:
         "This tool isn't available right now — SANITY_API_WRITE_TOKEN isn't set.",
+      url,
     };
   }
 
   const safeUrl = isSafeUrl(url);
   if (!safeUrl) {
-    return { ok: false, error: "Please enter a valid http(s) product URL." };
+    return {
+      ok: false,
+      error: "Please enter a valid http(s) product URL.",
+      url,
+    };
   }
 
   try {
@@ -393,6 +402,7 @@ export async function importProductFromUrl(
       ok: true,
       title,
       studioUrl: `/studio/structure/product;${baseId}`,
+      url,
     };
   } catch (err) {
     console.error("importProductFromUrl: failed", err);
@@ -400,6 +410,27 @@ export async function importProductFromUrl(
       ok: false,
       error:
         "Couldn't import that page — it may be blocking automated requests, or its layout wasn't recognisable.",
+      url,
     };
   }
+}
+
+/**
+ * Imports a batch of supplier product URLs sequentially — one at a time,
+ * not in parallel — so a single slow/rate-limited supplier site doesn't get
+ * hammered with concurrent requests, and so the OpenAI extraction calls stay
+ * within reasonable rate limits too. Each URL's auth check is a fast no-op
+ * after the first (same session), so the per-call overhead is negligible.
+ */
+export async function importProductsFromUrls(
+  urls: string[],
+): Promise<ImportProductResult[]> {
+  const trimmed = urls.map((u) => u.trim()).filter(Boolean);
+  const capped = trimmed.slice(0, MAX_BATCH_URLS);
+
+  const results: ImportProductResult[] = [];
+  for (const url of capped) {
+    results.push(await importProductFromUrl(url));
+  }
+  return results;
 }
