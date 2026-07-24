@@ -1438,8 +1438,8 @@ async function seedHomepage() {
       {
         _type: "livingCard",
         _key: "c3",
-        title: "Trusted by Thousands",
-        copy: "Rated excellent by our customers.",
+        title: "Honest Specification",
+        copy: "Real materials and true dimensions on every product page.",
         image: imageField(await uploadImage("images/steam-lake.jpg")),
       },
     ],

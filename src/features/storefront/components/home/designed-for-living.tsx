@@ -15,8 +15,8 @@ const DEFAULT_CARDS: LivingCard[] = [
     image: "/images/hero-fire.jpg",
   },
   {
-    title: "Trusted by Thousands",
-    copy: "Rated excellent by our customers.",
+    title: "Honest Specification",
+    copy: "Real materials and true dimensions on every product page.",
     image: "/images/steam-lake.jpg",
   },
 ];
