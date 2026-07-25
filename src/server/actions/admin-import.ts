@@ -4,9 +4,11 @@ import "server-only";
 
 import crypto from "node:crypto";
 
+import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import { getCategories } from "@/lib/sanity/queries/category";
 import { createClient } from "@/lib/supabase/server";
+import { logProductImportToSheet } from "@/server/integrations/google-sheets";
 import { getSanityWriteClient } from "@/server/sanity/write-client";
 
 export interface ImportProductResult {
@@ -279,6 +281,7 @@ function textBlock(text: string) {
 
 export async function importProductFromUrl(
   url: string,
+  supplierName: string,
 ): Promise<ImportProductResult> {
   const supabase = await createClient();
   const {
@@ -402,10 +405,32 @@ export async function importProductFromUrl(
       sourceUrl: safeUrl.toString(),
     });
 
+    // "Intent" links are structure-independent — unlike a /structure/...
+    // deep link, they don't need to match the nested Catalog > Products
+    // path defined in structure.ts, so they keep working if that nesting
+    // ever changes.
+    const studioPath = `/studio/intent/edit/id=${baseId};type=product`;
+
+    // Awaited (not fire-and-forget) because a serverless function can be
+    // frozen the instant it returns a response, which would otherwise kill
+    // an in-flight Sheets write before it completes. A Sheets failure still
+    // can't undo the Sanity draft that already succeeded — the function
+    // swallows its own errors, so this never throws.
+    await logProductImportToSheet({
+      title,
+      price: typeof fields?.price === "number" ? fields.price : undefined,
+      currency: fields?.currency,
+      sku: fields?.sku,
+      categoryName: matchedCategory?.name,
+      supplierName,
+      sourceUrl: safeUrl.toString(),
+      studioUrl: `${siteConfig.url}${studioPath}`,
+    });
+
     return {
       ok: true,
       title,
-      studioUrl: `/studio/structure/product;${baseId}`,
+      studioUrl: studioPath,
       url,
     };
   } catch (err) {
@@ -428,13 +453,14 @@ export async function importProductFromUrl(
  */
 export async function importProductsFromUrls(
   urls: string[],
+  supplierName: string,
 ): Promise<ImportProductResult[]> {
   const trimmed = urls.map((u) => u.trim()).filter(Boolean);
   const capped = trimmed.slice(0, MAX_BATCH_URLS);
 
   const results: ImportProductResult[] = [];
   for (const url of capped) {
-    results.push(await importProductFromUrl(url));
+    results.push(await importProductFromUrl(url, supplierName));
   }
   return results;
 }

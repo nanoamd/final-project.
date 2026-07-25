@@ -15,8 +15,11 @@ export function AdminImportForm() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const raw = new FormData(event.currentTarget).get("urls");
-    if (typeof raw !== "string") return;
+    const formData = new FormData(event.currentTarget);
+    const raw = formData.get("urls");
+    const supplierName = formData.get("supplierName");
+    if (typeof raw !== "string" || typeof supplierName !== "string") return;
+    if (!supplierName.trim()) return;
 
     const urls = raw
       .split("\n")
@@ -27,7 +30,7 @@ export function AdminImportForm() {
     setPending(true);
     setResults(null);
     try {
-      const outcome = await importProductsFromUrls(urls);
+      const outcome = await importProductsFromUrls(urls, supplierName.trim());
       setResults(outcome);
     } catch {
       setResults([
@@ -48,16 +51,32 @@ export function AdminImportForm() {
       </Link>
       <h1 className="font-display mt-3 text-2xl">Import products from URLs</h1>
       <p className="mt-2 max-w-lg text-sm text-neutral-500">
-        Paste one or more supplier product pages, one per line (up to 5 at once
-        — each import fetches the page, runs an AI extraction, and uploads an
-        image, so a bigger batch risks running past the server&rsquo;s time
-        limit partway through). For each, we&rsquo;ll pull out a title, price,
-        description, specs and hero image, and save it as a draft product for
-        you to check and publish in Sanity Studio — nothing goes live
-        automatically.
+        Enter the supplier these pages are from, then paste one or more of their
+        product pages, one per line (up to 5 at once — each import fetches the
+        page, runs an AI extraction, and uploads an image, so a bigger batch
+        risks running past the server&rsquo;s time limit partway through). For
+        each, we&rsquo;ll pull out a title, price, description, specs and hero
+        image, and save it as a draft product for you to check and publish in
+        Sanity Studio — nothing goes live automatically. If a Google Sheet is
+        configured, every import is also logged there and the supplier&rsquo;s
+        product-page link is saved for easy reordering later.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 max-w-lg">
+        <label
+          htmlFor="supplierName"
+          className="text-sm font-medium text-neutral-700"
+        >
+          Supplier name
+        </label>
+        <input
+          id="supplierName"
+          name="supplierName"
+          required
+          type="text"
+          placeholder="e.g. SaunaPlunge"
+          className="mt-1 mb-4 w-full rounded-lg border border-neutral-300 p-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none"
+        />
         <textarea
           name="urls"
           required

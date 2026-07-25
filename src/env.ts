@@ -60,6 +60,12 @@ export const env = createEnv({
     // Optional: the one Supabase account allowed into /admin. Without it,
     // /admin is unreachable for everyone (fails closed, not open).
     ADMIN_EMAIL: z.string().min(1).optional(),
+    // Optional: logs every URL import to a Google Sheet (see
+    // src/server/integrations/google-sheets.ts). All three must be set
+    // together; without them, the importer just skips this step.
+    GOOGLE_SHEETS_SPREADSHEET_ID: z.string().min(1).optional(),
+    GOOGLE_SHEETS_CLIENT_EMAIL: z.string().min(1).optional(),
+    GOOGLE_SHEETS_PRIVATE_KEY: z.string().min(1).optional(),
   },
 
   /**
@@ -100,6 +106,9 @@ export const env = createEnv({
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     RATE_LIMIT_SECRET: process.env.RATE_LIMIT_SECRET,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+    GOOGLE_SHEETS_SPREADSHEET_ID: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
+    GOOGLE_SHEETS_CLIENT_EMAIL: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+    GOOGLE_SHEETS_PRIVATE_KEY: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
