@@ -356,31 +356,41 @@ export async function importProductFromUrl(
     // Every array item Sanity stores needs its own unique `_key` — without
     // one, Studio can't render or edit the item at all and just shows a
     // "Missing keys" error, even though the image data underneath it is
-    // fine. Uploaded sequentially (not in parallel) so a slow/rate-limited
-    // supplier site isn't hit with several concurrent image requests at once.
-    const gallery: {
+    // fine. Fetched in parallel (up to MAX_GALLERY_IMAGES at once, all from
+    // the same page so this is well within normal browser-load behaviour)
+    // rather than one at a time — sequential uploads of up to 6 images per
+    // URL, across a 5-URL batch, risked blowing the import page's 60s
+    // serverless timeout well before every URL finished.
+    type GalleryImage = {
       _type: "image";
       _key: string;
       asset: { _type: "reference"; _ref: string };
-    }[] = [];
-    for (const [index, imageUrl] of signals.imageUrls.entries()) {
-      try {
-        const imageResponse = await fetch(imageUrl, {
-          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        });
-        if (imageResponse.ok) {
-          const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
-          const asset = await writeClient.assets.upload("image", imageBuffer);
-          gallery.push({
-            _type: "image",
-            _key: `gallery-${index}`,
-            asset: { _type: "reference", _ref: asset._id },
-          });
-        }
-      } catch (err) {
-        console.error("importProductFromUrl: image upload failed", err);
-      }
-    }
+    };
+    const galleryResults = await Promise.all(
+      signals.imageUrls.map(
+        async (imageUrl, index): Promise<GalleryImage | null> => {
+          try {
+            const imageResponse = await fetch(imageUrl, {
+              signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+            });
+            if (!imageResponse.ok) return null;
+            const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+            const asset = await writeClient.assets.upload("image", imageBuffer);
+            return {
+              _type: "image",
+              _key: `gallery-${index}`,
+              asset: { _type: "reference", _ref: asset._id },
+            };
+          } catch (err) {
+            console.error("importProductFromUrl: image upload failed", err);
+            return null;
+          }
+        },
+      ),
+    );
+    const gallery = galleryResults.filter(
+      (image): image is GalleryImage => image !== null,
+    );
 
     const matchedCategory = fields?.categorySlug
       ? categories.find((c) => c.slug === fields.categorySlug)
