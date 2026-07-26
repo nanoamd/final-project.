@@ -69,7 +69,7 @@ export function ProductGallery({
             <ChevronLeft className="size-4" strokeWidth={1.8} />
           </button>
 
-          <div className="grid flex-1 grid-cols-5 gap-3">
+          <div className="flex flex-1 flex-wrap gap-3">
             {images.map((src, index) => (
               <button
                 key={src}
@@ -78,7 +78,7 @@ export function ProductGallery({
                 aria-label={`${name} — view ${index + 1}`}
                 aria-pressed={active === index}
                 className={cn(
-                  "border-line bg-paper relative aspect-square overflow-hidden rounded-lg border transition-colors",
+                  "border-line bg-paper relative size-16 shrink-0 overflow-hidden rounded-lg border transition-colors",
                   active === index
                     ? "border-brass ring-brass/30 ring-1"
                     : "hover:border-ink/30",

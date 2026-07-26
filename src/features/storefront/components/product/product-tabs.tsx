@@ -3,6 +3,7 @@
 import { PortableText } from "@portabletext/react";
 import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
@@ -149,6 +150,13 @@ function SpecsPanel({ product }: { product: SanityProduct }) {
   );
 }
 
+// Product-specific copy (deliveryNotes/warrantyNotes) supplements these
+// links rather than replacing them — a customer should always be able to
+// reach the site's actual policy pages, not just whatever free-text an
+// editor did or didn't fill in for this one product.
+const linkClass =
+  "text-brass text-[13px] font-medium underline underline-offset-4";
+
 function DeliveryPanel({ product }: { product: SanityProduct }) {
   return (
     <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
@@ -157,17 +165,28 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
           Delivery
         </h3>
         <p className="text-graphite mt-3 leading-relaxed">
-          {product.deliveryNotes ?? "Delivery details confirmed at quotation."}
+          {product.deliveryNotes || "Delivery details confirmed at quotation."}
         </p>
+        <Link href="/delivery" className={`${linkClass} mt-3 inline-block`}>
+          Full delivery policy →
+        </Link>
       </div>
       <div>
         <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
           Warranty & Returns
         </h3>
         <p className="text-graphite mt-3 leading-relaxed">
-          {product.warrantyNotes ??
+          {product.warrantyNotes ||
             "Comprehensive manufacturer warranty — exact terms confirmed at quotation."}
         </p>
+        <div className="mt-3 flex gap-5">
+          <Link href="/warranty" className={linkClass}>
+            Warranty policy →
+          </Link>
+          <Link href="/returns" className={linkClass}>
+            Returns policy →
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -62,18 +62,47 @@ export function RelatedContent({
     tools.push({ title });
   }
 
-  if (!buyingGuides.length && !posts.length && !tools.length) return null;
+  if (!posts.length && !tools.length) return null;
+
+  // The grid's column count must match how many columns actually render —
+  // a fixed 3-column grid with only 1-2 real columns leaves the rest of the
+  // row as dead white space. Buying guides always renders something (real
+  // guides or the fallback link below), so it always counts as one column.
+  const columnCount = 1 + (posts.length ? 1 : 0) + (tools.length ? 1 : 0);
+  const gridColsClass =
+    columnCount >= 3
+      ? "md:grid-cols-2 lg:grid-cols-3"
+      : columnCount === 2
+        ? "md:grid-cols-2"
+        : "max-w-md";
 
   return (
     <section className="border-line bg-paper border-t">
-      <div className="mx-auto grid max-w-[1280px] gap-12 px-6 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-3 lg:px-12">
+      <div
+        className={`mx-auto grid max-w-[1280px] gap-12 px-6 py-16 sm:px-8 lg:px-12 ${gridColsClass}`}
+      >
         {buyingGuides.length ? (
           <ContentColumn
             heading="Buying guides"
             basePath="/learn"
             items={buyingGuides}
           />
-        ) : null}
+        ) : (
+          <div>
+            <h2 className="text-ink font-display text-2xl tracking-tight">
+              Buying guides
+            </h2>
+            <p className="text-muted mt-4 text-[14px] leading-relaxed">
+              We&rsquo;re still writing a guide for this category.
+            </p>
+            <AppLink
+              href="/learn"
+              className="text-brass mt-3 inline-block text-[13px] font-medium underline underline-offset-4"
+            >
+              Browse all buying guides →
+            </AppLink>
+          </div>
+        )}
         {posts.length ? (
           <ContentColumn
             heading="From the journal"

@@ -403,22 +403,24 @@ export async function importProductFromUrl(
             },
           }
         : {}),
-      ...(fields?.tagline ? { tagline: fields.tagline } : {}),
-      ...(fields?.summary ? { summary: fields.summary } : {}),
-      ...(fields?.description
-        ? { description: [textBlock(fields.description)] }
+      ...(fields?.tagline?.trim() ? { tagline: fields.tagline.trim() } : {}),
+      ...(fields?.summary?.trim() ? { summary: fields.summary.trim() } : {}),
+      ...(fields?.description?.trim()
+        ? { description: [textBlock(fields.description.trim())] }
         : {}),
       ...(typeof fields?.price === "number" ? { price: fields.price } : {}),
-      ...(fields?.currency ? { currency: fields.currency } : {}),
-      ...(fields?.sku ? { sku: fields.sku } : {}),
-      ...(fields?.highlights?.length ? { highlights: fields.highlights } : {}),
+      ...(fields?.currency?.trim() ? { currency: fields.currency.trim() } : {}),
+      ...(fields?.sku?.trim() ? { sku: fields.sku.trim() } : {}),
+      ...(fields?.highlights?.length
+        ? { highlights: fields.highlights.map((h) => h.trim()) }
+        : {}),
       ...(fields?.specs?.length
         ? {
             specs: fields.specs.map((s, i) => ({
               _type: "productSpec",
               _key: `spec-${i}`,
-              label: s.label,
-              value: s.value,
+              label: s.label.trim(),
+              value: s.value.trim(),
             })),
           }
         : {}),
