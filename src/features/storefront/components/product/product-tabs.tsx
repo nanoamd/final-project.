@@ -1,7 +1,14 @@
 "use client";
 
 import { PortableText } from "@portabletext/react";
-import { Gem, Headset, Leaf, type LucideIcon, ShieldCheck } from "lucide-react";
+import {
+  Gem,
+  Headset,
+  Leaf,
+  type LucideIcon,
+  ShieldCheck,
+  Star,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -29,6 +36,7 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
     { id: "description", label: "Description" },
     { id: "specifications", label: "Specifications" },
     { id: "delivery", label: "Delivery & Returns" },
+    { id: "faqs", label: "FAQs" },
     { id: "reviews", label: "Reviews" },
   ] as const;
   const [active, setActive] = React.useState<string>("description");
@@ -67,6 +75,7 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
             <SpecsPanel product={product} />
           ) : null}
           {active === "delivery" ? <DeliveryPanel product={product} /> : null}
+          {active === "faqs" ? <FaqsPanel product={product} /> : null}
           {active === "reviews" ? <ReviewsPanel product={product} /> : null}
         </div>
       </div>
@@ -115,7 +124,11 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
       </div>
 
       {product.image ? (
-        <div className="border-line relative aspect-[4/3] overflow-hidden rounded-2xl border lg:aspect-auto">
+        // self-start stops this from stretching to match the text column's
+        // height in the lg:grid-cols-2 layout above — without it, a long
+        // description makes this a very tall, narrow box, and object-cover
+        // ends up zooming into a tiny, near-unrecognisable slice of the photo.
+        <div className="border-line relative aspect-[4/3] self-start overflow-hidden rounded-2xl border">
           <Image
             src={product.image}
             alt={product.name}
@@ -192,13 +205,71 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
   );
 }
 
+function StarRow({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-0.5" aria-hidden>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          className={
+            i < Math.round(rating)
+              ? "fill-brass text-brass size-4"
+              : "text-line size-4"
+          }
+          strokeWidth={1.5}
+        />
+      ))}
+    </div>
+  );
+}
+
 function ReviewsPanel({ product }: { product: SanityProduct }) {
+  if (!product.rating || !product.reviewCount) {
+    return (
+      <div className="flex flex-col items-start gap-3">
+        <p className="text-ink font-display text-xl">No reviews yet</p>
+        <p className="text-graphite max-w-prose text-[14px] leading-relaxed">
+          {`The ${product.name} is newly listed, so there's nothing to show here yet. Get in touch and our team can share more detail or put you in contact with an existing customer.`}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-start gap-3">
-      <p className="text-ink font-display text-xl">No reviews yet</p>
-      <p className="text-graphite max-w-prose text-[14px] leading-relaxed">
-        {`The ${product.name} is newly listed, so there's nothing to show here yet. Get in touch and our team can share more detail or put you in contact with an existing customer.`}
+      <div className="flex items-center gap-3">
+        <StarRow rating={product.rating} />
+        <p className="text-ink font-display text-xl">
+          {product.rating.toFixed(1)} out of 5
+        </p>
+      </div>
+      <p className="text-graphite text-[14px]">
+        Based on {product.reviewCount}{" "}
+        {product.reviewCount === 1 ? "review" : "reviews"}.
       </p>
     </div>
+  );
+}
+
+function FaqsPanel({ product }: { product: SanityProduct }) {
+  if (!product.faqs.length) {
+    return (
+      <p className="text-muted text-[14px]">
+        No questions answered for this product yet — get in touch and
+        we&rsquo;ll help directly.
+      </p>
+    );
+  }
+  return (
+    <dl className="border-line divide-line max-w-3xl divide-y border-t">
+      {product.faqs.map((faq) => (
+        <div key={faq.question} className="py-5">
+          <dt className="text-ink text-[15px] font-medium">{faq.question}</dt>
+          <dd className="text-graphite mt-2 text-[14px] leading-relaxed">
+            {faq.answer}
+          </dd>
+        </div>
+      ))}
+    </dl>
   );
 }

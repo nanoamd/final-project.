@@ -8,6 +8,7 @@ import {
   Scale,
   Share2,
   Square,
+  Star,
   Sun,
   Trees,
   Truck,
@@ -73,6 +74,28 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
           {product.name}
         </h1>
 
+        {product.rating && product.reviewCount ? (
+          <div className="mt-3 flex items-center gap-2">
+            <div className="flex items-center gap-0.5" aria-hidden>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className={
+                    i < Math.round(product.rating!)
+                      ? "fill-brass text-brass size-4"
+                      : "text-line size-4"
+                  }
+                  strokeWidth={1.5}
+                />
+              ))}
+            </div>
+            <span className="text-muted text-[13px]">
+              {product.rating.toFixed(1)} ({product.reviewCount}{" "}
+              {product.reviewCount === 1 ? "review" : "reviews"})
+            </span>
+          </div>
+        ) : null}
+
         {product.sku ? (
           <p className="text-muted mt-4 text-[12px] tracking-[0.08em] uppercase">
             SKU: {product.sku}
@@ -131,9 +154,20 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
       ))}
 
       <div className="border-line border-t pt-6">
-        <p className="text-ink text-[1.9rem] leading-none font-medium">
-          {formatPriceExact(product.price)}
-        </p>
+        {product.compareAtPrice && product.compareAtPrice > product.price ? (
+          <div className="flex items-baseline gap-3">
+            <p className="text-ink text-[1.9rem] leading-none font-medium">
+              {formatPriceExact(product.price)}
+            </p>
+            <p className="text-muted text-[1.15rem] leading-none line-through">
+              {formatPriceExact(product.compareAtPrice)}
+            </p>
+          </div>
+        ) : (
+          <p className="text-ink text-[1.9rem] leading-none font-medium">
+            {formatPriceExact(product.price)}
+          </p>
+        )}
         <p className="text-muted mt-2 text-[13px]">
           Tax included. Shipping calculated at checkout.
         </p>
