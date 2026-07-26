@@ -39,6 +39,13 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-4">
       <div className="border-line bg-paper relative aspect-[3/2] overflow-hidden rounded-2xl border">
+        {/* object-contain, not object-cover — the main shot always shows
+            the whole photo. A cover crop looks fine on a photo composed
+            for exactly this frame, but supplier photos vary wildly in
+            aspect ratio and composition, and cover crops any mismatch
+            into a tight, arbitrary zoom on whatever happens to be in the
+            centre. Thumbnails below stay cover — small squares read fine
+            cropped, and it's the main shot people zoom in on mentally. */}
         <Image
           key={active}
           src={current}
@@ -46,7 +53,7 @@ export function ProductGallery({
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover"
+          className="object-contain"
         />
 
         <button
