@@ -28,6 +28,7 @@ const MAX_BATCH_URLS = 5;
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_HTML_BYTES = 2_000_000;
 const MAX_PROMPT_CHARS = 6_000;
+const MAX_GALLERY_IMAGES = 6;
 
 interface ExtractedFields {
   title?: string;
@@ -96,8 +97,11 @@ interface PageSignals {
   metaDescription?: string;
   ogTitle?: string;
   ogDescription?: string;
-  ogImage?: string;
-  jsonLdImage?: string;
+  // Every distinct product photo we could find — a page can (and often
+  // does) list several og:image tags and/or a JSON-LD image array, not
+  // just one. Deduped, resolved to absolute URLs, capped at
+  // MAX_GALLERY_IMAGES.
+  imageUrls: string[];
   jsonLdPrice?: string;
   jsonLdCurrency?: string;
   bodyText: string;
@@ -114,14 +118,15 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
   const ogDescription = html.match(
     /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)["']/i,
   )?.[1];
-  const ogImageRaw = html.match(
-    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/i,
-  )?.[1];
-  const ogImage = ogImageRaw
-    ? new URL(ogImageRaw, pageUrl).toString()
-    : undefined;
+  const ogImages = [
+    ...html.matchAll(
+      /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/gi,
+    ),
+  ]
+    .map((match) => match[1])
+    .filter((value): value is string => Boolean(value));
 
-  let jsonLdImage: string | undefined;
+  const jsonLdImages: string[] = [];
   let jsonLdPrice: string | undefined;
   let jsonLdCurrency: string | undefined;
   const jsonLdBlocks = html.matchAll(
@@ -140,10 +145,12 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
         ) {
           const product = candidate as Record<string, unknown>;
           const image = product.image;
-          if (!jsonLdImage) {
-            if (typeof image === "string") jsonLdImage = image;
-            else if (Array.isArray(image) && typeof image[0] === "string")
-              jsonLdImage = image[0];
+          if (typeof image === "string") {
+            jsonLdImages.push(image);
+          } else if (Array.isArray(image)) {
+            for (const entry of image) {
+              if (typeof entry === "string") jsonLdImages.push(entry);
+            }
           }
           const offers = product.offers as Record<string, unknown> | undefined;
           if (offers && !jsonLdPrice) {
@@ -163,13 +170,23 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
       // Malformed JSON-LD on the source page — skip it, not fatal.
     }
   }
-  if (jsonLdImage) {
-    try {
-      jsonLdImage = new URL(jsonLdImage, pageUrl).toString();
-    } catch {
-      jsonLdImage = undefined;
-    }
-  }
+
+  // JSON-LD images first — when present they're usually the product's own
+  // curated photo set, in order, rather than og:image's single share-preview
+  // pick.
+  const resolvedImageUrls = [...jsonLdImages, ...ogImages]
+    .map((raw) => {
+      try {
+        return new URL(raw, pageUrl).toString();
+      } catch {
+        return null;
+      }
+    })
+    .filter((value): value is string => Boolean(value));
+  const imageUrls = Array.from(new Set(resolvedImageUrls)).slice(
+    0,
+    MAX_GALLERY_IMAGES,
+  );
 
   const bodyText = html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -184,8 +201,7 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
     metaDescription,
     ogTitle,
     ogDescription,
-    ogImage,
-    jsonLdImage,
+    imageUrls,
     jsonLdPrice,
     jsonLdCurrency,
     bodyText,
@@ -337,12 +353,17 @@ export async function importProductFromUrl(
       signals.ogTitle ||
       "Untitled import";
 
-    const imageUrl = signals.jsonLdImage ?? signals.ogImage;
-    let gallery: {
+    // Every array item Sanity stores needs its own unique `_key` — without
+    // one, Studio can't render or edit the item at all and just shows a
+    // "Missing keys" error, even though the image data underneath it is
+    // fine. Uploaded sequentially (not in parallel) so a slow/rate-limited
+    // supplier site isn't hit with several concurrent image requests at once.
+    const gallery: {
       _type: "image";
+      _key: string;
       asset: { _type: "reference"; _ref: string };
     }[] = [];
-    if (imageUrl) {
+    for (const [index, imageUrl] of signals.imageUrls.entries()) {
       try {
         const imageResponse = await fetch(imageUrl, {
           signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
@@ -350,9 +371,11 @@ export async function importProductFromUrl(
         if (imageResponse.ok) {
           const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
           const asset = await writeClient.assets.upload("image", imageBuffer);
-          gallery = [
-            { _type: "image", asset: { _type: "reference", _ref: asset._id } },
-          ];
+          gallery.push({
+            _type: "image",
+            _key: `gallery-${index}`,
+            asset: { _type: "reference", _ref: asset._id },
+          });
         }
       } catch (err) {
         console.error("importProductFromUrl: image upload failed", err);
