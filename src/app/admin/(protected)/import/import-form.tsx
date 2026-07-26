@@ -52,12 +52,17 @@ export function AdminImportForm() {
       <h1 className="font-display mt-3 text-2xl">Import products from URLs</h1>
       <p className="mt-2 max-w-lg text-sm text-neutral-500">
         Enter the supplier these pages are from, then paste one or more of their
-        product pages, one per line (up to 5 at once — each import fetches the
-        page, runs an AI extraction, and uploads an image, so a bigger batch
-        risks running past the server&rsquo;s time limit partway through). For
-        each, we&rsquo;ll pull out a title, price, description, specs and hero
-        image, and save it as a draft product for you to check and publish in
-        Sanity Studio — nothing goes live automatically. If a Google Sheet is
+        product pages, one per line (up to 3 at once — each import fetches the
+        page, runs an AI extraction, and uploads every photo it can find, so a
+        bigger batch risks running past the server&rsquo;s time limit partway
+        through). For each, we&rsquo;ll pull out a title, tagline, a full
+        multi-paragraph description, price, SKU, brand, badges, highlights,
+        specs, dimensions, weight, every product photo, and — only where the
+        page genuinely states them — delivery lead time, delivery notes and
+        warranty terms. Nothing is invented: a field the page doesn&rsquo;t
+        clearly state is just left blank for you to fill in, rather than
+        guessed. Saved as a draft product for you to check and publish in Sanity
+        Studio — nothing goes live automatically. If a Google Sheet is
         configured, every import is also logged there and the supplier&rsquo;s
         product-page link is saved for easy reordering later.
       </p>

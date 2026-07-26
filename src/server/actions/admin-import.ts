@@ -20,24 +20,35 @@ export interface ImportProductResult {
 }
 
 // Kept low relative to the 60s maxDuration set on the import page's route:
-// each URL is a sequential page fetch + AI extraction + image upload, so a
-// larger batch risks the whole request getting cut off mid-way with no
-// clear signal about which URLs actually completed.
-const MAX_BATCH_URLS = 5;
+// each URL is a sequential page fetch + AI extraction + up to
+// MAX_GALLERY_IMAGES image uploads, so a larger batch risks the whole
+// request getting cut off mid-way with no clear signal about which URLs
+// actually completed. Lower than it used to be now that a single product
+// can pull down many more images than before.
+const MAX_BATCH_URLS = 3;
 
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_HTML_BYTES = 2_000_000;
 const MAX_PROMPT_CHARS = 6_000;
-const MAX_GALLERY_IMAGES = 6;
+// Every distinct product photo found is uploaded — this cap only exists to
+// stop a pathological page (e.g. a marketplace listing with hundreds of
+// unrelated thumbnails) from turning one import into an enormous upload
+// batch, not to artificially limit a normal product gallery.
+const MAX_GALLERY_IMAGES = 20;
 
 interface ExtractedFields {
   title?: string;
   tagline?: string;
   summary?: string;
-  description?: string;
+  // 2-4 paragraphs rather than one blob, so the Studio's rich-text
+  // description reads like a considered product page instead of a single
+  // dense sentence-block.
+  descriptionParagraphs?: string[];
   price?: number;
   currency?: string;
   sku?: string;
+  brand?: string | null;
+  badges?: string[];
   highlights?: string[];
   specs?: { label: string; value: string }[];
   dimensions?: {
@@ -47,6 +58,12 @@ interface ExtractedFields {
     unit?: "mm" | "cm" | "m";
   };
   weight?: { value?: number; unit?: "kg" | "g" };
+  deliveryLeadTime?: string | null;
+  // Only ever filled from real, specific policy text the page actually
+  // states — the prompt instructs the model to return null rather than
+  // invent generic filler, matching this project's no-fabricated-copy rule.
+  deliveryNotes?: string | null;
+  warrantyNotes?: string | null;
   categorySlug?: string | null;
 }
 
@@ -104,6 +121,9 @@ interface PageSignals {
   imageUrls: string[];
   jsonLdPrice?: string;
   jsonLdCurrency?: string;
+  jsonLdBrand?: string;
+  jsonLdAvailability?: string;
+  jsonLdGtin?: string;
   bodyText: string;
 }
 
@@ -126,9 +146,22 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
     .map((match) => match[1])
     .filter((value): value is string => Boolean(value));
 
+  // WooCommerce (an extremely common storefront platform) exposes its full
+  // product photo gallery through this attribute on the gallery's thumbnail
+  // elements, separately from og:image/JSON-LD, which — depending on the
+  // SEO plugin's config — often only carry a single share-preview image.
+  const wooGalleryImages = [
+    ...html.matchAll(/data-large_image(?:_src)?=["']([^"']*)["']/gi),
+  ]
+    .map((match) => match[1])
+    .filter((value): value is string => Boolean(value));
+
   const jsonLdImages: string[] = [];
   let jsonLdPrice: string | undefined;
   let jsonLdCurrency: string | undefined;
+  let jsonLdBrand: string | undefined;
+  let jsonLdAvailability: string | undefined;
+  let jsonLdGtin: string | undefined;
   const jsonLdBlocks = html.matchAll(
     /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
   );
@@ -152,6 +185,23 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
               if (typeof entry === "string") jsonLdImages.push(entry);
             }
           }
+          const brandField = product.brand;
+          if (!jsonLdBrand) {
+            if (typeof brandField === "string") jsonLdBrand = brandField;
+            else if (
+              typeof brandField === "object" &&
+              brandField !== null &&
+              typeof (brandField as Record<string, unknown>).name === "string"
+            ) {
+              jsonLdBrand = (brandField as Record<string, unknown>)
+                .name as string;
+            }
+          }
+          const gtinField =
+            product.gtin13 ?? product.gtin ?? product.gtin12 ?? product.gtin8;
+          if (!jsonLdGtin && typeof gtinField === "string") {
+            jsonLdGtin = gtinField;
+          }
           const offers = product.offers as Record<string, unknown> | undefined;
           if (offers && !jsonLdPrice) {
             if (
@@ -163,6 +213,9 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
             if (typeof offers.priceCurrency === "string") {
               jsonLdCurrency = offers.priceCurrency;
             }
+            if (typeof offers.availability === "string") {
+              jsonLdAvailability = offers.availability;
+            }
           }
         }
       }
@@ -173,8 +226,9 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
 
   // JSON-LD images first — when present they're usually the product's own
   // curated photo set, in order, rather than og:image's single share-preview
-  // pick.
-  const resolvedImageUrls = [...jsonLdImages, ...ogImages]
+  // pick. WooCommerce gallery attributes last since they're closer to raw
+  // markup and more likely to include a stray duplicate.
+  const resolvedImageUrls = [...jsonLdImages, ...ogImages, ...wooGalleryImages]
     .map((raw) => {
       try {
         return new URL(raw, pageUrl).toString();
@@ -204,6 +258,9 @@ function extractSignals(html: string, pageUrl: URL): PageSignals {
     imageUrls,
     jsonLdPrice,
     jsonLdCurrency,
+    jsonLdBrand,
+    jsonLdAvailability,
+    jsonLdGtin,
     bodyText,
   };
 }
@@ -214,20 +271,27 @@ async function extractProductFields(
 ): Promise<ExtractedFields | null> {
   const categoryList = categories.map((c) => `${c.slug}: ${c.name}`).join("\n");
 
-  const prompt = `You are extracting furniture/home-product data from a scraped supplier page for Kaiku Home, a premium Scandinavian/Japandi furniture retailer. Return ONLY strict JSON matching this shape (omit fields you can't determine, use null rather than guessing):
+  const prompt = `You are extracting furniture/home-product data from a scraped supplier page for Kaiku Home, a premium Scandinavian/Japandi furniture retailer, to fill in as much of a detailed product record as the page genuinely supports. Return ONLY strict JSON matching this shape.
+
+Critical rule: only fill a field when the page actually states it. Use null (or omit) for anything you can't find or aren't sure of — never invent plausible-sounding filler (a generic warranty period, a made-up delivery window, a guessed brand name). A missing field is fine; a fabricated one is not.
 
 {
   "title": string,
-  "tagline": string,
+  "tagline": string (short, punchy, one line),
   "summary": string (1-2 sentences),
-  "description": string (2-4 sentences, plain text),
+  "descriptionParagraphs": string[] (2-4 short paragraphs, plain text, genuinely descriptive — draw on every real detail the page gives you: materials, construction, use case, what makes it worth buying. Not padded filler.),
   "price": number (numeric value only, no currency symbol),
   "currency": string (ISO 4217, e.g. "GBP"),
   "sku": string,
+  "brand": string (the manufacturer/brand name as stated on the page, or null if not clearly stated — this may differ from the site you're scraping, which could be a reseller),
+  "badges": string[] (max 4, very short neutral tags, e.g. "2-3 person", "Weatherproof" — distinct from highlights, just quick-scan labels),
   "highlights": string[] (max 6, short phrases),
-  "specs": [{"label": string, "value": string}] (max 10),
+  "specs": [{"label": string, "value": string}] (max 12 — pull every real spec the page lists: materials, capacity, power, dimensions if given as a table, etc.),
   "dimensions": {"length": number, "width": number, "height": number, "unit": "mm"|"cm"|"m"},
   "weight": {"value": number, "unit": "kg"|"g"},
+  "deliveryLeadTime": string (e.g. "3-6 weeks" — only if the page states an actual lead time, else null),
+  "deliveryNotes": string (1-2 sentences faithfully summarizing the page's ACTUAL stated delivery/shipping policy for this product — else null, do not default to something generic),
+  "warrantyNotes": string (1-2 sentences faithfully summarizing the page's ACTUAL stated warranty terms — else null, do not default to something generic),
   "categorySlug": one of these exact slugs, or null if none fit well:
 ${categoryList}
 }
@@ -236,6 +300,7 @@ Page signals:
 Title: ${signals.title ?? signals.ogTitle ?? ""}
 Meta/OG description: ${signals.metaDescription ?? signals.ogDescription ?? ""}
 JSON-LD price: ${signals.jsonLdPrice ?? ""} ${signals.jsonLdCurrency ?? ""}
+JSON-LD brand: ${signals.jsonLdBrand ?? ""}
 Page text excerpt: ${signals.bodyText}`;
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -294,6 +359,51 @@ function textBlock(text: string) {
     markDefs: [],
   };
 }
+
+type WriteClient = NonNullable<ReturnType<typeof getSanityWriteClient>>;
+
+/** Deterministic id from the name, so re-running an import for the same
+ * brand/supplier reuses the existing document (createIfNotExists is a
+ * no-op if it's already there) instead of creating duplicates. */
+async function getOrCreateBrand(
+  writeClient: WriteClient,
+  name: string,
+): Promise<string> {
+  const trimmed = name.trim();
+  const id = `brand-${slugify(trimmed)}`;
+  await writeClient.createIfNotExists({
+    _id: id,
+    _type: "brand",
+    name: trimmed,
+    slug: { _type: "slug", current: slugify(trimmed) },
+  });
+  return id;
+}
+
+async function getOrCreateSupplier(
+  writeClient: WriteClient,
+  name: string,
+): Promise<string> {
+  const trimmed = name.trim();
+  const id = `supplier-${slugify(trimmed)}`;
+  await writeClient.createIfNotExists({
+    _id: id,
+    _type: "supplier",
+    name: trimmed,
+  });
+  return id;
+}
+
+const STOCK_STATUS_BY_AVAILABILITY: Record<string, string> = {
+  "https://schema.org/InStock": "In Stock",
+  "http://schema.org/InStock": "In Stock",
+  "https://schema.org/OutOfStock": "Out of Stock",
+  "http://schema.org/OutOfStock": "Out of Stock",
+  "https://schema.org/BackOrder": "Backorder",
+  "http://schema.org/BackOrder": "Backorder",
+  "https://schema.org/PreOrder": "Made to Order",
+  "http://schema.org/PreOrder": "Made to Order",
+};
 
 export async function importProductFromUrl(
   url: string,
@@ -396,6 +506,23 @@ export async function importProductFromUrl(
       ? categories.find((c) => c.slug === fields.categorySlug)
       : undefined;
 
+    // Supplier is whatever the admin typed in for this batch (deterministic,
+    // no guessing needed). Brand is the manufacturer as stated on the page
+    // itself, which can genuinely differ from the supplier/reseller site —
+    // prefer the AI's read of the page, fall back to JSON-LD's own brand
+    // field if the AI didn't find one.
+    const [supplierId, brandId] = await Promise.all([
+      getOrCreateSupplier(writeClient, supplierName),
+      (async () => {
+        const brandName = fields?.brand?.trim() || signals.jsonLdBrand?.trim();
+        return brandName ? getOrCreateBrand(writeClient, brandName) : null;
+      })(),
+    ]);
+
+    const stockStatus = signals.jsonLdAvailability
+      ? STOCK_STATUS_BY_AVAILABILITY[signals.jsonLdAvailability]
+      : undefined;
+
     const uniqueSuffix = crypto.randomBytes(4).toString("hex");
     const baseId = `product-import-${slugify(title)}-${uniqueSuffix}`;
     const draftId = `drafts.${baseId}`;
@@ -413,14 +540,27 @@ export async function importProductFromUrl(
             },
           }
         : {}),
+      ...(brandId ? { brand: { _type: "reference", _ref: brandId } } : {}),
+      supplier: { _type: "reference", _ref: supplierId },
       ...(fields?.tagline?.trim() ? { tagline: fields.tagline.trim() } : {}),
       ...(fields?.summary?.trim() ? { summary: fields.summary.trim() } : {}),
-      ...(fields?.description?.trim()
-        ? { description: [textBlock(fields.description.trim())] }
+      ...(fields?.descriptionParagraphs?.length
+        ? {
+            description: fields.descriptionParagraphs
+              .map((p) => p.trim())
+              .filter(Boolean)
+              .map((p) => textBlock(p)),
+          }
         : {}),
       ...(typeof fields?.price === "number" ? { price: fields.price } : {}),
       ...(fields?.currency?.trim() ? { currency: fields.currency.trim() } : {}),
       ...(fields?.sku?.trim() ? { sku: fields.sku.trim() } : {}),
+      ...(signals.jsonLdGtin?.trim()
+        ? { gtin: signals.jsonLdGtin.trim() }
+        : {}),
+      ...(fields?.badges?.length
+        ? { badges: fields.badges.map((b) => b.trim()) }
+        : {}),
       ...(fields?.highlights?.length
         ? { highlights: fields.highlights.map((h) => h.trim()) }
         : {}),
@@ -436,6 +576,16 @@ export async function importProductFromUrl(
         : {}),
       ...(fields?.dimensions ? { dimensions: fields.dimensions } : {}),
       ...(fields?.weight ? { weight: fields.weight } : {}),
+      ...(fields?.deliveryLeadTime?.trim()
+        ? { deliveryLeadTime: fields.deliveryLeadTime.trim() }
+        : {}),
+      ...(fields?.deliveryNotes?.trim()
+        ? { deliveryNotes: fields.deliveryNotes.trim() }
+        : {}),
+      ...(fields?.warrantyNotes?.trim()
+        ? { warrantyNotes: fields.warrantyNotes.trim() }
+        : {}),
+      ...(stockStatus ? { stockStatus } : {}),
       ...(gallery.length ? { gallery } : {}),
       sourceUrl: safeUrl.toString(),
     });
