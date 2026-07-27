@@ -57,7 +57,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
               className="group w-[70%] shrink-0 snap-start sm:w-[calc((100%-3.75rem)/4)]"
             >
               {product.image ? (
-                <div className="border-line bg-paper relative aspect-[3/2] overflow-hidden rounded-xl border">
+                <div className="border-line bg-paper relative aspect-[4/5] overflow-hidden rounded-xl border">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -70,7 +70,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
                 <PlaceholderImage
                   tone="sand"
                   illustration="leaf"
-                  aspect="aspect-[3/2]"
+                  aspect="aspect-[4/5]"
                   className="rounded-xl"
                 />
               )}
