@@ -34,6 +34,8 @@ export interface OrderSummary {
   currency: string;
   status: string;
   email: string;
+  stage: string;
+  flagged: boolean;
   lineItems: OrderLineItem[];
   shippingAddress: OrderShippingAddress | null;
   phone: string | null;
@@ -46,6 +48,8 @@ interface OrderRow {
   currency: string;
   status: string;
   email: string;
+  stage: string;
+  flagged: boolean;
   line_items: {
     description?: string | null;
     quantity?: number | null;
@@ -68,6 +72,8 @@ function toOrderSummary(row: OrderRow): OrderSummary {
     currency: row.currency,
     status: row.status,
     email: row.email,
+    stage: row.stage,
+    flagged: row.flagged,
     lineItems: Array.isArray(row.line_items)
       ? row.line_items.map((li) => ({
           description: li.description ?? null,

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { formatPriceExact } from "@/lib/format";
 import { listAllOrdersForAdmin } from "@/server/actions/orders";
+import { stageLabel } from "@/server/hq/workflows";
 
 export default async function AdminOrdersPage() {
   const orders = await listAllOrdersForAdmin();
@@ -28,8 +29,13 @@ export default async function AdminOrdersPage() {
           {orders.map((order) => (
             <li
               key={order.id}
-              className="rounded-xl border border-neutral-200 bg-white p-6"
+              className="relative rounded-xl border border-neutral-200 bg-white p-6"
             >
+              <Link
+                href={`/admin/orders/${order.id}`}
+                className="absolute inset-0"
+                aria-label="View order"
+              />
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <p className="font-display text-lg">
                   {formatPriceExact(order.amountTotal / 100)}
@@ -42,8 +48,16 @@ export default async function AdminOrdersPage() {
                 {order.email || "(no email)"}
                 {order.phone ? ` · ${order.phone}` : ""}
               </p>
-              <p className="mt-1 text-xs tracking-[0.08em] text-neutral-400 uppercase">
-                {order.status}
+              <p className="mt-1 flex items-center gap-2 text-xs tracking-[0.08em] uppercase">
+                <span className="text-neutral-400">{order.status}</span>
+                <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600 normal-case">
+                  {stageLabel(order.stage)}
+                </span>
+                {order.flagged ? (
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-amber-800 normal-case">
+                    ⚑ Flagged
+                  </span>
+                ) : null}
               </p>
 
               {order.lineItems.length > 0 ? (

@@ -2,6 +2,7 @@ import "server-only";
 
 import type Stripe from "stripe";
 
+import { assignWorkflow } from "@/server/hq/workflows";
 import { stripe } from "@/server/stripe/client";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -52,46 +53,72 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
     limit: 100,
     expand: ["data.price.product"],
   });
+  const mappedLineItems = lineItems.data.map((item) => {
+    const product =
+      item.price && typeof item.price.product === "object"
+        ? (item.price.product as Stripe.Product)
+        : null;
+    const metadata = product?.metadata ?? {};
+    return {
+      description: item.description,
+      quantity: item.quantity,
+      amount_total: item.amount_total,
+      slug: metadata.slug || null,
+      sku: metadata.sku || null,
+      category: metadata.category || null,
+      supplier: metadata.supplier || null,
+      selectedOptions: metadata.selectedOptions
+        ? (JSON.parse(metadata.selectedOptions) as Record<string, string>)
+        : null,
+    };
+  });
+
   const admin = createAdminClient();
-  const { error } = await admin.from("orders").upsert(
-    {
-      user_id: session.client_reference_id || null,
-      stripe_session_id: session.id,
-      stripe_payment_intent_id:
-        typeof session.payment_intent === "string"
-          ? session.payment_intent
-          : (session.payment_intent?.id ?? null),
-      email: session.customer_details?.email ?? "",
-      phone: session.customer_details?.phone ?? null,
-      amount_total: session.amount_total ?? 0,
-      currency: session.currency ?? "gbp",
-      status: "paid",
-      line_items: lineItems.data.map((item) => {
-        const product =
-          item.price && typeof item.price.product === "object"
-            ? (item.price.product as Stripe.Product)
-            : null;
-        const metadata = product?.metadata ?? {};
-        return {
-          description: item.description,
-          quantity: item.quantity,
-          amount_total: item.amount_total,
-          slug: metadata.slug || null,
-          sku: metadata.sku || null,
-          category: metadata.category || null,
-          supplier: metadata.supplier || null,
-          selectedOptions: metadata.selectedOptions
-            ? (JSON.parse(metadata.selectedOptions) as Record<string, string>)
-            : null,
-        };
-      }),
-      shipping_address: session.collected_information?.shipping_details ?? null,
-    },
-    { onConflict: "stripe_session_id" },
-  );
-  if (error) {
+  const { data: orderRow, error } = await admin
+    .from("orders")
+    .upsert(
+      {
+        user_id: session.client_reference_id || null,
+        stripe_session_id: session.id,
+        stripe_payment_intent_id:
+          typeof session.payment_intent === "string"
+            ? session.payment_intent
+            : (session.payment_intent?.id ?? null),
+        email: session.customer_details?.email ?? "",
+        phone: session.customer_details?.phone ?? null,
+        customer_name: session.customer_details?.name ?? null,
+        amount_total: session.amount_total ?? 0,
+        currency: session.currency ?? "gbp",
+        status: "paid",
+        stage: "paid",
+        workflow: assignWorkflow(mappedLineItems.map((item) => item.category)),
+        line_items: mappedLineItems,
+        shipping_address:
+          session.collected_information?.shipping_details ?? null,
+      },
+      { onConflict: "stripe_session_id" },
+    )
+    .select("id")
+    .single();
+  if (error || !orderRow) {
     throw new Error(
-      `Failed to persist order for session ${session.id}: ${error.message}`,
+      `Failed to persist order for session ${session.id}: ${error?.message}`,
+    );
+  }
+
+  // Seeds the order's timeline — the first entry a real customer's order
+  // will ever have, and what makes the order detail page's stepper start
+  // from a real event instead of an empty list.
+  const { error: eventError } = await admin.from("order_events").insert({
+    order_id: orderRow.id,
+    type: "stage_change",
+    stage: "paid",
+    title: "Order placed and paid",
+    actor: "stripe",
+  });
+  if (eventError) {
+    throw new Error(
+      `Failed to write initial order_event for session ${session.id}: ${eventError.message}`,
     );
   }
 }
