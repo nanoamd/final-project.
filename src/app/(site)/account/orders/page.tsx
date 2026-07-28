@@ -63,9 +63,17 @@ export default async function AccountOrdersPage() {
                   })}
                 </p>
               </div>
-              <p className="text-muted mt-1 text-[13px] tracking-[0.1em] uppercase">
-                {order.status}
-              </p>
+              <div className="mt-1 flex items-center gap-3">
+                <p className="text-muted text-[13px] tracking-[0.1em] uppercase">
+                  {order.status}
+                </p>
+                <AppLink
+                  href={`/track/${order.id}`}
+                  className="text-brass text-[13px] underline underline-offset-2"
+                >
+                  Track order
+                </AppLink>
+              </div>
               {order.lineItems.length > 0 ? (
                 <ul className="text-ink/80 mt-4 flex flex-col gap-1 text-[14px]">
                   {order.lineItems.map((item, index) => (
