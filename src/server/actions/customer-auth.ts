@@ -12,6 +12,31 @@ export interface CustomerAuthResult {
   needsEmailConfirmation?: boolean;
 }
 
+/**
+ * Supabase's raw auth error messages are meant for logs, not customers (e.g.
+ * "email rate limit exceeded") — map the ones we can realistically hit to
+ * copy that tells the customer what to actually do.
+ */
+function friendlySignupError(message: string): string {
+  const lower = message.toLowerCase();
+  if (lower.includes("rate limit")) {
+    return "We're experiencing high signup traffic right now — please try again in a few minutes.";
+  }
+  if (
+    lower.includes("already registered") ||
+    lower.includes("already exists")
+  ) {
+    return "An account with that email already exists — try signing in instead.";
+  }
+  if (lower.includes("password")) {
+    return "Please choose a password with at least 8 characters.";
+  }
+  if (lower.includes("email")) {
+    return "Please enter a valid email address.";
+  }
+  return "Something went wrong creating your account. Please try again.";
+}
+
 export async function signUpCustomer(
   formData: FormData,
 ): Promise<CustomerAuthResult> {
@@ -44,7 +69,7 @@ export async function signUpCustomer(
   });
 
   if (error) {
-    return { ok: false, error: error.message };
+    return { ok: false, error: friendlySignupError(error.message) };
   }
   if (!data.session) {
     return { ok: true, needsEmailConfirmation: true };
