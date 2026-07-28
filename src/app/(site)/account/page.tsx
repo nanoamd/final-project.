@@ -12,7 +12,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function AccountPage() {
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ confirmed?: string }>;
+}) {
+  const { confirmed } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -62,6 +67,12 @@ export default async function AccountPage() {
           </button>
         </form>
       </div>
+
+      {confirmed ? (
+        <p className="border-line bg-sand/20 text-ink mt-6 rounded-lg border px-4 py-3 text-[14px]">
+          Your email is confirmed — welcome to Kaiku.
+        </p>
+      ) : null}
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         <AppLink
