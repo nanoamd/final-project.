@@ -19,6 +19,7 @@ import { Newsletter } from "@/components/shared/newsletter";
 import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
+import { useSavedProducts } from "@/hooks/use-saved-products";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -37,10 +38,13 @@ function isGardenRelevant(departmentSlug?: string | null): boolean {
 export function ProductSummary({ product }: { product: SanityProduct }) {
   const isComingSoon = product.stockStatus === "Coming Soon";
   const { addItem } = useCart();
+  const { isSaved, toggle } = useSavedProducts();
   const [selected, setSelected] = React.useState<Record<string, number>>(() =>
     Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
   );
   const [added, setAdded] = React.useState(false);
+  const [shareState, setShareState] = React.useState<"idle" | "copied">("idle");
+  const saved = isSaved(product.slug);
 
   function handleAddToBasket() {
     const selectedOptions = product.options?.length
@@ -62,6 +66,41 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
     });
     setAdded(true);
     window.setTimeout(() => setAdded(false), 2000);
+  }
+
+  function handleSaveForLater() {
+    toggle({
+      slug: product.slug,
+      category: product.category,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    });
+  }
+
+  async function handleShare() {
+    const url =
+      typeof window !== "undefined" ? window.location.href : undefined;
+    if (!url) return;
+    // Native share sheet on mobile/supporting browsers; clipboard copy is
+    // the honest fallback everywhere else, rather than a button that does
+    // nothing if the Web Share API isn't available.
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: product.name, url });
+        return;
+      } catch {
+        // User cancelled the share sheet, or it failed — fall through to
+        // clipboard so the button still does something useful.
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareState("copied");
+      window.setTimeout(() => setShareState("idle"), 2000);
+    } catch {
+      // Clipboard access denied — nothing more we can do without a backend.
+    }
   }
 
   return (
@@ -240,16 +279,24 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
         </AppLink>
         <button
           type="button"
+          onClick={handleShare}
           className="hover:text-ink flex items-center gap-2 transition-colors"
         >
-          <Share2 className="size-4" strokeWidth={1.5} aria-hidden /> Share
+          <Share2 className="size-4" strokeWidth={1.5} aria-hidden />
+          {shareState === "copied" ? "Link copied ✓" : "Share"}
         </button>
         <button
           type="button"
+          onClick={handleSaveForLater}
+          aria-pressed={saved}
           className="hover:text-ink flex items-center gap-2 transition-colors"
         >
-          <Heart className="size-4" strokeWidth={1.5} aria-hidden /> Save for
-          later
+          <Heart
+            className={saved ? "fill-brass text-brass size-4" : "size-4"}
+            strokeWidth={1.5}
+            aria-hidden
+          />
+          {saved ? "Saved ✓" : "Save for later"}
         </button>
       </div>
     </div>

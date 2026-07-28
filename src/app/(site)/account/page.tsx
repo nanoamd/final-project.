@@ -82,6 +82,15 @@ export default async function AccountPage() {
             Manage the delivery addresses on your account.
           </p>
         </AppLink>
+        <AppLink
+          href="/saved"
+          className="border-line hover:border-ink rounded-xl border p-6 transition-colors"
+        >
+          <p className="font-display text-ink text-lg">Saved items</p>
+          <p className="text-muted mt-1 text-[14px]">
+            Pieces you&rsquo;ve saved for later, ready to add to your basket.
+          </p>
+        </AppLink>
       </div>
     </Container>
   );
