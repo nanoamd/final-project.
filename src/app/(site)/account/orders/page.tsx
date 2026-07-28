@@ -71,7 +71,16 @@ export default async function AccountOrdersPage() {
                   {order.lineItems.map((item, index) => (
                     <li key={index}>
                       {item.quantity ? `${item.quantity} × ` : ""}
-                      {item.description ?? "Item"}
+                      {item.slug && item.category ? (
+                        <AppLink
+                          href={`/shop/${item.category}/${item.slug}`}
+                          className="hover:text-brass underline-offset-2 hover:underline"
+                        >
+                          {item.description ?? "Item"}
+                        </AppLink>
+                      ) : (
+                        (item.description ?? "Item")
+                      )}
                     </li>
                   ))}
                 </ul>

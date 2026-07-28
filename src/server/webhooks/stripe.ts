@@ -36,8 +36,13 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
 
 async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
   try {
+    // Expanding the line item's product surfaces the metadata (slug, sku,
+    // category, supplier) attached at checkout — see checkout.ts — so an
+    // order can be fulfilled by looking up the real Sanity product/supplier
+    // instead of parsing a free-text description by hand.
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
       limit: 100,
+      expand: ["data.price.product"],
     });
     const admin = createAdminClient();
     const { error } = await admin.from("orders").upsert(
@@ -53,11 +58,25 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
         amount_total: session.amount_total ?? 0,
         currency: session.currency ?? "gbp",
         status: "paid",
-        line_items: lineItems.data.map((item) => ({
-          description: item.description,
-          quantity: item.quantity,
-          amount_total: item.amount_total,
-        })),
+        line_items: lineItems.data.map((item) => {
+          const product =
+            item.price && typeof item.price.product === "object"
+              ? (item.price.product as Stripe.Product)
+              : null;
+          const metadata = product?.metadata ?? {};
+          return {
+            description: item.description,
+            quantity: item.quantity,
+            amount_total: item.amount_total,
+            slug: metadata.slug || null,
+            sku: metadata.sku || null,
+            category: metadata.category || null,
+            supplier: metadata.supplier || null,
+            selectedOptions: metadata.selectedOptions
+              ? (JSON.parse(metadata.selectedOptions) as Record<string, string>)
+              : null,
+          };
+        }),
         shipping_address:
           session.collected_information?.shipping_details ?? null,
       },

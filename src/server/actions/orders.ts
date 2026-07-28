@@ -6,6 +6,11 @@ export interface OrderLineItem {
   description: string | null;
   quantity: number | null;
   amountTotal: number | null;
+  slug: string | null;
+  sku: string | null;
+  category: string | null;
+  supplier: string | null;
+  selectedOptions: Record<string, string> | null;
 }
 
 export interface OrderShippingAddress {
@@ -41,6 +46,11 @@ interface OrderRow {
     description?: string | null;
     quantity?: number | null;
     amount_total?: number | null;
+    slug?: string | null;
+    sku?: string | null;
+    category?: string | null;
+    supplier?: string | null;
+    selectedOptions?: Record<string, string> | null;
   }[];
   shipping_address: OrderShippingAddress | null;
   phone: string | null;
@@ -71,6 +81,11 @@ export async function listOrders(): Promise<OrderSummary[]> {
           description: li.description ?? null,
           quantity: li.quantity ?? null,
           amountTotal: li.amount_total ?? null,
+          slug: li.slug ?? null,
+          sku: li.sku ?? null,
+          category: li.category ?? null,
+          supplier: li.supplier ?? null,
+          selectedOptions: li.selectedOptions ?? null,
         }))
       : [],
     shippingAddress: row.shipping_address ?? null,

@@ -21,6 +21,9 @@ interface PriceLookup {
   price: number;
   currency: string;
   image: string | null;
+  sku: string | null;
+  category: string | null;
+  supplier: string | null;
 }
 
 const PRICE_LOOKUP_QUERY = /* groq */ `
@@ -29,7 +32,10 @@ const PRICE_LOOKUP_QUERY = /* groq */ `
   title,
   price,
   currency,
-  "image": gallery[0].asset->url
+  "image": gallery[0].asset->url,
+  sku,
+  "category": category->slug.current,
+  "supplier": supplier->name
 }`;
 
 /**
@@ -56,6 +62,17 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     const optionSuffix = line.selectedOptions
       ? ` (${Object.values(line.selectedOptions).join(", ")})`
       : "";
+    // Metadata rides along on the ephemeral Stripe Product this line item
+    // creates, so the webhook can read it straight back off the line item
+    // via listLineItems({ expand: ["data.price.product"] }) — no separate
+    // lookup table needed to turn a paid order into a fulfillable one.
+    const metadata: Record<string, string> = { slug: product.slug };
+    if (product.sku) metadata.sku = product.sku;
+    if (product.category) metadata.category = product.category;
+    if (product.supplier) metadata.supplier = product.supplier;
+    if (line.selectedOptions) {
+      metadata.selectedOptions = JSON.stringify(line.selectedOptions);
+    }
     return {
       quantity: line.quantity,
       price_data: {
@@ -64,6 +81,7 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
         product_data: {
           name: `${product.title}${optionSuffix}`,
           images: product.image ? [product.image] : undefined,
+          metadata,
         },
       },
     };
