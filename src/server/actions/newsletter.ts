@@ -5,6 +5,7 @@ import "server-only";
 import { createClient } from "@sanity/client";
 
 import { env } from "@/env";
+import { sendNewsletterWelcomeEmail } from "@/server/integrations/resend";
 
 export interface NewsletterResult {
   ok: boolean;
@@ -47,6 +48,7 @@ export async function subscribeToNewsletter(
         email: email.trim(),
         subscribedAt: new Date().toISOString(),
       });
+      await sendNewsletterWelcomeEmail(email.trim());
     }
     return { ok: true };
   } catch (err) {

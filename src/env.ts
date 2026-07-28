@@ -66,6 +66,11 @@ export const env = createEnv({
     GOOGLE_SHEETS_SPREADSHEET_ID: z.string().min(1).optional(),
     GOOGLE_SHEETS_CLIENT_EMAIL: z.string().min(1).optional(),
     GOOGLE_SHEETS_PRIVATE_KEY: z.string().min(1).optional(),
+    // Optional: sends a real confirmation email on newsletter signup (see
+    // src/server/integrations/resend.ts). Without it, subscribing still
+    // saves the email to Sanity — it just skips sending anything.
+    RESEND_API_KEY: z.string().min(1).optional(),
+    RESEND_FROM_EMAIL: z.string().min(1).optional(),
   },
 
   /**
@@ -109,6 +114,8 @@ export const env = createEnv({
     GOOGLE_SHEETS_SPREADSHEET_ID: process.env.GOOGLE_SHEETS_SPREADSHEET_ID,
     GOOGLE_SHEETS_CLIENT_EMAIL: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
     GOOGLE_SHEETS_PRIVATE_KEY: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
