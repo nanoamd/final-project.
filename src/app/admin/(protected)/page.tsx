@@ -15,6 +15,16 @@ export default function AdminDashboardPage() {
             review in Studio.
           </p>
         </Link>
+        <Link
+          href="/admin/orders"
+          className="rounded-xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-400"
+        >
+          <p className="font-display text-lg">Orders</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            Every paid order with SKU, supplier and delivery address, ready to
+            action.
+          </p>
+        </Link>
       </div>
     </div>
   );
