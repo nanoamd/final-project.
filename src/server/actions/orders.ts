@@ -1,7 +1,7 @@
 import "server-only";
 
-import { env } from "@/env";
 import { createClient } from "@/lib/supabase/server";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 import { createAdminClient } from "@/server/supabase/admin";
 
 export interface OrderLineItem {
@@ -110,20 +110,11 @@ export async function listOrders(): Promise<OrderSummary[]> {
 
 /**
  * All orders, for the admin dashboard — not scoped to a signed-in customer.
- * Re-checks ADMIN_EMAIL itself (not just the /admin/(protected) layout gate)
- * since this uses the service-role client, which bypasses RLS.
+ * Re-checks admin authorization itself (not just the /admin/(protected)
+ * layout gate) since this uses the service-role client, which bypasses RLS.
  */
 export async function listAllOrdersForAdmin(): Promise<OrderSummary[]> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const adminEmail = env.ADMIN_EMAIL;
-  const authorized =
-    !!user?.email &&
-    !!adminEmail &&
-    user.email.toLowerCase() === adminEmail.toLowerCase();
-  if (!authorized) return [];
+  if (!(await getAuthorizedAdmin())) return [];
 
   const admin = createAdminClient();
   const { data, error } = await admin

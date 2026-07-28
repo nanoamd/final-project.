@@ -2,8 +2,7 @@
 
 import "server-only";
 
-import { env } from "@/env";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 import { stageLabel } from "@/server/hq/workflows";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -38,16 +37,8 @@ const EMPTY: DashboardData = {
 };
 
 export async function getDashboardData(): Promise<DashboardData> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const adminEmail = env.ADMIN_EMAIL;
-  const authorized =
-    !!user?.email &&
-    !!adminEmail &&
-    user.email.toLowerCase() === adminEmail.toLowerCase();
-  if (!authorized) return EMPTY;
+  const authorizedAdmin = await getAuthorizedAdmin();
+  if (!authorizedAdmin) return EMPTY;
 
   const admin = createAdminClient();
   const monthStart = new Date();

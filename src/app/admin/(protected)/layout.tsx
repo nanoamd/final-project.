@@ -3,9 +3,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 
-import { env } from "@/env";
-import { createClient } from "@/lib/supabase/server";
 import { signOutAdmin } from "@/server/actions/admin-auth";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 
 const NAV_ITEMS: {
   label: string;
@@ -36,27 +35,18 @@ export const metadata: Metadata = {
 
 /**
  * Gates every route under /admin except /admin/login (a sibling outside this
- * route group, so it isn't wrapped by this check). Single-admin model: there's
- * no self-signup and no roles table — the only account that gets in is the one
- * whose email matches ADMIN_EMAIL.
+ * route group, so it isn't wrapped by this check). Authorization now goes
+ * through getAuthorizedAdmin() — ADMIN_EMAIL is always the owner, and
+ * additional staff accounts come from the `admin_users` table (see
+ * supabase/migrations/0004_admin_users.sql).
  */
 export default async function AdminProtectedLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const adminEmail = env.ADMIN_EMAIL;
-  const authorized =
-    !!user?.email &&
-    !!adminEmail &&
-    user.email.toLowerCase() === adminEmail.toLowerCase();
-
-  if (!authorized) {
+  const admin = await getAuthorizedAdmin();
+  if (!admin) {
     redirect("/admin/login");
   }
 
@@ -64,6 +54,9 @@ export default async function AdminProtectedLayout({
     <div className="flex min-h-screen bg-neutral-50 text-neutral-900">
       <aside className="flex w-56 shrink-0 flex-col border-r border-neutral-200 bg-white px-4 py-6">
         <span className="font-display px-2 text-lg">Kaiku HQ</span>
+        <span className="mt-1 px-2 text-xs text-neutral-400">
+          {admin.email} · {admin.role}
+        </span>
         <nav className="mt-8 flex flex-col gap-0.5">
           {NAV_ITEMS.map((item) => (
             <Link

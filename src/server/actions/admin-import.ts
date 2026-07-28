@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import { getCategories } from "@/lib/sanity/queries/category";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 import { logProductImportToSheet } from "@/server/integrations/google-sheets";
 import { getSanityWriteClient } from "@/server/sanity/write-client";
 
@@ -409,16 +409,7 @@ export async function importProductFromUrl(
   url: string,
   supplierName: string,
 ): Promise<ImportProductResult> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const adminEmail = env.ADMIN_EMAIL;
-  const authorized =
-    !!user?.email &&
-    !!adminEmail &&
-    user.email.toLowerCase() === adminEmail.toLowerCase();
-  if (!authorized) {
+  if (!(await getAuthorizedAdmin())) {
     return { ok: false, error: "Unauthorized.", url };
   }
 

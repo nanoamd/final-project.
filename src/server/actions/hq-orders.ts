@@ -4,8 +4,7 @@ import "server-only";
 
 import { revalidatePath } from "next/cache";
 
-import { env } from "@/env";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 import { nextStage, stageLabel } from "@/server/hq/workflows";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -73,16 +72,7 @@ interface HqActionResult {
 }
 
 async function requireAdmin(): Promise<boolean> {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const adminEmail = env.ADMIN_EMAIL;
-  return (
-    !!user?.email &&
-    !!adminEmail &&
-    user.email.toLowerCase() === adminEmail.toLowerCase()
-  );
+  return (await getAuthorizedAdmin()) !== null;
 }
 
 export async function getOrderDetail(

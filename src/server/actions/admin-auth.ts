@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import { env } from "@/env";
 import { createClient } from "@/lib/supabase/server";
+import { isAuthorizedAdminEmail } from "@/server/auth/admin";
 
 export interface AdminSignInResult {
   ok: boolean;
@@ -33,11 +34,7 @@ export async function signInAdmin(
     return { ok: false, error: "Please enter your email and password." };
   }
 
-  const adminEmail = env.ADMIN_EMAIL;
-  if (!adminEmail) {
-    return { ok: false, error: "Admin login isn't configured yet." };
-  }
-  if (email.trim().toLowerCase() !== adminEmail.toLowerCase()) {
+  if (!(await isAuthorizedAdminEmail(email))) {
     return { ok: false, error: "Invalid email or password." };
   }
 
@@ -65,10 +62,10 @@ export interface AdminPasswordResetResult {
 }
 
 /**
- * Always returns `{ ok: true }` regardless of whether the submitted email
- * matches ADMIN_EMAIL — an error here would confirm/deny the admin
- * account's email address to whoever's asking. The reset email only
- * actually gets sent when it does match.
+ * Always returns `{ ok: true }` regardless of whether the submitted email is
+ * an authorized admin — an error here would confirm/deny an admin account's
+ * email address to whoever's asking. The reset email only actually gets
+ * sent when it is one.
  */
 export async function requestAdminPasswordReset(
   formData: FormData,
@@ -78,10 +75,9 @@ export async function requestAdminPasswordReset(
     return { ok: false, error: "Please enter your email." };
   }
 
-  const adminEmail = env.ADMIN_EMAIL;
-  if (adminEmail && email.trim().toLowerCase() === adminEmail.toLowerCase()) {
+  if (await isAuthorizedAdminEmail(email)) {
     const supabase = await createClient();
-    await supabase.auth.resetPasswordForEmail(adminEmail, {
+    await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/admin/reset-password`,
     });
   }
@@ -91,8 +87,8 @@ export async function requestAdminPasswordReset(
 /**
  * Sets a new password using the recovery session established by the
  * `/admin/reset-password` route handler after the emailed link's code is
- * exchanged. Re-checks the session belongs to the admin account — the
- * route handler already gates on ADMIN_EMAIL indirectly (only that address
+ * exchanged. Re-checks the session belongs to an authorized admin account —
+ * the route handler already gates indirectly (only an authorized address
  * ever gets a reset email sent), but this is the actual authorization
  * boundary before a password can be changed.
  */
@@ -111,12 +107,7 @@ export async function updateAdminPassword(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const adminEmail = env.ADMIN_EMAIL;
-  if (
-    !user?.email ||
-    !adminEmail ||
-    user.email.toLowerCase() !== adminEmail.toLowerCase()
-  ) {
+  if (!user?.email || !(await isAuthorizedAdminEmail(user.email))) {
     return { ok: false, error: "This reset link is invalid or has expired." };
   }
 
