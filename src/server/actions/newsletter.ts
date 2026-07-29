@@ -43,12 +43,12 @@ export async function subscribeToNewsletter(
       { email: email.trim() },
     );
     if (!existing) {
-      await client.create({
+      const doc = await client.create({
         _type: "newsletterSubscriber",
         email: email.trim(),
         subscribedAt: new Date().toISOString(),
       });
-      await sendNewsletterWelcomeEmail(email.trim());
+      await sendNewsletterWelcomeEmail(email.trim(), doc._id);
     }
     return { ok: true };
   } catch (err) {
