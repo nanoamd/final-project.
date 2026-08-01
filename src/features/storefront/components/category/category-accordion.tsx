@@ -181,14 +181,14 @@ function InlineProductTile({ product }: { product: SanityProduct }) {
       href={`/shop/${product.category}/${product.slug}`}
       className="group hover:border-brass/40 relative block overflow-hidden rounded-lg border border-white/8 transition-colors"
     >
-      <div className="relative aspect-[4/5]">
+      <div className="relative aspect-[4/5] bg-white">
         {product.image ? (
           <Image
             src={product.image}
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.05]"
           />
         ) : (
           <div className="from-basalt-card to-basalt absolute inset-0 bg-gradient-to-br" />
