@@ -18,7 +18,7 @@ import { SupplierStandards } from "@/features/storefront/components/home/supplie
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { WhyKaiku } from "@/features/storefront/components/home/why-kaiku";
 import { getHomepage } from "@/lib/sanity/queries/homepage";
-import { getProduct } from "@/lib/sanity/queries/product";
+import { getFlagshipProduct, getProduct } from "@/lib/sanity/queries/product";
 
 /**
  * Home — the cinematic, editorial storefront on the near-black ground:
@@ -33,9 +33,13 @@ import { getProduct } from "@/lib/sanity/queries/product";
  */
 export async function HomePage() {
   const homepage = await getHomepage();
-  const featuredProduct = homepage?.heroFeaturedProductSlug
+  const pinnedProduct = homepage?.heroFeaturedProductSlug
     ? await getProduct(homepage.heroFeaturedProductSlug)
     : null;
+  // Falls back to the flagship product whenever the editorial pin is empty
+  // or points at something deleted/unpublished, so the hero can never get
+  // stuck showing a dead reference.
+  const featuredProduct = pinnedProduct ?? (await getFlagshipProduct());
 
   return (
     <div className="bg-basalt">
