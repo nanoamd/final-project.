@@ -1,21 +1,28 @@
 import Image from "next/image";
 
 import { PromoBanner } from "@/components/shared/promo-banner";
+import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
 import { formatPrice } from "@/lib/format";
-import { getDepartments, getProductsByDepartment } from "@/lib/sanity/queries";
+import {
+  getCategories,
+  getDepartments,
+  getProductsByDepartment,
+} from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
  * Shop All — the white, commercial-browsing counterpart to the black room
- * pages. Every product in a room, one dense grid, no sidebar or category
- * filters (customers who want those go back to the room page). Distinct from
+ * pages. Every product in a room, one dense grid, no sidebar. Distinct from
  * the room page's editorial black ground on purpose — the contrast signals
- * "you've moved from inspiration to buying."
+ * "you've moved from inspiration to buying." The room/category/style
+ * drill-nav stays on this page when switching rooms (links to the `/all`
+ * route, not the dark room page).
  */
 export async function ShopAll({ roomSlug }: { roomSlug: string }) {
-  const [rooms, products] = await Promise.all([
+  const [rooms, categories, products] = await Promise.all([
     getDepartments(),
+    getCategories(),
     getProductsByDepartment(roomSlug),
   ]);
   const room = rooms.find((r) => r.slug === roomSlug);
@@ -26,23 +33,12 @@ export async function ShopAll({ roomSlug }: { roomSlug: string }) {
         Get 10% OFF your first order. Join the Kaiku Home newsletter.
       </PromoBanner>
 
-      <div className="border-line border-b">
-        <div className="mx-auto flex max-w-[1480px] [scrollbar-width:none] items-center gap-7 overflow-x-auto px-6 py-4 sm:px-8 lg:px-12">
-          {rooms.map((r) => (
-            <AppLink
-              key={r.slug}
-              href={`/shop/room/${r.slug}/all`}
-              className={
-                r.slug === roomSlug
-                  ? "text-brass shrink-0 text-[13px] font-semibold tracking-[0.08em] whitespace-nowrap uppercase"
-                  : "text-muted hover:text-ink shrink-0 text-[13px] font-medium tracking-[0.08em] whitespace-nowrap uppercase transition-colors"
-              }
-            >
-              {r.name}
-            </AppLink>
-          ))}
-        </div>
-      </div>
+      <ShopDrillNav
+        rooms={rooms}
+        categories={categories}
+        theme="light"
+        roomHref={(slug) => `/shop/room/${slug}/all`}
+      />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
         <div className="mb-8 flex items-end justify-between gap-4">

@@ -26,10 +26,14 @@ export function ShopDrillNav({
   rooms,
   categories,
   theme,
+  roomHref = (slug) => `/shop/room/${slug}`,
 }: {
   rooms: SanityDepartment[];
   categories: SanityCategory[];
   theme: "light" | "dark";
+  /** Where a room tab links to — the dark room page by default, or the
+   * white Shop All page's own `/all` route when reused there. */
+  roomHref?: (slug: string) => string;
 }) {
   const pathname = usePathname() ?? "/";
   const t = theme === "dark" ? dark : light;
@@ -62,7 +66,7 @@ export function ShopDrillNav({
   const roomLinks = rooms.map((room) => ({
     slug: room.slug,
     name: room.name,
-    href: `/shop/room/${room.slug}`,
+    href: roomHref(room.slug),
   }));
 
   const activeRoomSlug =
