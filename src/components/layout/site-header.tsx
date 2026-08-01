@@ -4,7 +4,6 @@ import { Menu, Search, ShoppingBag, Sparkles, User, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { ShopMegaMenu } from "@/components/shared/shop-mega-menu";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
@@ -29,7 +28,9 @@ interface NavLink {
  * Home and Collection render on the near-black ground, so the header is dark.
  * The Product page renders on warm off-white, so the header inverts to light.
  * Theme is derived from the route: a product-detail path (/shop/x/y) is light,
- * everything else is dark. The collection sub-nav appears on shop routes only.
+ * everything else is dark. The room → category → style drill-nav lives only
+ * on the white Shop All page (components/features/storefront/shop-all.tsx),
+ * not here — the dark collection/room pages navigate via their own sidebar.
  *
  * Nav content comes from the Sanity `navigation` singleton (via a prop from
  * the server layout), falling back to the static config when it's empty or
@@ -185,14 +186,6 @@ export function SiteHeader({
           </button>
         </div>
       </div>
-
-      {isShopRoute && !isShopAllPage ? (
-        <ShopDrillNav
-          rooms={rooms ?? []}
-          categories={categories ?? []}
-          theme={theme}
-        />
-      ) : null}
 
       {open ? (
         <MobileMenu
