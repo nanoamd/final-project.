@@ -215,6 +215,7 @@ export interface SanityHomepage {
   heroCtaPrimary?: SanityLink | null;
   heroCtaSecondary?: SanityLink | null;
   heroFeaturedProductSlug?: string | null;
+  curatedFeaturedProductSlug?: string | null;
   trustBarItems?: TrustBarItem[];
   shopByCategoryEyebrow?: string;
   shopByCategoryTiles?: CategoryTile[];

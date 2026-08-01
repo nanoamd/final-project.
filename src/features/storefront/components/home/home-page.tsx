@@ -1,5 +1,6 @@
 import { AiDesignStudio } from "@/features/storefront/components/home/ai-design-studio";
 import { BuyingGuides } from "@/features/storefront/components/home/buying-guides";
+import { CuratedFeaturedProduct } from "@/features/storefront/components/home/curated-featured-product";
 import { CustomerJourney } from "@/features/storefront/components/home/customer-journey";
 import { DesignPhilosophy } from "@/features/storefront/components/home/design-philosophy";
 import { DesignedForLiving } from "@/features/storefront/components/home/designed-for-living";
@@ -76,6 +77,7 @@ export async function HomePage() {
         headline={homepage?.designedForLivingHeadline}
         cards={homepage?.designedForLivingCards}
       />
+      <CuratedFeaturedProduct />
       <FeaturedTransformation />
       <FeaturedCollection />
       <EditorialJournal />

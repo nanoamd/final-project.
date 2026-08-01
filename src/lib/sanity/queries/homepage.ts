@@ -12,6 +12,7 @@ const HOMEPAGE_QUERY = /* groq */ `
   "heroCtaPrimary": heroCtaPrimary ${LINK_PROJECTION},
   "heroCtaSecondary": heroCtaSecondary ${LINK_PROJECTION},
   "heroFeaturedProductSlug": heroFeaturedProduct->slug.current,
+  "curatedFeaturedProductSlug": curatedFeaturedProduct->slug.current,
   "trustBarItems": trustBarItems[]{ iconName, title, copy },
   shopByCategoryEyebrow,
   "shopByCategoryTiles": shopByCategoryTiles[]{

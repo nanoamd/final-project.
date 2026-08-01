@@ -15,6 +15,7 @@ export const homepage = defineType({
     { name: "hero", title: "Hero", default: true },
     { name: "trustBar", title: "Trust bar" },
     { name: "shopByCategory", title: "Shop by category" },
+    { name: "featuredProduct", title: "Featured product" },
     { name: "gardenStudio", title: "Garden Studio" },
     { name: "designedForLiving", title: "Designed for living" },
   ],
@@ -22,7 +23,12 @@ export const homepage = defineType({
     // Hero ------------------------------------------------------------
     defineField({ name: "heroEyebrow", type: "string", group: "hero" }),
     defineField({ name: "heroHeadline", type: "string", group: "hero" }),
-    defineField({ name: "heroHighlight", title: "Highlighted word", type: "string", group: "hero" }),
+    defineField({
+      name: "heroHighlight",
+      title: "Highlighted word",
+      type: "string",
+      group: "hero",
+    }),
     defineField({ name: "heroSubcopy", type: "text", rows: 2, group: "hero" }),
     defineField({
       name: "heroImage",
@@ -88,10 +94,34 @@ export const homepage = defineType({
       ],
     }),
 
+    // Featured product ------------------------------------------------
+    defineField({
+      name: "curatedFeaturedProduct",
+      title: "Featured product (separate homepage section)",
+      description:
+        "A hand-picked spotlight, distinct from the hero's floating card and the automatic flagship section (highest-priced buyable product). Leave empty to hide this section.",
+      type: "reference",
+      to: [{ type: "product" }],
+      group: "featuredProduct",
+    }),
+
     // Garden Studio ------------------------------------------------
-    defineField({ name: "gardenStudioEyebrow", type: "string", group: "gardenStudio" }),
-    defineField({ name: "gardenStudioHeadline", type: "string", group: "gardenStudio" }),
-    defineField({ name: "gardenStudioBody", type: "text", rows: 3, group: "gardenStudio" }),
+    defineField({
+      name: "gardenStudioEyebrow",
+      type: "string",
+      group: "gardenStudio",
+    }),
+    defineField({
+      name: "gardenStudioHeadline",
+      type: "string",
+      group: "gardenStudio",
+    }),
+    defineField({
+      name: "gardenStudioBody",
+      type: "text",
+      rows: 3,
+      group: "gardenStudio",
+    }),
     defineField({
       name: "gardenStudioBeforeImage",
       title: "Before image (slider)",
@@ -113,7 +143,11 @@ export const homepage = defineType({
       of: [{ type: "image", options: { hotspot: true } }],
       group: "gardenStudio",
     }),
-    defineField({ name: "gardenStudioCta", type: "link", group: "gardenStudio" }),
+    defineField({
+      name: "gardenStudioCta",
+      type: "link",
+      group: "gardenStudio",
+    }),
 
     // Designed for living ------------------------------------------
     defineField({

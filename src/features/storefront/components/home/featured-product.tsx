@@ -3,6 +3,7 @@ import Image from "next/image";
 import { AppLink } from "@/components/ui/app-link";
 import { formatPriceExact } from "@/lib/format";
 import { getFlagshipProduct } from "@/lib/sanity/queries/product";
+import type { SanityProduct } from "@/types/sanity-content";
 
 /**
  * Featured Product — a single-product spotlight directly under the trust
@@ -16,6 +17,26 @@ export async function FeaturedProduct() {
   const product = await getFlagshipProduct();
   if (!product?.image) return null;
 
+  return (
+    <FeaturedProductSection
+      product={{ ...product, image: product.image }}
+      eyebrow="The Flagship"
+    />
+  );
+}
+
+/** Shared layout for both the automatic flagship spotlight and the
+ * hand-picked curated section (curated-featured-product.tsx) — same visual
+ * treatment, different data source and eyebrow label. `image` is narrowed
+ * to a required string since both callers only render this after checking
+ * the product has one. */
+export function FeaturedProductSection({
+  product,
+  eyebrow,
+}: {
+  product: SanityProduct & { image: string };
+  eyebrow: string;
+}) {
   const href = `/shop/${product.category}/${product.slug}`;
 
   return (
@@ -23,7 +44,7 @@ export async function FeaturedProduct() {
       <div className="mx-auto grid max-w-[1200px] items-center gap-8 px-6 py-10 sm:px-8 lg:grid-cols-[1fr_0.85fr] lg:gap-12 lg:px-12 lg:py-14">
         <div className="order-2 lg:order-1">
           <p className="text-brass mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
-            The Flagship · {product.categoryName}
+            {eyebrow} · {product.categoryName}
           </p>
           <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight text-balance sm:text-[2.1rem]">
             {product.name}
