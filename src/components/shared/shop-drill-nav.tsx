@@ -26,14 +26,17 @@ export function ShopDrillNav({
   rooms,
   categories,
   theme,
-  roomHref = (slug) => `/shop/room/${slug}`,
+  roomHrefSuffix = "",
 }: {
   rooms: SanityDepartment[];
   categories: SanityCategory[];
   theme: "light" | "dark";
-  /** Where a room tab links to — the dark room page by default, or the
-   * white Shop All page's own `/all` route when reused there. */
-  roomHref?: (slug: string) => string;
+  /** Appended to every room tab's href — empty for the dark room page,
+   * "/all" for the white Shop All page's own route when reused there.
+   * A plain string rather than a function, since this component is a
+   * Client Component: a function prop can't cross the server/client
+   * boundary from the Server Component pages that render it. */
+  roomHrefSuffix?: string;
 }) {
   const pathname = usePathname() ?? "/";
   const t = theme === "dark" ? dark : light;
@@ -66,7 +69,7 @@ export function ShopDrillNav({
   const roomLinks = rooms.map((room) => ({
     slug: room.slug,
     name: room.name,
-    href: roomHref(room.slug),
+    href: `/shop/room/${room.slug}${roomHrefSuffix}`,
   }));
 
   const activeRoomSlug =

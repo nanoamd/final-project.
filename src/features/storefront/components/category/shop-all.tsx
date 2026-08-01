@@ -37,7 +37,7 @@ export async function ShopAll({ roomSlug }: { roomSlug: string }) {
         rooms={rooms}
         categories={categories}
         theme="light"
-        roomHref={(slug) => `/shop/room/${slug}/all`}
+        roomHrefSuffix="/all"
       />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
