@@ -1,17 +1,20 @@
 /**
- * AW Dropship's published courier shipping-cost table (their trade portal,
- * "Important Notice — Shipments to the US" page) — what they charge Kaiku
- * per parcel to fulfil an order, banded by destination zone and parcel
- * weight. This is Kaiku's real landed cost for every AW-sourced product,
- * separate from the trade unit price (costPrice).
+ * AW Dropship's per-parcel courier cost to Kaiku, banded by weight — this is
+ * Kaiku's real landed cost for every AW-sourced product, separate from the
+ * trade unit price (costPrice), used for internal margin tracking only
+ * (never charged to the customer — checkout always shows free UK delivery).
  *
- * Kaiku only ships to Great Britain today (see checkout.ts's
- * shipping_address_collection), so only Zone 1 is used at import/checkout
- * time. Zones 2–5 are captured now so EU/international expansion doesn't
- * need this table rebuilt from the screenshots again.
+ * Two tiers rather than modelling AW's full five geographic zones: Kaiku
+ * only ships within Great Britain today (see checkout.ts's
+ * shipping_address_collection), so a precise zone requires a real delivery
+ * postcode — infrastructure this store doesn't have yet. "standard" covers
+ * the vast majority of UK orders; "surcharge" is a single simplified
+ * estimate for the rare remote-UK or international case, sized by weight
+ * rather than exact destination. Edit shippingCost by hand in Studio for
+ * any product where this default estimate is wrong.
  */
 
-export type AwShippingZone = "zone1" | "zone2" | "zone3" | "zone4" | "zone5";
+export type AwShippingTier = "standard" | "surcharge";
 
 interface WeightBand {
   /** Upper bound in grams; Infinity for the top, open-ended band. */
@@ -19,48 +22,27 @@ interface WeightBand {
   cost: number;
 }
 
-const AW_SHIPPING_TABLE: Record<AwShippingZone, WeightBand[]> = {
-  // UK Mainland
-  zone1: [
-    { maxGrams: 99, cost: 2.79 },
-    { maxGrams: 2000, cost: 2.99 },
-    { maxGrams: Infinity, cost: 5.99 },
-  ],
-  // Northern Ireland
-  zone2: [
-    { maxGrams: 99, cost: 2.79 },
-    { maxGrams: 2000, cost: 2.99 },
-    { maxGrams: Infinity, cost: 14.5 },
-  ],
-  // Scottish Highlands & Isles, Channel Islands, Scilly Isles
-  zone3: [
-    { maxGrams: 99, cost: 2.79 },
-    { maxGrams: 2000, cost: 2.99 },
-    { maxGrams: Infinity, cost: 14.5 },
-  ],
-  // Europe
-  zone4: [
-    { maxGrams: 499, cost: 10.0 },
-    { maxGrams: 25000, cost: 15.0 },
-  ],
-  // Switzerland & Norway
-  zone5: [
-    { maxGrams: 499, cost: 10.0 },
-    { maxGrams: 999, cost: 13.0 },
-    { maxGrams: 25000, cost: 35.0 },
-  ],
-};
+const STANDARD_BANDS: WeightBand[] = [
+  { maxGrams: 99, cost: 2.79 },
+  { maxGrams: 2000, cost: 2.99 },
+  { maxGrams: Infinity, cost: 5.99 },
+];
+
+const SURCHARGE_BANDS: WeightBand[] = [
+  { maxGrams: 999, cost: 13.0 },
+  { maxGrams: 25000, cost: 35.0 },
+];
 
 /**
- * Looks up AW Dropship's shipping cost for a parcel of the given weight in
- * the given zone. Returns null only for zone4 25kg+ (quote-only, no fixed
- * rate published).
+ * Looks up the estimated shipping cost for a parcel of the given weight.
+ * Returns null only above 25kg (quote-only, no fixed rate estimated).
  */
 export function getAwDropshipShippingCost(
   weightKg: number,
-  zone: AwShippingZone = "zone1",
+  tier: AwShippingTier = "standard",
 ): number | null {
   const grams = weightKg * 1000;
-  const band = AW_SHIPPING_TABLE[zone].find((b) => grams <= b.maxGrams);
+  const bands = tier === "standard" ? STANDARD_BANDS : SURCHARGE_BANDS;
+  const band = bands.find((b) => grams <= b.maxGrams);
   return band?.cost ?? null;
 }
