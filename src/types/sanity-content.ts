@@ -97,6 +97,7 @@ export interface SanityProduct {
   currency: string;
   badges?: string[];
   highlights: string[];
+  styleTags?: string[];
   specs: SanityProductSpec[];
   options?: SanityProductOption[];
   gallery: string[];

@@ -33,9 +33,11 @@ import type {
 export async function CollectionIndex({
   categorySlug,
   roomSlug,
+  styleTag,
 }: {
   categorySlug?: string;
   roomSlug?: string;
+  styleTag?: string;
 }) {
   const [allCategories, totalProducts, departments] = await Promise.all([
     getCategories(),
@@ -57,7 +59,9 @@ export async function CollectionIndex({
     ? allCategories.filter((c) => c.departmentSlug === room.slug)
     : allCategories;
 
-  const products = active ? await getProductsByCategory(active.slug) : [];
+  const products = active
+    ? await getProductsByCategory(active.slug, { styleTag })
+    : [];
 
   return (
     <div className="bg-basalt">
@@ -74,12 +78,21 @@ export async function CollectionIndex({
 
           <div>
             <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-              <p className="text-canvas/55 text-[13px]">
+              <p className="text-canvas/55 flex items-center gap-2 text-[13px]">
                 {active
                   ? `Showing ${active.name}`
                   : room
                     ? `Showing ${room.name}`
                     : "Showing all collections"}
+                {active && styleTag ? (
+                  <AppLink
+                    href={`/shop/${active.slug}`}
+                    className="border-brass/40 text-brass flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase transition-colors hover:bg-white/5"
+                  >
+                    {styleTag}
+                    <span aria-hidden>×</span>
+                  </AppLink>
+                ) : null}
               </p>
               <div className="text-canvas/70 flex items-center gap-2 text-[13px]">
                 <span className="text-canvas/45">Sort by:</span>

@@ -30,9 +30,12 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ category: string }>;
+  searchParams: Promise<{ style?: string }>;
 }) {
   const { category } = await params;
-  return <CollectionIndex categorySlug={category} />;
+  const { style } = await searchParams;
+  return <CollectionIndex categorySlug={category} styleTag={style} />;
 }

@@ -21,6 +21,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   currency,
   badges,
   highlights,
+  styleTags,
   "specs": specs[] ${PRODUCT_SPEC_PROJECTION},
   "options": options[] ${PRODUCT_OPTION_PROJECTION},
   "gallery": gallery[].asset->url,
@@ -47,7 +48,8 @@ const PRODUCT_BY_SLUG_QUERY = /* groq */ `
 *[_type == "product" && slug.current == $slug][0] ${PRODUCT_PROJECTION}`;
 
 const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
-*[_type == "product" && category->slug.current == $categorySlug]
+*[_type == "product" && category->slug.current == $categorySlug
+  && (!defined($styleTag) || $styleTag in styleTags)]
   | order(_createdAt desc)
   [$start...$end]
   ${PRODUCT_PROJECTION}`;
@@ -74,6 +76,17 @@ const RELATED_BY_CATEGORY_QUERY = /* groq */ `
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
 
+const CATEGORY_STYLE_TAGS_QUERY = /* groq */ `
+array::unique(*[_type == "product" && category->slug.current == $categorySlug && defined(styleTags)].styleTags[])`;
+
+/** Distinct style tags in use among a category's products — powers the shop
+ * drill-nav's third tier. Returns [] rather than erroring when none are set. */
+export async function getCategoryStyleTags(
+  categorySlug: string,
+): Promise<string[]> {
+  return sanityFetch<string[]>(CATEGORY_STYLE_TAGS_QUERY, { categorySlug }, []);
+}
+
 const SEARCH_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product" && (title match $term + "*" || tagline match $term + "*")]
   | order(_createdAt desc)
@@ -90,11 +103,20 @@ export async function getProduct(slug: string): Promise<SanityProduct | null> {
 
 export async function getProductsByCategory(
   categorySlug: string,
-  { limit = 24, offset = 0 }: { limit?: number; offset?: number } = {},
+  {
+    limit = 24,
+    offset = 0,
+    styleTag,
+  }: { limit?: number; offset?: number; styleTag?: string } = {},
 ): Promise<SanityProduct[]> {
   return sanityFetch<SanityProduct[]>(
     PRODUCTS_BY_CATEGORY_QUERY,
-    { categorySlug, start: offset, end: offset + limit },
+    {
+      categorySlug,
+      start: offset,
+      end: offset + limit,
+      styleTag: styleTag ?? null,
+    },
     [],
   );
 }

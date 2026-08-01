@@ -4,15 +4,11 @@ import { Menu, Search, ShoppingBag, Sparkles, User, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
+import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { ShopMegaMenu } from "@/components/shared/shop-mega-menu";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  collectionsNav,
-  primaryNav,
-  siteConfig,
-  utilityNav,
-} from "@/config/site";
+import { primaryNav, siteConfig, utilityNav } from "@/config/site";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 import type {
@@ -59,13 +55,6 @@ export function SiteHeader({
   const primaryLinks: NavLink[] = nav?.headerLinks?.length
     ? nav.headerLinks
     : primaryNav;
-  // Rooms (departments) drive the shop sub-nav when available, falling back
-  // to the static category list only if Sanity has no departments yet.
-  const roomLinks: NavLink[] =
-    rooms?.map((room) => ({
-      label: room.name,
-      href: `/shop/room/${room.slug}`,
-    })) ?? collectionsNav;
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
@@ -91,12 +80,6 @@ export function SiteHeader({
   const activePrimary = [...primaryLinks]
     .filter((item) => item.href !== "/" && pathname.startsWith(item.href))
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
-
-  const activeRoom =
-    roomLinks
-      .filter((item) => pathname.startsWith(item.href))
-      .sort((a, b) => b.href.length - a.href.length)[0]?.href ??
-    (pathname === "/shop" ? "/shop/room/outdoor-living" : undefined);
 
   return (
     <header className={cn("sticky top-0 z-50 backdrop-blur-md", t.header)}>
@@ -204,32 +187,11 @@ export function SiteHeader({
       </div>
 
       {isShopRoute && !isShopAllPage ? (
-        <div className={cn("border-t", t.subBar)}>
-          {/* The room list overflows on narrow screens. It has always been
-              scrollable, but with no affordance it just read as a word cut in
-              half at the right edge — the mask fades the last item out so it
-              reads as "more to scroll" instead of "broken text". */}
-          <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12">
-            {roomLinks.map((item) => {
-              const active = item.href === activeRoom;
-              return (
-                <AppLink
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    "relative shrink-0 py-3 text-[11px] font-medium tracking-[0.16em] whitespace-nowrap uppercase transition-colors",
-                    active ? "text-brass" : t.subLink,
-                  )}
-                >
-                  {item.label}
-                  {active ? (
-                    <span className="bg-brass absolute bottom-0 left-0 h-px w-full" />
-                  ) : null}
-                </AppLink>
-              );
-            })}
-          </div>
-        </div>
+        <ShopDrillNav
+          rooms={rooms ?? []}
+          categories={categories ?? []}
+          theme={theme}
+        />
       ) : null}
 
       {open ? (
@@ -248,8 +210,6 @@ const dark = {
   navLink: "text-canvas/65 hover:text-canvas",
   navActive: "text-canvas",
   icon: "text-canvas/80 hover:text-canvas hover:bg-white/10",
-  subBar: "border-white/10 bg-basalt/60",
-  subLink: "text-canvas/50 hover:text-canvas",
 };
 
 const light = {
@@ -257,8 +217,6 @@ const light = {
   navLink: "text-ink/65 hover:text-ink",
   navActive: "text-ink",
   icon: "text-ink/70 hover:text-ink hover:bg-ink/5",
-  subBar: "border-ink/10 bg-canvas/70",
-  subLink: "text-ink/50 hover:text-ink",
 };
 
 function MobileMenu({

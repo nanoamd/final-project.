@@ -215,6 +215,15 @@ export const product = defineType({
       of: [{ type: "string" }],
     }),
     defineField({
+      name: "styleTags",
+      title: "Style tags",
+      type: "array",
+      group: "merchandising",
+      of: [{ type: "string" }],
+      description:
+        'Free-text facets for shop navigation, e.g. "Vintage & Reclaimed", "Coffee Table", "Modern". A product can carry several — they power the category drill-down filters.',
+    }),
+    defineField({
       name: "specs",
       title: "Specifications",
       type: "array",

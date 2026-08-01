@@ -9,7 +9,9 @@
  * both editable in Studio before publishing. Weight comes from the feed's
  * "Package weight (shipping)" column, which also sets shippingCost via AW's
  * published UK Mainland (Zone 1) courier rate table — see
- * src/lib/suppliers/aw-dropship-shipping.ts. Drafts use deterministic ids
+ * src/lib/suppliers/aw-dropship-shipping.ts. Each item also carries
+ * hand-picked styleTags (e.g. "Vintage & Reclaimed", "Coffee Table") that
+ * power the shop drill-nav's third tier. Drafts use deterministic ids
  * (drafts.product-aw-<code>), so re-running refreshes rather than
  * duplicates; already-published products are left untouched. Categories
  * are created on demand (createIfNotExists) if they don't exist yet.
@@ -37,26 +39,33 @@ const SUPPLIER_NAME = "AW Dropship";
 const MAX_IMAGES = 4;
 const DEFAULT_DEPARTMENT_SLUG = "living-room";
 
+interface ImportItem {
+  code: string;
+  /** Free-text facets, e.g. ["Vintage & Reclaimed", "Coffee Table"] — power
+   * the shop drill-nav's third tier. */
+  styleTags?: string[];
+}
+
 interface ImportSet {
   categorySlug: string;
   categoryTitle: string;
-  codes: string[];
+  items: ImportItem[];
 }
 
 const WELLNESS_SET: ImportSet = {
   categorySlug: "wellness-accessories",
   categoryTitle: "Wellness Accessories",
-  codes: [
-    "FSH-01",
-    "FSH-02",
-    "FSH-03",
-    "FSH-04",
-    "FSH-05",
-    "FSH-06",
-    "EO-03",
-    "EO-76",
-    "PrEO-76",
-    "CSalt-01",
+  items: [
+    { code: "FSH-01", styleTags: ["Bath & Body"] },
+    { code: "FSH-02", styleTags: ["Bath & Body"] },
+    { code: "FSH-03", styleTags: ["Bath & Body"] },
+    { code: "FSH-04", styleTags: ["Bath & Body"] },
+    { code: "FSH-05", styleTags: ["Bath & Body"] },
+    { code: "FSH-06", styleTags: ["Bath & Body"] },
+    { code: "EO-03", styleTags: ["Essential Oils"] },
+    { code: "EO-76", styleTags: ["Essential Oils"] },
+    { code: "PrEO-76", styleTags: ["Essential Oils"] },
+    { code: "CSalt-01", styleTags: ["Bath & Body"] },
   ],
 };
 
@@ -64,42 +73,45 @@ const WELLNESS_SET: ImportSet = {
 const RUSTIC_FURNITURE_SET: ImportSet = {
   categorySlug: "rustic-reclaimed-furniture",
   categoryTitle: "Rustic & Reclaimed Furniture",
-  codes: [
-    "RDS-123",
-    "RDS-152",
-    "RDS-150",
-    "RDS-145",
-    "RDS-146",
-    "RDS-147",
-    "RDS-148",
-    "RDS-151",
-    "RDS-153",
-    "RDS-154",
-    "RDS-149",
-    "RDS-155",
-    "ACShop-01",
-    "ACShop-02",
-    "ACShop-03",
-    "ACShop-07",
-    "ACSHOP-08",
-    "ACSHOP-09",
-    "ACSHOP-10",
-    "ACShop-11",
-    "ACShop-12",
-    "ACShop-13",
-    "ACShop-14",
-    "ACShop-15",
-    "ACShop-16",
-    "ACShop-17",
-    "ACShop-18",
-    "ACShop-19",
-    "ACShop-21",
-    "ACShop-20",
-    "ACShop-07A",
-    "ACShop-06",
-    "ACShop-05",
-    "ACShop-04X",
-    "ACShop-07B",
+  items: [
+    { code: "RDS-123", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-152", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-150", styleTags: ["Vintage & Reclaimed", "Shelving"] },
+    { code: "RDS-145", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-146", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-147", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-148", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-151", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-153", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-154", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "RDS-149", styleTags: ["Vintage & Reclaimed", "Shelving"] },
+    { code: "RDS-155", styleTags: ["Vintage & Reclaimed", "Shelving"] },
+    { code: "ACShop-01", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACShop-02", styleTags: ["Vintage & Reclaimed", "Console Table"] },
+    { code: "ACShop-03", styleTags: ["Vintage & Reclaimed", "Shelving"] },
+    { code: "ACShop-07", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACSHOP-08", styleTags: ["Vintage & Reclaimed", "Shelving"] },
+    { code: "ACSHOP-09", styleTags: ["Vintage & Reclaimed", "Coffee Table"] },
+    { code: "ACSHOP-10", styleTags: ["Vintage & Reclaimed", "Coffee Table"] },
+    { code: "ACShop-11", styleTags: ["Vintage & Reclaimed", "Coffee Table"] },
+    { code: "ACShop-12", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "ACShop-13", styleTags: ["Vintage & Reclaimed", "TV Stand"] },
+    { code: "ACShop-14", styleTags: ["Vintage & Reclaimed", "Bedside Table"] },
+    { code: "ACShop-15", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    {
+      code: "ACShop-16",
+      styleTags: ["Vintage & Reclaimed", "Display Stand"],
+    },
+    { code: "ACShop-17", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "ACShop-18", styleTags: ["Vintage & Reclaimed", "TV Stand"] },
+    { code: "ACShop-19", styleTags: ["Vintage & Reclaimed", "Bedside Table"] },
+    { code: "ACShop-21", styleTags: ["Vintage & Reclaimed", "Coffee Table"] },
+    { code: "ACShop-20", styleTags: ["Vintage & Reclaimed", "Storage"] },
+    { code: "ACShop-07A", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACShop-06", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACShop-05", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACShop-04X", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
+    { code: "ACShop-07B", styleTags: ["Vintage & Reclaimed", "Dining Table"] },
   ],
 };
 
@@ -108,37 +120,37 @@ const RUSTIC_FURNITURE_SET: ImportSet = {
 const INTERIOR_FURNITURE_SET: ImportSet = {
   categorySlug: "interior-furniture",
   categoryTitle: "Interior Furniture",
-  codes: [
-    "PSS-01",
-    "PSS-02",
-    "PSS-03",
-    "PSS-04",
-    "TTS-01",
-    "TTS-02",
-    "TTS-03",
-    "TTS-04",
-    "TTS-05",
-    "TTS-06",
-    "RWA-01",
-    "RWA-02",
-    "BCab-01",
-    "BCab-02",
-    "BCab-03",
-    "BCab-04",
-    "BCab-05",
-    "TDS-02",
-    "TDS-03",
-    "TDS-04",
-    "TDS-05",
-    "TDS-06",
-    "TDS-07",
-    "TDS-08",
-    "BTS-01",
-    "BTS-02",
-    "BTS-03",
-    "BTS-04",
-    "BTS-05",
-    "BTS-06",
+  items: [
+    { code: "PSS-01", styleTags: ["Plant Stand"] },
+    { code: "PSS-02", styleTags: ["Plant Stand"] },
+    { code: "PSS-03", styleTags: ["Plant Stand"] },
+    { code: "PSS-04", styleTags: ["Plant Stand"] },
+    { code: "TTS-01", styleTags: ["Stool", "Side Table"] },
+    { code: "TTS-02", styleTags: ["Stool", "Side Table"] },
+    { code: "TTS-03", styleTags: ["Stool", "Side Table"] },
+    { code: "TTS-04", styleTags: ["Stool", "Side Table"] },
+    { code: "TTS-05", styleTags: ["Stool", "Side Table"] },
+    { code: "TTS-06", styleTags: ["Stool", "Side Table"] },
+    { code: "RWA-01", styleTags: ["Coffee Table", "Modern"] },
+    { code: "RWA-02", styleTags: ["Coffee Table", "Modern"] },
+    { code: "BCab-01", styleTags: ["Bathroom Cabinet"] },
+    { code: "BCab-02", styleTags: ["Bathroom Cabinet"] },
+    { code: "BCab-03", styleTags: ["Bathroom Cabinet"] },
+    { code: "BCab-04", styleTags: ["Bathroom Cabinet"] },
+    { code: "BCab-05", styleTags: ["Bathroom Cabinet"] },
+    { code: "TDS-02", styleTags: ["Shelving"] },
+    { code: "TDS-03", styleTags: ["Shelving"] },
+    { code: "TDS-04", styleTags: ["Shelving"] },
+    { code: "TDS-05", styleTags: ["Shelving"] },
+    { code: "TDS-06", styleTags: ["Shelving"] },
+    { code: "TDS-07", styleTags: ["Shelving"] },
+    { code: "TDS-08", styleTags: ["Shelving"] },
+    { code: "BTS-01", styleTags: ["Side Table"] },
+    { code: "BTS-02", styleTags: ["Stool"] },
+    { code: "BTS-03", styleTags: ["Side Table"] },
+    { code: "BTS-04", styleTags: ["Stool"] },
+    { code: "BTS-05", styleTags: ["Side Table"] },
+    { code: "BTS-06", styleTags: ["Stool"] },
   ],
 };
 
@@ -262,7 +274,7 @@ async function importSet(
     name: SUPPLIER_NAME,
   });
 
-  for (const code of set.codes) {
+  for (const { code, styleTags } of set.items) {
     const record = records.get(code);
     if (!record) {
       console.warn(`✗ ${code}: not found in feed, skipped`);
@@ -318,6 +330,7 @@ async function importSet(
       gtin: get("Barcode") || undefined,
       summary: plainDescription.slice(0, 280),
       highlights: [],
+      styleTags: styleTags ?? undefined,
       stockStatus: qty > 0 ? "In Stock" : "Out of Stock",
       stockQuantity: qty,
       sourceUrl: "https://www.aw-dropship.com/",
@@ -337,10 +350,17 @@ async function main() {
   const sets: ImportSet[] =
     args[0] === "furniture"
       ? [RUSTIC_FURNITURE_SET, INTERIOR_FURNITURE_SET]
-      : [{ ...WELLNESS_SET, codes: args.length ? args : WELLNESS_SET.codes }];
+      : [
+          {
+            ...WELLNESS_SET,
+            items: args.length
+              ? args.map((code) => ({ code }))
+              : WELLNESS_SET.items,
+          },
+        ];
 
   console.log(
-    `Fetching feed (${sets.reduce((n, s) => n + s.codes.length, 0)} codes requested across ${sets.length} categor${sets.length === 1 ? "y" : "ies"})…`,
+    `Fetching feed (${sets.reduce((n, s) => n + s.items.length, 0)} codes requested across ${sets.length} categor${sets.length === 1 ? "y" : "ies"})…`,
   );
   const feedRes = await fetch(FEED_URL);
   if (!feedRes.ok) {
