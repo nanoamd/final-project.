@@ -78,7 +78,16 @@ export const product = defineType({
       title: "Cost price",
       type: "number",
       group: "commerce",
-      description: "Not shown on the storefront — internal only.",
+      description:
+        "Trade unit cost from the supplier. Not shown on the storefront — internal only.",
+    }),
+    defineField({
+      name: "shippingCost",
+      title: "Shipping cost",
+      type: "number",
+      group: "commerce",
+      description:
+        "What the supplier charges to ship this item to the customer (e.g. AW Dropship's per-parcel courier rate). Not shown on the storefront — internal only.",
     }),
     defineField({
       name: "currency",

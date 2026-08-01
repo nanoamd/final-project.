@@ -6,7 +6,10 @@
  * bulk-imports the 7,000-item giftware catalogue.
  *
  * Prices: sale price = their Unit RRP, trade cost = their Unit price —
- * both editable in Studio before publishing. Drafts use deterministic ids
+ * both editable in Studio before publishing. Weight comes from the feed's
+ * "Package weight (shipping)" column, which also sets shippingCost via AW's
+ * published UK Mainland (Zone 1) courier rate table — see
+ * src/lib/suppliers/aw-dropship-shipping.ts. Drafts use deterministic ids
  * (drafts.product-aw-<code>), so re-running refreshes rather than
  * duplicates; already-published products are left untouched.
  *
@@ -15,6 +18,8 @@
  * or with no args to import the default sauna-accessories shortlist.
  */
 import { createClient } from "@sanity/client";
+
+import { getAwDropshipShippingCost } from "../src/lib/suppliers/aw-dropship-shipping";
 
 const FEED_URL = "https://www.aw-dropship.com/data-feed.csv";
 const CATEGORY_SLUG = "wellness-accessories";
@@ -162,6 +167,8 @@ async function main() {
     const trade = parseFloat(get("Unit price"));
     const qty = parseInt(get("Available Quantity") || "0", 10);
     const plainDescription = get("Webpage description (plain text)");
+    const weightKg = parseFloat(get("Package weight (shipping)")) || 0;
+    const shippingCost = weightKg ? getAwDropshipShippingCost(weightKg) : null;
     const imageUrls = get("Images")
       .split(",")
       .map((u) => u.trim())
@@ -193,6 +200,7 @@ async function main() {
       supplier: { _type: "reference", _ref: supplierId },
       price: rrp,
       costPrice: trade,
+      shippingCost: shippingCost ?? undefined,
       currency: "GBP",
       sku: `AW-${code}`,
       gtin: get("Barcode") || undefined,
@@ -201,10 +209,13 @@ async function main() {
       stockStatus: qty > 0 ? "In Stock" : "Out of Stock",
       stockQuantity: qty,
       sourceUrl: "https://www.aw-dropship.com/",
+      weight: weightKg
+        ? { _type: "weight", value: weightKg, unit: "kg" }
+        : undefined,
       gallery,
     });
     console.log(
-      `✓ ${code}: "${name}" — £${rrp} (trade £${trade}), ${gallery.length} images, qty ${qty} → draft`,
+      `✓ ${code}: "${name}" — £${rrp} (trade £${trade}, shipping £${shippingCost ?? "?"}), ${gallery.length} images, qty ${qty} → draft`,
     );
   }
 

@@ -2,12 +2,14 @@ import { Card, Text } from "@sanity/ui";
 import { useFormValue } from "sanity";
 
 /**
- * Read-only margin computed from price/costPrice at render time — never
- * persisted, so it can't drift from the fields it's derived from.
+ * Read-only margin computed from price/costPrice/shippingCost at render
+ * time — never persisted, so it can't drift from the fields it's derived
+ * from.
  */
 export function MarginDisplay() {
   const price = useFormValue(["price"]) as number | undefined;
   const costPrice = useFormValue(["costPrice"]) as number | undefined;
+  const shippingCost = useFormValue(["shippingCost"]) as number | undefined;
 
   if (!price || !costPrice) {
     return (
@@ -19,7 +21,8 @@ export function MarginDisplay() {
     );
   }
 
-  const margin = ((price - costPrice) / price) * 100;
+  const totalCost = costPrice + (shippingCost ?? 0);
+  const margin = ((price - totalCost) / price) * 100;
   const tone = margin < 0 ? "critical" : margin < 20 ? "caution" : "positive";
 
   return (
@@ -28,7 +31,8 @@ export function MarginDisplay() {
         {margin.toFixed(1)}% margin
       </Text>
       <Text size={1} muted style={{ marginTop: 4 }}>
-        {`£${(price - costPrice).toFixed(2)} profit per unit`}
+        {`£${(price - totalCost).toFixed(2)} profit per unit`}
+        {shippingCost ? ` (incl. £${shippingCost.toFixed(2)} shipping)` : ""}
       </Text>
     </Card>
   );
