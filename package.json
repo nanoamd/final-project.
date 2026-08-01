@@ -22,7 +22,8 @@
     "test:e2e": "playwright test",
     "seed": "tsx --env-file=.env.local scripts/seed-sanity.ts",
     "cleanup:non-saunaplunge-products": "tsx --env-file=.env.local scripts/delete-non-saunaplunge-products.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "publish:content-pack": "tsx --env-file=.env.local scripts/publish-content-pack.ts"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [

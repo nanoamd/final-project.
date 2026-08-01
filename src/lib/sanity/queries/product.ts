@@ -55,6 +55,10 @@ const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
 const FEATURED_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product"] | order(_createdAt desc) [0...$limit] ${PRODUCT_PROJECTION}`;
 
+const FLAGSHIP_PRODUCT_QUERY = /* groq */ `
+*[_type == "product" && stockStatus != "Coming Soon" && stockStatus != "Out of Stock"]
+  | order(price desc) [0] ${PRODUCT_PROJECTION}`;
+
 const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
 *[_type == "product" && category->department->slug.current == $departmentSlug]
   | order(_createdAt desc)
@@ -97,6 +101,16 @@ export async function getProductsByCategory(
 
 export async function getFeaturedProducts(limit = 4): Promise<SanityProduct[]> {
   return sanityFetch<SanityProduct[]>(FEATURED_PRODUCTS_QUERY, { limit }, []);
+}
+
+/**
+ * The single flagship product for the homepage's featured spotlight — the
+ * highest-priced product that can actually be bought today. Deterministic
+ * (no editor curation needed yet); when a curated "featured" flag earns its
+ * place in the schema, only this query changes.
+ */
+export async function getFlagshipProduct(): Promise<SanityProduct | null> {
+  return sanityFetch<SanityProduct | null>(FLAGSHIP_PRODUCT_QUERY, {}, null);
 }
 
 /** Every product across every category in a room — powers the room's "Shop All" page. */

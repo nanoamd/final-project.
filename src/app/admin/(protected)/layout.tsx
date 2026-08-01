@@ -8,10 +8,17 @@ import { getAuthorizedAdmin } from "@/server/auth/admin";
 
 const NAV_ITEMS: {
   label: string;
-  href: "/admin" | "/admin/orders" | "/admin/import";
+  href:
+    | "/admin"
+    | "/admin/orders"
+    | "/admin/inbox"
+    | "/admin/newsletter"
+    | "/admin/import";
 }[] = [
   { label: "Dashboard", href: "/admin" },
   { label: "Orders", href: "/admin/orders" },
+  { label: "Inbox", href: "/admin/inbox" },
+  { label: "Newsletter", href: "/admin/newsletter" },
   { label: "Import product", href: "/admin/import" },
 ];
 
@@ -19,10 +26,8 @@ const NAV_ITEMS: {
 // docs/kaiku-hq-design.md §4.1) without pretending unbuilt pages work —
 // each renders disabled with no href until its page actually exists.
 const UPCOMING_NAV_ITEMS = [
-  "Inbox",
   "Customers",
   "Suppliers",
-  "Newsletter",
   "Tasks",
   "Analytics",
   "SEO",

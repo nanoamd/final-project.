@@ -5,6 +5,7 @@ import { DesignPhilosophy } from "@/features/storefront/components/home/design-p
 import { DesignedForLiving } from "@/features/storefront/components/home/designed-for-living";
 import { EditorialJournal } from "@/features/storefront/components/home/editorial-journal";
 import { FeaturedCollection } from "@/features/storefront/components/home/featured-collection";
+import { FeaturedProduct } from "@/features/storefront/components/home/featured-product";
 import { FeaturedTransformation } from "@/features/storefront/components/home/featured-transformation";
 import { GardenStudio } from "@/features/storefront/components/home/garden-studio";
 import { Hero } from "@/features/storefront/components/home/hero";
@@ -51,6 +52,7 @@ export async function HomePage() {
         }}
       />
       <TrustBar items={homepage?.trustBarItems} />
+      <FeaturedProduct />
       <ShopByCategory
         eyebrow={homepage?.shopByCategoryEyebrow}
         tiles={homepage?.shopByCategoryTiles}

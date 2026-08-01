@@ -40,7 +40,7 @@ export async function CollectionIndex({
   const [allCategories, totalProducts, departments] = await Promise.all([
     getCategories(),
     getTotalProductCount(),
-    roomSlug ? getDepartments() : Promise.resolve([]),
+    getDepartments(),
   ]);
 
   const active = categorySlug
@@ -99,9 +99,11 @@ export async function CollectionIndex({
                 <EmptyCollection name={active.name} />
               )
             ) : categories.length ? (
-              <div className="mt-8">
-                <CategoryAccordion categories={categories} room={room} />
-              </div>
+              <CategoryBrowse
+                categories={categories}
+                departments={departments}
+                room={room}
+              />
             ) : (
               <EmptyCollection name={room?.name ?? "This room"} />
             )}
@@ -221,6 +223,87 @@ function CollectionHero({
   );
 }
 
+/**
+ * The category browse view, separated honestly: collections you can shop
+ * today lead (full image tiles with live product counts), and everything
+ * still being stocked sits below as a quiet "opening soon" index grouped by
+ * room — visible ambition, never a wall of dead-feeling links. The split is
+ * driven purely by live product counts, so categories promote themselves
+ * into the main grid the moment their first product is published.
+ */
+function CategoryBrowse({
+  categories,
+  departments,
+  room,
+}: {
+  categories: SanityCategory[];
+  departments: SanityDepartment[];
+  room?: SanityDepartment;
+}) {
+  const stocked = categories.filter((c) => (c.productCount ?? 0) > 0);
+  const comingSoon = categories.filter((c) => !((c.productCount ?? 0) > 0));
+
+  const departmentName = (slug?: string | null) =>
+    departments.find((d) => d.slug === slug)?.name ?? "More";
+
+  const comingSoonByRoom = new Map<string, SanityCategory[]>();
+  for (const category of comingSoon) {
+    const key = room ? "" : departmentName(category.departmentSlug);
+    const list = comingSoonByRoom.get(key) ?? [];
+    list.push(category);
+    comingSoonByRoom.set(key, list);
+  }
+
+  return (
+    <div className="mt-8">
+      {stocked.length ? (
+        <>
+          <p className="text-canvas/45 mb-5 text-[11px] font-semibold tracking-[0.18em] uppercase">
+            Shop the collections
+          </p>
+          <CategoryAccordion categories={stocked} room={room} />
+        </>
+      ) : (
+        <EmptyCollection name={room?.name ?? "This room"} />
+      )}
+
+      {comingSoon.length ? (
+        <div className="mt-14 border-t border-white/8 pt-10">
+          <p className="text-canvas/45 mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
+            Opening soon
+          </p>
+          <p className="text-canvas/50 mb-7 max-w-lg text-[13px] leading-relaxed">
+            Collections we&rsquo;re curating now with our suppliers. Each opens
+            the moment its first pieces pass our standards.
+          </p>
+          <div className="flex flex-col gap-6">
+            {[...comingSoonByRoom.entries()].map(([groupName, group]) => (
+              <div key={groupName || "room"}>
+                {groupName ? (
+                  <p className="text-brass/80 mb-2.5 text-[11px] font-medium tracking-[0.16em] uppercase">
+                    {groupName}
+                  </p>
+                ) : null}
+                <div className="flex flex-wrap gap-2">
+                  {group.map((category) => (
+                    <AppLink
+                      key={category.slug}
+                      href={`/shop/${category.slug}`}
+                      className="text-canvas/60 hover:border-brass/40 hover:text-canvas rounded-full border border-white/10 px-4 py-2 text-[13px] transition-colors"
+                    >
+                      {category.name}
+                    </AppLink>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function Sidebar({
   categories,
   totalProducts,
@@ -233,6 +316,10 @@ function Sidebar({
   allHref: string;
 }) {
   const allActive = !activeSlug;
+  // Stocked collections lead; empty ones sit under their own quiet heading
+  // so the sidebar reads as a shop, not a sitemap.
+  const stocked = categories.filter((c) => (c.productCount ?? 0) > 0);
+  const comingSoon = categories.filter((c) => !((c.productCount ?? 0) > 0));
   return (
     <aside className="hidden flex-col gap-8 py-8 lg:flex">
       <div>
@@ -247,7 +334,7 @@ function Sidebar({
             count={totalProducts}
             active={allActive}
           />
-          {categories.map((category) => (
+          {stocked.map((category) => (
             <SidebarLink
               key={category.slug}
               href={`/shop/${category.slug}`}
@@ -258,6 +345,24 @@ function Sidebar({
             />
           ))}
         </ul>
+        {comingSoon.length ? (
+          <>
+            <p className="text-canvas/35 mt-6 mb-2 text-[10px] font-semibold tracking-[0.18em] uppercase">
+              Opening soon
+            </p>
+            <ul className="flex flex-col">
+              {comingSoon.map((category) => (
+                <SidebarLink
+                  key={category.slug}
+                  href={`/shop/${category.slug}`}
+                  icon={resolveIcon(category.iconName)}
+                  label={category.name}
+                  active={category.slug === activeSlug}
+                />
+              ))}
+            </ul>
+          </>
+        ) : null}
       </div>
 
       <GardenStudioCard />
