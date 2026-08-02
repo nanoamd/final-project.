@@ -1,6 +1,6 @@
 "use client";
 
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Lock, Minus, Plus, RotateCcw, Trash2 } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -175,6 +175,16 @@ export default function CartPage() {
           >
             {checkingOut ? "Redirecting…" : "Checkout"}
           </button>
+          <div className="text-muted mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px]">
+            <span className="flex items-center gap-1.5">
+              <Lock className="size-3.5" strokeWidth={1.5} aria-hidden />
+              Secure checkout
+            </span>
+            <span className="flex items-center gap-1.5">
+              <RotateCcw className="size-3.5" strokeWidth={1.5} aria-hidden />
+              30-day returns
+            </span>
+          </div>
         </div>
       </div>
     </Container>

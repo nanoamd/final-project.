@@ -4,7 +4,9 @@ import {
   Armchair,
   Flame,
   Heart,
+  Lock,
   type LucideIcon,
+  RotateCcw,
   Scale,
   Share2,
   Square,
@@ -25,6 +27,11 @@ import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
 
 const FEATURE_ICONS: LucideIcon[] = [Trees, Square, Armchair, Flame, Sun];
+
+// Only ever reflects a real, editor-entered stockQuantity — most products
+// don't set one, and this stays silent for those rather than inventing an
+// urgency signal that isn't backed by real inventory data.
+const LOW_STOCK_THRESHOLD = 5;
 
 function isGardenRelevant(departmentSlug?: string | null): boolean {
   return Boolean(
@@ -230,6 +237,14 @@ export function ProductSummary({
             </span>
           ) : null}
         </div>
+        {product.stockStatus === "In Stock" &&
+        typeof product.stockQuantity === "number" &&
+        product.stockQuantity > 0 &&
+        product.stockQuantity <= LOW_STOCK_THRESHOLD ? (
+          <p className="mt-2 text-[13px] font-medium text-amber-700">
+            Only {product.stockQuantity} left in stock
+          </p>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-3">
@@ -274,6 +289,23 @@ export function ProductSummary({
           </AppLink>
         ) : null}
       </div>
+
+      {!isComingSoon ? (
+        <div className="text-muted flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px]">
+          <span className="flex items-center gap-1.5">
+            <Lock className="size-3.5" strokeWidth={1.5} aria-hidden />
+            Secure checkout
+          </span>
+          <span className="flex items-center gap-1.5">
+            <RotateCcw className="size-3.5" strokeWidth={1.5} aria-hidden />
+            30-day returns
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Truck className="size-3.5" strokeWidth={1.5} aria-hidden />
+            UK-based team
+          </span>
+        </div>
+      ) : null}
 
       <div className="text-muted flex items-center justify-center gap-8 text-[12px]">
         <AppLink

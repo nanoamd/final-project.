@@ -18,9 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category, product } = await params;
   const found = await getProduct(product);
+  const fallbackDescription = found
+    ? `Shop the ${found.name}${found.categoryName ? ` — part of our ${found.categoryName} range` : ""} at Kaiku Home.`
+    : "A premium piece from the Kaiku collection.";
   return buildMetadata({
     title: found?.name ?? "Product",
-    description: found?.summary ?? "A premium piece from the Kaiku collection.",
+    description: found?.summary ?? fallbackDescription,
     path: `/shop/${category}/${product}`,
     image: found?.image ?? found?.gallery?.[0]?.url ?? undefined,
   });
