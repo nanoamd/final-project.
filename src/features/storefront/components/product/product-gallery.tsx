@@ -23,6 +23,15 @@ export function ProductGallery({
   const go = (delta: number) =>
     setActive((i) => (i + delta + images.length) % images.length);
 
+  // The parent re-filters `images` when a colour/option is selected — reset
+  // to the first shot of the new set rather than an index that may no
+  // longer exist (or now points at an unrelated photo).
+  const [lastImages, setLastImages] = React.useState(images);
+  if (images !== lastImages) {
+    setLastImages(images);
+    setActive(0);
+  }
+
   if (!images.length) {
     return (
       <PlaceholderImage

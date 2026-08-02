@@ -22,7 +22,7 @@ export async function generateMetadata({
     title: found?.name ?? "Product",
     description: found?.summary ?? "A premium piece from the Kaiku collection.",
     path: `/shop/${category}/${product}`,
-    image: found?.image ?? found?.gallery?.[0] ?? undefined,
+    image: found?.image ?? found?.gallery?.[0]?.url ?? undefined,
   });
 }
 

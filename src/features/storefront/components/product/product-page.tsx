@@ -1,7 +1,6 @@
 import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
-import { ProductGallery } from "@/features/storefront/components/product/product-gallery";
-import { ProductSummary } from "@/features/storefront/components/product/product-summary";
+import { ProductDetailInteractive } from "@/features/storefront/components/product/product-detail-interactive";
 import { ProductTabs } from "@/features/storefront/components/product/product-tabs";
 import { RelatedContent } from "@/features/storefront/components/product/related-content";
 import { RelatedProducts } from "@/features/storefront/components/product/related-products";
@@ -38,7 +37,7 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
         product={{
           name: product.name,
           description: product.summary,
-          image: product.image ?? product.gallery?.[0],
+          image: product.image ?? product.gallery?.[0]?.url,
           sku: product.sku,
           gtin: product.gtin,
           mpn: product.mpn,
@@ -77,8 +76,7 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
         </nav>
 
         <div className="mt-8 grid gap-10 pb-16 lg:grid-cols-2 lg:gap-14">
-          <ProductGallery images={product.gallery} name={product.name} />
-          <ProductSummary product={product} />
+          <ProductDetailInteractive product={product} />
         </div>
       </div>
 

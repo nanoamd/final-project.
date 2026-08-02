@@ -24,7 +24,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   styleTags,
   "specs": specs[] ${PRODUCT_SPEC_PROJECTION},
   "options": options[] ${PRODUCT_OPTION_PROJECTION},
-  "gallery": gallery[].asset->url,
+  "gallery": gallery[]{ "url": asset->url, optionValue },
   "image": gallery[0].asset->url,
   sku,
   gtin,

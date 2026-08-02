@@ -26,6 +26,13 @@ export interface SanityProductOption {
   values: string[];
 }
 
+export interface SanityProductGalleryImage {
+  url: string;
+  /** Matches one of the product's option values (e.g. "Whitewash") when
+   * this photo should only show for that selection; unset shows always. */
+  optionValue?: string | null;
+}
+
 export interface SanityDimensions {
   length?: number;
   width?: number;
@@ -100,7 +107,7 @@ export interface SanityProduct {
   styleTags?: string[];
   specs: SanityProductSpec[];
   options?: SanityProductOption[];
-  gallery: string[];
+  gallery: SanityProductGalleryImage[];
   image?: string | null;
   sku?: string;
   gtin?: string;

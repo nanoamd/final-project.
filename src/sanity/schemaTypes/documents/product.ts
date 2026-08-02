@@ -195,7 +195,16 @@ export const product = defineType({
         {
           type: "image",
           options: { hotspot: true },
-          fields: [{ name: "alt", title: "Alt text", type: "string" }],
+          fields: [
+            { name: "alt", title: "Alt text", type: "string" },
+            {
+              name: "optionValue",
+              title: "Shows for option value",
+              type: "string",
+              description:
+                'Type one of this product\'s option values exactly (e.g. "Whitewash") to show this photo only when a customer picks that value. Leave blank to show it for every selection.',
+            },
+          ],
         },
       ],
     }),

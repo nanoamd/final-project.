@@ -35,13 +35,20 @@ function isGardenRelevant(departmentSlug?: string | null): boolean {
   );
 }
 
-export function ProductSummary({ product }: { product: SanityProduct }) {
+export function ProductSummary({
+  product,
+  selected,
+  onSelectOption,
+}: {
+  product: SanityProduct;
+  /** Which value index is chosen per option label — owned by the parent
+   * ProductDetailInteractive so the gallery can react to the same choice. */
+  selected: Record<string, number>;
+  onSelectOption: (label: string, index: number) => void;
+}) {
   const isComingSoon = product.stockStatus === "Coming Soon";
   const { addItem } = useCart();
   const { isSaved, toggle } = useSavedProducts();
-  const [selected, setSelected] = React.useState<Record<string, number>>(() =>
-    Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
-  );
   const [added, setAdded] = React.useState(false);
   const [shareState, setShareState] = React.useState<"idle" | "copied">("idle");
   const saved = isSaved(product.slug);
@@ -175,9 +182,7 @@ export function ProductSummary({ product }: { product: SanityProduct }) {
                   key={value}
                   type="button"
                   aria-pressed={active}
-                  onClick={() =>
-                    setSelected((s) => ({ ...s, [option.label]: index }))
-                  }
+                  onClick={() => onSelectOption(option.label, index)}
                   className={`rounded-lg border px-4 py-2.5 text-[13px] transition-colors ${
                     active
                       ? "border-brass text-ink bg-brass/[0.06]"
