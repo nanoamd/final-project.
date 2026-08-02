@@ -52,7 +52,14 @@ export function ShopDrillNav({
   const [tagsBySlug, setTagsBySlug] = React.useState<Record<string, string[]>>(
     {},
   );
-  const [loadingSlug, setLoadingSlug] = React.useState<string | null>(null);
+  // A Set, not a single slug — rapid hovering across categories can leave
+  // more than one request in flight at once (hover A, hover B before A
+  // resolves, hover back to A before B resolves). A single shared value
+  // would get overwritten by B and no longer recognise A as already
+  // loading, firing a duplicate fetch for it.
+  const [loadingSlugs, setLoadingSlugs] = React.useState<Set<string>>(
+    () => new Set(),
+  );
 
   // Collapse the drill state when navigation changes the page underneath —
   // adjusting state during render (React's sanctioned alternative to an
@@ -86,14 +93,20 @@ export function ShopDrillNav({
   );
 
   function loadTags(categorySlug: string) {
-    if (tagsBySlug[categorySlug] || loadingSlug === categorySlug) return;
-    setLoadingSlug(categorySlug);
+    if (tagsBySlug[categorySlug] || loadingSlugs.has(categorySlug)) return;
+    setLoadingSlugs((prev) => new Set(prev).add(categorySlug));
     fetch(`/api/categories/${categorySlug}/style-tags`)
       .then((res) => (res.ok ? res.json() : { tags: [] }))
       .then(({ tags }: { tags: string[] }) => {
         setTagsBySlug((prev) => ({ ...prev, [categorySlug]: tags }));
       })
-      .finally(() => setLoadingSlug(null));
+      .finally(() =>
+        setLoadingSlugs((prev) => {
+          const next = new Set(prev);
+          next.delete(categorySlug);
+          return next;
+        }),
+      );
   }
 
   const tier3Tags = effectiveCategory
