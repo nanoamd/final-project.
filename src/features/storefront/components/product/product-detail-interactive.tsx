@@ -10,10 +10,14 @@ import type { SanityProduct } from "@/types/sanity-content";
  * Owns the "which option value is selected" state that ProductGallery and
  * ProductSummary both need — ProductDetail (the parent) is a Server
  * Component and can't hold that state itself, so this thin client wrapper
- * sits between them. Filters the gallery down to photos tagged for the
- * current selection (via each image's optionValue), falling back to the
- * full gallery whenever nothing is tagged or nothing matches, so untagged
- * products render exactly as before.
+ * sits between them. Reorders the gallery so photos tagged for the current
+ * selection come first (shared/untagged photos after), rather than just
+ * filtering in place — ProductGallery always shows index 0 as the main
+ * image, so a colour-matched photo needs to actually be first, not just
+ * present somewhere in the set, or the main image looks unchanged even
+ * though the thumbnail strip is filtering correctly. Falls back to the
+ * full gallery whenever nothing is tagged, so untagged products render
+ * exactly as before.
  */
 export function ProductDetailInteractive({
   product,
@@ -29,14 +33,16 @@ export function ProductDetailInteractive({
     .filter((v): v is string => Boolean(v));
 
   const hasTaggedImages = product.gallery.some((img) => img.optionValue);
-  const filtered = hasTaggedImages
-    ? product.gallery.filter(
-        (img) => !img.optionValue || selectedValues.includes(img.optionValue),
-      )
-    : product.gallery;
-  const images = (filtered.length ? filtered : product.gallery).map(
-    (img) => img.url,
-  );
+  let reordered = product.gallery;
+  if (hasTaggedImages) {
+    const matched = product.gallery.filter(
+      (img) => img.optionValue && selectedValues.includes(img.optionValue),
+    );
+    const shared = product.gallery.filter((img) => !img.optionValue);
+    const combined = [...matched, ...shared];
+    if (combined.length) reordered = combined;
+  }
+  const images = reordered.map((img) => img.url);
 
   return (
     <>
