@@ -11,7 +11,12 @@ export const siteConfig = {
   tagline: "Premium home improvement, considered",
   description:
     "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
-  url: "https://kaikuhome.com",
+  // www, not the bare domain — kaikuhome.com 308-redirects to
+  // www.kaikuhome.com in production, so the bare domain was never the
+  // actual final URL any page serves from. Every canonical tag, OG tag,
+  // JSON-LD url, and sitemap entry is built from this constant, so it needs
+  // to match the real serving host exactly, not just redirect to it.
+  url: "https://www.kaikuhome.com",
   email: "hello@kaikuhome.com",
 } as const;
 
