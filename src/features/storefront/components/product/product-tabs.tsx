@@ -177,9 +177,10 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
         <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
           Delivery
         </h3>
-        <p className="text-graphite mt-3 leading-relaxed">
-          {product.deliveryNotes || "Delivery details confirmed at quotation."}
-        </p>
+        <FormattedNotes
+          text={product.deliveryNotes}
+          fallback="Delivery details confirmed at quotation."
+        />
         <Link href="/delivery" className={`${linkClass} mt-3 inline-block`}>
           Full delivery policy →
         </Link>
@@ -188,10 +189,10 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
         <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
           Warranty & Returns
         </h3>
-        <p className="text-graphite mt-3 leading-relaxed">
-          {product.warrantyNotes ||
-            "Comprehensive manufacturer warranty — exact terms confirmed at quotation."}
-        </p>
+        <FormattedNotes
+          text={product.warrantyNotes}
+          fallback="Comprehensive manufacturer warranty — exact terms confirmed at quotation."
+        />
         <div className="mt-3 flex gap-5">
           <Link href="/warranty" className={linkClass}>
             Warranty policy →
@@ -201,6 +202,77 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
           </Link>
         </div>
       </div>
+    </div>
+  );
+}
+
+/** Renders free-text notes (deliveryNotes/warrantyNotes) properly instead
+ * of dumping them into one <p> — a plain-text Studio field can't store real
+ * paragraph/list markup, but its line breaks and "* item" markers are
+ * enough to reconstruct one. A run of dash/em-dash-only characters on its
+ * own line becomes a section divider. */
+function FormattedNotes({
+  text,
+  fallback,
+}: {
+  text?: string;
+  fallback: string;
+}) {
+  if (!text) {
+    return <p className="text-graphite mt-3 leading-relaxed">{fallback}</p>;
+  }
+
+  // Bullets and dividers sometimes arrive with no real line breaks at all
+  // (a single-line string with " * " and "———" inline) — force each onto
+  // its own line before splitting, so the grouping below works either way.
+  const normalized = text
+    .replace(/\s+\*\s+/g, "\n* ")
+    .replace(/[—-]{3,}/g, "\n$&\n");
+  const lines = normalized.split("\n").map((line) => line.trim());
+  const blocks: { type: "paragraph" | "list" | "divider"; lines: string[] }[] =
+    [];
+  for (const line of lines) {
+    if (!line) continue;
+    if (/^[—-]{3,}$/.test(line)) {
+      blocks.push({ type: "divider", lines: [] });
+      continue;
+    }
+    const isBullet = line.startsWith("* ");
+    const item = isBullet ? line.slice(2).trim() : line;
+    const last = blocks.at(-1);
+    if (isBullet && last?.type === "list") {
+      last.lines.push(item);
+    } else {
+      blocks.push({ type: isBullet ? "list" : "paragraph", lines: [item] });
+    }
+  }
+
+  return (
+    <div className="mt-3 flex flex-col gap-3">
+      {blocks.map((block, i) => {
+        if (block.type === "divider") {
+          return (
+            <hr key={i} className="border-line my-1 border-t" aria-hidden />
+          );
+        }
+        if (block.type === "list") {
+          return (
+            <ul
+              key={i}
+              className="text-graphite list-disc space-y-1.5 pl-5 leading-relaxed"
+            >
+              {block.lines.map((item, j) => (
+                <li key={j}>{item}</li>
+              ))}
+            </ul>
+          );
+        }
+        return (
+          <p key={i} className="text-graphite leading-relaxed">
+            {block.lines[0]}
+          </p>
+        );
+      })}
     </div>
   );
 }
