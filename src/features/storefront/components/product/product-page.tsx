@@ -2,6 +2,7 @@ import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { ProductDetailInteractive } from "@/features/storefront/components/product/product-detail-interactive";
 import { ProductTabs } from "@/features/storefront/components/product/product-tabs";
+import { RecentlyViewed } from "@/features/storefront/components/product/recently-viewed";
 import { RelatedContent } from "@/features/storefront/components/product/related-content";
 import { RelatedProducts } from "@/features/storefront/components/product/related-products";
 import { getRelatedProducts } from "@/lib/sanity/queries/product";
@@ -90,6 +91,8 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
       <ProductTabs product={product} />
 
       <RelatedProducts products={related} />
+
+      <RecentlyViewed product={product} />
     </div>
   );
 }

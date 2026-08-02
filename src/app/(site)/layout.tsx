@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { CartProvider } from "@/hooks/use-cart";
+import { RecentlyViewedProvider } from "@/hooks/use-recently-viewed";
 import { SavedProductsProvider } from "@/hooks/use-saved-products";
 import { getCategories } from "@/lib/sanity/queries/category";
 import { getDepartments } from "@/lib/sanity/queries/department";
@@ -36,20 +37,22 @@ export default async function SiteLayout({
   return (
     <CartProvider>
       <SavedProductsProvider>
-        <SmoothScroll>
-          <SiteHeader
-            nav={nav}
-            siteName={settings?.siteName}
-            rooms={departments}
-            categories={categories}
-          />
-          <main className="flex-1">{children}</main>
-          <SiteFooter
-            nav={nav}
-            settings={settings}
-            onNewsletterSubscribe={subscribeToNewsletter}
-          />
-        </SmoothScroll>
+        <RecentlyViewedProvider>
+          <SmoothScroll>
+            <SiteHeader
+              nav={nav}
+              siteName={settings?.siteName}
+              rooms={departments}
+              categories={categories}
+            />
+            <main className="flex-1">{children}</main>
+            <SiteFooter
+              nav={nav}
+              settings={settings}
+              onNewsletterSubscribe={subscribeToNewsletter}
+            />
+          </SmoothScroll>
+        </RecentlyViewedProvider>
       </SavedProductsProvider>
     </CartProvider>
   );
