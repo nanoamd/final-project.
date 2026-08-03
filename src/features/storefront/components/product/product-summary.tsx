@@ -310,7 +310,7 @@ export function ProductSummary({
             </span>
             <span className="flex items-center gap-1.5">
               <RotateCcw className="size-3.5" strokeWidth={1.5} aria-hidden />
-              30-day returns
+              14-day returns
             </span>
             <span className="flex items-center gap-1.5">
               <Truck className="size-3.5" strokeWidth={1.5} aria-hidden />

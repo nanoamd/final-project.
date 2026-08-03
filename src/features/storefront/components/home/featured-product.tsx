@@ -119,9 +119,12 @@ export function FeaturedProductSection({
               ) : null}
             </div>
             <div className="from-basalt/70 pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t to-transparent" />
+            {/* Never the supplier name here — showing who actually
+                fulfils/dropships a product undercuts a premium retailer's
+                own positioning and makes it trivial to search out the
+                same item direct from that supplier for less. */}
             <p className="text-canvas/90 absolute bottom-4 left-5 text-[11px] font-medium tracking-[0.2em] uppercase">
               {product.stockStatus}
-              {product.supplier?.name ? ` · ${product.supplier.name}` : ""}
             </p>
           </div>
         </AppLink>
