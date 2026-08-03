@@ -24,6 +24,8 @@ interface PriceLookup {
   sku: string | null;
   category: string | null;
   supplier: string | null;
+  stockStatus: string | null;
+  stockQuantity: number | null;
 }
 
 const PRICE_LOOKUP_QUERY = /* groq */ `
@@ -35,8 +37,14 @@ const PRICE_LOOKUP_QUERY = /* groq */ `
   "image": gallery[0].asset->url,
   sku,
   "category": category->slug.current,
-  "supplier": supplier->name
+  "supplier": supplier->name,
+  stockStatus,
+  stockQuantity
 }`;
+
+// stockStatus values that mean "not actually orderable right now" — Backorder
+// and Made to Order are deliberately still purchasable, that's their point.
+const UNORDERABLE_STOCK_STATUSES = new Set(["Out of Stock", "Coming Soon"]);
 
 /**
  * Creates a Stripe Checkout Session and redirects to it. Line-item prices are
@@ -53,6 +61,41 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
   const products = await sanityClient.fetch<PriceLookup[]>(PRICE_LOOKUP_QUERY, {
     slugs,
   });
+
+  // A product's stock can change between "add to basket" (client-cached
+  // localStorage state) and checkout — re-validate against the live Sanity
+  // record here rather than trusting whatever the cart last knew, same
+  // reasoning as re-fetching price below. Quantities are summed per slug
+  // first since the same product can appear as more than one line (distinct
+  // selectedOptions), but stock is tracked per product, not per variant.
+  const quantityBySlug = new Map<string, number>();
+  for (const line of lines) {
+    quantityBySlug.set(
+      line.slug,
+      (quantityBySlug.get(line.slug) ?? 0) + line.quantity,
+    );
+  }
+  for (const product of products) {
+    if (
+      product.stockStatus &&
+      UNORDERABLE_STOCK_STATUSES.has(product.stockStatus)
+    ) {
+      throw new Error(
+        `${product.title} is no longer available — please remove it from your basket.`,
+      );
+    }
+    const requested = quantityBySlug.get(product.slug) ?? 0;
+    if (
+      typeof product.stockQuantity === "number" &&
+      requested > product.stockQuantity
+    ) {
+      throw new Error(
+        product.stockQuantity > 0
+          ? `Only ${product.stockQuantity} of ${product.title} left in stock — please reduce the quantity in your basket.`
+          : `${product.title} is out of stock — please remove it from your basket.`,
+      );
+    }
+  }
 
   const lineItems = lines.map((line) => {
     const product = products.find((p) => p.slug === line.slug);

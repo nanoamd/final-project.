@@ -32,7 +32,10 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
   ];
 
   return (
-    <div className="bg-canvas text-ink">
+    // pb-20 reserves room for ProductSummary's fixed mobile "Add to Basket"
+    // bar, so it never ends up overlapping RelatedProducts/RecentlyViewed at
+    // the very bottom of the page — lg:pb-0 since that bar is mobile-only.
+    <div className="bg-canvas text-ink pb-20 lg:pb-0">
       <BreadcrumbJsonLd items={breadcrumbItems} />
       <ProductJsonLd
         product={{

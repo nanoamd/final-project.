@@ -102,12 +102,21 @@ export function FeaturedProductSection({
           <div className="relative overflow-hidden rounded-2xl border border-white/10">
             <div className="relative aspect-[4/3]">
               <Image
-                src={product.image}
+                src={product.cardImage ?? product.image}
                 alt={product.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
+              {product.studioImage ? (
+                <Image
+                  src={product.studioImage}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
+              ) : null}
             </div>
             <div className="from-basalt/70 pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t to-transparent" />
             <p className="text-canvas/90 absolute bottom-4 left-5 text-[11px] font-medium tracking-[0.2em] uppercase">

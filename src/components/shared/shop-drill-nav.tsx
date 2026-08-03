@@ -298,7 +298,7 @@ function DrillItem({
           aria-label={`Browse ${label} categories`}
           aria-expanded={expanded}
           className={cn(
-            "flex size-5 items-center justify-center rounded-full transition-colors",
+            "flex size-8 items-center justify-center rounded-full transition-colors",
             theme.chevron,
           )}
         >

@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import { sanityFetch } from "@/lib/sanity/fetch";
 import type {
   SanitySeoDefaults,
@@ -22,9 +24,19 @@ const SEO_DEFAULTS_QUERY = /* groq */ `
   "defaultOgImage": defaultOgImage.asset->url
 }`;
 
-export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
-  return sanityFetch<SanitySiteSettings | null>(SITE_SETTINGS_QUERY, {}, null);
-}
+// Cached per-request (React's `cache()`, not a time-based cache) — the
+// root layout fetches this for header/footer, and several pages (e.g.
+// /contact) fetch it again for their own metadata; without this every such
+// request fired the same Sanity query twice.
+export const getSiteSettings = cache(
+  async function getSiteSettings(): Promise<SanitySiteSettings | null> {
+    return sanityFetch<SanitySiteSettings | null>(
+      SITE_SETTINGS_QUERY,
+      {},
+      null,
+    );
+  },
+);
 
 export async function getSeoDefaults(): Promise<SanitySeoDefaults | null> {
   return sanityFetch<SanitySeoDefaults | null>(SEO_DEFAULTS_QUERY, {}, null);

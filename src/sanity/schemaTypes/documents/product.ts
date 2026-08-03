@@ -39,6 +39,15 @@ export const product = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "additionalCategories",
+      title: "Also shown in these categories",
+      type: "array",
+      group: "identity",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      description:
+        "Optional — list any other categories this product should also appear in, besides its primary category above (e.g. a bathroom cabinet that's also general Interior Furniture). The product's own URL still uses the primary category.",
+    }),
+    defineField({
       name: "brand",
       type: "reference",
       group: "identity",
@@ -203,6 +212,14 @@ export const product = defineType({
               type: "string",
               description:
                 'Type one of this product\'s option values exactly (e.g. "Whitewash") to show this photo only when a customer picks that value. Leave blank to show it for every selection.',
+            },
+            {
+              name: "isStudioShot",
+              title: "Plain/studio background photo",
+              type: "boolean",
+              initialValue: false,
+              description:
+                "Tick this for the plain white/neutral-background product photo. Product cards whose main photo is a lifestyle/action shot will swap to whichever gallery image has this ticked when a customer hovers over the card.",
             },
           ],
         },

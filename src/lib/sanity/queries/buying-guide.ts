@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
 import type { SanityBuyingGuide } from "@/types/sanity-content";
@@ -34,7 +36,10 @@ export async function getBuyingGuides({
   );
 }
 
-export async function getBuyingGuide(
+// Cached per-request (React's `cache()`, not a time-based cache) — the
+// guide page calls this once in generateMetadata and again in the page
+// body; without this every view fired the same Sanity query twice.
+export const getBuyingGuide = cache(async function getBuyingGuide(
   slug: string,
 ): Promise<SanityBuyingGuide | null> {
   return sanityFetch<SanityBuyingGuide | null>(
@@ -42,4 +47,4 @@ export async function getBuyingGuide(
     { slug },
     null,
   );
-}
+});

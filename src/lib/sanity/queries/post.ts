@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
 import type { SanityPost } from "@/types/sanity-content";
@@ -34,6 +36,11 @@ export async function getPosts({
   );
 }
 
-export async function getPost(slug: string): Promise<SanityPost | null> {
+// Cached per-request (React's `cache()`, not a time-based cache) — the
+// article page calls this once in generateMetadata and again in the page
+// body; without this every article view fired the same Sanity query twice.
+export const getPost = cache(async function getPost(
+  slug: string,
+): Promise<SanityPost | null> {
   return sanityFetch<SanityPost | null>(POST_BY_SLUG_QUERY, { slug }, null);
-}
+});

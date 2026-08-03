@@ -13,6 +13,8 @@ import {
   getCategories,
   getCategory,
   getDepartments,
+  getHomepage,
+  getProduct,
   getProductsByCategory,
   getTotalProductCount,
 } from "@/lib/sanity/queries";
@@ -39,11 +41,16 @@ export async function CollectionIndex({
   roomSlug?: string;
   styleTag?: string;
 }) {
-  const [allCategories, totalProducts, departments] = await Promise.all([
-    getCategories(),
-    getTotalProductCount(),
-    roomSlug ? getDepartments() : Promise.resolve([]),
-  ]);
+  const [allCategories, totalProducts, departments, homepage] =
+    await Promise.all([
+      getCategories(),
+      getTotalProductCount(),
+      roomSlug ? getDepartments() : Promise.resolve([]),
+      getHomepage(),
+    ]);
+  const productOfTheWeek = homepage?.curatedFeaturedProductSlug
+    ? await getProduct(homepage.curatedFeaturedProductSlug)
+    : null;
 
   const active = categorySlug
     ? ((await getCategory(categorySlug)) ?? undefined)
@@ -63,6 +70,8 @@ export async function CollectionIndex({
     ? await getProductsByCategory(active.slug, { styleTag })
     : [];
 
+  const allHref = room ? `/shop/room/${room.slug}` : "/shop";
+
   return (
     <div className="bg-basalt">
       <CollectionHero category={active} room={room} />
@@ -73,7 +82,8 @@ export async function CollectionIndex({
             categories={categories}
             totalProducts={totalProducts}
             activeSlug={active?.slug}
-            allHref={room ? `/shop/room/${room.slug}` : "/shop"}
+            allHref={allHref}
+            productOfTheWeek={productOfTheWeek}
           />
 
           <div>
@@ -102,15 +112,45 @@ export async function CollectionIndex({
             </div>
 
             {active ? (
-              products.length ? (
-                <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-3">
-                  {products.map((product) => (
-                    <ProductTile key={product.slug} product={product} />
+              <>
+                {/* The category sidebar (sibling links) is lg:flex-only, so
+                    without this a phone viewing one category has no way to
+                    switch to another except backing out to the header nav. */}
+                <div className="-mx-6 mt-6 flex [scrollbar-width:none] gap-2 overflow-x-auto px-6 pb-1 sm:-mx-8 sm:px-8 lg:hidden">
+                  <MobileCategoryPill
+                    href={allHref}
+                    label="All"
+                    active={!active}
+                  />
+                  {categories.map((category) => (
+                    <MobileCategoryPill
+                      key={category.slug}
+                      href={`/shop/${category.slug}`}
+                      label={category.name}
+                      active={category.slug === active.slug}
+                    />
                   ))}
                 </div>
-              ) : (
-                <EmptyCollection name={active.name} />
-              )
+                {products.length ? (
+                  <div className="mt-6 grid grid-cols-2 gap-5 lg:mt-8 lg:grid-cols-3">
+                    {products.map((product) => (
+                      <ProductTile key={product.slug} product={product} />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyCollection name={active.name} />
+                )}
+                {/* Same cards the desktop sidebar shows, relocated below the
+                    grid on mobile rather than dropped — a phone shopper
+                    should still see Product of the Week and Design Studio,
+                    just after the products they came here for. */}
+                <div className="mt-10 flex flex-col gap-6 lg:hidden">
+                  {productOfTheWeek?.image ? (
+                    <ProductOfTheWeekCard product={productOfTheWeek} />
+                  ) : null}
+                  <GardenStudioCard />
+                </div>
+              </>
             ) : categories.length ? (
               <div className="mt-8">
                 <CategoryAccordion categories={categories} room={room} />
@@ -239,11 +279,13 @@ function Sidebar({
   totalProducts,
   activeSlug,
   allHref,
+  productOfTheWeek,
 }: {
   categories: SanityCategory[];
   totalProducts: number;
   activeSlug?: string;
   allHref: string;
+  productOfTheWeek?: SanityProduct | null;
 }) {
   const allActive = !activeSlug;
   return (
@@ -272,6 +314,10 @@ function Sidebar({
           ))}
         </ul>
       </div>
+
+      {productOfTheWeek?.image ? (
+        <ProductOfTheWeekCard product={productOfTheWeek} />
+      ) : null}
 
       <GardenStudioCard />
     </aside>
@@ -319,6 +365,66 @@ function SidebarLink({
   );
 }
 
+function MobileCategoryPill({
+  href,
+  label,
+  active,
+}: {
+  href: string;
+  label: string;
+  active?: boolean;
+}) {
+  return (
+    <AppLink
+      href={href}
+      className={`shrink-0 rounded-full border px-4 py-2 text-[12px] font-medium whitespace-nowrap transition-colors ${
+        active
+          ? "border-brass/40 bg-brass/10 text-brass"
+          : "text-canvas/70 hover:text-canvas border-white/10"
+      }`}
+    >
+      {label}
+    </AppLink>
+  );
+}
+
+function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
+  return (
+    <AppLink
+      href={`/shop/${product.category}/${product.slug}`}
+      className="group bg-basalt-raise hover:border-brass/40 block rounded-xl border border-white/8 p-5 transition-colors"
+    >
+      <p className="text-brass mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
+        Kaiku&rsquo;s Product of the Week
+      </p>
+      <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-lg">
+        <Image
+          src={product.cardImage ?? product.image ?? "/images/garden-after.jpg"}
+          alt=""
+          fill
+          sizes="248px"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+        />
+        {product.studioImage ? (
+          <Image
+            src={product.studioImage}
+            alt=""
+            fill
+            sizes="248px"
+            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          />
+        ) : null}
+      </div>
+      <p className="text-canvas font-display mt-4 text-[16px] leading-tight">
+        {product.name}
+      </p>
+      <p className="text-brass mt-1 text-[13px]">
+        From {formatPrice(product.price)}
+      </p>
+    </AppLink>
+  );
+}
+
 function GardenStudioCard() {
   return (
     <div className="bg-basalt-raise rounded-xl border border-white/8 p-5">
@@ -357,9 +463,9 @@ function ProductTile({ product }: { product: SanityProduct }) {
       className="group hover:border-brass/40 relative block overflow-hidden rounded-xl border border-white/8 transition-colors"
     >
       <div className="relative aspect-[4/5]">
-        {product.image ? (
+        {(product.cardImage ?? product.image) ? (
           <Image
-            src={product.image}
+            src={product.cardImage ?? product.image!}
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"
@@ -368,6 +474,19 @@ function ProductTile({ product }: { product: SanityProduct }) {
         ) : (
           <div className="from-basalt-card to-basalt absolute inset-0 bg-gradient-to-br" />
         )}
+        {/* A lifestyle/action shot swaps to the plain studio photo on
+            hover, when an editor has tagged one — a customer scanning the
+            grid sees the product's real setting, then the clean product
+            shot once they're paying attention to this specific card. */}
+        {product.studioImage ? (
+          <Image
+            src={product.studioImage}
+            alt={product.name}
+            fill
+            sizes="(max-width: 1024px) 50vw, 30vw"
+            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          />
+        ) : null}
         <div className="from-basalt/90 absolute inset-0 bg-gradient-to-t to-transparent" />
       </div>
       <div className="absolute inset-x-0 bottom-0 p-4">

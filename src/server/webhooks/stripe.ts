@@ -108,17 +108,35 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
 
   // Seeds the order's timeline — the first entry a real customer's order
   // will ever have, and what makes the order detail page's stepper start
-  // from a real event instead of an empty list.
-  const { error: eventError } = await admin.from("order_events").insert({
-    order_id: orderRow.id,
-    type: "stage_change",
-    stage: "paid",
-    title: "Order placed and paid",
-    actor: "stripe",
-  });
-  if (eventError) {
+  // from a real event instead of an empty list. Unlike the upsert above,
+  // `order_events` has no unique constraint to key an upsert off — guard
+  // with a lookup instead, so a genuine Stripe retry of an already-processed
+  // event (e.g. our 200 response was lost in transit) doesn't insert a
+  // second "Order placed and paid" entry on the same order's timeline.
+  const { data: existingEvent, error: lookupError } = await admin
+    .from("order_events")
+    .select("id")
+    .eq("order_id", orderRow.id)
+    .eq("stage", "paid")
+    .eq("type", "stage_change")
+    .maybeSingle();
+  if (lookupError) {
     throw new Error(
-      `Failed to write initial order_event for session ${session.id}: ${eventError.message}`,
+      `Failed to check existing order_event for session ${session.id}: ${lookupError.message}`,
     );
+  }
+  if (!existingEvent) {
+    const { error: eventError } = await admin.from("order_events").insert({
+      order_id: orderRow.id,
+      type: "stage_change",
+      stage: "paid",
+      title: "Order placed and paid",
+      actor: "stripe",
+    });
+    if (eventError) {
+      throw new Error(
+        `Failed to write initial order_event for session ${session.id}: ${eventError.message}`,
+      );
+    }
   }
 }

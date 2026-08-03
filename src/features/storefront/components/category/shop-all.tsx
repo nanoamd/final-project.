@@ -79,13 +79,22 @@ function ShopAllTile({ product }: { product: SanityProduct }) {
       className="group block"
     >
       <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-lg border">
-        {product.image ? (
+        {(product.cardImage ?? product.image) ? (
           <Image
-            src={product.image}
+            src={product.cardImage ?? product.image!}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+        ) : null}
+        {product.studioImage ? (
+          <Image
+            src={product.studioImage}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
+            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         ) : null}
       </div>

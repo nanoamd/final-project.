@@ -58,7 +58,11 @@ export default function CartPage() {
   }
 
   return (
-    <Container className="py-16 md:py-20">
+    // pb-24 reserves room for the fixed mobile checkout bar below, so it
+    // never overlaps the last item in a long basket — lg:pb-0 since that
+    // bar is mobile-only (the summary card's own Checkout button is
+    // already reachable in the single right-hand column at lg).
+    <Container className="py-16 pb-24 md:py-20 lg:pb-20">
       <Eyebrow>Basket</Eyebrow>
       <h1 className="font-display text-ink mt-3 text-3xl tracking-tight sm:text-4xl">
         Your basket
@@ -114,7 +118,7 @@ export default function CartPage() {
                             item.selectedOptions,
                           )
                         }
-                        className="text-ink/60 hover:text-ink flex size-8 items-center justify-center"
+                        className="text-ink/60 hover:text-ink flex size-10 items-center justify-center"
                       >
                         <Minus className="size-3.5" strokeWidth={2} />
                       </button>
@@ -131,7 +135,7 @@ export default function CartPage() {
                             item.selectedOptions,
                           )
                         }
-                        className="text-ink/60 hover:text-ink flex size-8 items-center justify-center"
+                        className="text-ink/60 hover:text-ink flex size-10 items-center justify-center"
                       >
                         <Plus className="size-3.5" strokeWidth={2} />
                       </button>
@@ -186,6 +190,23 @@ export default function CartPage() {
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Mobile only — on a long basket the summary card above ends up
+          below every item in the stacked single-column layout, burying
+          Checkout a full scroll away. Keeps it reachable at all times. */}
+      <div className="border-line bg-canvas/95 fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t p-3 backdrop-blur-md lg:hidden">
+        <p className="text-ink shrink-0 pl-1 text-[15px] font-medium">
+          {formatPriceExact(subtotal)}
+        </p>
+        <button
+          type="button"
+          onClick={handleCheckout}
+          disabled={checkingOut}
+          className="bg-ink hover:bg-ink/90 text-canvas flex h-12 flex-1 items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors disabled:opacity-60"
+        >
+          {checkingOut ? "Redirecting…" : "Checkout"}
+        </button>
       </div>
     </Container>
   );

@@ -31,6 +31,9 @@ export interface SanityProductGalleryImage {
   /** Matches one of the product's option values (e.g. "Whitewash") when
    * this photo should only show for that selection; unset shows always. */
   optionValue?: string | null;
+  /** Editor-tagged plain/studio background photo — the hover-swap target
+   * for cards whose main photo is a lifestyle/action shot. */
+  isStudioShot?: boolean;
 }
 
 export interface SanityDimensions {
@@ -95,6 +98,7 @@ export interface SanityProduct {
   name: string;
   category: string;
   categoryName: string;
+  additionalCategorySlugs?: string[];
   brand?: SanityBrand | null;
   tagline?: string;
   summary: string;
@@ -109,6 +113,17 @@ export interface SanityProduct {
   options?: SanityProductOption[];
   gallery: SanityProductGalleryImage[];
   image?: string | null;
+  /** Same photo as `image`, except zoomed to whatever crop/hotspot an
+   * editor has set on that gallery image in Studio — use this (not `image`)
+   * for card/grid thumbnails. Falls back to the exact same value as `image`
+   * when no hotspot is set, so it's always safe to use in place of it.
+   * Never used for the full product-detail gallery, which always shows the
+   * untouched original photo. */
+  cardImage?: string | null;
+  /** URL of whichever gallery image is tagged `isStudioShot` — the
+   * plain/neutral-background photo a card should swap to on hover, when
+   * its main photo is a lifestyle/action shot. Null if none is tagged. */
+  studioImage?: string | null;
   sku?: string;
   gtin?: string;
   mpn?: string;
