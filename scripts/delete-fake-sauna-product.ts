@@ -1,58 +1,20 @@
 /**
- * Deletes the placeholder "Kaiku Horizon Cabin Sauna" product — a fake
- * product (not the real "Auroom Horizon Sauna" from scripts/seed-sanity.ts)
- * that ended up published and was showing as the homepage's automatic
- * flagship spotlight. Matched by exact title rather than a guessed slug,
- * since its slug was never confirmed. Deletes both the draft and published
- * document if both exist. Logs what it found before deleting, in case the
- * title match is broader than expected.
+ * SUPERSEDED — do not use this to delete anything.
  *
- * Run with: pnpm tsx --env-file=.env.local scripts/delete-fake-sauna-product.ts
+ * This script used to target a product titled "Kaiku Horizon Cabin Sauna",
+ * believing it to be a stray fake/placeholder product. It wasn't one: that
+ * title (and SKU "KAI-HRZN") had been mistakenly written onto the REAL,
+ * live "Auroom Horizon Sauna" product (_id: product-auroom-horizon-sauna,
+ * £6,995, referenced from the homepage) — a data-corruption bug, not a
+ * duplicate document. Sanity's reference-integrity check correctly
+ * blocked every delete attempt made with this script, so nothing was ever
+ * actually lost.
+ *
+ * The real fix is scripts/fix-auroom-sauna-title.ts, which restores the
+ * correct title/SKU on that same document instead of deleting it. Run
+ * that one instead — this file is left in place only so old instructions
+ * pointing at it don't 404; it intentionally does nothing.
  */
-import { createClient } from "@sanity/client";
-
-const token = process.env.SANITY_API_WRITE_TOKEN;
-if (!token) {
-  console.error("SANITY_API_WRITE_TOKEN is not set — aborting.");
-  process.exit(1);
-}
-
-const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-  token,
-  useCdn: false,
-});
-
-const TARGET_TITLE = "Kaiku Horizon Cabin Sauna";
-
-async function main() {
-  const docs = await client.fetch<
-    { _id: string; title: string; slug?: string }[]
-  >(
-    `*[_type == "product" && title == $title]{ _id, title, "slug": slug.current }`,
-    {
-      title: TARGET_TITLE,
-    },
-  );
-
-  if (!docs.length) {
-    console.log(
-      `No product titled "${TARGET_TITLE}" found — either already deleted, or the title doesn't match exactly. Nothing done.`,
-    );
-    return;
-  }
-
-  for (const doc of docs) {
-    console.log(`Deleting ${doc._id} (slug: ${doc.slug ?? "none"})`);
-    await client.delete(doc._id);
-  }
-
-  console.log(`\nDone — deleted ${docs.length} document(s).`);
-}
-
-main().catch((err) => {
-  console.error("delete-fake-sauna-product failed:", err);
-  process.exit(1);
-});
+console.log(
+  "This script has been superseded — nothing was deleted. Run scripts/fix-auroom-sauna-title.ts instead, which restores the correct title/SKU on the real Auroom Horizon Sauna product.",
+);
