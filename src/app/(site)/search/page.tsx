@@ -58,18 +58,26 @@ export default async function SearchPage({
                 href={`/shop/${product.category}/${product.slug}`}
                 className="group"
               >
-                {(product.cardImage ?? product.image) ? (
+                {(product.cardImageSquare ??
+                product.cardImage ??
+                product.image) ? (
                   <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-xl border">
                     <Image
-                      src={product.cardImage ?? product.image!}
+                      src={
+                        (product.cardImageSquare ??
+                          product.cardImage ??
+                          product.image)!
+                      }
                       alt={product.name}
                       fill
                       sizes="(max-width: 640px) 50vw, 25vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
-                    {product.studioImage ? (
+                    {(product.studioImageSquare ?? product.studioImage) ? (
                       <Image
-                        src={product.studioImage}
+                        src={
+                          (product.studioImageSquare ?? product.studioImage)!
+                        }
                         alt={product.name}
                         fill
                         sizes="(max-width: 640px) 50vw, 25vw"

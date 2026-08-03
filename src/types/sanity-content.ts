@@ -114,16 +114,32 @@ export interface SanityProduct {
   gallery: SanityProductGalleryImage[];
   image?: string | null;
   /** Same photo as `image`, except zoomed to whatever crop/hotspot an
-   * editor has set on that gallery image in Studio — use this (not `image`)
-   * for card/grid thumbnails. Falls back to the exact same value as `image`
-   * when no hotspot is set, so it's always safe to use in place of it.
-   * Never used for the full product-detail gallery, which always shows the
-   * untouched original photo. */
+   * editor has set on that gallery image in Studio, cropped to a 4:5
+   * ratio — use this (not `image`) for 4:5 card/grid thumbnails
+   * specifically (e.g. the shop grid). Falls back to the exact same value
+   * as `image` when no hotspot is set, so it's always safe to use in
+   * place of it. Never used for the full product-detail gallery, which
+   * always shows the untouched original photo. */
   cardImage?: string | null;
+  /** Same as `cardImage`, cropped to 4:3 instead — use this for the
+   * homepage Flagship/curated spotlight and the "Product of the Week"
+   * sidebar card, which both render in a 4:3 box. Using the 4:5 `cardImage`
+   * there would force a second, unintended crop on top of the editor's own
+   * hotspot crop. */
+  cardImageWide?: string | null;
+  /** Same as `cardImage`, cropped to 1:1 instead — use this for the
+   * square shop-all/search grid tiles, for the same reason as
+   * `cardImageWide`. */
+  cardImageSquare?: string | null;
   /** URL of whichever gallery image is tagged `isStudioShot` — the
    * plain/neutral-background photo a card should swap to on hover, when
-   * its main photo is a lifestyle/action shot. Null if none is tagged. */
+   * its main photo is a lifestyle/action shot. Null if none is tagged.
+   * Cropped to 4:5, matching `cardImage`. */
   studioImage?: string | null;
+  /** `studioImage` cropped to 4:3, matching `cardImageWide`. */
+  studioImageWide?: string | null;
+  /** `studioImage` cropped to 1:1, matching `cardImageSquare`. */
+  studioImageSquare?: string | null;
   sku?: string;
   gtin?: string;
   mpn?: string;

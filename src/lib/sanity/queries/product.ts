@@ -80,8 +80,20 @@ interface RawProduct extends Omit<
  * through a fixed crop would risk cutting into photos that already look
  * fine and were never touched in Studio; this only ever changes a photo
  * an editor has explicitly asked to be cropped.
+ *
+ * `width`/`height` must match the aspect ratio of whatever box the result
+ * is rendered in. Sanity's crop is computed to satisfy that exact ratio
+ * around the hotspot — asking for the wrong ratio here means the browser's
+ * own `object-cover` then re-crops the already-cropped image a second
+ * time, on the raw rectangle rather than the intended focal point, which
+ * is what produces an over-zoomed/oddly-cropped card even though the
+ * editor set a perfectly good hotspot.
  */
-function resolveCardImageUrl(img: RawGalleryImage | undefined): string | null {
+function resolveCardImageUrl(
+  img: RawGalleryImage | undefined,
+  width: number,
+  height: number,
+): string | null {
   if (!img?.url) return null;
   if (!img.hotspot || !img.assetRef) return img.url;
   try {
@@ -91,8 +103,8 @@ function resolveCardImageUrl(img: RawGalleryImage | undefined): string | null {
         hotspot: img.hotspot,
         crop: img.crop,
       })
-        .width(1000)
-        .height(1250)
+        .width(width)
+        .height(height)
         .fit("crop")
         .auto("format")
         .url() || img.url
@@ -106,8 +118,11 @@ function resolveCardImageUrl(img: RawGalleryImage | undefined): string | null {
  * Splits the raw gallery fetch (asset ref + hotspot/crop + tags) into the
  * public SanityProduct shape: `gallery[].url`/`image` stay the exact
  * original, untouched photo (the product-detail page's main gallery must
- * always show the whole photo, never a crop); `cardImage` is the
- * hotspot-cropped version for card/grid thumbnails; `studioImage` is
+ * always show the whole photo, never a crop); `cardImage`/`cardImageWide`/
+ * `cardImageSquare` are the same hotspot crop computed at 4:5, 4:3 and 1:1
+ * respectively, so every container gets a crop matching its own aspect
+ * ratio instead of a second, unintended browser-side crop on top of the
+ * editor's hotspot; `studioImage` (and its Wide/Square counterparts) is
  * whichever photo is tagged as the plain-background shot, for the
  * card-hover swap.
  */
@@ -121,12 +136,23 @@ function normalizeProduct<T extends RawProduct | null>(
     isStudioShot: img.isStudioShot,
   }));
   const studioSource = raw.gallery.find((img) => img.isStudioShot);
+  const primary = raw.gallery[0];
   return {
     ...raw,
     gallery,
-    image: raw.gallery[0]?.url ?? null,
-    cardImage: resolveCardImageUrl(raw.gallery[0]),
-    studioImage: studioSource ? resolveCardImageUrl(studioSource) : null,
+    image: primary?.url ?? null,
+    cardImage: resolveCardImageUrl(primary, 1000, 1250),
+    cardImageWide: resolveCardImageUrl(primary, 1200, 900),
+    cardImageSquare: resolveCardImageUrl(primary, 1000, 1000),
+    studioImage: studioSource
+      ? resolveCardImageUrl(studioSource, 1000, 1250)
+      : null,
+    studioImageWide: studioSource
+      ? resolveCardImageUrl(studioSource, 1200, 900)
+      : null,
+    studioImageSquare: studioSource
+      ? resolveCardImageUrl(studioSource, 1000, 1000)
+      : null,
   } as never;
 }
 

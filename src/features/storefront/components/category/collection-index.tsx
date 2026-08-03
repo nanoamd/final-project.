@@ -399,15 +399,20 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
       </p>
       <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-lg">
         <Image
-          src={product.cardImage ?? product.image ?? "/images/garden-after.jpg"}
+          src={
+            product.cardImageWide ??
+            product.cardImage ??
+            product.image ??
+            "/images/garden-after.jpg"
+          }
           alt=""
           fill
           sizes="248px"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
         />
-        {product.studioImage ? (
+        {(product.studioImageWide ?? product.studioImage) ? (
           <Image
-            src={product.studioImage}
+            src={(product.studioImageWide ?? product.studioImage)!}
             alt=""
             fill
             sizes="248px"

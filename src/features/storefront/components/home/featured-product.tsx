@@ -102,15 +102,17 @@ export function FeaturedProductSection({
           <div className="relative overflow-hidden rounded-2xl border border-white/10">
             <div className="relative aspect-[4/3]">
               <Image
-                src={product.cardImage ?? product.image}
+                src={
+                  product.cardImageWide ?? product.cardImage ?? product.image
+                }
                 alt={product.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
-              {product.studioImage ? (
+              {(product.studioImageWide ?? product.studioImage) ? (
                 <Image
-                  src={product.studioImage}
+                  src={(product.studioImageWide ?? product.studioImage)!}
                   alt={product.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"

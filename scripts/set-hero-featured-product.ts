@@ -2,10 +2,10 @@
  * Repoints the homepage Hero's floating "featured product" card
  * (heroFeaturedProduct — the small card in the bottom-right of the Hero,
  * distinct from the lower-page "Flagship" and curated sections) at the
- * SaunaPlunge™ Pennine Barrel 6-Person Outdoor Sauna. It was previously
- * pointing at product-auroom-horizon-sauna, which — regardless of the
- * separate title/SKU corruption fixed in fix-auroom-sauna-title.ts — isn't
- * the product wanted here; the Pennine Barrel is. Patches both the draft
+ * Tamarind & Resin Coffee Table – Aqua. Previously pointed at the
+ * SaunaPlunge™ Pennine Barrel sauna (itself a fix for the corrupted
+ * Auroom sauna reference before that) — this is a further, explicit
+ * change of which product the card should show. Patches both the draft
  * and published homepage document if both exist.
  *
  * Run with: pnpm tsx --env-file=.env.local scripts/set-hero-featured-product.ts
@@ -26,7 +26,7 @@ const client = createClient({
   useCdn: false,
 });
 
-const TARGET_SLUG = "saunaplunge-pennine-barrel-6-person-outdoor-sauna";
+const TARGET_SLUG = "tamarind-resin-coffee-table-aqua";
 
 async function main() {
   const product = await client.fetch<{ _id: string; title: string } | null>(
