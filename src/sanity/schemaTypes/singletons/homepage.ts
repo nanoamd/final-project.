@@ -97,9 +97,9 @@ export const homepage = defineType({
     // Featured product ------------------------------------------------
     defineField({
       name: "curatedFeaturedProduct",
-      title: "Featured product (separate homepage section)",
+      title: "Kaiku's Product of the Week",
       description:
-        "A hand-picked spotlight, distinct from the hero's floating card and the automatic flagship section (highest-priced buyable product). Leave empty to hide this section.",
+        "A hand-picked spotlight, distinct from the hero's floating card and the automatic flagship section (highest-priced buyable product). Shown in its own homepage section and as a small card on every category/room page's sidebar. Leave empty to hide both. Update it whenever you like — nothing rotates it automatically.",
       type: "reference",
       to: [{ type: "product" }],
       group: "featuredProduct",

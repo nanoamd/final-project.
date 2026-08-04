@@ -2,7 +2,6 @@ import { PortableText } from "@portabletext/react";
 
 import { ComingSoon } from "@/components/shared/coming-soon";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type { SanityPage } from "@/types/sanity-content";
 
@@ -28,8 +27,7 @@ export function GenericPage({
   return (
     <Container className="py-20 md:py-28">
       <div className="mx-auto max-w-2xl">
-        <Eyebrow>{page.title}</Eyebrow>
-        <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
+        <h1 className="font-display text-ink text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
           {page.title}
         </h1>
         {page.intro ? (
@@ -39,7 +37,10 @@ export function GenericPage({
         ) : null}
         {page.body?.length ? (
           <div className="mt-10">
-            <PortableText value={page.body} components={portableTextComponents} />
+            <PortableText
+              value={page.body}
+              components={portableTextComponents}
+            />
           </div>
         ) : null}
       </div>

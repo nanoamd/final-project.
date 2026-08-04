@@ -28,6 +28,11 @@ export interface SanityProductOption {
 
 export interface SanityProductGalleryImage {
   url: string;
+  /** Editor-entered per-photo alt text (e.g. "Reclaimed teak dining table,
+   * top view") — falls back to the product name in components when empty,
+   * so it's always safe to render even for photos an editor hasn't
+   * described yet. */
+  alt?: string;
   /** Matches one of the product's option values (e.g. "Whitewash") when
    * this photo should only show for that selection; unset shows always. */
   optionValue?: string | null;

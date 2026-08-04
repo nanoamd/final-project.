@@ -16,7 +16,7 @@ export function ProductGallery({
   images,
   name,
 }: {
-  images: string[];
+  images: { url: string; alt?: string }[];
   name: string;
 }) {
   const [active, setActive] = React.useState(0);
@@ -25,10 +25,16 @@ export function ProductGallery({
 
   // The parent re-filters `images` when a colour/option is selected — reset
   // to the first shot of the new set rather than an index that may no
-  // longer exist (or now points at an unrelated photo).
-  const [lastImages, setLastImages] = React.useState(images);
-  if (images !== lastImages) {
-    setLastImages(images);
+  // longer exist (or now points at an unrelated photo). Compared by content
+  // (a joined key), not array identity — the parent rebuilds `images` with a
+  // fresh `.map()` on every render regardless of whether the selection
+  // actually changed the photo set, so a reference check would reset the
+  // gallery back to photo #1 on every option click, even an unrelated one
+  // (e.g. picking a Size when only Colour affects photos).
+  const imagesKey = images.map((img) => img.url).join("|");
+  const [lastImagesKey, setLastImagesKey] = React.useState(imagesKey);
+  if (imagesKey !== lastImagesKey) {
+    setLastImagesKey(imagesKey);
     setActive(0);
   }
 
@@ -57,8 +63,8 @@ export function ProductGallery({
             cropped, and it's the main shot people zoom in on mentally. */}
         <Image
           key={active}
-          src={current}
-          alt={name}
+          src={current.url}
+          alt={current.alt || name}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
@@ -86,12 +92,12 @@ export function ProductGallery({
           </button>
 
           <div className="flex flex-1 flex-wrap gap-3">
-            {images.map((src, index) => (
+            {images.map((img, index) => (
               <button
-                key={src}
+                key={img.url}
                 type="button"
                 onClick={() => setActive(index)}
-                aria-label={`${name} — view ${index + 1}`}
+                aria-label={img.alt || `${name} — view ${index + 1}`}
                 aria-pressed={active === index}
                 className={cn(
                   "border-line bg-paper relative size-16 shrink-0 overflow-hidden rounded-lg border transition-colors",
@@ -101,7 +107,7 @@ export function ProductGallery({
                 )}
               >
                 <Image
-                  src={src}
+                  src={img.url}
                   alt=""
                   fill
                   sizes="80px"

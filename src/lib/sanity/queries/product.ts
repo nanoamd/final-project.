@@ -36,6 +36,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
     "assetRef": asset._ref,
     hotspot,
     crop,
+    alt,
     optionValue,
     isStudioShot
   },
@@ -62,6 +63,7 @@ interface RawGalleryImage {
   assetRef?: string;
   hotspot?: Record<string, unknown>;
   crop?: Record<string, unknown>;
+  alt?: string;
   optionValue?: string | null;
   isStudioShot?: boolean;
 }
@@ -132,6 +134,7 @@ function normalizeProduct<T extends RawProduct | null>(
   if (!raw) return null as never;
   const gallery: SanityProductGalleryImage[] = raw.gallery.map((img) => ({
     url: img.url,
+    alt: img.alt,
     optionValue: img.optionValue,
     isStudioShot: img.isStudioShot,
   }));

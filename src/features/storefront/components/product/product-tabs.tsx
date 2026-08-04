@@ -218,15 +218,19 @@ function FormattedNotes({
   text?: string;
   fallback: string;
 }) {
-  if (!text) {
+  if (!text?.trim()) {
     return <p className="text-graphite mt-3 leading-relaxed">{fallback}</p>;
   }
 
   // Bullets and dividers sometimes arrive with no real line breaks at all
   // (a single-line string with " * " and "———" inline) — force each onto
   // its own line before splitting, so the grouping below works either way.
+  // Only treated as a bullet marker when followed by an uppercase letter —
+  // furniture copy is full of genuine multiplication/dimension notation
+  // (e.g. "Boxed size: 120 * 60 * 40cm") that " * " would otherwise mangle
+  // into a fake list item.
   const normalized = text
-    .replace(/\s+\*\s+/g, "\n* ")
+    .replace(/\s+\*\s+(?=[A-Z])/g, "\n* ")
     .replace(/[—-]{3,}/g, "\n$&\n");
   const lines = normalized.split("\n").map((line) => line.trim());
   const blocks: { type: "paragraph" | "list" | "divider"; lines: string[] }[] =

@@ -28,21 +28,28 @@ export function ProductDetailInteractive({
     Object.fromEntries((product.options ?? []).map((o) => [o.label, 0])),
   );
 
+  // Trimmed + lowercased comparison — a Studio editor typing "whitewash"
+  // or "Whitewash " against an option value of "Whitewash" should still
+  // match. An exact-match requirement here is exactly the kind of silent,
+  // hard-to-spot mismatch that makes a colour's photos never show.
+  const normalize = (value: string) => value.trim().toLowerCase();
   const selectedValues = (product.options ?? [])
     .map((o) => o.values[selected[o.label] ?? 0])
-    .filter((v): v is string => Boolean(v));
+    .filter((v): v is string => Boolean(v))
+    .map(normalize);
 
   const hasTaggedImages = product.gallery.some((img) => img.optionValue);
   let reordered = product.gallery;
   if (hasTaggedImages) {
     const matched = product.gallery.filter(
-      (img) => img.optionValue && selectedValues.includes(img.optionValue),
+      (img) =>
+        img.optionValue && selectedValues.includes(normalize(img.optionValue)),
     );
     const shared = product.gallery.filter((img) => !img.optionValue);
     const combined = [...matched, ...shared];
     if (combined.length) reordered = combined;
   }
-  const images = reordered.map((img) => img.url);
+  const images = reordered.map((img) => ({ url: img.url, alt: img.alt }));
 
   return (
     <>
@@ -53,6 +60,7 @@ export function ProductDetailInteractive({
         onSelectOption={(label, index) =>
           setSelected((s) => ({ ...s, [label]: index }))
         }
+        displayImage={images[0]?.url}
       />
     </>
   );
