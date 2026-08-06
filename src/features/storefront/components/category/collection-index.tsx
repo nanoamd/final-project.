@@ -258,13 +258,28 @@ function CollectionHero({
           ) : null}
         </div>
 
-        <div className="relative min-h-[220px] overflow-hidden rounded-xl lg:min-h-0">
+        {/* Desktop only. Below lg this sat under the heading and the "Shop All"
+            button and cost 252px (measured, image plus the gap-8 above it) on a
+            844px phone screen before a single product — and it is the same
+            photo on every room, because no department has a heroImage set in
+            Sanity so they all fall through to the static garden-after.jpg. So
+            it was most of a third of the screen spent on a generic image that
+            told the visitor nothing about the room they had chosen. The
+            two-column desktop layout is untouched; below lg the grid simply has
+            one child, which is what also removes that gap. */}
+        <div className="relative hidden overflow-hidden rounded-xl lg:block lg:min-h-0">
+          {/* No `priority`. It emits a preload link with no media condition,
+              so a phone downloaded this image — at the 3840w variant — despite
+              it being display:none, paying for a hero it never shows. Without
+              it the image is lazy, and browsers do not fetch a lazy image
+              inside a display:none box. On desktop it is in the initial
+              viewport, so it still loads immediately; only the preload hint is
+              gone. `sizes` drops the mobile branch for the same reason. */}
           <Image
             src={category?.image ?? room?.image ?? "/images/garden-after.jpg"}
             alt=""
             fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 45vw"
+            sizes="45vw"
             className="object-cover"
           />
           <div className="from-basalt/50 absolute inset-0 bg-gradient-to-r to-transparent" />
