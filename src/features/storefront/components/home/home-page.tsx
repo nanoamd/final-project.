@@ -42,6 +42,15 @@ export async function HomePage() {
   // stuck showing a dead reference.
   const featuredProduct = pinnedProduct ?? (await getFlagshipProduct());
 
+  // Six long-form brand-essay bands are desktop-only. The mobile homepage ran
+  // 14,017px across 20 sections — about 17 phone screens — and roughly 7,000px
+  // of that sat *after* the commercial content (the flagship product, the
+  // category rail, the curated product), so a visitor who wanted to buy had
+  // already seen everything worth tapping by ~3,000px and then scrolled essays.
+  // These six are the ones that carry no product link and no tool: they read
+  // well on a wide screen next to their imagery and read as filler on a phone.
+  // Nothing is removed from the site — every one of them is still on desktop,
+  // and none of them is a navigation destination.
   return (
     <div className="bg-basalt">
       <Hero
@@ -78,17 +87,35 @@ export async function HomePage() {
         cards={homepage?.designedForLivingCards}
       />
       <CuratedFeaturedProduct />
-      <FeaturedTransformation />
+      {/* 577px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <FeaturedTransformation />
+      </div>
       <FeaturedCollection />
       <EditorialJournal />
-      <DesignPhilosophy />
-      <Materials />
+      {/* 699px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <DesignPhilosophy />
+      </div>
+      {/* 698px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <Materials />
+      </div>
       <InspirationGallery />
       <BuyingGuides />
       <HomeCategories />
-      <CustomerJourney />
-      <WhyKaiku />
-      <SupplierStandards />
+      {/* 253px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <CustomerJourney />
+      </div>
+      {/* 398px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <WhyKaiku />
+      </div>
+      {/* 545px on mobile. Desktop keeps it. */}
+      <div className="hidden lg:block">
+        <SupplierStandards />
+      </div>
       <AiDesignStudio />
       <JournalSignup />
     </div>
