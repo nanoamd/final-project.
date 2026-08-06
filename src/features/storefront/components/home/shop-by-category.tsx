@@ -1,4 +1,4 @@
-import { CookingPot } from "lucide-react";
+import { Flame } from "lucide-react";
 import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
@@ -61,36 +61,40 @@ export function ShopByCategory({
           </AppLink>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {/* Six tiles, so three across on mobile gives two even rows and six
+            across on desktop gives one. Two columns left a single orphan tile
+            on its own bottom row, which is what read as "uneven". Three columns
+            also makes each box smaller, which is the other half of the fix. */}
+        <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
           {list.map((tile) => (
             <AppLink
               key={tile.categorySlug}
               href={`/shop/${tile.categorySlug}`}
-              className="group hover:border-brass/40 relative block aspect-[3/4] overflow-hidden rounded-xl border border-white/8 transition-colors"
+              className="group hover:border-brass/40 relative block aspect-square overflow-hidden rounded-lg border border-white/8 transition-colors sm:rounded-xl lg:aspect-[3/4]"
             >
               {tile.image ? (
                 <Image
                   src={tile.image}
                   alt={tile.categoryName}
                   fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
+                  sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 16vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                 />
               ) : (
                 <div className="from-basalt-card to-basalt absolute inset-0 flex items-center justify-center bg-gradient-to-br">
-                  <CookingPot
-                    className="text-brass/70 size-8"
+                  <Flame
+                    className="text-brass/70 size-7 sm:size-8"
                     strokeWidth={1.2}
                     aria-hidden
                   />
                 </div>
               )}
               <div className="from-basalt/95 via-basalt/20 absolute inset-0 bg-gradient-to-t to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="text-canvas font-display text-[17px] leading-tight">
+              <div className="absolute inset-x-0 bottom-0 p-2 sm:p-4">
+                <p className="text-canvas font-display line-clamp-2 text-[12px] leading-tight sm:line-clamp-none sm:text-[17px]">
                   {tile.categoryName}
                 </p>
-                <p className="text-brass mt-1.5 flex items-center gap-1.5 text-[10px] font-medium tracking-[0.16em] uppercase">
+                <p className="text-brass mt-1.5 hidden items-center gap-1.5 text-[10px] font-medium tracking-[0.16em] uppercase sm:flex">
                   Explore <span aria-hidden>→</span>
                 </p>
               </div>
