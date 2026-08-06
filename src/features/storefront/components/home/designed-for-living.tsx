@@ -81,7 +81,15 @@ export function DesignedForLiving({
                 ) : null}
                 <div className="from-basalt/95 via-basalt/30 absolute inset-0 bg-gradient-to-t to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-2 sm:p-5">
-                  <p className="text-canvas text-[9px] font-semibold tracking-[0.06em] uppercase sm:text-[11px] sm:tracking-[0.14em]">
+                  {/* 11px everywhere. These were 9px on mobile so three tiles
+                      could sit across a 390px screen, but 9px uppercase is
+                      below anything legible at arm's length, and the
+                      description below is hidden at this width — so the label
+                      was the only thing identifying the tile. The tighter
+                      mobile tracking is kept so the longer titles still wrap
+                      to two lines rather than three. Desktop already rendered
+                      these at 11px/0.14em and is unchanged. */}
+                  <p className="text-canvas text-[11px] font-semibold tracking-[0.06em] uppercase sm:tracking-[0.14em]">
                     {card.title}
                   </p>
                   <p className="text-canvas/65 mt-1 hidden text-[13px] leading-snug sm:mt-1.5 sm:block">
