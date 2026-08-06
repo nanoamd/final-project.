@@ -42,7 +42,11 @@ export function PromoBanner({ children }: { children: React.ReactNode }) {
           setJustDismissed(true);
         }}
         aria-label="Dismiss"
-        className="text-ink/60 hover:text-ink absolute right-3 flex size-7 items-center justify-center rounded-full transition-colors hover:bg-black/5"
+        /* 28px is too small to hit reliably with a thumb, and this is the one
+           control that makes the banner go away. Hit area is expanded with a
+           pseudo-element on mobile so the button's visual size — and the
+           banner's height — stay exactly as they are. */
+        className="text-ink/60 hover:text-ink absolute right-3 flex size-7 items-center justify-center rounded-full transition-colors hover:bg-black/5 max-sm:after:absolute max-sm:after:-inset-2"
       >
         <X className="size-4" strokeWidth={1.8} />
       </button>

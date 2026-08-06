@@ -243,9 +243,14 @@ function DrillBar({
           )}
         />
       ) : null}
+      {/* These rows overflow on narrow screens. They have always scrolled, but
+          with no affordance the last item just read as a word cut in half at
+          the right edge ("COLD PLU…"), which looks like broken text rather
+          than "there's more". Same fade the header sub-bar already uses;
+          removed from sm up, where the rows fit. */}
       <div
         className={cn(
-          "relative mx-auto flex max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto px-6 sm:px-8 lg:px-12",
+          "relative mx-auto flex max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12",
           dense ? "h-10 gap-2.5" : "h-11",
         )}
       >
@@ -297,8 +302,16 @@ function DrillItem({
           onClick={onToggle}
           aria-label={`Browse ${label} categories`}
           aria-expanded={expanded}
+          /* 32px is well under a comfortable touch target. Expanding the hit
+             area with a pseudo-element rather than growing the button keeps
+             the visual size and costs no layout — important here, because the
+             row has a fixed height (h-10 when dense) that a 44px button would
+             overflow. Mobile only: at this size the expansion would overlap
+             the neighbouring item on the tighter dense rows, and a pointer
+             doesn't need the help. */
           className={cn(
-            "flex size-8 items-center justify-center rounded-full transition-colors",
+            "relative flex size-8 items-center justify-center rounded-full transition-colors",
+            "max-sm:after:absolute max-sm:after:-inset-x-1 max-sm:after:-inset-y-2",
             theme.chevron,
           )}
         >
