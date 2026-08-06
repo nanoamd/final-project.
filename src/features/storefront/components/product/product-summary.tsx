@@ -190,9 +190,22 @@ export function ProductSummary({
 
         {product.options?.map((option) => (
           <div key={option.label}>
-            <p className="text-muted mb-2.5 text-[11px] font-semibold tracking-[0.14em] uppercase">
-              {option.label}
-            </p>
+            {/* The count alongside the label, so the page states how many
+                choices there are rather than leaving the shopper to count
+                swatches — "2 colours" next to COLOUR. Pluralised off the
+                option's own label so a Size option reads "3 sizes"; a label
+                that is already plural is left alone. */}
+            <div className="mb-2.5 flex items-baseline justify-between gap-3">
+              <p className="text-muted text-[11px] font-semibold tracking-[0.14em] uppercase">
+                {option.label}
+              </p>
+              {option.values.length > 1 ? (
+                <p className="text-muted/70 text-[11px]">
+                  {option.values.length}{" "}
+                  {option.label.toLowerCase().replace(/s$/, "")}s
+                </p>
+              ) : null}
+            </div>
             <div className="flex flex-wrap gap-2.5">
               {option.values.map((value, index) => {
                 const active = selected[option.label] === index;

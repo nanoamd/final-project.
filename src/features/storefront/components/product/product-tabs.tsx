@@ -186,7 +186,9 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
         </Link>
       </div>
       <div>
-        <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
+        {/* Deliberately bolder than its "Delivery" sibling: returns is the term
+            buyers hunt for hardest before committing to a high-value order. */}
+        <h3 className="text-ink text-[13px] font-bold tracking-[0.1em] uppercase">
           Warranty & Returns
         </h3>
         <FormattedNotes
