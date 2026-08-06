@@ -82,16 +82,23 @@ export function ProductGallery({
 
       {images.length > 1 ? (
         <div className="flex items-center gap-3">
+          {/* Arrows are hidden on mobile. At 390px the two 36px buttons plus
+              gaps leave ~246px for thumbnails, so a four-shot strip wrapped to
+              a second row and the arrows — vertically centred against the whole
+              two-row block — ended up stranded at the far screen edges, level
+              with nothing. The strip scrolls horizontally there instead, which
+              is the gesture a thumbnail row invites anyway; from sm up there is
+              room for one row and the arrows sit beside it as before. */}
           <button
             type="button"
             onClick={() => go(-1)}
             aria-label="Previous image"
-            className="border-line text-ink/60 hover:text-ink hover:border-ink/40 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors"
+            className="border-line text-ink/60 hover:text-ink hover:border-ink/40 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors max-sm:hidden"
           >
             <ChevronLeft className="size-4" strokeWidth={1.8} />
           </button>
 
-          <div className="flex flex-1 flex-wrap gap-3">
+          <div className="flex flex-1 gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap">
             {images.map((img, index) => (
               <button
                 key={img.url}
@@ -121,7 +128,7 @@ export function ProductGallery({
             type="button"
             onClick={() => go(1)}
             aria-label="Next image"
-            className="border-line text-ink/60 hover:text-ink hover:border-ink/40 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors"
+            className="border-line text-ink/60 hover:text-ink hover:border-ink/40 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors max-sm:hidden"
           >
             <ChevronRight className="size-4" strokeWidth={1.8} />
           </button>
