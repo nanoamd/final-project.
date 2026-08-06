@@ -64,7 +64,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          className="border-line bg-paper text-ink placeholder:text-muted focus-visible:border-ink rounded-lg border px-4 py-3 text-[15px] outline-none"
+          className="border-line bg-paper text-ink placeholder:text-muted focus-visible:border-ink rounded-lg border px-4 py-3 text-base outline-none sm:text-[15px]"
         />
       </label>
       <Button type="submit" disabled={pending} className="mt-2 self-start">

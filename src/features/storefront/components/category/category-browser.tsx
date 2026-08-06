@@ -78,7 +78,7 @@ export function CategoryBrowser({ products }: { products: Product[] }) {
             <select
               value={sort}
               onChange={(event) => setSort(event.target.value as SortKey)}
-              className="border-line bg-paper text-ink focus-visible:border-ink rounded-full border py-2 pr-8 pl-4 text-[13px] focus-visible:outline-none"
+              className="border-line bg-paper text-ink focus-visible:border-ink rounded-full border py-2 pr-8 pl-4 text-base focus-visible:outline-none sm:text-[13px]"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>

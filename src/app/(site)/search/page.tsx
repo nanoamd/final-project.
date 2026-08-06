@@ -44,7 +44,7 @@ export default async function SearchPage({
             name="q"
             defaultValue={term}
             placeholder="Search saunas, cold plunges, pergolas…"
-            className="text-ink placeholder:text-muted h-full flex-1 bg-transparent text-[15px] outline-none"
+            className="text-ink placeholder:text-muted h-full flex-1 bg-transparent text-base outline-none sm:text-[15px]"
           />
         </label>
       </form>
