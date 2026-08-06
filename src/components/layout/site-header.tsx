@@ -100,8 +100,20 @@ export function SiteHeader({
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
+  // Both the global /shop/all and the per-room /shop/room/<room>/all are
+  // "Shop All" pages. Getting /shop/all in here matters twice over:
+  //
+  //  - These pages render ShopDrillNav, whose first tier is already a room
+  //    list, so without this the header stacked its own near-identical room
+  //    sub-bar directly on top of it: two rows of the same links, 45px of
+  //    duplicated chrome (h-11 plus its border) above the product grid.
+  //  - It also selects the header theme. Shop All is the white commercial
+  //    page, so /shop/all was being served the dark header on a light
+  //    background — the visible half of this bug.
   const isShopAllPage =
-    isShopRoute && segments[1] === "room" && segments[3] === "all";
+    isShopRoute &&
+    (segments[1] === "all" ||
+      (segments[1] === "room" && segments[3] === "all"));
   const isProductPage =
     isShopRoute &&
     segments[1] !== "room" &&
