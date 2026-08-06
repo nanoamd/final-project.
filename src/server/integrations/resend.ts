@@ -26,9 +26,42 @@ interface SendEmailInput {
  * (Resend dashboard > Domains) — set RESEND_FROM_EMAIL to a verified
  * address once that's done.
  */
+const warned = new Set<string>();
+
+/**
+ * Warn once per distinct misconfiguration, not once per send. Every gate here
+ * used to be a silent `return`, which meant a site sending no email at all
+ * looked identical to a site with nothing to send — five contact submissions
+ * sat unread in the CMS for weeks because nothing ever said a notification had
+ * been skipped. These lines are the difference between "misconfigured" and
+ * "quiet".
+ */
+function warnOnce(key: string, message: string) {
+  if (warned.has(key)) return;
+  warned.add(key);
+  console.warn(`[email] ${message}`);
+}
+
 export async function sendEmail(input: SendEmailInput): Promise<void> {
   const apiKey = env.RESEND_API_KEY;
-  if (!apiKey) return;
+  if (!apiKey) {
+    warnOnce(
+      "no-api-key",
+      "RESEND_API_KEY is not set — this deployment sends no email at all. " +
+        `Dropped: "${input.subject}" to ${input.to}.`,
+    );
+    return;
+  }
+
+  if (!env.RESEND_FROM_EMAIL) {
+    warnOnce(
+      "no-from",
+      `RESEND_FROM_EMAIL is not set, so mail is sent as "${DEFAULT_FROM}". ` +
+        "Resend's onboarding sender only delivers to the Resend account's own " +
+        "address, so mail to anyone else is rejected. Verify a domain in Resend " +
+        "and set RESEND_FROM_EMAIL to an address on it.",
+    );
+  }
 
   try {
     const response = await fetch(RESEND_API, {

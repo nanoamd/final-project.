@@ -58,6 +58,17 @@ export async function submitContactForm(
   // The submission is already safely recorded in Sanity above — an email
   // hiccup from here on is logged (inside sendEmail) but never turns an
   // otherwise-successful submission into an error for the visitor.
+  if (!env.ADMIN_EMAIL) {
+    // Previously this branch was simply absent, so with ADMIN_EMAIL unset the
+    // enquiry was recorded and nobody was ever told. The submission is safe in
+    // Sanity either way (and readable at /admin/inbox), but silence here is how
+    // real enquiries go unanswered.
+    console.warn(
+      "[email] ADMIN_EMAIL is not set — a contact enquiry was saved to Sanity " +
+        "but no notification was sent to anyone. Set ADMIN_EMAIL to receive them.",
+    );
+  }
+
   if (env.ADMIN_EMAIL) {
     await sendEmail({
       to: env.ADMIN_EMAIL,
