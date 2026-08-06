@@ -2,7 +2,11 @@ import "server-only";
 
 import { createClient } from "@sanity/client";
 
-import { env } from "@/env";
+import {
+  sanityApiVersion,
+  sanityDataset,
+  sanityProjectId,
+} from "@/lib/sanity/config";
 
 /**
  * Privileged Sanity client using SANITY_API_WRITE_TOKEN, read straight from
@@ -14,9 +18,9 @@ export function getSanityWriteClient() {
   const token = process.env.SANITY_API_WRITE_TOKEN;
   if (!token) return null;
   return createClient({
-    projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: env.NEXT_PUBLIC_SANITY_DATASET,
-    apiVersion: env.NEXT_PUBLIC_SANITY_API_VERSION,
+    projectId: sanityProjectId,
+    dataset: sanityDataset,
+    apiVersion: sanityApiVersion,
     token,
     useCdn: false,
   });

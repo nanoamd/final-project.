@@ -81,9 +81,18 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: z.url(),
     NEXT_PUBLIC_SUPABASE_URL: z.url(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
-    NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1),
-    NEXT_PUBLIC_SANITY_DATASET: z.string().min(1),
-    NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1),
+    // Optional here on purpose, and no longer read through `env` at all —
+    // src/lib/sanity/config.ts owns these three. It shape-checks each one and
+    // substitutes a known-good default, which a `min(1)` check here cannot do:
+    // the failure that took the site down was a variable that was *present*
+    // and non-empty but wrong (an API token pasted into the project ID field),
+    // which passes `min(1)` happily. Keeping them required as well would mean
+    // a deleted variable still killed every page at boot, when the Sanity
+    // client would otherwise have carried on correctly. Listed rather than
+    // removed so this file still documents the full expected environment.
+    NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
+    NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
+    NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1).optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
     // Optional: enables Google Analytics 4 tracking. Without it, the site
     // just renders with no analytics script — nothing else is affected.
