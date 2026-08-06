@@ -346,6 +346,26 @@ function MobileMenu({
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-6 py-8">
+        {/* First thing in the menu, above the nav tree. Getting to a full
+            product list used to mean home → shop → room → category, and there
+            was no destination that listed the whole catalogue at all. This is
+            one tap from any page on the site. */}
+        <AppLink
+          href="/shop/all"
+          onClick={onClose}
+          className="border-brass/40 bg-brass/10 text-canvas mb-5 flex items-center justify-between rounded-lg border px-4 py-4"
+        >
+          <span className="font-display text-xl tracking-tight">
+            All Products
+          </span>
+          <span
+            aria-hidden
+            className="text-brass text-[11px] font-medium tracking-[0.16em] uppercase"
+          >
+            Browse →
+          </span>
+        </AppLink>
+
         {links.map((item) => (
           <div key={item.label} className="border-b border-white/10 py-1">
             <AppLink

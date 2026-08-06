@@ -11,6 +11,7 @@ export { getNavigation } from "@/lib/sanity/queries/navigation";
 export { getPageBySlug } from "@/lib/sanity/queries/page";
 export { getPost, getPosts } from "@/lib/sanity/queries/post";
 export {
+  getAllProducts,
   getFeaturedProducts,
   getMerchantFeedProducts,
   getProduct,

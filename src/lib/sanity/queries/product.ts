@@ -188,6 +188,12 @@ const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
 
+const ALL_PRODUCTS_QUERY = /* groq */ `
+*[_type == "product" && defined(slug.current)]
+  | order(_createdAt desc)
+  [0...$limit]
+  ${PRODUCT_PROJECTION}`;
+
 const PRODUCTS_BY_SLUGS_QUERY = /* groq */ `
 *[_type == "product" && slug.current in $slugs] ${PRODUCT_PROJECTION}`;
 
@@ -295,6 +301,21 @@ export async function getProductsByDepartment(
   const raw = await sanityFetch<RawProduct[]>(
     PRODUCTS_BY_DEPARTMENT_QUERY,
     { departmentSlug, limit },
+    [],
+  );
+  return normalizeProducts(raw);
+}
+
+/**
+ * Every product on the site, newest first — powers /shop/all, the single
+ * destination that lists the whole catalogue without first choosing a room.
+ * Filtered on a defined slug because a product without one has no reachable
+ * URL, so a tile for it would link nowhere.
+ */
+export async function getAllProducts(limit = 500): Promise<SanityProduct[]> {
+  const raw = await sanityFetch<RawProduct[]>(
+    ALL_PRODUCTS_QUERY,
+    { limit },
     [],
   );
   return normalizeProducts(raw);
