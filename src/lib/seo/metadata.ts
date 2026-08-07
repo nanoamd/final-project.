@@ -32,11 +32,24 @@ export function buildMetadata({
   noindex,
 }: BuildMetadataInput): Metadata {
   const url = path === "/" ? siteConfig.url : `${siteConfig.url}${path}`;
-  const fullTitle = `${title} — ${siteConfig.name}`;
   const ogImage = image ?? DEFAULT_OG_IMAGE;
 
+  /**
+   * Most product titles already end in the brand ("… | Kaiku") — 37 of 39 at
+   * the time of writing — and the root layout's `%s — Kaiku` template appended
+   * it a second time, so search results read "… | Kaiku — Kaiku". That wastes
+   * roughly eight of the ~60 characters Google renders and reads as a mistake
+   * on the one line a searcher judges the shop by.
+   *
+   * `title.absolute` opts the page out of the template rather than editing any
+   * product name. Titles that don't already carry the brand still get the
+   * suffix, so nothing loses it.
+   */
+  const alreadyBranded = new RegExp(`${siteConfig.name}\\s*$`, "i").test(title);
+  const fullTitle = alreadyBranded ? title : `${title} — ${siteConfig.name}`;
+
   return {
-    title,
+    title: alreadyBranded ? { absolute: title } : title,
     description,
     alternates: { canonical: url },
     openGraph: {

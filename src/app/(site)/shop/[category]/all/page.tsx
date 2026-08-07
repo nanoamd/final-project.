@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { siteConfig } from "@/config/site";
 import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getCategories } from "@/lib/sanity/queries";
 
@@ -26,6 +27,14 @@ export async function generateMetadata({
     title: found ? `Shop ${found.name}` : "Shop",
     description:
       found?.description ?? "Every product in this category, in one place.",
+    /**
+     * Canonical points at the editorial /shop/<category>, not at this URL.
+     * The two pages list the same products, so without this they compete as
+     * duplicates and split whatever ranking signal the category has earned —
+     * and /shop/<category> is the one already indexed. This page exists for
+     * mobile shoppers, so it should consolidate into that rather than fork it.
+     */
+    alternates: { canonical: `${siteConfig.url}/shop/${category}` },
   };
 }
 
