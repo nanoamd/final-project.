@@ -137,14 +137,26 @@ function CategoryButton({
   active: boolean;
   onSelect: () => void;
 }) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`group relative block aspect-[4/3] overflow-hidden rounded-xl border text-left transition-colors ${
-        active ? "border-brass" : "hover:border-brass/40 border-white/8"
-      }`}
-    >
+  const shell = `group relative block aspect-[4/3] overflow-hidden rounded-xl border text-left transition-colors ${
+    active ? "border-brass" : "hover:border-brass/40 border-white/8"
+  }`;
+
+  /**
+   * Two shells, one body. Below lg the tile is a link straight to the white
+   * buy-mode page for the category; from lg up it stays the accordion toggle.
+   *
+   * On a phone the accordion expanded its products *below* the tile grid,
+   * off-screen, so tapping a category looked like nothing had happened — you
+   * had to know to scroll. A link removes the guesswork. On desktop the
+   * expansion lands inside the viewport, so the "stay on the page" browsing it
+   * was built for still works and is untouched.
+   *
+   * Rendered as two elements rather than branching on a measured viewport,
+   * because a server-rendered component cannot know the width and guessing it
+   * client-side would either flash the wrong control or break hydration.
+   */
+  const body = (
+    <>
       {category.image ? (
         <Image
           src={category.image}
@@ -171,7 +183,25 @@ function CategoryButton({
           {category.productCount} Products
         </p>
       </div>
-    </button>
+    </>
+  );
+
+  return (
+    <>
+      <AppLink
+        href={`/shop/${category.slug}/all`}
+        className={`${shell} lg:hidden`}
+      >
+        {body}
+      </AppLink>
+      <button
+        type="button"
+        onClick={onSelect}
+        className={`${shell} hidden lg:block`}
+      >
+        {body}
+      </button>
+    </>
   );
 }
 

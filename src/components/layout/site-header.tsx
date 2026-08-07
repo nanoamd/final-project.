@@ -100,20 +100,23 @@ export function SiteHeader({
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
-  // Both the global /shop/all and the per-room /shop/room/<room>/all are
-  // "Shop All" pages. Getting /shop/all in here matters twice over:
+  // Any shop route ending in "all" is a white Shop All page: /shop/all,
+  // /shop/room/<room>/all and /shop/<category>/all. Matching on the last
+  // segment rather than enumerating each shape, because enumerating is what let
+  // this break twice — each new /all route fell through and got two things
+  // wrong at once:
   //
   //  - These pages render ShopDrillNav, whose first tier is already a room
-  //    list, so without this the header stacked its own near-identical room
-  //    sub-bar directly on top of it: two rows of the same links, 45px of
-  //    duplicated chrome (h-11 plus its border) above the product grid.
-  //  - It also selects the header theme. Shop All is the white commercial
-  //    page, so /shop/all was being served the dark header on a light
-  //    background — the visible half of this bug.
-  const isShopAllPage =
-    isShopRoute &&
-    (segments[1] === "all" ||
-      (segments[1] === "room" && segments[3] === "all"));
+  //    list, so the header stacked its own near-identical room sub-bar on top:
+  //    two rows of the same links, 45px of duplicated chrome above the grid.
+  //  - It feeds the theme and isProductPage below. /shop/<category>/all has
+  //    three segments and a non-"room" second segment, so without this it was
+  //    classified as a product detail page.
+  //
+  // A product slugged literally "all" would collide, but /shop/<category>/all
+  // is a static route and already wins over /shop/<category>/[product], so such
+  // a product is unreachable regardless.
+  const isShopAllPage = isShopRoute && segments[segments.length - 1] === "all";
   const isProductPage =
     isShopRoute &&
     segments[1] !== "room" &&

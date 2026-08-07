@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getCategories,
   getDepartments,
+  getProductsByCategory,
   getProductsByDepartment,
 } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -23,13 +24,26 @@ import type { SanityProduct } from "@/types/sanity-content";
  * renders. Reaching the full product list previously meant picking a room
  * first, so there was no single URL for "everything you sell".
  */
-export async function ShopAll({ roomSlug }: { roomSlug?: string }) {
+export async function ShopAll({
+  roomSlug,
+  categorySlug,
+}: {
+  roomSlug?: string;
+  categorySlug?: string;
+}) {
   const [rooms, categories, products] = await Promise.all([
     getDepartments(),
     getCategories(),
-    roomSlug ? getProductsByDepartment(roomSlug) : getAllProducts(),
+    categorySlug
+      ? getProductsByCategory(categorySlug, { limit: 200 })
+      : roomSlug
+        ? getProductsByDepartment(roomSlug)
+        : getAllProducts(),
   ]);
   const room = roomSlug ? rooms.find((r) => r.slug === roomSlug) : undefined;
+  const category = categorySlug
+    ? categories.find((c) => c.slug === categorySlug)
+    : undefined;
 
   return (
     <div className="bg-canvas text-ink min-h-screen">
@@ -47,7 +61,7 @@ export async function ShopAll({ roomSlug }: { roomSlug?: string }) {
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
         <div className="mb-8 flex items-end justify-between gap-4">
           <h1 className="font-display text-3xl leading-tight tracking-tight sm:text-4xl">
-            {room?.name ?? "All Products"}
+            {category?.name ?? room?.name ?? "All Products"}
           </h1>
           <p className="text-muted shrink-0 text-[13px]">
             {products.length} {products.length === 1 ? "product" : "products"}
@@ -68,11 +82,15 @@ export async function ShopAll({ roomSlug }: { roomSlug?: string }) {
         ) : (
           <div className="border-line flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-24 text-center">
             <p className="font-display text-2xl">
-              {room ? `${room.name} — coming soon` : "No products yet"}
+              {category
+                ? `${category.name} — coming soon`
+                : room
+                  ? `${room.name} — coming soon`
+                  : "No products yet"}
             </p>
             <p className="text-muted mt-3 max-w-sm text-[14px] leading-relaxed">
-              {room
-                ? "We’re curating this room’s catalogue now — check back soon."
+              {category || room
+                ? "We’re curating this catalogue now — check back soon."
                 : "The catalogue is being set up — check back soon."}
             </p>
           </div>
