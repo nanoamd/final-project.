@@ -45,6 +45,23 @@ export async function ShopAll({
     ? categories.find((c) => c.slug === categorySlug)
     : undefined;
 
+  // Onward routes for the empty state below. The owning room comes from the
+  // category when we're on a category page, so "All <Room>" is offered even
+  // though roomSlug is absent. Siblings are restricted to stocked categories in
+  // the same room, so a visitor can never be sent from one empty page to
+  // another, and capped at six so the empty state stays a signpost.
+  const siblingRoom =
+    room ?? rooms.find((r) => r.slug === category?.departmentSlug);
+  const stockedSiblings = categories
+    .filter(
+      (c) =>
+        c.slug !== categorySlug &&
+        (c.productCount ?? 0) > 0 &&
+        (!siblingRoom || c.departmentSlug === siblingRoom.slug),
+    )
+    .sort((a, b) => (b.productCount ?? 0) - (a.productCount ?? 0))
+    .slice(0, 6);
+
   return (
     <div className="bg-canvas text-ink min-h-screen">
       <PromoBanner>
@@ -80,19 +97,57 @@ export async function ShopAll({
             ))}
           </div>
         ) : (
-          <div className="border-line flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-24 text-center">
+          /* An empty catalogue must still offer somewhere to go. 21 of 36
+             categories currently hold no products, and on mobile a category
+             tile now links straight here — so without these onward links this
+             page is where an interested visitor stops, having tapped exactly
+             the thing they wanted. The sibling list is filtered to stocked
+             categories only, so it can never point at another empty page. */
+          <div className="border-line flex flex-col items-center rounded-xl border border-dashed px-6 py-16 text-center">
             <p className="font-display text-2xl">
-              {category
-                ? `${category.name} — coming soon`
-                : room
-                  ? `${room.name} — coming soon`
-                  : "No products yet"}
+              {category?.name ?? room?.name ?? "This catalogue"} — coming soon
             </p>
             <p className="text-muted mt-3 max-w-sm text-[14px] leading-relaxed">
-              {category || room
-                ? "We’re curating this catalogue now — check back soon."
-                : "The catalogue is being set up — check back soon."}
+              We’re curating this range now. In the meantime, here’s what we do
+              have.
             </p>
+
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <AppLink
+                href="/shop/all"
+                className="bg-ink text-canvas hover:bg-ink/90 flex h-11 items-center rounded-md px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+              >
+                All Products
+              </AppLink>
+              {siblingRoom ? (
+                <AppLink
+                  href={`/shop/room/${siblingRoom.slug}/all`}
+                  className="border-line text-ink hover:border-ink/50 flex h-11 items-center rounded-md border px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+                >
+                  All {siblingRoom.name}
+                </AppLink>
+              ) : null}
+            </div>
+
+            {stockedSiblings.length ? (
+              <div className="mt-8 w-full max-w-md">
+                <p className="text-muted text-[11px] font-medium tracking-[0.16em] uppercase">
+                  In stock nearby
+                </p>
+                <div className="mt-3 flex flex-wrap justify-center gap-2">
+                  {stockedSiblings.map((c) => (
+                    <AppLink
+                      key={c.slug}
+                      href={`/shop/${c.slug}/all`}
+                      className="border-line text-ink hover:border-ink/50 rounded-full border px-3.5 py-2 text-[13px] transition-colors"
+                    >
+                      {c.name}{" "}
+                      <span className="text-muted">({c.productCount})</span>
+                    </AppLink>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         )}
       </div>

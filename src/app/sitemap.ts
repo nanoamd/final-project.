@@ -45,11 +45,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "" ? 1 : 0.7,
   }));
 
-  const categoryEntries: MetadataRoute.Sitemap = categories.map((c) => ({
-    url: `${base}/shop/${c.slug}`,
-    changeFrequency: "daily",
-    priority: 0.8,
-  }));
+  // Only stocked categories. 21 of 36 currently hold no products, and
+  // submitting an empty page for indexing asks Google to spend crawl budget on
+  // nothing and to judge the domain on thin content — costly on a young site.
+  // They stay fully navigable; they are simply not advertised until they have
+  // something to show. Derived from productCount, so a category re-enters the
+  // sitemap the moment it is stocked, with no flag to remember to flip.
+  const categoryEntries: MetadataRoute.Sitemap = categories
+    .filter((c) => (c.productCount ?? 0) > 0)
+    .map((c) => ({
+      url: `${base}/shop/${c.slug}`,
+      changeFrequency: "daily",
+      priority: 0.8,
+    }));
 
   const productEntries: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${base}/shop/${p.category}/${p.slug}`,
