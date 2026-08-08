@@ -284,14 +284,19 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
     pattern: /(garden|outdoor|patio).*(shed|storage|deck box)|shed/i,
     slug: "outdoor-storage",
   },
+  // Cooking outdoors beats furniture for the same reason lighting does. Most
+  // BBQ trolleys list their side tables in the title, so "4 Burner Gas BBQ
+  // Grill Outdoor … Trolley with Side Table" was landing in garden-furniture
+  // while the charcoal ones went to outdoor-kitchens — the same product type
+  // split across two categories by an incidental word.
+  {
+    pattern: /bbq|barbecue|pizza oven|grill|smoker/i,
+    slug: "outdoor-kitchens",
+  },
   {
     pattern:
       /(rattan|garden|patio|outdoor).*(sofa|chair|table|bench|lounger|parasol|swing|furniture)/i,
     slug: "garden-furniture",
-  },
-  {
-    pattern: /bbq|barbecue|pizza oven|grill|smoker/i,
-    slug: "outdoor-kitchens",
   },
   // Indoor
   { pattern: /computer desk|writing desk|\bdesk\b/i, slug: "desks" },
