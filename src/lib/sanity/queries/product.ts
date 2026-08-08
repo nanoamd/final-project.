@@ -519,6 +519,9 @@ export async function getProductParams(
 export interface MerchantFeedProduct {
   slug: string;
   category: string;
+  /** Human-readable names, for the feed's `product_type` breadcrumb. */
+  categoryName: string | null;
+  departmentName: string | null;
   title: string;
   summary: string;
   price: number;
@@ -535,6 +538,8 @@ const MERCHANT_FEED_QUERY = /* groq */ `
 *[_type == "product" && defined(category->slug.current)] {
   "slug": slug.current,
   "category": category->slug.current,
+  "categoryName": category->title,
+  "departmentName": category->department->title,
   "title": title,
   summary,
   price,
