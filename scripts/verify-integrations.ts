@@ -28,27 +28,54 @@ const rows: { area: string; check: string; status: Status; detail: string }[] =
 const add = (area: string, check: string, status: Status, detail: string) =>
   rows.push({ area, check, status, detail });
 
+/**
+ * `vercel env pull` writes the literal string "[SENSITIVE]" in place of any
+ * variable marked sensitive in the dashboard, so the real value never reaches
+ * this machine. Reporting that as a malformed project ID or an unrecognised
+ * Stripe key is worse than useless — it sends you hunting a bug that is not
+ * there. Detect it and say plainly that the value exists but cannot be checked
+ * from here.
+ */
+const REDACTED = "[SENSITIVE]";
+const isRedacted = (v: string | undefined) => v?.trim() === REDACTED;
+
 const shape = (v: string | undefined) =>
-  v ? `set (${v.length} chars)` : "NOT SET";
+  isRedacted(v)
+    ? "set, redacted by Vercel"
+    : v
+      ? `set (${v.length} chars)`
+      : "NOT SET";
 
 /* ------------------------------------------------------------------ sanity -- */
 
 async function checkSanity() {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
-  const valid = /^[a-z0-9-]{1,24}$/.test(projectId ?? "");
+  const redacted = isRedacted(projectId);
+  const valid = /^[a-z0-9-]{1,24}$/.test(projectId ?? "") && !redacted;
 
   add(
     "Sanity",
     "NEXT_PUBLIC_SANITY_PROJECT_ID",
-    valid ? "ok" : "fail",
-    valid
-      ? projectId!
-      : `${shape(projectId)} — not a project ID. A token pasted here is what took the site down; the code falls back to huh1e45n but do not rely on that.`,
+    redacted ? "warn" : valid ? "ok" : "fail",
+    redacted
+      ? "set, redacted by Vercel — check it reads huh1e45n in the dashboard"
+      : valid
+        ? projectId!
+        : `${shape(projectId)} — not a project ID. A token pasted here is what took the site down; the code falls back to huh1e45n but do not rely on that.`,
   );
 
-  // A tokenless read is exactly what the public site does.
+  // A tokenless read is exactly what the public site does. With a redacted ID
+  // there is nothing to test but the fallback, so say which one is being used.
   const id = valid ? projectId! : "huh1e45n";
+  if (redacted) {
+    add(
+      "Sanity",
+      "public read",
+      "warn",
+      `cannot verify the configured ID from here — testing the fallback (${id}) instead`,
+    );
+  }
   try {
     const res = await fetch(
       `https://${id}.apicdn.sanity.io/v2025-01-01/data/query/${dataset}?query=${encodeURIComponent('count(*[_type=="product"])')}`,
@@ -65,7 +92,9 @@ async function checkSanity() {
   }
 
   const token = process.env.SANITY_API_WRITE_TOKEN;
-  if (!token) {
+  if (isRedacted(token)) {
+    add("Sanity", "write token", "warn", shape(token));
+  } else if (!token) {
     add("Sanity", "write token", "warn", "NOT SET — imports will not run");
   } else {
     const res = await fetch(
@@ -208,27 +237,36 @@ function checkStripe() {
   const hook = process.env.STRIPE_WEBHOOK_SECRET;
 
   const mode = (k?: string) =>
-    !k
-      ? "NOT SET"
-      : k.includes("_live_")
-        ? "LIVE"
-        : k.includes("_test_")
-          ? "TEST"
-          : "unrecognised";
+    isRedacted(k)
+      ? "REDACTED"
+      : !k
+        ? "NOT SET"
+        : k.includes("_live_")
+          ? "LIVE"
+          : k.includes("_test_")
+            ? "TEST"
+            : "unrecognised";
+
+  // A redacted key cannot be graded live vs test from here, so warn rather than
+  // pass or fail — the one thing worse than not knowing is being told wrongly.
+  const grade = (k?: string): Status =>
+    isRedacted(k) ? "warn" : !k ? "fail" : mode(k) === "LIVE" ? "ok" : "warn";
 
   add(
     "Stripe",
     "STRIPE_SECRET_KEY",
-    secret ? (mode(secret) === "LIVE" ? "ok" : "warn") : "fail",
-    mode(secret) === "TEST"
-      ? "TEST mode — no real money can be taken"
-      : mode(secret),
+    grade(secret),
+    isRedacted(secret)
+      ? "set, redacted by Vercel — reveal it in the dashboard and check it starts sk_live_"
+      : mode(secret) === "TEST"
+        ? "TEST mode — no real money can be taken"
+        : mode(secret),
   );
   add(
     "Stripe",
     "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
-    pub ? (mode(pub) === "LIVE" ? "ok" : "warn") : "fail",
-    mode(pub),
+    grade(pub),
+    isRedacted(pub) ? "set, redacted by Vercel" : mode(pub),
   );
   add(
     "Stripe",
@@ -238,7 +276,13 @@ function checkStripe() {
       ? shape(hook)
       : "NOT SET — payments will succeed and no order will be recorded",
   );
-  if (secret && pub && mode(secret) !== mode(pub)) {
+  if (
+    secret &&
+    pub &&
+    !isRedacted(secret) &&
+    !isRedacted(pub) &&
+    mode(secret) !== mode(pub)
+  ) {
     add(
       "Stripe",
       "key modes match",
@@ -273,6 +317,13 @@ async function main() {
   console.log(
     `\n${rows.length - fails - warns} passed, ${warns} warning(s), ${fails} failure(s).`,
   );
+  if (rows.some((r) => r.detail.includes("redacted"))) {
+    console.log(
+      'Some values came back as "[SENSITIVE]" — Vercel withholds variables marked\n' +
+        "sensitive, so they cannot be checked from here. They ARE set; reveal them in\n" +
+        "the dashboard to confirm their contents.",
+    );
+  }
   if (fails) {
     console.log(
       "A failure above means that capability is not working in this environment.\n",
