@@ -12,7 +12,11 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    // scripts/ is included because the one-off data scripts carry logic worth
+    // pinning — title repair, category inference — and testing the pure
+    // function is cheaper than discovering the rule was wrong after it has
+    // rewritten 26 product names.
+    include: ["src/**/*.{test,spec}.{ts,tsx}", "scripts/**/*.test.ts"],
     exclude: ["e2e/**", "node_modules/**", ".next/**"],
   },
 });
