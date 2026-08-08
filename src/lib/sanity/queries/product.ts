@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { urlForImage } from "@/lib/sanity/image";
+import { withProductArrayDefaults } from "@/lib/sanity/product-arrays";
 import {
   FAQ_ENTRY_PROJECTION,
   PRODUCT_OPTION_PROJECTION,
@@ -145,6 +146,10 @@ function normalizeProduct<T extends RawProduct | null>(
   raw: T,
 ): T extends null ? SanityProduct | null : SanityProduct {
   if (!raw) return null as never;
+  // Before anything reads an array off it: GROQ gives null, not [], for a field
+  // the document does not have, and a product published without specs or
+  // highlights used to 500 its own page.
+  raw = withProductArrayDefaults(raw);
   const gallery: SanityProductGalleryImage[] = raw.gallery.map((img) => ({
     url: img.url,
     alt: img.alt,
