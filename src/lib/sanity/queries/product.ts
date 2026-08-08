@@ -230,6 +230,26 @@ const RELATED_BY_CATEGORY_QUERY = /* groq */ `
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
 
+// Tier 3: the same room. Ordered newest-first like the category tier, so a
+// newly added product gets seen rather than sinking behind the original stock.
+const RELATED_BY_DEPARTMENT_QUERY = /* groq */ `
+*[_type == "product"
+  && category->department->slug.current == $departmentSlug
+  && !(slug.current in $exclude)]
+  | order(_createdAt desc)
+  [0...$limit]
+  ${PRODUCT_PROJECTION}`;
+
+// Tier 4: a similar price, anywhere. Ordered by price so what surfaces sits as
+// close to the product's own price as the band allows.
+const RELATED_BY_PRICE_QUERY = /* groq */ `
+*[_type == "product"
+  && defined(price) && price >= $min && price <= $max
+  && !(slug.current in $exclude)]
+  | order(price asc)
+  [0...$limit]
+  ${PRODUCT_PROJECTION}`;
+
 const CATEGORY_STYLE_TAGS_QUERY = /* groq */ `
 array::unique(*[_type == "product"
   && (category->slug.current == $categorySlug
@@ -361,26 +381,99 @@ export async function getProductsBySlugs(
 }
 
 /**
- * Related products: curated refs first (order preserved), falling back to
- * other products in the same category when a product has none set.
+ * Related products, in four tiers, stopping as soon as the row is full:
+ *
+ *   1. Curated `relatedProducts` refs, in the order an editor set them.
+ *   2. Other products in the same category.
+ *   3. Other products in the same room.
+ *   4. Products in a similar price band, anywhere in the catalogue.
+ *
+ * Tiers 3 and 4 exist because same-category alone left five product pages with
+ * an empty related row and eight more with a half-empty one — a third of the
+ * catalogue. Two of the five were the worst possible pages for it: the £4,000
+ * cold plunge, the most valuable thing in the shop, and the only product in
+ * Outdoor Kitchens. A visitor who reaches either has nowhere to go but back.
+ *
+ * The price band is what keeps tier 4 from being nonsense. Offering a £4 bottle
+ * of essential oil beside a £4,000 ice bath is not a suggestion, it is a
+ * non-sequitur; 0.4x to 2.5x puts saunas next to the plunge and keeps the £65
+ * barbecue among things someone might add to the same order.
  */
+const PRICE_BAND_LOW = 0.4;
+const PRICE_BAND_HIGH = 2.5;
+
 export async function getRelatedProducts(
   product: SanityProduct,
   limit = 4,
 ): Promise<SanityProduct[]> {
+  const picked: SanityProduct[] = [];
+  const seen = new Set<string>([product.slug]);
+
+  const take = (candidates: SanityProduct[]) => {
+    for (const candidate of candidates) {
+      if (picked.length >= limit) return;
+      if (seen.has(candidate.slug)) continue;
+      seen.add(candidate.slug);
+      picked.push(candidate);
+    }
+  };
+
   if (product.relatedSlugs?.length) {
     const curated = await getProductsBySlugs(product.relatedSlugs);
-    const ordered = product.relatedSlugs
-      .map((slug) => curated.find((p) => p.slug === slug))
-      .filter((p): p is SanityProduct => Boolean(p));
-    if (ordered.length) return ordered.slice(0, limit);
+    // Editor order, not query order.
+    take(
+      product.relatedSlugs
+        .map((slug) => curated.find((p) => p.slug === slug))
+        .filter((p): p is SanityProduct => Boolean(p)),
+    );
   }
-  const raw = await sanityFetch<RawProduct[]>(
-    RELATED_BY_CATEGORY_QUERY,
-    { categorySlug: product.category, excludeSlug: product.slug, limit },
-    [],
-  );
-  return normalizeProducts(raw);
+
+  if (picked.length < limit) {
+    take(
+      normalizeProducts(
+        await sanityFetch<RawProduct[]>(
+          RELATED_BY_CATEGORY_QUERY,
+          { categorySlug: product.category, excludeSlug: product.slug, limit },
+          [],
+        ),
+      ),
+    );
+  }
+
+  if (picked.length < limit && product.departmentSlug) {
+    take(
+      normalizeProducts(
+        await sanityFetch<RawProduct[]>(
+          RELATED_BY_DEPARTMENT_QUERY,
+          {
+            departmentSlug: product.departmentSlug,
+            exclude: [...seen],
+            limit,
+          },
+          [],
+        ),
+      ),
+    );
+  }
+
+  if (picked.length < limit && product.price) {
+    take(
+      normalizeProducts(
+        await sanityFetch<RawProduct[]>(
+          RELATED_BY_PRICE_QUERY,
+          {
+            exclude: [...seen],
+            min: product.price * PRICE_BAND_LOW,
+            max: product.price * PRICE_BAND_HIGH,
+            limit,
+          },
+          [],
+        ),
+      ),
+    );
+  }
+
+  return picked;
 }
 
 export async function searchProducts(
