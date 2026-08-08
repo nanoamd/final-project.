@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { siteConfig } from "@/config/site";
 import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getTotalProductCount } from "@/lib/sanity/queries";
 
@@ -12,6 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
     description: count
       ? `Browse all ${count} products across every room — saunas, cold plunges, pergolas, garden furniture and more.`
       : "Browse every product across every room.",
+    // Self-canonical. This page is its own destination, not a duplicate of any
+    // other, but it emitted no canonical at all — so a crawler arriving with a
+    // tracking parameter on the URL saw a second, unrelated page.
+    alternates: { canonical: `${siteConfig.url}/shop/all` },
   };
 }
 

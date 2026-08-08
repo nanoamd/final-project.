@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { siteConfig } from "@/config/site";
 import { CollectionIndex } from "@/features/storefront";
 import { getDepartments } from "@/lib/sanity/queries";
 
@@ -26,6 +27,14 @@ export async function generateMetadata({
     title: department?.name ?? "Shop",
     description:
       department?.description ?? "Premium home improvement, room by room.",
+    /**
+     * Self-canonical. This page and /shop/room/<room>/all list the same
+     * products, and neither declared a preference — so Search Console reports
+     * them as duplicates without a user-selected canonical and picks one
+     * itself, which is how eleven rooms became twenty-two competing URLs.
+     * Declaring the editorial page as canonical consolidates the pair.
+     */
+    alternates: { canonical: `${siteConfig.url}/shop/room/${room}` },
   };
 }
 
