@@ -359,17 +359,21 @@ const ROOM_LIGHTING_RULES: { pattern: RegExp; slug: string }[] = [
 ];
 
 /**
- * An outdoor light gets no room cross-listing. "Solar Rattan Floor Lamp" would
- * otherwise match the floor-lamp rule and be offered to someone shopping for a
- * living room, which is worse than not appearing at all. There is currently no
- * garden-lighting category to send these to, so they stay in Lighting alone.
+ * An outdoor light gets Garden Lighting and no room at all. "Solar Rattan Floor
+ * Lamp" matches the floor-lamp rule above, and offering it to someone
+ * furnishing a living room is worse than not appearing: it reads as a shop that
+ * does not know its own stock. The two sets are therefore exclusive, not
+ * additive.
+ *
+ * Garden Lighting is created by scripts/add-garden-lighting-category.ts. If it
+ * is missing this degrades to Lighting alone rather than failing the import.
  */
 const OUTDOOR_LIGHT =
   /solar|outdoor|garden|patio|pathway|path light|lamp post|street light|bollard|driveway/i;
 
 function inferAdditionalCategories(title: string, primary: string): string[] {
   if (primary !== "lighting") return [];
-  if (OUTDOOR_LIGHT.test(title)) return [];
+  if (OUTDOOR_LIGHT.test(title)) return ["garden-lighting"];
   return ROOM_LIGHTING_RULES.filter((r) => r.pattern.test(title))
     .map((r) => r.slug)
     .filter((slug) => slug !== primary);
@@ -416,6 +420,20 @@ function fromImagesDir(dir: string): SourceProduct[] {
 }
 
 /* ----------------------------------------------------------------- sanity -- */
+
+/** Every write failure ends in the same place: replace the token. Say how. */
+const TOKEN_HELP = (reason: string) =>
+  `Nothing was imported — ${reason}.
+
+Get a new one:
+  1. https://sanity.io/manage → project Kaiku → API → Tokens
+  2. Add API token → name it "import" → permission Editor → Save
+  3. Copy it (shown once) into .env.local as:
+       SANITY_API_WRITE_TOKEN=<paste>
+  4. Re-run this command.
+
+The token is a secret: it must stay in .env.local and never go in a
+NEXT_PUBLIC_ variable, which is inlined into the browser bundle.`;
 
 const slugify = (s: string) =>
   s
@@ -504,7 +522,7 @@ async function main() {
   }
 
   const token = process.env.SANITY_API_WRITE_TOKEN;
-  if (!token) throw new Error("SANITY_API_WRITE_TOKEN is not set.");
+  if (!token) throw new Error(TOKEN_HELP("SANITY_API_WRITE_TOKEN is not set"));
   const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "huh1e45n",
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -513,17 +531,52 @@ async function main() {
     useCdn: false,
   });
 
+  /**
+   * Prove the token works before doing anything else. The token that was in
+   * .env.local was revoked after it leaked into a public env var, so the most
+   * likely reason an import "does nothing" is a dead token — and without this
+   * check that surfaces 40 lines later as `Unauthorized: Session not found`,
+   * which reads like a bug in the script rather than a credential to replace.
+   */
+  try {
+    await client.fetch<number>(`count(*[_type=="category"])`);
+  } catch (err) {
+    const message = (err as Error).message;
+    throw new Error(
+      TOKEN_HELP(
+        /unauthor|session not found|permission/i.test(message)
+          ? "the write token was rejected by Sanity"
+          : `Sanity would not answer: ${message}`,
+      ),
+    );
+  }
+
   // Resolve every distinct category once, and fail loudly on a bad slug rather
   // than silently importing products with no category.
   const slugs = [...new Set(picked.flatMap((r) => [r.slug, ...r.extras]))];
+  const primarySlugs = new Set(picked.map((r) => r.slug));
   const categoryIds = new Map<string, string>();
   for (const slug of slugs) {
     const found = await client.fetch<{ _id: string } | null>(
       `*[_type=="category" && slug.current==$slug][0]{_id}`,
       { slug },
     );
-    if (!found) throw new Error(`No category with slug "${slug}".`);
+    // A missing primary category means the product has nowhere to live, so stop.
+    // A missing cross-listing target only costs it a second shelf, so drop that
+    // one and carry on — an import of 33 products should not fail because one
+    // optional category has not been created yet.
+    if (!found) {
+      if (primarySlugs.has(slug))
+        throw new Error(`No category with slug "${slug}".`);
+      console.warn(
+        `  ! no "${slug}" category — importing without that cross-listing`,
+      );
+      continue;
+    }
     categoryIds.set(slug, found._id);
+  }
+  for (const row of picked) {
+    row.extras = row.extras.filter((slug) => categoryIds.has(slug));
   }
 
   let created = 0;
