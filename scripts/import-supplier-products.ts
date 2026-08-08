@@ -318,6 +318,63 @@ function inferCategory(title: string): string | null {
   return CATEGORY_RULES.find((r) => r.pattern.test(title))?.slug ?? null;
 }
 
+/**
+ * Cross-listing. A product has one primary `category` and any number of
+ * `additionalCategories` ("Also shown in these categories"), and the category
+ * query matches either — so a lamp can sit in Lighting *and* turn up when
+ * someone browses Bedroom, without being duplicated as two documents.
+ *
+ * This matters more than it sounds: a shopper who opens Bedroom → Bedroom
+ * Lighting and finds it empty concludes we don't sell bedside lamps, while
+ * eight of them sit one department away under the generic Lighting heading.
+ * Cross-listing also makes those room categories count as stocked, so they
+ * enter the sitemap and stop being noindexed.
+ *
+ * Room is taken from the title where the supplier states it ("for Living Room,
+ * Bedroom") and inferred from the fixture type where it doesn't — a bedside
+ * lamp belongs to a bedroom whether or not the word appears.
+ */
+const ROOM_LIGHTING_RULES: { pattern: RegExp; slug: string }[] = [
+  {
+    pattern:
+      /living ?room|lounge|floor lamp|standing lamp|arc (tree )?lamp|tripod|chandelier|flush mount|pendant|ceiling (light|fan)/i,
+    slug: "living-room-lighting",
+  },
+  {
+    pattern: /bedroom|bedside|nightstand|chandelier|ceiling fan/i,
+    slug: "bedroom-lighting",
+  },
+  {
+    pattern: /office|study|desk lamp|task (lamp|light)|reading lamp/i,
+    slug: "office-lighting",
+  },
+  {
+    pattern: /kitchen|under.?cabinet|island pendant/i,
+    slug: "kitchen-lighting",
+  },
+  {
+    pattern: /bathroom|vanity (light|lamp)|mirror light/i,
+    slug: "bathroom-lighting",
+  },
+];
+
+/**
+ * An outdoor light gets no room cross-listing. "Solar Rattan Floor Lamp" would
+ * otherwise match the floor-lamp rule and be offered to someone shopping for a
+ * living room, which is worse than not appearing at all. There is currently no
+ * garden-lighting category to send these to, so they stay in Lighting alone.
+ */
+const OUTDOOR_LIGHT =
+  /solar|outdoor|garden|patio|pathway|path light|lamp post|street light|bollard|driveway/i;
+
+function inferAdditionalCategories(title: string, primary: string): string[] {
+  if (primary !== "lighting") return [];
+  if (OUTDOOR_LIGHT.test(title)) return [];
+  return ROOM_LIGHTING_RULES.filter((r) => r.pattern.test(title))
+    .map((r) => r.slug)
+    .filter((slug) => slug !== primary);
+}
+
 /* ---------------------------------------------------------------- images -- */
 
 /**
@@ -389,10 +446,14 @@ async function main() {
   // --category forces one category for everything; without it each title is
   // matched against CATEGORY_RULES. Either way the mapping is printed before
   // anything is written.
-  const resolved = sources.map((p) => ({
-    product: p,
-    slug: categorySlug ?? inferCategory(p.title),
-  }));
+  const resolved = sources.map((p) => {
+    const slug = categorySlug ?? inferCategory(p.title);
+    return {
+      product: p,
+      slug,
+      extras: slug ? inferAdditionalCategories(p.title, slug) : [],
+    };
+  });
   const unmatched = resolved.filter((r) => !r.slug);
   if (unmatched.length) {
     console.log(`\n${unmatched.length} title(s) matched no category rule:\n`);
@@ -404,28 +465,31 @@ async function main() {
     );
   }
 
+  type Picked = { product: SourceProduct; slug: string; extras: string[] };
   const picked = resolved
-    .filter((r): r is { product: SourceProduct; slug: string } =>
-      Boolean(r.slug),
-    )
+    .filter((r): r is Picked => Boolean(r.slug))
     .slice(0, limit);
 
   console.log(
     `\n${picked.length} product(s) to import, grouped by category:\n`,
   );
-  const byCategory = new Map<string, SourceProduct[]>();
-  for (const { product, slug } of picked) {
-    byCategory.set(slug, [...(byCategory.get(slug) ?? []), product]);
+  const byCategory = new Map<string, Picked[]>();
+  for (const row of picked) {
+    byCategory.set(row.slug, [...(byCategory.get(row.slug) ?? []), row]);
   }
   for (const [slug, items] of [...byCategory].sort()) {
     console.log(`  ${slug}  (${items.length})`);
-    for (const item of items) {
+    for (const { product: item, extras } of items) {
       const imageCount = noImages
         ? 0
         : item.images.length + (item.localFiles?.length ?? 0);
       console.log(
         `    - ${item.title.slice(0, 66)}${imageCount ? `  [${imageCount} img]` : ""}`,
       );
+      // Printed under the product, not as its own group, so it stays obvious
+      // which category owns the product and which merely show it.
+      if (extras.length)
+        console.log(`        also shows in: ${extras.join(", ")}`);
     }
     console.log("");
   }
@@ -451,7 +515,7 @@ async function main() {
 
   // Resolve every distinct category once, and fail loudly on a bad slug rather
   // than silently importing products with no category.
-  const slugs = [...new Set(picked.map((r) => r.slug))];
+  const slugs = [...new Set(picked.flatMap((r) => [r.slug, ...r.extras]))];
   const categoryIds = new Map<string, string>();
   for (const slug of slugs) {
     const found = await client.fetch<{ _id: string } | null>(
@@ -464,7 +528,7 @@ async function main() {
 
   let created = 0;
   let skipped = 0;
-  for (const { product: p, slug } of picked) {
+  for (const { product: p, slug, extras } of picked) {
     const base = slugify(p.sku ? `${p.title}-${p.sku}` : p.title);
     const id = `drafts.product-import-${base}`;
     if (await client.fetch<boolean>(`defined(*[_id==$id][0]._id)`, { id })) {
@@ -526,6 +590,15 @@ async function main() {
       title: p.title,
       slug: { _type: "slug", current: slugify(p.title) },
       category: { _type: "reference", _ref: categoryIds.get(slug)! },
+      ...(extras.length
+        ? {
+            additionalCategories: extras.map((extra, index) => ({
+              _type: "reference",
+              _key: `additional-category-${index}`,
+              _ref: categoryIds.get(extra)!,
+            })),
+          }
+        : {}),
       ...(p.description ? { description: p.description } : {}),
       ...(p.sku ? { sku: p.sku } : {}),
       ...(p.sourceUrl ? { sourceUrl: p.sourceUrl } : {}),
@@ -534,7 +607,7 @@ async function main() {
       currency: "GBP",
     });
     console.log(
-      `  + [${slug}] ${p.title.slice(0, 46)}  (${gallery.length} images)`,
+      `  + [${slug}${extras.length ? ` +${extras.length}` : ""}] ${p.title.slice(0, 46)}  (${gallery.length} images)`,
     );
     created++;
   }
