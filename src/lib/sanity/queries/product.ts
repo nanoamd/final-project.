@@ -532,6 +532,8 @@ export interface MerchantFeedProduct {
   mpn: string | null;
   sku: string | null;
   stockStatus: string;
+  /** Same string the product page renders; parsed into handling days. */
+  deliveryLeadTime: string | null;
 }
 
 const MERCHANT_FEED_QUERY = /* groq */ `
@@ -549,7 +551,8 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   gtin,
   mpn,
   sku,
-  stockStatus
+  stockStatus,
+  deliveryLeadTime
 }`;
 
 /** Full, uncapped product list for the Google Merchant Center feed — unlike

@@ -30,6 +30,44 @@ function mapAvailability(stockStatus: string): string {
 }
 
 /**
+ * Handling time, per product, from the same `deliveryLeadTime` string the
+ * product page shows.
+ *
+ * Merchant Center splits delivery into handling time (order to dispatch) and
+ * transit time (dispatch to doorstep), and shows a delivery estimate built from
+ * both. Transit is a courier constant, so it belongs in the account settings.
+ * Handling is our supplier's lead time, and ours runs from 2-5 days on an
+ * essential oil to 4-6 weeks on a barrel sauna — a 20x spread that no single
+ * account-level figure can represent.
+ *
+ * Setting one account default would mean either promising a sauna in days, or
+ * telling someone their £48 bottle of oil takes six weeks. The first invites a
+ * complaint on every order and is a misrepresentation Merchant Center suspends
+ * accounts for; the second loses the sale outright. Per-product overrides the
+ * account setting, so each listing shows its own truth.
+ *
+ * Lead times were normalised to "N–M weeks" / "N–M days" by
+ * scripts/normalise-lead-times.ts, so parsing is a small, closed problem. A
+ * value that does not parse returns null and falls back to the account default
+ * rather than guessing.
+ */
+function handlingDays(
+  leadTime: string | null,
+): { min: number; max: number } | null {
+  if (!leadTime) return null;
+  // En dash from the normaliser, hyphen from anything added since.
+  const match = /(\d+)\s*[-–—]\s*(\d+)\s*(day|week|month)/i.exec(leadTime);
+  if (!match) return null;
+  const perUnit = { day: 1, week: 7, month: 30 }[match[3]!.toLowerCase()];
+  if (!perUnit) return null;
+  const min = Number(match[1]) * perUnit;
+  const max = Number(match[2]) * perUnit;
+  // Google rejects a max below the min, and a 0-day handling time.
+  if (!min || max < min) return null;
+  return { min, max };
+}
+
+/**
  * Own-brand products have no manufacturer barcode, and Google will not accept
  * that silently: an item with no `gtin` and no `mpn` is disapproved with
  * "Missing value: GTIN" unless the feed states outright that no identifier
@@ -78,6 +116,7 @@ export async function GET() {
       const link = `${siteUrl}/shop/${product.category}/${product.slug}`;
       const priceValue = `${product.price.toFixed(2)} ${(product.currency || "GBP").toUpperCase()}`;
       const type = productType(product);
+      const handling = handlingDays(product.deliveryLeadTime);
 
       return `  <item>
     <g:id>${escapeXml(product.slug)}</g:id>
@@ -94,6 +133,8 @@ export async function GET() {
     ${product.sku ? `<g:sku>${escapeXml(product.sku)}</g:sku>` : ""}
     ${identifierExists(product) ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
     ${type ? `<g:product_type>${escapeXml(type)}</g:product_type>` : ""}
+    ${handling ? `<g:min_handling_time>${handling.min}</g:min_handling_time>` : ""}
+    ${handling ? `<g:max_handling_time>${handling.max}</g:max_handling_time>` : ""}
   </item>`;
     })
     .join("\n");
