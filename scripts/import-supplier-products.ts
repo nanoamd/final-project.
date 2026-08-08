@@ -58,6 +58,7 @@ const csvPath = arg("csv");
 const htmlDir = arg("html");
 const jsonPath = arg("json");
 const imagesDir = arg("images");
+const noImages = flag("no-images");
 const categorySlug = arg("category");
 const limit = Number(arg("limit") ?? "500");
 const apply = flag("apply");
@@ -241,6 +242,75 @@ function fromHtmlDir(dir: string): SourceProduct[] {
   return out;
 }
 
+/* ------------------------------------------------------------ categorise -- */
+
+/**
+ * Keyword to category-slug rules, applied to the product title when no
+ * --category is given. Ordered: the first match wins, so the more specific
+ * rules must come first — "outdoor floor lamp" has to reach the outdoor rule
+ * before the generic lighting one, and a "desk lamp" is lighting rather than a
+ * desk.
+ *
+ * Every slug here is a real category in the dataset. A title matching nothing
+ * is reported rather than guessed at, because filing a product into the wrong
+ * room is worse than leaving it for a human — it puts a ceiling fan in the
+ * garden and quietly makes the catalogue untrustworthy.
+ */
+const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
+  // Outdoor first — an outdoor lamp is outdoor, not "lighting".
+  { pattern: /pergola|gazebo|canopy/i, slug: "pergolas" },
+  { pattern: /fire ?pit|patio heater|chiminea|log burner/i, slug: "fire-pits" },
+  {
+    pattern: /water (feature|fountain)|fountain|waterfall|pond/i,
+    slug: "water-features",
+  },
+  {
+    pattern: /privacy screen|trellis|fence panel|garden screen/i,
+    slug: "privacy-screens",
+  },
+  { pattern: /planter|plant stand|grow bag|raised bed/i, slug: "planters" },
+  {
+    pattern: /(garden|outdoor|patio).*(shed|storage|deck box)|shed/i,
+    slug: "outdoor-storage",
+  },
+  {
+    pattern:
+      /(rattan|garden|patio|outdoor).*(sofa|chair|table|bench|lounger|parasol|swing|furniture)/i,
+    slug: "garden-furniture",
+  },
+  {
+    pattern: /bbq|barbecue|pizza oven|grill|smoker/i,
+    slug: "outdoor-kitchens",
+  },
+  {
+    pattern: /(solar|outdoor|garden|pathway|bollard).*(lamp|light|lantern)/i,
+    slug: "garden-furniture",
+  },
+
+  // Indoor
+  { pattern: /computer desk|writing desk|\bdesk\b/i, slug: "desks" },
+  { pattern: /bedside (table|cabinet)|nightstand/i, slug: "bedside-tables" },
+  { pattern: /coffee table/i, slug: "coffee-tables" },
+  { pattern: /\brug\b|runner rug/i, slug: "rugs" },
+  { pattern: /towel rail|towel radiator/i, slug: "towel-rails" },
+  { pattern: /mirror/i, slug: "bathroom-mirrors" },
+  { pattern: /bookcase|shelving unit|\bshelves\b|shelf/i, slug: "shelving" },
+  {
+    pattern: /wardrobe|chest of drawers|drawer unit|sideboard|cabinet/i,
+    slug: "living-room-storage",
+  },
+  // Lighting last: catches anything lamp/light-shaped not already placed.
+  {
+    pattern:
+      /ceiling fan|chandelier|pendant|floor lamp|table lamp|\blamp\b|\blight(ing)?\b/i,
+    slug: "lighting",
+  },
+];
+
+function inferCategory(title: string): string | null {
+  return CATEGORY_RULES.find((r) => r.pattern.test(title))?.slug ?? null;
+}
+
 /* ---------------------------------------------------------------- images -- */
 
 /**
@@ -309,21 +379,48 @@ async function main() {
     );
     process.exit(1);
   }
-  if (!categorySlug) {
-    console.error("--category <sanity-category-slug> is required.");
-    process.exit(1);
+  // --category forces one category for everything; without it each title is
+  // matched against CATEGORY_RULES. Either way the mapping is printed before
+  // anything is written.
+  const resolved = sources.map((p) => ({
+    product: p,
+    slug: categorySlug ?? inferCategory(p.title),
+  }));
+  const unmatched = resolved.filter((r) => !r.slug);
+  if (unmatched.length) {
+    console.log(`\n${unmatched.length} title(s) matched no category rule:\n`);
+    for (const u of unmatched)
+      console.log(`  ? ${u.product.title.slice(0, 70)}`);
+    console.log(
+      "\nThese are skipped rather than guessed at. Either pass --category to\n" +
+        "place them all in one category, or tell me the right one for each.\n",
+    );
   }
 
-  const picked = sources.slice(0, limit);
+  const picked = resolved
+    .filter((r): r is { product: SourceProduct; slug: string } =>
+      Boolean(r.slug),
+    )
+    .slice(0, limit);
+
   console.log(
-    `\n${picked.length} product(s) parsed${sources.length > picked.length ? ` (of ${sources.length})` : ""}\n`,
+    `\n${picked.length} product(s) to import, grouped by category:\n`,
   );
-  for (const p of picked) {
-    console.log(`  ${p.title.slice(0, 62)}`);
-    const imageCount = p.images.length + (p.localFiles?.length ?? 0);
-    console.log(
-      `    sku=${p.sku ?? "—"}  images=${imageCount}  source price=${p.price ?? "—"}`,
-    );
+  const byCategory = new Map<string, SourceProduct[]>();
+  for (const { product, slug } of picked) {
+    byCategory.set(slug, [...(byCategory.get(slug) ?? []), product]);
+  }
+  for (const [slug, items] of [...byCategory].sort()) {
+    console.log(`  ${slug}  (${items.length})`);
+    for (const item of items) {
+      const imageCount = noImages
+        ? 0
+        : item.images.length + (item.localFiles?.length ?? 0);
+      console.log(
+        `    - ${item.title.slice(0, 66)}${imageCount ? `  [${imageCount} img]` : ""}`,
+      );
+    }
+    console.log("");
   }
 
   if (!apply) {
@@ -345,15 +442,22 @@ async function main() {
     useCdn: false,
   });
 
-  const category = await client.fetch<{ _id: string } | null>(
-    `*[_type=="category" && slug.current==$slug][0]{_id}`,
-    { slug: categorySlug },
-  );
-  if (!category) throw new Error(`No category with slug "${categorySlug}".`);
+  // Resolve every distinct category once, and fail loudly on a bad slug rather
+  // than silently importing products with no category.
+  const slugs = [...new Set(picked.map((r) => r.slug))];
+  const categoryIds = new Map<string, string>();
+  for (const slug of slugs) {
+    const found = await client.fetch<{ _id: string } | null>(
+      `*[_type=="category" && slug.current==$slug][0]{_id}`,
+      { slug },
+    );
+    if (!found) throw new Error(`No category with slug "${slug}".`);
+    categoryIds.set(slug, found._id);
+  }
 
   let created = 0;
   let skipped = 0;
-  for (const p of picked) {
+  for (const { product: p, slug } of picked) {
     const base = slugify(p.sku ? `${p.title}-${p.sku}` : p.title);
     const id = `drafts.product-import-${base}`;
     if (await client.fetch<boolean>(`defined(*[_id==$id][0]._id)`, { id })) {
@@ -367,7 +471,11 @@ async function main() {
     // failure is named rather than swallowed.
     const gallery: Record<string, unknown>[] = [];
 
-    for (const file of (p.localFiles ?? []).slice(0, 8)) {
+    // --no-images: the saved files are full-page screenshots (2648x18298 and
+    // similar), not product photography. Uploading one as the product image
+    // would put a squashed screengrab on the tile and the detail page, which
+    // looks broken. Better to import the title and add real photos later.
+    for (const file of (noImages ? [] : (p.localFiles ?? [])).slice(0, 8)) {
       try {
         const asset = await client.assets.upload("image", readFileSync(file), {
           filename: file.split("/").pop() || "image.png",
@@ -384,7 +492,7 @@ async function main() {
       }
     }
 
-    for (const url of p.images.slice(0, 8)) {
+    for (const url of (noImages ? [] : p.images).slice(0, 8)) {
       try {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -410,7 +518,7 @@ async function main() {
       _type: "product",
       title: p.title,
       slug: { _type: "slug", current: slugify(p.title) },
-      category: { _type: "reference", _ref: category._id },
+      category: { _type: "reference", _ref: categoryIds.get(slug)! },
       ...(p.description ? { description: p.description } : {}),
       ...(p.sku ? { sku: p.sku } : {}),
       ...(p.sourceUrl ? { sourceUrl: p.sourceUrl } : {}),
@@ -418,7 +526,9 @@ async function main() {
       stockStatus: "Coming Soon",
       currency: "GBP",
     });
-    console.log(`  + ${p.title.slice(0, 52)}  (${gallery.length} images)`);
+    console.log(
+      `  + [${slug}] ${p.title.slice(0, 46)}  (${gallery.length} images)`,
+    );
     created++;
   }
 
