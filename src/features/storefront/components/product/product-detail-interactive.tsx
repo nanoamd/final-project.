@@ -53,7 +53,13 @@ export function ProductDetailInteractive({
 
   return (
     <>
-      <ProductGallery images={images} name={product.name} />
+      {/* The video is not option-filtered like the photos above — there is one
+          per product, and it shows whichever colour is selected. */}
+      <ProductGallery
+        images={images}
+        name={product.name}
+        video={product.video}
+      />
       <ProductSummary
         product={product}
         selected={selected}

@@ -40,6 +40,16 @@ const PRODUCT_PROJECTION = /* groq */ `{
     optionValue,
     isStudioShot
   },
+  // url is null when no file has been uploaded — an editor who opens the
+  // collapsed Video field and closes it again leaves an object behind.
+  // normalizeProduct turns that into a plain null, because a truthy object with
+  // no url renders an empty slide in the gallery. Line comments only: GROQ
+  // parses // but rejects /* */, which fails the query at runtime, not at build.
+  "video": video{
+    "url": file.asset->url,
+    "poster": poster.asset->url,
+    alt
+  },
   sku,
   gtin,
   mpn,
@@ -70,9 +80,12 @@ interface RawGalleryImage {
 
 interface RawProduct extends Omit<
   SanityProduct,
-  "gallery" | "image" | "cardImage" | "studioImage"
+  "gallery" | "image" | "cardImage" | "studioImage" | "video"
 > {
   gallery: RawGalleryImage[];
+  /** Straight off the projection, so `url` may be null even when the object
+   * exists. normalizeProduct is what makes it null-or-usable. */
+  video?: { url: string | null; poster?: string | null; alt?: string | null };
 }
 
 /**
@@ -143,6 +156,15 @@ function normalizeProduct<T extends RawProduct | null>(
   return {
     ...raw,
     gallery,
+    // An empty Video object — opened in Studio, never filled — must not read as
+    // "this product has a video", or the gallery grows a black slide.
+    video: raw.video?.url
+      ? {
+          url: raw.video.url,
+          poster: raw.video.poster ?? null,
+          alt: raw.video.alt ?? null,
+        }
+      : null,
     image: primary?.url ?? null,
     cardImage: resolveCardImageUrl(primary, 1000, 1250),
     cardImageWide: resolveCardImageUrl(primary, 1200, 900),

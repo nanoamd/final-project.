@@ -1,27 +1,57 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, ZoomIn } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { cn } from "@/lib/utils";
+import type { SanityProductVideo } from "@/types/sanity-content";
 
 /**
  * Product gallery — a large primary image with a thumbnail row and prev/next
  * controls, driven by the product's real gallery. A product with no photos
  * yet shows one honest tonal placeholder rather than reused stock imagery.
+ *
+ * A product video, where there is one, becomes the second slide. Second and
+ * not first deliberately: the first slide is `priority` and loads with the
+ * page, and a video there would spend the page's opening bandwidth on
+ * something most visitors never play. It still sits early enough that its
+ * thumbnail, with a play badge, is the first thing after the hero shot.
  */
 export function ProductGallery({
   images,
   name,
+  video,
 }: {
   images: { url: string; alt?: string }[];
   name: string;
+  video?: SanityProductVideo | null;
 }) {
+  /**
+   * Slides are images with the video spliced in at index 1, so `active`
+   * indexes one list and the arrows, thumbnails and keyboard order all agree
+   * without a special case for "is the video showing".
+   */
+  const slides: (
+    | { kind: "image"; url: string; alt?: string }
+    | { kind: "video"; video: SanityProductVideo }
+  )[] = React.useMemo(() => {
+    const list = images.map(
+      (img) => ({ kind: "image", url: img.url, alt: img.alt }) as const,
+    );
+    if (!video?.url) return [...list];
+    const at = Math.min(1, list.length);
+    return [
+      ...list.slice(0, at),
+      { kind: "video", video } as const,
+      ...list.slice(at),
+    ];
+  }, [images, video]);
+
   const [active, setActive] = React.useState(0);
   const go = (delta: number) =>
-    setActive((i) => (i + delta + images.length) % images.length);
+    setActive((i) => (i + delta + slides.length) % slides.length);
 
   // The parent re-filters `images` when a colour/option is selected — reset
   // to the first shot of the new set rather than an index that may no
@@ -38,7 +68,7 @@ export function ProductGallery({
     setActive(0);
   }
 
-  if (!images.length) {
+  if (!slides.length) {
     return (
       <PlaceholderImage
         tone="sand"
@@ -49,38 +79,64 @@ export function ProductGallery({
     );
   }
 
-  const current = images[active] ?? images[0]!;
+  const current = slides[active] ?? slides[0]!;
 
   return (
     <div className="flex flex-col gap-4">
       <div className="border-line bg-paper relative aspect-[3/2] overflow-hidden rounded-2xl border">
-        {/* object-contain, not object-cover — the main shot always shows
-            the whole photo. A cover crop looks fine on a photo composed
-            for exactly this frame, but supplier photos vary wildly in
-            aspect ratio and composition, and cover crops any mismatch
-            into a tight, arbitrary zoom on whatever happens to be in the
-            centre. Thumbnails below stay cover — small squares read fine
-            cropped, and it's the main shot people zoom in on mentally. */}
-        <Image
-          key={active}
-          src={current.url}
-          alt={current.alt || name}
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-contain"
-        />
+        {current.kind === "video" ? (
+          /**
+           * `controls` rather than autoplay: this is product footage a visitor
+           * chooses to watch, not decoration, and an autoplaying video on a
+           * page someone is reading is an interruption. `preload="none"` so
+           * arriving at the page costs nothing until they press play —
+           * `metadata` still fetches on every load, which for a 3 MB file on
+           * mobile data is a charge for something usually unwatched.
+           * `playsInline` keeps iOS from hijacking the screen full-screen.
+           */
+          <video
+            key={current.video.url}
+            controls
+            preload="none"
+            playsInline
+            poster={current.video.poster ?? undefined}
+            aria-label={current.video.alt || `${name} — product video`}
+            className="absolute inset-0 size-full bg-black object-contain"
+          >
+            <source src={current.video.url} type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+        ) : (
+          <>
+            {/* object-contain, not object-cover — the main shot always shows
+                the whole photo. A cover crop looks fine on a photo composed
+                for exactly this frame, but supplier photos vary wildly in
+                aspect ratio and composition, and cover crops any mismatch
+                into a tight, arbitrary zoom on whatever happens to be in the
+                centre. Thumbnails below stay cover — small squares read fine
+                cropped, and it's the main shot people zoom in on mentally. */}
+            <Image
+              key={active}
+              src={current.url}
+              alt={current.alt || name}
+              fill
+              priority={active === 0}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-contain"
+            />
 
-        <button
-          type="button"
-          aria-label="Zoom image"
-          className="text-ink/70 hover:text-ink absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-colors"
-        >
-          <ZoomIn className="size-[18px]" strokeWidth={1.6} />
-        </button>
+            <button
+              type="button"
+              aria-label="Zoom image"
+              className="text-ink/70 hover:text-ink absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-colors"
+            >
+              <ZoomIn className="size-[18px]" strokeWidth={1.6} />
+            </button>
+          </>
+        )}
       </div>
 
-      {images.length > 1 ? (
+      {slides.length > 1 ? (
         <div className="flex items-center gap-3">
           {/* Arrows are hidden on mobile. At 390px the two 36px buttons plus
               gaps leave ~246px for thumbnails, so a four-shot strip wrapped to
@@ -99,12 +155,16 @@ export function ProductGallery({
           </button>
 
           <div className="flex flex-1 gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap">
-            {images.map((img, index) => (
+            {slides.map((slide, index) => (
               <button
-                key={img.url}
+                key={slide.kind === "video" ? slide.video.url : slide.url}
                 type="button"
                 onClick={() => setActive(index)}
-                aria-label={img.alt || `${name} — view ${index + 1}`}
+                aria-label={
+                  slide.kind === "video"
+                    ? slide.video.alt || `${name} — play product video`
+                    : slide.alt || `${name} — view ${index + 1}`
+                }
                 aria-pressed={active === index}
                 className={cn(
                   "border-line bg-paper relative size-16 shrink-0 overflow-hidden rounded-lg border transition-colors",
@@ -113,13 +173,38 @@ export function ProductGallery({
                     : "hover:border-ink/30",
                 )}
               >
-                <Image
-                  src={img.url}
-                  alt=""
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
+                {slide.kind === "video" ? (
+                  <>
+                    {/* The poster stands in for the video, so the strip stays a
+                        row of images — a 64px <video> would download the file
+                        the preload="none" above is there to avoid. */}
+                    {slide.video.poster ? (
+                      <Image
+                        src={slide.video.poster}
+                        alt=""
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="bg-basalt absolute inset-0" />
+                    )}
+                    <span className="absolute inset-0 grid place-items-center bg-black/35">
+                      <Play
+                        className="size-5 fill-white text-white"
+                        strokeWidth={1.5}
+                      />
+                    </span>
+                  </>
+                ) : (
+                  <Image
+                    src={slide.url}
+                    alt=""
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                )}
               </button>
             ))}
           </div>

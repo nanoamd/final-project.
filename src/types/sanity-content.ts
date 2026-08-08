@@ -26,6 +26,16 @@ export interface SanityProductOption {
   values: string[];
 }
 
+export interface SanityProductVideo {
+  /** Sanity asset CDN URL for the MP4. */
+  url: string;
+  /** Still shown before playback. Without one the browser shows the first
+   * frame, which on supplier footage is frequently black. */
+  poster?: string | null;
+  /** What the video shows — used as the thumbnail's accessible label. */
+  alt?: string | null;
+}
+
 export interface SanityProductGalleryImage {
   url: string;
   /** Editor-entered per-photo alt text (e.g. "Reclaimed teak dining table,
@@ -117,6 +127,10 @@ export interface SanityProduct {
   specs: SanityProductSpec[];
   options?: SanityProductOption[];
   gallery: SanityProductGalleryImage[];
+  /** One optional product video, shown after the first photo in the gallery.
+   * Null unless a file has actually been uploaded — the query filters out the
+   * empty object an editor leaves behind by opening the field. */
+  video?: SanityProductVideo | null;
   image?: string | null;
   /** Same photo as `image`, except zoomed to whatever crop/hotspot an
    * editor has set on that gallery image in Studio, cropped to a 4:5

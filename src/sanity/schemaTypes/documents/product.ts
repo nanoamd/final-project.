@@ -225,6 +225,53 @@ export const product = defineType({
         },
       ],
     }),
+    /**
+     * One video per product, shown as the second item in the gallery. Self
+     * hosted through Sanity's asset CDN rather than an embed, so there is no
+     * third-party player, no cookie banner consequence and no YouTube branding
+     * on a product page.
+     *
+     * Run supplier footage through scripts/prepare-product-videos.ts first: it
+     * trims the branded end card, re-encodes for the web and writes the poster
+     * frame. A 40 MB supplier MP4 becomes roughly 3 MB.
+     */
+    defineField({
+      name: "video",
+      title: "Product video",
+      type: "object",
+      group: "merchandising",
+      description:
+        "Optional. Appears after the first photo in the gallery. Prepare the " +
+        "file with scripts/prepare-product-videos.ts before uploading — raw " +
+        "supplier videos are far too large and carry an end card.",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        {
+          name: "file",
+          title: "Video file (MP4)",
+          type: "file",
+          options: { accept: "video/mp4" },
+        },
+        {
+          name: "poster",
+          title: "Poster image",
+          description:
+            "The still shown before playback. prepare-product-videos.ts " +
+            "writes one alongside each video; without it the first frame is " +
+            "used, which is often black.",
+          type: "image",
+          options: { hotspot: true },
+        },
+        {
+          name: "alt",
+          title: "Description",
+          type: "string",
+          description:
+            "What the video shows, for screen readers and for the thumbnail's " +
+            'label — e.g. "Pergola being assembled and the canopy drawn across".',
+        },
+      ],
+    }),
     defineField({
       name: "badges",
       title: "Badges",
