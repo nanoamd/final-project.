@@ -257,7 +257,18 @@ function fromHtmlDir(dir: string): SourceProduct[] {
  * garden and quietly makes the catalogue untrustworthy.
  */
 const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
-  // Outdoor first — an outdoor lamp is outdoor, not "lighting".
+  // Lighting first, and deliberately so. A lamp is a lamp wherever it stands:
+  // "Solar Lamp Post, Street Light with Planter" was landing in planters and
+  // "Solar Rattan Floor Lamp" in garden-furniture, because a descriptive word
+  // further along the title matched an outdoor rule first. What someone is
+  // shopping for there is a light.
+  {
+    pattern:
+      /lamp post|street light|\blamp\b|lantern|\bsconce\b|ceiling fan|chandelier|pendant|flush mount|floor light/i,
+    slug: "lighting",
+  },
+
+  // Then outdoor structures and furniture.
   { pattern: /pergola|gazebo|canopy/i, slug: "pergolas" },
   { pattern: /fire ?pit|patio heater|chiminea|log burner/i, slug: "fire-pits" },
   {
@@ -282,11 +293,6 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
     pattern: /bbq|barbecue|pizza oven|grill|smoker/i,
     slug: "outdoor-kitchens",
   },
-  {
-    pattern: /(solar|outdoor|garden|pathway|bollard).*(lamp|light|lantern)/i,
-    slug: "garden-furniture",
-  },
-
   // Indoor
   { pattern: /computer desk|writing desk|\bdesk\b/i, slug: "desks" },
   { pattern: /bedside (table|cabinet)|nightstand/i, slug: "bedside-tables" },
@@ -299,12 +305,8 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
     pattern: /wardrobe|chest of drawers|drawer unit|sideboard|cabinet/i,
     slug: "living-room-storage",
   },
-  // Lighting last: catches anything lamp/light-shaped not already placed.
-  {
-    pattern:
-      /ceiling fan|chandelier|pendant|floor lamp|table lamp|\blamp\b|\blight(ing)?\b/i,
-    slug: "lighting",
-  },
+  // Catch-all for anything light-shaped the named rules above did not claim.
+  { pattern: /\blight(ing)?\b|\bLED\b/i, slug: "lighting" },
 ];
 
 function inferCategory(title: string): string | null {
