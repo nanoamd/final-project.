@@ -42,6 +42,8 @@ interface SourceProduct {
   /** Printed for your pricing decision; never written to Sanity. */
   price?: string;
   sourceUrl?: string;
+  /** Absolute paths to images already on disk, for the --images mode. */
+  localFiles?: string[];
 }
 
 /* ------------------------------------------------------------------ args -- */
@@ -55,6 +57,7 @@ const flag = (name: string) => process.argv.includes(`--${name}`);
 const csvPath = arg("csv");
 const htmlDir = arg("html");
 const jsonPath = arg("json");
+const imagesDir = arg("images");
 const categorySlug = arg("category");
 const limit = Number(arg("limit") ?? "500");
 const apply = flag("apply");
@@ -238,6 +241,46 @@ function fromHtmlDir(dir: string): SourceProduct[] {
   return out;
 }
 
+/* ---------------------------------------------------------------- images -- */
+
+/**
+ * A folder of saved product images, where the filename carries the title —
+ * which is what a browser's "Save Image As" gives you, since it names the file
+ * after the page title.
+ *
+ * Titles are recovered by stripping the extension and the site's own suffix.
+ * Colons become slashes: macOS stores a "/" in a filename as ":", so
+ * "Trolley w: Warming Rack" was "Trolley w/ Warming Rack" on the page, and
+ * "Auto On:Off" was "Auto On/Off".
+ *
+ * This yields a title and one image and nothing else — no SKU, no description,
+ * no dimensions. That is a deliberately thin import for filling a category
+ * quickly; everything else has to be added in Studio.
+ */
+function fromImagesDir(dir: string): SourceProduct[] {
+  const out: SourceProduct[] = [];
+  for (const entry of readdirSync(dir).sort()) {
+    const full = join(dir, entry);
+    if (!statSync(full).isFile()) continue;
+    if (!/\.(png|jpe?g|webp|avif)$/i.test(entry)) continue;
+
+    const title = entry
+      .replace(/\.(png|jpe?g|webp|avif)$/i, "")
+      .replace(/\s*[|–—-]\s*Aosom(\s+UK)?\s*$/i, "")
+      .replace(/:/g, "/")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!title) {
+      console.warn(`  ! ${entry}: no title left after cleaning — skipped`);
+      continue;
+    }
+    // localFiles, not images: these are on disk, not fetchable URLs.
+    out.push({ title, images: [], localFiles: [full] });
+  }
+  return out;
+}
+
 /* ----------------------------------------------------------------- sanity -- */
 
 const slugify = (s: string) =>
@@ -253,13 +296,15 @@ async function main() {
     ? fromCsv(csvPath)
     : htmlDir
       ? fromHtmlDir(htmlDir)
-      : jsonPath
-        ? (JSON.parse(readFileSync(jsonPath, "utf8")) as SourceProduct[])
-        : null;
+      : imagesDir
+        ? fromImagesDir(imagesDir)
+        : jsonPath
+          ? (JSON.parse(readFileSync(jsonPath, "utf8")) as SourceProduct[])
+          : null;
 
   if (!sources) {
     console.error(
-      "Give one input: --csv <file> | --html <dir> | --json <file>\n" +
+      "Give one input: --csv <file> | --html <dir> | --images <dir> | --json <file>\n" +
         "Plus --category <sanity-category-slug>. Add --apply to write.",
     );
     process.exit(1);
@@ -275,8 +320,9 @@ async function main() {
   );
   for (const p of picked) {
     console.log(`  ${p.title.slice(0, 62)}`);
+    const imageCount = p.images.length + (p.localFiles?.length ?? 0);
     console.log(
-      `    sku=${p.sku ?? "—"}  images=${p.images.length}  source price=${p.price ?? "—"}`,
+      `    sku=${p.sku ?? "—"}  images=${imageCount}  source price=${p.price ?? "—"}`,
     );
   }
 
@@ -320,6 +366,24 @@ async function main() {
     // automated fetch; when it does, the product is still created and the
     // failure is named rather than swallowed.
     const gallery: Record<string, unknown>[] = [];
+
+    for (const file of (p.localFiles ?? []).slice(0, 8)) {
+      try {
+        const asset = await client.assets.upload("image", readFileSync(file), {
+          filename: file.split("/").pop() || "image.png",
+        });
+        gallery.push({
+          _type: "image",
+          _key: asset._id.slice(-12),
+          asset: { _type: "reference", _ref: asset._id },
+        });
+      } catch (err) {
+        console.warn(
+          `    ! local image failed (${file}): ${(err as Error).message}`,
+        );
+      }
+    }
+
     for (const url of p.images.slice(0, 8)) {
       try {
         const res = await fetch(url);
