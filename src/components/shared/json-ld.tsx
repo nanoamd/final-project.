@@ -102,6 +102,61 @@ const AVAILABILITY_BY_STOCK_STATUS: Record<StockStatus, string> = {
   "Coming Soon": "https://schema.org/OutOfStock",
 };
 
+/**
+ * Delivery and returns, attached to every Offer.
+ *
+ * Google surfaces both as annotations under a product in Shopping and in free
+ * listings — "Free delivery" and "14-day returns" appear beside the price — so
+ * omitting them costs click-through on results we already rank for. They are
+ * also the two warnings the Rich Results Test raises on an Offer that has
+ * neither.
+ *
+ * Both describe what actually happens rather than what would look best.
+ * Checkout charges £0 on every item (see createCheckoutSession — one fixed
+ * shipping option at zero, with delivery folded into the retail price), and the
+ * 14 days and the faulty-item terms are lifted from /returns.
+ *
+ * Deliberately no `priceValidUntil`. Google only warns when it is absent, and
+ * any date put there would be invented — the same mistake as the seeded star
+ * ratings, in a smaller way.
+ */
+const SHIPPING_DETAILS = {
+  "@type": "OfferShippingDetails",
+  shippingRate: {
+    "@type": "MonetaryAmount",
+    value: 0,
+    currency: "GBP",
+  },
+  shippingDestination: {
+    "@type": "DefinedRegion",
+    addressCountry: "GB",
+  },
+  deliveryTime: {
+    "@type": "ShippingDeliveryTime",
+    // Courier time only. Handling — the supplier's lead time, 2 days to 6 weeks
+    // across this catalogue — is sent per product in the Merchant feed instead,
+    // because one figure here would be wrong for most of the range.
+    transitTime: {
+      "@type": "QuantitativeValue",
+      minValue: 2,
+      maxValue: 5,
+      unitCode: "DAY",
+    },
+  },
+};
+
+const RETURN_POLICY = {
+  "@type": "MerchantReturnPolicy",
+  applicableCountry: "GB",
+  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+  merchantReturnDays: 14,
+  returnMethod: "https://schema.org/ReturnByMail",
+  // Change-of-mind returns are at the customer's cost; we cover carriage only
+  // when an item arrives faulty, damaged or incorrect. Stating the generous
+  // half here and not the other would be the thing a customer discovers later.
+  returnFees: "https://schema.org/ReturnShippingFees",
+};
+
 export interface ProductJsonLdInput {
   name: string;
   description: string;
@@ -142,6 +197,8 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
       priceCurrency: product.currency,
       price: product.price,
       availability: AVAILABILITY_BY_STOCK_STATUS[product.stockStatus],
+      shippingDetails: SHIPPING_DETAILS,
+      hasMerchantReturnPolicy: RETURN_POLICY,
     },
     ...(product.rating && product.reviewCount
       ? {
