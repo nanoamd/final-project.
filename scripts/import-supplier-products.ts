@@ -567,11 +567,13 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
   // a sofa — hence the negative lookahead rather than a bare /sofa/.
   {
     pattern:
-      /\bsofa(?! table)\b|settee|couch|chaise ?longue|loveseat|snuggler|\barmchair\b|\baccent chair\b|\bocc?asional chair\b/i,
+      /\bsofa(?! table)\b|settee|couch|chaise ?longue|loveseat|snuggler|\barmchair\b|\baccent chair\b|\bclub chair\b|\bocc?asional chair\b/i,
     slug: "sofas",
   },
   { pattern: /computer desk|writing desk|\bdesk\b/i, slug: "desks" },
-  { pattern: /bedside (table|cabinet)|nightstand/i, slug: "bedside-tables" },
+  // "Hampton Ivory Square Bedside" — the supplier drops "table" on some titles,
+  // so requiring it sent a bedside cabinet to no category at all.
+  { pattern: /\bbedside\b|nightstand/i, slug: "bedside-tables" },
   { pattern: /coffee table/i, slug: "coffee-tables" },
   { pattern: /\brug\b|runner rug/i, slug: "rugs" },
   { pattern: /towel rail|towel radiator/i, slug: "towel-rails" },
