@@ -108,8 +108,37 @@ function productType(product: {
  * `${NEXT_PUBLIC_SITE_URL}/api/feeds/google-merchant`.
  */
 export async function GET() {
-  const products = await getMerchantFeedProducts();
   const siteUrl = env.NEXT_PUBLIC_SITE_URL;
+
+  // Off until MERCHANT_FEED_ENABLED=true. Merchant Center fetches on its own
+  // schedule, so one scheduled fetch is enough for it to keep collecting
+  // whatever happens to be published — including a batch of imported drafts the
+  // moment they go live, before their prices have been checked. Submitting the
+  // range deliberately, in one go, is the intent.
+  //
+  // Answers 200 with an empty channel rather than 404ing: an empty feed makes
+  // Merchant Center withdraw the items it already holds, while a failed fetch
+  // leaves the last successful set live and just logs an error.
+  if (!env.MERCHANT_FEED_ENABLED) {
+    return new Response(
+      `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+  <title>Kaiku</title>
+  <link>${escapeXml(siteUrl)}</link>
+  <description>Kaiku product feed — not yet published. Set MERCHANT_FEED_ENABLED=true to serve products.</description>
+</channel>
+</rss>`,
+      {
+        headers: {
+          "Content-Type": "application/xml; charset=utf-8",
+          "Cache-Control": "no-store",
+        },
+      },
+    );
+  }
+
+  const products = await getMerchantFeedProducts();
 
   const items = products
     .map((product) => {

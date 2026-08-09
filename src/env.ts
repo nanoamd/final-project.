@@ -71,6 +71,25 @@ export const env = createEnv({
     // saves the email to Sanity — it just skips sending anything.
     RESEND_API_KEY: z.string().min(1).optional(),
     RESEND_FROM_EMAIL: z.string().min(1).optional(),
+    /**
+     * Whether the Google Merchant Center feed serves products.
+     *
+     * Off unless set to "true", deliberately. Merchant Center pulls the feed on
+     * its own schedule, so as soon as one scheduled fetch exists it will keep
+     * collecting whatever is published — including a half-reviewed catalogue, and
+     * including the moment a batch of imported drafts gets published. Submitting
+     * the range once, on purpose, is the intent; a feed that quietly fills up in
+     * between is how a product reaches Google before its price is checked.
+     *
+     * When off, the feed still answers 200 with a valid but empty channel rather
+     * than a 404 or an error. That matters: an empty feed makes Merchant Center
+     * withdraw the items it already holds, which is the goal, whereas a failed
+     * fetch leaves the last successful set live and reports a fetch error.
+     */
+    MERCHANT_FEED_ENABLED: z
+      .string()
+      .optional()
+      .transform((val) => val === "true"),
   },
 
   /**
@@ -125,6 +144,7 @@ export const env = createEnv({
     GOOGLE_SHEETS_PRIVATE_KEY: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
+    MERCHANT_FEED_ENABLED: process.env.MERCHANT_FEED_ENABLED,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
