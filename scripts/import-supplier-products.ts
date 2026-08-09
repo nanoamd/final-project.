@@ -69,6 +69,10 @@ interface SourceProduct {
   colours?: string[];
   /** True when the page states delivery is included in the price. */
   freeDelivery?: boolean;
+  /** "In Stock" / "Out of Stock", read from the supplier's own stock line. */
+  stockStatus?: "In Stock" | "Out of Stock";
+  /** Units the supplier holds. Absent when the page gives no number. */
+  stockQuantity?: number;
   /** Why the description needs a human read before publishing, if it does. */
   tradeLanguage?: string[];
 }
@@ -398,6 +402,39 @@ export function freeDeliveryStated(html: string): boolean {
   );
 }
 
+/**
+ * The supplier's live stock line: "24 in stock", "Out of stock".
+ *
+ * Worth reading rather than defaulting everything to "Coming Soon". Eight of the
+ * 74 pages are out of stock, and a customer ordering one of those starts a
+ * conversation that ends in a refund. The quantity also feeds the checkout guard
+ * in createCheckoutSession, which already refuses an order for more units than
+ * stockQuantity.
+ *
+ * Prices are hidden behind "Login to view price" on these pages, but stock is
+ * not — so this is available even when the trade price is not.
+ *
+ * A snapshot, not a feed: it is true as of when the page was saved. That is
+ * still better than a guess, and better than "Coming Soon" on something with 52
+ * units on a shelf.
+ */
+export function stockFromHtml(
+  html: string,
+): { status: "In Stock" | "Out of Stock"; quantity?: number } | null {
+  const lines = [
+    ...html.matchAll(
+      /<p[^>]*class="[^"]*\bstock\b[^"]*"[^>]*>([\s\S]*?)<\/p>/gi,
+    ),
+  ].map((m) => plainText(m[1]!));
+  for (const line of lines) {
+    if (/out of stock/i.test(line)) return { status: "Out of Stock" };
+    const n = /^(\d+)\s+in stock/i.exec(line);
+    if (n) return { status: "In Stock", quantity: Number(n[1]) };
+    if (/in stock/i.test(line)) return { status: "In Stock" };
+  }
+  return null;
+}
+
 /** Splits "Brown, Oak" into colourways. */
 export function parseColours(raw: string): string[] {
   return raw
@@ -448,6 +485,16 @@ export function detailsFromHtml(html: string): Partial<SourceProduct> {
       ? { colours: parseColours(colourText) }
       : {}),
     ...(freeDeliveryStated(html) ? { freeDelivery: true } : {}),
+    ...(() => {
+      const stock = stockFromHtml(html);
+      if (!stock) return {};
+      return {
+        stockStatus: stock.status,
+        ...(stock.quantity !== undefined
+          ? { stockQuantity: stock.quantity }
+          : {}),
+      };
+    })(),
     ...(description && tradeLanguageIn(description).length
       ? { tradeLanguage: tradeLanguageIn(description) }
       : {}),
@@ -1123,8 +1170,12 @@ async function main() {
     const doc = await client.fetch<Record<string, unknown> | null>(
       `*[_id == $id][0]{
         supplierSku, description, dimensions, weight, deliveryLeadTime,
-        shippingCost, sourceUrl,
-        "specs": count(specs), "options": count(options), "gallery": count(gallery)
+        shippingCost, sourceUrl, stockQuantity,
+        "specs": count(specs), "options": count(options), "gallery": count(gallery),
+        // Coming Soon counts as empty here: it is the importer's fallback, not a
+        // decision, so the supplier's real stock line should replace it. Any
+        // other value was chosen by hand and is left alone.
+        "stockStatus": select(stockStatus == "Coming Soon" => null, stockStatus)
       }`,
       { id },
     );
@@ -1161,6 +1212,9 @@ async function main() {
     // which is right here: a 0 already meaning "carriage is in the cost" is
     // simply rewritten to the same 0.
     if (p.freeDelivery) add("free delivery", "shippingCost", 0);
+    if (p.stockStatus) add("stock status", "stockStatus", p.stockStatus);
+    if (p.stockQuantity !== undefined)
+      add("stock quantity", "stockQuantity", p.stockQuantity);
 
     if (p.specs?.length && !doc.specs) {
       patch.specs = p.specs.map((s, index) => ({
@@ -1194,8 +1248,32 @@ async function main() {
   for (const { product: p, slug, extras } of picked) {
     const base = slugify(p.sku ? `${p.title}-${p.sku}` : p.title);
     const id = `drafts.product-import-${base}`;
-    if (await client.fetch<boolean>(`defined(*[_id==$id][0]._id)`, { id })) {
-      console.log(`  = exists, skipped: ${p.title.slice(0, 50)}`);
+    const ownDraftExists = await client.fetch<boolean>(
+      `defined(*[_id==$id][0]._id)`,
+      { id },
+    );
+    if (ownDraftExists) {
+      // This branch used to short-circuit before --fill-existing was considered,
+      // so a product this importer had created itself could never be filled in —
+      // which is exactly the case that matters when the extractor learns to read
+      // a new field and 73 existing drafts need it.
+      if (fillExisting) {
+        const filled = await fillMissingFields(id, p);
+        if (filled.length) {
+          console.log(
+            `  ~ filled ${filled.join(", ")}\n      on ${id} (${p.title.slice(0, 40)})`,
+          );
+          enriched++;
+        } else {
+          console.log(`  = nothing missing: ${p.title.slice(0, 44)}`);
+          skipped++;
+        }
+        continue;
+      }
+      console.log(
+        `  = exists, skipped: ${p.title.slice(0, 44)}` +
+          `  (--fill-existing would add any detail it is missing)`,
+      );
       skipped++;
       continue;
     }
@@ -1346,7 +1424,14 @@ async function main() {
           }
         : {}),
       ...(gallery.length ? { gallery } : {}),
-      stockStatus: "Coming Soon",
+      // The supplier's own stock line where the page gave one, and "Coming Soon"
+      // only as a genuine fallback. Defaulting everything to Coming Soon put
+      // that label on items with 52 units on a shelf, and left the eight
+      // out-of-stock ones looking orderable.
+      stockStatus: p.stockStatus ?? "Coming Soon",
+      ...(p.stockQuantity !== undefined
+        ? { stockQuantity: p.stockQuantity }
+        : {}),
       currency: "GBP",
     });
     console.log(

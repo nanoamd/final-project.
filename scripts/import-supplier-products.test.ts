@@ -7,6 +7,7 @@ import {
   parseColours,
   parseDimensions,
   parseWeightKg,
+  stockFromHtml,
   titleFingerprint,
   tradeLanguageIn,
 } from "./import-supplier-products";
@@ -203,5 +204,37 @@ describe("parseColours", () => {
 
   it("drops stray single characters", () => {
     expect(parseColours("Brown, -, Oak")).toEqual(["Brown", "Oak"]);
+  });
+});
+
+describe("stockFromHtml", () => {
+  it("reads a quantity", () => {
+    expect(stockFromHtml('<p class="stock in-stock">24 in stock</p>')).toEqual({
+      status: "In Stock",
+      quantity: 24,
+    });
+  });
+
+  it("reads out of stock", () => {
+    expect(
+      stockFromHtml('<p class="stock out-of-stock">Out of stock</p>'),
+    ).toEqual({ status: "Out of Stock" });
+  });
+
+  it("handles in stock with no number", () => {
+    expect(stockFromHtml('<p class="stock">In stock</p>')).toEqual({
+      status: "In Stock",
+    });
+  });
+
+  it("returns null when the page says nothing about stock", () => {
+    // Must not guess: a wrong "In Stock" is an order the supplier cannot fill.
+    expect(stockFromHtml("<p>Free delivery on this item.</p>")).toBeNull();
+  });
+
+  it("is not fooled by the word stock elsewhere in a class name", () => {
+    expect(
+      stockFromHtml('<p class="stockist-note">Find a stockist</p>'),
+    ).toBeNull();
   });
 });
