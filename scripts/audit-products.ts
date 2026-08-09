@@ -197,11 +197,36 @@ async function main() {
     }
   }
 
+  // Not a finding — "Out of Stock" is an honest answer, not a mistake. But it
+  // is the one thing that decides whether a visitor can spend money today, and
+  // it is easy to leave set on a product that has since come back in.
+  const byStock = new Map<string, { count: number; value: number }>();
+  for (const row of rows) {
+    const key = row.stockStatus ?? "not set";
+    const entry = byStock.get(key) ?? { count: 0, value: 0 };
+    byStock.set(key, {
+      count: entry.count + 1,
+      value: entry.value + (row.price ?? 0),
+    });
+  }
+  console.log("\nStock");
+  for (const [status, { count, value }] of [...byStock].sort(
+    (a, b) => b[1].count - a[1].count,
+  )) {
+    const unbuyable = status === "Out of Stock" || status === "Coming Soon";
+    console.log(
+      `  ${status.padEnd(14)} ${String(count).padStart(3)} product(s)   ` +
+        `£${Math.round(value).toLocaleString("en-GB").padStart(8)}` +
+        `${unbuyable ? "   ← cannot be bought" : ""}`,
+    );
+  }
+
   const blocking = findings.filter((f) => f.severity === "BLOCKING").length;
   console.log(
     blocking
       ? `\n${blocking} blocking problem(s). Those products cannot be sold as they stand.\n`
-      : "\nNothing blocking. Everything listed can be bought.\n",
+      : "\nNothing blocking — every product is complete enough to sell. Anything\n" +
+          "marked above as out of stock is a stock decision, not a missing field.\n",
   );
 }
 
