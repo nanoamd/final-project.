@@ -61,16 +61,47 @@ It works only when each post targets a query the product page cannot:
 That distinction is also what separates a content library from what Google's
 **scaled content abuse** policy targets. The policy does not care whether a human
 or a machine wrote the page; it asks whether pages exist mainly to rank rather
-than to help. 300 posts rephrasing 300 product descriptions is the textbook
-version of what it catches, and the penalty is site-wide suppression — the exact
-opposite of criterion 4.
+than to help.
 
-**So: 300 posts is achievable and safe, on two conditions.**
+### Calibrating the risk
+
+300 posts for 300 products is **not itself a violation** — neither the count nor
+the ratio is a trigger, and plenty of legitimate retailers carry more content
+pages than products. What is judged is whether each page stands up on its own. So
+the realistic outcomes of getting it wrong, in order of likelihood:
+
+| Outcome                  | Likelihood      | What it looks like                                                                                                              |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Posts simply never index | **Most likely** | "Crawled – currently not indexed" in Search Console. No penalty; the hours are just gone                                        |
+| Algorithmic suppression  | **Real risk**   | No warning and no message. Site-wide quality signals fall, so the _good_ pages rank worse                                       |
+| Manual action            | Uncommon        | Shows in Search Console as "Thin content with little or no added value". Reversible after cleanup and a reconsideration request |
+| Whole site deindexed     | **Rare**        | Egregious cases — thousands of auto-generated pages, doorway networks                                                           |
+
+The cost of getting this wrong is therefore **600 hours of pages Google ignores**,
+with a real secondary risk of dragging down the pages that matter. It is not
+losing the site. Worth stating plainly, because "risks suppression" reads as
+"risks a ban", and planning around the wrong one leads to the wrong decision.
+
+**So: 300 posts is achievable and safe, on three conditions.**
 
 1. Every post is pegged to a distinct informational query, decided before it is
    written. No post ships without one.
-2. Publishing is paced. A young domain that goes from 1 post to 300 in a few
+2. Every post passes one test: would someone who is not buying anything get
+   something out of reading it? If it is the product description reworded, it is
+   thin whether there are 5 or 300.
+3. Publishing is paced. A young domain that goes from 1 post to 300 in a few
    weeks looks like what it looks like.
+
+### Test it at 30 posts, not 300
+
+Publish the first 20–30, then read Search Console's indexing report.
+
+- Mostly "Crawled – currently not indexed" → the model is not working. Change
+  approach after ~40 hours rather than ~600.
+- Indexed and collecting impressions → it works, scale it.
+
+Impressions move weeks before traffic does, so this is readable long before any
+of it shows up in GA4.
 
 ### What that costs
 
