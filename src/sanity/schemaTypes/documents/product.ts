@@ -133,6 +133,30 @@ export const product = defineType({
       type: "string",
       group: "identifiers",
     }),
+    /**
+     * The supplier's own product code, kept alongside our `sku`.
+     *
+     * `sku` is ours (KK-CT-ABB-BRN-001) and deliberately so — it is what goes to
+     * Google and on an invoice. But it shares nothing with the supplier's code
+     * (D.I. Designs call the same table CT-04B), which leaves no key at all
+     * linking a product on the site to the same product in a supplier's data.
+     * Re-importing then creates a second draft of a table already on sale, and
+     * nothing catches it: the titles differ in word order ("Abberley Brown
+     * Coffee Table" against "Abberley Coffee Table in Brown"), so the slugs
+     * differ too.
+     *
+     * import-supplier-products.ts writes this and matches on it, so every future
+     * import of a supplier's range is de-duplicated against what is already
+     * listed. Also what makes reordering possible without hunting through emails.
+     */
+    defineField({
+      name: "supplierSku",
+      title: "Supplier's product code",
+      type: "string",
+      group: "identifiers",
+      description:
+        "The code the supplier uses for this item, e.g. D.I. Designs' CT-04B. Not ours and not shown on the storefront — it is how a re-import recognises a product we already list, and how you reorder it.",
+    }),
     defineField({
       name: "supplier",
       type: "reference",

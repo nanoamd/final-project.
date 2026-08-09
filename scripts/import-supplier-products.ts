@@ -30,6 +30,7 @@
  */
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { createClient } from "@sanity/client";
 
@@ -443,6 +444,79 @@ const slugify = (s: string) =>
     .replace(/^-|-$/g, "")
     .slice(0, 90);
 
+/**
+ * Strips the supplier's own SEO tail and puts ours on instead.
+ *
+ * A supplier's `<title>`-derived JSON-LD name carries their branding: D.I.
+ * Designs send "Abberley Brown Coffee Table | Trade Furniture | DI Designs".
+ * Imported raw that is what appears on our category tiles, in the Merchant feed
+ * and in Google's results — a competitor's name on our own product page, and a
+ * different shape from the rest of the catalogue, which is uniformly
+ * "<product> | Kaiku".
+ *
+ * Only pipe-delimited tail segments are removed, and only the ones that are
+ * plainly branding rather than product information. "Coffee Table in Brown" and
+ * "30 x 20 x 5cm" are kept; "Trade Furniture", "DI Designs" and "Free UK
+ * Delivery" are not. Anything unrecognised is kept, because dropping a real
+ * detail from a title is worse than leaving a stray word in one.
+ */
+const TAIL_NOISE =
+  /^(trade|wholesale|trade furniture|wholesale furniture|free (uk )?delivery|uk delivery|next day delivery|buy online|shop now|home|di ?designs?|d\.?i\.? designs?|didesigns(\.co\.uk)?)$/i;
+
+/**
+ * Words that carry no identity, so two titles differing only in these are the
+ * same product. "in", "with" and the colour-order words are what make "Abberley
+ * Brown Coffee Table" and "Abberley Coffee Table in Brown" look different.
+ */
+const NOISE_WORDS = new Set([
+  "in",
+  "with",
+  "and",
+  "the",
+  "a",
+  "for",
+  "of",
+  "kaiku",
+  "trade",
+  "furniture",
+]);
+
+/**
+ * A word-set fingerprint, for recognising the same product under a different
+ * word order. Deliberately not fuzzy beyond that: it compares the exact set of
+ * significant words, so "2 Tier" and "3 Tier" stay different products, as do
+ * "Brown" and "Grey" colourways — which is the behaviour that matters, because a
+ * false match silently skips a product that should have been imported.
+ */
+export function titleFingerprint(title: string): string {
+  return [
+    ...new Set(
+      title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter((w) => w && !NOISE_WORDS.has(w)),
+    ),
+  ]
+    .sort()
+    .join(" ");
+}
+
+export function cleanSupplierTitle(raw: string, ownSuffix = "Kaiku"): string {
+  const parts = raw
+    .split("|")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  // Drop branding from the end inwards, never from the front: the first segment
+  // is the product name even when it happens to read like a brand.
+  while (parts.length > 1 && TAIL_NOISE.test(parts[parts.length - 1]!))
+    parts.pop();
+  // An existing "| Kaiku" is not duplicated — this runs on re-imports too.
+  if (parts[parts.length - 1]?.toLowerCase() === ownSuffix.toLowerCase())
+    parts.pop();
+  return `${parts.join(" | ")} | ${ownSuffix}`;
+}
+
 async function main() {
   const sources = csvPath
     ? fromCsv(csvPath)
@@ -460,6 +534,17 @@ async function main() {
         "Plus --category <sanity-category-slug>. Add --apply to write.",
     );
     process.exit(1);
+  }
+
+  // Before anything else, so the cleaned title is what gets categorised, slugged
+  // and printed in the dry run — the supplier's branding never reaches Sanity.
+  for (const p of sources) {
+    const cleaned = cleanSupplierTitle(p.title);
+    if (cleaned !== p.title)
+      console.log(
+        `  ~ title: ${p.title.slice(0, 62)}\n           → ${cleaned}`,
+      );
+    p.title = cleaned;
   }
   // --category forces one category for everything; without it each title is
   // matched against CATEGORY_RULES. Either way the mapping is printed before
@@ -512,17 +597,18 @@ async function main() {
     console.log("");
   }
 
-  if (!apply) {
-    console.log(
-      "\nDry run — nothing written. Re-run with --apply once the list looks right.\n" +
-        "Prices above are from the source and are NOT imported; each draft stays\n" +
-        "invalid in Studio until you set a price, which is intentional.\n",
-    );
-    return;
-  }
-
   const token = process.env.SANITY_API_WRITE_TOKEN;
-  if (!token) throw new Error(TOKEN_HELP("SANITY_API_WRITE_TOKEN is not set"));
+  // The dry run needs the same client, so that "already in the catalogue" is
+  // known before anything is written rather than discovered halfway through a
+  // 30-product --apply.
+  if (!token && apply)
+    throw new Error(TOKEN_HELP("SANITY_API_WRITE_TOKEN is not set"));
+  if (!token) {
+    console.log(
+      "\nNo SANITY_API_WRITE_TOKEN, so the duplicate check is skipped — products\n" +
+        "already in the catalogue will not be flagged below.\n",
+    );
+  }
   const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "huh1e45n",
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -538,17 +624,91 @@ async function main() {
    * check that surfaces 40 lines later as `Unauthorized: Session not found`,
    * which reads like a bug in the script rather than a credential to replace.
    */
-  try {
-    await client.fetch<number>(`count(*[_type=="category"])`);
-  } catch (err) {
-    const message = (err as Error).message;
-    throw new Error(
-      TOKEN_HELP(
-        /unauthor|session not found|permission/i.test(message)
-          ? "the write token was rejected by Sanity"
-          : `Sanity would not answer: ${message}`,
+  if (token) {
+    try {
+      await client.fetch<number>(`count(*[_type=="category"])`);
+    } catch (err) {
+      const message = (err as Error).message;
+      throw new Error(
+        TOKEN_HELP(
+          /unauthor|session not found|permission/i.test(message)
+            ? "the write token was rejected by Sanity"
+            : `Sanity would not answer: ${message}`,
+        ),
+      );
+    }
+  }
+
+  /**
+   * Which of these are already here. Run for the dry run too, because the whole
+   * point of the dry run is to see the outcome before committing to it — and
+   * with 20-30 saved pages from a supplier we already list, duplicates are the
+   * likeliest thing to go wrong.
+   */
+  const alreadyListed = new Map<
+    string,
+    { _id: string; title: string; how: string }
+  >();
+  if (token) {
+    // One pass over the catalogue, then match in memory: three cheap keys
+    // beat a query per product per key, and the fingerprint cannot be a GROQ
+    // filter anyway.
+    const catalogue = await client.fetch<
+      {
+        _id: string;
+        title: string;
+        slug: string | null;
+        supplierSku: string | null;
+      }[]
+    >(`*[_type == "product"]{_id, title, "slug": slug.current, supplierSku}`);
+    const byFingerprint = new Map(
+      catalogue.map((c) => [titleFingerprint(c.title), c]),
+    );
+    const bySlug = new Map(
+      catalogue.flatMap((c) => (c.slug ? [[c.slug, c] as const] : [])),
+    );
+    const bySupplierSku = new Map(
+      catalogue.flatMap((c) =>
+        c.supplierSku ? [[c.supplierSku.toLowerCase(), c] as const] : [],
       ),
     );
+
+    for (const { product: p } of picked) {
+      // Supplier code first: it is the only key that is exact by construction.
+      // The slug and the fingerprint are for the products listed before this
+      // field existed, which carry no supplier code to match on.
+      const hit = p.sku ? bySupplierSku.get(p.sku.toLowerCase()) : undefined;
+      const found = hit
+        ? { ...hit, how: `supplier code ${p.sku}` }
+        : (() => {
+            const bySlugHit = bySlug.get(slugify(p.title));
+            if (bySlugHit) return { ...bySlugHit, how: "slug" };
+            const fp = byFingerprint.get(titleFingerprint(p.title));
+            return fp ? { ...fp, how: "same words in the title" } : null;
+          })();
+      if (found) alreadyListed.set(p.title, found);
+    }
+    if (alreadyListed.size)
+      console.log(
+        `${alreadyListed.size} of these ${alreadyListed.size === 1 ? "is" : "are"} already in the catalogue and will be skipped:\n` +
+          [...alreadyListed]
+            .map(
+              ([title, doc]) =>
+                `  = ${title.slice(0, 40).padEnd(42)}${doc._id.slice(0, 34).padEnd(36)}(${doc.how})`,
+            )
+            .join("\n") +
+          "\n",
+      );
+  }
+
+  if (!apply) {
+    console.log(
+      `Dry run — nothing written. ${picked.length - alreadyListed.size} would be created.\n` +
+        "Re-run with --apply once the list looks right. Prices above are from the\n" +
+        "source and are NOT imported; each draft stays invalid in Studio until you\n" +
+        "set a price, which is intentional.\n",
+    );
+    return;
   }
 
   // Resolve every distinct category once, and fail loudly on a bad slug rather
@@ -586,6 +746,21 @@ async function main() {
     const id = `drafts.product-import-${base}`;
     if (await client.fetch<boolean>(`defined(*[_id==$id][0]._id)`, { id })) {
       console.log(`  = exists, skipped: ${p.title.slice(0, 50)}`);
+      skipped++;
+      continue;
+    }
+
+    // A previous import's own ID is not the only way a product can already be
+    // here. The D.I. Designs tables listed by hand are `product-di-*`, and the
+    // check above would happily create a second draft of a table already on
+    // sale. Matched by slug and SKU above, across published and draft documents
+    // whatever their ID.
+    const existing = alreadyListed.get(p.title);
+    if (existing) {
+      console.log(
+        `  = already in the catalogue, skipped: ${p.title.slice(0, 44)}\n` +
+          `      matches ${existing._id} (${existing.title.slice(0, 44)})`,
+      );
       skipped++;
       continue;
     }
@@ -653,7 +828,13 @@ async function main() {
           }
         : {}),
       ...(p.description ? { description: p.description } : {}),
-      ...(p.sku ? { sku: p.sku } : {}),
+      // The supplier's code goes in supplierSku, not sku. `sku` is ours
+      // (KK-CT-ABB-BRN-001) and is what reaches Google and an invoice, so it is
+      // left unset for you to assign — the audit's "no SKU" finding is then the
+      // reminder to do it. Writing the supplier's code into `sku` is what
+      // previously meant every imported product had to have it overwritten by
+      // hand, and left nothing behind to recognise a re-import by.
+      ...(p.sku ? { supplierSku: p.sku } : {}),
       ...(p.sourceUrl ? { sourceUrl: p.sourceUrl } : {}),
       ...(gallery.length ? { gallery } : {}),
       stockStatus: "Coming Soon",
@@ -672,7 +853,18 @@ async function main() {
   );
 }
 
-void main().catch((err) => {
-  console.error(err instanceof Error ? err.message : err);
-  process.exit(1);
-});
+/**
+ * Only when run as a script. The test imports cleanSupplierTitle and
+ * titleFingerprint from this file, and without the guard main() runs on import
+ * and exits the test process.
+ */
+const runDirectly =
+  process.argv[1] !== undefined &&
+  import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (runDirectly) {
+  void main().catch((err) => {
+    console.error(err instanceof Error ? err.message : err);
+    process.exit(1);
+  });
+}
