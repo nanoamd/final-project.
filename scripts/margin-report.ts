@@ -16,15 +16,14 @@
  *                  createCheckoutSession), so this comes out of the margin, not
  *                  the customer's card.
  *
- *                  A missing or £0 figure is only believed when the supplier is
- *                  marked carriageIncludedInCost — SaunaPlunge include pallet
- *                  delivery in the trade price, so £0 there is real. Otherwise
- *                  it is treated as unknown, because those zeros are
- *                  placeholders entered to skip the calculation at listing time.
- *                  Counting them as free is what made three D.I. Designs coffee
- *                  tables look like they cleared 9-16% when their four siblings
- *                  all carry £80. Unknowns are marked ? and their margin is a
- *                  best case.
+ *                  A recorded £0 is a real zero, not a gap: it means carriage is
+ *                  already inside costPrice. That is how the D.I. Designs tables
+ *                  are entered — their £80 an item is folded into the cost, which
+ *                  is why three of them record £0 while four record the £80
+ *                  separately. Only an empty field is unknown, and a supplier
+ *                  marked carriageIncludedInCost answers even that (SaunaPlunge
+ *                  bundle pallet delivery into the trade price). Unknowns are
+ *                  marked ? and their margin is a best case.
  *   card fees      Stripe UK standard: 1.5% + 20p on a UK card. Small in
  *                  percentage terms and decisive on a £10 margin.
  *
@@ -102,9 +101,11 @@ async function main() {
     .map((r) => {
       const price = r.price!;
       const cost = r.costPrice!;
-      // A missing or 0 figure is a placeholder unless the supplier is known to
-      // bundle carriage into the trade price.
-      const carriageUnknown = !r.shippingCost && !r.carriageIncluded;
+      // A recorded 0 is a real zero: it means carriage is already inside
+      // costPrice, which is how the D.I. Designs tables are entered. Only a
+      // field left empty is unknown, and even that is answered when the supplier
+      // is marked carriageIncludedInCost.
+      const carriageUnknown = r.shippingCost === null && !r.carriageIncluded;
       const carriage = r.shippingCost ?? 0;
       const fees = price * CARD_RATE + CARD_FIXED;
       const keep = price - cost - carriage - fees;

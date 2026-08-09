@@ -92,35 +92,47 @@ customer. Delivery is free on the storefront, so it comes out of the margin.
 Where the terms are known they are recorded as `carriageIncludedInCost` on the
 supplier document, and `scripts/margin-report.ts` reads it.
 
+A recorded £0 is a **real zero**, not a gap — it means carriage is already inside
+`costPrice`. Only an empty field is unknown.
+
 | Supplier     | Terms                                       | Status                                                    |
 | ------------ | ------------------------------------------- | --------------------------------------------------------- |
-| SaunaPlunge  | Pallet delivery inside the trade price      | Confirmed, recorded                                       |
+| SaunaPlunge  | Pallet delivery inside the trade price      | Confirmed, flag set on the supplier                       |
 | AW Dropship  | Per-parcel by weight, £2.79 / £2.99 / £5.99 | Band table in `src/lib/suppliers/aw-dropship-shipping.ts` |
-| D.I. Designs | £80 an item                                 | **Unresolved — see below**                                |
-| Aosom        | Unknown                                     | Four products carry a placeholder £0                      |
+| D.I. Designs | £80 an item, folded into `costPrice`        | Correct as recorded — see below                           |
+| Aosom        | Unknown                                     | Four products record £0                                   |
 
-### Open: settle the D.I. Designs £80
+D.I. Designs is deliberately **not** flagged `carriageIncludedInCost`, because
+their products are mixed: three fold the £80 into `costPrice` and record £0, four
+record the £80 separately. The per-product field already says which is which, and
+a supplier-level flag would override it wrongly.
 
-Four of their seven products record £80 of carriage; three record a placeholder
-£0. The open question is whether that £80 sits **on top of** the trade price or
-is **already inside** it. It decides real money either way:
+### The £80 is settled. Two cost prices are not
 
-| If the £80 is…            | Consequence                                                                                                                        |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| On top of the trade price | The three £0 tables really cost £80 to ship, so the **Elmley (−£11) and Overbury (−£13) sell at a loss** and the Bentley clears £3 |
-| Already inside it         | The four £80 entries double-count, so those four are under-reported by £80 each — the Pershore nets 68%, not 57%                   |
+Target is £80–100 kept per table. Five of the seven land there:
 
-Either way the Bentley, Elmley and Overbury clear only 9–16% at best, so they
-need repricing or delisting regardless of the answer.
+| Table    | Net kept |                 |
+| -------- | -------- | --------------- |
+| Crofton  | £87      | ✓               |
+| Bentley  | £83      | ✓               |
+| Witley   | £79      | ✓               |
+| Elmley   | £69      | ✓ near          |
+| Overbury | £67      | ✓ near          |
+| Abberley | **£261** | ✗ 3× the target |
+| Pershore | **£414** | ✗ 4× the target |
 
-- [ ] Confirm which it is with D.I. Designs
-- [ ] Set `carriageIncludedInCost` on the supplier, fix the three placeholder
-      zeros, then re-run `scripts/margin-report.ts`
-- [ ] Reprice or delist the Bentley, Elmley and Overbury
+Pershore records a £215 cost on a £720 retail and Abberley £195 on £544, while
+their siblings sit at £275–£798. For Pershore to keep £80–100, cost plus carriage
+needs to be around £620–640, so a `costPrice` of roughly £540 — not £215.
+
+- [ ] Check the D.I. Designs invoice for the **Pershore** and **Abberley** cost
+      prices. They are almost certainly understated, which flatters the margin
+      report and would flatter any pricing decision made from it
 
 ### Open: ask Aosom whether carriage is in their trade price
 
-Four products carry a placeholder £0, weights 1.1 kg to 10.2 kg. Their margins
-(43%, 38%, 26%, 19%) are a best case until this is answered.
+Four products record £0, weights 1.1 kg to 10.2 kg. If that £0 means the same as
+it does for D.I. Designs — carriage inside the cost — their margins (43%, 38%,
+26%, 19%) are real. If Aosom bill it on top, all four are overstated.
 
 - [ ] Ask, then record it on the supplier document
