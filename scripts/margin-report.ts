@@ -16,14 +16,15 @@
  *                  createCheckoutSession), so this comes out of the margin, not
  *                  the customer's card.
  *
- *                  A recorded £0 is treated as unknown rather than as free.
- *                  Seven products carry one, and they are placeholders entered
- *                  to avoid working the figure out at listing time, not
- *                  suppliers who deliver for nothing. Counting them as free is
- *                  what made three D.I. Designs coffee tables look like they
- *                  cleared 9-16% when their four siblings all carry £80.
- *                  Anything without a real figure is marked ? and its margin is
- *                  a best case.
+ *                  A missing or £0 figure is only believed when the supplier is
+ *                  marked carriageIncludedInCost — SaunaPlunge include pallet
+ *                  delivery in the trade price, so £0 there is real. Otherwise
+ *                  it is treated as unknown, because those zeros are
+ *                  placeholders entered to skip the calculation at listing time.
+ *                  Counting them as free is what made three D.I. Designs coffee
+ *                  tables look like they cleared 9-16% when their four siblings
+ *                  all carry £80. Unknowns are marked ? and their margin is a
+ *                  best case.
  *   card fees      Stripe UK standard: 1.5% + 20p on a UK card. Small in
  *                  percentage terms and decisive on a £10 margin.
  *
@@ -75,6 +76,8 @@ interface Row {
   costPrice: number | null;
   shippingCost: number | null;
   supplier: string | null;
+  /** Supplier's carriageIncludedInCost — true when £0 carriage is genuine. */
+  carriageIncluded: boolean | null;
 }
 
 function money(n: number) {
@@ -84,7 +87,9 @@ function money(n: number) {
 async function main() {
   const rows = await client.fetch<Row[]>(
     `*[_type == "product" ${includeDrafts ? "" : '&& !(_id in path("drafts.**"))'}]{
-      _id, title, price, costPrice, shippingCost, "supplier": supplier->name
+      _id, title, price, costPrice, shippingCost,
+      "supplier": supplier->name,
+      "carriageIncluded": supplier->carriageIncludedInCost
     }`,
   );
 
@@ -97,8 +102,9 @@ async function main() {
     .map((r) => {
       const price = r.price!;
       const cost = r.costPrice!;
-      // A recorded 0 is a placeholder, not a supplier who ships for free.
-      const carriageUnknown = !r.shippingCost;
+      // A missing or 0 figure is a placeholder unless the supplier is known to
+      // bundle carriage into the trade price.
+      const carriageUnknown = !r.shippingCost && !r.carriageIncluded;
       const carriage = r.shippingCost ?? 0;
       const fees = price * CARD_RATE + CARD_FIXED;
       const keep = price - cost - carriage - fees;
@@ -131,7 +137,7 @@ async function main() {
     console.log(
       `${String(Math.round(r.margin * 100)).padStart(5)}%` +
         `${money(r.price).padStart(9)}${money(r.cost).padStart(9)}` +
-        `${(r.carriageUnknown ? "?" : money(r.carriage)).padStart(8)}` +
+        `${(r.carriageUnknown ? "?" : r.carriageIncluded && !r.carriage ? "incl" : money(r.carriage)).padStart(8)}` +
         `${money(r.fees).padStart(8)}${money(r.keep).padStart(9)}${flag} ` +
         `${(r.supplier ?? "—").slice(0, 16).padEnd(17)} ` +
         `${(r._id.startsWith("drafts.") ? "[d] " : "") + r.title.slice(0, 40)}`,

@@ -24,6 +24,25 @@ export const supplier = defineType({
       title: "Default lead time (days)",
       type: "number",
     }),
+    /**
+     * Whether carriage is inside the trade price or billed on top. This lives on
+     * the supplier because it is a fact about their terms, not about any one
+     * product — and because without it a product's `shippingCost` of 0 is
+     * ambiguous. It could mean "they deliver free" or "nobody has worked it out
+     * yet", and those give very different margins. SaunaPlunge include delivery
+     * in the trade price; D.I. Designs bill £80 an item separately.
+     *
+     * scripts/margin-report.ts reads this: when carriage is included, a missing
+     * or zero shippingCost is taken at face value; when it is not, the product's
+     * margin is reported as a best case until a real figure is entered.
+     */
+    defineField({
+      name: "carriageIncludedInCost",
+      title: "Carriage included in the trade price?",
+      type: "boolean",
+      description:
+        "On: the cost price already covers delivery to the customer, so a shipping cost of 0 on their products is real. Off or unset: they bill carriage separately, and a product with no shipping cost recorded has an overstated margin.",
+    }),
     defineField({ name: "notes", type: "text", rows: 3 }),
   ],
   preview: {

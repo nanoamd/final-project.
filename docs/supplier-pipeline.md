@@ -84,3 +84,43 @@ None of these accounts earn anything until the shop can take money.
       `https://www.kaikuhome.com/api/feeds/google-merchant`
 - [ ] **Rotate the Sanity write token** — the current one was shared in a chat
       transcript
+
+## Carriage — what each supplier's terms actually are
+
+`shippingCost` on a product is what the supplier charges to get the item to the
+customer. Delivery is free on the storefront, so it comes out of the margin.
+Where the terms are known they are recorded as `carriageIncludedInCost` on the
+supplier document, and `scripts/margin-report.ts` reads it.
+
+| Supplier     | Terms                                       | Status                                                    |
+| ------------ | ------------------------------------------- | --------------------------------------------------------- |
+| SaunaPlunge  | Pallet delivery inside the trade price      | Confirmed, recorded                                       |
+| AW Dropship  | Per-parcel by weight, £2.79 / £2.99 / £5.99 | Band table in `src/lib/suppliers/aw-dropship-shipping.ts` |
+| D.I. Designs | £80 an item                                 | **Unresolved — see below**                                |
+| Aosom        | Unknown                                     | Four products carry a placeholder £0                      |
+
+### Open: settle the D.I. Designs £80
+
+Four of their seven products record £80 of carriage; three record a placeholder
+£0. The open question is whether that £80 sits **on top of** the trade price or
+is **already inside** it. It decides real money either way:
+
+| If the £80 is…            | Consequence                                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| On top of the trade price | The three £0 tables really cost £80 to ship, so the **Elmley (−£11) and Overbury (−£13) sell at a loss** and the Bentley clears £3 |
+| Already inside it         | The four £80 entries double-count, so those four are under-reported by £80 each — the Pershore nets 68%, not 57%                   |
+
+Either way the Bentley, Elmley and Overbury clear only 9–16% at best, so they
+need repricing or delisting regardless of the answer.
+
+- [ ] Confirm which it is with D.I. Designs
+- [ ] Set `carriageIncludedInCost` on the supplier, fix the three placeholder
+      zeros, then re-run `scripts/margin-report.ts`
+- [ ] Reprice or delist the Bentley, Elmley and Overbury
+
+### Open: ask Aosom whether carriage is in their trade price
+
+Four products carry a placeholder £0, weights 1.1 kg to 10.2 kg. Their margins
+(43%, 38%, 26%, 19%) are a best case until this is answered.
+
+- [ ] Ask, then record it on the supplier document
