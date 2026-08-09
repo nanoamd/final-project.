@@ -14,9 +14,16 @@
  *   shippingCost   carriage, where it is recorded. Delivery is free to the
  *                  customer on every product (one £0 shipping option in
  *                  createCheckoutSession), so this comes out of the margin, not
- *                  the customer's card. 11 products have no figure recorded and
- *                  are marked — their real margin is lower than shown, and on a
- *                  heavy item it can be much lower.
+ *                  the customer's card.
+ *
+ *                  A recorded £0 is treated as unknown rather than as free.
+ *                  Seven products carry one, and they are placeholders entered
+ *                  to avoid working the figure out at listing time, not
+ *                  suppliers who deliver for nothing. Counting them as free is
+ *                  what made three D.I. Designs coffee tables look like they
+ *                  cleared 9-16% when their four siblings all carry £80.
+ *                  Anything without a real figure is marked ? and its margin is
+ *                  a best case.
  *   card fees      Stripe UK standard: 1.5% + 20p on a UK card. Small in
  *                  percentage terms and decisive on a £10 margin.
  *
@@ -90,6 +97,8 @@ async function main() {
     .map((r) => {
       const price = r.price!;
       const cost = r.costPrice!;
+      // A recorded 0 is a placeholder, not a supplier who ships for free.
+      const carriageUnknown = !r.shippingCost;
       const carriage = r.shippingCost ?? 0;
       const fees = price * CARD_RATE + CARD_FIXED;
       const keep = price - cost - carriage - fees;
@@ -101,7 +110,7 @@ async function main() {
         fees,
         keep,
         margin: price > 0 ? keep / price : 0,
-        carriageUnknown: r.shippingCost === null,
+        carriageUnknown,
       };
     })
     .sort((a, b) => b.margin - a.margin);
@@ -167,17 +176,20 @@ async function main() {
       `   Fine as a basket-filler alongside something bigger; not worth a listing on their own.`,
   );
 
-  // The floor nobody set. Checkout offers one shipping option at £0 with no
-  // minimum, so a basket holding only a small item ships free — and the cheapest
-  // products here do not contain the price of a parcel.
-  const cheapest = [...analysed].sort((a, b) => a.keep - b.keep)[0];
-  if (cheapest && cheapest.keep < 5) {
+  // Selling below cost. Worth its own section rather than a thin-margin mark:
+  // every sale of one of these makes the position worse, so no amount of traffic
+  // helps. Checkout has no minimum order value either, so a basket holding
+  // nothing but one of these is an order the site will happily take.
+  const atALoss = analysed.filter((r) => r.keep < 0);
+  if (atALoss.length) {
+    console.log(`\nSELLS AT A LOSS — every sale of these costs you money:`);
+    for (const r of atALoss)
+      console.log(
+        `  ${money(r.keep).padStart(9)}  ${money(r.price).padStart(8)} retail   ${r.title.slice(0, 44)}`,
+      );
     console.log(
-      `\nNo minimum order value. Delivery is free on every basket (one £0 shipping\n` +
-        `option in createCheckoutSession), so an order holding only ${cheapest.title.slice(0, 34)}\n` +
-        `leaves ${money(cheapest.keep)} to pay for a parcel. That is a decision to make before launch:\n` +
-        `a minimum order value, a delivery charge under a threshold, or accept it as\n` +
-        `the cost of getting a first customer.`,
+      `  Reprice or delist. There is no minimum order value, so a basket holding\n` +
+        `  only one of these is an order checkout will accept.`,
     );
   }
 
