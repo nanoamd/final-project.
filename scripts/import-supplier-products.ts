@@ -89,6 +89,13 @@ const noImages = flag("no-images");
 const categorySlug = arg("category");
 const limit = Number(arg("limit") ?? "500");
 const apply = flag("apply");
+/**
+ * When a saved page matches a product already listed, fill in the fields that
+ * product is missing instead of skipping it. Never creates a second document,
+ * never overwrites a field that already has a value, and never touches price,
+ * title or slug.
+ */
+const fillExisting = flag("fill-existing");
 
 /* ------------------------------------------------------------------- csv -- */
 
@@ -987,8 +994,35 @@ async function main() {
   }
 
   if (!apply) {
+    // --fill-existing does its work inside the creation loop below, which the
+    // dry run never reaches. Preview it here instead: fillMissingFields only
+    // commits when --apply is set, so calling it now reports without writing.
+    if (fillExisting && alreadyListed.size) {
+      console.log(`Already listed — what --apply would fill in:\n`);
+      let wouldFill = 0;
+      for (const [title, doc] of alreadyListed) {
+        const source = picked.find((r) => r.product.title === title)!.product;
+        const names = await fillMissingFields(doc._id, source);
+        if (names.length) {
+          console.log(
+            `  ~ ${title.slice(0, 42).padEnd(44)}${names.join(", ")}`,
+          );
+          wouldFill++;
+        } else {
+          console.log(
+            `  = ${title.slice(0, 42).padEnd(44)}nothing missing, would be left alone`,
+          );
+        }
+      }
+      console.log(
+        `\n  ${wouldFill} of ${alreadyListed.size} would gain something. Price, title and slug\n` +
+          `  are never touched.\n`,
+      );
+    }
+
     console.log(
-      `Dry run — nothing written. ${toImport.length} would be created.\n` +
+      `Dry run — nothing written. ${toImport.length} would be created` +
+        `${fillExisting && alreadyListed.size ? `, ${alreadyListed.size} filled in` : ""}.\n` +
         "Re-run with --apply once the list looks right. Prices above are from the\n" +
         "source and are NOT imported; each draft stays invalid in Studio until you\n" +
         "set a price, which is intentional.\n",
@@ -1024,8 +1058,90 @@ async function main() {
     row.extras = row.extras.filter((slug) => categoryIds.has(slug));
   }
 
+  /**
+   * Adds only what is absent. Reads the document first and builds a patch from
+   * the empty fields alone, so running it twice changes nothing the second time
+   * and a value entered by hand is never replaced by a supplier's.
+   *
+   * `price`, `title` and `slug` are deliberately absent from this list. A
+   * supplier page carries their trade price and their SEO title, and the slug is
+   * a live URL — filling any of those from a page would be the wrong direction.
+   */
+  async function fillMissingFields(
+    id: string,
+    p: SourceProduct,
+  ): Promise<string[]> {
+    const doc = await client.fetch<Record<string, unknown> | null>(
+      `*[_id == $id][0]{
+        supplierSku, description, dimensions, weight, deliveryLeadTime,
+        shippingCost, sourceUrl,
+        "specs": count(specs), "options": count(options), "gallery": count(gallery)
+      }`,
+      { id },
+    );
+    if (!doc) return [];
+
+    const empty = (key: string) => {
+      const v = doc[key];
+      return v === null || v === undefined || v === "" || v === 0;
+    };
+    const patch: Record<string, unknown> = {};
+    const names: string[] = [];
+    const add = (name: string, key: string, value: unknown) => {
+      if (!empty(key)) return;
+      patch[key] = value;
+      names.push(name);
+    };
+
+    if (p.sku) add("supplier code", "supplierSku", p.sku);
+    if (p.description) add("description", "description", p.description);
+    if (p.dimensions)
+      add("dimensions", "dimensions", {
+        _type: "dimensions",
+        ...p.dimensions,
+      });
+    if (p.weightKg !== undefined)
+      add("weight", "weight", {
+        _type: "weight",
+        unit: "kg",
+        value: p.weightKg,
+      });
+    if (p.leadTime) add("lead time", "deliveryLeadTime", p.leadTime);
+    if (p.sourceUrl) add("source URL", "sourceUrl", p.sourceUrl);
+    // Only when the page says delivery is included. `empty()` treats 0 as empty,
+    // which is right here: a 0 already meaning "carriage is in the cost" is
+    // simply rewritten to the same 0.
+    if (p.freeDelivery) add("free delivery", "shippingCost", 0);
+
+    if (p.specs?.length && !doc.specs) {
+      patch.specs = p.specs.map((s, index) => ({
+        _type: "productSpec",
+        _key: `spec-${index}`,
+        label: s.label,
+        value: s.value,
+      }));
+      names.push(`${p.specs.length} specs`);
+    }
+    if (p.colours?.length && !doc.options) {
+      patch.options = [
+        {
+          _type: "productOption",
+          _key: "option-colour",
+          label: "Colour",
+          values: p.colours,
+        },
+      ];
+      names.push("colour option");
+    }
+
+    if (!names.length) return [];
+    if (apply) await client.patch(id).set(patch).commit();
+    return names;
+  }
+
   let created = 0;
   let skipped = 0;
+  let enriched = 0;
   for (const { product: p, slug, extras } of picked) {
     const base = slugify(p.sku ? `${p.title}-${p.sku}` : p.title);
     const id = `drafts.product-import-${base}`;
@@ -1042,9 +1158,34 @@ async function main() {
     // whatever their ID.
     const existing = alreadyListed.get(p.title);
     if (existing) {
+      // Never a second document. With --fill-existing the page's detail is used
+      // to fill fields the listed product is missing — which is the useful thing
+      // to do when a saved page covers something already on sale, since the hand
+      // built listings have no dimensions, weight, specs or supplier code.
+      //
+      // Only ever fills what is empty. Nothing already entered is overwritten,
+      // and price, title and slug are never touched at all: those are yours, and
+      // a supplier page would happily replace your retail price with their trade
+      // one.
+      if (fillExisting) {
+        const filled = await fillMissingFields(existing._id, p);
+        if (filled.length) {
+          console.log(
+            `  ~ filled ${filled.join(", ")}\n      on ${existing._id} (${p.title.slice(0, 40)})`,
+          );
+          enriched++;
+        } else {
+          console.log(
+            `  = nothing missing on ${existing._id} (${p.title.slice(0, 40)})`,
+          );
+          skipped++;
+        }
+        continue;
+      }
       console.log(
         `  = already in the catalogue, skipped: ${p.title.slice(0, 44)}\n` +
-          `      matches ${existing._id} (${existing.title.slice(0, 44)})`,
+          `      matches ${existing._id} (${existing.title.slice(0, 44)})` +
+          `\n      (--fill-existing would add any detail it is missing)`,
       );
       skipped++;
       continue;
@@ -1166,9 +1307,13 @@ async function main() {
   }
 
   console.log(
-    `\nDone. ${created} draft(s) created, ${skipped} already existed.\n` +
-      "They are DRAFTS with no price — set price (and check the category) in\n" +
-      "Studio, then publish.\n",
+    `\nDone. ${created} draft(s) created, ${skipped} already existed` +
+      `${enriched ? `, ${enriched} existing product(s) filled in` : ""}.\n` +
+      "New ones are DRAFTS with no price — set price (and check the category) in\n" +
+      "Studio, then publish.\n" +
+      (enriched
+        ? "Products that were filled in keep whatever price and title they had.\n"
+        : ""),
   );
 }
 
