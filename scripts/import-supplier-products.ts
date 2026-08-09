@@ -354,7 +354,24 @@ export function descriptionFromHtml(html: string): string | null {
       html,
     );
   if (!panel) return null;
-  const text = plainText(panel[1]!).replace(/^Description\s*/i, "");
+
+  /**
+   * Paragraph boundaries kept, as blank lines for toPortableText to split on.
+   *
+   * Running plainText over the whole panel collapsed every `\n` to a space, so 33
+   * of the 74 D.I. Designs descriptions arrived as one wall of text when the
+   * supplier had written three or four paragraphs. The paragraphs are the only
+   * structure these descriptions have — there are no real headings in any of the
+   * 74, just a generic "Description" label above the copy, which is dropped
+   * because the product page already labels the section.
+   */
+  const blocks = [...panel[1]!.matchAll(/<(p|h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi)]
+    .map(([, , inner]) => plainText(inner!))
+    .filter((text) => text && !/^(description|details|overview)$/i.test(text));
+
+  const text = blocks.length
+    ? blocks.join("\n\n")
+    : plainText(panel[1]!).replace(/^Description\s*/i, "");
   return text.length > 40 ? text : null;
 }
 

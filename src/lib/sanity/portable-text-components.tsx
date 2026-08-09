@@ -13,6 +13,25 @@ export const portableTextComponents: PortableTextComponents = {
         {children}
       </p>
     ),
+    /**
+     * Rendered as an `<h2>` element on purpose, despite being an `h1` block.
+     *
+     * 227 blocks across 42 product descriptions are styled `h1`, and this style
+     * had no entry here at all — so PortableText fell back to its default and
+     * they came out at body-text size, indistinguishable from the paragraph above
+     * them. That is the bug: a heading that does not look like one.
+     *
+     * The element is `h2` rather than `h1` because the page template already
+     * emits the one `h1` a document should have (the product or page title). Two
+     * `h1`s on a page is an outline error screen readers announce and Google
+     * reads. So: largest heading size in the body, correct position in the
+     * outline.
+     */
+    h1: ({ children }) => (
+      <h2 className="text-ink font-display mt-10 mb-4 text-[1.75rem] tracking-tight first:mt-0 sm:text-3xl">
+        {children}
+      </h2>
+    ),
     h2: ({ children }) => (
       <h2 className="text-ink font-display mt-10 mb-4 text-2xl tracking-tight first:mt-0">
         {children}
@@ -22,6 +41,13 @@ export const portableTextComponents: PortableTextComponents = {
       <h3 className="text-ink font-display mt-8 mb-3 text-xl tracking-tight first:mt-0">
         {children}
       </h3>
+    ),
+    // Not used in the dataset today, but mapped so a fourth level added in Studio
+    // cannot silently render at paragraph size the way h1 did.
+    h4: ({ children }) => (
+      <h4 className="text-ink font-display mt-6 mb-2 text-lg tracking-tight first:mt-0">
+        {children}
+      </h4>
     ),
     blockquote: ({ children }) => (
       <blockquote className="border-brass text-graphite my-6 border-l-2 pl-5 italic">
@@ -42,13 +68,17 @@ export const portableTextComponents: PortableTextComponents = {
     ),
   },
   marks: {
-    strong: ({ children }) => <strong className="text-ink font-semibold">{children}</strong>,
+    strong: ({ children }) => (
+      <strong className="text-ink font-semibold">{children}</strong>
+    ),
     link: ({ value, children }) => (
       <a
         href={value?.href}
         className="text-brass underline underline-offset-2"
         target={value?.href?.startsWith("http") ? "_blank" : undefined}
-        rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
+        rel={
+          value?.href?.startsWith("http") ? "noopener noreferrer" : undefined
+        }
       >
         {children}
       </a>
@@ -60,7 +90,12 @@ export const portableTextComponents: PortableTextComponents = {
       if (!url) return null;
       return (
         <span className="border-line relative my-8 block aspect-[16/10] w-full overflow-hidden rounded-xl border">
-          <Image src={url} alt={value?.alt ?? ""} fill className="object-cover" />
+          <Image
+            src={url}
+            alt={value?.alt ?? ""}
+            fill
+            className="object-cover"
+          />
         </span>
       );
     },
