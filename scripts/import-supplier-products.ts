@@ -521,6 +521,16 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
     slug: "garden-furniture",
   },
   // Indoor
+  //
+  // Sofas sit below the outdoor rule on purpose: a rattan or patio sofa is
+  // garden furniture and is claimed above, so only what is left reaches here.
+  // Sofa beds and corner sofas are the same category, and a "sofa table" is not
+  // a sofa — hence the negative lookahead rather than a bare /sofa/.
+  {
+    pattern:
+      /\bsofa(?! table)\b|settee|couch|chaise ?longue|loveseat|snuggler|\barmchair\b|\baccent chair\b|\bocc?asional chair\b/i,
+    slug: "sofas",
+  },
   { pattern: /computer desk|writing desk|\bdesk\b/i, slug: "desks" },
   { pattern: /bedside (table|cabinet)|nightstand/i, slug: "bedside-tables" },
   { pattern: /coffee table/i, slug: "coffee-tables" },
