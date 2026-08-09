@@ -34,6 +34,13 @@ import { pathToFileURL } from "node:url";
 
 import { createClient } from "@sanity/client";
 
+export interface ProductDimensions {
+  length: number;
+  width: number;
+  height: number;
+  unit: "cm" | "mm";
+}
+
 interface SourceProduct {
   title: string;
   description?: string;
@@ -45,6 +52,25 @@ interface SourceProduct {
   sourceUrl?: string;
   /** Absolute paths to images already on disk, for the --images mode. */
   localFiles?: string[];
+
+  /* Everything below is read from the saved page beyond the JSON-LD basics.
+   * A supplier page carries far more than name and images — the Abberley's
+   * carries its dimensions, weight, materials, colourways, packed size and lead
+   * time — and leaving it behind means re-typing all of it into Studio by hand,
+   * 50 times over. */
+
+  dimensions?: ProductDimensions;
+  weightKg?: number;
+  /** Spec-sheet rows, already label/value shaped. */
+  specs?: { label: string; value: string }[];
+  /** e.g. "7–10 days", en dash, matching normalise-lead-times.ts output. */
+  leadTime?: string;
+  /** Colourways the supplier lists, for a Colour option. */
+  colours?: string[];
+  /** True when the page states delivery is included in the price. */
+  freeDelivery?: boolean;
+  /** Why the description needs a human read before publishing, if it does. */
+  tradeLanguage?: string[];
 }
 
 /* ------------------------------------------------------------------ args -- */
@@ -231,14 +257,209 @@ function productFromJsonLd(html: string): SourceProduct | null {
   return null;
 }
 
+/* ------------------------------------------------- html: the rest of it -- */
+
+/** Tags out, entities decoded, whitespace collapsed. */
+export function plainText(fragment: string): string {
+  return fragment
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#0?39;|&apos;|&rsquo;/gi, "'")
+    .replace(/&eacute;/gi, "é")
+    .replace(/&pound;/gi, "£")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * "110W x 50D x 40H cm" → { length: 110, width: 50, height: 40, unit: "cm" }.
+ *
+ * W maps to length and D to width, which is the convention the catalogue already
+ * uses: the Abberley was entered by hand as length 110, width 50, height 40 from
+ * a page reading "110W x 50D x 40H cm". Matching it matters, because the product
+ * page prints these in a fixed order.
+ */
+export function parseDimensions(raw: string): ProductDimensions | null {
+  const unit = /\bmm\b/i.test(raw) ? "mm" : /\bcm\b/i.test(raw) ? "cm" : null;
+  if (!unit) return null;
+  const axis = (letter: string) => {
+    const m = new RegExp(`(\\d+(?:\\.\\d+)?)\\s*${letter}\\b`, "i").exec(raw);
+    return m ? Number(m[1]) : null;
+  };
+  const length = axis("W");
+  const width = axis("D");
+  const height = axis("H");
+  if (length === null || width === null || height === null) return null;
+  return { length, width, height, unit };
+}
+
+/** "25 kg" / "25kg" / "gross weight 30kg" → the number, in kg. */
+export function parseWeightKg(raw: string): number | null {
+  const m = /(\d+(?:\.\d+)?)\s*kg\b/i.exec(raw);
+  if (m) return Number(m[1]);
+  const g = /(\d+(?:\.\d+)?)\s*g\b/i.exec(raw);
+  return g ? Number(g[1]) / 1000 : null;
+}
+
+/** WooCommerce's additional-information table, as label/value pairs. */
+export function attributeRows(
+  html: string,
+): { label: string; value: string }[] {
+  const cells = [
+    ...html.matchAll(
+      /<t[hd][^>]*class="[^"]*woocommerce-product-attributes-item__(label|value)[^"]*"[^>]*>([\s\S]*?)<\/t[hd]>/gi,
+    ),
+  ].map((m) => ({ kind: m[1]!.toLowerCase(), text: plainText(m[2]!) }));
+
+  const rows: { label: string; value: string }[] = [];
+  for (let i = 0; i < cells.length - 1; i++) {
+    if (cells[i]!.kind === "label" && cells[i + 1]!.kind === "value") {
+      const label = cells[i]!.text;
+      const value = cells[i + 1]!.text;
+      if (label && value) rows.push({ label, value });
+      i++;
+    }
+  }
+  return rows;
+}
+
+/**
+ * The description panel, not the JSON-LD `description`.
+ *
+ * The JSON-LD field holds the meta description — 148 characters of search copy
+ * ("made for trade professionals... exclusive trade pricing") — while the panel
+ * holds the real product description. Importing the former is how a competitor's
+ * trade pitch ends up on a retail product page.
+ */
+export function descriptionFromHtml(html: string): string | null {
+  const panel =
+    /<div[^>]*class="[^"]*woocommerce-Tabs-panel--description[^"]*"[^>]*>([\s\S]*?)<\/div>/i.exec(
+      html,
+    );
+  if (!panel) return null;
+  const text = plainText(panel[1]!).replace(/^Description\s*/i, "");
+  return text.length > 40 ? text : null;
+}
+
+/**
+ * Wording that gives away a trade supplier's own audience. None of it belongs on
+ * a consumer storefront — "ideal for hotel lobbies, a show home lounge, or a
+ * rental property" tells a shopper they are not the customer.
+ *
+ * Flagged rather than stripped. Cutting sentences automatically would mangle
+ * copy, and every one of these needs a human read anyway.
+ */
+const TRADE_LANGUAGE =
+  /\b(trade (?:professionals?|pricing|price|only|customers?|account)|wholesale|hotel(?: lobb(?:y|ies))?|show ?home|showroom|rental propert(?:y|ies)|contract (?:furniture|use)|bulk (?:order|buy)|B2B|RRP)\b/gi;
+
+export function tradeLanguageIn(text: string): string[] {
+  return [
+    ...new Set(
+      [...text.matchAll(TRADE_LANGUAGE)].map((m) => m[0].toLowerCase()),
+    ),
+  ];
+}
+
+/** "ready to ship within 7-10 days" → "7–10 days", the form the page expects. */
+export function leadTimeFromHtml(html: string): string | null {
+  const text = plainText(html);
+  const m =
+    /(?:ready to ship|dispatch(?:ed)?|delivery|ships?)\D{0,40}?(\d+)\s*[-–—]\s*(\d+)\s*(working\s+)?(day|days|week|weeks)\b/i.exec(
+      text,
+    );
+  if (!m) return null;
+  const unit = m[4]!.toLowerCase().replace(/s$/, "") + "s";
+  return `${m[1]}–${m[2]} ${unit}`;
+}
+
+/**
+ * Whether the page says delivery is included. Deliberately narrow: it must say
+ * delivery or shipping is free or included, not merely mention delivery. A false
+ * positive here writes a £0 carriage cost and overstates the margin, which is the
+ * mistake the margin report exists to catch.
+ */
+export function freeDeliveryStated(html: string): boolean {
+  const text = plainText(html);
+  return /\b(free (?:uk |mainland |standard )*(?:delivery|shipping|carriage)|(?:delivery|shipping|carriage) (?:is )?(?:included|free)(?: in the price)?|includes? (?:free )?(?:delivery|shipping|carriage)|price includes delivery)\b/i.test(
+    text,
+  );
+}
+
+/** Splits "Brown, Oak" into colourways. */
+export function parseColours(raw: string): string[] {
+  return raw
+    .split(/\s*[,/|]\s*/)
+    .map((c) => c.trim())
+    .filter((c) => c.length > 1 && c.length < 30);
+}
+
+/** Everything the saved page holds beyond the JSON-LD basics. */
+export function detailsFromHtml(html: string): Partial<SourceProduct> {
+  const rows = attributeRows(html);
+  const find = (name: RegExp) =>
+    rows.find((r) => name.test(r.label))?.value ?? null;
+
+  const dimensionText = find(/^dimensions?$/i);
+  const weightText = find(/^weight$/i);
+  const colourText = find(/^colou?rs?$/i);
+  const description = descriptionFromHtml(html);
+
+  // Packed size and gross weight sit in the Shipping prose rather than the
+  // table, and both matter: gross weight is what a courier bills on.
+  const text = plainText(html);
+  const packing =
+    /Packing Dimensions\s*([^;<]+?)(?:;|\s*gross)/i.exec(text)?.[1]?.trim() ??
+    null;
+  const grossWeight =
+    /gross weight\s*(\d+(?:\.\d+)?\s*kg)/i.exec(text)?.[1]?.trim() ?? null;
+
+  const specs = [
+    ...rows.filter((r) => !/^(dimensions?|weight)$/i.test(r.label)),
+    ...(dimensionText ? [{ label: "Dimensions", value: dimensionText }] : []),
+    ...(weightText ? [{ label: "Weight", value: weightText }] : []),
+    ...(packing ? [{ label: "Packed size", value: packing }] : []),
+    ...(grossWeight ? [{ label: "Packed weight", value: grossWeight }] : []),
+  ];
+
+  return {
+    ...(description ? { description } : {}),
+    ...(dimensionText && parseDimensions(dimensionText)
+      ? { dimensions: parseDimensions(dimensionText)! }
+      : {}),
+    ...(weightText && parseWeightKg(weightText) !== null
+      ? { weightKg: parseWeightKg(weightText)! }
+      : {}),
+    ...(specs.length ? { specs } : {}),
+    ...(leadTimeFromHtml(html) ? { leadTime: leadTimeFromHtml(html)! } : {}),
+    ...(colourText && parseColours(colourText).length > 1
+      ? { colours: parseColours(colourText) }
+      : {}),
+    ...(freeDeliveryStated(html) ? { freeDelivery: true } : {}),
+    ...(description && tradeLanguageIn(description).length
+      ? { tradeLanguage: tradeLanguageIn(description) }
+      : {}),
+  };
+}
+
 function fromHtmlDir(dir: string): SourceProduct[] {
   const out: SourceProduct[] = [];
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     if (!statSync(full).isFile() || !/\.html?$/i.test(entry)) continue;
-    const found = productFromJsonLd(readFileSync(full, "utf8"));
-    if (found) out.push(found);
-    else console.warn(`  ! ${entry}: no JSON-LD Product block found — skipped`);
+    const html = readFileSync(full, "utf8");
+    const found = productFromJsonLd(html);
+    if (!found) {
+      console.warn(`  ! ${entry}: no JSON-LD Product block found — skipped`);
+      continue;
+    }
+    // The page's own detail wins over the JSON-LD summary, description included.
+    out.push({ ...found, ...detailsFromHtml(html) });
   }
   return out;
 }
@@ -701,9 +922,63 @@ async function main() {
       );
   }
 
+  // What the pages said about delivery. Grouped rather than printed per product,
+  // because the useful question is which products need a carriage figure and
+  // which have already answered it.
+  const toImport = picked.filter((r) => !alreadyListed.has(r.product.title));
+  const freeDelivery = toImport.filter((r) => r.product.freeDelivery);
+  if (toImport.length) {
+    console.log(
+      `Delivery: ${freeDelivery.length} of ${toImport.length} page(s) state it is included in the price` +
+        ` (imported as £0 carriage).\n` +
+        `          ${toImport.length - freeDelivery.length} say nothing, so carriage is left unset rather than\n` +
+        `          assumed free — the margin report reads that as unknown.\n`,
+    );
+  }
+
+  // Copy written for a trade audience. Not stripped, because cutting sentences
+  // automatically mangles them, and each needs reading anyway.
+  const tradeCopy = toImport.filter((r) => r.product.tradeLanguage?.length);
+  if (tradeCopy.length) {
+    console.log(
+      `${tradeCopy.length} description(s) are written for trade buyers and need rewording\n` +
+        `before publishing — a shopper reading "ideal for hotel lobbies" learns they\n` +
+        `are not the customer:\n` +
+        tradeCopy
+          .map(
+            ({ product }) =>
+              `  ! ${product.title.slice(0, 44).padEnd(46)}${product.tradeLanguage!.join(", ")}`,
+          )
+          .join("\n") +
+        "\n",
+    );
+  }
+
+  // What was actually recovered from the pages, so a thin extraction is obvious
+  // before 50 half-empty drafts land in Studio.
+  if (toImport.length) {
+    const got = (pick: (p: SourceProduct) => unknown) =>
+      toImport.filter((r) => {
+        const v = pick(r.product);
+        return Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null;
+      }).length;
+    console.log(
+      `Extracted from ${toImport.length} page(s):  ` +
+        [
+          `description ${got((p) => p.description)}`,
+          `dimensions ${got((p) => p.dimensions)}`,
+          `weight ${got((p) => p.weightKg)}`,
+          `specs ${got((p) => p.specs)}`,
+          `lead time ${got((p) => p.leadTime)}`,
+          `colours ${got((p) => p.colours)}`,
+        ].join(" · ") +
+        "\n",
+    );
+  }
+
   if (!apply) {
     console.log(
-      `Dry run — nothing written. ${picked.length - alreadyListed.size} would be created.\n` +
+      `Dry run — nothing written. ${toImport.length} would be created.\n` +
         "Re-run with --apply once the list looks right. Prices above are from the\n" +
         "source and are NOT imported; each draft stays invalid in Studio until you\n" +
         "set a price, which is intentional.\n",
@@ -836,6 +1111,40 @@ async function main() {
       // hand, and left nothing behind to recognise a re-import by.
       ...(p.sku ? { supplierSku: p.sku } : {}),
       ...(p.sourceUrl ? { sourceUrl: p.sourceUrl } : {}),
+      ...(p.dimensions
+        ? { dimensions: { _type: "dimensions", ...p.dimensions } }
+        : {}),
+      ...(p.weightKg !== undefined
+        ? { weight: { _type: "weight", unit: "kg", value: p.weightKg } }
+        : {}),
+      ...(p.specs?.length
+        ? {
+            specs: p.specs.map((s, index) => ({
+              _type: "productSpec",
+              _key: `spec-${index}`,
+              label: s.label,
+              value: s.value,
+            })),
+          }
+        : {}),
+      ...(p.leadTime ? { deliveryLeadTime: p.leadTime } : {}),
+      // Only written when the page actually says so. Left unset otherwise, which
+      // the margin report reads as unknown rather than as free — an invented £0
+      // would overstate the margin on every product carrying it.
+      ...(p.freeDelivery ? { shippingCost: 0 } : {}),
+      ...(p.colours?.length
+        ? {
+            options: [
+              {
+                _type: "productOption",
+                _key: "option-colour",
+                // `label`, not `name` — see productOption in schemaTypes.
+                label: "Colour",
+                values: p.colours,
+              },
+            ],
+          }
+        : {}),
       ...(gallery.length ? { gallery } : {}),
       stockStatus: "Coming Soon",
       currency: "GBP",
