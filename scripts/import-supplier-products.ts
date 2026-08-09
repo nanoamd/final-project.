@@ -465,8 +465,40 @@ function fromHtmlDir(dir: string): SourceProduct[] {
       console.warn(`  ! ${entry}: no JSON-LD Product block found — skipped`);
       continue;
     }
+
+    /**
+     * Images alongside the page, if webarchive-to-html.sh put them there.
+     *
+     * Preferred over the URLs in the JSON-LD, and not as an optimisation:
+     * didesigns.co.uk answers automated image requests with a 202 and a
+     * 241-byte CAPTCHA page, so downloading them from here produces four
+     * kilobytes of HTML uploaded as a product photo. The copy inside the
+     * webarchive is the only one that works.
+     *
+     * Sorted by filename because the extractor numbers them in the order the
+     * page listed them, which is the order the gallery should open in.
+     */
+    const imageDir = full.replace(/\.html?$/i, ".images");
+    let localFiles: string[] | undefined;
+    try {
+      if (statSync(imageDir).isDirectory()) {
+        const files = readdirSync(imageDir)
+          .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+          .sort()
+          .map((f) => join(imageDir, f));
+        if (files.length) localFiles = files;
+      }
+    } catch {
+      // No sibling directory — fall back to the URLs and let the fetch fail
+      // loudly per image rather than silently here.
+    }
+
     // The page's own detail wins over the JSON-LD summary, description included.
-    out.push({ ...found, ...detailsFromHtml(html) });
+    out.push({
+      ...found,
+      ...detailsFromHtml(html),
+      ...(localFiles ? { localFiles, images: [] } : {}),
+    });
   }
   return out;
 }
