@@ -575,6 +575,21 @@ const CATEGORY_RULES: { pattern: RegExp; slug: string }[] = [
   // so requiring it sent a bedside cabinet to no category at all.
   { pattern: /\bbedside\b|nightstand/i, slug: "bedside-tables" },
   { pattern: /coffee table/i, slug: "coffee-tables" },
+  // Console before the side-table rule: a "1 Drawer Black Console Table" is a
+  // console, and nothing in the side-table pattern should get first refusal.
+  { pattern: /console table/i, slug: "console-tables" },
+  // End, occasion and nest tables are one shopping intent, so one category.
+  // "Occasion table" and "occasional table" are both in use — D.I. Designs say
+  // "Leckford Black Ribbed Occasion Table" — so the "al" has to be optional.
+  {
+    pattern:
+      /end table|occasion(al)? table|nest (of )?tables?|\d+ nest tables?|side table/i,
+    slug: "side-tables",
+  },
+  {
+    pattern: /\btv (unit|stand|cabinet|console)\b|media unit/i,
+    slug: "tv-units",
+  },
   { pattern: /\brug\b|runner rug/i, slug: "rugs" },
   { pattern: /towel rail|towel radiator/i, slug: "towel-rails" },
   { pattern: /mirror/i, slug: "bathroom-mirrors" },
