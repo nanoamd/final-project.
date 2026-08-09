@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   cleanSupplierTitle,
+  deriveSummary,
   freeDeliveryStated,
   leadTimeFromHtml,
   parseColours,
@@ -9,6 +10,7 @@ import {
   parseWeightKg,
   stockFromHtml,
   titleFingerprint,
+  toPortableText,
   tradeLanguageIn,
 } from "./import-supplier-products";
 
@@ -236,5 +238,71 @@ describe("stockFromHtml", () => {
     expect(
       stockFromHtml('<p class="stockist-note">Find a stockist</p>'),
     ).toBeNull();
+  });
+});
+
+describe("toPortableText", () => {
+  it("wraps a paragraph as one block with a span", () => {
+    const blocks = toPortableText("A glass-topped coffee table in oak.");
+    expect(blocks).toHaveLength(1);
+    expect(blocks[0]).toMatchObject({
+      _type: "block",
+      style: "normal",
+      markDefs: [],
+    });
+    expect(
+      (blocks[0] as { children: Record<string, unknown>[] }).children[0],
+    ).toMatchObject({
+      _type: "span",
+      text: "A glass-topped coffee table in oak.",
+      marks: [],
+    });
+  });
+
+  it("splits on blank lines into separate blocks", () => {
+    expect(toPortableText("First para.\n\nSecond para.")).toHaveLength(2);
+  });
+
+  it("gives every block and span a key, as Sanity requires", () => {
+    const blocks = toPortableText("One.\n\nTwo.") as {
+      _key: string;
+      children: { _key: string }[];
+    }[];
+    expect(new Set(blocks.map((b) => b._key)).size).toBe(2);
+    expect(blocks.every((b) => Boolean(b.children[0]!._key))).toBe(true);
+  });
+});
+
+describe("deriveSummary", () => {
+  it("prefers sentences with no trade language", () => {
+    const summary = deriveSummary(
+      "The black Abberley console table is designed for trade professionals in mind. " +
+        "Constructed from solid oak with a durable black finish, it suits a hallway or behind a sofa.",
+    );
+    expect(summary).not.toContain("trade professionals");
+    expect(summary).toContain("solid oak");
+  });
+
+  it("falls back to the opening sentence when every sentence is trade-facing", () => {
+    // Better a flagged summary than an empty one — Google disapproves an empty
+    // description, and these products are already listed as needing a rewrite.
+    const summary = deriveSummary(
+      "Ideal for hotel lobbies and rental properties.",
+    );
+    expect(summary).toBe("Ideal for hotel lobbies and rental properties.");
+  });
+
+  it("stays within the cap and does not cut mid-word", () => {
+    const long = "A ".concat(
+      "beautifully considered oak side table ".repeat(20),
+    );
+    const summary = deriveSummary(long, 100);
+    expect(summary.length).toBeLessThanOrEqual(100);
+    expect(summary.endsWith("-")).toBe(false);
+    expect(long).toContain(summary.split(" ").slice(0, 3).join(" "));
+  });
+
+  it("returns an empty string for empty input rather than throwing", () => {
+    expect(deriveSummary("")).toBe("");
   });
 });

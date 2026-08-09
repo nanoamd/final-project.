@@ -435,6 +435,77 @@ export function stockFromHtml(
   return null;
 }
 
+/**
+ * Wraps plain text as Portable Text blocks.
+ *
+ * `description` on the product schema is `richText`, an array of blocks — and the
+ * importer was writing a bare string into it. 72 of the 74 D.I. Designs drafts
+ * landed that way, which Studio shows as an unreadable field and the product page
+ * cannot render at all, because PortableText is handed a string where it expects
+ * an array.
+ */
+export function toPortableText(text: string): Record<string, unknown>[] {
+  return text
+    .split(/\n{2,}/)
+    .map((para) => para.trim())
+    .filter(Boolean)
+    .map((para, index) => ({
+      _type: "block",
+      _key: `imported-${index}`,
+      style: "normal",
+      markDefs: [],
+      children: [
+        {
+          _type: "span",
+          _key: `imported-${index}-0`,
+          text: para,
+          marks: [],
+        },
+      ],
+    }));
+}
+
+/**
+ * A short summary, derived from the description.
+ *
+ * This is not cosmetic: `summary` is the field the Google Merchant feed sends as
+ * `<description>` (see MERCHANT_FEED_QUERY), so a product without one is
+ * submitted to Google with an empty description and disapproved. 72 of the 74
+ * imports had none, because the importer never wrote it.
+ *
+ * Prefers the first sentences that carry no trade language, so the copy Google
+ * sees does not tell a shopper the product is "designed for trade professionals".
+ * Falls back to the opening sentence when every sentence is like that — better a
+ * flagged summary than an empty one, and those products are already listed as
+ * needing a rewrite.
+ */
+export function deriveSummary(description: string, maxChars = 300): string {
+  const sentences = description
+    .replace(/\s+/g, " ")
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const clean = sentences.filter((s) => tradeLanguageIn(s).length === 0);
+  const pool = clean.length ? clean : sentences;
+
+  let out = "";
+  for (const sentence of pool) {
+    if (out && (out + " " + sentence).length > maxChars) break;
+    out = out ? `${out} ${sentence}` : sentence;
+    if (out.length >= maxChars) break;
+  }
+  // A single sentence longer than the cap: trim at a word boundary rather than
+  // mid-word, and drop any trailing punctuation the cut left dangling.
+  if (out.length > maxChars) {
+    out = out
+      .slice(0, maxChars)
+      .replace(/\s+\S*$/, "")
+      .replace(/[,;:]$/, "");
+  }
+  return out;
+}
+
 /** Splits "Brown, Oak" into colourways. */
 export function parseColours(raw: string): string[] {
   return raw
@@ -1169,7 +1240,7 @@ async function main() {
   ): Promise<string[]> {
     const doc = await client.fetch<Record<string, unknown> | null>(
       `*[_id == $id][0]{
-        supplierSku, description, dimensions, weight, deliveryLeadTime,
+        supplierSku, description, summary, dimensions, weight, deliveryLeadTime,
         shippingCost, sourceUrl, stockQuantity,
         "specs": count(specs), "options": count(options), "gallery": count(gallery),
         // Coming Soon counts as empty here: it is the importer's fallback, not a
@@ -1194,7 +1265,15 @@ async function main() {
     };
 
     if (p.sku) add("supplier code", "supplierSku", p.sku);
-    if (p.description) add("description", "description", p.description);
+    if (p.description) {
+      // A bare string counts as empty here, so the 72 drafts written before this
+      // was Portable Text get repaired rather than skipped as "already set".
+      if (!Array.isArray(doc.description)) {
+        patch.description = toPortableText(p.description);
+        names.push("description (as rich text)");
+      }
+      add("summary", "summary", deriveSummary(p.description));
+    }
     if (p.dimensions)
       add("dimensions", "dimensions", {
         _type: "dimensions",
@@ -1380,7 +1459,16 @@ async function main() {
             })),
           }
         : {}),
-      ...(p.description ? { description: p.description } : {}),
+      // Portable Text, not a bare string: `description` is a richText array, and
+      // writing a string there leaves a field Studio cannot show and the product
+      // page cannot render. `summary` is derived because it is what the Merchant
+      // feed sends to Google as the product description.
+      ...(p.description
+        ? {
+            description: toPortableText(p.description),
+            summary: deriveSummary(p.description),
+          }
+        : {}),
       // The supplier's code goes in supplierSku, not sku. `sku` is ours
       // (KK-CT-ABB-BRN-001) and is what reaches Google and an invoice, so it is
       // left unset for you to assign — the audit's "no SKU" finding is then the
