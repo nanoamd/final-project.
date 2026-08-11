@@ -169,24 +169,31 @@ export function ProductSummary({
           {product.summary}
         </p>
 
-        <ul className="border-line grid gap-3 border-y py-6">
-          {product.highlights.map((highlight, i) => {
-            const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length] ?? Trees;
-            return (
-              <li
-                key={highlight}
-                className="flex items-center gap-3 text-[14px]"
-              >
-                <Icon
-                  className="text-ink/50 size-[18px] shrink-0"
-                  strokeWidth={1.5}
-                  aria-hidden
-                />
-                <span className="text-graphite">{highlight}</span>
-              </li>
-            );
-          })}
-        </ul>
+        {/* Rendered only when there is something to list. The bordered band was
+            previously unconditional, so a product with no highlights showed an
+            empty strip between two rules — a visible gap on the page where copy
+            should be. 58 of 77 published products have no highlights, so this was
+            most of the catalogue. */}
+        {product.highlights.length ? (
+          <ul className="border-line grid gap-3 border-y py-6">
+            {product.highlights.map((highlight, i) => {
+              const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length] ?? Trees;
+              return (
+                <li
+                  key={highlight}
+                  className="flex items-center gap-3 text-[14px]"
+                >
+                  <Icon
+                    className="text-ink/50 size-[18px] shrink-0"
+                    strokeWidth={1.5}
+                    aria-hidden
+                  />
+                  <span className="text-graphite">{highlight}</span>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
 
         {product.options?.map((option) => (
           <div key={option.label}>
