@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
+import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import { cn } from "@/lib/utils";
 import type { SanityCategory, SanityDepartment } from "@/types/sanity-content";
 
@@ -85,7 +86,7 @@ export function ShopDrillNav({
 
   const effectiveRoom = hoveredRoom ?? clickedRoom ?? activeRoomSlug;
   const tier2Categories = categories.filter(
-    (c) => c.departmentSlug === effectiveRoom,
+    (c) => effectiveRoom != null && categoryInRoom(c, effectiveRoom),
   );
 
   const effectiveCategory = [hoveredCategory, clickedCategory].find(
@@ -133,7 +134,7 @@ export function ShopDrillNav({
             theme={t}
             href={room.href}
             label={room.name}
-            hasChildren={categories.some((c) => c.departmentSlug === room.slug)}
+            hasChildren={categories.some((c) => categoryInRoom(c, room.slug))}
             onMouseEnter={() => setHoveredRoom(room.slug)}
             onToggle={() =>
               setClickedRoom((prev) => (prev === room.slug ? null : room.slug))

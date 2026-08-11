@@ -100,6 +100,19 @@ export interface SanityCategory {
   description: string;
   departmentSlug?: string | null;
   departmentName?: string | null;
+  /**
+   * Every room this category is shoppable from, primary first.
+   *
+   * Filter on this rather than `departmentSlug` when deciding whether a category
+   * belongs to a room: a category can be reached from several, and
+   * `departmentSlug` only ever holds the first.
+   */
+  departmentSlugs?: string[] | null;
+  /**
+   * Selectable from its rooms, but kept out of their combined product grids —
+   * so tapping Sauna shows saunas, not four bottles of oil beside a £5,279 cabin.
+   */
+  excludeFromRoomGrid?: boolean | null;
   iconName?: string;
   /** Editorial override — show as coming-soon even if products exist. */
   comingSoon: boolean;

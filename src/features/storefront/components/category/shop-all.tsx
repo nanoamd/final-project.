@@ -4,6 +4,7 @@ import { PromoBanner } from "@/components/shared/promo-banner";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
 import { formatPrice } from "@/lib/format";
+import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import {
   getAllProducts,
   getCategories,
@@ -65,7 +66,7 @@ export async function ShopAll({
       (c) =>
         c.slug !== categorySlug &&
         (c.productCount ?? 0) > 0 &&
-        (!siblingRoom || c.departmentSlug === siblingRoom.slug),
+        (!siblingRoom || categoryInRoom(c, siblingRoom.slug)),
     )
     .sort((a, b) => (b.productCount ?? 0) - (a.productCount ?? 0))
     .slice(0, 6);

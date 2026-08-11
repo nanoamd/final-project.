@@ -36,8 +36,43 @@ export const category = defineType({
     }),
     defineField({
       name: "department",
+      title: "Primary room",
       type: "reference",
       to: [{ type: "department" }],
+      description:
+        "The room this category belongs to first. Drives its breadcrumb and its URL's place in the hierarchy.",
+    }),
+    /**
+     * A category can be shopped from more than one room.
+     *
+     * Wellness Accessories is the case that forced this: the oils and buckets
+     * belong under Sauna and under Outdoor Living, and `department` is a single
+     * reference, so it could only ever be one. Mirroring how a product already
+     * carries `additionalCategories`.
+     */
+    defineField({
+      name: "additionalDepartments",
+      title: "Also shown in these rooms",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "department" }] }],
+      description:
+        "Extra rooms this category should be selectable from. The primary room above does not need repeating here.",
+    }),
+    /**
+     * Some categories should be reachable from a room without being poured into
+     * that room's product grid.
+     *
+     * Tapping Sauna should show saunas. It should not show four bottles of
+     * essential oil alongside a £5,279 cabin, even though those oils are
+     * legitimately part of the sauna world and should be one tap away.
+     */
+    defineField({
+      name: "excludeFromRoomGrid",
+      title: "Keep out of room product grids",
+      type: "boolean",
+      description:
+        "The category stays selectable from its rooms, but its products do not appear in those rooms' combined grids. For accessory ranges that would otherwise swamp the products someone came for.",
+      initialValue: false,
     }),
     defineField({ name: "tagline", type: "string" }),
     defineField({ name: "description", type: "text", rows: 3 }),

@@ -8,6 +8,14 @@ const CATEGORY_PROJECTION = /* groq */ `{
   description,
   "departmentSlug": department->slug.current,
   "departmentName": department->title,
+  // Every room this category is shoppable from, primary first. Wellness
+  // Accessories belongs under Sauna and under Outdoor Living, and the department
+  // field is a single reference, so this list is what consumers should filter on.
+  "departmentSlugs": array::compact([
+    department->slug.current,
+    ...additionalDepartments[]->slug.current
+  ]),
+  excludeFromRoomGrid,
   iconName,
   comingSoon,
   "productCount": count(*[_type == "product" && references(^._id)]),
@@ -24,7 +32,9 @@ export async function getCategories(): Promise<SanityCategory[]> {
   return sanityFetch<SanityCategory[]>(CATEGORIES_QUERY, {}, []);
 }
 
-export async function getCategory(slug: string): Promise<SanityCategory | null> {
+export async function getCategory(
+  slug: string,
+): Promise<SanityCategory | null> {
   return sanityFetch<SanityCategory | null>(
     CATEGORY_BY_SLUG_QUERY,
     { slug },

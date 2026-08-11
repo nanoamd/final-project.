@@ -226,12 +226,23 @@ const FLAGSHIP_PRODUCT_QUERY = /* groq */ `
  *
  * `defined(slug.current)` matches ALL_PRODUCTS_QUERY — a product with no slug has no
  * URL, so its tile would link nowhere.
+ *
+ * The subquery form does three things at once that a flat filter cannot. It counts
+ * the primary and secondary categories together; it honours a category being
+ * shoppable from several rooms via `additionalDepartments`; and it skips categories
+ * flagged `excludeFromRoomGrid` — so tapping Sauna returns saunas rather than four
+ * bottles of oil beside a £5,279 cabin. A product still appears if *any* of its
+ * categories in this room is unflagged, which is the behaviour wanted: an item that
+ * is both a sauna and an accessory is a sauna.
  */
 const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
 *[_type == "product"
   && defined(slug.current)
-  && (category->department->slug.current == $departmentSlug
-      || $departmentSlug in additionalCategories[]->department->slug.current)]
+  && count(*[_type == "category"
+       && excludeFromRoomGrid != true
+       && (department->slug.current == $departmentSlug
+           || $departmentSlug in additionalDepartments[]->slug.current)
+       && (_id == ^.category._ref || _id in ^.additionalCategories[]._ref)]) > 0]
   | order(_createdAt desc)
   [0...$limit]
   ${PRODUCT_PROJECTION}`;

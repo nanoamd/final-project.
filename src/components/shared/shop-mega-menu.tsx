@@ -1,4 +1,5 @@
 import { AppLink } from "@/components/ui/app-link";
+import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import type { SanityCategory, SanityDepartment } from "@/types/sanity-content";
 
 const MAX_CATEGORIES_PER_ROOM = 6;
@@ -21,7 +22,7 @@ export function ShopMegaMenu({
   const columns = rooms
     .map((room) => ({
       room,
-      categories: categories.filter((c) => c.departmentSlug === room.slug),
+      categories: categories.filter((c) => categoryInRoom(c, room.slug)),
     }))
     .filter((col) => col.categories.length > 0);
 

@@ -9,6 +9,7 @@ import { CategoryAccordion } from "@/features/storefront/components/category/cat
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { formatPrice } from "@/lib/format";
 import { resolveIcon } from "@/lib/icons";
+import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import {
   getCategories,
   getCategory,
@@ -63,7 +64,7 @@ export async function CollectionIndex({
   if (roomSlug && !room) notFound();
 
   const categories = room
-    ? allCategories.filter((c) => c.departmentSlug === room.slug)
+    ? allCategories.filter((c) => categoryInRoom(c, room.slug))
     : allCategories;
 
   const products = active
