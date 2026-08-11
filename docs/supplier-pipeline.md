@@ -9,12 +9,53 @@ rather than having been declined.
 same thread, no apology — "following up on my enquiry below, happy to provide
 company details or trade references if that helps."
 
+**Status as of 11 August:** several replies in, one acceptance — Ivyline, by
+phone. The rest declined or have not answered. Which specific suppliers said no
+is not recorded here yet; the ones known to be dead are in the Dead section, and
+anything still in Pending is either genuinely silent or a decline that has not
+been written down.
+
 ## Live
 
 | Supplier            | Fills                                                  | Status       | Next action                                                                                         |
 | ------------------- | ------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------- |
 | **Hill Interiors**  | 5 room lighting categories, mirrors, storage, planters | **Accepted** | Ask for the CSV/XML feed URL for our account. `import-supplier-products.ts --csv` takes it directly |
+| **Ivyline**         | Fire pits, fire bowls, fire screens, planters, candles | **Accepted** | Stockholding only — see below before ordering                                                       |
 | SaunaPlunge (Kelly) | Range extension: accessories, more plunges             | Sent         | Chase 15 Aug. Accessories are the highest-margin ask                                                |
+
+### Ivyline — accepted, but it is a stockholding account
+
+`ivylinegb.co.uk` · `sales@ivylinegb.co.uk`. Phone call held; account open.
+
+Published trade terms:
+
+- **£450 minimum pallet order**, carriage paid to UK mainland
+- **Free two-man delivery** on furniture, booked against a contact on the order
+- **14 days** to report damaged or faulty goods
+- Display-stand agreements require keeping the stand stocked for **two years** —
+  do not sign one
+
+**No dropship.** This is a different business model to every other supplier on
+this page: stock is delivered to us, stored, and shipped to the customer by us.
+That means £450 of cash committed before a single sale, storage space, and a
+courier cost per order that has to come out of the margin because delivery is
+free on the storefront. A 15 kg fire pit is roughly £8–20 to send.
+
+**The real risk is not the money, it is the SKU overlap.** Ivyline supplies
+Dunelm, John Lewis and TK Maxx, and Dunelm lists Ivyline products under the
+Ivyline name — the Dakota fire pit, the round fire pit cover, the iron fire
+screen. Listing those exact SKUs puts us next to Dunelm in Google Shopping on an
+identical product, and we lose that comparison every time. Any Ivyline order
+should be SKUs those three do not carry.
+
+Before committing £450:
+
+- [ ] Get the **full trade price list** and the RRP against each line
+- [ ] Ask which lines are **not** supplied to Dunelm, John Lewis or TK Maxx
+- [ ] Ask whether they will **deliver direct to a customer address** for a fee.
+      Plenty of stockholding suppliers will do this without calling it dropship
+- [ ] Confirm the **payment terms** — proforma on a new account, most likely
+- [ ] Confirm whether the £450 is per order or an **opening order** commitment
 
 ## Pending — trade only, cannot undercut us
 
