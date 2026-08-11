@@ -20,42 +20,52 @@ been written down.
 | Supplier            | Fills                                                  | Status       | Next action                                                                                         |
 | ------------------- | ------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------- |
 | **Hill Interiors**  | 5 room lighting categories, mirrors, storage, planters | **Accepted** | Ask for the CSV/XML feed URL for our account. `import-supplier-products.ts --csv` takes it directly |
-| **Ivyline**         | Fire pits, fire bowls, fire screens, planters, candles | **Accepted** | Stockholding only — see below before ordering                                                       |
 | SaunaPlunge (Kelly) | Range extension: accessories, more plunges             | Sent         | Chase 15 Aug. Accessories are the highest-margin ask                                                |
 
-### Ivyline — accepted, but it is a stockholding account
+### One acceptance, by phone — a fire pit supplier who sells to Dunelm
 
-`ivylinegb.co.uk` · `sales@ivylinegb.co.uk`. Phone call held; account open.
+Not yet named here, because it has been guessed wrong once already and a supplier
+file that records the wrong company is worse than one that records nothing. What
+is known: fire pits, supplies Dunelm, **no dropship**, and the contact was a phone
+call rather than an email.
 
-Published trade terms:
+Cross-referencing the brands Dunelm actually lists in chimineas and fire pits
+against the thirteen applications leaves two candidates:
 
-- **£450 minimum pallet order**, carriage paid to UK mainland
-- **Free two-man delivery** on furniture, booked against a contact on the order
-- **14 days** to report damaged or faulty goods
-- Display-stand agreements require keeping the stand stocked for **two years** —
-  do not sign one
+| Candidate                                       | Why it fits                                                                                                                                                                                                              | Phone         |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
+| **Fallen Fruits Ltd** (Craven Arms, Shropshire) | The exclusive UK distributor for **Esschert Design** — the supplier we applied to, and the open question on that application was "who is the UK distributor". Trade accounts only. Dunelm lists "Fallen Fruits Firebowl" | 01584 873377  |
+| **Charles Bentley** (Loughborough)              | Dunelm lists Charles Bentley chimineas and fire pit tables. Their dropship programme requires a website turning over **£500,000 a year**, so a trade account with no dropship is exactly what they would have offered    | 01509 232 757 |
 
-**No dropship.** This is a different business model to every other supplier on
-this page: stock is delivered to us, stored, and shipped to the customer by us.
-That means £450 of cash committed before a single sale, storage space, and a
-courier cost per order that has to come out of the margin because delivery is
-free on the storefront. A 15 kg fire pit is roughly £8–20 to send.
+Fallen Fruits is the stronger fit: it explains why the call came at all, since the
+Esschert enquiry would have been passed straight to them.
 
-**The real risk is not the money, it is the SKU overlap.** Ivyline supplies
-Dunelm, John Lewis and TK Maxx, and Dunelm lists Ivyline products under the
-Ivyline name — the Dakota fire pit, the round fire pit cover, the iron fire
-screen. Listing those exact SKUs puts us next to Dunelm in Google Shopping on an
-identical product, and we lose that comparison every time. Any Ivyline order
-should be SKUs those three do not carry.
+- [ ] Check the call log against those two numbers and record the answer here
 
-Before committing £450:
+Either way it is a **stockholding** account, which is a different model to every
+other supplier on this page — stock comes to us, is stored, and we ship to the
+customer. Cash committed before a sale, storage space, and a courier cost per
+order that lands in the margin because the storefront ships free. A 15 kg fire pit
+is roughly £8–20 to send.
 
-- [ ] Get the **full trade price list** and the RRP against each line
+The constraint that decides whether the account is worth using at all is **SKU
+overlap**. Both candidates supply Dunelm under their own brand name, so listing
+those SKUs puts us beside Dunelm on an identical product in Google Shopping, which
+is a comparison we lose at any price we can afford. The order has to be lines
+Dunelm does not carry.
+
+Before committing money:
+
+- [ ] Get the **full trade price list** with the RRP against each line
 - [ ] Ask which lines are **not** supplied to Dunelm, John Lewis or TK Maxx
 - [ ] Ask whether they will **deliver direct to a customer address** for a fee.
-      Plenty of stockholding suppliers will do this without calling it dropship
+      Plenty of stockholding suppliers do this without calling it dropship, and
+      that one answer would make the account behave like all the others
+- [ ] Confirm the **minimum order** and whether it is per order or an opening
+      commitment
 - [ ] Confirm the **payment terms** — proforma on a new account, most likely
-- [ ] Confirm whether the £450 is per order or an **opening order** commitment
+- [ ] Refuse any **display-stand agreement**: they typically tie you to keeping a
+      stand stocked for two years
 
 ## Pending — trade only, cannot undercut us
 
@@ -77,6 +87,13 @@ Before committing £450:
 | **Smart Garden**     | Solar lighting, water features | Trade form submitted                      |
 | **Bramblecrest**     | Fire pits, pergolas, teak      | `sales@bramblecrest.com` · 01285 760974   |
 | **Auroom Wellness**  | Premium saunas                 | Contact form                              |
+| **La Hacienda**      | Fire pits, chimineas, heaters  | `lahacienda.co.uk` — not yet approached   |
+
+**Correction: La Hacienda is still trading.** It was listed as dead here on the
+basis of the AMES wind-down, which applied to Kelkay, not to them — Dunelm and
+John Lewis both carry the brand today. It is the most recognised fire pit brand
+on the UK high street and it has not been approached, which makes it the obvious
+next application for that category.
 
 The distinction matters: a supplier who sells direct will match your price, which
 is survivable. One who undercuts it is not. That is what question 3 in every
@@ -85,7 +102,6 @@ email was for — get the answer in writing before listing anything.
 ## Dead — do not pursue
 
 - **Kelkay** — ceased trading (AMES Companies UK wind-down)
-- **La Hacienda** — same wind-down
 - **Spa Dispatch** — not accepting new trade accounts
 - **Gardening Naturally** — sells direct to the public, and its dropship range is
   netting and pest control, not planters
