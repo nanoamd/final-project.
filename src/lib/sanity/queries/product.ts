@@ -209,8 +209,29 @@ const FLAGSHIP_PRODUCT_QUERY = /* groq */ `
 *[_type == "product" && stockStatus != "Coming Soon" && stockStatus != "Out of Stock"]
   | order(price desc) [0] ${PRODUCT_PROJECTION}`;
 
+/**
+ * Every product in a room, counting secondary categories.
+ *
+ * This matched on `category->department` alone, so a product appeared on a room
+ * page only if its *primary* category belonged to that room. Outdoor Living was the
+ * visible casualty: its eight categories hold ten products between them — garden
+ * furniture, garden lighting, outdoor storage, planters — and every one is attached
+ * as a secondary category, so the page showed the single product whose primary
+ * category is Water Features and nothing else.
+ *
+ * `additionalCategories` is how a product is deliberately placed in more than one
+ * room, which is exactly the case a room page needs to honour: a teak bench belongs
+ * in Garden Furniture and in Outdoor Living. The category query has always
+ * understood that; only this one did not.
+ *
+ * `defined(slug.current)` matches ALL_PRODUCTS_QUERY — a product with no slug has no
+ * URL, so its tile would link nowhere.
+ */
 const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
-*[_type == "product" && category->department->slug.current == $departmentSlug]
+*[_type == "product"
+  && defined(slug.current)
+  && (category->department->slug.current == $departmentSlug
+      || $departmentSlug in additionalCategories[]->department->slug.current)]
   | order(_createdAt desc)
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
