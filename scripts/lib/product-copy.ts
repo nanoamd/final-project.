@@ -192,6 +192,20 @@ export function validateCopy(
   const err = (what: string) => issues.push({ severity: "error", what });
   const warn = (what: string) => issues.push({ severity: "warning", what });
 
+  // Shape first. A file missing `sections` or `faqs` entirely used to throw here
+  // rather than report, which turned one malformed file into a crash with no
+  // indication of which file caused it.
+  if (!copy || typeof copy !== "object") {
+    err("not an object");
+    return issues;
+  }
+  if (typeof copy.productId !== "string" || !copy.productId)
+    err("no productId");
+  if (typeof copy.summary !== "string") err("summary is missing");
+  if (!Array.isArray(copy.sections)) err("sections is missing or not an array");
+  if (!Array.isArray(copy.faqs)) err("faqs is missing or not an array");
+  if (issues.some((i) => i.severity === "error")) return issues;
+
   const allText = [
     copy.summary,
     copy.tagline ?? "",

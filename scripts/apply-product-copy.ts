@@ -52,13 +52,21 @@ const client = createClient({
   useCdn: false,
 });
 
-/** Every .json file under dir, recursing one level so batches can be folders. */
+/**
+ * Bookkeeping files that live alongside the copy but are not copy.
+ *
+ * Without this the worklist gets parsed as a ProductCopy — it is a .json array in
+ * the same folder — and the run dies on the first field it does not have.
+ */
+const NOT_COPY = new Set(["worklist.json", "manifest.json"]);
+
+/** Every .json file under dir, recursing so batches can be folders. */
 function copyFiles(root: string): string[] {
   const found: string[] = [];
   for (const entry of readdirSync(root)) {
     const full = join(root, entry);
     if (statSync(full).isDirectory()) found.push(...copyFiles(full));
-    else if (entry.endsWith(".json")) found.push(full);
+    else if (entry.endsWith(".json") && !NOT_COPY.has(entry)) found.push(full);
   }
   return found.sort();
 }
