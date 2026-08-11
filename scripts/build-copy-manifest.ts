@@ -131,6 +131,9 @@ interface ManifestEntry {
   supplier: string | null;
   /** Saved supplier page, relative to the repo root. null when none matched. */
   supplierPage: string | null;
+  /** The real product page this was listed from. Where it is missing, it has to be
+   *  found and recorded — a product with no source has nothing to verify against. */
+  sourceUrl: string | null;
   /** Never change these — carry them through. */
   deliveryLeadTime: string | null;
   dimensions: Record<string, unknown> | null;
@@ -186,6 +189,7 @@ async function main() {
       category: string | null;
       price: number | null;
       supplier: string | null;
+      sourceUrl: string | null;
       deliveryLeadTime: string | null;
       dimensions: Record<string, unknown> | null;
       weight: Record<string, unknown> | null;
@@ -198,6 +202,7 @@ async function main() {
       _id, title, price,
       "category": category->title,
       "supplier": supplier->name,
+      sourceUrl,
       deliveryLeadTime, dimensions, weight, specs,
       "descriptionBlocks": count(description),
       "faqCount": count(faqs),
@@ -231,6 +236,7 @@ async function main() {
     price: p.price,
     supplier: p.supplier,
     supplierPage: bestPage(p.title, pages),
+    sourceUrl: p.sourceUrl,
     deliveryLeadTime: p.deliveryLeadTime,
     dimensions: p.dimensions,
     weight: p.weight,
@@ -243,12 +249,14 @@ async function main() {
   mkdirSync("product-copy", { recursive: true });
   writeFileSync(OUT, JSON.stringify(manifest, null, 2), "utf8");
 
+  const sourced = manifest.filter((m) => m.sourceUrl).length;
   const matched = manifest.filter((m) => m.supplierPage).length;
   console.log(
     `\n${manifest.length} published product(s) written to ${OUT}\n` +
       `  ${matched} paired with a saved supplier page\n` +
-      `  ${manifest.length - matched} with none — specs for these come from what is\n` +
-      `  already stored, and anything not stored is left out\n`,
+      `  ${manifest.length - matched} with none\n` +
+      `  ${sourced} have a sourceUrl recorded, ${manifest.length - sourced} do not —\n` +
+      `  those need the real product page found and recorded\n`,
   );
 
   const byCategory = new Map<string, number>();

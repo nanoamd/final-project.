@@ -6,6 +6,7 @@
     "price": 370,
     "supplier": "AW Dropship",
     "supplierPage": null,
+    "sourceUrl": "https://www.aw-dropship.com/homeware/sd-furniture/acshop/acshop-12",
     "deliveryLeadTime": "3\u20136 weeks",
     "dimensions": {
       "_type": "dimensions",
@@ -49,6 +50,7 @@
     "price": 1130,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Abberley-Black-Sideboard.html",
+    "sourceUrl": "https://didesigns.co.uk/product/abberley-sideboard-oak-black/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -117,6 +119,7 @@
     "price": 580,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Abberley-1-Drawer-Black-Console-Table.html",
+    "sourceUrl": "https://didesigns.co.uk/product/abberley-one-drawer-black-console-table/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -179,6 +182,7 @@
     "price": 749,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Abberley-White-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/abberley-chest-of-drawers-white/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -247,6 +251,7 @@
     "price": 589,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Alton-White-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/alton-chest-of-drawers-white/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -315,6 +320,7 @@
     "price": 1150,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Broadway-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/broadway-chest-of-drawers/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -383,6 +389,7 @@
     "price": 1100,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Charlton-Walnut-Ribbed-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/charlton-ribbed-walnut-chest-of-drawers/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -451,6 +458,7 @@
     "price": 670,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Grafton-Black-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/grafton-three-drawer-black-chest-of-drawers/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -519,6 +527,7 @@
     "price": 800,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-Console-Table.html",
+    "sourceUrl": "https://didesigns.co.uk/product/hampton-console-ivory/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -581,6 +590,7 @@
     "price": 1190,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-Chest-of-Drawers.html",
+    "sourceUrl": "https://didesigns.co.uk/product/hampton-three-drawer-ivory-chest-of-drawers/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -649,6 +659,7 @@
     "price": 1095,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-TV-Unit.html",
+    "sourceUrl": "https://didesigns.co.uk/product/hampton-tv-unit-ivory-shagreen/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
@@ -717,6 +728,7 @@
     "price": 1050,
     "supplier": "D.I. Designs",
     "supplierPage": "supplier-pages/di-designs/Huddington-Black-Sideboard.html",
+    "sourceUrl": "https://didesigns.co.uk/product/huddington-sideboard/",
     "deliveryLeadTime": "3-4 weeks ",
     "dimensions": {
       "_type": "dimensions",
