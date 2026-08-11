@@ -1,0 +1,696 @@
+[
+  {
+    "productId": "product-import-himbleton-green-sofa",
+    "title": "Himbleton Green 3 Seater Sofa | Luxury Chenille Sofa | Kaiku",
+    "category": "Sofas",
+    "price": 1090,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Himbleton-Green-Sofa.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 82,
+      "length": 218,
+      "unit": "cm",
+      "width": 88
+    },
+    "weight": null,
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Upholstered"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Green"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "210-220 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Seat Height",
+        "value": "47 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Leg Height",
+        "value": "19 cm"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "218W x 88D x 82H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "223W x 91D x 55H cm Legs require assembly Shipping Our products are typically ready to ship within 7-10 days for all items currently in stock. If you require faster delivery, we offer courier options to ensure your order reaches you as quickly as possible. Please contact our team for more details. Care Instructions \u2013 Please wipe with a clean, damp cloth or a clean, dry cloth, depending on dust buildup. \u2013 If spillages occur, wipe and dry immediately"
+      }
+    ],
+    "descriptionBlocks": 93,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-kington-grey-club-chair",
+    "title": "Kington Grey Club Chair | Luxury Upholstered Accent Chair | Kaiku",
+    "category": "Sofas",
+    "price": 550,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Kington-Grey-Club-Chair.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 81,
+      "length": 62,
+      "unit": "cm",
+      "width": 70
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 12
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Grey"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Upholstered"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "61-70 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "62W x 70D x 81H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "12 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "65W x 73D x 84H x cm"
+      }
+    ],
+    "descriptionBlocks": 94,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-mickleton-cream-chenille-armchair",
+    "title": "Mickleton Cream Chenille Armchair",
+    "category": "Sofas",
+    "price": 649,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Mickleton-Cream-Chenille-Armchair.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 79,
+      "length": 66,
+      "unit": "cm",
+      "width": 76.2
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 17.7
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Cream"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Metal, Upholstered"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "71-80 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "66W x 76.2D x 79H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "17.7 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "73W x 85D x 86H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "24.5kg"
+      }
+    ],
+    "descriptionBlocks": 73,
+    "faqCount": 10,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-wadborough-neutral-sofa",
+    "title": "Wadborough 3 Seater Sofa in Neutral | Kaiku",
+    "category": "Sofas",
+    "price": 1095,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Wadborough-Neutral-Sofa.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 68,
+      "length": 228,
+      "unit": "cm",
+      "width": 102
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 57
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Neutral"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Upholstered"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "220-229 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "228W x 102D x 68H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "57 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "225W x 102D x 70H cm"
+      }
+    ],
+    "descriptionBlocks": 71,
+    "faqCount": 10,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-bts-01",
+    "title": "Beer Barrel Table \u2013 Natural Wood 60 x 48.5 cm | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 148.8,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": null,
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 4.72
+    },
+    "specs": [
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "4.72 kg"
+      }
+    ],
+    "descriptionBlocks": 52,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-rds-151",
+    "title": "Brown Wooden Storage Crates (Set of 3) | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 49,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "7\u201314 days",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 25,
+      "length": 45,
+      "unit": "cm",
+      "width": 30
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 3
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "25x45x30 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Albasia Wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "3 kg"
+      }
+    ],
+    "descriptionBlocks": 62,
+    "faqCount": 8,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-rds-146",
+    "title": "Large Brown Wooden Storage Tub | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 40,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "7\u201314 days",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 32,
+      "length": 45,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 1.55
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45x32 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Albasia Wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "1.55 kg"
+      }
+    ],
+    "descriptionBlocks": 51,
+    "faqCount": 8,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-acshop-21",
+    "title": "Large Reclaimed Wood Coffee Table | Recycled Teak | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 450,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20136 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 41,
+      "length": 122,
+      "width": 61
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 19.5
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "122x61x41 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Recycled teak wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "19.5 kg"
+      }
+    ],
+    "descriptionBlocks": 32,
+    "faqCount": 7,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-acshop-18",
+    "title": "Large Reclaimed Wood TV Stand with 2 Drawers & Open Shelving | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 850,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20136 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 75,
+      "length": 140,
+      "unit": "cm",
+      "width": 40
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 46.3
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "140x40x75 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Recycled teak wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "46.3 kg"
+      }
+    ],
+    "descriptionBlocks": 35,
+    "faqCount": 8,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-rds-149",
+    "title": "Natural Folding Wooden A-Frame Shelf \u2013 Brown | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 121.35,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 105,
+      "length": 31,
+      "unit": "cm",
+      "width": 40
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 5.5
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "105x40x31 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Albasia Wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "5.5 kg"
+      }
+    ],
+    "descriptionBlocks": 18,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-tds-04",
+    "title": "Natural Teak Corner Shelf Unit \u2013 3 Tier Display Stand 90cm | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 295,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 98,
+      "length": 25,
+      "unit": "cm",
+      "width": 23
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 5.4
+    },
+    "specs": [
+      {
+        "_key": "material",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Solid Natural Teak"
+      },
+      {
+        "_key": "height",
+        "_type": "productSpec",
+        "label": "Height",
+        "value": "90cm"
+      },
+      {
+        "_key": "width",
+        "_type": "productSpec",
+        "label": "Width",
+        "value": "23cm"
+      },
+      {
+        "_key": "depth",
+        "_type": "productSpec",
+        "label": "Depth",
+        "value": "25cm"
+      },
+      {
+        "_key": "shelf-diameter",
+        "_type": "productSpec",
+        "label": "Shelf Diameter",
+        "value": "20cm"
+      },
+      {
+        "_key": "distance-between-shelves",
+        "_type": "productSpec",
+        "label": "Distance Between Shelves",
+        "value": "30cm"
+      },
+      {
+        "_key": "larger-furniture",
+        "_type": "productSpec",
+        "label": "Larger furniture",
+        "value": "Delivered via specialist courier or pallet service depending on size"
+      }
+    ],
+    "descriptionBlocks": 29,
+    "faqCount": 4,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-tds-03",
+    "title": "Natural Teak Corner Shelf Unit \u2013 4 Tier Display Stand 135cm | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 350,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 133,
+      "length": 24,
+      "width": 25
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 5
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "24x25x133 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Teak Wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "5 kg"
+      }
+    ],
+    "descriptionBlocks": 28,
+    "faqCount": 4,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-tds-05",
+    "title": "Natural Teak Log Shelf Display \u2013 3 Tier 100cm | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 325,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 100,
+      "length": 23,
+      "unit": "cm",
+      "width": 27
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 6.5
+    },
+    "specs": [
+      {
+        "_key": "material",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Natural Teak Wood"
+      },
+      {
+        "_key": "height",
+        "_type": "productSpec",
+        "label": "Height",
+        "value": "100 cm"
+      },
+      {
+        "_key": "shelves",
+        "_type": "productSpec",
+        "label": "Shelves",
+        "value": "3"
+      }
+    ],
+    "descriptionBlocks": 27,
+    "faqCount": 4,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-bts-02",
+    "title": "Natural Wooden Beer Barrel Storage Stool | Kaiku",
+    "category": "The Reclaimed Collection",
+    "price": 87.4,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "2\u20134 weeks",
+    "dimensions": null,
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 2
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "38x32 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Albasia Wood, Metal"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "2 kg"
+      }
+    ],
+    "descriptionBlocks": 48,
+    "faqCount": 8,
+    "highlightCount": 0
+  }
+]

@@ -1,0 +1,753 @@
+[
+  {
+    "productId": "product-di-di-abberley-ct-br",
+    "title": "Abberley Coffee Table in Brown | Kaiku",
+    "category": "Coffee Tables",
+    "price": 550,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 40,
+      "length": 110,
+      "unit": "cm",
+      "width": 50
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 25
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Modern, Contemporary, Brown Finish"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 42,
+    "faqCount": 10,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-import-abberley-white-end-table",
+    "title": "Abberley White End Table | Luxury Oak Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 300,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 40,
+      "unit": "cm",
+      "width": 40
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 13
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Oak, White"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "31-40 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "40W x 40D x 60H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "13 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "45W x 45D x 68H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "16kg"
+      }
+    ],
+    "descriptionBlocks": 97,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-di-di-bentley-ct-oak",
+    "title": "Bentley Coffee Table in Oak | Kaiku",
+    "category": "Coffee Tables",
+    "price": 895,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 45,
+      "length": 120,
+      "unit": "cm",
+      "width": 120
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 22
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Modern, Oak, Minimalist"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 33,
+    "faqCount": 6,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-di-di-crofton-ct-wh",
+    "title": "Crofton White Marble Coffee Table | Kaiku",
+    "category": "Coffee Tables",
+    "price": 449,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 37,
+      "length": 100,
+      "unit": "cm",
+      "width": 100
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 16
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Scandinavian, White, Minimalist"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 41,
+    "faqCount": 6,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-di-di-elmley-ct-iv",
+    "title": "Elmley Coffee Table in Ivory | Kaiku",
+    "category": "Coffee Tables",
+    "price": 795,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 35.5,
+      "length": 120,
+      "unit": "cm",
+      "width": 80
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 19
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Modern, Ivory, Contemporary"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 31,
+    "faqCount": 6,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-import-elmley-grey-glass-top-end-table",
+    "title": "Elmley Grey End Table | Luxury Glass Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 475,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 45,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 12
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Glass, Metal"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "41-50 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Grey"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45 \u00d7 45 \u00d7 60 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "12 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "52W x 52D x 77H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "22kg"
+      }
+    ],
+    "descriptionBlocks": 92,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-grafton-black-end-table",
+    "title": "Grafton Black End Table | Industrial Oak Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 300,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 50,
+      "unit": "cm",
+      "width": 32
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 7
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black, Grey"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Metal"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "41-50 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "32 \u00d7 50 \u00d7 60 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "7 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "54W x 36D x 65H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "9kg"
+      }
+    ],
+    "descriptionBlocks": 87,
+    "faqCount": 7,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-2-nest-tables",
+    "title": "Hampton Ivory Shagreen Nest of Tables | Luxury Nesting Tables Set of 2 | Kaiku",
+    "category": "Side Tables",
+    "price": 515,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-2-Nest-Tables.html",
+    "deliveryLeadTime": "2-3 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 54,
+      "length": 39,
+      "unit": "cm",
+      "width": 39
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 7
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "31-40 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "39 \u00d7 39 \u00d7 54 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "7 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "47W x 47D x 66H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "10kg"
+      }
+    ],
+    "descriptionBlocks": 86,
+    "faqCount": 7,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-leckford-oak-ribbed-occasion-table",
+    "title": "Leckford Ribbed Black Oak Occasional Table | Luxury Round Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 483,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 76,
+      "length": 75,
+      "unit": "cm",
+      "width": 75
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 23
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Oak"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "71-80 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "75 \u00d7 75 \u00d7 76 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "23 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "Box 1: 39W x 39D x 82H cm"
+      }
+    ],
+    "descriptionBlocks": 78,
+    "faqCount": 7,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-neathan-end-table",
+    "title": "Neatham End Table | Luxury Modern Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 349,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 40,
+      "unit": "cm",
+      "width": 40
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black, Brass, Gold"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Concrete, Metal"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "31-40 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "40 \u00d7 40 \u00d7 60 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "45W x 45D x 70H cm"
+      }
+    ],
+    "descriptionBlocks": 83,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-norton-black-end-table",
+    "title": "Norton Black Square End Table | Modern Side Table | Kaiku",
+    "category": "Side Tables",
+    "price": 299,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 48,
+      "length": 56,
+      "unit": "cm",
+      "width": 56
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10.3
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Metal"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "51-60 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "56 \u00d7 56 \u00d7 48 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10.3 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "62.5W x 62.5D x 59H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "14.7kg"
+      }
+    ],
+    "descriptionBlocks": 77,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-di-di-overbury-ct",
+    "title": "Overbury Coffee Table in Chocolate Brown | Kaiku",
+    "category": "Coffee Tables",
+    "price": 409,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 38,
+      "length": 110,
+      "unit": "cm",
+      "width": 80
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 25
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Modern, Sculptural, Design"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 32,
+    "faqCount": 7,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-di-di-pershore-ct-oak",
+    "title": "Pershore Rectangular Aged Oak Coffee Table | Kaiku",
+    "category": "Coffee Tables",
+    "price": 720,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 40,
+      "length": 110,
+      "unit": "cm",
+      "width": 80
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 21
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Contemporary, Oak, Natural"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 59,
+    "faqCount": 7,
+    "highlightCount": 3
+  },
+  {
+    "productId": "product-di-di-witley-ct-oak",
+    "title": "Witley Coffee Table | Kaiku",
+    "category": "Coffee Tables",
+    "price": 612,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20134 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 40,
+      "length": 115,
+      "unit": "cm",
+      "width": 58
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 17
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "label": "Supplier",
+        "value": "D.I. Designs"
+      },
+      {
+        "_key": "spec-1",
+        "label": "Style",
+        "value": "Modern, Oak, Minimalist"
+      },
+      {
+        "_key": "spec-2",
+        "label": "Material",
+        "value": "Solid wood and quality finishes"
+      }
+    ],
+    "descriptionBlocks": 40,
+    "faqCount": 8,
+    "highlightCount": 3
+  }
+]

@@ -1,0 +1,781 @@
+[
+  {
+    "productId": "product-aw-acshop-12",
+    "title": "4 Drawer Recycled Wood Storage Chest | Rustic Teak Storage Unit | Kaiku",
+    "category": "Storage",
+    "price": 370,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20136 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 43,
+      "length": 77,
+      "width": 42
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 23.6
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "52x43x77 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Recycled teak wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "23.6 kg"
+      }
+    ],
+    "descriptionBlocks": 23,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-abberley-black-sideboard",
+    "title": "Abberley Black Oak Sideboard | Luxury 4 Door Sideboard | Kaiku",
+    "category": "Storage",
+    "price": 1130,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Abberley-Black-Sideboard.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 80,
+      "length": 160,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 58
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "151-160 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "160W x 45D x 80H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "58 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "168.5W x 54D x 90H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "67kg"
+      }
+    ],
+    "descriptionBlocks": 107,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-abberley-1-drawer-black-console-table",
+    "title": "Abberley One Drawer Black Console Table",
+    "category": "Console Tables",
+    "price": 580,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Abberley-1-Drawer-Black-Console-Table.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 120,
+      "unit": "cm",
+      "width": 30
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 15
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black, Oak"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "111-120 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "120W x 30D x 85H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "15 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "127W x 37D x 93H cm"
+      }
+    ],
+    "descriptionBlocks": 77,
+    "faqCount": 8,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-abberley-white-chest-of-drawers",
+    "title": "Abberley White Chest of Drawers | Luxury 3 Drawer Chest | Kaiku",
+    "category": "Storage",
+    "price": 749,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Abberley-White-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 90,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 44
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "White"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "81-90 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "90W x 45D x 85H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "44 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "96.5W x 52D x 92.5H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "48kg"
+      }
+    ],
+    "descriptionBlocks": 113,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-alton-white-chest-of-drawers",
+    "title": "Alton White Chest of Drawers | Luxury 3 Drawer Birch Chest | Kaiku",
+    "category": "Storage",
+    "price": 589,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Alton-White-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 75,
+      "length": 90,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 22
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Birch, Mdf, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "White"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "31-40 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45 \u00d7 90 \u00d7 75 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "22 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "95W x 50D x 80H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "25kg"
+      }
+    ],
+    "descriptionBlocks": 102,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-broadway-chest-of-drawers",
+    "title": "Broadway Oak Chest of Drawers | Luxury 3 Drawer Oak Chest | Kaiku",
+    "category": "Storage",
+    "price": 1150,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Broadway-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 120,
+      "unit": "cm",
+      "width": 50
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 53
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown, Oak"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "111-120 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "120 \u00d7 50 \u00d7 85 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "53 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "125W x 55D x 90H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "60kg"
+      }
+    ],
+    "descriptionBlocks": 101,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-charlton-walnut-ribbed-chest-of-drawers",
+    "title": "Charlton Ribbed Walnut Chest of Drawers | Luxury 6 Drawer Chest | Kaiku",
+    "category": "Storage",
+    "price": 1100,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Charlton-Walnut-Ribbed-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 110,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 88
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Walnut"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "101-110 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "110W x 45D x 85H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "88 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "115W x 50D x 90H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "89kg"
+      }
+    ],
+    "descriptionBlocks": 106,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-grafton-black-chest-of-drawers",
+    "title": "Grafton Black Chest of Drawers | Industrial 3 Drawer Chest | Kaiku",
+    "category": "Storage",
+    "price": 670,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Grafton-Black-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 90,
+      "unit": "cm",
+      "width": 50
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 67
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Grey"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Metal, Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "81-90 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "50 \u00d7 90 \u00d7 85 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "67 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "96W x 56D x 91H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "72kg"
+      }
+    ],
+    "descriptionBlocks": 91,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-console-table",
+    "title": "Hampton Ivory Console Table | Luxury Shagreen Console Table | Kaiku",
+    "category": "Console Tables",
+    "price": 800,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-Console-Table.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 81,
+      "length": 122,
+      "unit": "cm",
+      "width": 38
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 24
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal, Metal Runners, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "121-130 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "38 \u00d7 122 \u00d7 81 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "24 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "130.5W x 49.5D x 28.5H cm, 30kg Shipping Our products are typically ready to ship within 7-10 days for all items currently in stock. If you require faster delivery, we offer courier options to ensure your order reaches you as quickly as possible. Please contact our team for more details. Care Instructions \u2013 Please wipe with a clean, damp cloth or a clean, dry cloth, depending on dust buildup. \u2013 If spillages occur, wipe and dry immediately"
+      }
+    ],
+    "descriptionBlocks": 102,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-chest-of-drawers",
+    "title": "Hampton Ivory Shagreen Chest of Drawers | Luxury 3 Drawer Chest | Kaiku",
+    "category": "Storage",
+    "price": 1190,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-Chest-of-Drawers.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 85,
+      "length": 90,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 50
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal, Metal Runners, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "81-90 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45 \u00d7 90 \u00d7 85 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "50 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "99W x 57D x 98H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "56kg"
+      }
+    ],
+    "descriptionBlocks": 92,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-tv-unit",
+    "title": "Hampton Ivory Shagreen TV Unit | Luxury Media Console | Kaiku",
+    "category": "TV Units",
+    "price": 1095,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-TV-Unit.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 55,
+      "length": 160,
+      "unit": "cm",
+      "width": 50
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 85
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "151-160 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "160W x 50D x 55H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "85 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "168W x 64D x 74H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "90 kg"
+      }
+    ],
+    "descriptionBlocks": 93,
+    "faqCount": 7,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-huddington-black-sideboard",
+    "title": "Huddington Black Sideboard | Luxury 3 Door Sideboard | Kaiku",
+    "category": "Storage",
+    "price": 1050,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Huddington-Black-Sideboard.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 87,
+      "length": 150,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 57
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "141-150 cm"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Black"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Wood"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "150W x 45D x 87H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "57 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "157W x 52D x 94H cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "61kg"
+      }
+    ],
+    "descriptionBlocks": 102,
+    "faqCount": 6,
+    "highlightCount": 0
+  }
+]

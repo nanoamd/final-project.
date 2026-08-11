@@ -1,0 +1,846 @@
+[
+  {
+    "productId": "product-import-abberley-2-drawer-white-bedside-table",
+    "title": "Abberley White Bedside Table | Luxury 2 Drawer Bedside Table | Kaiku",
+    "category": "Bedside Tables",
+    "price": 399,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Abberley-2-Drawer-White-Bedside-Table.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 45,
+      "unit": "cm",
+      "width": 40
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 16
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "White"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "41-50 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45W x 40D x 60H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "16 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "52W x 47D x 68H cm"
+      }
+    ],
+    "descriptionBlocks": 94,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-bamboo-gesso-lamp",
+    "title": "Bamboo Gesso Table Lamp | Luxury White Gesso Designer Lamp | Kaiku",
+    "category": "Lighting",
+    "price": 205,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Bamboo-Gesso-Lamp.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 63,
+      "length": 33,
+      "unit": "cm",
+      "width": 33
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "White"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Gesso"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "61-70 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "33W x 33D x 63H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      }
+    ],
+    "descriptionBlocks": 98,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-aw-acshop-19",
+    "title": "Bedside Table - Classic - Recycled Wood",
+    "category": "Bedside Tables",
+    "price": 229,
+    "supplier": "AW Dropship",
+    "supplierPage": null,
+    "deliveryLeadTime": "3\u20136 weeks",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 65,
+      "length": 42,
+      "unit": "cm",
+      "width": 51
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 13.06
+    },
+    "specs": [
+      {
+        "_key": "dimensions",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "65x51x42 (cm)"
+      },
+      {
+        "_key": "materials",
+        "_type": "productSpec",
+        "label": "Materials",
+        "value": "Recycled teak wood"
+      },
+      {
+        "_key": "weight",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "13.06 kg"
+      }
+    ],
+    "descriptionBlocks": 22,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-broadway-one-drawer-bedside-table",
+    "title": "Broadway Oak Bedside Table | Luxury Solid Oak 1 Drawer Bedside Table | Kaiku",
+    "category": "Bedside Tables",
+    "price": 479,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 55,
+      "length": 55,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 16
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown, Oak"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Oak"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "51-60 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "55 \u00d7 45 \u00d7 55 cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "16 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "60W x 50D x 60H cm"
+      }
+    ],
+    "descriptionBlocks": 99,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-chilworth-1-drawer-grey-bedside-table",
+    "title": "Chilworth Grey Bedside Table | Luxury 1 Drawer Bedside Table | Kaiku",
+    "category": "Bedside Tables",
+    "price": 179,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Chilworth-1-Drawer-Grey-Bedside-Table.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 35,
+      "unit": "cm",
+      "width": 35
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 13
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Grey"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Birch, Mdf, Metal Runners, Painted Wood, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "31-40 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "35W x 35D x 60H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "13 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "40W x 40D x 70H cm"
+      }
+    ],
+    "descriptionBlocks": 87,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-octagonal-mirror",
+    "title": "Hampton Ivory Octagonal Wall Mirror | Luxury Shagreen Designer Mirror | Kaiku",
+    "category": "Mirrors",
+    "price": 549,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Hampton-Ivory-Octagonal-Mirror.html",
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 80,
+      "length": 80,
+      "unit": "cm",
+      "width": 2.5
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Mirrored"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "71-80 cm"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "80W x 80H x 2.5D cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "88W x 88H x 10D cm"
+      },
+      {
+        "_key": "spec-6",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "20 kg"
+      }
+    ],
+    "descriptionBlocks": 98,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-round-bedside-table",
+    "title": "Hampton Ivory Round Bedside Table | Luxury Shagreen Bedside Cabinet | Kaiku",
+    "category": "Bedside Tables",
+    "price": 510,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 45,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 18
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal Runners, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45W x 45D x 60H cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "18 kg"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "56W x 53D x 58H cm"
+      }
+    ],
+    "descriptionBlocks": 108,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-small-square-ivory-mirror",
+    "title": "Hampton Ivory Shagreen Square Wall Mirror | Luxury Designer Mirror | Kaiku",
+    "category": "Mirrors",
+    "price": 445,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 2.5,
+      "length": 80,
+      "unit": "cm",
+      "width": 80
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brass, Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "80W x 80D x 2.5H cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "88W x 88H x 10D cm"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed weight",
+        "value": "20 kg"
+      }
+    ],
+    "descriptionBlocks": 96,
+    "faqCount": 5,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-hampton-ivory-square-bedside",
+    "title": "Hampton Ivory Square Bedside Table | Luxury Shagreen Bedside Cabinet | Kaiku",
+    "category": "Bedside Tables",
+    "price": 490,
+    "supplier": "D.I. Designs",
+    "supplierPage": null,
+    "deliveryLeadTime": "3-4 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 60,
+      "length": 45,
+      "unit": "cm",
+      "width": 45
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Ivory"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Faux Shagreen, Metal Runners, Wood"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "41-50 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "45W x 45D x 60H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      },
+      {
+        "_key": "spec-5",
+        "_type": "productSpec",
+        "label": "Packed size",
+        "value": "56W x 53D x 72H cm"
+      }
+    ],
+    "descriptionBlocks": 107,
+    "faqCount": 6,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-large-ribbed-gesso-lamp",
+    "title": "Large Ribbed Gesso Table Lamp | Luxury Designer Table Lamp | Kaiku",
+    "category": "Lighting",
+    "price": 230,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Large-Ribbed-Gesso-Lamp.html",
+    "deliveryLeadTime": "2-3 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 81,
+      "length": 41,
+      "unit": "cm",
+      "width": 41
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 10
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown, Neutral, Taupe"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Gesso"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "81-90 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "41W x 41D x 81H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "10 kg"
+      }
+    ],
+    "descriptionBlocks": 107,
+    "faqCount": 8,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-large-round-gesso-lamp",
+    "title": "Large Round Gesso Table Lamp | Luxury Designer Lighting | Kaiku",
+    "category": "Lighting",
+    "price": 290,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Large-Round-Gesso-Lamp.html",
+    "deliveryLeadTime": "2-3 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 88,
+      "length": 46,
+      "unit": "cm",
+      "width": 46
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 15
+    },
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown, Taupe"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Gesso"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "81-90 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "46W x 46D x 88H cm"
+      },
+      {
+        "_key": "spec-4",
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "15 kg"
+      }
+    ],
+    "descriptionBlocks": 117,
+    "faqCount": 10,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-large-small-rectangular-gesso-lamp",
+    "title": "Small Rectangular Gesso Table Lamp | Luxury Designer Lighting | Kaiku",
+    "category": "Lighting",
+    "price": 210,
+    "supplier": "D.I. Designs",
+    "supplierPage": "supplier-pages/di-designs/Large-Small-Rectangular-Gesso-Lamp.html",
+    "deliveryLeadTime": "2-3 weeks ",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 55,
+      "length": 31,
+      "unit": "cm",
+      "width": 31
+    },
+    "weight": null,
+    "specs": [
+      {
+        "_key": "spec-0",
+        "_type": "productSpec",
+        "label": "Colour",
+        "value": "Brown, Taupe"
+      },
+      {
+        "_key": "spec-1",
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Gesso"
+      },
+      {
+        "_key": "spec-2",
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "51-60 cm"
+      },
+      {
+        "_key": "spec-3",
+        "_type": "productSpec",
+        "label": "Dimensions",
+        "value": "31W x 31D x 55H cm"
+      }
+    ],
+    "descriptionBlocks": 107,
+    "faqCount": 10,
+    "highlightCount": 0
+  },
+  {
+    "productId": "product-import-outsunny-outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-pathway-1-2m-t",
+    "title": "Solar Garden Lamp Post | Dimmable LED Outdoor Path Light",
+    "category": "Lighting",
+    "price": 49.99,
+    "supplier": "AOSON",
+    "supplierPage": null,
+    "deliveryLeadTime": "7\u201310 days",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 160,
+      "length": 18,
+      "unit": "cm",
+      "width": 18
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 1.1
+    },
+    "specs": [
+      {
+        "_type": "productSpec",
+        "label": "Power",
+        "value": "Solar \u2014 no mains wiring or cabling"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Height",
+        "value": "160 cm"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Lantern head",
+        "value": "18 cm \u00d7 18 cm"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Light source",
+        "value": "LED, dimmable"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Operation",
+        "value": "Automatic dusk-to-dawn light sensor"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Solar panel",
+        "value": "Integrated into the lantern roof"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Finish",
+        "value": "Black"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Glazing",
+        "value": "Clear panels, four-sided lantern"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Mounting",
+        "value": "Base plate with expansion screws, or ground stake"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "1.1 kg"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Assembly",
+        "value": "Sectional post, self-assembly"
+      }
+    ],
+    "descriptionBlocks": 66,
+    "faqCount": 9,
+    "highlightCount": 6
+  },
+  {
+    "productId": "product-import-outsunny-solar-floor-lamp-outdoor-garden-lantern-pathway-light-decorative-lighting-with-au",
+    "title": "Solar Outdoor Garden Floor Lantern with LED Light | Kaiku",
+    "category": "Lighting",
+    "price": 47,
+    "supplier": "AOSON",
+    "supplierPage": null,
+    "deliveryLeadTime": "7\u201310 days",
+    "dimensions": {
+      "_type": "dimensions",
+      "height": 68,
+      "length": 20,
+      "unit": "cm",
+      "width": 20
+    },
+    "weight": {
+      "_type": "weight",
+      "unit": "kg",
+      "value": 2.5
+    },
+    "specs": [
+      {
+        "_type": "productSpec",
+        "label": "Power",
+        "value": "Solar \u2014 no mains wiring"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Size",
+        "value": "20 cm \u00d7 20 cm \u00d7 68 cm H"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Light source",
+        "value": "LED"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Operation",
+        "value": "Automatic dusk-to-dawn light sensor, plus on/off switch"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Solar panel",
+        "value": "Integrated into the lid"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Material",
+        "value": "Woven weather-resistant rattan effect over a diffuser"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Finish",
+        "value": "Dark grey"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Placement",
+        "value": "Freestanding \u2014 patio, path, balcony or border"
+      },
+      {
+        "_type": "productSpec",
+        "label": "Weight",
+        "value": "2.5 kg"
+      }
+    ],
+    "descriptionBlocks": 34,
+    "faqCount": 8,
+    "highlightCount": 6
+  }
+]
