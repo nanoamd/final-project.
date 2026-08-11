@@ -9,11 +9,10 @@ rather than having been declined.
 same thread, no apology — "following up on my enquiry below, happy to provide
 company details or trade references if that helps."
 
-**Status as of 11 August:** several replies in, one acceptance — Ivyline, by
-phone. The rest declined or have not answered. Which specific suppliers said no
-is not recorded here yet; the ones known to be dead are in the Dead section, and
-anything still in Pending is either genuinely silent or a decline that has not
-been written down.
+**Status as of 11 August:** several replies in, one acceptance — a fire pit
+supplier, by phone, identified below. The rest declined or have not answered.
+Which specific suppliers said no is not recorded here yet; anything still in
+Pending is either genuinely silent or a decline that has not been written down.
 
 ## Live
 
