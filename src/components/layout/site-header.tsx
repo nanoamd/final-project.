@@ -100,28 +100,35 @@ export function SiteHeader({
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";
-  // Any shop route ending in "all" is a white Shop All page: /shop/all,
-  // /shop/room/<room>/all and /shop/<category>/all. Matching on the last
-  // segment rather than enumerating each shape, because enumerating is what let
-  // this break twice — each new /all route fell through and got two things
-  // wrong at once:
-  //
-  //  - These pages render ShopDrillNav, whose first tier is already a room
-  //    list, so the header stacked its own near-identical room sub-bar on top:
-  //    two rows of the same links, 45px of duplicated chrome above the grid.
-  //  - It feeds the theme and isProductPage below. /shop/<category>/all has
-  //    three segments and a non-"room" second segment, so without this it was
-  //    classified as a product detail page.
-  //
-  // A product slugged literally "all" would collide, but /shop/<category>/all
-  // is a static route and already wins over /shop/<category>/[product], so such
-  // a product is unreachable regardless.
-  const isShopAllPage = isShopRoute && segments[segments.length - 1] === "all";
+  // A product detail page is /shop/<category>/<product>: three segments, second
+  // is not "room", last is not "all". The "all" exclusion keeps
+  // /shop/<category>/all — which has the same shape — from being read as a
+  // product. A product slugged literally "all" would collide, but the static
+  // route already wins over /shop/<category>/[product], so it is unreachable
+  // regardless.
   const isProductPage =
     isShopRoute &&
     segments[1] !== "room" &&
     segments.length >= 3 &&
-    !isShopAllPage;
+    segments[segments.length - 1] !== "all";
+
+  /**
+   * Every shop route except the `/shop` index and a product page is now the white
+   * shopping page.
+   *
+   * This used to test for a trailing "all" segment, because that was the only way
+   * to reach the white grid. Now `/shop/[category]` and `/shop/room/[room]` render
+   * it too, and if this check had stayed as it was, those pages would have got the
+   * dark header over a white page — and, worse, the header would have stacked its
+   * own room sub-bar directly above the room bar that ShopDrillNav already draws.
+   * Two rows of near-identical links, 45px of duplicated chrome, on the pages a
+   * phone shopper spends all their time on.
+   *
+   * Defined by exclusion rather than by listing shapes, since listing shapes is
+   * what broke this twice already.
+   */
+  const isShopAllPage = isShopRoute && segments.length > 1 && !isProductPage;
+
   const isCollection = isShopRoute && !isProductPage && !isShopAllPage;
   const isHome = pathname === "/";
   // Home and Collection render on the near-black ground; everything else

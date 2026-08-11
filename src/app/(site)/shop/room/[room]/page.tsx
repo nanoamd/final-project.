@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
-import { CollectionIndex } from "@/features/storefront";
+import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getDepartments } from "@/lib/sanity/queries";
 
 export const revalidate = 60;
@@ -44,5 +44,6 @@ export default async function RoomPage({
   params: Promise<{ room: string }>;
 }) {
   const { room } = await params;
-  return <CollectionIndex roomSlug={room} />;
+  // White shopping page, for the same reason as the category route.
+  return <ShopAll roomSlug={room} />;
 }

@@ -188,10 +188,7 @@ function CategoryButton({
 
   return (
     <>
-      <AppLink
-        href={`/shop/${category.slug}/all`}
-        className={`${shell} lg:hidden`}
-      >
+      <AppLink href={`/shop/${category.slug}`} className={`${shell} lg:hidden`}>
         {body}
       </AppLink>
       <button

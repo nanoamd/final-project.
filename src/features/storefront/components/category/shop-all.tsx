@@ -14,22 +14,30 @@ import {
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
- * Shop All — the white, commercial-browsing counterpart to the black room
- * pages. One dense grid, no sidebar. Distinct from the room page's editorial
- * black ground on purpose — the contrast signals "you've moved from
- * inspiration to buying." The room/category/style drill-nav stays on this page
- * when switching rooms (links to the `/all` route, not the dark room page).
+ * Shop All — the white shopping page, and now the default destination for every
+ * category and room URL.
+ *
+ * One dense grid, no sidebar. It used to be the counterpart to the dark editorial
+ * room pages, reachable only at `/shop/<something>/all`; the dark page owned the
+ * clean URL and therefore owned every tap from the nav and the homepage. That is
+ * reversed: `/shop/[category]` and `/shop/room/[room]` render this, and the dark
+ * CollectionIndex remains the `/shop` index for deliberate browsing.
  *
  * With no `roomSlug` it lists the entire catalogue, which is what /shop/all
- * renders. Reaching the full product list previously meant picking a room
- * first, so there was no single URL for "everything you sell".
+ * renders.
  */
 export async function ShopAll({
   roomSlug,
   categorySlug,
+  styleTag,
 }: {
   roomSlug?: string;
   categorySlug?: string;
+  /** From `?style=` — the drill-nav's third tier links to it, and before this
+   *  page owned the category route the filter was applied by CollectionIndex.
+   *  Without it here, tapping a style tag returned the unfiltered category and
+   *  looked like the filter did nothing. */
+  styleTag?: string;
 }) {
   const [rooms, categories, products] = await Promise.all([
     getDepartments(),
@@ -68,12 +76,10 @@ export async function ShopAll({
         Get 10% OFF your first order. Join the Kaiku Home newsletter.
       </PromoBanner>
 
-      <ShopDrillNav
-        rooms={rooms}
-        categories={categories}
-        theme="light"
-        roomHrefSuffix="/all"
-      />
+      {/* No "/all" suffix any more. The room and category routes themselves now
+          render this page, so the clean URL is the shopping URL — appending /all
+          would send a shopper to a duplicate of the page they are already on. */}
+      <ShopDrillNav rooms={rooms} categories={categories} theme="light" />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
         <div className="mb-8 flex items-end justify-between gap-4">
@@ -84,6 +90,26 @@ export async function ShopAll({
             {products.length} {products.length === 1 ? "product" : "products"}
           </p>
         </div>
+
+        {/* An applied filter has to be visible and removable. The count alone
+            does not tell a shopper why they are seeing eleven products instead
+            of forty. */}
+        {styleTag && categorySlug ? (
+          <div className="-mt-4 mb-8 flex items-center gap-2">
+            <span className="text-muted text-[12px] tracking-[0.12em] uppercase">
+              Filtered by
+            </span>
+            <AppLink
+              href={`/shop/${categorySlug}`}
+              className="border-ink/25 text-ink hover:border-ink flex items-center gap-2 rounded-none border px-3 py-1.5 text-[12px] font-medium transition-colors"
+            >
+              {styleTag}
+              <span aria-hidden className="text-muted">
+                ×
+              </span>
+            </AppLink>
+          </div>
+        ) : null}
 
         {/* Three across on mobile rather than two, with tighter gutters. Two
             columns of large tiles meant roughly four products per screen;
@@ -121,7 +147,7 @@ export async function ShopAll({
               </AppLink>
               {siblingRoom ? (
                 <AppLink
-                  href={`/shop/room/${siblingRoom.slug}/all`}
+                  href={`/shop/room/${siblingRoom.slug}`}
                   className="border-line text-ink hover:border-ink/50 flex h-11 items-center rounded-md border px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
                 >
                   All {siblingRoom.name}
@@ -138,7 +164,7 @@ export async function ShopAll({
                   {stockedSiblings.map((c) => (
                     <AppLink
                       key={c.slug}
-                      href={`/shop/${c.slug}/all`}
+                      href={`/shop/${c.slug}`}
                       className="border-line text-ink hover:border-ink/50 rounded-full border px-3.5 py-2 text-[13px] transition-colors"
                     >
                       {c.name}{" "}

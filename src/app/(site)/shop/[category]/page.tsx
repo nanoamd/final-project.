@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CollectionIndex } from "@/features/storefront";
+import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getCategories, getCategory } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -33,6 +33,23 @@ export async function generateMetadata({
   });
 }
 
+/**
+ * A category URL now opens the white shopping page, not the dark editorial one.
+ *
+ * This route used to render CollectionIndex — the near-black tile page — and the
+ * white commercial grid was reachable only at `/shop/[category]/all`, which
+ * nothing linked to prominently. So every ordinary act of shopping (tapping a
+ * category in the nav, tapping a tile on the homepage) landed on a page built for
+ * browsing inspiration, and tapping a second category landed there again. That is
+ * the "Sauna to Wellness Accessories sends me back to the black page" problem: it
+ * was not a bug in the navigation, it was the destination.
+ *
+ * The dark experience is not deleted. It remains the `/shop` index, which is what
+ * "Explore Collections" points at — discovery, deliberately entered.
+ *
+ * The URL is unchanged, so nothing that Google has already crawled moves, and the
+ * URL a searcher lands on is now the one that sells.
+ */
 export default async function Page({
   params,
   searchParams,
@@ -42,5 +59,5 @@ export default async function Page({
 }) {
   const { category } = await params;
   const { style } = await searchParams;
-  return <CollectionIndex categorySlug={category} styleTag={style} />;
+  return <ShopAll categorySlug={category} styleTag={style} />;
 }
