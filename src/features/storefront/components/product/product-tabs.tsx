@@ -4,32 +4,69 @@ import { PortableText } from "@portabletext/react";
 import {
   Gem,
   Headset,
-  Leaf,
   type LucideIcon,
-  ShieldCheck,
+  RotateCcw,
   Star,
+  Truck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
-import { portableTextComponents } from "@/lib/sanity/portable-text-components";
+import { productDescriptionComponents } from "@/lib/sanity/product-description-components";
 import type { SanityProduct } from "@/types/sanity-content";
 
-const BAND_FEATURES: { icon: LucideIcon; title: string; copy: string }[] = [
-  {
-    icon: Gem,
-    title: "Finest materials",
-    copy: "Sustainably sourced Thermowood",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Built to last",
-    copy: "Weatherproof & low maintenance",
-  },
-  { icon: Leaf, title: "Wellness at home", copy: "Relax, recover & reconnect" },
-  { icon: Headset, title: "Expert support", copy: "Our team is here to help" },
-];
+/**
+ * The four-up band under the description, built from this product's own data.
+ *
+ * It used to be a hardcoded constant: "Finest materials — Sustainably sourced
+ * Thermowood", "Built to last — Weatherproof & low maintenance", "Wellness at
+ * home — Relax, recover & reconnect". True of a sauna, and shown identically on
+ * every chest of drawers, table lamp and 50ml bottle of essential oil in the
+ * catalogue. Four claims about Thermowood on a product made of oak is the kind of
+ * detail that tells a shopper the page was assembled rather than written.
+ *
+ * Now each entry has to be earned from a field on the document, and an entry with
+ * nothing behind it is left out rather than filled in.
+ */
+function bandFeatures(
+  product: SanityProduct,
+): { icon: LucideIcon; title: string; copy: string }[] {
+  const features: { icon: LucideIcon; title: string; copy: string }[] = [];
+
+  // The first material spec, under whichever label the supplier used for it.
+  const material = product.specs.find((spec) =>
+    /^(materials?|construction|finish|fabric)$/i.test(spec.label),
+  );
+  if (material)
+    features.push({
+      icon: Gem,
+      title: "Materials",
+      copy: material.value,
+    });
+
+  features.push({
+    icon: Truck,
+    title: "Free UK delivery",
+    copy: product.deliveryLeadTime
+      ? `Delivered in ${product.deliveryLeadTime}`
+      : "Included in the price",
+  });
+
+  features.push({
+    icon: RotateCcw,
+    title: "14-day returns",
+    copy: "Change your mind within 14 days",
+  });
+
+  features.push({
+    icon: Headset,
+    title: "Expert support",
+    copy: "Questions answered before you buy",
+  });
+
+  return features;
+}
 
 export function ProductTabs({ product }: { product: SanityProduct }) {
   const tabs = [
@@ -85,27 +122,30 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
 
 function DescriptionPanel({ product }: { product: SanityProduct }) {
   return (
-    <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-      <div>
-        <h2 className="text-ink font-display text-3xl tracking-tight">
-          Designed for wellness. Built for life.
-        </h2>
-        <p className="text-graphite mt-5 leading-relaxed">{product.summary}</p>
+    // The description is the column that has to be readable, so it takes three of
+    // five and the photo takes two. It was a straight half each, which on a long
+    // description meant a narrow column and a great deal of scrolling — the photo
+    // does not need the same width as the copy.
+    <div className="grid gap-10 lg:grid-cols-5 lg:gap-16">
+      <div className="lg:col-span-3">
+        {/* The panel used to open with a fixed heading, "Designed for wellness.
+            Built for life.", on every product in the catalogue. The description
+            now brings its own section headings, so the summary leads instead —
+            and it is about this product. */}
+        <p className="text-ink max-w-prose text-[17px] leading-relaxed">
+          {product.summary}
+        </p>
         {product.description?.length ? (
-          <div className="mt-4">
+          <div className="mt-8">
             <PortableText
               value={product.description}
-              components={portableTextComponents}
+              components={productDescriptionComponents}
             />
           </div>
-        ) : (
-          <p className="text-graphite mt-4 leading-relaxed">
-            {`Crafted from premium materials and built with precision, the ${product.name} is as durable as it is beautiful — a considered addition to any room and a space you'll return to for years.`}
-          </p>
-        )}
+        ) : null}
 
-        <div className="mt-9 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
-          {BAND_FEATURES.map((feature) => (
+        <div className="border-line mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-8 sm:grid-cols-4">
+          {bandFeatures(product).map((feature) => (
             <div key={feature.title} className="flex flex-col gap-2">
               <feature.icon
                 className="text-brass size-6"
@@ -125,15 +165,16 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
 
       {product.image ? (
         // self-start stops this from stretching to match the text column's
-        // height in the lg:grid-cols-2 layout above — without it, a long
-        // description makes this a very tall, narrow box, and object-cover
-        // ends up zooming into a tiny, near-unrecognisable slice of the photo.
-        <div className="border-line relative aspect-[4/3] self-start overflow-hidden rounded-2xl border">
+        // height in the grid above — without it, a long description makes this a
+        // very tall, narrow box, and object-cover ends up zooming into a tiny,
+        // near-unrecognisable slice of the photo. sticky keeps the photo in view
+        // while a long description scrolls past it.
+        <div className="border-line relative aspect-[4/3] self-start overflow-hidden rounded-2xl border lg:sticky lg:top-24 lg:col-span-2">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            sizes="(max-width: 1024px) 100vw, 40vw"
             className="object-cover"
           />
         </div>
