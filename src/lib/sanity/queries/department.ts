@@ -7,7 +7,9 @@ const DEPARTMENTS_QUERY = /* groq */ `
   "name": title,
   description,
   "image": heroImage.asset->url,
-  order
+  order,
+  // Defaults to true so a room saved before this field existed keeps its slot.
+  "showInMainNav": coalesce(showInMainNav, true)
 }`;
 
 export async function getDepartments(): Promise<SanityDepartment[]> {

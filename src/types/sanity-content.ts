@@ -91,6 +91,15 @@ export interface SanityDepartment {
   description?: string;
   image?: string | null;
   order: number;
+  /**
+   * Whether this room occupies a top-level navigation slot.
+   *
+   * False means it keeps its page, its URL and its categories but is reached
+   * through a parent room instead — for ranges too small to earn a slot beside
+   * Living Room. Defaults to true in the projection, so a room saved before this
+   * field existed is unaffected.
+   */
+  showInMainNav?: boolean;
 }
 
 export interface SanityCategory {

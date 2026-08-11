@@ -51,7 +51,30 @@ const PLACEMENTS: {
     excludeFromRoomGrid: true,
     why: "oils and buckets belong to the sauna world and the garden, but should not fill either room's grid",
   },
+  {
+    category: "cold-plunges",
+    alsoInRooms: ["outdoor-living"],
+    excludeFromRoomGrid: false,
+    why: "one product does not earn a top-level nav slot; it belongs in the garden",
+  },
+  {
+    category: "outdoor-kitchens",
+    alsoInRooms: ["outdoor-living"],
+    excludeFromRoomGrid: false,
+    why: "two products; same reasoning as cold plunges",
+  },
 ];
+
+/**
+ * Rooms that keep their page and URL but give up their top-level nav slot.
+ *
+ * Not a deletion. /shop/room/cold-plunge still renders, still has its categories,
+ * and is now reachable from Outdoor Living — which is where a shopper looking for a
+ * plunge pool would look anyway. The slot is what is being reclaimed: Cold Plunge
+ * and Outdoor Kitchen cost the same header space as Living Room's fifty-eight
+ * products and lead somewhere near-empty.
+ */
+const HIDE_FROM_NAV = ["cold-plunge", "outdoor-kitchen"];
 
 async function main() {
   for (const placement of PLACEMENTS) {
@@ -117,9 +140,25 @@ async function main() {
         .commit();
   }
 
+  for (const slug of HIDE_FROM_NAV) {
+    const room = await client.fetch<{ _id: string; title: string } | null>(
+      `*[_type == "department" && slug.current == $slug && !(_id in path("drafts.**"))][0]{_id, title}`,
+      { slug },
+    );
+    if (!room) {
+      console.log(`✗ no published room "${slug}"`);
+      continue;
+    }
+    console.log(
+      `${apply ? "✓" : "·"} ${room.title} — out of the main nav, page and URL kept`,
+    );
+    if (apply)
+      await client.patch(room._id).set({ showInMainNav: false }).commit();
+  }
+
   console.log(
     apply
-      ? "\nDone. Sauna shows saunas; Wellness Accessories is selectable from Sauna and\nOutdoor Living without filling either grid.\n"
+      ? "\nDone. Sauna shows saunas; Wellness Accessories is selectable from Sauna and\nOutdoor Living without filling either grid; Cold Plunge and Outdoor Kitchen sit\nunder Outdoor Living instead of holding their own nav slots.\n"
       : "\nDry run — nothing written. Re-run with --apply.\n",
   );
 }

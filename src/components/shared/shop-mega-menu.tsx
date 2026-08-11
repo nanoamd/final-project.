@@ -20,6 +20,7 @@ export function ShopMegaMenu({
   onNavigate?: () => void;
 }) {
   const columns = rooms
+    .filter((room) => room.showInMainNav !== false)
     .map((room) => ({
       room,
       categories: categories.filter((c) => categoryInRoom(c, room.slug)),

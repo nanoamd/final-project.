@@ -92,11 +92,17 @@ export function SiteHeader({
     : primaryNav;
   // Rooms (departments) drive the shop sub-nav when available, falling back
   // to the static category list only if Sanity has no departments yet.
+  // Rooms opted out of the main nav keep their page and URL but give up their
+  // top-level slot — see the department schema. Cold Plunge and Outdoor Kitchen
+  // hold one and two products, so as top-level tabs they cost the same header
+  // space as Living Room's fifty-eight and lead somewhere near-empty.
   const roomLinks: NavLink[] =
-    rooms?.map((room) => ({
-      label: room.name,
-      href: `/shop/room/${room.slug}`,
-    })) ?? collectionsNav;
+    rooms
+      ?.filter((room) => room.showInMainNav !== false)
+      .map((room) => ({
+        label: room.name,
+        href: `/shop/room/${room.slug}`,
+      })) ?? collectionsNav;
 
   const segments = pathname.split("/").filter(Boolean);
   const isShopRoute = segments[0] === "shop";

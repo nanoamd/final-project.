@@ -74,11 +74,15 @@ export function ShopDrillNav({
     setClickedCategory(null);
   }
 
-  const roomLinks = rooms.map((room) => ({
-    slug: room.slug,
-    name: room.name,
-    href: `/shop/room/${room.slug}${roomHrefSuffix}`,
-  }));
+  // Same rule as the header: a room opted out of the main nav is reached
+  // through its parent, not from the top tier here.
+  const roomLinks = rooms
+    .filter((room) => room.showInMainNav !== false)
+    .map((room) => ({
+      slug: room.slug,
+      name: room.name,
+      href: `/shop/room/${room.slug}${roomHrefSuffix}`,
+    }));
 
   const activeRoomSlug =
     roomLinks.find((r) => pathname.startsWith(r.href))?.slug ??
