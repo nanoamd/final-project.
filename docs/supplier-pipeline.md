@@ -85,7 +85,6 @@ Before committing money:
 | **Elstead Lighting** | Decorative indoor + outdoor    | `sales@elsteadlighting.com` · 01420 82377 |
 | **Smart Garden**     | Solar lighting, water features | Trade form submitted                      |
 | **Bramblecrest**     | Fire pits, pergolas, teak      | `sales@bramblecrest.com` · 01285 760974   |
-| **Auroom Wellness**  | Premium saunas                 | Contact form                              |
 | **La Hacienda**      | Fire pits, chimineas, heaters  | `lahacienda.co.uk` — not yet approached   |
 
 **Correction: La Hacienda is still trading.** It was listed as dead here on the
@@ -97,6 +96,32 @@ next application for that category.
 The distinction matters: a supplier who sells direct will match your price, which
 is survivable. One who undercuts it is not. That is what question 3 in every
 email was for — get the answer in writing before listing anything.
+
+## Declined — but worth re-approaching
+
+Recorded separately from Dead on purpose. A supplier who has wound up is gone; one
+who declined a new account may well say yes to the same business with a trading
+history behind it. The re-approach date matters more than the refusal.
+
+| Supplier            | Fills          | What happened             | Re-approach                                                                |
+| ------------------- | -------------- | ------------------------- | -------------------------------------------------------------------------- |
+| **Auroom Wellness** | Premium saunas | Interested, then declined | After the first sauna sale, or six months' trading — whichever comes first |
+
+Auroom is worth going back to rather than writing off. Their own line is that in
+larger markets they are represented by approved local resellers who handle the
+order through to assembly and construction — so the likely objection is
+**installation capability**, not our size. Their named dealers are mostly US
+(Nordica, Premium Saunas, Sauna Republic); UK representation looks thin, which
+means the slot is probably open rather than taken.
+
+- [ ] Reply to the decline with one question: **what specifically would change the
+      answer** — trading history, an annual spend commitment, or an installation
+      partner? A "no" with a condition attached is a price, and it can be paid
+- [ ] If it is installation, that is solvable with a local fitter on referral, and
+      it is the same problem SaunaPlunge already needs solving
+
+Not urgent. SaunaPlunge already covers saunas, and the saunas are not expected to
+sell for a year, so nothing on the site is blocked by this.
 
 ## Dead — do not pursue
 
