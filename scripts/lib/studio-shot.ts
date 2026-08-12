@@ -204,11 +204,45 @@ const RANK: Record<ShotKind, number> = {
   unknown: 2,
 };
 
-export function preferredOrder(kinds: ShotKind[]): number[] {
-  return kinds
-    .map((kind, index) => ({ kind, index }))
-    .sort((a, b) => RANK[a.kind] - RANK[b.kind] || a.index - b.index)
-    .map((entry) => entry.index);
+/**
+ * A leading catalogue shot this tight is a close crop, not a product shot.
+ *
+ * Found by looking at the rendered Coffee Tables grid on a phone: every tile
+ * showed a whole table except Pershore, which led with a close-up of the table
+ * edge. Its first image measures 45% white border against 100% for the other
+ * three in the same gallery — so the signal that distinguishes them is there
+ * after all, just not reliably enough to carry a whole class of its own.
+ *
+ * Hence a narrow rule rather than a re-sort: swap only when the leader is
+ * clearly a tight crop *and* a clearly fuller shot exists. On the 45-versus-100
+ * case that fires; on a gallery where every shot measures 100 it does nothing.
+ */
+const TIGHT_CROP_MAX = 0.6;
+const FULL_SHOT_MIN = 0.85;
+
+export interface Shot {
+  kind: ShotKind;
+  /** From `classifyShot`. Zero for an image that could not be measured. */
+  whiteFraction: number;
+}
+
+export function preferredOrder(shots: Shot[]): number[] {
+  const order = shots
+    .map((shot, index) => ({ ...shot, index }))
+    .sort((a, b) => RANK[a.kind] - RANK[b.kind] || a.index - b.index);
+
+  const leader = order[0];
+  if (leader?.kind === "catalogue" && leader.whiteFraction < TIGHT_CROP_MAX) {
+    const fuller = order.findIndex(
+      (shot) =>
+        shot.kind === "catalogue" && shot.whiteFraction >= FULL_SHOT_MIN,
+    );
+    // One move, not a sort: lift the fuller shot to the front and let everything
+    // else keep its place.
+    if (fuller > 0) order.unshift(...order.splice(fuller, 1));
+  }
+
+  return order.map((entry) => entry.index);
 }
 
 /**
@@ -217,8 +251,8 @@ export function preferredOrder(kinds: ShotKind[]): number[] {
  * Without a confidently-identified catalogue shot there is nothing to promote,
  * and shuffling the rest would be churn on an editor's arrangement for no gain.
  */
-export function canReorder(kinds: ShotKind[]): boolean {
-  return kinds.includes("catalogue");
+export function canReorder(shots: Shot[]): boolean {
+  return shots.some((shot) => shot.kind === "catalogue");
 }
 
 /** True when the order actually differs, so an unchanged product is not written. */

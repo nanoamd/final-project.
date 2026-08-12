@@ -42,6 +42,7 @@ import {
   isPlainBackground,
   orderChanges,
   preferredOrder,
+  type Shot,
   type ShotKind,
 } from "./lib/studio-shot";
 
@@ -134,21 +135,21 @@ async function main() {
 
   for (const product of products) {
     const images = product.gallery ?? [];
-    const kinds: ShotKind[] = [];
+    const shots: Shot[] = [];
     const lines: string[] = [];
 
     for (const image of images) {
       const decoded = await decodeLqip(image.lqip);
       if (!decoded) {
         undecodable += 1;
-        kinds.push("unknown");
+        shots.push({ kind: "unknown", whiteFraction: 0 });
         lines.push(
           `      ?  no usable thumbnail  ${shorten(image.filename, 40)}`,
         );
         continue;
       }
       const verdict = classifyShot(decoded);
-      kinds.push(verdict.kind);
+      shots.push({ kind: verdict.kind, whiteFraction: verdict.whiteFraction });
       counts[verdict.kind] += 1;
 
       const mark =
@@ -170,18 +171,19 @@ async function main() {
         flagPatches.push({ id: product.id, key: image.key });
     }
 
-    const order = preferredOrder(kinds);
-    const needsReorder = canReorder(kinds) && orderChanges(order);
+    const order = preferredOrder(shots);
+    const needsReorder = canReorder(shots) && orderChanges(order);
     if (!needsReorder) alreadyLeading += 1;
 
     // Only print products where something is decided or changes — a fully
     // undecidable product is noise in a report meant to be read.
-    const interesting =
-      needsReorder || kinds.some((kind) => kind !== "unknown");
+    const interesting = needsReorder || shots.some((s) => s.kind !== "unknown");
     if (interesting) {
       console.log(
-        `  ${needsReorder ? "↻" : " "} ${shorten(product.title)}  [${kinds
-          .map((k) => (k === "catalogue" ? "C" : k === "lifestyle" ? "L" : "?"))
+        `  ${needsReorder ? "↻" : " "} ${shorten(product.title)}  [${shots
+          .map(({ kind }) =>
+            kind === "catalogue" ? "C" : kind === "lifestyle" ? "L" : "?",
+          )
           .join("")}]`,
       );
       for (const line of lines) console.log(line);

@@ -8,8 +8,14 @@ import {
   orderChanges,
   preferredOrder,
   type RawImage,
+  type Shot,
   type ShotKind,
 } from "./studio-shot";
+
+/** A measured shot. `whiteFraction` defaults to a full product shot on white. */
+function shot(kind: ShotKind, whiteFraction = 1): Shot {
+  return { kind, whiteFraction };
+}
 
 /**
  * Builds a raw RGB image from a per-pixel function, so a test can describe the
@@ -115,27 +121,72 @@ describe("classifyShot", () => {
 
 describe("preferredOrder", () => {
   it("promotes the catalogue shot and puts lifestyle second, so it becomes the hover", () => {
-    const kinds: ShotKind[] = ["lifestyle", "catalogue"];
-    expect(preferredOrder(kinds)).toEqual([1, 0]);
+    expect(preferredOrder([shot("lifestyle"), shot("catalogue")])).toEqual([
+      1, 0,
+    ]);
   });
 
   it("keeps the editor's sequence within each group", () => {
-    const kinds: ShotKind[] = [
-      "lifestyle",
-      "catalogue",
-      "lifestyle",
-      "catalogue",
-    ];
-    expect(preferredOrder(kinds)).toEqual([1, 3, 0, 2]);
+    expect(
+      preferredOrder([
+        shot("lifestyle"),
+        shot("catalogue"),
+        shot("lifestyle"),
+        shot("catalogue"),
+      ]),
+    ).toEqual([1, 3, 0, 2]);
   });
 
   it("sinks undecided images below both, rather than promoting a guess", () => {
-    const kinds: ShotKind[] = ["unknown", "lifestyle", "catalogue"];
-    expect(preferredOrder(kinds)).toEqual([2, 1, 0]);
+    expect(
+      preferredOrder([shot("unknown"), shot("lifestyle"), shot("catalogue")]),
+    ).toEqual([2, 1, 0]);
   });
 
   it("leaves an already-correct gallery alone", () => {
-    const order = preferredOrder(["catalogue", "catalogue", "lifestyle"]);
+    const order = preferredOrder([
+      shot("catalogue"),
+      shot("catalogue"),
+      shot("lifestyle"),
+    ]);
+    expect(orderChanges(order)).toBe(false);
+  });
+
+  it("lifts a fuller product shot above a tight crop that leads the gallery", () => {
+    // The Pershore case: image one is a close-up of the table edge at 45% white
+    // border, the other three show the whole table at 100%. On the phone grid it
+    // was the only tile not showing a table.
+    expect(
+      preferredOrder([
+        shot("catalogue", 0.45),
+        shot("catalogue", 1),
+        shot("catalogue", 1),
+        shot("lifestyle", 0),
+      ]),
+    ).toEqual([1, 0, 2, 3]);
+  });
+
+  it("moves one image, not the whole group — the rest keep the editor's order", () => {
+    const order = preferredOrder([
+      shot("catalogue", 0.3),
+      shot("catalogue", 0.7),
+      shot("catalogue", 0.95),
+    ]);
+    // 0.7 is neither a tight crop nor a clearly full shot, so it is not promoted
+    // and it does not move.
+    expect(order).toEqual([2, 0, 1]);
+  });
+
+  it("does nothing when every catalogue shot is equally full", () => {
+    const order = preferredOrder([shot("catalogue"), shot("catalogue")]);
+    expect(orderChanges(order)).toBe(false);
+  });
+
+  it("does nothing when the tight leader has no fuller alternative", () => {
+    const order = preferredOrder([
+      shot("catalogue", 0.3),
+      shot("catalogue", 0.5),
+    ]);
     expect(orderChanges(order)).toBe(false);
   });
 });
@@ -144,12 +195,12 @@ describe("canReorder", () => {
   it("refuses when nothing was confidently identified as a catalogue shot", () => {
     // Without one, there is nothing to promote and shuffling the rest is churn
     // on an editor's arrangement for no gain.
-    expect(canReorder(["lifestyle", "unknown"])).toBe(false);
-    expect(canReorder(["unknown", "unknown"])).toBe(false);
+    expect(canReorder([shot("lifestyle"), shot("unknown")])).toBe(false);
+    expect(canReorder([shot("unknown"), shot("unknown")])).toBe(false);
   });
 
   it("allows it as soon as there is one", () => {
-    expect(canReorder(["lifestyle", "catalogue"])).toBe(true);
+    expect(canReorder([shot("lifestyle"), shot("catalogue")])).toBe(true);
   });
 });
 

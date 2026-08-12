@@ -173,4 +173,31 @@ export const env = createEnv({
    * Escape hatch for builds without real credentials.
    */
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+
+  /**
+   * Say which variables are wrong.
+   *
+   * The default message is unusable when this fails during a hosted build. A
+   * missing variable produces `{ code: 'invalid_type', message: 'Invalid input:
+   * expected string, received undefined' }` — with no name attached — repeated
+   * once per variable, and then `Failed to collect page data for /_not-found`.
+   * Faced with seven of those in a Vercel log there is nothing to act on, which
+   * is how a deploy stays broken for a month while people guess at which
+   * variable it is. (It has already cost one wrong guess in this repo: a commit
+   * titled "Make SANITY_REVALIDATE_SECRET optional — likely Vercel build fix".)
+   *
+   * `issue.path` carries the variable name. Printing it turns the failure into
+   * an instruction.
+   */
+  onValidationError: (issues) => {
+    const named = issues.map((issue) => {
+      const name = issue.path?.map(String).join(".") ?? "(unknown variable)";
+      return `  ${name}: ${issue.message}`;
+    });
+    throw new Error(
+      `Invalid environment variables:\n${named.join("\n")}\n\n` +
+        `Set each of the above in the hosting dashboard, or set SKIP_ENV_VALIDATION=1 ` +
+        `to build without them. See .env.example for what each one is for.`,
+    );
+  },
 });
