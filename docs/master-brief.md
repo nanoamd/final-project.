@@ -43,44 +43,60 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                              | Why it blocks everything                                                                                                                                                         |
-| --- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | **Confirm the deploy went out**   | Cause found: `supplier-pages/` is 179MB of a 288MB tree, committed 9 August. Now in `.vercelignore` — payload 288MB → 109MB. Check kaikuhome.com shows "Browse every collection" |
-| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                     |
-| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                            |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                                         |
-| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                                                       |
-| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                   |
+| #   | Item                                                                     | Why it blocks everything                                                                                                                                             |
+| --- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | **Set Vercel's Production Branch to `main`, then Promote to Production** | Every build succeeds; all 30 recent deployments are `Preview`, none `Production`. That is the entire reason the site has not changed. Dashboard-only fix — see below |
+| 1   | ~~Merge the branch to `main`~~                                           | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                         |
+| 2   | **Stripe live keys**                                                     | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                |
+| 3   | **`RESEND_API_KEY`**                                                     | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                             |
+| 4   | **One real test order**                                                  | Payment → webhook → order record → email has never run against a real card                                                                                           |
+| 5   | **Rotate the Sanity write token**                                        | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                       |
 
 See `docs/first-sale-plan.md` for what these gate.
 
-### The deploy — the actual cause was a 179MB directory
+### The deploy — the builds all succeed, nothing is promoted to Production
 
-Established by content rather than assumption. The homepage markup on
-kaikuhome.com matches `shop-by-category.tsx` exactly as it stood at commit
-`014c2a5`, **6 August 21:55** — no `h2`, `lg:py-20` padding, `33vw` image sizes.
-So the live site is a build from 6 August, and 140 commits since then have never
-deployed.
+**This is the whole cause, and it is a Vercel setting, not a code problem.**
 
-That commit only ever existed on `claude/kaiku-home-continue-v94z7g`, never on
-`main`. Which settles something I had wrong: **Vercel's production branch is the
-working branch, not `main`.** Merging to `main` was correct housekeeping and
-fixed a genuinely broken history, but it was never going to move the live site.
+Every push to the repository triggers a Vercel build, and **every build
+succeeds** — "Deployment has completed", state `success`, checked via the GitHub
+Deployments API. But every one of the last 30 deployments, going back to
+11 August, was created in the **`Preview`** environment. **Not one is
+`Production`.** So each build lands on a `*.vercel.app` URL and kaikuhome.com is
+never updated — it stays pinned to whatever deployment currently holds the
+domain, which is a build from around 6 August.
 
-**What broke it: `supplier-pages/` was committed on 9 August and is 179MB** — 74
-saved supplier pages at roughly 1MB of HTML each, plus 107MB of the images that
-came with them. The working tree is 288MB, so that one directory is 62% of
-everything Vercel is asked to take, and nothing at runtime reads a byte of it.
+Dated precisely: the homepage markup on kaikuhome.com matches
+`shop-by-category.tsx` exactly as it stood at commit `014c2a5`, **6 August
+21:55** — no `h2`, `lg:py-20` padding, `33vw` image sizes. 140 commits since have
+built successfully and gone nowhere.
 
-Now in `.vercelignore` along with `backups/`, `docs/` and `e2e/`. The deployment
-payload drops from 288MB to 109MB and the build still produces all 162 pages.
-Keeping the directory itself is right — it is the offline copy the catalogue
-audit is checked against, and D.I. Designs sits behind a CAPTCHA so it cannot be
-re-fetched on demand. It just should not be uploaded.
+**The fix, in the Vercel dashboard:**
 
-One thing this does **not** fix: the git history is permanently 166MB heavier,
-which slows every clone including the one Vercel does. Removing it properly means
-rewriting history and force-pushing, so that is your call rather than mine.
+1. Project → **Settings → Git → Production Branch**. It is pointing at a branch
+   that is not being pushed. Set it to **`main`**, which is now current.
+2. Then Project → **Deployments** → newest → **⋯ → Promote to Production**. That
+   puts today's work live immediately without waiting for another push.
+3. Check **Settings → Domains** while you are there: if `kaikuhome.com` is
+   assigned to a specific deployment rather than to Production, reassign it.
+
+Everything is viewable right now at the newest preview URL while you are signed
+in to Vercel — previews sit behind Vercel Authentication, so it asks you to log
+in first.
+
+**Corrections to what I said earlier in the session.** I reported the
+module-scope Stripe client and the strict env validation as "the build failure
+killing every deploy". That was wrong. Those broke _CI_, which runs without
+secrets; Vercel has the keys set, so its builds were already passing. The
+`.vercelignore` is likewise a real improvement — the deployment payload drops
+from 288MB to 109MB — but a 288MB payload was not stopping anything either. All
+three changes are worth keeping on their own merits. None of them was the reason
+the site was not updating.
+
+`supplier-pages/` being 179MB of a 288MB tree is still worth knowing: it was
+committed on 9 August, nothing at runtime reads it, and the git history is
+permanently 166MB heavier, which slows every clone including Vercel's. Removing
+it properly means rewriting history and force-pushing, so that is your call.
 
 ### `main` and the branch had no merge base
 
