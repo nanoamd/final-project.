@@ -1,6 +1,12 @@
 import { PackageIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
+import {
+  COLOUR_TAGS,
+  MATERIAL_TAGS,
+  ROOM_TAGS,
+  USE_TAGS,
+} from "@/lib/catalog/facets";
 import { MarginDisplay } from "@/sanity/components/margin-display";
 
 export const product = defineType({
@@ -333,6 +339,64 @@ export const product = defineType({
       of: [{ type: "string" }],
       description:
         'Free-text facets for shop navigation, e.g. "Vintage & Reclaimed", "Coffee Table", "Modern". A product can carry several — they power the category drill-down filters.',
+    }),
+
+    // Filter facets --------------------------------------------------------
+    // Written by scripts/derive-product-tags.ts from what the document already
+    // says about itself, and constrained to the vocabulary in
+    // src/lib/catalog/facets.ts — the same list the storefront's filter bar is
+    // built from. Constraining both to one source is the point: without it the
+    // script writes "Grey", an editor types "Gray", the filter looks for
+    // "grey", and a shopper filtering for grey furniture is told there is none.
+    defineField({
+      name: "primaryColour",
+      title: "Primary colour",
+      type: "string",
+      group: "merchandising",
+      options: { list: [...COLOUR_TAGS] },
+      description:
+        "The colour this piece is, as listed and photographed — the swatch a " +
+        "card shows. Left empty when the document does not say clearly enough; " +
+        "an empty swatch is better than a wrong one.",
+    }),
+    defineField({
+      name: "colourTags",
+      title: "Colours available",
+      type: "array",
+      group: "merchandising",
+      of: [{ type: "string", options: { list: [...COLOUR_TAGS] } }],
+      options: { layout: "tags" },
+      description: "Every colour this piece genuinely comes in, primary first.",
+    }),
+    defineField({
+      name: "materialTags",
+      title: "Materials",
+      type: "array",
+      group: "merchandising",
+      of: [{ type: "string", options: { list: [...MATERIAL_TAGS] } }],
+      options: { layout: "tags" },
+      description:
+        "What it is actually made of. A material the piece only imitates — " +
+        "marble-effect glass, rattan-effect resin — is deliberately excluded.",
+    }),
+    defineField({
+      name: "roomTags",
+      title: "Rooms",
+      type: "array",
+      group: "merchandising",
+      of: [{ type: "string", options: { list: [...ROOM_TAGS] } }],
+      options: { layout: "tags" },
+      description:
+        "Rooms this belongs in, in a shopper's words rather than ours.",
+    }),
+    defineField({
+      name: "useTags",
+      title: "Product type",
+      type: "array",
+      group: "merchandising",
+      of: [{ type: "string", options: { list: [...USE_TAGS] } }],
+      options: { layout: "tags" },
+      description: "What the thing is for — Coffee table, Storage, Lighting.",
     }),
     defineField({
       name: "specs",

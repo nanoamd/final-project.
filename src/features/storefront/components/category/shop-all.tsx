@@ -1,8 +1,14 @@
 import Image from "next/image";
 
+import { FilterBar } from "@/components/shared/filter-bar";
 import { PromoBanner } from "@/components/shared/promo-banner";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
+import {
+  applyShopQuery,
+  describeQuery,
+  parseShopQuery,
+} from "@/lib/catalog/shop-query";
 import { formatPrice } from "@/lib/format";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import {
@@ -31,6 +37,7 @@ export async function ShopAll({
   roomSlug,
   categorySlug,
   styleTag,
+  searchParams,
 }: {
   roomSlug?: string;
   categorySlug?: string;
@@ -39,6 +46,12 @@ export async function ShopAll({
    *  Without it here, tapping a style tag returned the unfiltered category and
    *  looked like the filter did nothing. */
   styleTag?: string;
+  /**
+   * The raw query string, for the filters. Passed down rather than read here so
+   * this stays one server component with no client bundle — see
+   * src/lib/catalog/shop-query.ts for why the filters are URL-driven at all.
+   */
+  searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const [rooms, categories, products] = await Promise.all([
     getDepartments(),
@@ -114,6 +127,26 @@ export async function ShopAll({
     ? products.filter((p) => !groupedSlugs.has(p.slug))
     : [];
 
+  /**
+   * The filters.
+   *
+   * `products` stays the unfiltered set on purpose — the facet counts are
+   * computed from it, so ticking Black does not make every other swatch read as
+   * unavailable. `visible` is what actually renders.
+   *
+   * The path is rebuilt rather than read from a hook because this is a server
+   * component: `usePathname` would force the whole page into a client bundle for
+   * the sake of a string we already know.
+   */
+  const query = parseShopQuery(searchParams ?? {});
+  const pathname = categorySlug
+    ? `/shop/${categorySlug}`
+    : roomSlug
+      ? `/shop/room/${roomSlug}`
+      : "/shop/all";
+  const visible = applyShopQuery(products, query);
+  const filterDescription = describeQuery(query);
+
   return (
     <div className="bg-canvas text-ink min-h-screen">
       <PromoBanner>
@@ -131,9 +164,18 @@ export async function ShopAll({
             {category?.name ?? room?.name ?? "All Products"}
           </h1>
           <p className="text-muted shrink-0 text-[13px]">
-            {products.length} {products.length === 1 ? "product" : "products"}
+            {filterDescription
+              ? `${visible.length} of ${products.length} products`
+              : `${products.length} ${products.length === 1 ? "product" : "products"}`}
           </p>
         </div>
+
+        {/* Only where there is enough to filter. On a category of three products
+            a filter bar is furniture for its own sake, and it pushes the products
+            themselves below the fold on a phone. */}
+        {products.length >= 6 ? (
+          <FilterBar products={products} query={query} pathname={pathname} />
+        ) : null}
 
         {/* An applied filter has to be visible and removable. The count alone
             does not tell a shopper why they are seeing eleven products instead
@@ -155,8 +197,8 @@ export async function ShopAll({
           </div>
         ) : null}
 
-        {products.length ? (
-          grouped.length ? (
+        {visible.length ? (
+          grouped.length && !filterDescription ? (
             <div className="flex flex-col gap-12">
               {grouped.map((group) => (
                 <section key={group.category.slug}>
@@ -191,8 +233,16 @@ export async function ShopAll({
               ) : null}
             </div>
           ) : (
-            <ProductGrid products={products} />
+            // Grouping is dropped once a filter is on: a filtered set spread
+            // across category headings reads as several small empty shelves
+            // rather than one answer to what was asked for.
+            <ProductGrid products={visible} />
           )
+        ) : filterDescription ? (
+          <NoFilterMatches
+            pathname={pathname}
+            description={filterDescription}
+          />
         ) : (
           /* An empty catalogue must still offer somewhere to go. 21 of 36
              categories currently hold no products, and on mobile a category
@@ -311,5 +361,37 @@ function ShopAllTile({ product }: { product: SanityProduct }) {
         From {formatPrice(product.price)}
       </p>
     </AppLink>
+  );
+}
+
+/**
+ * What a filtered grid says when nothing matches.
+ *
+ * Distinct from the empty-category state on purpose: this category *has*
+ * products, the combination just excludes them all. Telling someone "coming
+ * soon" here would be a lie, and offering them "browse all products" throws away
+ * the narrowing they have done. Clearing the filters is the one useful action.
+ */
+function NoFilterMatches({
+  pathname,
+  description,
+}: {
+  pathname: string;
+  description: string;
+}) {
+  return (
+    <div className="border-line flex flex-col items-center rounded-none border border-dashed px-6 py-16 text-center">
+      <p className="font-display text-2xl">Nothing matches that combination</p>
+      <p className="text-muted mt-3 max-w-md text-[14px] leading-relaxed">
+        No piece here is {description}. Loosen one of the filters and there will
+        be — everything in this category is still a tap away.
+      </p>
+      <AppLink
+        href={pathname}
+        className="bg-ink text-canvas hover:bg-ink/90 mt-7 flex h-11 items-center rounded-none px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
+      >
+        Clear the filters
+      </AppLink>
+    </div>
   );
 }

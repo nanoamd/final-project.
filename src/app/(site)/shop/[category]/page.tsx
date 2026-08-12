@@ -55,9 +55,12 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ style?: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { category } = await params;
-  const { style } = await searchParams;
-  return <ShopAll categorySlug={category} styleTag={style} />;
+  const search = await searchParams;
+  const style = typeof search.style === "string" ? search.style : undefined;
+  return (
+    <ShopAll categorySlug={category} styleTag={style} searchParams={search} />
+  );
 }

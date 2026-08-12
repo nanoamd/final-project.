@@ -146,6 +146,14 @@ export interface SanityProduct {
   badges?: string[];
   highlights: string[];
   styleTags?: string[];
+  /** Derived filter facets — see scripts/derive-product-tags.ts and the
+   *  vocabulary in src/lib/catalog/facets.ts. Derived, not editorial: they are
+   *  rewritten from the document's own text, so an override belongs in the text. */
+  primaryColour?: string | null;
+  colourTags?: string[];
+  materialTags?: string[];
+  roomTags?: string[];
+  useTags?: string[];
   specs: SanityProductSpec[];
   options?: SanityProductOption[];
   gallery: SanityProductGalleryImage[];

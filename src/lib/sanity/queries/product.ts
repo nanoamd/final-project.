@@ -30,6 +30,11 @@ const PRODUCT_PROJECTION = /* groq */ `{
   badges,
   highlights,
   styleTags,
+  primaryColour,
+  colourTags,
+  materialTags,
+  roomTags,
+  useTags,
   "specs": specs[] ${PRODUCT_SPEC_PROJECTION},
   "options": options[] ${PRODUCT_OPTION_PROJECTION},
   "gallery": gallery[]{
