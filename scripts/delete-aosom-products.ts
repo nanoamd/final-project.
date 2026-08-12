@@ -39,7 +39,8 @@ const BACKUP_DIR = "backups";
 const QUERY = `*[_type == "product" && (
   supplier->name match "*AOSON*" || supplier->name match "*Aosom*" ||
   title match "*HOMCOM*" || title match "*Outsunny*" ||
-  _id match "*outsunny*" || _id match "*homcom*"
+  _id match "*outsunny*" || _id match "*homcom*" ||
+  sourceUrl match "*aosom*"
 )]`;
 
 const token = process.env.SANITY_API_WRITE_TOKEN;

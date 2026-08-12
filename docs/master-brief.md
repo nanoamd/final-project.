@@ -536,6 +536,16 @@ before. If a deploy still errors, the log will now name the variable.
       availability, lead times, automatic updates.
 - [x] **20 suppliers not yet emailed** — `docs/supplier-targets-20.md`, with
       company, website, products, fit, contact method, approach.
+- [x] **Instant-signup suppliers** — `docs/supplier-instant-signup.md`. Written
+      because the 20-supplier list is getting no replies, which is what happens
+      to every new retailer approaching premium brands with no trading history.
+      Nine UK/EU platforms with automated or near-automated approval, mapped
+      onto the 19 empty categories, plus the five to open first. A VAT number is
+      not generally required, which matters as you are below the threshold.
+- [x] **Aosom range deleted** — all 32 documents (7 published, 25 drafts), backed
+      up to `backups/aosom-products-2026-08-12T20-33-09-707Z.json` first. They
+      had not accepted the application. This emptied 8 more categories, which is
+      what makes the instant-signup list urgent rather than optional.
 - [ ] **Supplier outreach emails** positioning Kaiku as a premium,
       content-driven partner rather than another reseller.
 - [ ] **High-ticket product pages** — buying guides, FAQs, comparisons,
