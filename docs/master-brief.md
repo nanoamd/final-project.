@@ -43,14 +43,14 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                               | Why it blocks everything                                                                                                                                        |
-| --- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | **Send me the Vercel build error** | `main` is now correct and CI is green, but every Vercel deploy has errored since 15 July, so the live site is still an old build. One log removes all guesswork |
-| 1   | ~~Merge the branch to `main`~~     | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                    |
-| 2   | **Stripe live keys**               | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                           |
-| 3   | **`RESEND_API_KEY`**               | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                        |
-| 4   | **One real test order**            | Payment → webhook → order record → email has never run against a real card                                                                                      |
-| 5   | **Rotate the Sanity write token**  | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                  |
+| #   | Item                              | Why it blocks everything                                                                                                                             |
+| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | **Confirm the deploy went out**   | Two build-killers found and fixed; `next build` now completes with no environment variables at all. Check kaikuhome.com shows the new homepage rails |
+| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                         |
+| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                |
+| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                             |
+| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                           |
+| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                       |
 
 See `docs/first-sale-plan.md` for what these gate.
 
@@ -93,28 +93,59 @@ Four separate faults, all now fixed:
    attached. It now names them, which matters most in a hosting build log — the
    lack of it has already cost one wrong guess in this repo's history.
 
-### Vercel: still not deploying, and this needs your eyes
+### Why the deploy was failing, and what was done about it
 
-Every Vercel deployment has errored since 15 July, so the live site is the last
-build that succeeded before that. `main` is now correct and CI is green, but a
-green CI does not prove Vercel will build — **CI runs with
-`SKIP_ENV_VALIDATION=true` and Vercel does not.**
+Every Vercel deployment errored from 15 July to 12 August, so the live site was
+the last build that succeeded before that. Confirmed by content, not guesswork:
+`/compare` and `/quote` both said "coming soon", and product pages still carried
+hardcoded strings deleted weeks ago.
 
-The most likely cause is a missing required environment variable in the Vercel
-project. These eight are mandatory and a build dies without any one of them:
+Two build-killers were found by reproducing a build with no environment at all.
 
-`SUPABASE_SERVICE_ROLE_KEY` · `SANITY_API_READ_TOKEN` · `STRIPE_SECRET_KEY` ·
-`STRIPE_WEBHOOK_SECRET` · `NEXT_PUBLIC_SITE_URL` · `NEXT_PUBLIC_SUPABASE_URL` ·
-`NEXT_PUBLIC_SUPABASE_ANON_KEY` · `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+**1. The Stripe client was constructed at module scope.**
 
-Reproduced locally: drop any one and `next build` fails with
-`Failed to collect page data for /_not-found`. With fix 4 above, the Vercel log
-will now name the variable instead of printing seven anonymous type errors.
+```
+Error: Neither apiKey nor config.authenticator provided
+  at Object.<anonymous> (.next/server/app/api/webhooks/stripe/route.js:10:3)
+> Build error occurred
+Error: Failed to collect page data for /api/webhooks/stripe
+```
 
-**What to do:** open the newest failed deployment in Vercel, and send the build
-log — or just the error lines. That removes the guesswork entirely. Do **not**
-mark any `NEXT_PUBLIC_` variable as Sensitive; that took the site down once
-before.
+`next build` evaluates every route module while collecting page data, so a
+client built at import has to be constructible in the _build_ environment — a
+requirement no route actually has, since the key is needed when a request
+arrives. One API route failed the whole build. Stripe checkout was added on
+15 July, the day the deploys started erroring.
+
+**2. Any single unset variable killed the build.** `createEnv` threw during page
+data collection, the build died on `/_not-found`, and the error named no
+variable — seven identical "expected string, received undefined" lines. There
+was nothing to act on, which is how this survived a month.
+
+The requirement was never real: the build compiles pages and prerenders content
+from Sanity, which reads without a token. Everything else is needed at request
+time. So those variables are optional now and checked where they are used, by
+`requireEnv`, which names the variable and what stopped working —
+"STRIPE_WEBHOOK_SECRET is not set, so payment confirmations cannot be verified".
+A missing Stripe key now means checkout reports a configuration error; it no
+longer means the catalogue is offline.
+
+Two smaller things fell out of it. `SANITY_API_READ_TOKEN` is read nowhere in
+`src/` — required, used by nothing, able to fail a deploy on its own. And
+`NEXT_PUBLIC_SITE_URL` is now an override rather than a requirement, with
+absolute URLs coming from `siteConfig.url`: two sources of truth for one origin
+meant Stripe could return a paying customer to a host that 308-redirects,
+carrying a `session_id`, on the most fragile step in the funnel.
+
+**Verified:** `next build` completes with an entirely empty environment and
+validation switched on — 162 pages — and CI is green for the first time since
+15 July.
+
+**Still yours to check:** that the deployment actually went out, and that the
+production environment has real values for Stripe, Supabase and Resend. The site
+will now build without them; it will not take payments without them. Do **not**
+mark any `NEXT_PUBLIC_` variable as Sensitive — that took the site down once
+before. If a deploy still errors, the log will now name the variable.
 
 ---
 
