@@ -127,14 +127,32 @@ See `docs/first-sale-plan.md` for what these gate.
 
 ### Image system
 
-- [ ] **Investigate why higher-quality images do not publish / revert after
-      deployment / do not save.** Suspects: CMS caching, image references,
-      deployment caching, frontend handling, asset optimisation. Not started.
-- [ ] **Automated image ordering** — first image = clean white-background
-      catalogue shot, hover = lifestyle. Must not require editing hundreds of
-      products by hand. The `isStudioShot` flag exists on gallery items; nothing
-      populates it automatically.
-- [ ] **Image quality** — audit resolution across the catalogue.
+- [x] **Investigated why higher-quality images do not publish / revert after
+      deployment / do not save** — `docs/image-audit.md`. Three separate causes,
+      and **nothing in the pipeline degrades images**: six images were
+      re-uploaded from a Sanity thumbnail (two Hamptons are 146×146 with
+      filenames claiming 2000×2000); 15 products have image changes sitting
+      unpublished in a draft, which is exactly what "it reverted after
+      deployment" looks like; nine images are genuinely too small.
+- [!] **Publish the 15 drafts** — listed in the audit. Left for you on purpose: a
+  draft can carry half-finished text changes alongside the image change.
+- [!] **Re-upload the two 146×146 Hampton images** from D.I. Designs. The
+  original is gone; re-publishing cannot recover it.
+- [x] **Automated image ordering** — `scripts/derive-studio-shots.ts` classifies
+      every image from the thumbnail Sanity already stores, no downloads. 353
+      catalogue shots flagged, 75 setting shots, 35 galleries reordered to lead
+      with the catalogue shot. `isStudioShot` was set on **0 of 439** images
+      before this, so the card-hover swap had never fired once.
+- [x] **Hover image is now the lifestyle shot** — it was derived backwards, and
+      falls back to the second photo for the 57 products shot only on white.
+- [x] **Image quality audited** — median 2000px, but a bad tail: 9 unusable
+      (under 700px), 25 soft (under 1200px), listed in the audit.
+- [x] **Alt text on every image** — 178 of 439 to 439 of 439
+      (`scripts/derive-image-alt.ts`), built only from facts the document can
+      prove. Editor-written text is never overwritten.
+- [ ] **Four assets shared between two products** — replacing one changes the
+      other. The two SaunaPlunge Bronte cabins (2-person and 6-person) share
+      photographs, which is a customer-expectation problem as well as a data one.
 
 ### Product SEO
 
@@ -240,8 +258,9 @@ See `docs/first-sale-plan.md` for what these gate.
 ### URLs, images, linking
 
 - [ ] **Slug audit** — short, descriptive, keyword-relevant, no filler.
-- [ ] **Image SEO** — correct filename, alt text, product relevance.
-      `hampton-ivory-shagreen-console-table.jpg`, not `IMG_3928.jpg`.
+- [~] **Image SEO** — alt text now on all 439 images. Filenames: only 4 of 439
+  are undescriptive (`image-6.png`, `6.jpg.webp`, `7.jpg.webp`,
+  `19.jpg.webp`), so this is much smaller than it looked.
 - [ ] **Internal linking system** — every product links to related products,
       category pages, buying guides, room inspiration.
 
