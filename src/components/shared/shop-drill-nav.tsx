@@ -84,8 +84,36 @@ export function ShopDrillNav({
       href: `/shop/room/${room.slug}${roomHrefSuffix}`,
     }));
 
+  /**
+   * The room the current URL sits in.
+   *
+   * A category URL is `/shop/<category>` — no room segment — so matching only on
+   * the room hrefs left this undefined on every category page. That collapsed
+   * tier 2, meaning the moment you tapped a category the bar you tapped it from
+   * disappeared, and the category you had chosen was nowhere on screen. That is
+   * the "selected categories should stay selected" and "category navigation
+   * becomes confusing" report: the selection was real, the bar showing it was
+   * gone.
+   *
+   * So: a room segment if there is one, otherwise the room owning the category in
+   * the path, and Outdoor Living on the /shop index.
+   */
+  const pathCategorySlug = (() => {
+    const parts = pathname.split("/").filter(Boolean);
+    if (parts[0] !== "shop" || parts[1] === "room") return undefined;
+    return parts[1] === "all" ? undefined : parts[1];
+  })();
+
   const activeRoomSlug =
     roomLinks.find((r) => pathname.startsWith(r.href))?.slug ??
+    (pathCategorySlug
+      ? categories.find((c) => c.slug === pathCategorySlug)?.departmentSlugs
+          ?.length
+        ? categories.find((c) => c.slug === pathCategorySlug)!
+            .departmentSlugs![0]
+        : (categories.find((c) => c.slug === pathCategorySlug)
+            ?.departmentSlug ?? undefined)
+      : undefined) ??
     (pathname === "/shop" ? "outdoor-living" : undefined);
 
   const effectiveRoom = hoveredRoom ?? clickedRoom ?? activeRoomSlug;
@@ -154,7 +182,7 @@ export function ShopDrillNav({
             return (
               <DrillItem
                 key={category.slug}
-                active={pathname === `/shop/${category.slug}`}
+                active={pathCategorySlug === category.slug}
                 expanded={category.slug === effectiveCategory}
                 theme={t}
                 href={`/shop/${category.slug}`}
@@ -240,10 +268,15 @@ function DrillBar({
   return (
     <div className={cn("relative border-t", theme.subBar)}>
       {skew ? (
+        /* Desktop only. This is an absolutely positioned layer rotated out of its
+           own box, so on a narrow viewport the corners ride over the row above and
+           the page heading below it — the "category bar covering content" and
+           "navigation overlapping headings" reports. There is no room for a
+           decorative skew at 390px wide, and nothing is lost by dropping it. */
         <div
           aria-hidden
           className={cn(
-            "absolute inset-0 origin-top-left -skew-y-1",
+            "absolute inset-0 hidden origin-top-left -skew-y-1 lg:block",
             theme.skewFill,
           )}
         />
@@ -253,9 +286,20 @@ function DrillBar({
           the right edge ("COLD PLU…"), which looks like broken text rather
           than "there's more". Same fade the header sub-bar already uses;
           removed from sm up, where the rows fit. */}
+      {/* Horizontal scrolling behaviour, all of it deliberate:
+          - `[scrollbar-width:none]` hides it in Firefox; the `::-webkit-scrollbar`
+            rule is what hides it in Safari and Chrome, and without that half of
+            mobile got a grey bar sitting across the bottom of the nav.
+          - `overscroll-x-contain` stops a swipe that reaches the end of the row
+            from continuing into the browser's back gesture — which on iOS meant
+            flicking through categories could navigate away from the page.
+          - snap points so a flick settles with an item aligned to the edge rather
+            than mid-word, which is what made the row feel unfinished.
+          - `touch-pan-x` keeps vertical page scrolling working when a finger
+            starts inside the row. */}
       <div
         className={cn(
-          "relative mx-auto flex max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12",
+          "relative mx-auto flex max-w-[1440px] touch-pan-x snap-x snap-mandatory [scrollbar-width:none] items-center gap-7 overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden",
           dense ? "h-10 gap-2.5" : "h-11",
         )}
       >
@@ -284,9 +328,25 @@ function DrillItem({
   onMouseEnter: () => void;
   onToggle: () => void;
 }) {
+  /**
+   * Scroll the active item into view.
+   *
+   * These rows scroll horizontally and hold up to eleven items, so the category a
+   * shopper just chose is frequently off-screen when the page they chose it from
+   * loads — the highlight is applied to something they cannot see, which reads as
+   * the selection not having stuck. `nearest` so it only moves when it has to, and
+   * `inline` so a vertical jump is never triggered as a side effect.
+   */
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (!active) return;
+    ref.current?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [active]);
+
   return (
     <div
-      className="group flex shrink-0 items-center gap-1"
+      ref={ref}
+      className="group flex shrink-0 snap-start items-center gap-1"
       onMouseEnter={onMouseEnter}
     >
       <AppLink
