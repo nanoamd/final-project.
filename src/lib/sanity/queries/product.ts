@@ -247,6 +247,22 @@ const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
 
+/**
+ * One supplier's products, cheapest first.
+ *
+ * Ordered by price ascending on purpose: the homepage rail leads with the lowest
+ * entry point into the range, so the first card a visitor sees is the easiest thing
+ * to say yes to, and the prices climb as they swipe. Leading with a £1,190 chest of
+ * drawers reads as "not for me" before anyone has scrolled.
+ */
+const PRODUCTS_BY_SUPPLIER_QUERY = /* groq */ `
+*[_type == "product"
+  && defined(slug.current)
+  && supplier->name == $supplierName]
+  | order(price asc)
+  [0...$limit]
+  ${PRODUCT_PROJECTION}`;
+
 const ALL_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product" && defined(slug.current)]
   | order(_createdAt desc)
@@ -391,6 +407,19 @@ export async function getProductsByDepartment(
  * Filtered on a defined slug because a product without one has no reachable
  * URL, so a tile for it would link nowhere.
  */
+/** One supplier's range, cheapest first. */
+export async function getProductsBySupplier(
+  supplierName: string,
+  limit = 12,
+): Promise<SanityProduct[]> {
+  const raw = await sanityFetch<RawProduct[]>(
+    PRODUCTS_BY_SUPPLIER_QUERY,
+    { supplierName, limit },
+    [],
+  );
+  return normalizeProducts(raw);
+}
+
 export async function getAllProducts(limit = 500): Promise<SanityProduct[]> {
   const raw = await sanityFetch<RawProduct[]>(
     ALL_PRODUCTS_QUERY,

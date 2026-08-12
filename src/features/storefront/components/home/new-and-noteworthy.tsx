@@ -2,12 +2,12 @@ import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
 import { formatPrice } from "@/lib/format";
-import { getAllProducts } from "@/lib/sanity/queries";
+import { getProductsBySupplier } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
- * New & Noteworthy — a horizontally scrolling rail of the most recently added
- * products, on the same white panel as the category rail above it.
+ * New & Noteworthy — a horizontally scrolling rail of the furniture range, cheapest
+ * first, on the same white panel as the category rail above it.
  *
  * The homepage previously went from picking a category straight into editorial
  * bands, so the only actual products a visitor met before roughly 3,000px were the
@@ -18,15 +18,32 @@ import type { SanityProduct } from "@/types/sanity-content";
  * Cards are white on white, separated by a hairline border rather than a shadow —
  * shadows on white are the fastest way to make a page look like a template.
  *
- * Newest-first comes from the query itself. Deliberately not "featured", because a
- * featured list is a field somebody has to remember to curate, and an uncurated
- * featured rail is worse than none.
+ * Ordered cheapest to dearest, and drawn from the furniture range rather than the
+ * whole catalogue. Two reasons. The lowest entry point is the easiest thing to say
+ * yes to, so it belongs on the first card, and the prices climbing as someone swipes
+ * is a gentler introduction than opening with a £1,190 chest of drawers — which
+ * reads as "not for me" before anyone has scrolled. And a rail mixing a £6.95 bottle
+ * of essential oil with a £5,279 sauna cabin describes no coherent shop; the
+ * furniture is the range with enough depth to carry a rail on its own.
+ *
+ * Deliberately not a curated "featured" list either: that is a field somebody has to
+ * remember to update, and a stale featured rail is worse than none. This orders
+ * itself.
  */
+/**
+ * The supplier whose range fills this rail. An exact name, matched against the
+ * supplier document — a `match` on a wildcard would quietly pick up a second
+ * supplier with a similar name later and change what the homepage shows.
+ */
+const FURNITURE_SUPPLIER = "D.I. Designs";
+
 export async function NewAndNoteworthy() {
   // Twelve is about three screens of swiping on a phone and two rows' worth of
   // choice on desktop — enough to feel like a range, short enough that the last
   // card is reachable.
-  const products = (await getAllProducts(12)).filter((p) => p.slug);
+  const products = (await getProductsBySupplier(FURNITURE_SUPPLIER, 12)).filter(
+    (p) => p.slug,
+  );
 
   // Nothing to show is not a section. An empty rail with a heading over it reads
   // as broken, where absence reads as nothing at all.
@@ -54,7 +71,10 @@ export async function NewAndNoteworthy() {
       </div>
 
       <div className="mx-auto max-w-[1440px] pb-12 lg:pb-16">
-        <ul className="flex touch-pan-x snap-x snap-mandatory scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-5 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden">
+        <ul
+          data-lenis-prevent
+          className="flex touch-pan-x snap-x snap-proximity scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-5 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden"
+        >
           {products.map((product) => (
             <li
               key={product.slug}

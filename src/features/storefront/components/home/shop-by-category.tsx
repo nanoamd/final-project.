@@ -2,6 +2,7 @@ import { Flame } from "lucide-react";
 import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
+import { getCategories } from "@/lib/sanity/queries";
 import type { CategoryTile } from "@/types/sanity-content";
 
 const DEFAULT_TILES: CategoryTile[] = [
@@ -50,14 +51,40 @@ const DEFAULT_TILES: CategoryTile[] = [
  * where to shop — and white reads as a shop rather than a mood film. It also sets up
  * the New & Noteworthy rail directly beneath it as one clean panel.
  */
-export function ShopByCategory({
+export async function ShopByCategory({
   eyebrow,
   tiles,
 }: {
   eyebrow?: string;
   tiles?: CategoryTile[];
 }) {
-  const list = tiles?.length ? tiles : DEFAULT_TILES;
+  /**
+   * Editorially chosen tiles first, then every other stocked category.
+   *
+   * The rail showed five, because five was all the Sanity field held — and a rail
+   * whose whole point is that it can run past the screen edge showing five items is
+   * just a short grid. There are 24 stocked categories.
+   *
+   * Merged rather than replaced, so the curated tiles keep their chosen photography
+   * and their position, and the rest of the range follows in display order. A
+   * category with no products is left out: a rail is a promise that tapping leads
+   * somewhere, and 17 of the 41 categories are still empty.
+   */
+  const stocked = (await getCategories()).filter(
+    (category) => (category.productCount ?? 0) > 0,
+  );
+  const curated = tiles?.length ? tiles : DEFAULT_TILES;
+  const curatedSlugs = new Set(curated.map((t) => t.categorySlug));
+  const list: CategoryTile[] = [
+    ...curated,
+    ...stocked
+      .filter((category) => !curatedSlugs.has(category.slug))
+      .map((category) => ({
+        categorySlug: category.slug,
+        categoryName: category.name,
+        image: category.image ?? null,
+      })),
+  ];
 
   return (
     <section className="bg-canvas text-ink border-line border-y">
@@ -67,8 +94,11 @@ export function ShopByCategory({
             <p className="text-brass text-[11px] font-medium tracking-[0.24em] uppercase sm:text-[12px]">
               {eyebrow ?? "Shop by Category"}
             </p>
+            {/* These are categories, not rooms — Coffee Tables, Bedside Tables,
+                Planters. The previous heading said "Start with the room", which
+                described the tier above this one. */}
             <h2 className="font-display mt-2 text-xl tracking-tight sm:text-2xl">
-              Start with the room
+              Browse every collection
             </h2>
           </div>
           <AppLink
@@ -94,7 +124,10 @@ export function ShopByCategory({
           gesture, snap points so it settles on a tile rather than mid-tile, and
           touch-pan-x so vertical page scrolling still works from inside the rail. */}
       <div className="mx-auto max-w-[1440px] pb-10 lg:pb-16">
-        <ul className="flex touch-pan-x snap-x snap-mandatory scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-4 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden">
+        <ul
+          data-lenis-prevent
+          className="flex touch-pan-x snap-x snap-proximity scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-4 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden"
+        >
           {list.map((tile) => (
             <li
               key={tile.categorySlug}
