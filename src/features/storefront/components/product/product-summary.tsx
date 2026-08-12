@@ -340,8 +340,11 @@ export function ProductSummary({
         ) : null}
 
         <div className="text-muted flex items-center justify-center gap-8 text-[12px]">
+          {/* Carries this product into the comparison, so the tool opens with
+              something in it rather than asking the shopper to start again. The
+              comparison lives entirely in the URL — see /compare. */}
           <AppLink
-            href="/compare"
+            href={`/compare?products=${encodeURIComponent(product.slug)}`}
             className="hover:text-ink flex items-center gap-2 transition-colors"
           >
             <Scale className="size-4" strokeWidth={1.5} aria-hidden /> Compare
