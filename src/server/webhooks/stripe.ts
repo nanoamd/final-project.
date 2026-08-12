@@ -10,7 +10,7 @@ import { buildOrderAlertEmail } from "@/server/emails/order-alert";
 import { buildOrderConfirmationEmail } from "@/server/emails/order-confirmation";
 import { sendBuiltEmail } from "@/server/emails/transport";
 import { assignWorkflow } from "@/server/hq/workflows";
-import { stripe } from "@/server/stripe/client";
+import { getStripe } from "@/server/stripe/client";
 import { createAdminClient } from "@/server/supabase/admin";
 
 /**
@@ -65,10 +65,10 @@ async function persistOrder(
   // category, supplier) attached at checkout — see checkout.ts — so an
   // order can be fulfilled by looking up the real Sanity product/supplier
   // instead of parsing a free-text description by hand.
-  const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
-    limit: 100,
-    expand: ["data.price.product"],
-  });
+  const lineItems = await getStripe().checkout.sessions.listLineItems(
+    session.id,
+    { limit: 100, expand: ["data.price.product"] },
+  );
   const mappedLineItems = lineItems.data.map((item) => {
     const product =
       item.price && typeof item.price.product === "object"

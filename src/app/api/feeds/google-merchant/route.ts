@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 
@@ -105,10 +106,29 @@ function productType(product: {
 /**
  * Google Merchant Center product feed (RSS 2.0 + the `g:` shopping
  * namespace). Configure this URL as a "Scheduled fetch" in Merchant Center:
- * `${NEXT_PUBLIC_SITE_URL}/api/feeds/google-merchant`.
+ * `https://www.kaikuhome.com/api/feeds/google-merchant`.
  */
 export async function GET() {
-  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
+  /**
+   * `siteConfig.url`, not `env.NEXT_PUBLIC_SITE_URL`.
+   *
+   * Two reasons, and the second is the important one.
+   *
+   * It crashed the build. Every route module is evaluated while collecting page
+   * data, and this one is prerendered, so with the variable unset the escape
+   * helper was handed `undefined` and the build died on
+   * `Cannot read properties of undefined (reading 'replace')` — taking the whole
+   * deploy down over one feed nobody had switched on yet.
+   *
+   * And a feed link must match the page's canonical exactly. Every canonical,
+   * OG tag, JSON-LD url and sitemap entry on this site is built from
+   * `siteConfig.url`, which is the `www` host the site actually serves from —
+   * the bare domain 308-redirects to it. A feed pointing at a URL that redirects
+   * is a routine cause of Merchant Center disapprovals, so reading the same
+   * constant as everything else is the correct answer rather than the convenient
+   * one.
+   */
+  const siteUrl = siteConfig.url;
 
   // Off until MERCHANT_FEED_ENABLED=true. Merchant Center fetches on its own
   // schedule, so one scheduled fetch is enough for it to keep collecting

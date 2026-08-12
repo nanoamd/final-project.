@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { env } from "@/env";
-import { stripe } from "@/server/stripe/client";
+import { getStripe } from "@/server/stripe/client";
 import { handleStripeEvent } from "@/server/webhooks/stripe";
 
 /**
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(
+    event = getStripe().webhooks.constructEvent(
       rawBody,
       signature,
       env.STRIPE_WEBHOOK_SECRET,

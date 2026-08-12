@@ -5,7 +5,7 @@ import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { ClearCartOnMount } from "@/features/storefront/components/content/clear-cart-on-mount";
 import { formatPriceExact } from "@/lib/format";
-import { stripe } from "@/server/stripe/client";
+import { getStripe } from "@/server/stripe/client";
 
 export const metadata: Metadata = {
   title: "Order Confirmed",
@@ -23,7 +23,7 @@ export default async function CheckoutSuccessPage({
   let email: string | null = null;
   if (session_id) {
     try {
-      const session = await stripe.checkout.sessions.retrieve(session_id);
+      const session = await getStripe().checkout.sessions.retrieve(session_id);
       amount = session.amount_total ? session.amount_total / 100 : null;
       email = session.customer_details?.email ?? null;
     } catch (error) {

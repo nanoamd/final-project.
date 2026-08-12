@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { env } from "@/env";
 import { sanityClient } from "@/lib/sanity/client";
 import { createClient } from "@/lib/supabase/server";
-import { stripe } from "@/server/stripe/client";
+import { getStripe } from "@/server/stripe/client";
 
 export interface CheckoutLineInput {
   slug: string;
@@ -138,7 +138,7 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
     success_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
