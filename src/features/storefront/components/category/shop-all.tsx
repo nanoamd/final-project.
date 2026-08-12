@@ -71,6 +71,49 @@ export async function ShopAll({
     .sort((a, b) => (b.productCount ?? 0) - (a.productCount ?? 0))
     .slice(0, 6);
 
+  /**
+   * On a room page, products are grouped under their category with a heading each.
+   *
+   * Living Room holds 58 products. As one grid that is a wall a phone shopper
+   * scrolls past without landing anywhere — sofas, lamps, chests and side tables
+   * interleaved by creation date, which is the order they happened to be imported
+   * in and means nothing to anyone. Grouped, the same page reads as a set of
+   * shelves: Coffee Tables, Sofas, TV Units.
+   *
+   * Only on room pages. A category page is already one group, and heading it with
+   * its own name would just repeat the h1 above.
+   *
+   * Groups follow the categories' own display order, so Studio controls the
+   * sequence. A product is filed under its primary category when that category
+   * belongs to this room, and otherwise under whichever of its categories does —
+   * a teak bench whose primary category is Garden Furniture appears under Garden
+   * Furniture here, not under a heading from a different room.
+   */
+  const grouped =
+    room && !categorySlug
+      ? categories
+          .filter((c) => categoryInRoom(c, room.slug) && !c.excludeFromRoomGrid)
+          .map((c) => ({
+            category: c,
+            products: products.filter(
+              (p) =>
+                p.category === c.slug ||
+                (p.additionalCategorySlugs ?? []).includes(c.slug),
+            ),
+          }))
+          .filter((group) => group.products.length > 0)
+      : [];
+
+  // Anything the grouping missed keeps its place rather than vanishing — a product
+  // whose category is not attached to this room would otherwise be counted in the
+  // header and then rendered nowhere.
+  const groupedSlugs = new Set(
+    grouped.flatMap((g) => g.products.map((p) => p.slug)),
+  );
+  const ungrouped = grouped.length
+    ? products.filter((p) => !groupedSlugs.has(p.slug))
+    : [];
+
   return (
     <div className="bg-canvas text-ink min-h-screen">
       <PromoBanner>
@@ -112,17 +155,44 @@ export async function ShopAll({
           </div>
         ) : null}
 
-        {/* Three across on mobile rather than two, with tighter gutters. Two
-            columns of large tiles meant roughly four products per screen;
-            three fits about nine, so the catalogue can be scanned by scrolling
-            instead of paged through. Every width from sm up keeps the gutters
-            and column counts it already had. */}
         {products.length ? (
-          <div className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-5 xl:grid-cols-6">
-            {products.map((product) => (
-              <ShopAllTile key={product.slug} product={product} />
-            ))}
-          </div>
+          grouped.length ? (
+            <div className="flex flex-col gap-12">
+              {grouped.map((group) => (
+                <section key={group.category.slug}>
+                  {/* The heading links to the category's own page, so a shopper who
+                      recognises the group they want can narrow to it in one tap
+                      rather than scrolling the rest of the room. */}
+                  <div className="border-line mb-5 flex items-end justify-between gap-4 border-b pb-3">
+                    <h2 className="font-display text-xl tracking-tight sm:text-2xl">
+                      <AppLink
+                        href={`/shop/${group.category.slug}`}
+                        className="hover:text-brass transition-colors"
+                      >
+                        {group.category.name}
+                      </AppLink>
+                    </h2>
+                    <p className="text-muted shrink-0 text-[12px]">
+                      {group.products.length}
+                    </p>
+                  </div>
+                  <ProductGrid products={group.products} />
+                </section>
+              ))}
+              {ungrouped.length ? (
+                <section>
+                  <div className="border-line mb-5 border-b pb-3">
+                    <h2 className="font-display text-xl tracking-tight sm:text-2xl">
+                      More in {room?.name}
+                    </h2>
+                  </div>
+                  <ProductGrid products={ungrouped} />
+                </section>
+              ) : null}
+            </div>
+          ) : (
+            <ProductGrid products={products} />
+          )
         ) : (
           /* An empty catalogue must still offer somewhere to go. 21 of 36
              categories currently hold no products, and on mobile a category
@@ -178,6 +248,24 @@ export async function ShopAll({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The product grid.
+ *
+ * Three across on mobile rather than two, with tighter gutters. Two columns of
+ * large tiles meant roughly four products per screen; three fits about nine, so
+ * the catalogue can be scanned by scrolling instead of paged through. Every width
+ * from sm up keeps the gutters and column counts it already had.
+ */
+function ProductGrid({ products }: { products: SanityProduct[] }) {
+  return (
+    <div className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-5 xl:grid-cols-6">
+      {products.map((product) => (
+        <ShopAllTile key={product.slug} product={product} />
+      ))}
     </div>
   );
 }
