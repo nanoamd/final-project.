@@ -43,24 +43,51 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                              | Why it blocks everything                                                                                                                             |
-| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | **Confirm the deploy went out**   | Two build-killers found and fixed; `next build` now completes with no environment variables at all. Check kaikuhome.com shows the new homepage rails |
-| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                         |
-| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                             |
-| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                           |
-| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                       |
+| #   | Item                              | Why it blocks everything                                                                                                                                                         |
+| --- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | **Confirm the deploy went out**   | Cause found: `supplier-pages/` is 179MB of a 288MB tree, committed 9 August. Now in `.vercelignore` — payload 288MB → 109MB. Check kaikuhome.com shows "Browse every collection" |
+| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                     |
+| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                            |
+| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                                         |
+| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                                                       |
+| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                   |
 
 See `docs/first-sale-plan.md` for what these gate.
 
-### The deploy, and what was actually wrong with it
+### The deploy — the actual cause was a 179MB directory
 
-`main` and the working branch had **no merge base**. `main` ended 17 July 2026;
-this line of work begins 26 July. The two are chronologically continuous but git
-had them recorded as unrelated histories — almost certainly a fresh clone rather
-than a branch off `main`. That is why "the changes haven't taken effect on the
-domain": there was no route from the work to the branch Vercel builds.
+Established by content rather than assumption. The homepage markup on
+kaikuhome.com matches `shop-by-category.tsx` exactly as it stood at commit
+`014c2a5`, **6 August 21:55** — no `h2`, `lg:py-20` padding, `33vw` image sizes.
+So the live site is a build from 6 August, and 140 commits since then have never
+deployed.
+
+That commit only ever existed on `claude/kaiku-home-continue-v94z7g`, never on
+`main`. Which settles something I had wrong: **Vercel's production branch is the
+working branch, not `main`.** Merging to `main` was correct housekeeping and
+fixed a genuinely broken history, but it was never going to move the live site.
+
+**What broke it: `supplier-pages/` was committed on 9 August and is 179MB** — 74
+saved supplier pages at roughly 1MB of HTML each, plus 107MB of the images that
+came with them. The working tree is 288MB, so that one directory is 62% of
+everything Vercel is asked to take, and nothing at runtime reads a byte of it.
+
+Now in `.vercelignore` along with `backups/`, `docs/` and `e2e/`. The deployment
+payload drops from 288MB to 109MB and the build still produces all 162 pages.
+Keeping the directory itself is right — it is the offline copy the catalogue
+audit is checked against, and D.I. Designs sits behind a CAPTCHA so it cannot be
+re-fetched on demand. It just should not be uploaded.
+
+One thing this does **not** fix: the git history is permanently 166MB heavier,
+which slows every clone including the one Vercel does. Removing it properly means
+rewriting history and force-pushing, so that is your call rather than mine.
+
+### `main` and the branch had no merge base
+
+Separate from the above, and worth knowing. `main` ended 17 July; this line of
+work begins 26 July. Chronologically continuous, but git had them recorded as
+unrelated histories — almost certainly a fresh clone rather than a branch off
+`main`.
 
 Resolved with a merge using `-s ours`, which keeps this branch's tree exactly as
 it is and records `main`'s old tip as a second parent. Nothing was discarded:
