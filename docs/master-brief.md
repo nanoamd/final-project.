@@ -43,16 +43,45 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                                                                     | Why it blocks everything                                                                                                                                             |
-| --- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | **Set Vercel's Production Branch to `main`, then Promote to Production** | Every build succeeds; all 30 recent deployments are `Preview`, none `Production`. That is the entire reason the site has not changed. Dashboard-only fix — see below |
-| 1   | ~~Merge the branch to `main`~~                                           | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                         |
-| 2   | **Stripe live keys**                                                     | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                |
-| 3   | **`RESEND_API_KEY`**                                                     | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                             |
-| 4   | **One real test order**                                                  | Payment → webhook → order record → email has never run against a real card                                                                                           |
-| 5   | **Rotate the Sanity write token**                                        | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                       |
+| #   | Item                              | Why it blocks everything                                                                                                                                                                                                                                             |
+| --- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | ~~Get the work live~~             | **Done 12 August, 23:5x.** Vercel's Production Branch is `claude/init-production-codebase-phv4c7`, last pushed 9 August. Fast-forwarded it; kaikuhome.com now serves the current work. **Still worth doing: point Production Branch at `main`** so this cannot recur |
+| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                                                                                                         |
+| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                                                                                                                |
+| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                                                                                                                             |
+| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                                                                                                                                           |
+| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                                                                                                       |
 
 See `docs/first-sale-plan.md` for what these gate.
+
+### The deploy — solved
+
+**Vercel's Production Branch was `claude/init-production-codebase-phv4c7`.** Not
+`main`, and not the working branch. It had not been pushed since **9 August**,
+which is why every deployment after that was created as `Preview` and
+kaikuhome.com stayed frozen on a 6 August build.
+
+Three things confirmed it before anything was pushed: that branch's
+`shop-by-category.tsx` carried `lg:py-20` and no "Browse every collection" —
+byte-for-byte the markup the live site was serving; it contained `014c2a5`, the
+commit the live homepage had already been dated to; and it was a clean
+fast-forward from the working branch, with zero commits on it that the work did
+not already have.
+
+Fast-forwarded `e7846e9..ee7a0f7`. A **Production** deployment was created and
+verified live:
+
+- homepage: "Browse every collection" and "New & Noteworthy" both present
+- `/shop/coffee-tables`: colour swatches rendering
+- `?colour=Black` → 19 of 88; `?colour=Black&material=Oak` → 11 of 88
+- product page: lead time, the doorstep note, and the 14-day returns wording
+- `/quote` and `/compare` no longer say "coming soon"
+
+**Worth doing in the dashboard anyway:** set Production Branch to `main`. Until
+then, deploying means remembering to push to a branch named after an
+initialisation task, which is exactly the kind of thing that goes wrong again.
+
+### How it looked before that was known
 
 ### The deploy — the builds all succeed, nothing is promoted to Production
 
@@ -453,8 +482,10 @@ before. If a deploy still errors, the log will now name the variable.
       Sanity. `sanityFetch` is deliberately fail-soft, so a transient fetch
       failure during `next build` prerenders the not-found page and it stays
       until ISR revalidates. Same root cause as the soft-404s on the deleted
-      Aosom URLs. **This is the next thing to fix** — it can silently 404 any
-      product for the life of a deploy.
+      Aosom URLs. Note: the same page renders correctly on the live production
+      build, so the local failure was a transient fetch rather than a systematic
+      fault. Still real — a fail-soft fetch during a build can bake a 404 into a
+      product URL — but rarer than it first looked.
 - [ ] **Technical SEO audit** — page speed, mobile performance, Core Web Vitals,
       sitemap, robots.txt, canonicals, duplicate pages, broken links,
       redirects.
