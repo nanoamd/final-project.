@@ -1,5 +1,6 @@
 import "server-only";
 
+import { siteUrl } from "@/config/site";
 import { env } from "@/env";
 
 const RESEND_API = "https://api.resend.com/emails";
@@ -95,7 +96,7 @@ export async function sendNewsletterWelcomeEmail(
   email: string,
   subscriberId: string,
 ): Promise<void> {
-  const unsubscribeUrl = `${env.NEXT_PUBLIC_SITE_URL}/newsletter/unsubscribe/${subscriberId}`;
+  const unsubscribeUrl = `${siteUrl}/newsletter/unsubscribe/${subscriberId}`;
   await sendEmail({
     to: email,
     subject: "You're on the list",

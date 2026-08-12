@@ -32,14 +32,39 @@ export const env = createEnv({
    * Server-only secrets. Accessing these from client code is a build error.
    */
   server: {
-    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
-    SANITY_API_READ_TOKEN: z.string().min(1),
+    /**
+     * Every variable below is optional, and that is a deliberate reversal.
+     *
+     * They used to be required, and it made a single unset value fatal to the
+     * whole deploy: `createEnv` throws while `next build` is collecting page
+     * data, the build dies on `/_not-found`, and the site keeps serving whatever
+     * last succeeded. Every Vercel deployment failed from 15 July to 12 August
+     * and the live site stayed a month out of date.
+     *
+     * The requirement was never real. The build does not use any of these — it
+     * compiles pages and prerenders content from Sanity, which reads without a
+     * token. They are needed when a request arrives: a card is charged, an
+     * account is created, an email is sent. Demanding them an hour earlier, at
+     * build time, buys nothing and costs the entire site.
+     *
+     * So each one is now checked where it is used, by `requireEnv` below, which
+     * names the variable and says which feature stopped working. A missing Stripe
+     * key means checkout reports a configuration error; it does not mean the
+     * catalogue is offline. Failing loudly at the point of use is strictly more
+     * informative than failing early and globally — the error names the feature,
+     * not `/_not-found`.
+     */
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
+    // Not read anywhere in src/. Declared required, used by nothing, and able to
+    // fail a deploy on its own — it would only be needed for draft/preview
+    // reads, which the site does not do.
+    SANITY_API_READ_TOKEN: z.string().min(1).optional(),
     // Optional: only needed to enable the /api/revalidate webhook. Every
     // page already has a 60s ISR floor, so this is a supplementary feature,
     // not something that should block the whole app from booting.
     SANITY_REVALIDATE_SECRET: z.string().min(1).optional(),
-    STRIPE_SECRET_KEY: z.string().min(1),
-    STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    STRIPE_SECRET_KEY: z.string().min(1).optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
     // Optional: only needed for the AI garden visualiser tool. Without it,
     // that one tool shows an "unavailable" state — nothing else is affected.
     // Stripped down to printable ASCII: dashboard env-var UIs (Vercel
@@ -97,9 +122,13 @@ export const env = createEnv({
    * inlined into the client bundle at build time.
    */
   client: {
-    NEXT_PUBLIC_SITE_URL: z.url(),
-    NEXT_PUBLIC_SUPABASE_URL: z.url(),
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+    // Optional, and read through `siteUrl` in src/config/site.ts rather than
+    // from here: that falls back to `siteConfig.url`, which is the same host
+    // every canonical tag on the site already uses. An override for localhost,
+    // not a requirement.
+    NEXT_PUBLIC_SITE_URL: z.url().optional(),
+    NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
     // Optional here on purpose, and no longer read through `env` at all —
     // src/lib/sanity/config.ts owns these three. It shape-checks each one and
     // substitutes a known-good default, which a `min(1)` check here cannot do:
@@ -112,7 +141,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1).optional(),
     NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).optional(),
     NEXT_PUBLIC_SANITY_API_VERSION: z.string().min(1).optional(),
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
     // Optional: enables Google Analytics 4 tracking. Without it, the site
     // just renders with no analytics script — nothing else is affected.
     NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().min(1).optional(),
@@ -201,3 +230,31 @@ export const env = createEnv({
     );
   },
 });
+
+/**
+ * Reads a variable that a feature genuinely needs, and fails with something
+ * worth reading if it is missing.
+ *
+ * The pattern this replaces was validating at boot and killing the build. The
+ * trade being made is deliberate: a misconfiguration now surfaces the first time
+ * someone uses the affected feature rather than at deploy time. That is later,
+ * but it is also specific — "STRIPE_WEBHOOK_SECRET is not set, so payment
+ * confirmations cannot be verified" tells you what broke and what to do, where
+ * the old failure said `Failed to collect page data for /_not-found` and left
+ * you guessing which of eight variables it meant.
+ *
+ * @param name    The variable, spelled exactly as it appears in the dashboard.
+ * @param value   Its value, read from `env`.
+ * @param feature What stops working without it, in plain words.
+ */
+export function requireEnv(
+  name: string,
+  value: string | undefined,
+  feature: string,
+): string {
+  if (value) return value;
+  throw new Error(
+    `${name} is not set, so ${feature}. Set it in the hosting dashboard — ` +
+      `see .env.example for what it is and where to get it.`,
+  );
+}

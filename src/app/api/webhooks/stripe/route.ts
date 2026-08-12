@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { env } from "@/env";
+import { env, requireEnv } from "@/env";
 import { getStripe } from "@/server/stripe/client";
 import { handleStripeEvent } from "@/server/webhooks/stripe";
 
@@ -23,7 +23,11 @@ export async function POST(request: Request) {
     event = getStripe().webhooks.constructEvent(
       rawBody,
       signature,
-      env.STRIPE_WEBHOOK_SECRET,
+      requireEnv(
+        "STRIPE_WEBHOOK_SECRET",
+        env.STRIPE_WEBHOOK_SECRET,
+        "payment confirmations cannot be verified",
+      ),
     );
   } catch (error) {
     console.error("[stripe webhook] signature verification failed:", error);

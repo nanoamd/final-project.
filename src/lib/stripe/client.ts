@@ -1,6 +1,6 @@
 import { loadStripe, type Stripe } from "@stripe/stripe-js";
 
-import { env } from "@/env";
+import { env, requireEnv } from "@/env";
 
 let stripePromise: Promise<Stripe | null> | undefined;
 
@@ -10,7 +10,13 @@ let stripePromise: Promise<Stripe | null> | undefined;
  */
 export function getStripe() {
   if (!stripePromise) {
-    stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    stripePromise = loadStripe(
+      requireEnv(
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+        env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+        "the payment form cannot load",
+      ),
+    );
   }
 
   return stripePromise;

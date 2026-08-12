@@ -2,7 +2,7 @@ import "server-only";
 
 import Stripe from "stripe";
 
-import { env } from "@/env";
+import { env, requireEnv } from "@/env";
 
 /**
  * Server-side Stripe client (secret key). Never import this from client code.
@@ -35,18 +35,15 @@ let client: Stripe | null = null;
 export function getStripe(): Stripe {
   if (client) return client;
 
-  const key = env.STRIPE_SECRET_KEY;
-  if (!key) {
-    // Named explicitly. Stripe's own message ("Neither apiKey nor
-    // config.authenticator provided") does not say which variable is missing,
-    // and this one is worth being unambiguous about: it is the difference
-    // between taking payments and not.
-    throw new Error(
-      "STRIPE_SECRET_KEY is not set, so Stripe cannot be reached. " +
-        "Set it in the hosting dashboard — checkout and the payment webhook " +
-        "cannot work without it.",
-    );
-  }
+  // Named explicitly. Stripe's own message ("Neither apiKey nor
+  // config.authenticator provided") does not say which variable is missing, and
+  // this one is worth being unambiguous about: it is the difference between
+  // taking payments and not.
+  const key = requireEnv(
+    "STRIPE_SECRET_KEY",
+    env.STRIPE_SECRET_KEY,
+    "checkout and the payment webhook cannot work",
+  );
 
   client = new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
   return client;

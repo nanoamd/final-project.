@@ -4,7 +4,7 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 
-import { env } from "@/env";
+import { siteUrl } from "@/config/site";
 import { createClient } from "@/lib/supabase/server";
 import { isAuthorizedAdminEmail } from "@/server/auth/admin";
 
@@ -78,7 +78,7 @@ export async function requestAdminPasswordReset(
   if (await isAuthorizedAdminEmail(email)) {
     const supabase = await createClient();
     await supabase.auth.resetPasswordForEmail(email.trim(), {
-      redirectTo: `${env.NEXT_PUBLIC_SITE_URL}/admin/reset-password`,
+      redirectTo: `${siteUrl}/admin/reset-password`,
     });
   }
   return { ok: true };

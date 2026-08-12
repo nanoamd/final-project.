@@ -4,7 +4,7 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 
-import { env } from "@/env";
+import { siteUrl } from "@/config/site";
 import { createClient } from "@/lib/supabase/server";
 
 export interface CustomerAuthResult {
@@ -66,7 +66,7 @@ export async function signUpCustomer(
       data: {
         full_name: typeof fullName === "string" ? fullName.trim() : undefined,
       },
-      emailRedirectTo: `${env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
+      emailRedirectTo: `${siteUrl}/auth/confirm`,
     },
   });
 

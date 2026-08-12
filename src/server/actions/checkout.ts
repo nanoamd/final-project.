@@ -4,7 +4,7 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 
-import { env } from "@/env";
+import { siteUrl } from "@/config/site";
 import { sanityClient } from "@/lib/sanity/client";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/server/stripe/client";
@@ -141,8 +141,8 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
-    success_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+    success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${siteUrl}/checkout/cancel`,
     // UK-only for now — every product's price already has delivery folded
     // in (see each product's deliveryNotes), so this is a real delivery
     // address collector, not a paid shipping calculator.

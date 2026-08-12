@@ -20,6 +20,32 @@ export const siteConfig = {
   email: "hello@kaikuhome.com",
 } as const;
 
+/**
+ * The origin to build absolute URLs from — Stripe return URLs, auth redirects,
+ * unsubscribe links, the Merchant feed.
+ *
+ * `siteConfig.url` with `NEXT_PUBLIC_SITE_URL` as an override, rather than the
+ * env var alone. Two problems with reading the variable directly, and the second
+ * is the one that has been costing money.
+ *
+ * It was required, so a deploy died without it — over a value that is not a
+ * secret and is already hard-coded three lines above for every canonical tag on
+ * the site.
+ *
+ * And having two sources of truth for one origin means they can disagree. If the
+ * variable ever said `kaikuhome.com` while the canonical said
+ * `www.kaikuhome.com`, Stripe would return a paying customer to a host that
+ * 308-redirects — through a redirect, carrying a `session_id`, on the single most
+ * fragile step in the funnel. One constant removes that whole class of bug.
+ *
+ * The override exists so a developer running on localhost gets sent back to
+ * localhost after a test checkout. `process.env` directly, written out in full,
+ * because Next.js inlines `NEXT_PUBLIC_` values into the browser bundle by
+ * literal text substitution — a dynamic lookup would read as undefined there.
+ */
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || siteConfig.url;
+
 export type NavLink = {
   label: string;
   href: string;

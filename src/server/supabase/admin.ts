@@ -2,7 +2,7 @@ import "server-only";
 
 import { createClient } from "@supabase/supabase-js";
 
-import { env } from "@/env";
+import { env, requireEnv } from "@/env";
 
 /**
  * Privileged Supabase client using the service-role key. This bypasses Row
@@ -14,8 +14,16 @@ import { env } from "@/env";
  */
 export function createAdminClient() {
   return createClient(
-    env.NEXT_PUBLIC_SUPABASE_URL,
-    env.SUPABASE_SERVICE_ROLE_KEY,
+    requireEnv(
+      "NEXT_PUBLIC_SUPABASE_URL",
+      env.NEXT_PUBLIC_SUPABASE_URL,
+      "order records cannot be written",
+    ),
+    requireEnv(
+      "SUPABASE_SERVICE_ROLE_KEY",
+      env.SUPABASE_SERVICE_ROLE_KEY,
+      "order records cannot be written",
+    ),
     {
       auth: {
         autoRefreshToken: false,
