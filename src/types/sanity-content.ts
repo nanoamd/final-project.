@@ -194,6 +194,9 @@ export interface SanityProduct {
   stockStatus: StockStatus;
   stockQuantity?: number;
   deliveryNotes?: string;
+  /** Per-product returns copy. Empty means the page shows the standard
+   *  14-day wording, which is what keeps the section consistent. */
+  returnsNotes?: string;
   warrantyNotes?: string;
   downloads?: SanityProductDownload[];
   relatedSlugs?: string[];

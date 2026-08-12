@@ -206,10 +206,24 @@ export const product = defineType({
     }),
     defineField({
       name: "deliveryNotes",
-      title: "Delivery & returns copy",
+      title: "Delivery copy",
       type: "text",
       rows: 3,
       group: "logistics",
+      description:
+        "Anything specific to this piece. The lead time, availability and " +
+        "delivery method are shown automatically above it, so do not repeat them.",
+    }),
+    defineField({
+      name: "returnsNotes",
+      title: "Returns copy",
+      type: "text",
+      rows: 3,
+      group: "logistics",
+      description:
+        "Only where this piece differs — a made-to-order item that cannot be " +
+        "returned, for instance. Left empty, the page shows the standard " +
+        "14-day wording, which is what keeps the section consistent.",
     }),
     defineField({
       name: "warrantyNotes",

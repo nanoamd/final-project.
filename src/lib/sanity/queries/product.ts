@@ -61,6 +61,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   stockStatus,
   stockQuantity,
   deliveryNotes,
+  returnsNotes,
   warrantyNotes,
   "downloads": downloads[]{ label, "url": file.asset->url },
   "relatedSlugs": relatedProducts[]->slug.current,

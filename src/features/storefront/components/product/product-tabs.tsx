@@ -13,6 +13,12 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
+import {
+  availabilityLine,
+  DOORSTEP_DELIVERY_NOTE,
+  isLargeFurniture,
+  leadTimeLine,
+} from "@/lib/catalog/delivery";
 import { productDescriptionComponents } from "@/lib/sanity/product-description-components";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -48,9 +54,9 @@ function bandFeatures(
   features.push({
     icon: Truck,
     title: "Free UK delivery",
-    copy: product.deliveryLeadTime
-      ? `Delivered in ${product.deliveryLeadTime}`
-      : "Included in the price",
+    // leadTimeLine, not a second copy of the same template — the band and the
+    // delivery panel below it must not be able to word this differently.
+    copy: leadTimeLine(product) ?? "Included in the price",
   });
 
   features.push({
@@ -72,7 +78,7 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
   const tabs = [
     { id: "description", label: "Description" },
     { id: "specifications", label: "Specifications" },
-    { id: "delivery", label: "Delivery & Returns" },
+    { id: "delivery", label: "Delivery, Returns & Warranty" },
     { id: "faqs", label: "FAQs" },
     { id: "reviews", label: "Reviews" },
   ] as const;
@@ -81,13 +87,21 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
   return (
     <div className="border-line border-t">
       <div className="mx-auto max-w-[1280px] px-6 sm:px-8 lg:px-12">
-        <div className="flex [scrollbar-width:none] gap-8 overflow-x-auto">
+        <div
+          role="tablist"
+          aria-label="Product information"
+          className="flex [scrollbar-width:none] gap-8 overflow-x-auto"
+        >
           {tabs.map((tab) => {
             const isActive = active === tab.id;
             return (
               <button
                 key={tab.id}
                 type="button"
+                role="tab"
+                id={`tab-${tab.id}`}
+                aria-selected={isActive}
+                aria-controls={`panel-${tab.id}`}
                 onClick={() => setActive(tab.id)}
                 className={`relative -mb-px shrink-0 py-5 text-[12px] font-semibold tracking-[0.12em] whitespace-nowrap uppercase transition-colors ${
                   isActive ? "text-ink" : "text-muted hover:text-ink"
@@ -103,17 +117,49 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
         </div>
       </div>
 
+      {/**
+       * Every panel is in the DOM; the inactive ones are hidden.
+       *
+       * This used to be `{active === "delivery" ? <DeliveryPanel/> : null}` for
+       * each panel, so only the open tab existed in the markup — and the default
+       * tab is Description. The consequence was that **delivery, returns,
+       * warranty, the FAQs and the reviews were absent from the HTML entirely**,
+       * for Google as much as for a reader with JavaScript disabled.
+       *
+       * That quietly broke three things the brief asks for. The required page
+       * structure lists delivery, returns and FAQs as sections of the page. The
+       * FAQ structured data has to correspond to content that is actually on the
+       * page — Google's own requirement — and it was describing markup that did
+       * not exist. And a product page meant to educate a customer cannot be
+       * crawled for the half of it that was never rendered.
+       *
+       * Hidden-with-CSS tabbed content is indexed; absent-from-DOM content is
+       * not. `hidden` rather than a class, so assistive technology and find-in-page
+       * both agree with what is on screen.
+       */}
       <div className="border-line border-t">
         <div className="mx-auto max-w-[1280px] px-6 py-14 sm:px-8 lg:px-12">
-          {active === "description" ? (
-            <DescriptionPanel product={product} />
-          ) : null}
-          {active === "specifications" ? (
-            <SpecsPanel product={product} />
-          ) : null}
-          {active === "delivery" ? <DeliveryPanel product={product} /> : null}
-          {active === "faqs" ? <FaqsPanel product={product} /> : null}
-          {active === "reviews" ? <ReviewsPanel product={product} /> : null}
+          {tabs.map((tab) => (
+            <div
+              key={tab.id}
+              role="tabpanel"
+              id={`panel-${tab.id}`}
+              aria-labelledby={`tab-${tab.id}`}
+              hidden={active !== tab.id}
+            >
+              {tab.id === "description" ? (
+                <DescriptionPanel product={product} />
+              ) : null}
+              {tab.id === "specifications" ? (
+                <SpecsPanel product={product} />
+              ) : null}
+              {tab.id === "delivery" ? (
+                <DeliveryPanel product={product} />
+              ) : null}
+              {tab.id === "faqs" ? <FaqsPanel product={product} /> : null}
+              {tab.id === "reviews" ? <ReviewsPanel product={product} /> : null}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -211,40 +257,97 @@ function SpecsPanel({ product }: { product: SanityProduct }) {
 const linkClass =
   "text-brass text-[13px] font-medium underline underline-offset-4";
 
+/**
+ * One heading style for all three sections, so DELIVERY, RETURNS and WARRANTY
+ * are visually identical.
+ *
+ * The brief asks for RETURNS specifically: bold, consistent, clearly visible.
+ * Previously it was half of a "Warranty & Returns" heading, which made it
+ * neither its own section nor findable by someone scanning for the word — and
+ * returns is the thing a buyer hunts for hardest before committing £1,000.
+ * Sharing one constant is what keeps "consistent" true as the page changes.
+ */
+const panelHeading =
+  "text-ink text-[13px] font-bold tracking-[0.1em] uppercase";
+
 function DeliveryPanel({ product }: { product: SanityProduct }) {
+  const leadTime = leadTimeLine(product);
+  const large = isLargeFurniture(product);
+
   return (
-    <div className="grid max-w-3xl gap-8 sm:grid-cols-2">
-      <div>
-        <h3 className="text-ink text-[13px] font-semibold tracking-[0.1em] uppercase">
-          Delivery
-        </h3>
-        <FormattedNotes
-          text={product.deliveryNotes}
-          fallback="Delivery details confirmed at quotation."
-        />
-        <Link href="/delivery" className={`${linkClass} mt-3 inline-block`}>
-          Full delivery policy →
-        </Link>
-      </div>
-      <div>
-        {/* Deliberately bolder than its "Delivery" sibling: returns is the term
-            buyers hunt for hardest before committing to a high-value order. */}
-        <h3 className="text-ink text-[13px] font-bold tracking-[0.1em] uppercase">
-          Warranty & Returns
-        </h3>
-        <FormattedNotes
-          text={product.warrantyNotes}
-          fallback="Comprehensive manufacturer warranty — exact terms confirmed at quotation."
-        />
-        <div className="mt-3 flex gap-5">
-          <Link href="/warranty" className={linkClass}>
-            Warranty policy →
+    <div className="max-w-3xl">
+      <div className="grid gap-8 sm:grid-cols-3">
+        <div>
+          <h3 className={panelHeading}>Delivery</h3>
+          {/* Lead time and availability first, as facts, before any free text.
+              The brief requires the delivery section to state the expected lead
+              time, the availability and the method — and `deliveryLeadTime` is
+              set on all 88 published products but was not rendered here at all,
+              so the one thing every buyer wants to know was the one thing the
+              panel did not say. */}
+          <dl className="mt-3 space-y-1.5 text-[14px] leading-relaxed">
+            {leadTime ? (
+              <div>
+                <dt className="sr-only">Lead time</dt>
+                <dd className="text-ink font-medium">{leadTime}</dd>
+              </div>
+            ) : null}
+            <div>
+              <dt className="sr-only">Availability</dt>
+              <dd className="text-graphite">{availabilityLine(product)}</dd>
+            </div>
+            <div>
+              <dt className="sr-only">Method</dt>
+              <dd className="text-graphite">
+                {large
+                  ? "Two-person doorstep delivery, by arrangement"
+                  : "Tracked courier"}
+              </dd>
+            </div>
+          </dl>
+          <FormattedNotes text={product.deliveryNotes} fallback={null} />
+          <Link href="/delivery" className={`${linkClass} mt-3 inline-block`}>
+            Full delivery policy →
           </Link>
-          <Link href="/returns" className={linkClass}>
+        </div>
+
+        <div>
+          <h3 className={panelHeading}>Returns</h3>
+          <FormattedNotes
+            text={product.returnsNotes}
+            fallback="14 days from delivery to change your mind. Tell us and we will arrange collection — the piece needs to be unused and in its original packaging."
+          />
+          <Link href="/returns" className={`${linkClass} mt-3 inline-block`}>
             Returns policy →
           </Link>
         </div>
+
+        <div>
+          <h3 className={panelHeading}>Warranty</h3>
+          <FormattedNotes
+            text={product.warrantyNotes}
+            fallback="Comprehensive manufacturer warranty — exact terms confirmed at quotation."
+          />
+          <Link href="/warranty" className={`${linkClass} mt-3 inline-block`}>
+            Warranty policy →
+          </Link>
+        </div>
       </div>
+
+      {/* Large furniture only. Set out as its own panel rather than a line of
+          small print, because a buyer who reads it before ordering does not
+          raise a complaint afterwards — doorstep versus room-of-choice is one of
+          the most common causes of one. */}
+      {large ? (
+        <div className="border-brass/30 bg-paper mt-8 border-l-2 p-5">
+          <p className="text-ink text-[13px] font-bold tracking-[0.1em] uppercase">
+            How large furniture is delivered
+          </p>
+          <p className="text-graphite mt-2.5 text-[14px] leading-relaxed">
+            {DOORSTEP_DELIVERY_NOTE}
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -259,10 +362,14 @@ function FormattedNotes({
   fallback,
 }: {
   text?: string;
-  fallback: string;
+  /** `null` renders nothing — used by the delivery block, whose lead time,
+   *  availability and method are already stated above it as facts. */
+  fallback: string | null;
 }) {
   if (!text?.trim()) {
-    return <p className="text-graphite mt-3 leading-relaxed">{fallback}</p>;
+    return fallback === null ? null : (
+      <p className="text-graphite mt-3 leading-relaxed">{fallback}</p>
+    );
   }
 
   // Bullets and dividers sometimes arrive with no real line breaks at all
