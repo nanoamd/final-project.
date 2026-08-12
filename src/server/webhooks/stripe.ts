@@ -2,6 +2,13 @@ import "server-only";
 
 import type Stripe from "stripe";
 
+import { siteConfig } from "@/config/site";
+import { env } from "@/env";
+import { getProductsBySlugs } from "@/lib/sanity/queries";
+import type { OrderEmailData } from "@/server/emails/format";
+import { buildOrderAlertEmail } from "@/server/emails/order-alert";
+import { buildOrderConfirmationEmail } from "@/server/emails/order-confirmation";
+import { sendBuiltEmail } from "@/server/emails/transport";
 import { assignWorkflow } from "@/server/hq/workflows";
 import { stripe } from "@/server/stripe/client";
 import { createAdminClient } from "@/server/supabase/admin";
@@ -20,7 +27,14 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
       console.log(
         `[stripe] checkout completed: session=${session.id} amount=${session.amount_total} currency=${session.currency}`,
       );
-      await persistOrder(session);
+      const { orderId, lineItems } = await persistOrder(session);
+      // Deliberately after the order is safely persisted, and deliberately not
+      // inside persistOrder's throwing path. Every send in sendOrderEmails is
+      // fail-soft by contract, so a Resend outage logs and moves on — it must
+      // never make this webhook answer 500, because Stripe would then retry a
+      // charge that already succeeded and the shop would look broken over a
+      // payment that worked.
+      await sendOrderEmails(session, orderId, lineItems);
       break;
     }
     case "checkout.session.expired": {
@@ -44,7 +58,9 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
  * silently loses the order from this table forever, with Stripe's dashboard
  * as the only remaining record.
  */
-async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
+async function persistOrder(
+  session: Stripe.Checkout.Session,
+): Promise<{ orderId: string; lineItems: MappedLineItem[] }> {
   // Expanding the line item's product surfaces the metadata (slug, sku,
   // category, supplier) attached at checkout — see checkout.ts — so an
   // order can be fulfilled by looking up the real Sanity product/supplier
@@ -138,5 +154,102 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<void> {
         `Failed to write initial order_event for session ${session.id}: ${eventError.message}`,
       );
     }
+  }
+
+  return { orderId: orderRow.id as string, lineItems: mappedLineItems };
+}
+
+/** The line-item shape persistOrder writes into `orders.line_items`. */
+interface MappedLineItem {
+  description: string | null;
+  quantity: number | null;
+  amount_total: number | null;
+  slug: string | null;
+  sku: string | null;
+  category: string | null;
+  supplier: string | null;
+  selectedOptions: Record<string, string> | null;
+}
+
+/**
+ * The customer's confirmation and the owner's alert.
+ *
+ * Never throws: `sendBuiltEmail` swallows and logs its own failures, and the two
+ * things that could throw here — the Sanity lookup and the email build — are inside
+ * a try/catch for the same reason. An order that has been paid for and persisted
+ * must not be re-delivered by Stripe because an email failed.
+ *
+ * Lead times come from Sanity, per product, verbatim. They are not in the Stripe
+ * metadata, and they must not be guessed: telling a customer "2-5 days" for a piece
+ * that takes eight weeks is the single easiest way to earn a chargeback. A product
+ * we cannot resolve gets `null`, which the template renders as a promise to confirm
+ * rather than as a date.
+ */
+async function sendOrderEmails(
+  session: Stripe.Checkout.Session,
+  orderId: string,
+  lineItems: MappedLineItem[],
+): Promise<void> {
+  try {
+    const email = session.customer_details?.email;
+    if (!email) {
+      console.warn(
+        `[stripe] session ${session.id} has no customer email — no confirmation sent`,
+      );
+      return;
+    }
+
+    const slugs = lineItems
+      .map((item) => item.slug)
+      .filter((slug): slug is string => Boolean(slug));
+    const products = slugs.length ? await getProductsBySlugs(slugs) : [];
+    const leadTimeBySlug = new Map(
+      products.map((product) => [
+        product.slug,
+        product.deliveryLeadTime ?? null,
+      ]),
+    );
+
+    const order: OrderEmailData = {
+      orderId,
+      placedAt: new Date(),
+      customerName: session.customer_details?.name ?? null,
+      customerEmail: email,
+      customerPhone: session.customer_details?.phone ?? null,
+      amountTotal: session.amount_total ?? 0,
+      currency: session.currency ?? "gbp",
+      items: lineItems.map((item) => ({
+        description: item.description,
+        quantity: item.quantity,
+        amountTotal: item.amount_total,
+        leadTime: item.slug ? (leadTimeBySlug.get(item.slug) ?? null) : null,
+        slug: item.slug,
+        sku: item.sku,
+        supplier: item.supplier,
+        selectedOptions: item.selectedOptions,
+      })),
+      shippingAddress:
+        (session.collected_information?.shipping_details as
+          OrderEmailData["shippingAddress"] | undefined) ?? null,
+      siteUrl: siteConfig.url,
+    };
+
+    await sendBuiltEmail(email, buildOrderConfirmationEmail(order));
+
+    // The owner alert is a separate send on purpose: if the customer's address
+    // bounces, Damien should still learn that a sale happened.
+    if (env.ADMIN_EMAIL)
+      await sendBuiltEmail(env.ADMIN_EMAIL, buildOrderAlertEmail(order), {
+        replyTo: email,
+      });
+    else
+      console.warn(
+        "[stripe] ADMIN_EMAIL is not set — no owner alert sent for a paid order",
+      );
+  } catch (error) {
+    console.error(
+      `[stripe] failed to send order emails for session ${session.id}`,
+      error,
+    );
   }
 }
