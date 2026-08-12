@@ -65,9 +65,9 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
                     sizes="(max-width: 640px) 70vw, 22vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
-                  {product.studioImage ? (
+                  {product.hoverImage ? (
                     <Image
-                      src={product.studioImage}
+                      src={product.hoverImage}
                       alt={product.name}
                       fill
                       sizes="(max-width: 640px) 70vw, 22vw"

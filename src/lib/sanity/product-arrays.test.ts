@@ -36,7 +36,15 @@ describe("withProductArrayDefaults", () => {
   });
 
   it("fills in fields the projection omitted entirely", () => {
-    const product = withProductArrayDefaults({ name: "Bare" });
+    // Read back through a Record view on purpose. The whole reason this
+    // function exists is that the declared type claims fields the document does
+    // not carry at runtime, so the input type cannot describe the output — and
+    // asserting through it is what made this file fail `tsc` for three fields
+    // that were behaving correctly.
+    const product = withProductArrayDefaults({ name: "Bare" }) as Record<
+      string,
+      unknown
+    >;
     expect(product.gallery).toEqual([]);
     expect(product.specs).toEqual([]);
     expect(product.faqs).toEqual([]);

@@ -426,9 +426,9 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
           sizes="248px"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
         />
-        {(product.studioImageWide ?? product.studioImage) ? (
+        {(product.hoverImageWide ?? product.hoverImage) ? (
           <Image
-            src={(product.studioImageWide ?? product.studioImage)!}
+            src={(product.hoverImageWide ?? product.hoverImage)!}
             alt=""
             fill
             sizes="248px"
@@ -499,9 +499,9 @@ function ProductTile({ product }: { product: SanityProduct }) {
             hover, when an editor has tagged one — a customer scanning the
             grid sees the product's real setting, then the clean product
             shot once they're paying attention to this specific card. */}
-        {product.studioImage ? (
+        {product.hoverImage ? (
           <Image
-            src={product.studioImage}
+            src={product.hoverImage}
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"

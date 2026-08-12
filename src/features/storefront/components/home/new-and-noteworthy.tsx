@@ -92,7 +92,7 @@ export async function NewAndNoteworthy() {
 function ProductCard({ product }: { product: SanityProduct }) {
   const primary =
     product.cardImageSquare ?? product.cardImage ?? product.image ?? null;
-  const lifestyle = product.studioImageSquare ?? product.studioImage ?? null;
+  const lifestyle = product.hoverImageSquare ?? product.hoverImage ?? null;
   const isNew = product.stockStatus === "Coming Soon";
 
   return (

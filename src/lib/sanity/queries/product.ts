@@ -81,7 +81,7 @@ interface RawGalleryImage {
 
 interface RawProduct extends Omit<
   SanityProduct,
-  "gallery" | "image" | "cardImage" | "studioImage" | "video"
+  "gallery" | "image" | "cardImage" | "hoverImage" | "video"
 > {
   gallery: RawGalleryImage[];
   /** Straight off the projection, so `url` may be null even when the object
@@ -138,9 +138,8 @@ function resolveCardImageUrl(
  * `cardImageSquare` are the same hotspot crop computed at 4:5, 4:3 and 1:1
  * respectively, so every container gets a crop matching its own aspect
  * ratio instead of a second, unintended browser-side crop on top of the
- * editor's hotspot; `studioImage` (and its Wide/Square counterparts) is
- * whichever photo is tagged as the plain-background shot, for the
- * card-hover swap.
+ * editor's hotspot; `hoverImage` (and its Wide/Square counterparts) is the
+ * setting photograph a card swaps to on hover.
  */
 function normalizeProduct<T extends RawProduct | null>(
   raw: T,
@@ -156,8 +155,27 @@ function normalizeProduct<T extends RawProduct | null>(
     optionValue: img.optionValue,
     isStudioShot: img.isStudioShot,
   }));
-  const studioSource = raw.gallery.find((img) => img.isStudioShot);
   const primary = raw.gallery[0];
+  /**
+   * The hover photo: the product in a setting.
+   *
+   * Position one is now the clean catalogue shot — see
+   * scripts/derive-studio-shots.ts, which flags every gallery image and puts the
+   * sweep shots first — so the hover is the first image that is *not* flagged.
+   *
+   * This used to be the other way round: it looked for the flagged image and
+   * used that as the hover. Two things were wrong with it. The flag was set on
+   * zero of 439 images, so no card on the site ever swapped anything on hover;
+   * and where it had been set, the swap would have run backwards, revealing the
+   * plain shot from a lifestyle photo instead of the setting from the catalogue
+   * shot.
+   *
+   * The fallback to the second image matters more than it looks: 57 products are
+   * photographed exclusively on white, and for those a hover that shows a second
+   * angle is far better than a hover that does nothing.
+   */
+  const hoverSource =
+    raw.gallery.slice(1).find((img) => !img.isStudioShot) ?? raw.gallery[1];
   return {
     ...raw,
     gallery,
@@ -174,14 +192,14 @@ function normalizeProduct<T extends RawProduct | null>(
     cardImage: resolveCardImageUrl(primary, 1000, 1250),
     cardImageWide: resolveCardImageUrl(primary, 1200, 900),
     cardImageSquare: resolveCardImageUrl(primary, 1000, 1000),
-    studioImage: studioSource
-      ? resolveCardImageUrl(studioSource, 1000, 1250)
+    hoverImage: hoverSource
+      ? resolveCardImageUrl(hoverSource, 1000, 1250)
       : null,
-    studioImageWide: studioSource
-      ? resolveCardImageUrl(studioSource, 1200, 900)
+    hoverImageWide: hoverSource
+      ? resolveCardImageUrl(hoverSource, 1200, 900)
       : null,
-    studioImageSquare: studioSource
-      ? resolveCardImageUrl(studioSource, 1000, 1000)
+    hoverImageSquare: hoverSource
+      ? resolveCardImageUrl(hoverSource, 1000, 1000)
       : null,
   } as never;
 }

@@ -172,15 +172,18 @@ export interface SanityProduct {
    * square shop-all/search grid tiles, for the same reason as
    * `cardImageWide`. */
   cardImageSquare?: string | null;
-  /** URL of whichever gallery image is tagged `isStudioShot` — the
-   * plain/neutral-background photo a card should swap to on hover, when
-   * its main photo is a lifestyle/action shot. Null if none is tagged.
-   * Cropped to 4:5, matching `cardImage`. */
-  studioImage?: string | null;
-  /** `studioImage` cropped to 4:3, matching `cardImageWide`. */
-  studioImageWide?: string | null;
-  /** `studioImage` cropped to 1:1, matching `cardImageSquare`. */
-  studioImageSquare?: string | null;
+  /** The photo a card swaps to on hover: the product in a real setting.
+   *
+   * Position one is the clean catalogue shot, so the hover is the first
+   * gallery image *not* tagged `isStudioShot` — the room photography. Falls
+   * back to the second image when every photo is a catalogue shot, so a card
+   * still reveals another angle rather than nothing. Null only when the
+   * product has a single photo. Cropped to 4:5, matching `cardImage`. */
+  hoverImage?: string | null;
+  /** `hoverImage` cropped to 4:3, matching `cardImageWide`. */
+  hoverImageWide?: string | null;
+  /** `hoverImage` cropped to 1:1, matching `cardImageSquare`. */
+  hoverImageSquare?: string | null;
   sku?: string;
   gtin?: string;
   mpn?: string;

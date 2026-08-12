@@ -110,9 +110,9 @@ export function FeaturedProductSection({
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
-              {(product.studioImageWide ?? product.studioImage) ? (
+              {(product.hoverImageWide ?? product.hoverImage) ? (
                 <Image
-                  src={(product.studioImageWide ?? product.studioImage)!}
+                  src={(product.hoverImageWide ?? product.hoverImage)!}
                   alt={product.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
