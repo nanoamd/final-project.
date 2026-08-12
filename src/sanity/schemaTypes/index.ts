@@ -10,6 +10,7 @@ import { newsletterSubscriber } from "./documents/newsletter-subscriber";
 import { page } from "./documents/page";
 import { post } from "./documents/post";
 import { product } from "./documents/product";
+import { quoteRequest } from "./documents/quote-request";
 import { supplier } from "./documents/supplier";
 import { dimensions } from "./objects/dimensions";
 import { faqEntry } from "./objects/faq-entry";
@@ -54,6 +55,7 @@ export const schemaTypes = [
   faq,
   page,
   contactSubmission,
+  quoteRequest,
   newsletterSubscriber,
   // Singletons
   homepage,

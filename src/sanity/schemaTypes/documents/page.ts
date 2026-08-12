@@ -23,7 +23,7 @@ export const page = defineType({
       options: { source: "title", maxLength: 96 },
       validation: (rule) => rule.required(),
       description:
-        "Must match the route's known slug (e.g. \"returns\", \"privacy\").",
+        'Must match the route\'s known slug (e.g. "returns", "privacy").',
     }),
     defineField({ name: "intro", title: "Intro copy", type: "text", rows: 3 }),
     defineField({ name: "body", type: "richText" }),

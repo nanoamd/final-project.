@@ -37,7 +37,13 @@ export const siteSettings = defineType({
               name: "platform",
               type: "string",
               options: {
-                list: ["Instagram", "Facebook", "Pinterest", "TikTok", "LinkedIn"],
+                list: [
+                  "Instagram",
+                  "Facebook",
+                  "Pinterest",
+                  "TikTok",
+                  "LinkedIn",
+                ],
               },
             },
             { name: "url", type: "url" },

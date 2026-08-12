@@ -23,7 +23,9 @@ export const faq = defineType({
       name: "topic",
       type: "string",
       description: 'Groups related questions, e.g. "Delivery", "Saunas".',
-      options: { list: ["General", "Delivery", "Returns", "Products", "Trade"] },
+      options: {
+        list: ["General", "Delivery", "Returns", "Products", "Trade"],
+      },
       initialValue: "General",
     }),
     defineField({

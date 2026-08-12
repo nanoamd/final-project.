@@ -72,7 +72,11 @@ export const link = defineType({
     }),
   ],
   preview: {
-    select: { label: "label", linkType: "linkType", externalUrl: "externalUrl" },
+    select: {
+      label: "label",
+      linkType: "linkType",
+      externalUrl: "externalUrl",
+    },
     prepare({ label, linkType, externalUrl }) {
       return {
         title: label || "Untitled link",

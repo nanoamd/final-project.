@@ -65,6 +65,7 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("Submissions")
             .items([
+              S.documentTypeListItem("quoteRequest").title("Quote Requests"),
               S.documentTypeListItem("contactSubmission").title(
                 "Contact Form Messages",
               ),
@@ -91,6 +92,7 @@ export const structure: StructureResolver = (S) =>
             "faq",
             "page",
             "contactSubmission",
+            "quoteRequest",
             "newsletterSubscriber",
           ].includes(item.getId() as string),
       ),
