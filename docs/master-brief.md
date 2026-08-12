@@ -435,6 +435,25 @@ before. If a deploy still errors, the log will now name the variable.
 - [ ] **Technical SEO audit** — page speed, mobile performance, Core Web Vitals,
       sitemap, robots.txt, canonicals, duplicate pages, broken links,
       redirects.
+- [ ] **Soft-404s on the 7 deleted Aosom product URLs.** Checked after the
+      deletion: they render the not-found page but answer **HTTP 200**, not 404.
+      Google treats a soft-404 as a live thin page and keeps it indexed, so these
+      stay in the index competing with real products. Two things to separate
+      before fixing: whether it is a stale-cache artefact of the 6 August build
+      (`x-nextjs-stale-time: 300`, `x-vercel-cache: HIT`) or a genuine fault in
+      how `notFound()` behaves on a prerendered route once its data disappears.
+      **Re-check immediately after the deploy is promoted.** If it persists, the
+      right answer for permanently removed products is a 301 to the category
+      rather than a 404 — they were indexed, and a redirect keeps the link equity
+      and gives a visitor somewhere to go.
+- [x] **Wrong-category product URLs no longer resolve.** The live 6 August build
+      serves the same product under every category slug —
+      `/shop/water-features/portable-charcoal-bbq-grill` and
+      `/shop/lighting/portable-charcoal-bbq-grill` both answered 200 — which is
+      textbook duplicate content, one URL per category. The current code guards
+      it (`found.category !== category` → `notFound()`), so this clears with the
+      deploy. Recorded because it explains any duplicate-content warnings already
+      in Search Console.
 - [ ] **Google Shopping preparation** — audit titles, descriptions, images,
       prices, availability, product categories. Merchant feed built but gated
       off.
