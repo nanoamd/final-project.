@@ -14,6 +14,7 @@ import { HomeCategories } from "@/features/storefront/components/home/home-categ
 import { InspirationGallery } from "@/features/storefront/components/home/inspiration-gallery";
 import { JournalSignup } from "@/features/storefront/components/home/journal-signup";
 import { Materials } from "@/features/storefront/components/home/materials";
+import { NewAndNoteworthy } from "@/features/storefront/components/home/new-and-noteworthy";
 import { ShopByCategory } from "@/features/storefront/components/home/shop-by-category";
 import { SupplierStandards } from "@/features/storefront/components/home/supplier-standards";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
@@ -67,10 +68,15 @@ export async function HomePage() {
       />
       <TrustBar items={homepage?.trustBarItems} />
       <FeaturedProduct />
+      {/* The category rail and New & Noteworthy read as one white panel between
+          the dark hero above and the dark Garden Studio below — pick a room, then
+          see actual stock. Before this, the only products a visitor met in the
+          first three thousand pixels were the two pinned ones. */}
       <ShopByCategory
         eyebrow={homepage?.shopByCategoryEyebrow}
         tiles={homepage?.shopByCategoryTiles}
       />
+      <NewAndNoteworthy />
       <GardenStudio
         content={{
           eyebrow: homepage?.gardenStudioEyebrow,
