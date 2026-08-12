@@ -1,0 +1,163 @@
+/**
+ * The canonical filter vocabulary — the tag strings the catalogue is allowed to
+ * carry, shared by the Studio schema, the storefront filters and the derivation
+ * script.
+ *
+ * One list, three consumers. Without it the values drift: the script writes
+ * "Grey", an editor types "Gray" in Studio, the filter UI looks for "grey", and
+ * a shopper filtering for grey furniture is told there is none. Studio validates
+ * against these lists, the filter bar is built from them, and a test in
+ * scripts/lib/product-tags.test.ts asserts the derivation can only emit tags
+ * that appear here.
+ *
+ * Order is deliberate — it is the order facets render in. Colours run dark to
+ * light then warm to cool, because a swatch row is scanned visually rather than
+ * read alphabetically.
+ */
+
+/**
+ * Colours, each with the hex the swatch circle is painted in.
+ *
+ * The hexes are approximations of the finishes, not brand-accurate colour
+ * matching: they exist so a shopper can find the row they want at a glance. Oak
+ * and Walnut are in here because the catalogue genuinely sells them as colour
+ * choices — `options` on the furniture literally reads `Colour: Brown | Oak`.
+ */
+export const COLOUR_FACETS = [
+  { tag: "Black", hex: "#1a1a1a" },
+  { tag: "Grey", hex: "#8a8a8a" },
+  { tag: "White", hex: "#f6f5f2" },
+  { tag: "Ivory", hex: "#efe8d8" },
+  { tag: "Cream", hex: "#e8dfc9" },
+  { tag: "Taupe", hex: "#b3a394" },
+  { tag: "Brown", hex: "#6b4a34" },
+  { tag: "Natural", hex: "#d8c8ac" },
+  { tag: "Neutral", hex: "#cfc6b8" },
+  { tag: "Oak", hex: "#c19a63" },
+  { tag: "Walnut", hex: "#5b3a26" },
+  { tag: "Green", hex: "#4f6152" },
+  { tag: "Blue", hex: "#3c4f68" },
+  { tag: "Aqua", hex: "#6fa8a3" },
+  { tag: "Gold", hex: "#c9a24a" },
+  { tag: "Brass", hex: "#b08d4f" },
+  { tag: "Bronze", hex: "#7d5c39" },
+] as const;
+
+export const COLOUR_TAGS: readonly string[] = COLOUR_FACETS.map((c) => c.tag);
+
+/** Hex for a colour tag, or null when the tag is not one we hold a swatch for. */
+export function colourSwatch(tag: string): string | null {
+  return COLOUR_FACETS.find((c) => c.tag === tag)?.hex ?? null;
+}
+
+/**
+ * Materials, grouped so the filter can show "Wood" as a heading rather than
+ * eleven timber species in one flat list. A product tagged with a species is
+ * not automatically tagged "Wood" — the group is a UI concern, and rolling it
+ * up in the data would make "Wood" match everything and mean nothing.
+ */
+export const MATERIAL_GROUPS = [
+  {
+    group: "Wood",
+    tags: [
+      "Oak",
+      "Walnut",
+      "Teak",
+      "Birch",
+      "Spruce",
+      "Hemlock",
+      "Cedar",
+      "Bamboo",
+      "Albasia wood",
+      "Gamal wood",
+      "Tamarind wood",
+      "Reclaimed wood",
+      "Painted wood",
+      "Wood",
+      "MDF",
+    ],
+  },
+  {
+    group: "Stone & glass",
+    tags: ["Marble", "Glass", "Mirrored glass", "Concrete", "Faux concrete"],
+  },
+  { group: "Metal", tags: ["Steel", "Metal", "Brass"] },
+  {
+    group: "Fabric",
+    tags: ["Chenille", "Bouclé", "Linen", "Velvet", "Fabric"],
+  },
+  {
+    group: "Other",
+    tags: [
+      "Rattan",
+      "Gesso",
+      "Faux shagreen",
+      "Resin",
+      "High gloss",
+      "Himalayan salt",
+    ],
+  },
+] as const;
+
+export const MATERIAL_TAGS: readonly string[] = MATERIAL_GROUPS.flatMap(
+  (g) => g.tags,
+);
+
+export const STYLE_TAGS = [
+  "Modern",
+  "Minimal",
+  "Industrial",
+  "Rustic",
+  "Scandinavian",
+  "Art Deco",
+  "Coastal",
+  "Traditional",
+] as const;
+
+/**
+ * Rooms. These are the shopper's word for a space, not the site's departments —
+ * Outdoor Living and Outdoor Kitchen are both "Garden" here, and Lighting and
+ * Cold Plunge are departments that name no room at all.
+ */
+export const ROOM_TAGS = [
+  "Living room",
+  "Bedroom",
+  "Kitchen",
+  "Office",
+  "Bathroom",
+  "Garden",
+  "Sauna",
+] as const;
+
+/** What the thing is for — the brief's "product type". */
+export const USE_TAGS = [
+  "Seating",
+  "Coffee table",
+  "Side table",
+  "Console",
+  "Bedside table",
+  "Dining",
+  "Desk",
+  "Storage",
+  "Shelving",
+  "TV unit",
+  "Mirror",
+  "Lighting",
+  "Planter",
+  "Sauna",
+  "Cold plunge",
+  "Outdoor cooking",
+  "Water feature",
+  "Wellness",
+] as const;
+
+/** Every facet the storefront can filter on, in the order they render. */
+export const FACET_DEFINITIONS = [
+  { key: "colour", label: "Colour", tags: COLOUR_TAGS },
+  { key: "material", label: "Material", tags: MATERIAL_TAGS },
+  { key: "style", label: "Style", tags: STYLE_TAGS as readonly string[] },
+  { key: "room", label: "Room", tags: ROOM_TAGS as readonly string[] },
+  { key: "type", label: "Product type", tags: USE_TAGS as readonly string[] },
+] as const;
+
+export type FacetKey = (typeof FACET_DEFINITIONS)[number]["key"];
