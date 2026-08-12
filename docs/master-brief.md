@@ -311,10 +311,14 @@ before. If a deploy still errors, the log will now name the variable.
   done (`product-description-components.tsx`, green ticks, rules above every
   h2); content lands per product with the rewrite.
 - [x] **Comparison** — built, `/compare?products=a,b`.
-- [ ] **RETURNS heading present, bold and consistent on every product page.**
-- [ ] **Large furniture delivery disclaimer** — doorstep delivery, white glove
-      not included unless arranged, positioned as the transparency that funds
-      the pricing.
+- [x] **RETURNS heading present, bold and consistent on every product page.**
+      Its own section now, sharing one heading constant with Delivery and
+      Warranty. Was half of a "Warranty & Returns" heading. Adds a `returnsNotes`
+      field for pieces that genuinely differ, with the standard 14-day wording as
+      the fallback.
+- [x] **Large furniture delivery disclaimer** — on the 58 pieces that are £400+
+      or large-format. Framed as asked: the streamlined model is why a £1,095
+      console is not £1,600. Also pre-empts the most common furniture complaint.
 
 ### FAQ system
 
@@ -334,8 +338,12 @@ before. If a deploy still errors, the log will now name the variable.
 - [ ] **Price audit.** Report only — no automatic price reductions.
 - [ ] **Stock audit**, especially furniture colour variants.
 - [ ] **Live stock tracking plan** (Supabase).
-- [ ] **Delivery lead-time distribution report** — how many products sit on each
-      timeframe, to find inconsistent promises.
+- [x] **Delivery lead-time distribution report** — `scripts/audit-delivery-lead-times.ts`.
+      Parses each value into a span of days and groups on that, because grouping
+      on the raw string hides the inconsistency. Found 65 of 88 on 3–4 weeks
+      written two ways, and 47 values with a trailing space. Punctuation
+      normalised, **no duration changed** — the script refuses if a parsed span
+      would differ.
 - [x] **Lead time appears inside the paragraph** on the delivery page.
 
 ### Product database
@@ -432,6 +440,21 @@ before. If a deploy still errors, the log will now name the variable.
 - [x] **Product schema markup**, price, availability, brand.
 - [x] **Breadcrumb schema** on category pages.
 - [x] **Article schema** with author and dates.
+- [x] **Tabbed content was invisible to Google.** Only the active tab was in the
+      DOM, and the default tab is Description — so delivery, returns, warranty,
+      the FAQs and the reviews never reached a crawler at all. That broke three
+      requirements at once: those sections are required parts of the page, the FAQ
+      structured data described markup that did not exist, and half a page built
+      to educate a customer could not be crawled. All panels now render with the
+      inactive ones hidden, plus proper tablist/tab/tabpanel roles.
+- [ ] **A failed Sanity fetch during a build bakes a 404 into a product page.**
+      Found while testing: `/shop/sofas/candover-neutral-sofa` served a
+      not-found page at HTTP 200 while the product resolves perfectly from
+      Sanity. `sanityFetch` is deliberately fail-soft, so a transient fetch
+      failure during `next build` prerenders the not-found page and it stays
+      until ISR revalidates. Same root cause as the soft-404s on the deleted
+      Aosom URLs. **This is the next thing to fix** — it can silently 404 any
+      product for the life of a deploy.
 - [ ] **Technical SEO audit** — page speed, mobile performance, Core Web Vitals,
       sitemap, robots.txt, canonicals, duplicate pages, broken links,
       redirects.
