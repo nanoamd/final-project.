@@ -43,13 +43,14 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                              | Why it blocks everything                                                                              |
-| --- | --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below          |
-| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send              |
-| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                            |
-| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                        |
+| #   | Item                               | Why it blocks everything                                                                                                                                        |
+| --- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | **Send me the Vercel build error** | `main` is now correct and CI is green, but every Vercel deploy has errored since 15 July, so the live site is still an old build. One log removes all guesswork |
+| 1   | ~~Merge the branch to `main`~~     | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                    |
+| 2   | **Stripe live keys**               | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                           |
+| 3   | **`RESEND_API_KEY`**               | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                        |
+| 4   | **One real test order**            | Payment → webhook → order record → email has never run against a real card                                                                                      |
+| 5   | **Rotate the Sanity write token**  | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                  |
 
 See `docs/first-sale-plan.md` for what these gate.
 
@@ -68,9 +69,52 @@ than being force-pushed. The only files `main` carried that this line does not
 are ten superseded homepage components and `product-specs.tsx`, none of them
 imported anywhere.
 
-Worth knowing: **CI on `main` had failed on every run since 15 July.** That is
-not something this work caused — it predates it — but it does mean no automated
-check has passed on the deployed branch for a month.
+### CI had failed on every run since 15 July
+
+Not caused by this work — it predates it — but it meant no automated check had
+passed on the deployed branch for a month, so nothing was catching anything.
+Four separate faults, all now fixed:
+
+1. **`prettier --check` was checking 74 saved supplier HTML pages.** Other
+   people's markup, downloaded verbatim as the offline reference the catalogue
+   audit is checked against. Now in `.prettierignore`, along with `backups/`.
+   Eight genuinely unformatted source files were formatted.
+2. **The e2e suite asserted the homepage title was "Create Next App"** — the
+   Next.js scaffold default, never updated after the storefront was built.
+   Fixed, plus a second test that checks real catalogue rows arrived, because
+   `sanityFetch` is fail-soft and a site that cannot reach Sanity still answers
+   200 with the right title and no content.
+3. **`typecheck` depended on a type Next.js only emits during a build.**
+   `RouteContext<…>` is a global written into `.next/types`, and CI typechecks
+   before it builds — so it failed on a clean checkout while passing on any
+   machine with a stale `.next` lying around. That is why it reached the branch.
+4. **A failed env check did not say which variable was missing.** Seven
+   identical "expected string, received undefined" lines with no names
+   attached. It now names them, which matters most in a hosting build log — the
+   lack of it has already cost one wrong guess in this repo's history.
+
+### Vercel: still not deploying, and this needs your eyes
+
+Every Vercel deployment has errored since 15 July, so the live site is the last
+build that succeeded before that. `main` is now correct and CI is green, but a
+green CI does not prove Vercel will build — **CI runs with
+`SKIP_ENV_VALIDATION=true` and Vercel does not.**
+
+The most likely cause is a missing required environment variable in the Vercel
+project. These eight are mandatory and a build dies without any one of them:
+
+`SUPABASE_SERVICE_ROLE_KEY` · `SANITY_API_READ_TOKEN` · `STRIPE_SECRET_KEY` ·
+`STRIPE_WEBHOOK_SECRET` · `NEXT_PUBLIC_SITE_URL` · `NEXT_PUBLIC_SUPABASE_URL` ·
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` · `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+
+Reproduced locally: drop any one and `next build` fails with
+`Failed to collect page data for /_not-found`. With fix 4 above, the Vercel log
+will now name the variable instead of printing seven anonymous type errors.
+
+**What to do:** open the newest failed deployment in Vercel, and send the build
+log — or just the error lines. That removes the guesswork entirely. Do **not**
+mark any `NEXT_PUBLIC_` variable as Sensitive; that took the site down once
+before.
 
 ---
 
@@ -117,9 +161,13 @@ check has passed on the deployed branch for a month.
       title clamp, so ~9 products fit a screen instead of ~4.
 - [x] **Category hero image no longer downloaded on mobile** — it was fetching
       the 3840w variant behind `display:none`.
-- [ ] **Category page image sizing on mobile** — the giant-images fault seen on
-      Coffee Tables. Needs verifying against the deployed page; the grid
-      rewrite may already have fixed it.
+- [x] **Category page image sizing on mobile** — measured at 390px in Chromium
+      rather than guessed at. Coffee Tables downloads 0.49MB across 20 images,
+      largest variant 640px, no horizontal overflow; the homepage is 0.38MB. The
+      giant-images fault was fixed by the grid rewrite. One real fault did turn
+      up in the screenshot: Pershore led its tile with a close-up of the table
+      edge while every other tile showed a whole table — now corrected by a
+      tight-crop rule in `preferredOrder`, which fires on 5 products of 92.
 - [ ] **App-like feel** — bottom navigation bar, larger tap targets, sheet-style
       filters.
 - [ ] **Mobile-first review of every remaining page** — cart, checkout, account,
