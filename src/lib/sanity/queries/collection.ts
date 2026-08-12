@@ -18,7 +18,9 @@ export async function getCollections(): Promise<SanityCollection[]> {
   return sanityFetch<SanityCollection[]>(COLLECTIONS_QUERY, {}, []);
 }
 
-export async function getCollection(slug: string): Promise<SanityCollection | null> {
+export async function getCollection(
+  slug: string,
+): Promise<SanityCollection | null> {
   return sanityFetch<SanityCollection | null>(
     COLLECTION_BY_SLUG_QUERY,
     { slug },

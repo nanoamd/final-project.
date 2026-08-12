@@ -209,7 +209,11 @@ export const products: Product[] = [
     options: [
       {
         label: "Size",
-        values: ["Small (2–4 People)", "Medium (4–6 People)", "Large (6–8 People)"],
+        values: [
+          "Small (2–4 People)",
+          "Medium (4–6 People)",
+          "Large (6–8 People)",
+        ],
       },
       {
         label: "Heater option",
@@ -279,7 +283,10 @@ export const products: Product[] = [
         label: "Size",
         values: ["Medium (4–6 People)", "Large (6–8 People)"],
       },
-      { label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] },
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
     ],
     specs: [
       { label: "Capacity", value: "4–6 people" },
@@ -323,7 +330,10 @@ export const products: Product[] = [
       "Ergonomic two-tier benching in knot-free aspen",
     ],
     options: [
-      { label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] },
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
     ],
     specs: [
       { label: "Capacity", value: "2–3 people" },
@@ -372,7 +382,10 @@ export const products: Product[] = [
       "Tongue-and-groove thermowood staves",
     ],
     options: [
-      { label: "Heater option", values: ["Electric Heater", "Wood Burning Heater"] },
+      {
+        label: "Heater option",
+        values: ["Electric Heater", "Wood Burning Heater"],
+      },
     ],
     specs: [
       { label: "Capacity", value: "4 people" },

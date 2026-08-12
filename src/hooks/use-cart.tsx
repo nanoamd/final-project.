@@ -7,7 +7,10 @@ import type { CartItem } from "@/types/cart";
 const STORAGE_KEY = "kaiku-cart";
 
 /** Distinguishes cart lines for the same product with different options. */
-function lineKey(slug: string, selectedOptions?: Record<string, string>): string {
+function lineKey(
+  slug: string,
+  selectedOptions?: Record<string, string>,
+): string {
   return selectedOptions ? `${slug}::${JSON.stringify(selectedOptions)}` : slug;
 }
 
@@ -66,25 +69,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, hydrated]);
 
-  const addItem = React.useCallback<CartContextValue["addItem"]>((item, quantity = 1) => {
-    setItems((prev) => {
-      const key = lineKey(item.slug, item.selectedOptions);
-      const existing = prev.find((i) => lineKey(i.slug, i.selectedOptions) === key);
-      if (existing) {
-        return prev.map((i) =>
-          lineKey(i.slug, i.selectedOptions) === key
-            ? { ...i, quantity: i.quantity + quantity }
-            : i,
+  const addItem = React.useCallback<CartContextValue["addItem"]>(
+    (item, quantity = 1) => {
+      setItems((prev) => {
+        const key = lineKey(item.slug, item.selectedOptions);
+        const existing = prev.find(
+          (i) => lineKey(i.slug, i.selectedOptions) === key,
         );
-      }
-      return [...prev, { ...item, quantity }];
-    });
-  }, []);
+        if (existing) {
+          return prev.map((i) =>
+            lineKey(i.slug, i.selectedOptions) === key
+              ? { ...i, quantity: i.quantity + quantity }
+              : i,
+          );
+        }
+        return [...prev, { ...item, quantity }];
+      });
+    },
+    [],
+  );
 
   const removeItem = React.useCallback<CartContextValue["removeItem"]>(
     (slug, selectedOptions) => {
       const key = lineKey(slug, selectedOptions);
-      setItems((prev) => prev.filter((i) => lineKey(i.slug, i.selectedOptions) !== key));
+      setItems((prev) =>
+        prev.filter((i) => lineKey(i.slug, i.selectedOptions) !== key),
+      );
     },
     [],
   );
@@ -93,11 +103,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     (slug, quantity, selectedOptions) => {
       const key = lineKey(slug, selectedOptions);
       if (quantity <= 0) {
-        setItems((prev) => prev.filter((i) => lineKey(i.slug, i.selectedOptions) !== key));
+        setItems((prev) =>
+          prev.filter((i) => lineKey(i.slug, i.selectedOptions) !== key),
+        );
         return;
       }
       setItems((prev) =>
-        prev.map((i) => (lineKey(i.slug, i.selectedOptions) === key ? { ...i, quantity } : i)),
+        prev.map((i) =>
+          lineKey(i.slug, i.selectedOptions) === key ? { ...i, quantity } : i,
+        ),
       );
     },
     [],
@@ -109,7 +123,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
   const value = React.useMemo<CartContextValue>(
-    () => ({ items, addItem, removeItem, updateQuantity, clear, count, subtotal }),
+    () => ({
+      items,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clear,
+      count,
+      subtotal,
+    }),
     [items, addItem, removeItem, updateQuantity, clear, count, subtotal],
   );
 

@@ -10,3 +10,14 @@ node_modules/
 
 # Lockfiles (managed by the package manager)
 pnpm-lock.yaml
+
+# Saved supplier pages, kept as the offline reference the catalogue audit is
+# checked against. They are other people's markup, downloaded verbatim — 74 of
+# them, and reformatting them would both defeat the point of holding an exact
+# copy and take longer than every other file in the repo combined. This is what
+# had been failing `prettier --check`, and therefore CI, since 15 July.
+supplier-pages/
+
+# Sanity exports taken before a destructive script runs. Machine-written JSON
+# that exists to be restored byte-for-byte.
+backups/

@@ -32,7 +32,9 @@ export function ArticleList({
   emptyIntro: string;
 }) {
   if (!articles.length) {
-    return <ComingSoon eyebrow={eyebrow} title={emptyTitle} intro={emptyIntro} />;
+    return (
+      <ComingSoon eyebrow={eyebrow} title={emptyTitle} intro={emptyIntro} />
+    );
   }
 
   return (
@@ -42,12 +44,18 @@ export function ArticleList({
         <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
           {title}
         </h1>
-        <p className="text-muted mt-5 text-lg leading-relaxed text-pretty">{intro}</p>
+        <p className="text-muted mt-5 text-lg leading-relaxed text-pretty">
+          {intro}
+        </p>
       </div>
 
       <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article) => (
-          <AppLink key={article.slug} href={`${basePath}/${article.slug}`} className="group">
+          <AppLink
+            key={article.slug}
+            href={`${basePath}/${article.slug}`}
+            className="group"
+          >
             <div className="border-line bg-paper relative aspect-[4/3] overflow-hidden rounded-xl border">
               {article.coverImage ? (
                 <Image

@@ -43,15 +43,34 @@ more than once.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                              | Why it blocks everything                                                                                                                                   |
-| --- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Merge the branch to `main`**    | Vercel deploys `main`, which is from 17 July. 144 commits of work are not live. Every "does mobile feel excellent?" check currently tests a month-old site |
-| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                      |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                   |
-| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                                 |
-| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                             |
+| #   | Item                              | Why it blocks everything                                                                              |
+| --- | --------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below          |
+| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes |
+| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send              |
+| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                            |
+| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                        |
 
 See `docs/first-sale-plan.md` for what these gate.
+
+### The deploy, and what was actually wrong with it
+
+`main` and the working branch had **no merge base**. `main` ended 17 July 2026;
+this line of work begins 26 July. The two are chronologically continuous but git
+had them recorded as unrelated histories — almost certainly a fresh clone rather
+than a branch off `main`. That is why "the changes haven't taken effect on the
+domain": there was no route from the work to the branch Vercel builds.
+
+Resolved with a merge using `-s ours`, which keeps this branch's tree exactly as
+it is and records `main`'s old tip as a second parent. Nothing was discarded:
+all 48 of `main`'s commits remain reachable, and `main` fast-forwarded rather
+than being force-pushed. The only files `main` carried that this line does not
+are ten superseded homepage components and `product-specs.tsx`, none of them
+imported anywhere.
+
+Worth knowing: **CI on `main` had failed on every run since 15 July.** That is
+not something this work caused — it predates it — but it does mean no automated
+check has passed on the deployed branch for a month.
 
 ---
 

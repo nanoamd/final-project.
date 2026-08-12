@@ -52,7 +52,10 @@ export const ICONS = {
 
 export type IconName = keyof typeof ICONS;
 
-export function resolveIcon(name: string | null | undefined, fallback: LucideIcon = Leaf): LucideIcon {
+export function resolveIcon(
+  name: string | null | undefined,
+  fallback: LucideIcon = Leaf,
+): LucideIcon {
   if (!name) return fallback;
   return ICONS[name as IconName] ?? fallback;
 }

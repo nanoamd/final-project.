@@ -38,7 +38,9 @@ export default function GlobalError({
         <h1 style={{ fontSize: "1.75rem", marginBottom: "12px" }}>
           Something went wrong
         </h1>
-        <p style={{ color: "#6b6a67", maxWidth: "24rem", marginBottom: "24px" }}>
+        <p
+          style={{ color: "#6b6a67", maxWidth: "24rem", marginBottom: "24px" }}
+        >
           An unexpected error occurred loading the site.
         </p>
         <button
