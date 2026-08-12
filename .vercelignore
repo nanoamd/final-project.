@@ -1,0 +1,27 @@
+# Files that must not reach the deployment.
+#
+# supplier-pages/ is the reason this file exists. It is 179MB — 74 saved
+# supplier product pages at ~1MB of HTML each, plus 107MB of the images that
+# came with them — and it was committed on 9 August. The working tree is 288MB
+# total, so this one directory is 62% of everything Vercel is asked to take.
+# The live site has been stuck on a build from around 6 August ever since.
+#
+# It is a genuinely useful thing to have: an offline copy of every supplier page
+# the catalogue is audited against, which matters because D.I. Designs sits
+# behind a CAPTCHA and cannot be re-fetched on demand. But it is a development
+# reference. Nothing at runtime reads it, nothing imports it, and no page renders
+# it — so it has no business being uploaded, built, or deployed.
+#
+# Note this does not shrink the git history, which is permanently 166MB heavier
+# and slows every clone including the one Vercel does. Worth fixing separately.
+supplier-pages/
+
+# Sanity exports written before a destructive script runs. Restore material,
+# never served.
+backups/
+
+# Written for people, not for the runtime.
+docs/
+
+# Playwright specs. They run in CI, not in production.
+e2e/
