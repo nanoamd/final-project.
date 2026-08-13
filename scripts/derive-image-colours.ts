@@ -13,7 +13,7 @@
  *      photographs at most one of them.** Everything else keeps the colours it
  *      has. That is the "don't change my colours" half of the instruction, and it
  *      is the common case: most products either offer no colour choice at all or
- *      have a photograph per colourway, and both are already right.
+ *      photograph every variant they offer, and both are already right.
  *   2. **For the products it does touch, the photographs are the authority, not
  *      the option list.** A chest offered in White, Black and Brown but only ever
  *      photographed in white is a white chest as far as a shopper filtering by
@@ -173,13 +173,22 @@ function optionColours(product: RawProduct): string[] {
 }
 
 /**
- * The colourways the gallery photographs, as far as the *data* says.
+ * The distinct variants the gallery photographs, as far as the *data* says.
  *
- * This reads `optionValue`, not pixels, because the question is how many distinct
- * variants were shot — and a white table with gold legs is one colourway with two
- * colours in it, which pixels alone cannot tell from two colourways.
+ * This reads `optionValue`, not pixels, and the distinction it draws is the one
+ * that matters in this catalogue: **a multi-value Colour option can mean two
+ * completely different things.** On the Abberley chest it is a real choice — White,
+ * Black and Brown, each with its own photograph. On the Neatham table it is
+ * descriptive: Black, Brass, Gold are the colours of a single piece, not three
+ * pieces. Pixels cannot tell those apart, because a white table with gold legs and
+ * a table sold in white *or* gold look identical in a photograph of one of them.
+ * Which photographs carry an `optionValue` can.
+ *
+ * 21 products photograph more than one value; 10 photograph one or none, and every
+ * one of those ten reads as a description of one object (`[Grey | Oak]` on a
+ * grey-aged oak console, `[Brown | Neutral | Taupe]` on a gesso lamp).
  */
-function photographedColourways(product: RawProduct): string[] {
+function photographedVariants(product: RawProduct): string[] {
   const tags = new Set<string>();
   for (const image of product.gallery ?? []) {
     if (!image.optionValue) continue;
@@ -230,13 +239,14 @@ const MAX_COLOURS = 3;
 /**
  * A tag is never dropped in favour of a colour this close to it.
  *
- * The Neatham table is offered in Black, Brass *and* Gold — three finishes a
- * customer can actually order — and one photograph of it. The reading came back
- * Brass 22%, Gold 7%, which would have dropped Gold and kept Brass: a coin toss
- * between two orderable variants, decided by 15 points of a measurement whose own
- * resolution is coarser than the gap between them. Gold and Brass are 0.073 apart
- * and nothing else in the vocabulary is inside 0.11, so this threshold protects
- * that pair and nothing it shouldn't.
+ * The Neatham table's option list reads Black, Brass, Gold, and — Damien's
+ * correction — **that is not three variants a customer chooses between. It is the
+ * colours of the one piece**: a black top on brass-gold legs. So all three belong
+ * on it, and the reading (Brass 22%, Gold 7%) would have dropped Gold and kept
+ * Brass on 15 points of a measurement whose own resolution is coarser than the gap
+ * between the two. Gold and Brass are 0.073 apart and nothing else in the
+ * vocabulary is inside 0.11, so this threshold protects that pair and nothing it
+ * shouldn't.
  */
 const AMBIGUOUS_DROP = 0.08;
 
@@ -290,13 +300,13 @@ async function main() {
   }[] = [];
   const outsideOptions: string[] = [];
   let noOptions = 0;
-  let perColourway = 0;
+  let perVariant = 0;
   let unreadable = 0;
   let agreed = 0;
 
   for (const product of products) {
     const offered = optionColours(product);
-    const shot = photographedColourways(product);
+    const shot = photographedVariants(product);
     const current = product.colourTags ?? [];
 
     // A tag naming a colour the product is not offered in, on a product this
@@ -317,13 +327,13 @@ async function main() {
       continue;
     }
 
-    // Rule 1 again: every colourway has its own photograph, so the option list is
+    // Rule 1 again: every variant has its own photograph, so the option list is
     // not a promise the pictures fail to keep.
     if (shot.length > 1) {
-      perColourway += 1;
+      perVariant += 1;
       if (showAll)
         console.log(
-          `  ·  ${shorten(product.title)}\n      ${shot.length} colourways photographed (${shot.join(", ")}) — left alone`,
+          `  ·  ${shorten(product.title)}\n      ${shot.length} variants photographed (${shot.join(", ")}) — left alone`,
         );
       continue;
     }
@@ -439,7 +449,7 @@ async function main() {
   console.log(
     `\n${patches.length} products to change.\n` +
       `  ${noOptions} with no colour options — left alone\n` +
-      `  ${perColourway} with a photograph per colourway — left alone\n` +
+      `  ${perVariant} with a photograph per variant — left alone\n` +
       `  ${agreed} where the photographs already agree with the tags\n` +
       `  ${unreadable} the photographs could not answer — left alone`,
   );

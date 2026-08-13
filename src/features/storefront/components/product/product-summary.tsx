@@ -22,6 +22,11 @@ import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { useSavedProducts } from "@/hooks/use-saved-products";
+import {
+  describeValues,
+  descriptiveOptions,
+  selectableOptions,
+} from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -68,10 +73,20 @@ export function ProductSummary({
   const saved = isSaved(product.slug);
   const image = displayImage ?? product.image;
 
+  // Options the shopper actually chooses between, and options that merely
+  // describe the piece. A colour list nobody has photographed per value is the
+  // second kind — see src/lib/catalog/product-options.ts.
+  const choosable = selectableOptions(product.options, product.gallery);
+  const described = descriptiveOptions(product.options, product.gallery);
+
   function handleAddToBasket() {
-    const selectedOptions = product.options?.length
+    // Only real choices go on the basket line. A descriptive colour list written
+    // in here would put "Gold" on an order for a table that is not available in
+    // gold, and the order record would look like a legitimate instruction to
+    // whoever picks it.
+    const selectedOptions = choosable.length
       ? Object.fromEntries(
-          product.options.map((option) => [
+          choosable.map((option) => [
             option.label,
             option.values[selected[option.label] ?? 0] ?? option.values[0]!,
           ]),
@@ -195,7 +210,7 @@ export function ProductSummary({
           </ul>
         ) : null}
 
-        {product.options?.map((option) => (
+        {choosable.map((option) => (
           <div key={option.label}>
             {/* The count alongside the label, so the page states how many
                 choices there are rather than leaving the shopper to count
@@ -233,6 +248,22 @@ export function ProductSummary({
                 );
               })}
             </div>
+          </div>
+        ))}
+
+        {/* Colours the piece *has*, not colours to choose between. Stated rather
+            than offered: the Neatham table lists Black, Brass and Gold because it
+            is a black top on brass-gold legs, and a row of buttons there invites
+            an order for a gold table that does not exist. See
+            src/lib/catalog/product-options.ts. */}
+        {described.map((option) => (
+          <div key={option.label}>
+            <p className="text-muted mb-2 text-[11px] font-semibold tracking-[0.14em] uppercase">
+              {option.label}
+            </p>
+            <p className="text-graphite text-[13px]">
+              {describeValues(option.values)}
+            </p>
           </div>
         ))}
 

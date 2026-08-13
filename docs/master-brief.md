@@ -361,7 +361,7 @@ before. If a deploy still errors, the log will now name the variable.
       121 notes are the veto system refusing imitations: the "Bamboo Gesso" lamp
       is gesso _inspired by_ bamboo, so Bamboo is not tagged as a material.
 - [x] **Colour tags checked against the photographs**, per Damien's rule — only
-      products with colour options whose gallery shows a single colourway are
+      products with colour options whose gallery shows a single variant are
       touched, and for those the pictures decide, not the option list.
       `scripts/derive-image-colours.ts` (dry run by default) segments the white
       sweep out of each catalogue shot and matches what is left, in OKLab, against
@@ -369,14 +369,40 @@ before. If a deploy still errors, the log will now name the variable.
       dropped from the Grafton Black Console (black steel in all four shots) and
       the Bentley Grey Aged Oak Console, and Black and Natural from the Broadway
       Oak Chest. Oak stays on all three as a _material_ — the timber is oak, the
-      colour is not. 20 products photograph every colourway and 58 offer no colour
+      colour is not. 20 products photograph every variant and 58 offer no colour
       choice, so both groups keep the colours they have.
+- [x] **A multi-value Colour option means two different things, and the product
+      page treated both the same way.** Damien's correction: _"bronze brass etc
+      aren't actual variants it's just the different colours of one product"_. The
+      Neatham table lists Black, Brass and Gold because it is a black top on
+      brass-gold legs — one table, not three. The Abberley chest lists White, Black
+      and Brown because it genuinely is sold in three finishes, each photographed.
+      Both rendered as a row of buttons, and **the selection was written onto the
+      basket line and into the order record** — so a customer could order a "Gold"
+      Neatham that has never existed, with nothing in the system to contradict
+      them. Worse than a mis-tagged filter, because it reaches fulfilment.
+      `src/lib/catalog/product-options.ts` splits them on the only signal in the
+      data: whether the gallery photographs more than one of the values. **21
+      products are real choices and keep their selector; 10 are descriptions and
+      now state their colours as text.** Verified on the live build — Neatham reads
+      "Black, Brass and Gold", Grafton "Black and Grey", the gesso lamp "Brown and
+      Taupe", while Abberley keeps three working buttons.
+- [!] **Two of those 10 may be real variants nobody has photographed.** The Beer
+  Barrel Storage Stool offers `[Natural | Whitewash]` with only the whitewash
+  shot tagged, and the Tamarind coffee table offers `[Aqua | Sky Blue]` — a
+  barrel is not both natural and whitewashed at once, so those look like
+  choices with missing photography rather than descriptions. They are currently
+  treated as descriptions, which under-sells a variant rather than taking an
+  order that cannot ship. **The fix is to tag the second photograph with its
+  `optionValue` in Studio** — that tag is also what swaps the picture when a
+  shopper picks a colour, so it is needed for the variant to work at all.
+  Confirm which of the two it is.
 - [!] **23 products carry a colour tag they are not offered in** — Abberley White
   Chest is tagged Oak and Natural, Broadway Oak Bedside tagged Natural, and so
-  on. These sit outside the rule above (each photographs its colourways
-  properly), so nothing was changed. Each one is a filter that answers with the
-  wrong photograph. Run the script to see the full list; **needs Damien's
-  say-so** before the extra tags come off.
+  on. These sit outside the rule above (each photographs its variants properly),
+  so nothing was changed. Each one is a filter that answers with the wrong
+  photograph. Run the script to see the full list; **needs Damien's say-so**
+  before the extra tags come off.
 
 ### Price, stock and delivery
 
