@@ -481,7 +481,10 @@ before. If a deploy still errors, the log will now name the variable.
   the purchase, so the guidance answers real ones with real measurements: 40cm
   between coffee table and sofa, 35–40cm console depth in a 120cm hallway, bedside
   height within 5cm of the mattress, 140cm sideboard for a 55-inch television.
-  **Coffee Tables went from ~120 words to 826.** FAQs emit `FAQPage` structured data
+  **Coffee Tables went from ~120 words to 826.** Written so far: The Reclaimed
+  Collection, Coffee Tables, Console Tables, Garden Furniture, Bedside Tables,
+  Living Room Storage, Side Tables, Lighting, Office Storage, Shelving, Sofas and
+  Outdoor Saunas. FAQs emit `FAQPage` structured data
   as well as visible text, so a question and its answer can appear directly in a
   result. Related links only ever point at stocked categories.
 - [x] **Worked examples done**: Garden Furniture (materials, weather resistance,

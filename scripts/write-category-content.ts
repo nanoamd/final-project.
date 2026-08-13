@@ -341,6 +341,150 @@ const CONTENT: CategoryContent[] = [
     ],
     related: ["living-room-lighting", "bedroom-lighting", "side-tables"],
   },
+  {
+    slug: "office-storage",
+    intro: [
+      "Storage for a room that has to work and still look like part of the house. A home office is rarely a separate building — it is a corner of a bedroom, a box room, the end of a living room — so what holds the files has to sit alongside the rest of the furniture rather than announcing itself as office equipment.",
+      "Chests, sideboards and crates in oak, walnut, birch and reclaimed teak, all of which read as furniture first and storage second.",
+    ],
+    guide: [
+      "Measure what is actually being stored before choosing a shape. A4 lever-arch files need 32cm of internal height and around 8cm of width each; a drawer 30cm deep holds them lying flat but not standing. If files are the point, a cabinet with a shelf beats a chest of drawers.",
+      "Height decides whether the top is usable. A unit at 75 to 80cm gives you a second work surface for a printer or a scanner. Anything above 90cm is storage only, because reaching over it to use the top becomes awkward when seated nearby.",
+      "Keep the desk clear on the side you write on. Storage behind or beside the chair works; storage in front of the window costs you the light, which is the one thing a home office cannot get back.",
+      "Cable management is the detail people regret. A closed cabinet holding a router or a hard drive needs a hole cut or a gap at the back, and heat builds fast in a sealed box.",
+    ],
+    faqs: [
+      {
+        question: "What size storage do I need for A4 files?",
+        answer:
+          "Lever-arch files want about 32cm of internal height standing up and 8cm of width each. A standard 30cm-deep drawer holds them flat but not upright, so if files are the main job, look for a cabinet with a shelf rather than a chest of drawers.",
+      },
+      {
+        question: "Should office storage match the desk?",
+        answer:
+          "It helps, but picking up the timber tone or the handle metal is enough. In a home office that shares a room with something else, matching the room matters more than matching the desk.",
+      },
+      {
+        question: "How high should office storage be?",
+        answer:
+          "75 to 80cm if you want to use the top as a surface for a printer. Taller than 90cm and the top is out of comfortable reach from a seated position, so it becomes storage only.",
+      },
+      {
+        question: "Can I put a printer inside a closed cabinet?",
+        answer:
+          "Only with ventilation. A sealed cabinet traps heat around a printer or a router, and paper feeds need clearance to open. A unit with an open back section or a removable panel is the safer choice.",
+      },
+    ],
+    related: ["desks", "office-shelving", "living-room-storage"],
+  },
+  {
+    slug: "shelving",
+    intro: [
+      "Open shelving earns its place by showing what is on it, which makes it the hardest storage to live with and the most useful when it works. Reclaimed teak, oak and metal-framed units, from narrow display towers to six-shelf room dividers.",
+      "Because nothing is hidden, the unit and the contents are one object. That is why the pieces here are worth looking at empty.",
+    ],
+    guide: [
+      "Depth decides what fits. 20 to 25cm takes paperbacks and objects; 30cm takes hardbacks and box files; 35cm and over starts holding baskets and folded textiles. Deeper is not better — a deep shelf swallows small things at the back.",
+      "Shelf spacing matters as much as shelf count. Paperbacks want 22cm of clear height, hardbacks 30cm, and a run of art or plants wants 35cm and up. Fixed-shelf units are worth checking against what you own before ordering.",
+      "Fix tall units to the wall. Anything over about 150cm with a narrow footprint should be strapped, and that is not optional in a house with children — an open unit is climbable in a way a closed one is not.",
+      "Leave a third of it empty. Open shelving that is packed reads as clutter however good the unit is, and the pieces that look best in a room are the ones with air between the objects.",
+    ],
+    faqs: [
+      {
+        question: "How deep should a bookshelf be?",
+        answer:
+          "20 to 25cm for paperbacks, 30cm for hardbacks and box files, 35cm and over for baskets and textiles. Anything deeper and objects get lost at the back.",
+      },
+      {
+        question: "How much space do I need between shelves?",
+        answer:
+          "22cm of clear height for paperbacks, 30cm for hardbacks, 35cm and above for plants or framed pieces. On a fixed-shelf unit, check the spacing against what you actually own before ordering.",
+      },
+      {
+        question: "Does open shelving need fixing to the wall?",
+        answer:
+          "Anything tall and narrow does — over roughly 150cm with a small footprint should be strapped. Open units are climbable, so with small children in the house treat it as necessary rather than optional.",
+      },
+      {
+        question: "Can shelving be used as a room divider?",
+        answer:
+          "The open-backed units can, and it is one of the better uses for them. Check that the back looks finished, since one side of it will be on show, and fix it at the top or the base for stability.",
+      },
+    ],
+    related: ["living-room-storage", "office-shelving", "kitchen-shelving"],
+  },
+  {
+    slug: "sofas",
+    intro: [
+      "Seating chosen for how it sits rather than how it photographs. Chenille, bouclé and linen over frames built to be sat in every evening, in sizes that suit a real room rather than a showroom floor.",
+      "A sofa is the piece a living room is arranged around, and the one most often bought a size too large. What follows is how to avoid that.",
+    ],
+    guide: [
+      "Measure the route in before the room. A sofa has to pass the narrowest point — doorway, stair turn, half-landing — and it cannot be persuaded. Measure the diagonal of the doorway as well as its width, since a sofa turned on its side often goes through when it will not go through flat.",
+      "Leave 90cm of walkway where people pass, and 40cm between the sofa and the coffee table. Fitting the sofa is not the test; walking round it afterwards is.",
+      "Seat depth decides who it suits. Around 55cm suits sitting upright with feet down; 60cm and over is for sinking into and is uncomfortable for anyone short. If the household is mixed, the shallower seat is the safer choice.",
+      "Match the fabric to the traffic. Chenille and bouclé are warm and hard-wearing but hold pet hair; linen is cool and relaxed but creases and marks more readily. On a sofa in daily use with animals, the tighter weave wins.",
+    ],
+    faqs: [
+      {
+        question: "How do I know a sofa will fit through my door?",
+        answer:
+          "Measure the doorway width, the diagonal, and the narrowest point on the route including any stair turn. Compare against the sofa's height and depth, not just its length — most sofas go through on their side when they will not go through upright.",
+      },
+      {
+        question: "How much space should I leave around a sofa?",
+        answer:
+          "90cm for any walkway people use, and about 40cm between the sofa and the coffee table. Fitting it in is easy; living around it is what the measurements are for.",
+      },
+      {
+        question: "What seat depth should I choose?",
+        answer:
+          "Around 55cm if you sit upright with your feet on the floor, 60cm or more if you like to sink in. Deep seats are uncomfortable for shorter people, so in a mixed household the shallower option suits more of them.",
+      },
+      {
+        question: "Which fabric is best with pets?",
+        answer:
+          "A tight weave. Chenille and bouclé wear well but hold hair; linen marks and creases more easily. Whatever the fabric, removable covers are worth having when animals use the furniture.",
+      },
+    ],
+    related: ["coffee-tables", "side-tables", "living-room-lighting"],
+  },
+  {
+    slug: "outdoor-saunas",
+    intro: [
+      "Cabin, barrel and panoramic saunas for a garden, built as structures rather than appliances. A sauna outdoors is a small building — it needs a base, a power supply and a route in — and the ones here are specified to sit in a British garden through a British winter.",
+      "Sizes run from two-person barrels to six-person cabins, in thermally treated timber with heaters sized to the cabin rather than sold separately as an afterthought.",
+    ],
+    guide: [
+      "Start with the base, because it is the part that cannot be changed later. A sauna needs a level, load-bearing base — concrete, paving slabs or a properly built timber deck. Ground that moves will rack the door frame, and a sauna door that no longer seals is a sauna that no longer heats.",
+      "Then the power. Most heaters above 4.5kW need a dedicated circuit, and larger cabins usually need a 3-phase or a 32A supply run by a qualified electrician. Getting an electrician to quote before ordering is the single most useful thing you can do, because it is the cost people do not budget for.",
+      "Size it for how many actually use it. A two-person barrel heats in 20 to 30 minutes; a six-person cabin takes longer and costs more per session to run. A sauna used by two people most evenings is better small than large.",
+      "Leave access all the way round. You will need to treat the timber, and a cabin against a fence cannot be maintained on that side. 50cm of clearance is enough to work in.",
+    ],
+    faqs: [
+      {
+        question: "What base does an outdoor sauna need?",
+        answer:
+          "Level and load-bearing — concrete, paving slabs or a properly constructed deck. Ground that settles unevenly twists the frame, and once the door stops sealing the sauna will not hold temperature.",
+      },
+      {
+        question: "What electrical supply does an outdoor sauna need?",
+        answer:
+          "Most heaters over 4.5kW want a dedicated circuit, and larger cabins commonly need a 32A or 3-phase supply installed by a qualified electrician. Get that quoted before ordering — it is the cost most often left out of the budget.",
+      },
+      {
+        question: "Do I need planning permission for a garden sauna?",
+        answer:
+          "Usually not, as most fall under permitted development for outbuildings, but height, boundary distance and total garden coverage all matter, and listed buildings and conservation areas are treated differently. Check with your local authority before ordering rather than after.",
+      },
+      {
+        question: "How long does an outdoor sauna take to heat up?",
+        answer:
+          "A two-person barrel typically reaches temperature in 20 to 30 minutes. Larger cabins take longer and use more electricity per session, which is worth weighing if it will be used most days by one or two people.",
+      },
+    ],
+    related: ["indoor-saunas", "cold-plunges", "wellness-accessories"],
+  },
 ];
 
 function block(text: string, key: string) {
