@@ -514,8 +514,22 @@ before. If a deploy still errors, the log will now name the variable.
 - [~] **Image SEO** — alt text now on all 439 images. Filenames: only 4 of 439
   are undescriptive (`image-6.png`, `6.jpg.webp`, `7.jpg.webp`,
   `19.jpg.webp`), so this is much smaller than it looked.
-- [ ] **Internal linking system** — every product links to related products,
-      category pages, buying guides, room inspiration.
+- [~] **Internal linking system.** `scripts/audit-internal-links.ts` finds the pages
+  nothing points at, which is the actionable half — you cannot fix orphans you have
+  not found. It counts inbound links per product and per category from the sources
+  that exist in the markup: primary and additional categories, editorial references,
+  `relatedCategories`, and the same-category related-products carousel, which renders
+  nothing and so links nowhere in a category of one.
+  **Found and fixed: 10 stocked categories had no inbound link from any other
+  category** — office-storage with 15 products, bedside-tables with 11, lighting,
+  outdoor-saunas. `scripts/link-related-categories.ts` set reciprocal links across 19
+  categories, dropping any target that holds no products. **Orphan stocked
+  categories: 10 → 0.** Most likely cause of the 44 URLs at "Discovered – currently
+  not indexed" in Search Console: a URL nothing links to is one Google has been told
+  about and given no reason to crawl.
+  **Still open, and the bigger number: 96 of 99 products are referenced by no post or
+  buying guide.** That is the link type Google weighs most, which makes the content
+  plan a linking job as much as a traffic one.
 
 ### Content plan
 
