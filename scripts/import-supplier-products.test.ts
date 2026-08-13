@@ -39,6 +39,46 @@ describe("cleanSupplierTitle", () => {
     );
   });
 
+  it("strips the supplier's brand when the source data names it", () => {
+    // The first Hill Interiors import produced "... | Hill Interiors | Kaiku",
+    // because TAIL_NOISE only knew about D.I. Designs. Another supplier's brand on
+    // Kaiku's own product names, on every product from every new supplier.
+    expect(
+      cleanSupplierTitle(
+        "Antique Brass Wall Mounted Towel Rail | Hill Interiors",
+        "Kaiku",
+        "Hill Interiors",
+      ),
+    ).toBe("Antique Brass Wall Mounted Towel Rail | Kaiku");
+  });
+
+  it("strips a trade-only marker alongside the brand", () => {
+    expect(
+      cleanSupplierTitle(
+        "Smoked Glass Pendant Light | Trade Only | Hill Interiors",
+        "Kaiku",
+        "Hill Interiors",
+      ),
+    ).toBe("Smoked Glass Pendant Light | Kaiku");
+  });
+
+  it("keeps the brand when it is the entire product name", () => {
+    // Stripping it would leave an empty title, which is worse than a branded one.
+    expect(
+      cleanSupplierTitle("Hill Interiors", "Kaiku", "Hill Interiors"),
+    ).toBe("Hill Interiors | Kaiku");
+  });
+
+  it("ignores brand casing and stray whitespace", () => {
+    expect(
+      cleanSupplierTitle(
+        "Ribbed Glass Soap Dispenser | HILL INTERIORS ",
+        "Kaiku",
+        " hill interiors",
+      ),
+    ).toBe("Ribbed Glass Soap Dispenser | Kaiku");
+  });
+
   it("adds the suffix to a plain title", () => {
     expect(
       cleanSupplierTitle("Pershore Rectangular Aged Oak Coffee Table"),

@@ -883,7 +883,7 @@ const slugify = (s: string) =>
  * detail from a title is worse than leaving a stray word in one.
  */
 const TAIL_NOISE =
-  /^(trade|wholesale|trade furniture|wholesale furniture|free (uk )?delivery|uk delivery|next day delivery|buy online|shop now|home|di ?designs?|d\.?i\.? designs?|didesigns(\.co\.uk)?)$/i;
+  /^(trade|trade only|trade price(s)?|trade account|wholesale|wholesale only|trade furniture|wholesale furniture|free (uk )?delivery|uk delivery|next day delivery|buy online|shop now|home|di ?designs?|d\.?i\.? designs?|didesigns(\.co\.uk)?)$/i;
 
 /**
  * Words that carry no identity, so two titles differing only in these are the
@@ -924,15 +924,43 @@ export function titleFingerprint(title: string): string {
     .join(" ");
 }
 
-export function cleanSupplierTitle(raw: string, ownSuffix = "Kaiku"): string {
+/**
+ * Strips the supplier's branding from a title and puts ours on the end.
+ *
+ * `TAIL_NOISE` used to be the only mechanism, and it hardcoded D.I. Designs — so
+ * the first Hill Interiors import produced "Antique Brass Wall Mounted Towel Rail
+ * | Hill Interiors | Kaiku" and "Smoked Glass Pendant Light | Trade Only | Hill
+ * Interiors | Kaiku". Another supplier's brand on Kaiku's own product names, on
+ * every product from every new supplier, discovered only by reading forty titles.
+ *
+ * So the brand is now passed in from the source data instead of being listed here.
+ * The CSV has a Brand column and the JSON-LD has a `brand`; using it means the next
+ * supplier needs no code change at all, which is the actual fix — the pattern list
+ * was always going to be one supplier behind.
+ */
+export function cleanSupplierTitle(
+  raw: string,
+  ownSuffix = "Kaiku",
+  /** The supplier's own brand name, from the source data. */
+  brand?: string,
+): string {
   const parts = raw
     .split("|")
     .map((p) => p.trim())
     .filter(Boolean);
+
+  const brandName = brand?.trim().toLowerCase();
+  const isNoise = (segment: string) => {
+    const value = segment.trim().toLowerCase();
+    if (TAIL_NOISE.test(value)) return true;
+    // Never strip the whole title: a single-segment title that happens to equal
+    // the brand keeps it, because the alternative is an empty product name.
+    return Boolean(brandName) && value === brandName;
+  };
+
   // Drop branding from the end inwards, never from the front: the first segment
   // is the product name even when it happens to read like a brand.
-  while (parts.length > 1 && TAIL_NOISE.test(parts[parts.length - 1]!))
-    parts.pop();
+  while (parts.length > 1 && isNoise(parts[parts.length - 1]!)) parts.pop();
   // An existing "| Kaiku" is not duplicated — this runs on re-imports too.
   if (parts[parts.length - 1]?.toLowerCase() === ownSuffix.toLowerCase())
     parts.pop();
@@ -961,7 +989,7 @@ async function main() {
   // Before anything else, so the cleaned title is what gets categorised, slugged
   // and printed in the dry run — the supplier's branding never reaches Sanity.
   for (const p of sources) {
-    const cleaned = cleanSupplierTitle(p.title);
+    const cleaned = cleanSupplierTitle(p.title, "Kaiku", p.brand);
     if (cleaned !== p.title)
       console.log(
         `  ~ title: ${p.title.slice(0, 62)}\n           → ${cleaned}`,
