@@ -57,42 +57,80 @@ positioning that is the whole point of Kaiku. So:
 
 ---
 
-## Instant or self-serve — sign up today
+## Correction, 13 August — this list conflated two different things
 
-Ranked by how quickly you can be looking at trade prices. You have a registered
-Ltd company (Project Kaiku Ltd), which is what most of these require; a VAT
-number is **not** generally required, which matters because you are below the
-threshold.
+**The version of this section published on 12 August was wrong and cost Damien an
+evening.** It ranked suppliers by _how fast you can see trade prices_ and put
+**Ankorstore first**. Ankorstore is a **wholesale** marketplace: you buy the stock
+up front, hold it, and post it yourself, with a minimum first order per brand. Kaiku
+is a dropship business. He applied, was accepted, and the account is of no use.
 
-| Platform                | Where | Sign-up                                      | What it covers                                         | Fills                                          |
-| ----------------------- | ----- | -------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------- |
-| **Creoate**             | UK    | Free — no joining, monthly or listing fee    | Home & garden, homeware, from UK/EU/US independents    | Mirrors, rugs, bathroom accessories, storage   |
-| **Ankorstore**          | EU/UK | Free, no subscription; retailer verification | 30,000+ brands; strong indoor lighting section         | **Lighting** (5 empty categories)              |
-| **Avasam**              | UK    | Accepts sole traders and individuals         | Dropship automation platform, UK sellers               | Broad — good for volume of low-priced lines    |
-| **Something Different** | UK    | Free dropship service, **no minimum order**  | Giftware, homeware, garden                             | Water features, garden accessories             |
-| **Geko Products**       | UK    | Trade-only account                           | Giftware, home accessories, garden supplies, furniture | Fire pits & heating, water features            |
-| **Mmilo Furniture**     | UK    | Dedicated dropshipper site, **no minimums**  | Contemporary flat-pack furniture **and lighting**      | Kitchen furniture, shelving, storage, lighting |
-| **VIP Home & Garden**   | UK    | Dropship programme, est. 1989                | 800+ products cleared for direct shipping              | Garden, water features                         |
-| **Orderchamp**          | NL    | Free retailer account                        | The third of the big three independent-retail B2B      | Homeware breadth                               |
-| **BigBuy**              | ES→UK | Accepts individuals                          | Very broad, ships UK                                   | Low-price filler                               |
+He had also already said "some dont offer dropshipping though", so the information
+was in front of me and I did not act on it.
 
-Two directories worth an hour, for finding suppliers in a specific gap rather
-than browsing: **eSources.co.uk** and **thewholesaler.co.uk**.
-
-### Do these five first, in this order
-
-1. **Ankorstore** — it has the deepest lighting range, and lighting is five of
-   your nineteen empty categories.
-2. **Creoate** — UK-based, genuinely free, and covers mirrors, rugs and bathroom,
-   which are four more empty categories.
-3. **Mmilo Furniture** — the only one on the list that does furniture _and_
-   lighting with no minimum order.
-4. **Something Different** — no minimum order value at all, so it costs nothing
-   to hold an account open for water features and garden accessories.
-5. **Avasam** — because it accepts sole traders instantly, so it is the fastest
-   possible route to having _anything_ live in an empty category.
+The only question that matters for this list is therefore: **does the supplier ship
+direct to my customer, with no stock held and no minimum order?** Speed of signup is
+irrelevant if the answer is no. So the table below is organised by that, and where I
+am not certain it says so rather than guessing twice.
 
 ---
+
+## You already have a dropship account that covers the cheap end
+
+**Ancient Wisdom — the "AW Dropship" supplier in Sanity — is already live and
+already supplying 26 products.** Nothing to apply for.
+
+It is also the only thing holding up the bottom of the price ladder. Every product
+Kaiku sells under £50 is theirs:
+
+| Product                          | Price  |
+| -------------------------------- | ------ |
+| Eucalyptus Essential Oil 10ml    | £6.95  |
+| Sweet Birch Essential Oil 10ml   | £7.95  |
+| Sweet Birch Essential Oil 50ml   | £17.50 |
+| Large Brown Wooden Storage Tub   | £40    |
+| Himalayan Salt BBQ Cooking Plate | £47.75 |
+| Brown Wooden Storage Crates      | £49    |
+
+Their range is far wider than the 26 products taken from it — home fragrance,
+soaps, candles, salt lamps, bathroom and wellness accessories — and it sits exactly
+in the £15–£120 band the catalogue lacks (78 of 88 products are over £150).
+
+**So the first move needs no new supplier at all: work through the Ancient Wisdom
+catalogue for `bathroom-accessories`**, which is empty and which their range covers
+directly. That is a listing job that can start tonight.
+
+---
+
+## Dropship suppliers — organised by whether they actually dropship
+
+| Supplier                | Dropships?                                   | Notes                                                                                        |
+| ----------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Ancient Wisdom**      | **Yes — account already live**               | Already supplying 26 products. Giftware, wellness, home fragrance, bathroom. Start here      |
+| **Avasam**              | **Yes** — UK dropship platform               | Purpose-built dropship automation, accepts sole traders. Subscription-based. Already applied |
+| **BigBuy**              | **Yes** — dropship wholesaler                | European, ships UK, very broad, low price points. Fee/subscription model                     |
+| **Something Different** | **Probably** — advertises a dropship service | UK giftware/homeware. **Verify the no-minimum claim before applying**                        |
+| **Mmilo Furniture**     | **Probably** — has a dropshipper site        | Furniture and lighting. **Verify direct-ship terms before applying**                         |
+| **VIP Home & Garden**   | **Probably** — dropship programme            | Garden, water features. **Verify before applying**                                           |
+| **Creoate**             | **Partly at best** — mainly wholesale        | Some suppliers offer dropship, most do not. Do not assume                                    |
+| **Ankorstore**          | **No — wholesale only**                      | Buy, hold and post stock yourself, minimum per brand. **The mistake above**                  |
+| **Orderchamp**          | **No, as far as I know** — wholesale         | Same model as Ankorstore                                                                     |
+| **Geko Products**       | **No, as far as I know** — trade wholesale   | Trade account, minimum order                                                                 |
+
+**Before applying to any of the "probably" rows, check one thing on their site:** do
+they ship direct to your customer, and is there a minimum order? If the answer is
+not clearly yes and none, it is a wholesaler and it is not for Kaiku.
+
+Two directories worth an hour, filtered to dropshipping specifically:
+**eSources.co.uk** and **thewholesaler.co.uk/dropshipping-suppliers**.
+
+### Do these in this order
+
+1. **Ancient Wisdom** — no application needed, account already live, covers
+   bathroom accessories and the cheap end. Tonight's work.
+2. **Avasam** — already applied. Chase it; it is a genuine dropship platform.
+3. **BigBuy** — genuine dropship, broad, low price points.
+4. **Verify then apply** to Something Different, Mmilo and VIP Home & Garden.
 
 ## The nineteen empty categories, and who fills each
 

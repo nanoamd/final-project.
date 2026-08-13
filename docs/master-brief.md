@@ -673,16 +673,25 @@ before. If a deploy still errors, the log will now name the variable.
       first pass was tightened twice after it swept TV stands and console tables
       into Office Storage on their `Storage` tag — 22 matches was padding, 15 is a
       category.
-- [x] **Ankorstore approved, 13 August.** Buying brief in
-      `docs/ankorstore-buying-brief.md`. Two things it establishes. **Ankorstore is
-      wholesale, not dropship** — stock is bought, held and posted by us, and each
-      brand sets its own minimum first order, so the rule is buy deep from two or
-      three brands rather than one product from eleven. And the real gap it should
-      fill is **not the empty categories but the cheap end**: 78 of 88 products are
-      over £150, only 6 are under £50, median £545. Nobody's first order from an
-      unknown shop is a £545 chest, so the target band is **£15–£120** — which
-      creates an entry price point and the trading history the premium suppliers are
-      waiting for.
+- [!] **Ankorstore was the wrong recommendation — my error.** I put it first on the
+  instant-signup list on 12 August, ranked by how fast you can see trade prices,
+  without checking its model. **Ankorstore is wholesale: stock is bought, held
+  and posted by you, with a minimum first order per brand.** Kaiku is a
+  dropshipper. Damien applied, was accepted, and the account is useless to him —
+  an evening wasted, and he had already told me "some dont offer dropshipping
+  though". `docs/supplier-instant-signup.md` is corrected and now organises
+  suppliers by whether they actually dropship, marking the ones I am not certain
+  about instead of asserting twice. `docs/ankorstore-buying-brief.md` was deleted
+  rather than left to mislead.
+- [x] **Ancient Wisdom is an already-live dropship account, and it holds up the
+      entire bottom of the price ladder.** The "AW Dropship" supplier in Sanity, 26
+      products. **Every product Kaiku sells under £50 is theirs** — the essential
+      oils at £6.95–£17.50, the storage tub at £40, the salt BBQ plate at £47.75, the
+      crates at £49 — against a catalogue median of £545 and 78 of 88 products over
+      £150. Their range is much wider than the 26 taken from it and covers
+      `bathroom-accessories` directly, which is empty. **No application needed; this
+      is listable tonight.** It should have been the first suggestion, not
+      Ankorstore.
 - [!] **11 categories genuinely need stock** and cannot be filled from the
   catalogue, because nothing in it is one of these things: bathroom-accessories,
   bathroom-lighting, fire-pits, garden-lighting, kitchen-furniture,
