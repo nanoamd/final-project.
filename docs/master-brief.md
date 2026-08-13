@@ -502,20 +502,47 @@ before. If a deploy still errors, the log will now name the variable.
       build, so the local failure was a transient fetch rather than a systematic
       fault. Still real — a fail-soft fetch during a build can bake a 404 into a
       product URL — but rarer than it first looked.
-- [ ] **Technical SEO audit** — page speed, mobile performance, Core Web Vitals,
-      sitemap, robots.txt, canonicals, duplicate pages, broken links,
-      redirects.
-- [ ] **Soft-404s on the 7 deleted Aosom product URLs.** Checked after the
-      deletion: they render the not-found page but answer **HTTP 200**, not 404.
-      Google treats a soft-404 as a live thin page and keeps it indexed, so these
-      stay in the index competing with real products. Two things to separate
-      before fixing: whether it is a stale-cache artefact of the 6 August build
-      (`x-nextjs-stale-time: 300`, `x-vercel-cache: HIT`) or a genuine fault in
-      how `notFound()` behaves on a prerendered route once its data disappears.
-      **Re-check immediately after the deploy is promoted.** If it persists, the
-      right answer for permanently removed products is a 301 to the category
-      rather than a 404 — they were indexed, and a redirect keeps the link equity
-      and gives a visitor somewhere to go.
+- [~] **Technical SEO audit** — page speed, mobile performance, Core Web Vitals,
+  duplicate pages, broken links still outstanding. Done and verified on the live
+  site: **robots.txt** (allows everything worth crawling, blocks
+  studio/admin/api/cart/account/checkout, points at the sitemap); **canonicals**
+  on the homepage, categories and products, and `/shop/all?colour=Black`
+  correctly canonicalises to `/shop/all`, which is the right answer for faceted
+  navigation; **sitemap** 125 URLs, 88 products and 22 stocked categories, with no
+  retired URLs in it; **redirects** now in place for the retired products.
+- [x] **Soft-404s on the deleted Aosom product URLs — diagnosed, and my earlier
+      claim was wrong.** All 7 still answer HTTP 200 after the deploy, so it was
+      never a stale-cache artefact. But it is not the indexation problem I
+      recorded: **the response carries `<meta name="robots" content="noindex">`**,
+      verified on the live site, so Google will not keep these indexed. Nor is it
+      specific to the deleted products — a product URL that never existed behaves
+      identically, while `/totally-made-up-page` correctly answers 404.
+      **Cause, documented in `node_modules/next/dist/docs`:** a `notFound()`
+      reached after the response has begun streaming cannot change the status
+      code, because the headers are already sent. The docs say so explicitly, and
+      add that "in the streaming case, this does not lead to indexation because the
+      page is explicitly marked `noindex`". So I was wrong to call it an
+      index-pollution emergency. **What was still worth doing:** the 7 retired
+      products now `308` permanently to their category
+      (`src/lib/seo/retired-urls.ts`, wired into `next.config.ts`). They were
+      indexed and linked, so a redirect keeps the link equity and puts the visitor
+      in the range they were looking for instead of a dead end.
+- [-] **Forcing a real 404 status on missing product URLs.** The documented way is
+  a `proxy` check before the body streams — which means a Sanity round-trip on
+  every product URL on the site to change a status code Google is already
+  handling correctly via the noindex, and the same docs warn to keep proxy
+  checks fast and not fetch content there. Not worth the latency on every page
+  view. Overrule me if Search Console starts reporting these as soft-404s in
+  volume.
+- [x] **`lastmod` on the sitemap.** It was absent from all 125 URLs, so the whole
+      file looked equally stale on every crawl and a genuine free crawl signal was
+      being thrown away. Now taken from Sanity's own `_updatedAt`: 116 of 125 URLs
+      carry a real date, and the homepage, `/shop`, `/learn` and `/journal` take
+      theirs from the newest thing they list. The 9 without are the pages written
+      in code, which get no date rather than an invented one — a date that moves on
+      every crawl teaches Google to distrust the dates across the whole sitemap.
+      One GROQ query rather than widening the four page-serving helpers with a
+      field only the sitemap reads.
 - [x] **Wrong-category product URLs no longer resolve.** The live 6 August build
       serves the same product under every category slug —
       `/shop/water-features/portable-charcoal-bbq-grill` and
