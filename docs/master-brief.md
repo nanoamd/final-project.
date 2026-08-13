@@ -384,9 +384,19 @@ before. If a deploy still errors, the log will now name the variable.
       `src/lib/catalog/product-options.ts` splits them on the only signal in the
       data: whether the gallery photographs more than one of the values. **21
       products are real choices and keep their selector; 10 are descriptions and
-      now state their colours as text.** Verified on the live build — Neatham reads
-      "Black, Brass and Gold", Grafton "Black and Grey", the gesso lamp "Brown and
-      Taupe", while Abberley keeps three working buttons.
+      show no colour block at all.** Damien, on being shown the first attempt
+      (which restated them as a line of text): _"There are no colours for the
+      neatham table, it comes in one colour only"_ — so the heading is gone
+      entirely, not reworded. A COLOUR heading on a product with one colour reads as
+      a choice however it is phrased, and the photographs already say what the piece
+      looks like. The colours still reach the filters through `colourTags`, which is
+      where a colour belongs when it is a fact rather than a decision. Verified on a
+      production build: Neatham runs description → price → Add to Basket with no
+      colour block, and Abberley keeps three working buttons.
+- [~] **The specifications table still lists "Colour: Black, Brass, Gold" on the
+  Neatham.** That is a spec row stating what the piece is made of rather than a
+  chooser, so it was left. Say the word and it becomes "Black with brass-gold
+  legs", which is a copy decision rather than a data one.
 - [!] **Two of those 10 may be real variants nobody has photographed.** The Beer
   Barrel Storage Stool offers `[Natural | Whitewash]` with only the whitewash
   shot tagged, and the Tamarind coffee table offers `[Aqua | Sky Blue]` — a
@@ -627,6 +637,18 @@ before. If a deploy still errors, the log will now name the variable.
 - [x] **Colour filters as visual circles** — all 17 colours, each with a count,
       only shown where the products exist. Name and count are the accessible
       label, since a coloured circle alone tells a screen reader nothing.
+- [x] **Filters live in a side tab that opens a sidebar**, not in a band above the
+      grid. Damien: _"it should be a tab on the side which says filters and when
+      you press it it opens up a sidebar rather than having it as the first thing
+      you see"_. Still a native `<details>`, so there is no client bundle and every
+      filter link stays in the DOM for a crawler whether the drawer is open or
+      shut; the tab is pinned to the drawer's outer edge so it travels out with it
+      and the control that opened it closes it. The tab is sized to the page gutter
+      — the first version was 31.5px wide against a 24px margin and clipped the
+      corner off "Witley Coffee Table", so it is now exactly 24px and 111px tall,
+      taking its tap target from the height. What is _applied_ stays in the page
+      above the grid with a Clear all, and the tab itself carries the count
+      ("Filters · 1"): hiding the controls is fine, hiding the state is not.
 - [x] **Variant filtering** — selecting Black shows the black version's
       photograph. Verified on the Abberley White Chest of Drawers: three colour
       filters, three different images. Matching goes through an alias table
