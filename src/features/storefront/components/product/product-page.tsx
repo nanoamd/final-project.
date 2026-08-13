@@ -89,6 +89,7 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
         posts={relatedContent.posts}
         productSlug={product.slug}
         departmentSlug={product.departmentSlug}
+        categoryGuide={relatedContent.categoryGuide}
       />
 
       <ProductTabs product={product} />

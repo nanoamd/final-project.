@@ -353,7 +353,9 @@ function CategoryContent({ category }: { category?: SanityCategory | null }) {
   return (
     <div className="border-line mt-16 border-t pt-12">
       {guide ? (
-        <section className="mb-12 max-w-[68ch]">
+        <section className="mb-12 max-w-[68ch]" id="how-to-choose">
+          {/* The id is a link target: product pages point here instead of saying
+              "we're still writing a guide for this category". */}
           <h2 className="font-display mb-4 text-2xl tracking-tight">
             How to choose
           </h2>

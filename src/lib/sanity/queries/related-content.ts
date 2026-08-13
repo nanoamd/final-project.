@@ -38,6 +38,22 @@ const BUYING_GUIDES_BY_CATEGORY_QUERY = /* groq */ `
   [0...$limit]
   ${BUYING_GUIDE_PROJECTION}`;
 
+/**
+ * Whether this product's own category carries buying guidance on its page.
+ *
+ * The product page used to say "We're still writing a guide for this category"
+ * whenever no buyingGuide document matched — advertising an absence on every
+ * product page, which is a strange thing for a shop to volunteer. Eight categories
+ * now carry a written "How to choose" section, so where one exists the product page
+ * can point at real content instead. Only the flag and the name are fetched: the
+ * guidance itself belongs on the category page, not duplicated here.
+ */
+const CATEGORY_GUIDE_QUERY = /* groq */ `
+*[_type == "category" && slug.current == $categorySlug][0]{
+  "name": title,
+  "hasGuide": count(buyingGuide) > 0
+}`;
+
 const POSTS_BY_PRODUCT_QUERY = /* groq */ `
 *[_type == "post" && defined(publishedAt) && $productSlug in relatedProducts[]->slug.current]
   | order(publishedAt desc)
@@ -57,10 +73,15 @@ export async function getRelatedContentForProduct({
 }: {
   productSlug: string;
   categorySlug: string;
-}): Promise<{ buyingGuides: SanityBuyingGuide[]; posts: SanityPost[] }> {
+}): Promise<{
+  buyingGuides: SanityBuyingGuide[];
+  posts: SanityPost[];
+  /** The product's own category, where its page carries buying guidance. */
+  categoryGuide: { name: string; slug: string } | null;
+}> {
   const limit = 2;
 
-  const [byProduct, posts] = await Promise.all([
+  const [byProduct, posts, category] = await Promise.all([
     sanityFetch<SanityBuyingGuide[]>(
       BUYING_GUIDES_BY_PRODUCT_QUERY,
       { productSlug, limit },
@@ -70,6 +91,11 @@ export async function getRelatedContentForProduct({
       POSTS_BY_PRODUCT_QUERY,
       { productSlug, limit },
       [],
+    ),
+    sanityFetch<{ name: string; hasGuide: boolean } | null>(
+      CATEGORY_GUIDE_QUERY,
+      { categorySlug },
+      null,
     ),
   ]);
 
@@ -89,5 +115,11 @@ export async function getRelatedContentForProduct({
     }
   }
 
-  return { buyingGuides, posts };
+  return {
+    buyingGuides,
+    posts,
+    categoryGuide: category?.hasGuide
+      ? { name: category.name, slug: categorySlug }
+      : null,
+  };
 }

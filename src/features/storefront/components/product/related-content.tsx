@@ -32,11 +32,14 @@ export function RelatedContent({
   posts,
   productSlug,
   departmentSlug,
+  categoryGuide,
 }: {
   buyingGuides: SanityBuyingGuide[];
   posts: SanityPost[];
   productSlug: string;
   departmentSlug?: string | null;
+  /** The product's category, where its page carries buying guidance. */
+  categoryGuide?: { name: string; slug: string } | null;
 }) {
   const tools: ToolItem[] = [];
   if (
@@ -62,13 +65,26 @@ export function RelatedContent({
     tools.push({ title });
   }
 
-  if (!posts.length && !tools.length) return null;
+  // Three states, not two. A real guide document is best; the category's own "How
+  // to choose" section is the next best and now exists for eight categories; and
+  // where there is neither, the column renders nothing rather than announcing that
+  // nothing has been written. A shop telling every visitor what it has not got done
+  // yet is a strange use of the space.
+  const guideColumn = buyingGuides.length
+    ? "guides"
+    : categoryGuide
+      ? "category"
+      : "none";
 
-  // The grid's column count must match how many columns actually render —
-  // a fixed 3-column grid with only 1-2 real columns leaves the rest of the
-  // row as dead white space. Buying guides always renders something (real
-  // guides or the fallback link below), so it always counts as one column.
-  const columnCount = 1 + (posts.length ? 1 : 0) + (tools.length ? 1 : 0);
+  if (!posts.length && !tools.length && guideColumn === "none") return null;
+
+  // The column count must match how many columns actually render — a fixed
+  // three-column grid with two real columns leaves the rest of the row as dead
+  // white space. Buying guides no longer always counts, now that it can be empty.
+  const columnCount =
+    (guideColumn === "none" ? 0 : 1) +
+    (posts.length ? 1 : 0) +
+    (tools.length ? 1 : 0);
   const gridColsClass =
     columnCount >= 3
       ? "md:grid-cols-2 lg:grid-cols-3"
@@ -81,28 +97,29 @@ export function RelatedContent({
       <div
         className={`mx-auto grid max-w-[1280px] gap-12 px-6 py-16 sm:px-8 lg:px-12 ${gridColsClass}`}
       >
-        {buyingGuides.length ? (
+        {guideColumn === "guides" ? (
           <ContentColumn
             heading="Buying guides"
             basePath="/learn"
             items={buyingGuides}
           />
-        ) : (
+        ) : guideColumn === "category" && categoryGuide ? (
           <div>
             <h2 className="text-ink font-display text-2xl tracking-tight">
               Buying guides
             </h2>
             <p className="text-muted mt-4 text-[14px] leading-relaxed">
-              We&rsquo;re still writing a guide for this category.
+              Sizes, materials and what suits which room — the questions worth
+              settling before you choose.
             </p>
             <AppLink
-              href="/learn"
+              href={`/shop/${categoryGuide.slug}#how-to-choose`}
               className="text-brass mt-3 inline-block text-[13px] font-medium underline underline-offset-4"
             >
-              Browse all buying guides →
+              How to choose {categoryGuide.name.toLowerCase()} →
             </AppLink>
           </div>
-        )}
+        ) : null}
         {posts.length ? (
           <ContentColumn
             heading="From the journal"
