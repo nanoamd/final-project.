@@ -213,7 +213,13 @@ export const GENERIC_TONES = ["Natural", "Neutral"];
 
 export const COLOUR_VOCABULARY: Term[] = [
   { tag: "Black", aliases: ["black"] },
-  { tag: "White", aliases: ["white", "whitewash", "whitewashed", "off white"] },
+  // "whitewash" is NOT an alias of white, and the same goes for the other two
+  // washes below. A wash is a finish over timber with the grain showing through;
+  // a painted white hides it. They are different products on the shelf, so a
+  // White filter must not return a whitewashed piece. The longest-alias rule in
+  // findTerms is what stops "whitewash" also matching the bare "white".
+  { tag: "White", aliases: ["white", "off white"] },
+  { tag: "Whitewash", aliases: ["whitewash", "whitewashed", "limed"] },
   { tag: "Ivory", aliases: ["ivory"] },
   { tag: "Cream", aliases: ["cream"] },
   { tag: "Grey", aliases: ["grey", "gray", "slate grey", "pigeon grey"] },
@@ -221,8 +227,10 @@ export const COLOUR_VOCABULARY: Term[] = [
   { tag: "Natural", aliases: ["natural"] },
   { tag: "Neutral", aliases: ["neutral"] },
   { tag: "Taupe", aliases: ["taupe"] },
-  { tag: "Green", aliases: ["green", "greenwash", "greenwashed", "sage"] },
-  { tag: "Blue", aliases: ["blue", "bluewash", "bluewashed", "navy"] },
+  { tag: "Green", aliases: ["green", "sage"] },
+  { tag: "Greenwash", aliases: ["greenwash", "greenwashed"] },
+  { tag: "Blue", aliases: ["blue", "navy"] },
+  { tag: "Bluewash", aliases: ["bluewash", "bluewashed"] },
   { tag: "Aqua", aliases: ["aqua", "turquoise"] },
   { tag: "Gold", aliases: ["gold", "golden"] },
   { tag: "Brass", aliases: ["brass"] },

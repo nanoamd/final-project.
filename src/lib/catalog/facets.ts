@@ -27,6 +27,11 @@ export const COLOUR_FACETS = [
   { tag: "Black", hex: "#1a1a1a" },
   { tag: "Grey", hex: "#8a8a8a" },
   { tag: "White", hex: "#f6f5f2" },
+  // A wash is a finish, not a colour: the timber grain shows through a limed
+  // white where a painted white hides it. They are different products on the
+  // shelf, so they are different tags here — folding them together would answer
+  // a White filter with a whitewashed photograph.
+  { tag: "Whitewash", hex: "#e5ded1" },
   { tag: "Ivory", hex: "#efe8d8" },
   { tag: "Cream", hex: "#e8dfc9" },
   { tag: "Taupe", hex: "#b3a394" },
@@ -36,7 +41,9 @@ export const COLOUR_FACETS = [
   { tag: "Oak", hex: "#c19a63" },
   { tag: "Walnut", hex: "#5b3a26" },
   { tag: "Green", hex: "#4f6152" },
+  { tag: "Greenwash", hex: "#a6b3a0" },
   { tag: "Blue", hex: "#3c4f68" },
+  { tag: "Bluewash", hex: "#9fb0bd" },
   { tag: "Aqua", hex: "#6fa8a3" },
   { tag: "Gold", hex: "#c9a24a" },
   { tag: "Brass", hex: "#b08d4f" },
@@ -179,24 +186,52 @@ export type FacetKey = (typeof FACET_DEFINITIONS)[number]["key"];
  * Returns null for a value that names no colour — `Classic` is a finish name,
  * not a colour, and guessing at it would put the wrong photograph on a card.
  */
+/**
+ * The rule, because the catalogue's 24 distinct colour values do not divide the
+ * way a naive alias table assumes.
+ *
+ * **A finish technique keeps its own tag.** Whitewash, Greenwash and Bluewash
+ * are washes over timber — the grain shows through — and they are not the solid
+ * White, Green and Blue. An earlier version of this file folded them together,
+ * which would have answered a White filter with a whitewashed photograph. They
+ * are different products on the shelf.
+ *
+ * **A named shade folds into its family.** Pigeon Grey is a grey and Sky Blue is
+ * a blue; somebody filtering Grey wants the pigeon-grey chest included, and
+ * giving every paint name its own swatch would produce a filter row nobody can
+ * scan.
+ *
+ * **A compound value contributes only its colour.** "Ivory Shagreen" is ivory;
+ * the shagreen is a material and materials are their own facet.
+ *
+ * **A value naming no colour maps to nothing.** "Classic" is a finish name. A
+ * guess here puts the wrong photograph on a card, which is worse than the
+ * default.
+ */
 const OPTION_VALUE_ALIASES: Record<string, string> = {
-  whitewash: "White",
-  whitewashed: "White",
-  "off white": "White",
-  greenwash: "Green",
-  greenwashed: "Green",
-  sage: "Green",
-  bluewash: "Blue",
-  bluewashed: "Blue",
+  // Spelling variants of the same finish.
+  whitewashed: "Whitewash",
+  greenwashed: "Greenwash",
+  bluewashed: "Bluewash",
+
+  // Named shades, folded into the family a shopper would filter by.
+  "pigeon grey": "Grey",
+  "slate grey": "Grey",
+  gray: "Grey",
   "sky blue": "Blue",
   navy: "Blue",
   turquoise: "Aqua",
+  sage: "Green",
+  "off white": "White",
   "natural wood": "Natural",
   chocolate: "Brown",
   "chocolate brown": "Brown",
-  gray: "Grey",
-  "slate grey": "Grey",
   golden: "Gold",
+
+  // Colour plus material. The material is a separate facet.
+  "ivory shagreen": "Ivory",
+  "grey shagreen": "Grey",
+  "brown shagreen": "Brown",
 };
 
 export function colourTagForOptionValue(value: string): string | null {

@@ -292,12 +292,10 @@ describe("colourTagForOptionValue", () => {
     expect(colourTagForOptionValue(" White")).toBe("White");
   });
 
-  it("maps the supplier's words onto the filter's words", () => {
-    expect(colourTagForOptionValue("Whitewash")).toBe("White");
-    expect(colourTagForOptionValue("Greenwash")).toBe("Green");
-    expect(colourTagForOptionValue("Bluewash")).toBe("Blue");
+  it("maps a supplier shade name onto the filter's word", () => {
     expect(colourTagForOptionValue("Natural Wood")).toBe("Natural");
     expect(colourTagForOptionValue("Sky Blue")).toBe("Blue");
+    expect(colourTagForOptionValue("Pigeon Grey")).toBe("Grey");
   });
 
   it("is null for a finish name that is not a colour", () => {
@@ -326,16 +324,25 @@ describe("variantImageForQuery", () => {
     ).toBe("/black.jpg");
   });
 
-  it("matches through the alias table, not by exact string", () => {
+  it("matches a wash to its own filter, not to the solid colour", () => {
     const washed = product({
       gallery: [{ url: "/ww.jpg", optionValue: "Whitewash " }],
     } as Partial<SanityProduct>);
+    // Its own tag: yes.
+    expect(
+      variantImageForQuery(washed, {
+        ...EMPTY_QUERY,
+        facets: { colour: ["Whitewash"] },
+      }),
+    ).toBe("/ww.jpg");
+    // Filed under White: no. A limed finish is not a painted one, and answering
+    // a White filter with this photograph is the bug this test exists for.
     expect(
       variantImageForQuery(washed, {
         ...EMPTY_QUERY,
         facets: { colour: ["White"] },
       }),
-    ).toBe("/ww.jpg");
+    ).toBeNull();
   });
 
   it("is null with no colour filter, so the default photo is kept", () => {
@@ -367,5 +374,35 @@ describe("variantImageForQuery", () => {
         facets: { colour: ["Black"] },
       }),
     ).toBeNull();
+  });
+});
+
+describe("colourTagForOptionValue — washes are not their base colour", () => {
+  it("keeps a wash finish distinct from the solid colour", () => {
+    // A wash is a finish over timber with the grain showing through; a painted
+    // white hides it. Folding them together answered a White filter with a
+    // whitewashed photograph.
+    expect(colourTagForOptionValue("Whitewash")).toBe("Whitewash");
+    expect(colourTagForOptionValue("Greenwash")).toBe("Greenwash");
+    expect(colourTagForOptionValue("Bluewash")).toBe("Bluewash");
+    expect(colourTagForOptionValue("White")).toBe("White");
+  });
+
+  it("still folds a spelling variant of the same finish", () => {
+    expect(colourTagForOptionValue("Whitewashed")).toBe("Whitewash");
+  });
+
+  it("folds a named shade into the family a shopper filters by", () => {
+    // Pigeon Grey is a grey. Somebody filtering Grey wants it included, and a
+    // swatch per paint name would produce a row nobody can scan.
+    expect(colourTagForOptionValue("Pigeon Grey")).toBe("Grey");
+    expect(colourTagForOptionValue("Sky Blue")).toBe("Blue");
+    expect(colourTagForOptionValue("Natural Wood")).toBe("Natural");
+  });
+
+  it("takes only the colour from a colour-plus-material value", () => {
+    // The shagreen is a material, and materials are their own facet.
+    expect(colourTagForOptionValue("Ivory Shagreen")).toBe("Ivory");
+    expect(colourTagForOptionValue("Grey Shagreen")).toBe("Grey");
   });
 });
