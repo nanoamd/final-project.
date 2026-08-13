@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
-import { RETIRED_PRODUCT_URLS } from "./src/lib/seo/retired-urls";
+import {
+  RENAMED_PRODUCT_URLS,
+  RETIRED_PRODUCT_URLS,
+} from "./src/lib/seo/retired-urls";
 
 /**
  * Baseline security headers applied to every response.
@@ -56,7 +59,8 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   /**
-   * Permanently retired product URLs, sent to the category they belonged to.
+   * Permanently retired product URLs, sent to the category they belonged to, and
+   * repaired slugs, sent to the same product's new address.
    *
    * These are declared here rather than checked at request time so they cost
    * nothing per page view: a redirect in the config is matched before any
@@ -64,11 +68,13 @@ const nextConfig: NextConfig = {
    * a 404.
    */
   async redirects() {
-    return RETIRED_PRODUCT_URLS.map(({ from, to }) => ({
-      source: from,
-      destination: to,
-      permanent: true,
-    }));
+    return [...RETIRED_PRODUCT_URLS, ...RENAMED_PRODUCT_URLS].map(
+      ({ from, to }) => ({
+        source: from,
+        destination: to,
+        permanent: true,
+      }),
+    );
   },
 };
 

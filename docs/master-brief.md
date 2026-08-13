@@ -510,7 +510,19 @@ before. If a deploy still errors, the log will now name the variable.
 
 ### URLs, images, linking
 
-- [ ] **Slug audit** — short, descriptive, keyword-relevant, no filler.
+- [x] **Slug audit** — `scripts/audit-slugs.ts` checks every document type whose slug
+      becomes a URL: missing, not URL-safe, over 72 characters (where Google truncates),
+      or duplicated. 168 published documents. **Two live products had a slug that was not
+      a slug**: `product-aw-acshop-07` carried the whole title including the pipe
+      (`/shop/…/Reclaimed%20Teak%20Dining%20Table%20180cm%20%7C%20Kaiku`) and the small
+      gesso lamp carried its marketing excerpt, full stop and all. Both were in the
+      sitemap in that state, so both were handed to Google as a wall of `%20`. Repaired to
+      the catalogue's own convention — slugify the title up to the first `|` — giving
+      `reclaimed-teak-dining-table-180cm` and `small-rectangular-gesso-table-lamp`. Old
+      addresses 308 permanently to the new ones via `RENAMED_PRODUCT_URLS`; the drafts
+      were patched too, so publishing one does not restore the bad URL. Also filled the
+      SaunaPlunge brand's missing slug, a required field that was failing validation in
+      the Studio. Everything else was already clean.
 - [~] **Image SEO** — alt text now on all 439 images. Filenames: only 4 of 439
   are undescriptive (`image-6.png`, `6.jpg.webp`, `7.jpg.webp`,
   `19.jpg.webp`), so this is much smaller than it looked.

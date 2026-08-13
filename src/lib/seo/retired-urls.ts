@@ -69,3 +69,33 @@ export const RETIRED_PRODUCT_URLS: readonly RetiredUrl[] = [
     to: "/shop/water-features",
   },
 ];
+
+/**
+ * Products whose slug was repaired, and the addresses they used to answer on.
+ *
+ * The slug audit (`scripts/audit-slugs.ts`) found two live products whose slug was not
+ * a slug: one held the entire title including a pipe character, the other held the
+ * marketing excerpt including a full stop. Both were being handed to Google in the
+ * sitemap as URLs full of `%20`.
+ *
+ * Renaming them is right, but a rename without a redirect is how a site loses pages it
+ * already had — so the old addresses keep answering, permanently, pointing at the new
+ * one. Unlike the retired URLs above these are not dead ends being softened: the exact
+ * page the visitor asked for still exists, it just lives at a readable address now.
+ *
+ * `from` is written **percent-encoded**, exactly as the character sequence a browser or
+ * a crawler puts on the wire. Next matches `redirects()` sources against the raw
+ * pathname, not the decoded one: verified on a running server, where a source written
+ * with literal spaces did not match the request at all, and the encoded source
+ * answered 308 to the new address.
+ */
+export const RENAMED_PRODUCT_URLS: readonly RetiredUrl[] = [
+  {
+    from: "/shop/rustic-reclaimed-furniture/Reclaimed%20Teak%20Dining%20Table%20180cm%20%7C%20Kaiku",
+    to: "/shop/rustic-reclaimed-furniture/reclaimed-teak-dining-table-180cm",
+  },
+  {
+    from: "/shop/lighting/Soft%20ambient%20lighting%20with%20timeless%20sculptural%20elegance.",
+    to: "/shop/lighting/small-rectangular-gesso-table-lamp",
+  },
+];
