@@ -81,9 +81,7 @@ verified live:
 then, deploying means remembering to push to a branch named after an
 initialisation task, which is exactly the kind of thing that goes wrong again.
 
-### How it looked before that was known
-
-### The deploy — the builds all succeed, nothing is promoted to Production
+### How it looked before the cause was known
 
 **This is the whole cause, and it is a Vercel setting, not a code problem.**
 
@@ -356,11 +354,12 @@ before. If a deploy still errors, the log will now name the variable.
 
 ### Tag system
 
-- [~] **Material, colour, style, room, product type.** Derivation engine written
-  (`scripts/lib/product-tags.ts`, 1,159 lines, evidence-carrying and
-  veto-based); canonical vocabulary now shared
-  (`src/lib/catalog/facets.ts`). Not yet dry-run, applied, or wired to
-  filters.
+- [x] **Tag system — material, colour, style, room, product type.** Applied to
+      all 88 products by `scripts/derive-product-tags.ts`. Coverage: materials
+      and product type 88 of 88, colours 81, rooms 83, primary colour 54.
+      Evidence-based — each tag carries the string it was read out of, and the
+      121 notes are the veto system refusing imitations: the "Bamboo Gesso" lamp
+      is gesso _inspired by_ bamboo, so Bamboo is not tagged as a material.
 
 ### Price, stock and delivery
 
@@ -551,11 +550,19 @@ before. If a deploy still errors, the log will now name the variable.
 - [x] **Wellness Accessories** appears in Sauna, Outdoor Living and its own
       category (`additionalDepartments` + `excludeFromRoomGrid`).
 - [x] **Cold Plunge and Outdoor Kitchen** re-parented.
-- [ ] **Filtering and sorting** on the white shopping pages. In progress.
-- [ ] **Colour filters as visual circles** — White, Black, Oak, Walnut, Grey,
-      Green, Natural, Brown.
-- [ ] **Variant filtering** — selecting "black furniture" shows the black
-      version's image, not the default.
+- [x] **Filtering and sorting** on the white shopping pages. URL-driven and
+      server-rendered, so `?colour=Black` is a real page that can rank. Within a
+      facet values are OR-ed, across facets AND-ed; counts come from the pool
+      before each facet is applied so no swatch reads as dead.
+- [x] **Colour filters as visual circles** — all 17 colours, each with a count,
+      only shown where the products exist. Name and count are the accessible
+      label, since a coloured circle alone tells a screen reader nothing.
+- [x] **Variant filtering** — selecting Black shows the black version's
+      photograph. Verified on the Abberley White Chest of Drawers: three colour
+      filters, three different images. Matching goes through an alias table
+      because the catalogue's option values are the supplier's words
+      (`Whitewash`, `Natural Wood`) and several carry a trailing space — exact
+      matching would have failed silently.
 - [ ] **Category page value** — listings plus SEO content, filters, buying
       guides, FAQs, related categories.
 

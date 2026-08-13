@@ -1,4 +1,8 @@
-import { FACET_DEFINITIONS, type FacetKey } from "@/lib/catalog/facets";
+import {
+  colourTagForOptionValue,
+  FACET_DEFINITIONS,
+  type FacetKey,
+} from "@/lib/catalog/facets";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
@@ -255,4 +259,37 @@ export function describeQuery(query: ShopQuery): string | null {
   if (query.inStockOnly) parts.push("in stock");
   if (query.maxPrice !== null) parts.push(`under £${query.maxPrice}`);
   return parts.length ? parts.join(", ") : null;
+}
+
+/**
+ * The photograph a card should show, given what the shopper filtered for.
+ *
+ * The brief: "When users select black furniture, the black version should
+ * appear. Do not only show default images." A card that answers a Black filter
+ * with the white variant's photograph is not a small blemish — it is the shop
+ * appearing not to know its own stock, on the exact interaction where a shopper
+ * is deciding whether to trust it.
+ *
+ * 24 products carry variant-tagged gallery images, so this fires on a real
+ * slice of the catalogue rather than being scaffolding for later.
+ *
+ * Returns null when there is nothing better than the default, which is the
+ * common case and must stay cheap: no filter, no colour filter, a product with
+ * one photo, or a variant nobody has photographed separately.
+ */
+export function variantImageForQuery(
+  product: SanityProduct,
+  query: ShopQuery,
+): string | null {
+  const wanted = query.facets.colour;
+  if (!wanted?.length) return null;
+
+  // The gallery entry's own colour, resolved through the alias table because
+  // the supplier's word ("Whitewash") is not the filter's word ("White").
+  for (const image of product.gallery) {
+    if (!image.optionValue) continue;
+    const colour = colourTagForOptionValue(image.optionValue);
+    if (colour && wanted.includes(colour)) return image.url;
+  }
+  return null;
 }

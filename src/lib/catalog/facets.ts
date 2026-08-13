@@ -161,3 +161,50 @@ export const FACET_DEFINITIONS = [
 ] as const;
 
 export type FacetKey = (typeof FACET_DEFINITIONS)[number]["key"];
+
+/**
+ * Maps a gallery image's `optionValue` onto a colour tag.
+ *
+ * The two are not the same vocabulary and cannot be compared directly. The
+ * catalogue's option values are the supplier's words — `Whitewash`,
+ * `Greenwash`, `Bluewash`, `Natural Wood`, `Sky Blue`, `Whitewashed`, `Classic`
+ * — and several carry a trailing space (`"Ivory "`, `"White "`), the same stray
+ * whitespace that has already been found on the SKUs and the delivery lead
+ * times.
+ *
+ * So exact matching would have failed silently: the variant-image swap would
+ * simply never fire, and it would look like a feature nobody had noticed was
+ * broken. Trim first, then alias.
+ *
+ * Returns null for a value that names no colour — `Classic` is a finish name,
+ * not a colour, and guessing at it would put the wrong photograph on a card.
+ */
+const OPTION_VALUE_ALIASES: Record<string, string> = {
+  whitewash: "White",
+  whitewashed: "White",
+  "off white": "White",
+  greenwash: "Green",
+  greenwashed: "Green",
+  sage: "Green",
+  bluewash: "Blue",
+  bluewashed: "Blue",
+  "sky blue": "Blue",
+  navy: "Blue",
+  turquoise: "Aqua",
+  "natural wood": "Natural",
+  chocolate: "Brown",
+  "chocolate brown": "Brown",
+  gray: "Grey",
+  "slate grey": "Grey",
+  golden: "Gold",
+};
+
+export function colourTagForOptionValue(value: string): string | null {
+  const cleaned = value.trim().toLowerCase();
+  if (!cleaned) return null;
+
+  const aliased = OPTION_VALUE_ALIASES[cleaned];
+  if (aliased) return aliased;
+
+  return COLOUR_TAGS.find((tag) => tag.toLowerCase() === cleaned) ?? null;
+}

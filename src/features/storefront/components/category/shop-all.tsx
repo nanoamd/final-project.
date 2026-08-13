@@ -8,6 +8,8 @@ import {
   applyShopQuery,
   describeQuery,
   parseShopQuery,
+  type ShopQuery,
+  variantImageForQuery,
 } from "@/lib/catalog/shop-query";
 import { formatPrice } from "@/lib/format";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
@@ -236,7 +238,7 @@ export async function ShopAll({
             // Grouping is dropped once a filter is on: a filtered set spread
             // across category headings reads as several small empty shelves
             // rather than one answer to what was asked for.
-            <ProductGrid products={visible} />
+            <ProductGrid products={visible} query={query} />
           )
         ) : filterDescription ? (
           <NoFilterMatches
@@ -310,35 +312,71 @@ export async function ShopAll({
  * the catalogue can be scanned by scrolling instead of paged through. Every width
  * from sm up keeps the gutters and column counts it already had.
  */
-function ProductGrid({ products }: { products: SanityProduct[] }) {
+function ProductGrid({
+  products,
+  query,
+}: {
+  products: SanityProduct[];
+  /** Only so a filtered colour can pick its own photograph. Optional because
+   *  the room-page groups render before any filter is applied. */
+  query?: ShopQuery;
+}) {
   return (
     <div className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-5 xl:grid-cols-6">
       {products.map((product) => (
-        <ShopAllTile key={product.slug} product={product} />
+        <ShopAllTile key={product.slug} product={product} query={query} />
       ))}
     </div>
   );
 }
 
-function ShopAllTile({ product }: { product: SanityProduct }) {
+function ShopAllTile({
+  product,
+  query,
+}: {
+  product: SanityProduct;
+  query?: ShopQuery;
+}) {
+  /**
+   * When a colour is filtered, show that colour's photograph.
+   *
+   * The brief: "when users select black furniture, the black version should
+   * appear — do not only show default images". A card answering a Black filter
+   * with the white variant's photo is the shop appearing not to know its own
+   * stock, at the exact moment a shopper is deciding whether to trust it.
+   *
+   * The gallery's plain URL rather than a hotspot crop: the variant entries do
+   * not carry the asset reference the crop builder needs, and these are
+   * catalogue shots on white, which `object-cover` handles at square without
+   * losing the product.
+   */
+  const variant = query ? variantImageForQuery(product, query) : null;
+  const base =
+    variant ??
+    product.cardImageSquare ??
+    product.cardImage ??
+    product.image ??
+    null;
+
   return (
     <AppLink
       href={`/shop/${product.category}/${product.slug}`}
       className="group block"
     >
       <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-lg border">
-        {(product.cardImageSquare ?? product.cardImage ?? product.image) ? (
+        {base ? (
           <Image
-            src={
-              (product.cardImageSquare ?? product.cardImage ?? product.image)!
-            }
+            src={base}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
         ) : null}
-        {(product.hoverImageSquare ?? product.hoverImage) ? (
+        {/* No hover swap while a variant photo is showing: the point of the
+            variant is that the card answers the filter, and swapping to a
+            different finish on hover would undo exactly that. */}
+        {!variant && (product.hoverImageSquare ?? product.hoverImage) ? (
           <Image
             src={(product.hoverImageSquare ?? product.hoverImage)!}
             alt={product.name}

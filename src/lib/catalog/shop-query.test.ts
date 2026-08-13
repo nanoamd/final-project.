@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { colourTagForOptionValue } from "@/lib/catalog/facets";
 import type { SanityProduct } from "@/types/sanity-content";
 
 import {
@@ -11,6 +12,7 @@ import {
   parseShopQuery,
   sortHref,
   toggleFacetHref,
+  variantImageForQuery,
 } from "./shop-query";
 
 function product(overrides: Partial<SanityProduct> = {}): SanityProduct {
@@ -279,5 +281,91 @@ describe("describeQuery", () => {
         maxPrice: 500,
       }),
     ).toBe("Black or Grey, Oak, under £500");
+  });
+});
+
+describe("colourTagForOptionValue", () => {
+  it("trims the stray whitespace the catalogue actually carries", () => {
+    // "Ivory " and "White " are real values in the data. Exact matching would
+    // have made the variant swap silently never fire.
+    expect(colourTagForOptionValue("Ivory ")).toBe("Ivory");
+    expect(colourTagForOptionValue(" White")).toBe("White");
+  });
+
+  it("maps the supplier's words onto the filter's words", () => {
+    expect(colourTagForOptionValue("Whitewash")).toBe("White");
+    expect(colourTagForOptionValue("Greenwash")).toBe("Green");
+    expect(colourTagForOptionValue("Bluewash")).toBe("Blue");
+    expect(colourTagForOptionValue("Natural Wood")).toBe("Natural");
+    expect(colourTagForOptionValue("Sky Blue")).toBe("Blue");
+  });
+
+  it("is null for a finish name that is not a colour", () => {
+    // "Classic" describes a finish. Guessing would put the wrong photograph on
+    // a card, which is worse than showing the default.
+    expect(colourTagForOptionValue("Classic")).toBeNull();
+    expect(colourTagForOptionValue("")).toBeNull();
+  });
+});
+
+describe("variantImageForQuery", () => {
+  const withVariants = product({
+    gallery: [
+      { url: "/white.jpg", optionValue: "White" },
+      { url: "/black.jpg", optionValue: "Black" },
+      { url: "/lifestyle.jpg" },
+    ],
+  } as Partial<SanityProduct>);
+
+  it("returns the filtered colour's photograph", () => {
+    expect(
+      variantImageForQuery(withVariants, {
+        ...EMPTY_QUERY,
+        facets: { colour: ["Black"] },
+      }),
+    ).toBe("/black.jpg");
+  });
+
+  it("matches through the alias table, not by exact string", () => {
+    const washed = product({
+      gallery: [{ url: "/ww.jpg", optionValue: "Whitewash " }],
+    } as Partial<SanityProduct>);
+    expect(
+      variantImageForQuery(washed, {
+        ...EMPTY_QUERY,
+        facets: { colour: ["White"] },
+      }),
+    ).toBe("/ww.jpg");
+  });
+
+  it("is null with no colour filter, so the default photo is kept", () => {
+    expect(variantImageForQuery(withVariants, EMPTY_QUERY)).toBeNull();
+    expect(
+      variantImageForQuery(withVariants, {
+        ...EMPTY_QUERY,
+        facets: { material: ["Oak"] },
+      }),
+    ).toBeNull();
+  });
+
+  it("is null when the wanted colour has no photograph of its own", () => {
+    expect(
+      variantImageForQuery(withVariants, {
+        ...EMPTY_QUERY,
+        facets: { colour: ["Green"] },
+      }),
+    ).toBeNull();
+  });
+
+  it("ignores untagged images rather than treating them as a variant", () => {
+    const untagged = product({
+      gallery: [{ url: "/a.jpg" }, { url: "/b.jpg" }],
+    } as Partial<SanityProduct>);
+    expect(
+      variantImageForQuery(untagged, {
+        ...EMPTY_QUERY,
+        facets: { colour: ["Black"] },
+      }),
+    ).toBeNull();
   });
 });
