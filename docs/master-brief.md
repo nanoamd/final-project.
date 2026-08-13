@@ -360,6 +360,23 @@ before. If a deploy still errors, the log will now name the variable.
       Evidence-based — each tag carries the string it was read out of, and the
       121 notes are the veto system refusing imitations: the "Bamboo Gesso" lamp
       is gesso _inspired by_ bamboo, so Bamboo is not tagged as a material.
+- [x] **Colour tags checked against the photographs**, per Damien's rule — only
+      products with colour options whose gallery shows a single colourway are
+      touched, and for those the pictures decide, not the option list.
+      `scripts/derive-image-colours.ts` (dry run by default) segments the white
+      sweep out of each catalogue shot and matches what is left, in OKLab, against
+      the colours the product is offered or tagged in. **3 of 88 changed**: Oak
+      dropped from the Grafton Black Console (black steel in all four shots) and
+      the Bentley Grey Aged Oak Console, and Black and Natural from the Broadway
+      Oak Chest. Oak stays on all three as a _material_ — the timber is oak, the
+      colour is not. 20 products photograph every colourway and 58 offer no colour
+      choice, so both groups keep the colours they have.
+- [!] **23 products carry a colour tag they are not offered in** — Abberley White
+  Chest is tagged Oak and Natural, Broadway Oak Bedside tagged Natural, and so
+  on. These sit outside the rule above (each photographs its colourways
+  properly), so nothing was changed. Each one is a filter that answers with the
+  wrong photograph. Run the script to see the full list; **needs Damien's
+  say-so** before the extra tags come off.
 
 ### Price, stock and delivery
 
