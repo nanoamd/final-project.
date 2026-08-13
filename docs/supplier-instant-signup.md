@@ -121,6 +121,99 @@ directly. That is a listing job that can start tonight.
 they ship direct to your customer, and is there a minimum order? If the answer is
 not clearly yes and none, it is a wholesaler and it is not for Kaiku.
 
+## Five more, checked against the supplier's own page — 13 August
+
+Added after the Ankorstore mistake, and researched differently because of it: each
+row below says **how far the verification got**, so nothing here is a recollection
+presented as a fact. Two were confirmed on the supplier's own site; two only from
+secondary sources because their sites block automated requests; one could not be
+confirmed at all and is marked as needing a phone call.
+
+Ranked by fit with the eleven empty categories _and_ with the premium positioning,
+not by how quickly you can sign up.
+
+### 1. Hill Interiors — verified on their own dropship page
+
+The best fit of the five. UK trade-only wholesaler, 2,500+ products, 4,500 trade
+customers, and dropshipping is offered on the whole range: **furniture, home
+accessories, lighting** and artificial flowers. Design-led enough not to damage the
+positioning.
+
+Their stated terms, quoted:
+
+- "Dropshipping is available on all of our fantastic products including wholesale
+  furniture, home accessories, lighting and wholesale artificial flowers."
+- **"We ask that you turnover at least £4,000 per year using our dropship
+  service."** ← read this before applying. No per-order minimum, but an annual
+  expectation, and Kaiku has no sales yet. Worth asking them directly how they treat
+  a new retailer.
+- Delivery is charged per parcel, not absorbed: **£6.99** up to 10kg, £9.99 to 20kg,
+  £14.99 to 40kg, £24.99 over 40kg. Two-man delivery from **£49.99** (up to 35kg) to
+  £109.99 (151–200kg). Price accordingly — a £30 accessory with a £6.99 delivery has
+  a different margin than it looks like.
+- "We will no longer be charging a Handling Charge on any Dropship Orders" (from
+  1 July 2025).
+
+Fills: **kitchen lighting** (they carry pendants, which is what that category
+actually needs), bathroom accessories, rugs, and more mirrors.
+
+### 2. Go Dropship — verified on their own site
+
+UK warehouse, genuinely no fees, and white-label. Their stated terms:
+
+- "No membership fees. No warehousing fees. No delivery fees except the remote
+  region."
+- "All of our products will be shipped from UK local warehouse" — Manchester.
+- Plain packaging: "blank package without our logo and company details", "Label
+  without sender details."
+- "The delivery time is about 2-7 days", same-day dispatch before 10am.
+- Categories include Home & Garden, Kitchen & Dining, Garden Supplies and **Lights**.
+
+**One thing to know:** the company address on the site is in Shenzhen, so the UK
+warehouse is a cooperating facility rather than their own business. Fine for
+fulfilment speed; worth a test order before it carries a category.
+
+Fills: **garden lighting**, kitchen lighting, bathroom accessories — the cheap end.
+
+### 3. vidaXL, via dropXL — secondary sources only, their own site blocked automation
+
+The official vidaXL dropship programme. 90,000+ products across home, garden and
+DIY, UK warehouses, free registration with no monthly fee and no minimum order, and
+you set your own selling price.
+
+Fills: **water features, fire pits, garden lighting, privacy screens** — the bulky
+outdoor categories nothing else on this list covers.
+
+**Caveat, stated plainly:** vidaXL stock is the most widely resold range in Europe.
+Use it for the categories that are otherwise empty and keep it off the homepage.
+
+### 4. Artisan Furniture — secondary sources only, their own site blocked automation
+
+UK, trade account said to open in minutes, **no minimum order value or quantity**,
+free UK mainland delivery, white-label (no supplier branding on packaging or
+labels), three working days. Note they run two tiers: dropship with no minimum, and
+a separate trade tier at a £2,500 minimum for up to 25% off dropship prices.
+
+Fills: **kitchen furniture**, and more of the reclaimed/solid wood look the
+catalogue already sells.
+
+### 5. Pacific Lifestyle — could not verify, needs one phone call
+
+UK trade-only designer and importer of **furniture, decorative lighting and home
+accessories**, established 50+ years, and described by several directories as a
+dropshipper. Their site timed out and the terms are not published, so **I could not
+confirm whether they dropship or what the minimum is.** Do not apply on my word.
+
+Ask them exactly two things on **01484 642115** or `sales@pacific-lifestyle.co.uk`:
+do you ship direct to my customer, and is there a minimum order or annual turnover
+requirement.
+
+If yes, it is probably the best positioning fit on this page — decorative lighting
+from a 50-year-old British importer is a different proposition from a marketplace
+listing.
+
+---
+
 Two directories worth an hour, filtered to dropshipping specifically:
 **eSources.co.uk** and **thewholesaler.co.uk/dropshipping-suppliers**.
 
