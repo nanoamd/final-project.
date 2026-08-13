@@ -656,6 +656,28 @@ before. If a deploy still errors, the log will now name the variable.
       because the catalogue's option values are the supplier's words
       (`Whitewash`, `Natural Wood`) and several carry a trailing space — exact
       matching would have failed silently.
+- [x] **Eight empty categories filled from stock Kaiku already sells.** No new
+      supplier needed, which matters because none are replying. 19 empty → **11**;
+      22 stocked → **30**. `scripts/fill-empty-categories.ts` (dry run by default)
+      cross-lists on the product-type facet, additively via `additionalCategories`,
+      so no product's home category or URL moves and every link is reversible.
+      Bedroom Mirrors 2, Living Room / Bedroom / Office Lighting 4 each (the gesso
+      table lamps sat in `lighting` and nowhere else, with no room tags at all),
+      Office Storage 15, Kitchen Storage 6, Kitchen Shelving 5, Office Shelving 5.
+      The eight also enter the sitemap automatically, since that filters on
+      `productCount` — eight more indexable pages.
+      **What it refused, because a wrong category costs more than an empty one:**
+      Bathroom Lighting takes nothing (bathroom fittings need an IP rating for the
+      zone — a table lamp there is a safety problem, not a tagging one); Kitchen
+      Lighting takes nothing (no pendants or strips exist in the catalogue); and the
+      first pass was tightened twice after it swept TV stands and console tables
+      into Office Storage on their `Storage` tag — 22 matches was padding, 15 is a
+      category.
+- [!] **11 categories genuinely need stock** and cannot be filled from the
+  catalogue, because nothing in it is one of these things: bathroom-accessories,
+  bathroom-lighting, fire-pits, garden-lighting, kitchen-furniture,
+  kitchen-lighting, privacy-screens, rugs, towel-rails, water-features — plus
+  pergolas, untouched by instruction.
 - [ ] **Category page value** — listings plus SEO content, filters, buying
       guides, FAQs, related categories.
 
