@@ -319,6 +319,22 @@ before. If a deploy still errors, the log will now name the variable.
 - [x] **Alt text on every image** — 178 of 439 to 439 of 439
       (`scripts/derive-image-alt.ts`), built only from facts the document can
       prove. Editor-written text is never overwritten.
+- [~] **One white, and a shadow on the floor** — asked for on 13 August: _"is it
+  possible to make all images look like this? i like the shadow on the floor"_.
+  Yes, for pack shots. `docs/image-consistency.md` has the reasoning;
+  `scripts/ground-product-images.ts` does it. Across all 99 lead images: **60 need a
+  contact shadow synthesised, 2 need only the backdrop regraded to white** (the
+  gesso lamp sits on `rgb(247, 247, 247)` next to products on pure white), 31 are
+  already grounded, 4 are room photography and 2 are wall mirrors — the last two
+  groups are never touched, because a pack shot and a lifestyle shot are different
+  jobs and a floor shadow under a mirror is a lie about the object. The shadow is
+  built from the object's own silhouette, weighted by how close each column comes to
+  the floor line, so a table gets four dark feet and a haze between them rather than
+  a grey smear. It is held off the product's own pixels by the inverse of the subject
+  mask, so a segmentation error can only ever change backdrop. **Nothing has been
+  uploaded** — it writes before/after contact sheets to `.image-work/` for you to
+  judge, and when it does run, the new file is a new asset and the supplier original
+  stays in the dataset.
 - [ ] **Four assets shared between two products** — replacing one changes the
       other. The two SaunaPlunge Bronte cabins (2-person and 6-person) share
       photographs, which is a customer-expectation problem as well as a data one.
