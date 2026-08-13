@@ -339,7 +339,6 @@ export async function ShopAll({
  * answer directly into a search result.
  */
 function CategoryContent({ category }: { category?: SanityCategory | null }) {
-  const guide = category?.buyingGuide?.length ? category.buyingGuide : null;
   const faqs = category?.faqs?.length ? category.faqs : null;
   // Guarded twice on purpose. A broken reference in Studio projects as null, and a
   // null in this array took the whole production build down once already.
@@ -348,21 +347,10 @@ function CategoryContent({ category }: { category?: SanityCategory | null }) {
   );
   const stocked = relatedAll.filter((c) => c.stocked !== false);
   const related = stocked.length ? stocked : null;
-  if (!guide && !faqs && !related) return null;
+  if (!faqs && !related) return null;
 
   return (
     <div className="border-line mt-16 border-t pt-12">
-      {guide ? (
-        <section className="mb-12 max-w-[68ch]" id="how-to-choose">
-          {/* The id is a link target: product pages point here instead of saying
-              "we're still writing a guide for this category". */}
-          <h2 className="font-display mb-4 text-2xl tracking-tight">
-            How to choose
-          </h2>
-          <PortableText value={guide} components={portableTextComponents} />
-        </section>
-      ) : null}
-
       {faqs ? (
         <section className="mb-12 max-w-[68ch]">
           <h2 className="font-display mb-5 text-2xl tracking-tight">
