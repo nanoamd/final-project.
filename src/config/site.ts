@@ -21,6 +21,51 @@ export const siteConfig = {
 } as const;
 
 /**
+ * Statutory trading disclosures — the registered company details a UK limited
+ * company has to publish on its website.
+ *
+ * The Companies (Trade and Business Names) rules require a limited company's
+ * website to state its registered name, its registered number, the part of the UK
+ * it is registered in, and its registered office address. The site was showing
+ * "Project Kaiku Ltd" in the copyright line and none of the rest.
+ *
+ * There is a second, more immediate reason to fix it, and it is why this went in
+ * today rather than with the other legal pages. **Wholesale platforms verify
+ * retailers by looking at the website.** Ankorstore, Creoate, Geko and every trade
+ * account application is a human or a script checking that the applicant is a real
+ * registered business trading in the stated category. A site with a company number
+ * and a registered office matches against Companies House in seconds; a site
+ * without one goes into a manual-review queue, which is indistinguishable from
+ * silence. Damien has had no replies from any of them.
+ *
+ * `companyNumber` is null until Damien supplies it — an invented company number is
+ * worse than an absent one, both legally and for a verification check that will
+ * look it up. The footer renders whatever is present and omits what is not, so the
+ * number appears the moment it is filled in.
+ */
+export const companyDetails = {
+  registeredName: "Project Kaiku Ltd",
+  /** Companies House number. **Needed from Damien** — see above. */
+  companyNumber: null as string | null,
+  registeredIn: "England and Wales",
+  address: {
+    line1: "16 Isis Way",
+    town: "Bourne End",
+    postcode: "SL8 5NF",
+    country: "United Kingdom",
+  },
+  /** Below the registration threshold, so there is no number to show. Stated
+   *  rather than left blank, because a trade buyer will ask. */
+  vatRegistered: false,
+} as const;
+
+/** The registered office as one line, for the footer and the contact page. */
+export function registeredAddressLine(): string {
+  const { line1, town, postcode, country } = companyDetails.address;
+  return [line1, town, postcode, country].join(", ");
+}
+
+/**
  * The origin to build absolute URLs from — Stripe return URLs, auth redirects,
  * unsubscribe links, the Merchant feed.
  *

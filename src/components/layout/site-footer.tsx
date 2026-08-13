@@ -4,7 +4,12 @@ import {
 } from "@/components/shared/newsletter";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
-import { footerNav, siteConfig } from "@/config/site";
+import {
+  companyDetails,
+  footerNav,
+  registeredAddressLine,
+  siteConfig,
+} from "@/config/site";
 import type {
   SanityNavigation,
   SanitySiteSettings,
@@ -96,6 +101,27 @@ export function SiteFooter({
           >
             {email}
           </AppLink>
+        </Container>
+      </div>
+
+      {/* The statutory bit, kept quiet. A UK limited company has to publish its
+          registered name, number, place of registration and registered office —
+          and a wholesale platform deciding whether Kaiku is a real retailer looks
+          for exactly this before approving a trade account. See companyDetails in
+          src/config/site.ts. */}
+      <div className="border-canvas/12 border-t">
+        <Container className="text-canvas/40 py-5 text-[12px] leading-relaxed">
+          <p>
+            {companyDetails.registeredName} is a company registered in{" "}
+            {companyDetails.registeredIn}
+            {companyDetails.companyNumber
+              ? ` (company no. ${companyDetails.companyNumber})`
+              : ""}
+            . Registered office: {registeredAddressLine()}.
+            {companyDetails.vatRegistered
+              ? ""
+              : " Not VAT registered, so no VAT is charged on these prices."}
+          </p>
         </Container>
       </div>
     </footer>
