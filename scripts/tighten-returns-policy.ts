@@ -22,9 +22,16 @@
  *
  * What *can* be made supplier-dependent, and is:
  *
- *   - **How a return is collected, and how long it takes.** Genuinely the
- *     supplier's process. Hill collect only from the original delivery address and
- *     take up to two working days to authorise.
+ *   - **How a return is collected, and who arranges it.** Damien's decision, and
+ *     lawful for a distance sale: the customer arranges and pays for a
+ *     change-of-mind return. The Regulations permit that as long as it is disclosed
+ *     before the contract is made, which the page does. It does **not** extend to
+ *     faults — for those the trader bears the cost, so that section says so
+ *     explicitly rather than leaving the customer-pays rule to bleed across.
+ *   - **The return address is issued per return, never published.** Hill require the
+ *     claim through their own form and issue a Return Confirmation Note that must
+ *     travel with the goods; a parcel arriving at their warehouse without it can be
+ *     refused. Publishing a standing returns address would lose customers' parcels.
  *   - **The window for reporting damage.** Hill allow three working days from
  *     delivery for a damaged or incorrect item; miss it and the claim is refused, so
  *     the customer has to tell us quickly. Asking for prompt notification of damage
@@ -71,24 +78,26 @@ const SECTIONS: { heading: string; body: string }[] = [
       "loss in value.",
   },
   {
+    heading: "Arranging a change-of-mind return",
+    body:
+      "For change-of-mind returns you arrange and pay for the return yourself, " +
+      "which keeps our prices lower than they would otherwise be. Contact us first " +
+      "and we'll send you the correct return address for your item, together with " +
+      "the reference the warehouse needs and, where it helps, the details of a " +
+      "courier who will collect. Please don't send anything back before we've given " +
+      "you that reference — every product ships from the supplier who makes or holds " +
+      "it, and an unannounced delivery to their warehouse can be refused.",
+  },
+  {
     heading: "Faulty, damaged or incorrect items",
     body:
       "Tell us within 48 hours of delivery if an item arrives faulty, damaged or " +
       "incorrect, and send photographs if you can. Reporting quickly matters: our " +
       "suppliers set their own windows for damage claims, and some are as short as " +
-      "three working days from delivery. We arrange and cover return shipping in " +
-      "these cases, and depending on the situation we'll offer a repair, replacement " +
-      "parts, a replacement or a full refund.",
-  },
-  {
-    heading: "How returns are collected",
-    body:
-      "Because every product ships directly from the supplier who makes or holds it, " +
-      "collection arrangements and timescales depend on that supplier. Most collect " +
-      "from the original delivery address only, so please keep the item there until " +
-      "the return is arranged — moving it elsewhere can invalidate the collection. " +
-      "We'll confirm the arrangements for your particular item when you start the " +
-      "return, and we stay your single point of contact throughout.",
+      "three working days from delivery. We arrange and cover the cost of return " +
+      "shipping in these cases — you are never out of pocket for a fault — and " +
+      "depending on the situation we'll offer a repair, replacement parts, a " +
+      "replacement or a full refund.",
   },
   {
     heading: "Made-to-order products",
