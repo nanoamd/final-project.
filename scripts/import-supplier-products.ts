@@ -75,6 +75,19 @@ interface SourceProduct {
   stockQuantity?: number;
   /** Why the description needs a human read before publishing, if it does. */
   tradeLanguage?: string[];
+  /**
+   * The Kaiku category slug this product belongs in, when the source already
+   * knows.
+   *
+   * `--category` forces one slug across a whole run and `inferCategory` guesses
+   * from the title, and neither serves a pre-sorted shortlist: the Hill Interiors
+   * selector works out 102 products across 15 categories from the supplier's own
+   * category tree, which is better evidence than the title. Without this the same
+   * shortlist needs fifteen separate runs.
+   *
+   * `--category` still wins where given, so a deliberate override stays possible.
+   */
+  category?: string;
 }
 
 /* ------------------------------------------------------------------ args -- */
@@ -1000,7 +1013,7 @@ async function main() {
   // matched against CATEGORY_RULES. Either way the mapping is printed before
   // anything is written.
   const resolved = sources.map((p) => {
-    const slug = categorySlug ?? inferCategory(p.title);
+    const slug = categorySlug ?? p.category ?? inferCategory(p.title);
     return {
       product: p,
       slug,
