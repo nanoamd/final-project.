@@ -102,6 +102,48 @@ export const category = defineType({
       type: "number",
       initialValue: 0,
     }),
+    /**
+     * The fields that turn a category into a landing page rather than a grid.
+     *
+     * The brief is explicit: "Every category page needs: SEO introduction, buying
+     * guidance, FAQs, internal links, related categories, product explanations. No
+     * empty product grids." Until now a category carried a one-line `description`
+     * and nothing else, so 22 stocked categories were a heading and a grid — which
+     * ranks for nothing, because there is no text on the page for a query to match.
+     *
+     * `description` stays as the short line used in tiles, cards and meta
+     * descriptions. These are the page's own content.
+     */
+    defineField({
+      name: "intro",
+      title: "SEO introduction",
+      type: "richText",
+      description:
+        "Two or three paragraphs at the top of the category, written for someone deciding what to buy — not a keyword list. This is the text the page ranks on.",
+    }),
+    defineField({
+      name: "buyingGuide",
+      title: "Buying guidance",
+      type: "richText",
+      description:
+        "How to choose: sizes, materials, what suits which room, what to measure first. The questions asked before a purchase, answered on the page rather than in an email.",
+    }),
+    defineField({
+      name: "faqs",
+      title: "Category FAQs",
+      type: "array",
+      of: [{ type: "faqEntry" }],
+      description:
+        "Questions about the range as a whole, not one product. Rendered as FAQ structured data, so these can appear directly in search results.",
+    }),
+    defineField({
+      name: "relatedCategories",
+      title: "Related categories",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      description:
+        "Two to four categories a shopper here would plausibly want next. These are the internal links the brief asks for, and they are how link equity reaches the categories nothing else points at.",
+    }),
     defineField({ name: "seo", type: "seo" }),
   ],
   orderings: [

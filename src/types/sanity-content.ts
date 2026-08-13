@@ -127,6 +127,25 @@ export interface SanityCategory {
   comingSoon: boolean;
   /** Live count via GROQ count(), not editor-entered. */
   productCount: number;
+  /**
+   * The category's own page content — introduction, buying guidance, FAQs and the
+   * categories to send someone to next.
+   *
+   * All optional: a category without them renders exactly as it did before, which
+   * is what lets the copy be written a few categories at a time rather than all 43
+   * before anything ships.
+   */
+  intro?: PortableTextBlock[] | null;
+  buyingGuide?: PortableTextBlock[] | null;
+  faqs?: { question: string; answer: string }[] | null;
+  relatedCategories?:
+    | ({
+        slug: string;
+        name: string;
+        description?: string;
+        stocked?: boolean;
+      } | null)[]
+    | null;
   image?: string | null;
 }
 

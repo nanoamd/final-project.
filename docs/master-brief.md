@@ -469,12 +469,25 @@ before. If a deploy still errors, the log will now name the variable.
 
 ### Category page SEO
 
-- [ ] Every category page needs: SEO introduction, buying guidance, FAQs,
-      internal links, related categories, product explanations. **No empty
-      product grids.**
-- [ ] Worked examples: Outdoor Furniture (materials, weather resistance,
-      maintenance, styling); Coffee Tables (size guide, materials, styling, room
-      suitability).
+- [~] **Every category page needs: SEO introduction, buying guidance, FAQs,
+  internal links, related categories.** The schema, the rendering and the copy for
+  the **8 biggest categories** are done; the remaining stocked categories need copy
+  written, which is the same script with more entries.
+  `category` now carries `intro`, `buyingGuide`, `faqs` and `relatedCategories`
+  (`scripts/write-category-content.ts`). A category page was a heading and a grid,
+  which ranks for nothing — there is no text on it for a query to match, so the only
+  search it could win was its own name, and "coffee tables" is not a term a
+  four-month-old domain takes from John Lewis. What it can win is the question behind
+  the purchase, so the guidance answers real ones with real measurements: 40cm
+  between coffee table and sofa, 35–40cm console depth in a 120cm hallway, bedside
+  height within 5cm of the mattress, 140cm sideboard for a 55-inch television.
+  **Coffee Tables went from ~120 words to 826.** FAQs emit `FAQPage` structured data
+  as well as visible text, so a question and its answer can appear directly in a
+  result. Related links only ever point at stocked categories.
+- [x] **Worked examples done**: Garden Furniture (materials, weather resistance,
+      maintenance, space needed) and Coffee Tables (size guide, height, clearance,
+      material trade-offs), plus The Reclaimed Collection, Console Tables, Bedside
+      Tables, Storage, Side Tables and Lighting.
 
 ### Product page SEO
 

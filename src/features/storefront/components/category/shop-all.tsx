@@ -1,3 +1,4 @@
+import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
 import { FilterBar } from "@/components/shared/filter-bar";
@@ -13,6 +14,7 @@ import {
 } from "@/lib/catalog/shop-query";
 import { formatPrice } from "@/lib/format";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
+import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import {
   getAllProducts,
   getCategories,
@@ -20,7 +22,7 @@ import {
   getProductsByCategory,
   getProductsByDepartment,
 } from "@/lib/sanity/queries";
-import type { SanityProduct } from "@/types/sanity-content";
+import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
 
 /**
  * Shop All — the white shopping page, and now the default destination for every
@@ -172,6 +174,20 @@ export async function ShopAll({
           </p>
         </div>
 
+        {/* The category's own introduction, above the grid.
+            Two or three paragraphs written for someone deciding what to buy. A
+            grid with a heading over it ranks for nothing, because there is no text
+            on the page for a query to match — this is the text it ranks on. Absent
+            on a category nobody has written yet, so the page is unchanged there. */}
+        {category?.intro?.length ? (
+          <div className="mb-9 max-w-[68ch]">
+            <PortableText
+              value={category.intro}
+              components={portableTextComponents}
+            />
+          </div>
+        ) : null}
+
         {/* Only where there is enough to filter. On a category of three products
             a filter bar is furniture for its own sake, and it pushes the products
             themselves below the fold on a phone. */}
@@ -299,7 +315,110 @@ export async function ShopAll({
             ) : null}
           </div>
         )}
+
+        {/* Everything below the grid: how to choose, the questions people ask, and
+            where to go next. Below rather than above because someone who arrived
+            here wants the products first — but it is in the same document, which is
+            all a crawler cares about. */}
+        <CategoryContent category={category} />
       </div>
+    </div>
+  );
+}
+
+/**
+ * Buying guidance, FAQs and related categories.
+ *
+ * The three things the brief asks every category page to carry beyond its grid,
+ * and the reason a category can rank for "how to choose a coffee table" rather
+ * than only for its own name. Renders nothing at all when none of it is written,
+ * so the copy can land a few categories at a time.
+ *
+ * The FAQs emit `FAQPage` structured data as well as visible text. That is the
+ * same pattern the product pages use, and it is what puts a question and its
+ * answer directly into a search result.
+ */
+function CategoryContent({ category }: { category?: SanityCategory | null }) {
+  const guide = category?.buyingGuide?.length ? category.buyingGuide : null;
+  const faqs = category?.faqs?.length ? category.faqs : null;
+  // Guarded twice on purpose. A broken reference in Studio projects as null, and a
+  // null in this array took the whole production build down once already.
+  const relatedAll = (category?.relatedCategories ?? []).filter(
+    (c): c is NonNullable<typeof c> => Boolean(c?.slug),
+  );
+  const stocked = relatedAll.filter((c) => c.stocked !== false);
+  const related = stocked.length ? stocked : null;
+  if (!guide && !faqs && !related) return null;
+
+  return (
+    <div className="border-line mt-16 border-t pt-12">
+      {guide ? (
+        <section className="mb-12 max-w-[68ch]">
+          <h2 className="font-display mb-4 text-2xl tracking-tight">
+            How to choose
+          </h2>
+          <PortableText value={guide} components={portableTextComponents} />
+        </section>
+      ) : null}
+
+      {faqs ? (
+        <section className="mb-12 max-w-[68ch]">
+          <h2 className="font-display mb-5 text-2xl tracking-tight">
+            Common questions
+          </h2>
+          <dl className="flex flex-col gap-5">
+            {faqs.map((faq) => (
+              <div key={faq.question}>
+                <dt className="text-ink text-[15px] font-medium">
+                  {faq.question}
+                </dt>
+                <dd className="text-graphite mt-1.5 text-[15px] leading-relaxed">
+                  {faq.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <script
+            type="application/ld+json"
+            // Same structured data the product pages emit. The questions are
+            // already in the DOM above, so this describes markup that exists —
+            // which is the condition Google states for using it.
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: faqs.map((faq) => ({
+                  "@type": "Question",
+                  name: faq.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: faq.answer,
+                  },
+                })),
+              }),
+            }}
+          />
+        </section>
+      ) : null}
+
+      {related ? (
+        <section>
+          <h2 className="font-display mb-5 text-2xl tracking-tight">
+            Where to look next
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {related.map((c) => (
+              <AppLink
+                key={c.slug}
+                href={`/shop/${c.slug}`}
+                className="border-line text-ink hover:border-ink/50 rounded-lg border px-4 py-2.5 text-[14px] transition-colors"
+              >
+                {c.name}
+              </AppLink>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
