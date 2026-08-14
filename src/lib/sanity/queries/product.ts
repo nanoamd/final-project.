@@ -7,6 +7,7 @@ import {
   FAQ_ENTRY_PROJECTION,
   PRODUCT_OPTION_PROJECTION,
   PRODUCT_SPEC_PROJECTION,
+  SEO_PROJECTION,
 } from "@/lib/sanity/queries/fragments";
 import type {
   SanityProduct,
@@ -72,7 +73,8 @@ const PRODUCT_PROJECTION = /* groq */ `{
   "relatedSlugs": relatedProducts[]->slug.current,
   rating,
   reviewCount,
-  "faqs": faqs[] ${FAQ_ENTRY_PROJECTION}
+  "faqs": faqs[] ${FAQ_ENTRY_PROJECTION},
+  "seo": seo ${SEO_PROJECTION}
 }`;
 
 interface RawGalleryImage {

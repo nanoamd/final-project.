@@ -41,6 +41,20 @@ export const ARTICLE_PRODUCT_PROJECTION = `{
   "image": gallery[0].asset->url
 }`;
 
+/**
+ * The SEO override object every content type carries.
+ *
+ * It existed on five schemas and **no query read it**, so every meta title and meta
+ * description an editor had written was decorative — the pages derived their own from
+ * the product name and summary instead. Projected here so a filled field is actually
+ * the one that ships.
+ */
+export const SEO_PROJECTION = `{
+  metaTitle,
+  metaDescription,
+  "ogImage": ogImage.asset->url
+}`;
+
 export const PRODUCT_SPEC_PROJECTION = `{ label, value }`;
 export const PRODUCT_OPTION_PROJECTION = `{ label, values }`;
 export const FAQ_ENTRY_PROJECTION = `{ question, answer }`;

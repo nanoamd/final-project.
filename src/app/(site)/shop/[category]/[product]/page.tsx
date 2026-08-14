@@ -26,6 +26,7 @@ export async function generateMetadata({
     description: found?.summary ?? fallbackDescription,
     path: `/shop/${category}/${product}`,
     image: found?.image ?? found?.gallery?.[0]?.url ?? undefined,
+    seo: found?.seo,
   });
 }
 

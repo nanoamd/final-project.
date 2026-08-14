@@ -138,6 +138,8 @@ export interface SanityCategory {
   intro?: PortableTextBlock[] | null;
   buyingGuide?: PortableTextBlock[] | null;
   faqs?: { question: string; answer: string }[] | null;
+  /** Editor-set meta title, meta description and share image. */
+  seo?: SanitySeo | null;
   relatedCategories?:
     | ({
         slug: string;
@@ -230,6 +232,8 @@ export interface SanityProduct {
   rating?: number;
   reviewCount?: number;
   faqs: SanityProductFaq[];
+  /** Editor-set meta title, meta description and share image. */
+  seo?: SanitySeo | null;
   departmentSlug?: string | null;
 }
 
@@ -262,6 +266,18 @@ export interface SanityAuthor {
  * article itself has to render a link a reader can follow — and a link a crawler
  * can follow, which is the whole reason the references are worth having.
  */
+/**
+ * The SEO overrides an editor can set on any content document.
+ *
+ * Optional throughout: an empty field means "derive it", which is what every page did
+ * unconditionally until these were wired up.
+ */
+export interface SanitySeo {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  ogImage?: string | null;
+}
+
 export interface SanityRelatedProductRef {
   slug: string;
   title?: string;
@@ -286,6 +302,7 @@ export interface SanityPost {
   publishedAt: string;
   tags?: string[];
   relatedProducts?: SanityRelatedProductRef[];
+  seo?: SanitySeo | null;
 }
 
 export interface SanityBuyingGuide {
@@ -298,6 +315,7 @@ export interface SanityBuyingGuide {
   publishedAt: string;
   relatedCategory?: SanityRelatedCategoryRef | null;
   relatedProducts?: SanityRelatedProductRef[];
+  seo?: SanitySeo | null;
 }
 
 export interface SanityPage {

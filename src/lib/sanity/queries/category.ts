@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/lib/sanity/fetch";
+import { SEO_PROJECTION } from "@/lib/sanity/queries/fragments";
 import type { SanityCategory } from "@/types/sanity-content";
 
 const CATEGORY_PROJECTION = /* groq */ `{
@@ -37,7 +38,8 @@ const CATEGORY_PROJECTION = /* groq */ `{
   "relatedCategories": relatedCategories[]->{
     "slug": slug.current, "name": title, description,
     "stocked": count(*[_type == "product" && !(_id in path("drafts.**")) && references(^._id)]) > 0
-  }
+  },
+  "seo": seo ${SEO_PROJECTION}
 }`;
 
 const CATEGORIES_QUERY = /* groq */ `

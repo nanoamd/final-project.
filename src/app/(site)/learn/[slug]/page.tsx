@@ -24,6 +24,7 @@ export async function generateMetadata({
     description: guide?.excerpt ?? "Considered buying guides from Kaiku.",
     path: `/learn/${slug}`,
     image: guide?.coverImage ?? undefined,
+    seo: guide?.seo,
   });
 }
 

@@ -2,7 +2,10 @@ import { cache } from "react";
 
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
-import { ARTICLE_PRODUCT_PROJECTION } from "@/lib/sanity/queries/fragments";
+import {
+  ARTICLE_PRODUCT_PROJECTION,
+  SEO_PROJECTION,
+} from "@/lib/sanity/queries/fragments";
 import type { SanityBuyingGuide } from "@/types/sanity-content";
 
 const BUYING_GUIDE_PROJECTION = /* groq */ `{
@@ -14,7 +17,8 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
   "relatedCategory": relatedCategory->{"slug": slug.current, "name": title},
-  "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION}
+  "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION},
+  "seo": seo ${SEO_PROJECTION}
 }`;
 
 const BUYING_GUIDES_QUERY = /* groq */ `

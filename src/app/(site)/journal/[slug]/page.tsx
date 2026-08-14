@@ -24,6 +24,7 @@ export async function generateMetadata({
     description: post?.excerpt ?? "Stories and ideas from Kaiku.",
     path: `/journal/${slug}`,
     image: post?.coverImage ?? undefined,
+    seo: post?.seo,
   });
 }
 

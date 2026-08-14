@@ -521,8 +521,32 @@ before. If a deploy still errors, the log will now name the variable.
 - [x] **Meta title strategy** — brand + product + intent, e.g. "Hampton Ivory
       Console Table | Luxury Shagreen Hall Furniture | Kaiku". Already the
       pattern; names are not to be changed.
-- [ ] **Meta description strategy** — benefit, material, style, intent. Audit
-      outstanding.
+- [x] **Meta description strategy** — audited and repaired, `scripts/rewrite-meta.ts`.
+      Four faults, and the fourth explains the other three.
+      **1.** 90 of 98 product descriptions ran past 160 characters, where Google stops
+      rendering, so the clause naming the material was cut on nearly every page.
+      **2.** A **leaked prompt** was sitting in the Abberley White End Table's
+      description: 352 characters ending _"Once you send the product page screenshot,
+      I'll generate the full SEO page…"_. `scripts/strip-copy-artefacts.ts` cleaned the
+      product bodies and never looked at the SEO fields.
+      **3.** Trade language throughout — "boutique hotels", "designer interiors" — the
+      exact phrases `BANNED_PHRASES` exists to catch. The validator was applied to
+      product copy and never to the SEO object.
+      **4. Nothing rendered any of it.** No query in the codebase read the `seo` object
+      on any document. It was on five schemas, editable in the Studio, and every page
+      derived its own title and description from the product name and summary instead.
+      So every meta description ever written was decorative — which is also why the
+      leaked prompt never reached Google.
+      Now: `SEO_PROJECTION` is in the product, category, guide and post queries,
+      `buildMetadata` takes the overrides with the derived values as fallbacks (with
+      tests, because this is the sort of bug that survives for months looking fine),
+      54 product descriptions were cleaned and fitted, **39 were written by hand** from
+      the measurements, and **30 stocked categories got a title and description** where
+      40 of 43 had none. Verified on a build: `/shop/kitchen-storage` was
+      "Storage — Kaiku" and is now "Kitchen Storage | Kaiku".
+      Left alone deliberately: 62 product meta titles run over 60 characters. The
+      pattern is signed off, the names must not change, and Google truncates on pixel
+      width rather than character count. Reported by the script if you want them cut.
 
 ### URLs, images, linking
 
