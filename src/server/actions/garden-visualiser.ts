@@ -21,6 +21,12 @@ import {
   isModelUnavailable,
   outputSize,
 } from "@/lib/visualiser/request";
+import {
+  curateSet,
+  OUTDOOR_DEPARTMENTS,
+  outdoorPool,
+  type SelectableProduct,
+} from "@/lib/visualiser/selection";
 
 const WEEKLY_LIMIT = 3;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -101,21 +107,69 @@ async function writeUsage(count: number) {
 }
 
 /**
- * A small, real selection for "let Kaiku design it for me" — scoped to the
- * room the visitor actually picked (not the whole catalog, which today skews
- * heavily toward whichever department was most recently updated) and
- * randomised so repeat visits to the same room see variety rather than the
- * same fixed set every time. Prefers purchasable stock, but falls back to
- * whatever's in the department rather than showing nothing.
+ * A curated set for "let Kaiku design it for me".
+ *
+ * This used to shuffle the department's products and take three, which is what
+ * produced Damien's verdict on a real render — *"it just dumps random products"* — and
+ * put an indoor folding shelf on a decked terrace with nothing to sit on. Selection is
+ * now by role, and for an outdoor scene the pool spans every outdoor department so a
+ * garden can actually be shown a sauna. The reasoning is in
+ * src/lib/visualiser/selection.ts.
+ *
+ * Prefers purchasable stock, but falls back to whatever the departments hold rather
+ * than showing nothing.
  */
 async function pickAutoProducts(
   departmentSlug: string,
 ): Promise<VisualiserProduct[]> {
-  const products = await getProductsByDepartment(departmentSlug);
+  const outdoor = (OUTDOOR_DEPARTMENTS as readonly string[]).includes(
+    departmentSlug,
+  );
+
+  // For an outdoor scene the pool is every outdoor department, not just the one the
+  // visitor tapped. Picking "Outdoor Living" used to make the five outdoor saunas and
+  // the cold plunge ineligible, because they sit under their own departments — so the
+  // most transformative and most valuable things in the catalogue could never appear
+  // in a garden. That was the tool's best trick, switched off by a filter.
+  const departments = outdoor
+    ? (OUTDOOR_DEPARTMENTS as readonly string[])
+    : [departmentSlug];
+  const fetched = await Promise.all(
+    departments.map((slug) => getProductsByDepartment(slug)),
+  );
+
+  const seen = new Set<string>();
+  const products = fetched.flat().filter((product) => {
+    if (seen.has(product.slug)) return false;
+    seen.add(product.slug);
+    return true;
+  });
+
   const purchasable = products.filter((p) => p.stockStatus !== "Coming Soon");
-  const pool = purchasable.length ? purchasable : products;
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 3).map(toVisualiserProduct);
+  const available = purchasable.length ? purchasable : products;
+
+  const selectable: SelectableProduct[] = available.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    price: p.price,
+    image: p.image,
+    roomTags: p.roomTags,
+    departmentSlug: p.departmentSlug,
+  }));
+
+  const pool = outdoor ? outdoorPool(selectable) : selectable;
+
+  // Variety without randomness: the set is curated by role, and `rotate` shifts which
+  // candidate fills each role so a second attempt is not identical. Shuffling the
+  // whole pool is what produced "it just dumps random products".
+  const rotate = Math.floor(Math.random() * 3);
+  const curated = curateSet(pool, { max: 3, rotate });
+
+  return curated
+    .map((choice) => available.find((p) => p.slug === choice.slug))
+    .filter((p): p is (typeof available)[number] => Boolean(p))
+    .map(toVisualiserProduct);
 }
 
 function toVisualiserProduct(p: {

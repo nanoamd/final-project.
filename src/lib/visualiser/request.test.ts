@@ -31,15 +31,36 @@ describe("buildPrompt", () => {
   });
 
   it("tells the model to reproduce rather than reinterpret", () => {
-    expect(prompt).toMatch(/Reproduce each product exactly as photographed/);
+    expect(prompt).toMatch(/exactly as photographed/);
     expect(prompt).toMatch(/Do not substitute a similar item/);
   });
 
-  it("keeps the customer's own garden out of scope", () => {
-    // An edit model will resurface a patio given the chance, and the visitor did not
-    // ask for a new patio.
-    expect(prompt).toMatch(/stay exactly as they are/);
-    expect(prompt).toMatch(/Add to the scene, do not redecorate it/);
+  it("asks for the existing furniture to be replaced, not added to", () => {
+    // This reverses the original contract, which said "Add to the scene, do not
+    // redecorate it". A visitor photographs the garden they already have, so a tool
+    // that puts a chair next to their chair has answered a question nobody asked.
+    expect(prompt).toMatch(/Take out the furniture that is already there/);
+    expect(prompt).toMatch(/removed and replaced, not kept alongside/);
+    expect(prompt).not.toMatch(/do not redecorate/i);
+  });
+
+  it("still protects the architecture and the camera", () => {
+    // The line between staging a space and rebuilding somebody's house. An edit model
+    // will resurface a patio and move a wall if it is allowed to.
+    expect(prompt).toMatch(
+      /Keep the architecture and the planting exactly as they are/,
+    );
+    expect(prompt).toMatch(
+      /decking, paving, steps, boundary fences and hedges/,
+    );
+    expect(prompt).toMatch(
+      /camera position, framing and perspective identical/,
+    );
+  });
+
+  it("asks for a designed result rather than objects in a row", () => {
+    expect(prompt).toMatch(/a clear focal point/);
+    expect(prompt).toMatch(/Not a row, and not a showroom/);
   });
 
   it("forbids text in the image", () => {

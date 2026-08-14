@@ -44,12 +44,29 @@ export interface ReferenceImage {
 }
 
 /**
- * The instruction, written for a request that carries reference photographs.
+ * The instruction: stage the space, don't just drop things into it.
  *
- * It has two jobs the old prompt did not: say which image is which, and insist the
- * products are reproduced rather than reinterpreted. The "add to the scene, do not
- * redecorate it" line is kept from the original, because an edit model will happily
- * resurface someone's patio if you let it.
+ * This reverses the original brief on purpose. The first version said *"Keep
+ * everything already in image 1 unchanged… Add to the scene, do not redecorate it"*,
+ * which is a sensible default and the wrong one for what the tool is for. Damien on a
+ * real render: *"it needs to completely revamp the garden and even take out stuff and
+ * replace with kaiku products… just give the kaiku aesthetic"*. In that render the
+ * tired grey rocking chair the products were competing with was still sitting there,
+ * because the prompt had forbidden touching it.
+ *
+ * So the model is now allowed to clear and restyle — but the line between *staging*
+ * and *rebuilding somebody's house* has to be drawn explicitly, because an edit model
+ * will happily resurface a patio and move a wall. What stays is the architecture and
+ * the planting: the building, the walls, the decking, the boundary hedge, the camera
+ * position. What goes is the furniture — and it is stated as an assumption rather than
+ * a condition, because as Damien put it, *"the images people send are going to have
+ * furniture already in the image so it needs to swap it out"*. A visitor photographs
+ * the garden they have, not an empty plot, and a tool that adds a chair beside their
+ * existing chair has answered a question nobody asked.
+ *
+ * The products themselves stay locked to their reference photographs — that is the
+ * one thing the model must not exercise judgement about, and it was the whole reason
+ * the tool looked wrong before it was sending them at all.
  */
 export function buildPrompt(products: VisualiserProductRef[]): string {
   const list = products
@@ -61,10 +78,14 @@ export function buildPrompt(products: VisualiserProductRef[]): string {
     "",
     list,
     "",
-    "Place every product from images 2 onwards into the scene in image 1. Reproduce each product exactly as photographed — same shape, same materials, same colour, same proportions. Do not substitute a similar item and do not restyle them.",
-    "Place them at true-to-life scale for the space, standing on the ground, matching the scene's perspective and the direction of its light, each casting a soft shadow where it meets the ground.",
-    "Keep everything already in image 1 unchanged: the lawn, patio, paving, decking, fencing, planting, building and sky stay exactly as they are. Add to the scene, do not redecorate it.",
-    "Every product must be fully visible and unobstructed.",
+    "Restyle the space in image 1 as a considered, magazine-quality outdoor room built around these products.",
+    "",
+    "Reproduce each product from images 2 onwards exactly as photographed — same shape, same materials, same colour, same proportions. Do not substitute a similar item, do not restyle them, and do not change their finish. Every one must appear, fully visible and unobstructed, at true-to-life scale for the space.",
+    "Arrange them as a designer would: a clear focal point, seating and surfaces in a usable relationship to each other, generous space around each piece. Not a row, and not a showroom — a space somebody lives in.",
+    "Take out the furniture that is already there and put these pieces in its place. Assume the photograph shows a space that is already furnished: existing chairs, tables, benches, loungers, parasols, clutter, bins and hoses are all removed and replaced, not kept alongside. Nothing that was being sat on or eaten at in image 1 should still be in the result. Leave the space calm and uncluttered.",
+    "Keep the architecture and the planting exactly as they are: the building, walls, windows, doors, decking, paving, steps, boundary fences and hedges, established trees and shrubs, and the sky. Keep the camera position, framing and perspective identical to image 1.",
+    "Match the existing light — same direction, same softness, same time of day — and give every piece a soft contact shadow where it meets the ground.",
+    "Style it restrained and natural: warm timber, stone, linen and greenery, nothing plastic, no bright colours added, no patterned soft furnishings.",
     "No text, labels, signage, watermarks, price tags or writing of any kind anywhere in the image.",
   ].join("\n");
 }
