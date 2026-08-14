@@ -592,7 +592,20 @@ before. If a deploy still errors, the log will now name the variable.
 
 ### Content plan
 
-- [ ] **SEO content calendar** across Outdoor Living, Wellness and Furniture.
+- [x] **The traffic plan itself** — `docs/traffic-plan.md`, asked for on 14 August.
+      Four phases, gated in that order because the first one is what makes the rest
+      measurable. **Two things measured on the live site set the order:** there is
+      **no analytics tag on kaikuhome.com at all**, so we cannot see a single visitor,
+      and the Google Merchant feed serves an **empty channel** — 311 bytes, no
+      products, because `MERCHANT_FEED_ENABLED` is unset. Both are Vercel environment
+      variables, not code. Also recorded there, plainly: **~500 daily organic visits by
+      mid-November is not happening from organic search alone.** 500 sessions a day
+      needs 15,000–20,000 daily impressions at 3% CTR, which on a four-month domain
+      with 152 indexed URLs normally takes 9–18 months. The plan gives per-channel
+      ranges per month and says where paid would have to come in.
+- [ ] **SEO content calendar** across Outdoor Living, Wellness and Furniture. The
+      cadence is set in the traffic plan — two pieces a week, alternating a buying
+      guide with a comparison page. What remains is the dated calendar itself.
 - [ ] **Blog strategy** — every article carries a target keyword, search intent,
       products to link, related categories, an FAQ section.
 - [~] **Buying guides** — eight written, `scripts/write-buying-guides.ts`, on top of
