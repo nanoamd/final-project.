@@ -9,6 +9,7 @@ import { formatPrice } from "@/lib/format";
 import {
   visualiseGarden,
   type VisualiserHotspot,
+  type VisualiserProduct,
 } from "@/server/actions/garden-visualiser";
 import type { SanityDepartment, SanityProduct } from "@/types/sanity-content";
 
@@ -100,6 +101,7 @@ export function GardenVisualiserTool({
   const [result, setResult] = React.useState<{
     imageDataUrl: string;
     hotspots: VisualiserHotspot[];
+    products: VisualiserProduct[];
   } | null>(null);
   const [activeHotspot, setActiveHotspot] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
@@ -151,6 +153,7 @@ export function GardenVisualiserTool({
       setResult({
         imageDataUrl: response.imageDataUrl,
         hotspots: response.hotspots ?? [],
+        products: response.products ?? [],
       });
       setStep("result");
     } catch {
@@ -514,7 +517,11 @@ function ResultStep({
   onStartOver,
 }: {
   before: string | null;
-  result: { imageDataUrl: string; hotspots: VisualiserHotspot[] };
+  result: {
+    imageDataUrl: string;
+    hotspots: VisualiserHotspot[];
+    products: VisualiserProduct[];
+  };
   activeHotspot: string | null;
   onHotspotToggle: (slug: string) => void;
   onStartOver: () => void;
@@ -575,6 +582,50 @@ function ResultStep({
           ) : null,
         )}
       </div>
+
+      {result.products.length ? (
+        <div className="mx-auto mt-8 max-w-2xl">
+          <p className="text-canvas/45 mb-4 text-[10px] tracking-[0.1em] uppercase">
+            In this design
+          </p>
+          {/*
+            Every product that went into the render, whether or not it got a
+            hotspot. The markers above come from a vision model asked for x/y
+            percentages, which it is not reliable at — so before this strip existed,
+            a product the model failed to locate disappeared from the page
+            completely, and the visitor had no way to buy the thing they were
+            looking at. The marker is the flourish; this is the shop.
+          */}
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {result.products.map((product) => (
+              <li key={product.slug}>
+                <AppLink
+                  href={`/shop/${product.category}/${product.slug}`}
+                  className="bg-basalt-raise hover:border-brass/40 flex items-center gap-3 rounded-lg border border-white/8 p-3 transition-colors"
+                >
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="size-12 shrink-0 rounded-md object-cover"
+                    />
+                  ) : null}
+                  <span className="min-w-0">
+                    <span className="text-canvas block truncate text-[12px] font-medium">
+                      {product.name.split("|")[0]?.trim()}
+                    </span>
+                    <span className="text-brass mt-0.5 block text-[12px]">
+                      {formatPrice(product.price)}
+                    </span>
+                  </span>
+                </AppLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       {before ? (
         <div className="mx-auto mt-6 max-w-[200px]">

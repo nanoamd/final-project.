@@ -275,6 +275,41 @@ before. If a deploy still errors, the log will now name the variable.
 - [ ] **Mobile-first review of every remaining page** — cart, checkout, account,
       journal, tools.
 
+### The AI garden visualiser
+
+- [x] **Fixed the reason it was bad: it never sent the product photo.** Reported on
+      14 August as _"really bad"_, and the cause was specific. `buildPrompt()` sent the
+      model a text list of product **names** — "Reclaimed Teak Dining Table 180cm" —
+      alongside the customer's photo and nothing else, so the model invented a plausible
+      teak table from the words. A shopper was looking at furniture they could not buy,
+      with a buy card pinned to it, and no amount of prompt tuning could have fixed it.
+      OpenAI's edits endpoint accepts multiple input images (checked against their
+      current docs), so the request now sends the scene as image 1 and **each product's
+      own pack shot** after it, with a prompt that numbers them and insists they are
+      reproduced rather than reinterpreted.
+      Three more faults fixed in the same pass. **The output was forced to 1024×1024**,
+      so a 4:3 phone photo of a garden came back cropped and stretched — `outputSize()`
+      now matches the photo's shape. **A product could vanish from the page entirely**:
+      hotspot positions come from a vision model asked for x/y percentages, which it is
+      not reliable at, and a product it failed to locate got no marker and no card — the
+      result page now always renders every product as a strip under the image, with the
+      marker as a bonus. And the model moved to `gpt-image-2`, which processes every
+      input at high fidelity automatically, with a **fallback to the old model** if the
+      account cannot reach it, so the tool degrades instead of breaking.
+      Request building lives in `src/lib/visualiser/request.ts` with 14 tests, separate
+      from the `"use server"` action so it can be exercised outside a Next request.
+- [!] **Verify the render, and set a spend cap.** I cannot check the output myself —
+  there is no `OPENAI_API_KEY` in this environment, and I am not going to ask you to
+  paste one into a chat window after what happened with the Sanity token. So:
+  `pnpm tsx --env-file=.env.local scripts/check-visualiser.ts <photo.jpg>` makes one
+  real render with the same code the site runs and writes it to `.image-work/` to be
+  looked at. Roughly 3–10p a go. **Set a £15/month limit in the OpenAI dashboard**
+  before it goes anywhere near the ad budget.
+- [x] **The four calculators are real**, not placeholders — sauna and cold plunge
+      sizing, contrast therapy, garden furniture materials, all matching against live
+      products. The "coming soon" entries on product pages are a separate roadmap list
+      (`src/config/planned-tools.ts`).
+
 ### Catalogue accuracy audit
 
 - [~] **Audit every product against its supplier page**: name, category,
