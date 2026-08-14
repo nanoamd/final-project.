@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site";
+import { companyDetails, siteConfig } from "@/config/site";
 import type { StockStatus } from "@/types/sanity-content";
 
 /**
@@ -21,10 +21,22 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
+    // The trader's own name, because Kaiku is a sole trader rather than a company.
     legalName: siteConfig.legalName,
     url: siteConfig.url,
     description: siteConfig.description,
     email: siteConfig.email,
+    // A geographic address is what Merchant Centre and Google's trust signals look
+    // for when deciding whether a shop is a real business, and what the law requires
+    // of a distance seller. It was in the footer as prose and nowhere a machine could
+    // read it.
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: companyDetails.address.line1,
+      addressLocality: companyDetails.address.town,
+      postalCode: companyDetails.address.postcode,
+      addressCountry: "GB",
+    },
   };
   return (
     <script

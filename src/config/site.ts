@@ -7,7 +7,9 @@
  */
 export const siteConfig = {
   name: "Kaiku",
-  legalName: "Project Kaiku Ltd",
+  // Kaiku trades as a sole trader, so the legal name is the trader's own name.
+  // See the note on `companyDetails` for why this is not "Project Kaiku Ltd".
+  legalName: "Damien McCormack",
   tagline: "Premium home improvement, considered",
   description:
     "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
@@ -21,33 +23,44 @@ export const siteConfig = {
 } as const;
 
 /**
- * Statutory trading disclosures — the registered company details a UK limited
- * company has to publish on its website.
+ * Statutory trading disclosures.
  *
- * The Companies (Trade and Business Names) rules require a limited company's
- * website to state its registered name, its registered number, the part of the UK
- * it is registered in, and its registered office address. The site was showing
- * "Project Kaiku Ltd" in the copyright line and none of the rest.
+ * **Kaiku trades as a sole trader, not a limited company.** The site previously
+ * stated "Project Kaiku Ltd is a company registered in England and Wales" with no
+ * company number, which was the worst of both worlds: unverifiable to a customer,
+ * and a claim that has to be true.
  *
- * There is a second, more immediate reason to fix it, and it is why this went in
- * today rather than with the other legal pages. **Wholesale platforms verify
- * retailers by looking at the website.** Ankorstore, Creoate, Geko and every trade
- * account application is a human or a script checking that the applicant is a real
- * registered business trading in the stated category. A site with a company number
- * and a registered office matches against Companies House in seconds; a site
- * without one goes into a manual-review queue, which is indistinguishable from
- * silence. Damien has had no replies from any of them.
+ * That claim mattered less for shopper trust than for the three gatekeepers the
+ * business depends on, all of which verify business identity rather than take it on
+ * faith:
  *
- * `companyNumber` is null until Damien supplies it — an invented company number is
- * worse than an absent one, both legally and for a verification check that will
- * look it up. The footer renders whatever is present and omits what is not, so the
- * number appears the moment it is filled in.
+ *   - **Stripe** checks business details at onboarding. A limited company that does
+ *     not exist fails; a sole trader onboarding against a site that says "Ltd" is a
+ *     mismatch on the exact field being checked.
+ *   - **Google Merchant Centre** treats misrepresentation as grounds for
+ *     suspension, not a warning — and free Shopping listings are the launch plan.
+ *   - **Trade suppliers** verify applicants against the register. Damien has had
+ *     silence from several, and this was the likeliest cause.
+ *
+ * Trading as a sole trader is entirely legal and costs nothing, which is why it was
+ * chosen over spending the available £100 on incorporation: the £100 goes to
+ * advertising instead, and incorporating becomes a decision for when revenue allows.
+ *
+ * What the law requires of a sole trader selling online is the trader's own name,
+ * a geographic address and contact details — all present below and rendered in the
+ * footer. If Kaiku does incorporate later, restore `registeredName`,
+ * `companyNumber` and `registeredIn` and the footer wording changes with them.
  */
 export const companyDetails = {
-  registeredName: "Project Kaiku Ltd",
-  /** Companies House number. **Needed from Damien** — see above. */
-  companyNumber: null as string | null,
-  registeredIn: "England and Wales",
+  /**
+   * The trading name, and the name of the person behind it.
+   *
+   * **Damien: check the spelling of `traderName` matches your legal name exactly** —
+   * it has to match what Stripe and Merchant Centre are given, or the verification
+   * mismatch this change exists to remove comes straight back.
+   */
+  tradingName: "Kaiku",
+  traderName: "Damien McCormack",
   address: {
     line1: "16 Isis Way",
     town: "Bourne End",
@@ -59,8 +72,8 @@ export const companyDetails = {
   vatRegistered: false,
 } as const;
 
-/** The registered office as one line, for the footer and the contact page. */
-export function registeredAddressLine(): string {
+/** The trading address as one line, for the footer and the contact page. */
+export function tradingAddressLine(): string {
   const { line1, town, postcode, country } = companyDetails.address;
   return [line1, town, postcode, country].join(", ");
 }

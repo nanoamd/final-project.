@@ -7,8 +7,8 @@ import { Container } from "@/components/ui/container";
 import {
   companyDetails,
   footerNav,
-  registeredAddressLine,
   siteConfig,
+  tradingAddressLine,
 } from "@/config/site";
 import type {
   SanityNavigation,
@@ -104,20 +104,20 @@ export function SiteFooter({
         </Container>
       </div>
 
-      {/* The statutory bit, kept quiet. A UK limited company has to publish its
-          registered name, number, place of registration and registered office —
-          and a wholesale platform deciding whether Kaiku is a real retailer looks
-          for exactly this before approving a trade account. See companyDetails in
-          src/config/site.ts. */}
+      {/* The statutory bit, kept quiet.
+          Kaiku trades as a sole trader, so what has to appear here is the trader's
+          own name, a geographic address and a way to make contact — not a company
+          number, because there is no company. This used to claim "Project Kaiku Ltd
+          is a company registered in England and Wales" with no number, which was
+          unverifiable to a customer and a mismatch against the business details
+          Stripe and Merchant Centre both check. See companyDetails in
+          src/config/site.ts for why that mattered more than it looked. */}
       <div className="border-canvas/12 border-t">
         <Container className="text-canvas/40 py-5 text-[12px] leading-relaxed">
           <p>
-            {companyDetails.registeredName} is a company registered in{" "}
-            {companyDetails.registeredIn}
-            {companyDetails.companyNumber
-              ? ` (company no. ${companyDetails.companyNumber})`
-              : ""}
-            . Registered office: {registeredAddressLine()}.
+            {companyDetails.tradingName} is a trading name of{" "}
+            {companyDetails.traderName}. Trading address: {tradingAddressLine()}
+            .
             {companyDetails.vatRegistered
               ? ""
               : " Not VAT registered, so no VAT is charged on these prices."}
