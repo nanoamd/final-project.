@@ -953,12 +953,25 @@ before. If a deploy still errors, the log will now name the variable.
 - [~] **Performance** — mobile, LCP, image loading, JS size, unused code,
   animations, fonts, caching. One real win so far: the mobile hero image is
   no longer downloaded behind `display:none`.
-- [ ] **Analytics** — visitors, sources, product views, category views, search
-      usage, add to basket, checkout starts, purchases, quote requests, email
-      signups.
-- [ ] **Conversion tracking** — which products get attention, which categories
-      perform, where users leave, which pages convert, which SEO pages bring
-      customers.
+- [~] **Analytics** — visitors, sources, product views, category views, search
+  usage, add to basket, checkout starts, purchases, quote requests, email
+  signups. **Both tags fired a page view and nothing else.** No `view_item`, no
+  `add_to_cart`, no `purchase` — on GA4 or on Meta. Three consequences, each of
+  which would have wasted ad money: GA4 could never record a conversion, so a
+  session had no known value; Meta could not optimise for sales, because a sale was
+  never reported to it; and **catalogue retargeting was impossible**, since showing
+  somebody the exact table they looked at needs `ViewContent` carrying the product
+  ID. `src/lib/analytics/events.ts` now reports view, add to basket, checkout start
+  and purchase to both platforms, with the **product slug as the content ID** —
+  the same identifier the Merchant feed uses, so all three systems name a product
+  the same way. Purchase de-duplicates on the Stripe session ID, so a refresh does
+  not book a second sale. Still to wire: search usage, quote requests and email
+  signups.
+- [~] **Conversion tracking** — which products get attention, which categories
+  perform, where users leave, which pages convert, which SEO pages bring
+  customers. The four ecommerce events above are the foundation and are in. The
+  funnel report they feed needs GA4 to be receiving them first, which needs the
+  measurement ID in Vercel.
 - [ ] **Search** — products, categories, materials, colours, styles, rooms.
       "black coffee table", "oak furniture", "garden sauna", "green sofa".
 - [~] **Filter architecture** — category, colour, material, price, brand,

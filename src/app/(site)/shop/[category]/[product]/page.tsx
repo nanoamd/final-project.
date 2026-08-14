@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProductDetail } from "@/features/storefront";
+import { TrackViewItem } from "@/features/storefront/components/analytics/track-view-item";
 import { getProduct, getProductParams } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -38,5 +39,17 @@ export default async function Page({
   const { category, product } = await params;
   const found = await getProduct(product);
   if (!found || found.category !== category) notFound();
-  return <ProductDetail product={found} />;
+  return (
+    <>
+      <TrackViewItem
+        item={{
+          slug: found.slug,
+          name: found.name,
+          price: found.price,
+          category: found.category,
+        }}
+      />
+      <ProductDetail product={found} />
+    </>
+  );
 }

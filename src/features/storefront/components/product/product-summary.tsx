@@ -22,6 +22,7 @@ import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { useSavedProducts } from "@/hooks/use-saved-products";
+import { trackAddToCart } from "@/lib/analytics/events";
 import { selectableOptions } from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
@@ -95,6 +96,12 @@ export function ProductSummary({
       price: product.price,
       image,
       selectedOptions,
+    });
+    trackAddToCart({
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      category: product.category,
     });
     setAdded(true);
     window.setTimeout(() => setAdded(false), 2000);
