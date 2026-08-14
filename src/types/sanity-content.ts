@@ -254,8 +254,21 @@ export interface SanityAuthor {
   bio?: string;
 }
 
+/**
+ * A product referenced by an article.
+ *
+ * Everything past `slug` is optional because two callers want different amounts:
+ * the product page only needs to know *whether* a guide points at it, while the
+ * article itself has to render a link a reader can follow — and a link a crawler
+ * can follow, which is the whole reason the references are worth having.
+ */
 export interface SanityRelatedProductRef {
   slug: string;
+  title?: string;
+  /** Category slug, needed to build the product's URL. */
+  category?: string | null;
+  price?: number | null;
+  image?: string | null;
 }
 
 export interface SanityRelatedCategoryRef {

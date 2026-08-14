@@ -5,8 +5,12 @@ import Image from "next/image";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { formatPrice } from "@/lib/format";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
-import type { SanityAuthor } from "@/types/sanity-content";
+import type {
+  SanityAuthor,
+  SanityRelatedProductRef,
+} from "@/types/sanity-content";
 
 /** Shared detail view for a /journal/[slug] post or /learn/[slug] buying guide. */
 export function ArticleDetail({
@@ -18,6 +22,7 @@ export function ArticleDetail({
   publishedAt,
   body,
   relatedCategory,
+  relatedProducts,
 }: {
   eyebrowLabel: string;
   backHref: string;
@@ -27,7 +32,14 @@ export function ArticleDetail({
   publishedAt: string;
   body: PortableTextBlock[];
   relatedCategory?: { slug: string; name: string } | null;
+  relatedProducts?: SanityRelatedProductRef[];
 }) {
+  // A reference is only useful if it resolves to a URL, and the URL needs the
+  // category segment. Anything missing one is dropped rather than linked to a path
+  // that would 404.
+  const products = (relatedProducts ?? []).filter(
+    (product) => product.title && product.category,
+  );
   return (
     <article>
       <Container className="pt-12 pb-8 md:pt-16">
@@ -83,6 +95,65 @@ export function ArticleDetail({
           ) : null}
         </div>
       </Container>
+
+      {products.length ? <ArticleProducts products={products} /> : null}
     </article>
+  );
+}
+
+/**
+ * The pieces the article discusses, linked.
+ *
+ * Worth its own section rather than a line of text: an article that names eleven
+ * bedside tables and links to none of them is a dead end for the reader and worth
+ * nothing to the crawler. The measurements quoted in the prose are the reason to
+ * click, so the card carries the name and the price and lets the article do the
+ * arguing.
+ */
+function ArticleProducts({
+  products,
+}: {
+  products: SanityRelatedProductRef[];
+}) {
+  return (
+    <section className="border-line bg-paper border-t">
+      <Container className="py-14">
+        <h2 className="text-ink font-display text-2xl tracking-tight">
+          The pieces in this guide
+        </h2>
+        <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((product) => (
+            <li key={product.slug}>
+              <AppLink
+                href={`/shop/${product.category}/${product.slug}`}
+                className="group block"
+              >
+                <div className="border-line bg-canvas relative aspect-[4/5] w-full overflow-hidden rounded-xl border">
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+                      className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  ) : null}
+                </div>
+                <p className="text-ink group-hover:text-brass font-display mt-4 text-[16px] leading-snug transition-colors">
+                  {/* The keyword half of the title is for the tab, not for a card
+                      in a list of eight. */}
+                  {product.title?.split("|")[0]?.trim()}
+                </p>
+                {typeof product.price === "number" ? (
+                  <p className="text-muted mt-1 text-[13px]">
+                    {formatPrice(product.price)}
+                  </p>
+                ) : null}
+              </AppLink>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   );
 }

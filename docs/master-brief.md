@@ -555,17 +555,35 @@ before. If a deploy still errors, the log will now name the variable.
   categories: 10 → 0.** Most likely cause of the 44 URLs at "Discovered – currently
   not indexed" in Search Console: a URL nothing links to is one Google has been told
   about and given no reason to crawl.
-  **Still open, and the bigger number: 96 of 99 products are referenced by no post or
-  buying guide.** That is the link type Google weighs most, which makes the content
-  plan a linking job as much as a traffic one.
+  **Then the bigger number: 96 of 99 products were referenced by no post or buying
+  guide** — the link type Google weighs most. Eight guides later
+  (`scripts/write-buying-guides.ts`) that is **96 → 26**, with 70 product references
+  across them. Two things had to change for those references to count as links at
+  all: the GROQ projection returned only a slug, and `ArticleDetail` rendered nothing
+  from it — so a guide could discuss eleven bedside tables and link to none of them.
+  Both fixed; the guide pages now carry a "The pieces in this guide" section, and the
+  product pages show the guide instead of "We're still writing a guide for this
+  category". Remaining 26 are mostly the reclaimed range beyond the nine the teak
+  guide names, plus the wellness accessories.
 
 ### Content plan
 
 - [ ] **SEO content calendar** across Outdoor Living, Wellness and Furniture.
 - [ ] **Blog strategy** — every article carries a target keyword, search intent,
       products to link, related categories, an FAQ section.
-- [ ] **Buying guides** — sofa, coffee table sizing, furniture materials, garden
-      furniture, outdoor kitchen, pergola, sauna, cold plunge, home wellness.
+- [~] **Buying guides** — eight written, `scripts/write-buying-guides.ts`, on top of
+  the sauna guide that already existed. Each answers the question behind the purchase
+  rather than describing the range, because that is the search there is least
+  competition for: bedside table height (614 words), coffee table sizing against a
+  sofa (581), console table depth in a narrow hallway (530), side table height beside
+  an armchair (426), sideboard versus chest of drawers (591), whether a sofa will fit
+  up the stairs (566), table lamp height on a bedside or console (486), and living
+  with reclaimed teak (680). **Every measurement is read from the catalogue**, so the
+  advice stays true as long as the range does, and each guide links to the pieces it
+  names. Held to the same banned-phrase list as the product copy — the script refuses
+  to write if a guide trips it.
+  Still to write: garden furniture, outdoor kitchen, cold plunge, home wellness.
+  Pergolas deliberately untouched.
 - [ ] **Comparison pages** — indoor vs outdoor sauna, wood vs aluminium garden
       furniture, cold plunge vs traditional recovery, coffee table materials.
 
@@ -644,6 +662,16 @@ before. If a deploy still errors, the log will now name the variable.
       every crawl teaches Google to distrust the dates across the whole sitemap.
       One GROQ query rather than widening the four page-serving helpers with a
       field only the sitemap reads.
+- [x] **The sitemap was frozen at build time, and is now hourly.** Found by publishing
+      eight buying guides and seeing the sitemap still list one: 125 URLs where there
+      were 152 pages to submit. Next's docs are explicit that `sitemap.js` "is a
+      special Route Handler that is cached by default unless it uses a Request-time
+      API or dynamic config option" — and it had neither, so it was generated once per
+      deploy and never again. **That is the wrong way round for this site**, where the
+      catalogue lives in Sanity and not in the repository: a product added on a Tuesday
+      would have waited for the next code deploy to be advertised to Google.
+      `export const revalidate = 3600` in `src/app/sitemap.ts`. Now 152 URLs — 129
+      shop pages, 9 guides, 1 journal entry and the static pages.
 - [x] **Wrong-category product URLs no longer resolve.** The live 6 August build
       serves the same product under every category slug —
       `/shop/water-features/portable-charcoal-bbq-grill` and

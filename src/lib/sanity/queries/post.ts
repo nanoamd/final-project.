@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
+import { ARTICLE_PRODUCT_PROJECTION } from "@/lib/sanity/queries/fragments";
 import type { SanityPost } from "@/types/sanity-content";
 
 const POST_PROJECTION = /* groq */ `{
@@ -13,7 +14,7 @@ const POST_PROJECTION = /* groq */ `{
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
   tags,
-  "relatedProducts": relatedProducts[]->{"slug": slug.current}
+  "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION}
 }`;
 
 const POSTS_QUERY = /* groq */ `

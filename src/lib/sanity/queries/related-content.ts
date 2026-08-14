@@ -1,5 +1,6 @@
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
+import { ARTICLE_PRODUCT_PROJECTION } from "@/lib/sanity/queries/fragments";
 import type { SanityBuyingGuide, SanityPost } from "@/types/sanity-content";
 
 const BUYING_GUIDE_PROJECTION = /* groq */ `{
@@ -11,7 +12,7 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
   "relatedCategory": relatedCategory->{"slug": slug.current, "name": title},
-  "relatedProducts": relatedProducts[]->{"slug": slug.current}
+  "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION}
 }`;
 
 const POST_PROJECTION = /* groq */ `{
@@ -23,7 +24,7 @@ const POST_PROJECTION = /* groq */ `{
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
   tags,
-  "relatedProducts": relatedProducts[]->{"slug": slug.current}
+  "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION}
 }`;
 
 const BUYING_GUIDES_BY_PRODUCT_QUERY = /* groq */ `

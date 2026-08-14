@@ -45,6 +45,7 @@ export default async function JournalArticlePage({
       author={post.author}
       publishedAt={post.publishedAt}
       body={post.body}
+      relatedProducts={post.relatedProducts}
     />
   );
 }

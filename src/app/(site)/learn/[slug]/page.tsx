@@ -46,6 +46,7 @@ export default async function BuyingGuidePage({
       publishedAt={guide.publishedAt}
       body={guide.body}
       relatedCategory={guide.relatedCategory}
+      relatedProducts={guide.relatedProducts}
     />
   );
 }

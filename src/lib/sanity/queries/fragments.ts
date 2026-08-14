@@ -24,6 +24,23 @@ export const LINK_PROJECTION = `{
   )
 }`;
 
+/**
+ * A product referenced by an article, resolved to everything needed to render a
+ * followable link to it.
+ *
+ * Articles used to project the slug alone, which made the reference invisible on
+ * the page: an article could say it was about eleven bedside tables without linking
+ * to one of them. An editorial link is the link type Google weighs most, and 96 of
+ * 99 products had none, so the projection now carries what a card needs.
+ */
+export const ARTICLE_PRODUCT_PROJECTION = `{
+  "slug": slug.current,
+  title,
+  "category": category->slug.current,
+  price,
+  "image": gallery[0].asset->url
+}`;
+
 export const PRODUCT_SPEC_PROJECTION = `{ label, value }`;
 export const PRODUCT_OPTION_PROJECTION = `{ label, values }`;
 export const FAQ_ENTRY_PROJECTION = `{ question, answer }`;
