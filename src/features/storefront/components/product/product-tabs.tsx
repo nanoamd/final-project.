@@ -258,18 +258,43 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
       </div>
 
       {product.image ? (
-        // self-start stops this from stretching to match the text column's
-        // height in the grid above — without it, a long description makes this a
-        // very tall, narrow box, and object-cover ends up zooming into a tiny,
-        // near-unrecognisable slice of the photo. sticky keeps the photo in view
-        // while a long description scrolls past it.
-        <div className="border-line relative aspect-[4/3] self-start overflow-hidden rounded-2xl border lg:sticky lg:top-24 lg:col-span-2">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 40vw"
-            className="object-cover"
+        /* The travelling column.
+         *
+         * self-start stops it from stretching to match the text column's height in
+         * the grid — without it, a long description makes this a very tall, narrow
+         * box, and object-cover ends up zooming into a tiny, near-unrecognisable
+         * slice of the photo. sticky keeps it in view while a long description
+         * scrolls past. **That behaviour is unchanged and must stay** — Damien
+         * singled it out. The sticky/self-start pair has only moved from the photo
+         * itself to the wrapper around it, so the photo and the artwork travel
+         * together as one column rather than the artwork sitting still while the
+         * photo slides over it.
+         *
+         * The artwork is here because the Description tab is the one the page opens
+         * on, and the brief's wording was "empty areas beside descriptions". It was
+         * on the other four tabs only, so on a first visit it was invisible.
+         */
+        <div className="self-start lg:sticky lg:top-24 lg:col-span-2">
+          <div className="border-line relative aspect-[4/3] overflow-hidden rounded-2xl border">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover"
+            />
+          </div>
+          {/* Square: it matches the photo's width for a clean editorial stack, and
+              photo plus artwork still fit inside a laptop viewport — a sticky column
+              taller than the screen can never be scrolled to its own bottom.
+              A square crop of the 400×560 canvas keeps the middle 70%, which costs
+              only the repeating edges (the lowest wave, the last paving course);
+              scaled-to-fit was tried first and left the drawing floating in white
+              margins, which reads as a broken image rather than as decoration. */}
+          <ProductArtPanel
+            product={product}
+            label={product.categoryName}
+            className="mt-3 aspect-square"
           />
         </div>
       ) : (

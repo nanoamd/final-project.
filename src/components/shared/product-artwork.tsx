@@ -37,20 +37,30 @@ const WEIGHTS: Record<ArtWeight, { className: string; width: number }> = {
 export function ProductArtwork({
   motif,
   slug,
+  fit = "slice",
   className,
 }: {
   motif: ArtMotif;
   slug: string;
+  /**
+   * `slice` fills the box and crops the overspill — right for a panel roughly the
+   * canvas's own 5:7, where the crop only trims edges.
+   *
+   * `meet` scales the whole drawing to fit and leaves margins. Needed for a wide,
+   * short slot: the drawings are compositions, not repeating patterns, and a 16:9
+   * crop of a 400×560 canvas cuts the base off the arches, the shade off the
+   * pendant and the paving out of the garden. The margins are invisible anyway —
+   * the SVG has no background of its own and the panel behind it is `bg-paper`, so
+   * it reads as a plate in a book rather than as a cropped photograph.
+   */
+  fit?: "slice" | "meet";
   className?: string;
 }) {
   const layers = artPaths(motif, slug);
   return (
     <svg
       viewBox={`0 0 ${ART_WIDTH} ${ART_HEIGHT}`}
-      // The panel is a fixed-ratio column but the drawings are compositions, not
-      // patterns — slice rather than letterbox keeps the focal point centred when
-      // the column is shorter than 400×560.
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={`xMidYMid ${fit}`}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -93,6 +103,7 @@ export function ProductArtwork({
 export function ProductArtPanel({
   product,
   label,
+  fit,
   className,
 }: {
   product: {
@@ -102,6 +113,7 @@ export function ProductArtPanel({
   };
   /** Usually the category name. Omit for artwork with no caption at all. */
   label?: string | null;
+  fit?: "slice" | "meet";
   className?: string;
 }) {
   const motif = artMotif({
@@ -116,7 +128,7 @@ export function ProductArtPanel({
         className,
       )}
     >
-      <ProductArtwork motif={motif} slug={product.slug} />
+      <ProductArtwork motif={motif} slug={product.slug} fit={fit} />
       {label ? (
         <p className="text-muted absolute bottom-4 left-5 text-[10px] font-semibold tracking-[0.18em] uppercase">
           {label}

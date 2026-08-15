@@ -947,6 +947,22 @@ before. If a deploy still errors, the log will now name the variable.
       `scripts/preview-product-artwork.ts` rather than assumed — garden and
       radiance were rebuilt after the first pass drew a radar dish and a spider's
       web, and botanical after it came out emptier than the space it replaced.
+      **Second pass, because Damien could not find it.** All four tab panels are
+      `hidden` on page load — Description is the default tab — so on a first visit
+      every panel was invisible, on the one tab whose name the brief actually used.
+      The artwork now also sits in the Description column, beneath the product
+      photograph, cropped square so photo and artwork together still fit inside a
+      laptop viewport (a sticky column taller than the screen can never be scrolled
+      to its own bottom). **The travelling photo is untouched** — Damien singled it
+      out; `sticky`/`self-start` only moved from the photo to the wrapper around it,
+      so photo and artwork travel together, and a Playwright check measures the
+      travel (photo pins at y=97 after 700px of scroll) so a later change cannot
+      break it silently. Three motifs then had to be nudged inward: a square crop
+      shows only y 80–480, and it was slicing off architectural's dimension line,
+      radiance's shade and botanical's seed head — the accent is the only colour in
+      each panel, so losing it turns the panel grey. A test now asserts the accent
+      survives the square crop across 40 seeds per motif, and it was confirmed to
+      fail on the old values before being kept.
 - [!] **The `| Kaiku` suffix is on the page, not just in the tab — your call.**
   Found while photographing the artwork in place, and it is one line to fix
   either way. The `<h1>` on every product page reads _"13.6m Warm White

@@ -19,6 +19,39 @@ const MOTIFS: ArtMotif[] = [
   "radiance",
 ];
 
+/**
+ * The on-canvas points a path visits.
+ *
+ * Written properly rather than as "every second number is a y", which is what I
+ * reached for first and is wrong: an `A` command carries seven parameters (two
+ * radii, a rotation and two flags before its endpoint), so a naive pair-split reads
+ * a radius as a y coordinate and reports the ripples as being off the canvas.
+ * Only endpoints and control points are returned — radii and flags are not
+ * positions.
+ */
+function pathPoints(d: string): [number, number][] {
+  const points: [number, number][] = [];
+  // Each command letter followed by its run of numbers.
+  for (const [, letter, body] of d.matchAll(/([MLQA])([^A-Za-z]*)/g)) {
+    const nums = (body!.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
+    if (letter === "M" || letter === "L") {
+      for (let i = 0; i + 1 < nums.length; i += 2)
+        points.push([nums[i]!, nums[i + 1]!]);
+    } else if (letter === "Q") {
+      // control point, then endpoint
+      for (let i = 0; i + 3 < nums.length; i += 4) {
+        points.push([nums[i]!, nums[i + 1]!]);
+        points.push([nums[i + 2]!, nums[i + 3]!]);
+      }
+    } else {
+      // A rx ry rotation large-arc sweep x y — only the last pair is a position.
+      for (let i = 0; i + 6 < nums.length; i += 7)
+        points.push([nums[i + 5]!, nums[i + 6]!]);
+    }
+  }
+  return points;
+}
+
 /** Every department in scripts/seed-sanity.ts. */
 const DEPARTMENTS = [
   "outdoor-living",
@@ -149,6 +182,38 @@ describe("artPaths", () => {
             Math.max(bounds.x, bounds.y),
           );
         }
+      }
+    }
+  });
+
+  it("keeps the accent line inside the square crop", () => {
+    /**
+     * The Description tab crops this 400×560 canvas to a square, which shows the
+     * middle 400×400 — y from 80 to 480. Anything outside that band is invisible on
+     * the tab the page opens on.
+     *
+     * The accent is the one burnt-orange line in each panel and the only colour in
+     * it, so an accent drawn at y=520 turns the whole panel grey on the view most
+     * visitors see. It was exactly that on three motifs — architectural's dimension
+     * line, radiance's shade, botanical's seed head — and the sheet renders too
+     * small to notice. Checked across many slugs because the positions are seeded:
+     * one lucky slug proves nothing.
+     */
+    const TOP = 80;
+    const BOTTOM = 480;
+    for (const motif of MOTIFS) {
+      for (let i = 0; i < 40; i++) {
+        const accents = artPaths(motif, `product-${i}`).filter(
+          (layer) => layer.weight === "accent",
+        );
+        const ys = accents.flatMap((layer) =>
+          pathPoints(layer.d).map(([, y]) => y),
+        );
+        const inBand = ys.filter((y) => y >= TOP && y <= BOTTOM);
+        expect(
+          inBand.length,
+          `${motif} seed ${i}: accent almost entirely outside the square crop`,
+        ).toBeGreaterThan(ys.length * 0.5);
       }
     }
   });

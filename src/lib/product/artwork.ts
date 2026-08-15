@@ -266,7 +266,11 @@ function woodGrain(rand: () => number): ArtLayer[] {
  */
 function architectural(rand: () => number): ArtLayer[] {
   const layers: ArtLayer[] = [];
-  const baseline = 430 + rand() * 60;
+  // 400–436, not 430–490: the accent dimension line sits at `baseline + 34`, and
+  // the Description tab crops this canvas square (keeping y 80–480). At the old
+  // range the one burnt-orange line in the panel was cropped away on half the
+  // products, leaving a grey drawing.
+  const baseline = 400 + rand() * 36;
 
   for (let y = 60; y < baseline; y += 62) {
     layers.push({ d: line(24, y, ART_WIDTH - 24, y), weight: "hair" });
@@ -326,7 +330,11 @@ function water(rand: () => number): ArtLayer[] {
   // Clamped, not just offset from the ripple centre: at a high centre this pushed
   // the last of the five wave lines past y=560 and the bottom third of the panel
   // came back empty — the one outcome this whole file exists to prevent.
-  const surface = Math.min(cy + 150 + rand() * 60, ART_HEIGHT - 132);
+  // Clamped so the fifth wave (surface + 4*26) still lands above y=480, which is
+  // where the square crop on the Description tab ends. Clamping rather than
+  // offsetting from the ripple centre: at a high centre the waves used to fall off
+  // the bottom of the canvas entirely and the lower third came back empty.
+  const surface = Math.min(cy + 150 + rand() * 60, ART_HEIGHT - 190);
   for (let i = 0; i < 5; i++) {
     const y = surface + i * 26;
     const amp = 5 + rand() * 5;
@@ -343,7 +351,9 @@ function water(rand: () => number): ArtLayer[] {
 function steam(rand: () => number): ArtLayer[] {
   const layers: ArtLayer[] = [];
   const strands = 5 + Math.floor(rand() * 3);
-  const floor = 470 + rand() * 40;
+  // The strands need to stand on the bench slats; without them they read as
+  // floating squiggles. 410–435 keeps floor and slats inside the square crop.
+  const floor = 410 + rand() * 25;
 
   for (let i = 0; i < strands; i++) {
     const base = 40 + (i * (ART_WIDTH - 80)) / (strands - 1);
@@ -365,7 +375,7 @@ function steam(rand: () => number): ArtLayer[] {
   }
 
   for (let i = 0; i < 4; i++) {
-    const y = floor + 8 + i * 14;
+    const y = floor + 6 + i * 10;
     layers.push({
       d: line(20 + i * 6, y, ART_WIDTH - 20 - i * 6, y),
       weight: "hair",
@@ -510,7 +520,9 @@ function botanical(rand: () => number): ArtLayer[] {
   };
 
   const mainX = 150 + rand() * 90;
-  const mainTip = draw(mainX, 78 + rand() * 40, (rand() - 0.5) * 80, 1, false);
+  // 120–160 rather than 78–118: the seed head is drawn 16px above the stem tip, and
+  // the square crop was slicing it in half.
+  const mainTip = draw(mainX, 120 + rand() * 40, (rand() - 0.5) * 80, 1, false);
   const backX = mainX + (rand() < 0.5 ? -1 : 1) * (70 + rand() * 50);
   draw(backX, 210 + rand() * 70, (rand() - 0.5) * 50, 0.72, true);
 
@@ -542,7 +554,9 @@ function botanical(rand: () => number): ArtLayer[] {
 function radiance(rand: () => number): ArtLayer[] {
   const layers: ArtLayer[] = [];
   const cx = 150 + rand() * 100;
-  const cy = 110 + rand() * 50;
+  // 140–180: the shade sits `shadeH` above this, and at the old 110–160 the top of
+  // the shade was clipped by the square crop, leaving a cone of light with no lamp.
+  const cy = 140 + rand() * 40;
   const shadeW = 34 + rand() * 20;
   const shadeH = 26 + rand() * 12;
 
@@ -560,7 +574,9 @@ function radiance(rand: () => number): ArtLayer[] {
   });
 
   // The cone of light: two edges, wide enough to reach the panel's bottom corners.
-  const surface = ART_HEIGHT - 70 - rand() * 40;
+  // Pulled up from ART_HEIGHT-70 so the pooled light stays inside the square crop
+  // — a cone with no pool at the bottom of it reads as an unfinished drawing.
+  const surface = ART_HEIGHT - 110 - rand() * 40;
   const throwWidth = 130 + rand() * 60;
   layers.push({
     d: line(cx - shadeW * 0.8, cy + 6, cx - throwWidth, surface),
