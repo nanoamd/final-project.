@@ -402,6 +402,49 @@ before. If a deploy still errors, the log will now name the variable.
       before this, so the card-hover swap had never fired once.
 - [x] **Hover image is now the lifestyle shot** — it was derived backwards, and
       falls back to the second photo for the 57 products shot only on white.
+- [x] **A dimensions drawing can never lead a product again.** Damien found
+      Abberley Coffee Table in Brown leading with its measurements diagram. The
+      ordering rule could not have caught it: a dimensions drawing _is_ a product
+      on a pure white sweep, so it measures as the best possible catalogue shot.
+      Two pixel heuristics were tried against the real images and both failed —
+      margin-ring ink put known diagrams at 0.000–0.034 against ordinary
+      photographs at 0.000–0.149 (overlapping across the whole range), and a
+      hairline test scored the diagrams 0–1 and plain furniture 4–6, i.e.
+      backwards. The **filename** is reliable: every one is supplier-generated and
+      says so, and it matched 31 images of which exactly one was a hero — the one
+      he found independently. Diagrams now sort last. New tooling, because a wrong
+      hero can only be seen and not measured: `preview-product-heroes.ts` (every
+      published hero as one sheet), `preview-gallery-reorder.ts` (before/after of
+      every hero a reorder would change), `set-gallery-hero.ts` (promote one by
+      hand).
+- [x] **39 galleries reordered so a real pack shot leads**, 9 of them changing the
+      hero. All 11 candidates were rendered and looked at first, which caught two
+      the rule got wrong — Serene Three Drawer Bedside Table, whose only
+      plain-background images are an open drawer, a top corner and a handle, and
+      Provence Collection Outdoor Dining Chair, where two of four images are the
+      whole dining set. Both excluded via a new `--skip`.
+- [x] **The product now fills its own photograph** —
+      `scripts/tighten-hero-crops.ts`. Damien sent a competitor's Google Shopping
+      tile: a landscape photo letterboxed into a square tile, thick white bars top
+      and bottom. Kaiku is not doing that — all 120 heroes are already square. It
+      was losing more quietly: measured across every one, **the product filled 82%
+      of its frame on average and as little as 49%** (Elmley Grey End Table, a
+      139×195 object in a 400×400 frame), so half of some Shopping tiles was empty
+      white. 59 heroes tightened to a square crop with a 6% margin — **1.05× to
+      1.81× larger in the same tile**, for the same click and the same photograph.
+      A margin rather than flush, because Merchant Center wants the whole product
+      visible and a product jammed against the frame looks like an accident. All 59
+      before/afters were reviewed as a sheet. Nothing was re-uploaded: the crop
+      lives on the gallery entry, so the original is untouched and the product
+      page's main gallery still shows the whole frame.
+- [x] **The Merchant Center feed now spends that crop.** It was sending
+      `asset->url`, the raw original, so the tightened crop would have had no
+      effect on the one surface it was computed for. `getMerchantFeedProducts`
+      builds a 1200×1200 crop-aware URL, falling back to the raw asset where a hero
+      has no crop. Also added the missing `!(_id in path("drafts.**"))` guard —
+      `sanityClient` carries no token so drafts are not returned today, but an
+      untokened client is too little to stand between an unpublished half-priced
+      product and Google Shopping.
 - [x] **Image quality audited** — median 2000px, but a bad tail: 9 unusable
       (under 700px), 25 soft (under 1200px), listed in the audit.
 - [x] **Alt text on every image** — 178 of 439 to 439 of 439

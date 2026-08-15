@@ -624,7 +624,10 @@ export interface MerchantFeedProduct {
   summary: string;
   price: number;
   currency: string;
+  /** The original, uncropped URL. Kept as the fallback. */
   image: string | null;
+  /** A square 1:1 render honouring the hero's crop — what the feed should send. */
+  feedImage: string | null;
   brand: string | null;
   gtin: string | null;
   mpn: string | null;
@@ -635,7 +638,7 @@ export interface MerchantFeedProduct {
 }
 
 const MERCHANT_FEED_QUERY = /* groq */ `
-*[_type == "product" && defined(category->slug.current)] {
+*[_type == "product" && !(_id in path("drafts.**")) && defined(category->slug.current)] {
   "slug": slug.current,
   "category": category->slug.current,
   "categoryName": category->title,
@@ -644,6 +647,9 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   summary,
   price,
   currency,
+  // The asset ref plus hotspot/crop, not the plain URL: the feed image is built
+  // with urlForImage so the hero's stored crop is honoured. See buildFeedImage.
+  "heroImage": gallery[0]{ "assetRef": asset._ref, hotspot, crop },
   "image": gallery[0].asset->url,
   "brand": brand->name,
   gtin,
@@ -653,10 +659,72 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   deliveryLeadTime
 }`;
 
+/**
+ * The square image a Shopping listing should show.
+ *
+ * Google renders a Shopping tile square. Send it a landscape photograph and it pads
+ * the image with white bars, which is why competitors' listings for the same product
+ * appear with a band of white above and below and the product small in the middle.
+ * Kaiku's hero photographs are already square, so nothing is letterboxed — but
+ * measured across all 120 published heroes the *product* filled only 82% of its frame
+ * on average and as little as 49%, so half of some tiles was empty white.
+ *
+ * `scripts/tighten-hero-crops.ts` stores a square crop on each hero that reclaims
+ * that margin. This is the half that spends it: without building the URL through
+ * `urlForImage`, the feed keeps sending `asset->url` and the crop has no effect on
+ * the one surface it was computed for.
+ *
+ * 1200px because Merchant Center's recommended minimum for furniture is 800 and the
+ * originals are large enough to give more without upscaling.
+ */
+const FEED_IMAGE_SIZE = 1200;
+
+function buildFeedImage(hero: RawFeedHeroImage | null): string | null {
+  if (!hero?.assetRef) return null;
+  try {
+    return (
+      urlForImage({
+        asset: { _ref: hero.assetRef, _type: "reference" },
+        hotspot: hero.hotspot,
+        crop: hero.crop,
+      })
+        .width(FEED_IMAGE_SIZE)
+        .height(FEED_IMAGE_SIZE)
+        .fit("crop")
+        .auto("format")
+        .url() || null
+    );
+  } catch {
+    // A malformed ref must not take the whole feed down — the caller falls back to
+    // the plain asset URL, which is what was sent before this existed.
+    return null;
+  }
+}
+
+interface RawFeedHeroImage {
+  assetRef?: string | null;
+  hotspot?: Record<string, unknown> | null;
+  crop?: Record<string, unknown> | null;
+}
+
 /** Full, uncapped product list for the Google Merchant Center feed — unlike
- * page generation, a merchant feed genuinely needs every product. */
+ * page generation, a merchant feed genuinely needs every product.
+ *
+ * The drafts filter in the query above is defence in depth rather than a live fix:
+ * `sanityClient` carries no token, so drafts are not returned to it today. But an
+ * untokened client is the only thing preventing an unpublished, half-priced,
+ * half-written product from being advertised in Google Shopping, and that is too
+ * much to rest on a setting in a different file. */
 export async function getMerchantFeedProducts(): Promise<
   MerchantFeedProduct[]
 > {
-  return sanityFetch<MerchantFeedProduct[]>(MERCHANT_FEED_QUERY, {}, []);
+  const raw = await sanityFetch<
+    (Omit<MerchantFeedProduct, "feedImage"> & {
+      heroImage?: RawFeedHeroImage | null;
+    })[]
+  >(MERCHANT_FEED_QUERY, {}, []);
+  return raw.map(({ heroImage, ...product }) => ({
+    ...product,
+    feedImage: buildFeedImage(heroImage ?? null),
+  }));
 }

@@ -172,7 +172,15 @@ export async function GET() {
     <title>${escapeXml(product.title)}</title>
     <description>${escapeXml(product.summary)}</description>
     <link>${escapeXml(link)}</link>
-    ${product.image ? `<g:image_link>${escapeXml(product.image)}</g:image_link>` : ""}
+    ${
+      // feedImage first: a square 1:1 render honouring the hero's tightened crop, so
+      // the product fills the Shopping tile instead of sitting in reclaimable white
+      // space. Falls back to the raw asset for any product whose hero has no crop —
+      // which is what was sent before, so a missing crop degrades rather than breaks.
+      product.feedImage || product.image
+        ? `<g:image_link>${escapeXml(product.feedImage || product.image!)}</g:image_link>`
+        : ""
+    }
     <g:availability>${mapAvailability(product.stockStatus)}</g:availability>
     <g:price>${priceValue}</g:price>
     <g:condition>new</g:condition>
