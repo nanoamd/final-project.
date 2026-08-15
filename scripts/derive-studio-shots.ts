@@ -39,6 +39,7 @@ import sharp from "sharp";
 import {
   canReorder,
   classifyShot,
+  isDimensionDiagram,
   isPlainBackground,
   orderChanges,
   preferredOrder,
@@ -48,6 +49,29 @@ import {
 
 const apply = process.argv.includes("--apply");
 const reorder = process.argv.includes("--reorder");
+
+/**
+ * Products this run must not reorder, by slug.
+ *
+ * Needed because the rule measures the *background*, not the subject, and there is
+ * a case it cannot get right: a product with no plain-background photograph of the
+ * whole item, only detail crops on the same sweep. Serene Three Drawer Bedside
+ * Table is one — its five images are a room photo of the whole table and then an
+ * open drawer, a top corner, a handle and an angled shot on a coloured wall. The
+ * rule promotes the open drawer, because an open drawer on a white sweep measures
+ * as a perfect catalogue shot. The room photo is genuinely the best hero it has.
+ *
+ * Reviewed with scripts/preview-gallery-reorder.ts, which renders every hero this
+ * script wants to change so cases like it are seen before anything is written.
+ *
+ *   --skip slug-one,slug-two
+ */
+const skip = new Set(
+  (() => {
+    const i = process.argv.indexOf("--skip");
+    return i > -1 ? (process.argv[i + 1] ?? "").split(",").filter(Boolean) : [];
+  })(),
+);
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (apply && !token) {
@@ -149,7 +173,15 @@ async function main() {
         continue;
       }
       const verdict = classifyShot(decoded);
-      shots.push({ kind: verdict.kind, whiteFraction: verdict.whiteFraction });
+      // The filename, not the pixels: a dimensions drawing is a product on a pure
+      // white sweep and measures as the best catalogue shot there is. See
+      // isDimensionDiagram for the two pixel tests that failed.
+      const isDiagram = isDimensionDiagram(image.filename);
+      shots.push({
+        kind: verdict.kind,
+        whiteFraction: verdict.whiteFraction,
+        isDiagram,
+      });
       counts[verdict.kind] += 1;
 
       const mark =
@@ -159,8 +191,9 @@ async function main() {
             ? "▫"
             : "?";
       const already = image.isStudioShot === true ? " (already flagged)" : "";
+      const drawing = isDiagram ? "  ← dimensions drawing, sorted last" : "";
       lines.push(
-        `      ${mark}  ${verdict.kind.padEnd(9)} ${verdict.reason}${already}`,
+        `      ${mark}  ${verdict.kind.padEnd(9)} ${verdict.reason}${already}${drawing}`,
       );
 
       if (
@@ -172,8 +205,10 @@ async function main() {
     }
 
     const order = preferredOrder(shots);
-    const needsReorder = canReorder(shots) && orderChanges(order);
+    const skipped = skip.has(product.slug ?? "");
+    const needsReorder = !skipped && canReorder(shots) && orderChanges(order);
     if (!needsReorder) alreadyLeading += 1;
+    if (skipped) lines.push(`      —  reorder skipped by --skip`);
 
     // Only print products where something is decided or changes — a fully
     // undecidable product is noise in a report meant to be read.

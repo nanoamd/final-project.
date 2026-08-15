@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   canReorder,
   classifyShot,
+  isDimensionDiagram,
   isPlainBackground,
   lightness,
   orderChanges,
@@ -209,5 +210,103 @@ describe("isPlainBackground", () => {
     expect(isPlainBackground("catalogue")).toBe(true);
     expect(isPlainBackground("lifestyle")).toBe(false);
     expect(isPlainBackground("unknown")).toBe(false);
+  });
+});
+
+describe("isDimensionDiagram", () => {
+  it("recognises the real supplier filenames in the catalogue", () => {
+    // Every one of these is in the published dataset. The first is the image that
+    // was leading Abberley Coffee Table in Brown — the fault this exists to catch.
+    for (const filename of [
+      "Abberley-Coffee-Table-Brown-Side-Dims.jpg",
+      "03-Bedside-grey-dimensions.jpg",
+      "03-CO14-BR-angle-left-measure.jpg",
+      "03-Charlton-BT-06-1-4_dim.jpg",
+      "03-Elmley-CO-07-angle-ivory-dim.jpg",
+      "05-Hampton-TV-Unit-Ivory_04-Dims.jpg",
+      "05-Drawing-pdf.jpg",
+      "03-NT01-Ivory-Dims.jpg",
+    ]) {
+      expect(isDimensionDiagram(filename), filename).toBe(true);
+    }
+  });
+
+  it("leaves ordinary product photographs alone", () => {
+    // Also all real filenames from the same galleries.
+    for (const filename of [
+      "Abberley-Coffee-Table-Brown-Front.jpg",
+      "Abberley-Coffee-Table-Brown-Side-Top.jpg",
+      "Generated image 1 (1).png",
+      "03-Charlton-D-11-desk.jpg",
+      "hampton-ivory-shagreen-tv-unit-angle.jpg",
+    ]) {
+      expect(isDimensionDiagram(filename), filename).toBe(false);
+    }
+  });
+
+  it("does not fire on words that merely start with the same letters", () => {
+    // A lighting and homeware catalogue is full of both, which is why the rule
+    // matches on word boundaries rather than as a substring.
+    expect(isDimensionDiagram("brass-dimmable-wall-light.jpg")).toBe(false);
+    expect(isDimensionDiagram("speckled-glaze-vase.jpg")).toBe(false);
+    expect(isDimensionDiagram("diminutive-stool.png")).toBe(false);
+  });
+
+  it("handles a missing filename", () => {
+    expect(isDimensionDiagram(null)).toBe(false);
+    expect(isDimensionDiagram(undefined)).toBe(false);
+    expect(isDimensionDiagram("")).toBe(false);
+  });
+});
+
+describe("preferredOrder with a dimensions drawing", () => {
+  const diagram = (whiteFraction = 1): Shot => ({
+    kind: "catalogue",
+    whiteFraction,
+    isDiagram: true,
+  });
+
+  it("never leaves a drawing as the hero", () => {
+    // Abberley Coffee Table in Brown, as it actually stood: the drawing first, the
+    // real front-on shot second.
+    expect(preferredOrder([diagram(), shot("catalogue")])).toEqual([1, 0]);
+  });
+
+  it("sorts a drawing behind the lifestyle photography, not just behind the pack shots", () => {
+    // A drawing measures as a perfect sweep shot, so without the flag it would rank
+    // ahead of both. It belongs at the end: useful to a shopper who scrolls the
+    // gallery, wrong as the card image and wrong as the hover.
+    expect(
+      preferredOrder([diagram(), shot("lifestyle"), shot("catalogue")]),
+    ).toEqual([2, 1, 0]);
+  });
+
+  it("promotes the real photograph even when the drawing is the only sweep shot", () => {
+    expect(preferredOrder([diagram(), shot("lifestyle")])).toEqual([1, 0]);
+  });
+
+  it("does not reach past a photograph to lift a drawing out of a tight crop", () => {
+    // The tight-crop rule looks for a fuller catalogue shot when the leader is a
+    // close crop. A drawing scores a perfect 1.0 white frame, so it was the most
+    // attractive candidate that rule could find.
+    const order = preferredOrder([
+      shot("catalogue", 0.45),
+      shot("catalogue", 0.9),
+      diagram(1),
+    ]);
+    expect(order[0]).toBe(1);
+    expect(order.at(-1)).toBe(2);
+  });
+
+  it("leaves a gallery alone when the drawing is already last", () => {
+    // Which is where 30 of the 31 in the catalogue already sit, so making the rule
+    // diagram-aware must not churn 30 galleries to achieve nothing.
+    const order = preferredOrder([
+      shot("catalogue"),
+      shot("catalogue"),
+      shot("lifestyle"),
+      diagram(),
+    ]);
+    expect(order).toEqual([0, 1, 2, 3]);
   });
 });
