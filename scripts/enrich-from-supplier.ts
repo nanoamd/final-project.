@@ -41,10 +41,18 @@
  *
  * Dry run by default; prints every fact it found and every product it could not match.
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
-
 import { createClient } from "@sanity/client";
+
+import {
+  HILL_DELAY_MS,
+  HILL_UA,
+  itemUrls,
+  parseFacts,
+  sleep,
+  slugify,
+  type SupplierFacts,
+} from "./lib/hill-supplier";
+import { mapColour, mapMaterials, MATERIAL_MAP } from "./lib/supplier-facets";
 
 const apply = process.argv.includes("--apply");
 const limit = (() => {
@@ -66,242 +74,6 @@ const client = createClient({
   token,
   useCdn: false,
 });
-
-const HOST = "https://www.hill-interiors.com";
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36";
-/** One request at a time, with this gap. A trade supplier's site is not a load test. */
-const DELAY_MS = 500;
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-function slugify(title: string): string {
-  return title
-    .replace(/\s*\|\s*Kaiku.*$/i, "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-/** The sitemap, cached on disk so repeated runs cost the supplier one request. */
-async function itemUrls(): Promise<Map<string, string>> {
-  const dir = path.join(process.cwd(), ".image-work");
-  await mkdir(dir, { recursive: true });
-  const cache = path.join(dir, "supplier-sitemap.xml");
-
-  let xml: string;
-  try {
-    xml = await readFile(cache, "utf8");
-  } catch {
-    const res = await fetch(`${HOST}/sitemap.xml`, {
-      headers: { "User-Agent": UA },
-    });
-    if (!res.ok) throw new Error(`sitemap.xml returned ${res.status}`);
-    xml = await res.text();
-    await writeFile(cache, xml, "utf8");
-  }
-
-  const map = new Map<string, string>();
-  for (const match of xml.matchAll(/<loc>([^<]*\/item\/([^/<]+)\/?)<\/loc>/g)) {
-    map.set(match[2]!, match[1]!);
-  }
-  return map;
-}
-
-/** Labels the specification table uses, and where each one belongs on our document. */
-interface SupplierFacts {
-  colour?: string;
-  material?: string;
-  weightKg?: number;
-  barcode?: string;
-  lengthCm?: number;
-  widthCm?: number;
-  heightCm?: number;
-  weightWarning?: string;
-}
-
-/**
- * Pulls the label/value pairs out of the specification table.
- *
- * Tag-stripping rather than a DOM parse, deliberately: the page is a large
- * server-rendered document and the only thing wanted is a handful of `Label:` /
- * `value` pairs, which survive flattening intact. **The description paragraph is
- * skipped on purpose** — see the note at the top of this file.
- */
-export function parseFacts(html: string): SupplierFacts {
-  const stripped = html
-    .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, " ")
-    .replace(/<[^>]+>/g, "\n");
-  const lines = stripped
-    .split("\n")
-    .map((line) =>
-      line
-        .replace(/&amp;/g, "&")
-        .replace(/&nbsp;/g, " ")
-        .replace(/&#39;|&apos;/g, "'")
-        .trim(),
-    )
-    .filter(Boolean);
-
-  /** The value(s) following a `Label:` line, stopping at the next label. */
-  const after = (label: string): string[] => {
-    const index = lines.findIndex(
-      (line) => line.toLowerCase() === `${label.toLowerCase()}:`,
-    );
-    if (index === -1) return [];
-    const values: string[] = [];
-    for (let i = index + 1; i < lines.length; i++) {
-      const line = lines[i]!;
-      if (/^[A-Z][A-Za-z ]{2,20}:$/.test(line)) break;
-      values.push(line.replace(/,$/, "").trim());
-      // Multi-value fields (Material: fabric, metal, synthetic fibres) arrive as
-      // separate lines each ending in a comma; a line without one ends the run.
-      if (!line.endsWith(",")) break;
-    }
-    return values.filter(Boolean);
-  };
-
-  const one = (label: string) => after(label)[0];
-  const number = (label: string) => {
-    const value = one(label);
-    const parsed = value
-      ? Number.parseFloat(value.replace(/[^\d.]/g, ""))
-      : NaN;
-    return Number.isFinite(parsed) ? parsed : undefined;
-  };
-
-  const material = after("Material").join(", ") || undefined;
-  const warning = one("Weight Warning");
-
-  return {
-    colour: one("Colour"),
-    material,
-    weightKg: number("Weight"),
-    barcode: one("Barcode")?.replace(/\D/g, "") || undefined,
-    lengthCm: number("Length"),
-    widthCm: number("Width"),
-    heightCm: number("Height"),
-    weightWarning: warning && warning.length > 20 ? warning : undefined,
-  };
-}
-
-/**
- * Supplier colour word → the canonical colour tag, or null.
- *
- * `primaryColour` and `colourTags` are **closed vocabularies** (see
- * src/lib/catalog/facets.ts): 20 values shared by the Studio schema, the storefront
- * filter bar and the derivation script. Writing "beige" or "silver" straight through
- * would fail Studio validation and, worse, put a value in the filter bar that no
- * shopper can match — the schema's own words are "an empty swatch is better than a
- * wrong one".
- *
- * So anything without an honest home is left out rather than forced. `silver` has no
- * entry because the vocabulary has Gold, Brass and Bronze but no silver or chrome;
- * calling a chrome lamp Grey would answer a Grey filter with a mirror finish. `clear`
- * is not a colour at all.
- */
-const COLOUR_MAP: Record<string, string | null> = {
-  black: "Black",
-  grey: "Grey",
-  gray: "Grey",
-  white: "White",
-  ivory: "Ivory",
-  cream: "Cream",
-  taupe: "Taupe",
-  brown: "Brown",
-  natural: "Natural",
-  neutral: "Neutral",
-  // Beige is the supplier's most common value and sits between Cream and Taupe.
-  // Neutral exists in the vocabulary for exactly this: a warm off-white that is not
-  // committing to either.
-  beige: "Neutral",
-  // Coffee is a brown, and Brown is in the vocabulary.
-  coffee: "Brown",
-  oak: "Oak",
-  walnut: "Walnut",
-  green: "Green",
-  blue: "Blue",
-  gold: "Gold",
-  brass: "Brass",
-  bronze: "Bronze",
-  silver: null,
-  chrome: null,
-  clear: null,
-  red: null,
-  pink: null,
-  yellow: null,
-  orange: null,
-  purple: null,
-  multi: null,
-};
-
-/**
- * Supplier material word → the canonical material tag, or null.
- *
- * Two deliberate omissions. `plastic` has no entry: the vocabulary does not carry it,
- * and a plastic garden table is not Wood or Metal. `synthetic fibres` has none either
- * — it is the supplier's term for the rattan-effect weave on the outdoor sets, and the
- * Materials field says in its own description that a material the piece only imitates
- * is excluded. Tagging those Rattan would be the exact mistake the field warns about.
- *
- * `ceramic` is missing from the vocabulary rather than from this map, which is worth
- * knowing: a good number of the lamps are ceramic and currently cannot be tagged at
- * all. That is a gap to add to facets.ts, not something to fudge here.
- */
-const MATERIAL_MAP: Record<string, string | null> = {
-  wood: "Wood",
-  oak: "Oak",
-  walnut: "Walnut",
-  teak: "Teak",
-  birch: "Birch",
-  bamboo: "Bamboo",
-  metal: "Metal",
-  steel: "Steel",
-  brass: "Brass",
-  glass: "Glass",
-  marble: "Marble",
-  concrete: "Concrete",
-  linen: "Linen",
-  velvet: "Velvet",
-  fabric: "Fabric",
-  chenille: "Chenille",
-  resin: "Resin",
-  rattan: "Rattan",
-  mdf: "MDF",
-  // Present in MATERIAL_GROUPS and missed on the first pass.
-  "mirrored glass": "Mirrored glass",
-  // Added to facets.ts after this script's dry run reported them as unmapped.
-  plastic: "Plastic",
-  ceramic: "Ceramic",
-  stoneware: "Stoneware",
-  // Still null, and deliberately. "Synthetic fibres" is the supplier's term for the
-  // rattan-effect weave on the outdoor sets, and the Materials field excludes a
-  // material the piece only imitates. Rope has no canonical home.
-  "synthetic fibres": null,
-  "synthetic fibre": null,
-  rope: null,
-  stone: null,
-  paper: null,
-  wax: null,
-  cotton: null,
-  jute: null,
-};
-
-const mapColour = (value?: string): string | null =>
-  value ? (COLOUR_MAP[value.trim().toLowerCase()] ?? null) : null;
-
-const mapMaterials = (value?: string): string[] =>
-  value
-    ? [
-        ...new Set(
-          value
-            .split(/,\s*/)
-            .map((part) => MATERIAL_MAP[part.trim().toLowerCase()] ?? null)
-            .filter((tag): tag is string => Boolean(tag)),
-        ),
-      ]
-    : [];
 
 interface Draft {
   id: string;
@@ -351,8 +123,8 @@ async function main() {
       continue;
     }
     processed += 1;
-    const res = await fetch(url, { headers: { "User-Agent": UA } });
-    await sleep(DELAY_MS);
+    const res = await fetch(url, { headers: { "User-Agent": HILL_UA } });
+    await sleep(HILL_DELAY_MS);
     if (!res.ok) {
       console.log(`  ! ${res.status}  ${key}`);
       continue;

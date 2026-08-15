@@ -111,7 +111,27 @@ export const MATERIAL_GROUPS = [
   { group: "Metal", tags: ["Steel", "Metal", "Brass"] },
   {
     group: "Fabric",
-    tags: ["Chenille", "Bouclé", "Linen", "Velvet", "Fabric"],
+    tags: [
+      "Chenille",
+      "Bouclé",
+      "Linen",
+      "Velvet",
+      "Fabric",
+      /**
+       * Missing until the rugs range: Viva Rugs' catalogue is almost entirely
+       * polypropylene weaves, with real minorities of cotton flatweaves and wool.
+       * Found the same way Ceramic and Plastic were — mapping a supplier's own
+       * material field across their catalogue and seeing what has nowhere to go
+       * (scripts/lib/viva-rugs.ts). Polyester is kept separate from Polypropylene
+       * rather than folded in: the supplier's own copy distinguishes them ("Polyester
+       * is much softer than Polypropylene"), so they are different facts, not two
+       * spellings of one.
+       */
+      "Polypropylene",
+      "Cotton",
+      "Wool",
+      "Polyester",
+    ],
   },
   {
     group: "Other",
