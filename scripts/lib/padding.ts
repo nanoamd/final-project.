@@ -176,6 +176,13 @@ export function anchorsFor(product: {
   colourTags?: readonly string[] | null;
   roomTags?: readonly string[] | null;
   useTags?: readonly string[] | null;
+  /**
+   * Style is a weaker anchor than material or colour, but it is still a fact the
+   * document carries: "Industrial", "Coastal", "Rustic" and "Minimal" say something
+   * about the product. The vague ones — Modern, Classic — are in STOPWORDS already and
+   * so contribute nothing, which is the right outcome rather than an oversight.
+   */
+  styleTags?: readonly string[] | null;
   primaryColour?: string | null;
 }): Set<string> {
   const anchors = new Set<string>();
@@ -195,6 +202,7 @@ export function anchorsFor(product: {
     product.colourTags,
     product.roomTags,
     product.useTags,
+    product.styleTags,
   ])
     for (const tag of list ?? []) add(tag);
   if (product.primaryColour) add(product.primaryColour);

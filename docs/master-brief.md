@@ -488,6 +488,30 @@ before. If a deploy still errors, the log will now name the variable.
   done; the rest runs with the description rewrite.
 - [~] **Every description unique.** 14 of 77 rewritten against a validator that
   refuses banned phrases and duplicate FAQ answers.
+- [~] **Full-length descriptions for the Sanity drafts, in your handwritten
+  format, so all you add is the price.** Batch one done — 9 of ~90.
+  `scripts/copy/batch-01.ts`, written to drafts only by
+  `scripts/write-product-copy.ts`.
+  - Format taken from your own Reclaimed Teak Sideboard page: two-sentence
+    summary, five themed h2 sections, "Why You'll Love It" with nine bullets,
+    bold-labelled "Product Specifications", then Delivery & Returns. **965–1,053
+    words each**, against 649 on the sideboard. The first attempt at 181–244
+    words was rejected and rewritten.
+  - Delivery **and** returns in the delivery field, returns field empty,
+    warranty in the same shape. `sourceUrl` filled, `deliveryLeadTime`
+    deliberately not — no lead time is recorded for these, so the delivery
+    bullet says we confirm it by email rather than inventing "2–4 weeks".
+  - `specs` is now derived from the description's own specification list, so a
+    page cannot say 60cm in the body and 51cm in the table.
+  - **0% padding on all nine**, against a 26% catalogue baseline. The gate in
+    `scripts/lib/product-copy-blocks.ts` throws rather than returns over 10%, and
+    `scripts/preview-product-copy.ts` checks the batch for repeated headings and
+    paragraphs, which per-product measurement cannot see.
+  - Four facts were wrong in the first pass and were caught by looking at the
+    photographs again: the Alto shelf unit has **six** shelves and a vertical rod
+    screen, the Avaris armchair **includes a lumbar bolster**, the Amalfi bistro
+    tables are woven all over rather than metal-framed, and the tractor seat has
+    a twisted footrest.
 
 ### Required product page information
 

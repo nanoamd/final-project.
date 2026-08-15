@@ -59,13 +59,14 @@ interface Row {
   colourTags: string[] | null;
   roomTags: string[] | null;
   useTags: string[] | null;
+  styleTags: string[] | null;
   primaryColour: string | null;
 }
 
 const QUERY = /* groq */ `
 *[_type == "product" && !(_id in path("drafts.**")) && count(description) > 0]{
   title, "slug": slug.current, price, summary, description,
-  materialTags, colourTags, roomTags, useTags, primaryColour
+  materialTags, colourTags, roomTags, useTags, styleTags, primaryColour
 } | order(title asc)`;
 
 const textOf = (block: Block): string =>
