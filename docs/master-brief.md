@@ -318,6 +318,26 @@ before. If a deploy still errors, the log will now name the variable.
 - [~] **Still to improve, from the 14 August living-room render.** Two things visible in
   an otherwise good result — the sofa and the Abberley sideboard both came back
   faithful.
+  **0. Fixed since — the model was never told how big anything is.** On the sauna
+  render: _"the sauna obviously isn't that big"_, and the cause was worse than a
+  missing prompt line. **The Pennine Barrel carried a dimensions object full of
+  nulls**, with no Dimensions row in its specs either: a £6,379 product with no size
+  anywhere on its page. A customer could not tell whether it fits their garden,
+  Merchant Centre wants dimensions on furniture, and the visualiser had nothing to
+  scale against. Real figures from the supplier's own page (outdoorliving365.co.uk):
+  **240 × 180 × 180cm, 320kg**, now stored — `scripts/fix-missing-dimensions.ts`,
+  which also lists the 8 other published products still missing dimensions.
+  `describeSize()` states each piece's real size in the prompt, normalising the mm/cm
+  mix across documents, with reference points the model can measure against inside the
+  photograph.
+  **Also fixed, and a correction to something I told Damien:** I said the catalogue had
+  no outdoor lighting. True when I checked, not true now — **13.6m Warm White
+  Decorative LED String Lights** is published at £29. It sat in `lighting` under the
+  `lighting` department with no room tags, so it failed both of `suitsOutdoors()`'s
+  tests and the `light` role in an outdoor set was never filled. The one product those
+  renders wanted, invisible to the tool that needed it. Cross-listed into
+  `garden-lighting` — which was empty, and therefore excluded from the sitemap — and
+  tagged Garden and Living room. `scripts/list-string-lights-outdoors.ts`.
   **1. One product drifted from a console into a coffee table.** The set named the
   Elmley Ivory Console Table (120 × 40cm, 80cm high, glass and faux shagreen) and
   the render shows a low glass-and-brass coffee table. The model kept the materials
