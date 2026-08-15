@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type {
@@ -140,9 +141,12 @@ function ArticleProducts({
                   ) : null}
                 </div>
                 <p className="text-ink group-hover:text-brass font-display mt-4 text-[16px] leading-snug transition-colors">
-                  {/* The keyword half of the title is for the tab, not for a card
-                      in a list of eight. */}
-                  {product.title?.split("|")[0]?.trim()}
+                  {/* The brand suffix is for the browser tab, not for a card in a
+                      list of eight. This was `title.split("|")[0]`, which also threw
+                      away a legitimate pipe — "Provence Dining Set | 4 Seater |
+                      Kaiku" became "Provence Dining Set", losing the one detail that
+                      distinguishes it from the 6-seater. */}
+                  {productDisplayName(product.title ?? "")}
                 </p>
                 {typeof product.price === "number" ? (
                   <p className="text-muted mt-1 text-[13px]">

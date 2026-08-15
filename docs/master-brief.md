@@ -925,17 +925,64 @@ before. If a deploy still errors, the log will now name the variable.
 - [~] **Every description unique**; explains what makes it different, design
   characteristics, materials, practical benefits, suitable rooms, styling,
   customer considerations.
-- [ ] **Empty side panel fix** — decorative line artwork, architectural
+- [x] **Empty side panel fix** — decorative line artwork, architectural
       patterns, organic shapes, botanical line drawings, minimal luxury
       illustration. Not product images. Varied by department: wood-grain lines
       for furniture, water patterns for wellness, garden linework for outdoor.
+      **Seven motifs** in `src/lib/product/artwork.ts` — wood-grain,
+      architectural, water, steam, garden, botanical, radiance — chosen from the
+      department, with a short category override list so a water feature does not
+      get garden linework and a planter does not get paving. Each motif is a
+      generator seeded from the product's own slug, which is how _consistent_ and
+      _varied_ are both satisfied: one visual language per department, no two
+      products drawing the same picture, and the same product drawing the same
+      panel every time — art that changed on refresh would read as a glitch, and a
+      non-deterministic panel is a hydration mismatch on 99 pages.
+      Fills the four panels capped at `max-w-3xl`, which left roughly 400px of bare
+      off-white beside them (Specifications, Delivery, FAQs, Reviews — worst on
+      Reviews, where a new product has three lines of copy in a screen-height
+      band), plus the description column on products with no photograph. `lg:`
+      only: there is no empty space to fill on a phone, so on mobile it would be
+      pure scroll length. Rendered and inspected with
+      `scripts/preview-product-artwork.ts` rather than assumed — garden and
+      radiance were rebuilt after the first pass drew a radar dish and a spider's
+      web, and botanical after it came out emptier than the space it replaced.
+- [!] **The `| Kaiku` suffix is on the page, not just in the tab — your call.**
+  Found while photographing the artwork in place, and it is one line to fix
+  either way. The `<h1>` on every product page reads _"13.6m Warm White
+  Decorative LED String Lights | Kaiku"_; the Reviews panel builds a sentence
+  round the same string — _"The 13.6m Warm White Decorative LED String Lights
+  | Kaiku is newly listed"_; and the `Product` structured data hands that
+  string to Google as the product's name, which is what can surface in a
+  Shopping listing.
+  I have **not** changed it, because "do not change product names, or strip
+  the `| Kaiku` suffix" is a standing constraint at the top of this file. It is
+  worth knowing that the constraint costs nothing where it was aimed:
+  `src/lib/seo/metadata.ts` keeps the suffix in the `<title>` tag and in the
+  OpenGraph title, so search results and shared links still read
+  "… | Kaiku" whatever you decide here. The question is only whether the
+  shopper sees it inside a sentence on the page.
+  `productDisplayName()` (`src/lib/catalog/product-name.ts`, 7 tests) is built
+  and does the careful version — a _trailing_ brand segment only, so "Provence
+  Dining Set | 4 Seater" keeps the pipe that distinguishes it from the
+  6-seater. **Say the word and it goes on one line in `normalizeProduct`,
+  which is commented with exactly where.** Nothing about product names in
+  Sanity changes either way.
 - [x] **Section formatting** — rules between sections, proper spacing, premium
       typography, no large blocks of text, scannable.
-- [ ] **RETURNS** heading — bold, consistent, clearly visible, on every page.
+- [x] **RETURNS** heading — bold, consistent, clearly visible, on every page.
+      Its own section, not half of "Warranty & Returns", sharing one
+      `panelHeading` constant with Delivery and Warranty so "consistent" stays
+      true as the page changes. Verified rendering on a live product page.
 - [~] **Delivery information** — lead time, availability, delivery method,
   matching the supplier.
 - [ ] **Delivery lead time report.**
-- [ ] **Large furniture disclaimer.**
+- [x] **Large furniture disclaimer** — `DOORSTEP_DELIVERY_NOTE` in its own
+      bordered panel on the Delivery tab of every product `isLargeFurniture()`
+      matches, rather than a line of small print. Doorstep versus room-of-choice
+      is one of the most common causes of a furniture complaint, so a buyer who
+      reads it before ordering does not raise one after. Verified on the Provence
+      4-seater dining set.
 - [~] **Unique, SEO-focused, product-specific FAQs.**
 - [x] **Comparison feature** — price, dimensions, material, colour, features,
       delivery time, availability, specifications, side by side.

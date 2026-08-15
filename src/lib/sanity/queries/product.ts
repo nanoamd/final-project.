@@ -186,6 +186,17 @@ function normalizeProduct<T extends RawProduct | null>(
     raw.gallery.slice(1).find((img) => !img.isStudioShot) ?? raw.gallery[1];
   return {
     ...raw,
+    /* `name` is deliberately left exactly as Sanity has it, brand suffix included.
+     *
+     * Stripping it here would fix a real defect — the <h1> reads "13.6m Warm White
+     * Decorative LED String Lights | Kaiku", the Reviews panel builds a sentence
+     * around the same string, and the Product structured data hands it to Google as
+     * the product's name. It is also forbidden: "Do not change product names, or
+     * strip the `| Kaiku` suffix" is a standing constraint in
+     * docs/master-brief.md, restated more than once.
+     *
+     * So it stays, and the decision is Damien's. `productDisplayName()` exists and
+     * is tested; if he wants the page cleaned up, it goes here, on this line. */
     gallery,
     // An empty Video object — opened in Studio, never filled — must not read as
     // "this product has a video", or the gallery grows a black slide.

@@ -5,6 +5,7 @@ import * as React from "react";
 
 import { AppLink } from "@/components/ui/app-link";
 import { Button } from "@/components/ui/button";
+import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
 import {
   visualiseGarden,
@@ -614,7 +615,7 @@ function ResultStep({
                   ) : null}
                   <span className="min-w-0">
                     <span className="text-canvas block truncate text-[12px] font-medium">
-                      {product.name.split("|")[0]?.trim()}
+                      {productDisplayName(product.name)}
                     </span>
                     <span className="text-brass mt-0.5 block text-[12px]">
                       {formatPrice(product.price)}

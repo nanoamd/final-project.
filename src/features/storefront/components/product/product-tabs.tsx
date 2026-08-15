@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
+import { ProductArtPanel } from "@/components/shared/product-artwork";
 import {
   availabilityLine,
   DOORSTEP_DELIVERY_NOTE,
@@ -151,17 +152,64 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
                 <DescriptionPanel product={product} />
               ) : null}
               {tab.id === "specifications" ? (
-                <SpecsPanel product={product} />
+                <WithSideArt product={product}>
+                  <SpecsPanel product={product} />
+                </WithSideArt>
               ) : null}
               {tab.id === "delivery" ? (
-                <DeliveryPanel product={product} />
+                <WithSideArt product={product}>
+                  <DeliveryPanel product={product} />
+                </WithSideArt>
               ) : null}
-              {tab.id === "faqs" ? <FaqsPanel product={product} /> : null}
-              {tab.id === "reviews" ? <ReviewsPanel product={product} /> : null}
+              {tab.id === "faqs" ? (
+                <WithSideArt product={product}>
+                  <FaqsPanel product={product} />
+                </WithSideArt>
+              ) : null}
+              {tab.id === "reviews" ? (
+                <WithSideArt product={product}>
+                  <ReviewsPanel product={product} />
+                </WithSideArt>
+              ) : null}
             </div>
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Puts the decorative artwork beside a panel that does not fill its width.
+ *
+ * The brief: *"Some product pages contain large unused empty areas beside
+ * descriptions. This space must not remain empty."* This is where that space was.
+ * Specifications, Delivery, FAQs and Reviews are all capped at `max-w-3xl` for
+ * readability — correct, and it leaves roughly 400px of bare off-white to the right
+ * of them on a desktop, worst of all on Reviews, where a new product has two lines
+ * of copy in a band the height of a screen.
+ *
+ * A four-column grid rather than the description's five: the text keeps the width it
+ * already had (the 3-of-4 column is wider than `max-w-3xl`, so the cap still
+ * decides), and the artwork takes the column that was empty. It is `lg:` only —
+ * there is nothing to fill on a phone — and `self-start`, so a short panel does not
+ * stretch it into a tall smear.
+ */
+function WithSideArt({
+  product,
+  children,
+}: {
+  product: SanityProduct;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="grid gap-10 lg:grid-cols-4 lg:gap-16">
+      <div className="lg:col-span-3">{children}</div>
+      <ProductArtPanel
+        product={product}
+        label={product.categoryName}
+        className="aspect-[5/7] self-start lg:sticky lg:top-24"
+      />
     </div>
   );
 }
@@ -224,7 +272,16 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
             className="object-cover"
           />
         </div>
-      ) : null}
+      ) : (
+        // No photograph, so this column was two fifths of nothing. The artwork is
+        // the honest filler: it is decoration and looks like decoration, where a
+        // stretched or repeated product shot would look like a mistake.
+        <ProductArtPanel
+          product={product}
+          label={product.categoryName}
+          className="aspect-[5/7] self-start lg:sticky lg:top-24 lg:col-span-2"
+        />
+      )}
     </div>
   );
 }
