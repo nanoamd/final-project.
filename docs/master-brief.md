@@ -298,6 +298,39 @@ before. If a deploy still errors, the log will now name the variable.
       account cannot reach it, so the tool degrades instead of breaking.
       Request building lives in `src/lib/visualiser/request.ts` with 14 tests, separate
       from the `"use server"` action so it can be exercised outside a Next request.
+- [x] **Then: stage the room, do not sprinkle it.** Damien on the first improved
+      render: _"it just dumps random products"_, _"it needs to completely revamp the
+      garden and even take out stuff"_, _"this was a perfect garden for a sauna"_, and
+      _"the images people send are going to have furniture already in the image so it
+      needs to swap it out"_. Three faults. **Selection was literally random** — shuffle
+      the department, take three — so a decked terrace got an indoor folding shelf and
+      two barrels with nothing to sit on; now curated by role in
+      `src/lib/visualiser/selection.ts` (hero, seating, surface, light, planter, storage
+      last), dearest within a role, variety from rotating candidates rather than
+      shuffling the composition. **The pool was one department wide**, so choosing
+      Outdoor Living made every sauna and the cold plunge ineligible — the most
+      transformative and most valuable things in the catalogue, excluded by a filter
+      from the one tool built to show them off. **And the prompt said the opposite of
+      what it should**: "Add to the scene, do not redecorate it", which is why the tired
+      rocking chair was still competing with the products. It now assumes the space is
+      already furnished and replaces what is there, while the architecture, planting,
+      camera and light stay locked.
+- [~] **Still to improve, from the 14 August living-room render.** Two things visible in
+  an otherwise good result — the sofa and the Abberley sideboard both came back
+  faithful.
+  **1. One product drifted from a console into a coffee table.** The set named the
+  Elmley Ivory Console Table (120 × 40cm, 80cm high, glass and faux shagreen) and
+  the render shows a low glass-and-brass coffee table. The model kept the materials
+  and changed the object, which is the failure mode the "reproduce exactly as
+  photographed" line exists to prevent. Worth trying: state the piece's real
+  dimensions and what kind of furniture it is in the prompt, so "console table,
+  80cm high, stands against a wall" is explicit rather than inferred from a
+  photograph.
+  **2. The staging adds props that are not for sale** — olive trees, pots, bowls,
+  books. Milder than inventing a sofa, and it is what makes the room look designed,
+  but it is the same class of problem: a shopper cannot buy the tree. Either accept
+  it as set dressing or say "no additional furniture or objects beyond those in the
+  reference images, aside from plants already present in the photograph."
 - [!] **Verify the render, and set a spend cap.** I cannot check the output myself —
   there is no `OPENAI_API_KEY` in this environment, and I am not going to ask you to
   paste one into a chat window after what happened with the Sanity token. So:
