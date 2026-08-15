@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildEditForm,
   buildPrompt,
+  describeSize,
   isModelUnavailable,
   outputSize,
 } from "./request";
@@ -164,5 +165,68 @@ describe("isModelUnavailable", () => {
     expect(
       isModelUnavailable(400, '{"error":{"message":"Invalid image format"}}'),
     ).toBe(false);
+  });
+});
+
+describe("describeSize", () => {
+  it("says a big thing in metres and a small thing in centimetres", () => {
+    // The Pennine Barrel sauna, from its supplier's own page.
+    expect(
+      describeSize({ height: 240, width: 180, length: 180, unit: "cm" }),
+    ).toBe("1.8m across, 1.8m deep, 2.4m high");
+    // A side table in metres would be absurd.
+    expect(
+      describeSize({ height: 60, width: 45, length: 45, unit: "cm" }),
+    ).toBe("45cm across, 45cm deep, 60cm high");
+  });
+
+  it("normalises millimetres, which some documents use", () => {
+    // The Bronte sauna is stored in mm and the Pennine in cm. Mixed units in one
+    // prompt would tell the model a 2m sauna is 2000 of something.
+    expect(
+      describeSize({ height: 2000, width: 1200, length: 1100, unit: "mm" }),
+    ).toBe("1.2m across, 1.1m deep, 2m high");
+  });
+
+  it("returns null when there is nothing usable, rather than a wrong number", () => {
+    // Exactly the state the Pennine Barrel was in: an object full of nulls. Silence is
+    // the correct output — it is what made the sauna come back the wrong size, and
+    // inventing a size would have been worse.
+    expect(describeSize(null)).toBeNull();
+    expect(describeSize(undefined)).toBeNull();
+    expect(
+      describeSize({ height: null, width: null, length: null, unit: null }),
+    ).toBeNull();
+    expect(
+      describeSize({ height: 0, width: 0, length: 0, unit: "cm" }),
+    ).toBeNull();
+  });
+
+  it("copes with a partial measurement", () => {
+    expect(describeSize({ height: 200, unit: "cm" })).toBe("2m high");
+  });
+});
+
+describe("buildPrompt with sizes", () => {
+  it("states the real size beside each product", () => {
+    const prompt = buildPrompt([
+      {
+        slug: "saunaplunge-pennine-barrel-6-person-outdoor-sauna",
+        name: "SaunaPlunge™ Pennine Barrel 6-Person Outdoor Sauna | Kaiku",
+        dimensions: { height: 240, width: 180, length: 180, unit: "cm" },
+      },
+    ]);
+    expect(prompt).toContain("2.4m high");
+    expect(prompt).toMatch(/measurements given above are the real sizes/);
+    // Reference points the model can measure against inside the photograph.
+    expect(prompt).toMatch(/decking board 12cm wide/);
+  });
+
+  it("says nothing about size when the document has none", () => {
+    const prompt = buildPrompt([
+      { slug: "a", name: "Something Unmeasured | Kaiku" },
+    ]);
+    expect(prompt).toContain("Image 2: Something Unmeasured | Kaiku");
+    expect(prompt).not.toMatch(/Image 2: Something Unmeasured \| Kaiku —/);
   });
 });

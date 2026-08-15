@@ -36,6 +36,60 @@ export interface VisualiserProductRef {
   slug: string;
   name: string;
   image?: string | null;
+  /** As stored on the product. Units vary — some documents are mm, most are cm. */
+  dimensions?: {
+    length?: number | null;
+    width?: number | null;
+    height?: number | null;
+    unit?: string | null;
+  } | null;
+}
+
+/**
+ * The size of a piece, in a phrase a model can act on.
+ *
+ * Returns null when the document has no usable measurement, so the prompt says nothing
+ * rather than something wrong — and that silence is itself informative: it is how the
+ * Pennine Barrel sauna came back the wrong size. It carried a dimensions object full of
+ * nulls, so the model had nothing to scale against and guessed. Damien: *"the sauna
+ * obviously isn't that big"*.
+ *
+ * Metres above a metre, centimetres below it. A sauna described as "240 × 180 × 180cm"
+ * is harder to picture at a glance than "2.4m long"; a side table in metres is worse.
+ */
+export function describeSize(
+  dimensions: VisualiserProductRef["dimensions"],
+): string | null {
+  if (!dimensions) return null;
+  const unit = (dimensions.unit ?? "cm").toLowerCase();
+  const toCm = (value?: number | null) =>
+    typeof value === "number" && value > 0
+      ? unit === "mm"
+        ? value / 10
+        : unit === "m"
+          ? value * 100
+          : value
+      : null;
+
+  const length = toCm(dimensions.length);
+  const width = toCm(dimensions.width);
+  const height = toCm(dimensions.height);
+  if (!length && !width && !height) return null;
+
+  const say = (value: number) =>
+    value >= 100
+      ? `${Number((value / 100).toFixed(2))}m`
+      : `${Math.round(value)}cm`;
+
+  const parts: string[] = [];
+  // The wider of the two footprint measurements reads as the frontage, which is how
+  // somebody looking at a photograph would describe it.
+  const across = Math.max(length ?? 0, width ?? 0);
+  const deep = Math.min(length ?? Infinity, width ?? Infinity);
+  if (across > 0) parts.push(`${say(across)} across`);
+  if (Number.isFinite(deep) && deep > 0) parts.push(`${say(deep)} deep`);
+  if (height) parts.push(`${say(height)} high`);
+  return parts.join(", ");
 }
 
 export interface ReferenceImage {
@@ -70,7 +124,10 @@ export interface ReferenceImage {
  */
 export function buildPrompt(products: VisualiserProductRef[]): string {
   const list = products
-    .map((product, index) => `Image ${index + 2}: ${product.name}`)
+    .map((product, index) => {
+      const size = describeSize(product.dimensions);
+      return `Image ${index + 2}: ${product.name}${size ? ` — ${size}` : ""}`;
+    })
     .join("\n");
 
   return [
@@ -80,7 +137,8 @@ export function buildPrompt(products: VisualiserProductRef[]): string {
     "",
     "Restyle the space in image 1 as a considered, magazine-quality outdoor room built around these products.",
     "",
-    "Reproduce each product from images 2 onwards exactly as photographed — same shape, same materials, same colour, same proportions. Do not substitute a similar item, do not restyle them, and do not change their finish. Every one must appear, fully visible and unobstructed, at true-to-life scale for the space.",
+    "Reproduce each product from images 2 onwards exactly as photographed — same shape, same materials, same colour, same proportions. Do not substitute a similar item, do not restyle them, and do not change their finish. Every one must appear, fully visible and unobstructed.",
+    "The measurements given above are the real sizes. Scale every piece to them, judged against what is already in the photograph — a standard door is about 2m tall, a decking board 12cm wide, a brick course 7.5cm. Getting the size wrong is worse than getting the placement wrong: somebody is deciding whether it fits their space.",
     "Arrange them as a designer would: a clear focal point, seating and surfaces in a usable relationship to each other, generous space around each piece. Not a row, and not a showroom — a space somebody lives in.",
     "Take out the furniture that is already there and put these pieces in its place. Assume the photograph shows a space that is already furnished: existing chairs, tables, benches, loungers, parasols, clutter, bins and hoses are all removed and replaced, not kept alongside. Nothing that was being sat on or eaten at in image 1 should still be in the result. Leave the space calm and uncluttered.",
     "Keep the architecture and the planting exactly as they are: the building, walls, windows, doors, decking, paving, steps, boundary fences and hedges, established trees and shrubs, and the sky. Keep the camera position, framing and perspective identical to image 1.",

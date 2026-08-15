@@ -29,6 +29,7 @@ import sharp from "sharp";
 import {
   buildEditForm,
   buildPrompt,
+  describeSize,
   FALLBACK_IMAGE_MODEL,
   fetchReferenceImages,
   IMAGE_MODEL,
@@ -78,10 +79,20 @@ async function main() {
   }
 
   const products = await sanity.fetch<
-    { slug: string; name: string; image: string | null }[]
+    {
+      slug: string;
+      name: string;
+      image: string | null;
+      dimensions: {
+        length?: number | null;
+        width?: number | null;
+        height?: number | null;
+        unit?: string | null;
+      } | null;
+    }[]
   >(
     `*[_type == "product" && !(_id in path("drafts.**")) && slug.current in $slugs]{
-      "slug": slug.current, "name": title, "image": gallery[0].asset->url
+      "slug": slug.current, "name": title, "image": gallery[0].asset->url, dimensions
     }`,
     { slugs },
   );
@@ -104,7 +115,8 @@ async function main() {
   );
   for (const product of products)
     console.log(
-      `           ${references.some((r) => r.slug === product.slug) ? "photo" : "NAME ONLY"}  ${product.name}`,
+      `           ${references.some((r) => r.slug === product.slug) ? "photo" : "NAME ONLY"}  ` +
+        `${describeSize(product.dimensions) ?? "NO SIZE"}  ${product.name}`,
     );
   console.log(`\nPrompt\n${prompt}\n`);
 

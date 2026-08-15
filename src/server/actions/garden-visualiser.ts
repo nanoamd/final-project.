@@ -27,6 +27,7 @@ import {
   outdoorPool,
   type SelectableProduct,
 } from "@/lib/visualiser/selection";
+import type { SanityDimensions } from "@/types/sanity-content";
 
 const WEEKLY_LIMIT = 3;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -44,6 +45,13 @@ export interface VisualiserProduct {
   image?: string | null;
   price: number;
   currency: string;
+  /**
+   * Passed through purely so the prompt can state the real size.
+   *
+   * Without it the model guesses scale from context, which is how a 2.4m barrel sauna
+   * came back looking like a shed.
+   */
+  dimensions?: SanityDimensions | null;
 }
 
 export interface VisualiserHotspot {
@@ -179,6 +187,7 @@ function toVisualiserProduct(p: {
   image?: string | null;
   price: number;
   currency: string;
+  dimensions?: SanityDimensions | null;
 }): VisualiserProduct {
   return {
     slug: p.slug,
@@ -187,6 +196,7 @@ function toVisualiserProduct(p: {
     image: p.image,
     price: p.price,
     currency: p.currency,
+    dimensions: p.dimensions ?? null,
   };
 }
 
