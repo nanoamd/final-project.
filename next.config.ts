@@ -43,6 +43,27 @@ const nextConfig: NextConfig = {
   // Statically type <Link href> and router calls; broken internal links fail the build.
   typedRoutes: true,
   images: {
+    /**
+     * Resize through Sanity's CDN, not Vercel's optimiser.
+     *
+     * Every product image on the live site stopped rendering, and the cause was
+     * `/_next/image?url=…` answering **HTTP 402 Payment Required** — Vercel had cut
+     * off image optimisation because the account hit its transformation allowance.
+     * Already-cached images kept working, so the symptom read as "the new products
+     * have no pictures": a new product is the only thing needing a transformation
+     * Vercel had not already done.
+     *
+     * Sanity's CDN does the same job from the same URL, and this codebase already
+     * builds `?w=&h=&fit=&auto=format` URLs for cards and the feed. The old pipeline
+     * asked Sanity for a 1000px JPEG and then paid Vercel to make it a 640px WebP —
+     * two paid transformations for one job, and the second is the one that ran out.
+     *
+     * `remotePatterns` stays for the dev server and for anything that reads it, but
+     * with a custom loader the allowlist is no longer what gates fetching; the loader
+     * passes non-Sanity sources through untouched.
+     */
+    loader: "custom",
+    loaderFile: "./src/lib/sanity/image-loader.ts",
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
     ],

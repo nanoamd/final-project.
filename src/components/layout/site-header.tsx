@@ -133,21 +133,7 @@ export function SiteHeader({
    * Defined by exclusion rather than by listing shapes, since listing shapes is
    * what broke this twice already.
    */
-  /**
-   * `/shop/room/<room>` exactly — the department hub, which is dark again.
-   *
-   * Length 3 and not 4, so `/shop/room/<room>/all` stays the white grid. This is the
-   * one exception to the "every shop route except the index and a product page is
-   * white" rule below, and it needs to be an exception in both places at once: the
-   * theme, and whether the header draws its own room bar. The hub renders
-   * `CollectionIndex`, which draws no drill-nav of its own, so the header's bar is
-   * the only one on the page and the duplicated-chrome problem does not return.
-   */
-  const isRoomHub =
-    isShopRoute && segments[1] === "room" && segments.length === 3;
-
-  const isShopAllPage =
-    isShopRoute && segments.length > 1 && !isProductPage && !isRoomHub;
+  const isShopAllPage = isShopRoute && segments.length > 1 && !isProductPage;
 
   const isCollection = isShopRoute && !isProductPage && !isShopAllPage;
   const isHome = pathname === "/";
