@@ -1,16 +1,19 @@
 /**
- * Exports every unpublished draft to a CSV with the facts we hold and the facts a
- * description needs, so the gap can be closed in one pass instead of ninety.
+ * Exports every unpublished draft to a CSV holding every fact we have about it, so
+ * ninety descriptions can be written without going back to Studio and the supplier's
+ * site for each one.
  *
- * Damien asked whether all the drafts could be given unique, SEO-maximised
- * descriptions in the format he has been writing by hand, leaving prices as his only
- * remaining job. The honest answer needed an audit first, and the audit is why this
- * file exists.
+ * **Damien is writing the descriptions himself.** That changes what this sheet is for.
+ * It was first built to ask him for the facts a description needs; since then
+ * scripts/enrich-from-supplier.ts has filled material, colour, weight and barcode on
+ * 91 drafts from the supplier's own specification tables, so asking for them again
+ * would waste the one thing the sheet is meant to save. It now hands over what we hold
+ * and asks only for what is genuinely still missing.
  *
- * **What the 98 drafts actually hold:** 96 have images, 91 have dimensions, 91 name a
- * supplier. And then: **0 have material, colour, style or room tags, 5 have any
- * specs, 4 have a SKU.** Nothing carries a finish, a construction, an assembly note
- * or an origin.
+ * **What the drafts held when this was first written:** 96 had images, 91 had
+ * dimensions, 91 named a supplier. And then: **0 had material, colour, style or room
+ * tags, 5 had any specs, 4 had a SKU.** Nothing carried a finish, a construction, an
+ * assembly note or an origin.
  *
  * His handwritten format asks for exactly those things. A single Reclaimed Teak
  * Sideboard entry states "Material: Reclaimed Solid Teak Wood", "Origin: Handcrafted
@@ -62,12 +65,19 @@ interface Row {
   price: number | null;
   images: number;
   hasDescription: boolean;
+  words: number;
   dimensions: {
     length?: number | null;
     width?: number | null;
     height?: number | null;
     unit?: string | null;
   } | null;
+  weight: { value?: number | null; unit?: string | null } | null;
+  materialTags: string[] | null;
+  colourTags: string[] | null;
+  primaryColour: string | null;
+  gtin: string | null;
+  sourceUrl: string | null;
 }
 
 const QUERY = /* groq */ `
@@ -80,7 +90,10 @@ const QUERY = /* groq */ `
   price,
   "images": count(gallery),
   "hasDescription": count(description) > 0,
-  dimensions
+  // Length is the useful signal, not presence: a stub of two lines and a finished
+  // 900-word page both count as "has description".
+  "words": round(length(pt::text(description)) / 5.5),
+  dimensions, weight, materialTags, colourTags, primaryColour, gtin, sourceUrl
 } | order(title asc)`;
 
 /**
@@ -113,6 +126,11 @@ function dimensionText(row: Row): string {
   return parts.length ? `${parts.join(" x ")}${unit}` : "";
 }
 
+function weightText(row: Row): string {
+  const value = row.weight?.value;
+  return value ? `${value}${row.weight?.unit ?? "kg"}` : "";
+}
+
 /** RFC 4180: quote everything, double any inner quote. Titles contain commas. */
 const cell = (value: string | number | null | undefined) =>
   `"${String(value ?? "").replace(/"/g, '""')}"`;
@@ -126,18 +144,24 @@ async function main() {
     groups.set(key, [...(groups.get(key) ?? []), row]);
   }
 
+  // Everything before "Price" is a fact we hold, for writing from. Everything after
+  // it is still missing, and only the supplier or Damien can supply it.
   const header = [
     "Collection",
     "Product",
     "Category",
     "Supplier",
-    "Dimensions (held)",
+    "Dimensions",
+    "Weight",
+    "Material",
+    "Colour",
+    "Barcode",
+    "Supplier page",
     "Images",
-    "Has description",
+    "Description words",
     "Price (YOURS)",
-    "Material / finish (NEEDED)",
-    "Assembly (NEEDED)",
-    "Indoor / outdoor (NEEDED for lights + garden)",
+    "Assembly (still needed)",
+    "Indoor / outdoor (still needed for lights + garden)",
     "Anything else worth saying",
   ];
 
@@ -158,10 +182,18 @@ async function main() {
           row.category ?? "NO CATEGORY",
           row.supplier ?? "",
           dimensionText(row),
+          weightText(row),
+          (row.materialTags ?? []).join(", "),
+          // primaryColour is what the filter bar swatches; the tags are what it filters.
+          [row.primaryColour, ...(row.colourTags ?? [])]
+            .filter(Boolean)
+            .filter((value, index, all) => all.indexOf(value) === index)
+            .join(", "),
+          row.gtin ?? "",
+          row.sourceUrl ?? "",
           row.images,
-          row.hasDescription ? "yes" : "",
+          row.hasDescription ? row.words : "",
           row.price ?? "",
-          "",
           "",
           "",
           "",
@@ -178,9 +210,22 @@ async function main() {
   await writeFile(file, `${lines.join("\n")}\n`, "utf8");
 
   const needing = rows.filter((row) => !row.hasDescription).length;
+  const held = (pick: (row: Row) => unknown) =>
+    rows.filter((row) => {
+      const value = pick(row);
+      return Array.isArray(value) ? value.length > 0 : Boolean(value);
+    }).length;
+
   console.log(
     `\n${rows.length} unpublished drafts in ${groups.size} collections.\n` +
       `${needing} need a description; ${rows.filter((r) => r.price === null).length} need a price.\n\n` +
+      `Facts the sheet hands you, out of ${rows.length}:\n` +
+      `  ${held((r) => r.dimensions?.height)} dimensions   ` +
+      `${held((r) => r.weight?.value)} weight   ` +
+      `${held((r) => r.materialTags)} material   ` +
+      `${held((r) => r.colourTags)} colour   ` +
+      `${held((r) => r.gtin)} barcode   ` +
+      `${held((r) => r.sourceUrl)} supplier page\n\n` +
       `Largest collections — one answer here covers every product in the group:\n`,
   );
   for (const [name, list] of ordered.slice(0, 15))
