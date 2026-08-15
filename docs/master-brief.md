@@ -391,8 +391,19 @@ before. If a deploy still errors, the log will now name the variable.
       filenames claiming 2000×2000); 15 products have image changes sitting
       unpublished in a draft, which is exactly what "it reverted after
       deployment" looks like; nine images are genuinely too small.
-- [!] **Publish the 15 drafts** — listed in the audit. Left for you on purpose: a
-  draft can carry half-finished text changes alongside the image change.
+- [!] **101 products exist only as never-published drafts, and 95 of them are
+  blocked on price.** Damien said "we have more than 127 products" — he is
+  right, and this is where they are. 127 are published; 121 further draft
+  documents exist, 101 of which have never been published, so from outside the
+  shop they do not exist at all: no page, no sitemap entry, no Merchant Center
+  listing. Of those 101, **6 are complete and ready**, and **every one of the
+  other 95 is missing a price** (88 also missing summary and description).
+  Prices are yours — "do not import prices from supplier feeds" is a standing
+  constraint — so this is the single field standing between the catalogue nearly
+  doubling and staying where it is. `scripts/publish-ready-drafts.ts` reports
+  readiness and publishes only the complete ones; dry run by default, because
+  `--apply` makes products buyable on a live shop. **The 6 are waiting on your
+  word.**
 - [!] **Re-upload the two 146×146 Hampton images** from D.I. Designs. The
   original is gone; re-publishing cannot recover it.
 - [x] **Automated image ordering** — `scripts/derive-studio-shots.ts` classifies
@@ -963,6 +974,23 @@ before. If a deploy still errors, the log will now name the variable.
 ---
 
 ## Part 5 — Product pages and conversion
+
+- [x] **Department tabs open the dark category hub again; category tiles open the
+      white grid.** One release sent both `/shop/[category]` and
+      `/shop/room/[room]` to the white product grid, which was an overcorrection:
+      the complaint it answered was about _categories_ landing on the black page,
+      and a department is a different kind of thing. "Outdoor Living" is a hub of
+      eleven categories, and flattening it into one grid of every product in the
+      department discards the only structure a shopper has. Now
+      `/shop/room/<room>` is the dark hub, `/shop/room/<room>/all` is every product
+      in it, and `/shop/<category>` is the white grid — so the room title opens the
+      hub and a category tile opens the products. Dropping `searchParams` from the
+      room route also restored static generation for the eleven department pages.
+- [x] **The "All Collections" count is now the number a shopper can reach.** It was
+      `count(*[_type == "product"])` with no filter at all — it counted products
+      with no category, which have no URL and appear in no listing, and would have
+      counted all 101 unpublished drafts the moment the client running it carried a
+      token. Now the same predicate every listing uses.
 
 - [~] **Consistent premium structure**, all 14 sections in order.
 - [~] **Every description unique**; explains what makes it different, design

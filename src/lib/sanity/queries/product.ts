@@ -587,7 +587,24 @@ export async function searchProducts(
   return normalizeProducts(raw);
 }
 
-const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[_type == "product"])`;
+/**
+ * The number of products a shopper can actually reach.
+ *
+ * This was `count(*[_type == "product"])` — every product document, with no filter
+ * at all. It is rendered as "All Collections — N" on the department hubs, so it is a
+ * claim made to a customer, and it counted things they cannot get to: a product with
+ * no category has no URL and appears in no listing, and the count would include
+ * every unpublished draft the moment the client that runs it ever carried a token.
+ * With 102 never-published drafts sitting in the dataset, that is not a hypothetical
+ * off-by-one.
+ *
+ * Now the same predicate every listing uses, so the number and the pages agree.
+ */
+const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[
+  _type == "product"
+  && !(_id in path("drafts.**"))
+  && defined(category->slug.current)
+])`;
 
 export async function getTotalProductCount(): Promise<number> {
   return sanityFetch<number>(TOTAL_PRODUCT_COUNT_QUERY, {}, 0);
