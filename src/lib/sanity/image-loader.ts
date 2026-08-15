@@ -33,6 +33,19 @@
 /** Sanity's CDN. The only remote host next.config.ts permits. */
 const SANITY_CDN = "https://cdn.sanity.io/";
 
+/**
+ * The source pixel width, read out of the asset filename.
+ *
+ * Sanity encodes the original dimensions in every asset path —
+ * `…/e9c281ea-2000x2000.jpg` — which is the only reason the clamp below is possible
+ * without a second network call.
+ */
+function sourceWidth(pathname: string): number | null {
+  const match = /-(\d+)x(\d+)\.[a-z0-9]+$/i.exec(pathname);
+  const width = match ? Number(match[1]) : NaN;
+  return Number.isFinite(width) && width > 0 ? width : null;
+}
+
 export default function sanityImageLoader({
   src,
   width,
@@ -53,17 +66,34 @@ export default function sanityImageLoader({
     return src;
   }
 
+  /**
+   * Never ask for more pixels than were photographed.
+   *
+   * **Sanity upscales, and Vercel's optimiser did not.** Asked for `w=3840` from a
+   * 1600×1600 source, Sanity returns a real 3840×3840 image: 84KB and 2.6s cold,
+   * against 4.7KB at 640px — for a picture that cannot contain any more detail than
+   * the 1600px original already held. Next puts its largest device size in the plain
+   * `src` as a fallback, so every image on the page was fetching an upscale, which is
+   * why the site got slower the moment it stopped going through Vercel.
+   *
+   * Clamping is better than capping `deviceSizes` globally, because it adapts to each
+   * asset: a 4000px sauna photograph can still serve 2048, while a 700px supplier
+   * thumbnail stops at 700 instead of being blown up to five times its size.
+   */
+  const source = sourceWidth(url.pathname);
+  const requested = source ? Math.min(width, source) : width;
+
   const previousWidth = Number(url.searchParams.get("w"));
   const previousHeight = Number(url.searchParams.get("h"));
 
   // Scale a paired height by the same factor, so a 4:5 card stays 4:5 rather than
   // becoming a narrow vertical slice of the product.
   if (previousWidth > 0 && previousHeight > 0) {
-    const scaled = Math.round((previousHeight / previousWidth) * width);
+    const scaled = Math.round((previousHeight / previousWidth) * requested);
     url.searchParams.set("h", String(Math.max(1, scaled)));
   }
 
-  url.searchParams.set("w", String(width));
+  url.searchParams.set("w", String(requested));
   // 75 matches Next's own default, so nothing looks softer than it did.
   url.searchParams.set("q", String(quality ?? 75));
   // Serve WebP/AVIF to browsers that accept it — the other half of what the Vercel

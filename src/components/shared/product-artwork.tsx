@@ -93,12 +93,19 @@ export function ProductArtwork({
 }
 
 /**
- * The framed side panel: artwork on the paper surface, with a small label.
+ * The artwork drawn straight onto the page, with a small label.
+ *
+ * **No border, no surface, no rounded corners.** It was a white card on the canvas —
+ * `bg-paper` inside a `border-line` box — which made it read as an image that had
+ * failed to load rather than as part of the page. Drawn transparently on the site's
+ * own background it becomes what it was always meant to be: decoration in the paper,
+ * not a picture pinned to it. It also means the product photograph can scroll *over*
+ * it, which a card with its own opaque surface could never do.
  *
  * The label is the one piece of text, and it is factual — the category this product
- * sits in, which the page already states in its breadcrumb. It exists because an
- * unlabelled decorative box beside a specification table reads as a failed image
- * load, and two words of context make the same box read as intentional.
+ * sits in, which the page already states in its breadcrumb. It stays because two
+ * words of context are what make a stretch of decorative line work read as
+ * intentional.
  */
 export function ProductArtPanel({
   product,
@@ -123,14 +130,28 @@ export function ProductArtPanel({
 
   return (
     <div
-      className={cn(
-        "border-line bg-paper relative hidden overflow-hidden rounded-2xl border lg:block",
-        className,
-      )}
+      className={cn("relative hidden overflow-hidden lg:block", className)}
+      // Decoration, and it must never intercept a click meant for the photograph
+      // that now travels across it.
+      aria-hidden
     >
-      <ProductArtwork motif={motif} slug={product.slug} fit={fit} />
+      {/* Fade the lower edge into the paper.
+       *
+       * Without it the drawing stops on a hard horizontal line, which reads as the
+       * bottom of a panel — the exact impression removing the border was meant to
+       * get rid of. Dissolving the last fifth is what makes it look drawn into the
+       * background rather than placed on top of it. */}
+      <div
+        style={{
+          maskImage: "linear-gradient(to bottom, black 78%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 78%, transparent 100%)",
+        }}
+      >
+        <ProductArtwork motif={motif} slug={product.slug} fit={fit} />
+      </div>
       {label ? (
-        <p className="text-muted absolute bottom-4 left-5 text-[10px] font-semibold tracking-[0.18em] uppercase">
+        <p className="text-muted absolute bottom-4 left-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
           {label}
         </p>
       ) : null}

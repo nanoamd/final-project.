@@ -274,8 +274,17 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
          * on, and the brief's wording was "empty areas beside descriptions". It was
          * on the other four tabs only, so on a first visit it was invisible.
          */
-        <div className="self-start lg:sticky lg:top-24 lg:col-span-2">
-          <div className="border-line relative aspect-[4/3] overflow-hidden rounded-2xl border">
+        <div className="relative lg:col-span-2">
+          {/* The photograph travels; the artwork does not.
+           *
+           * The column deliberately does *not* take `self-start` any more, so it
+           * stretches to the description's height and the sticky photo has room to
+           * travel — that behaviour is the thing Damien singled out as worth keeping.
+           * What changed is that the artwork is no longer inside the sticky wrapper:
+           * it sits still in the page while the photograph slides down across it,
+           * which is only possible because the artwork now has no surface of its own.
+           * `z-10` and the photo's own border are what put it on top. */}
+          <div className="border-line relative z-10 aspect-[4/3] overflow-hidden rounded-2xl border lg:sticky lg:top-24">
             <Image
               src={product.image}
               alt={product.name}
@@ -284,17 +293,14 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
               className="object-cover"
             />
           </div>
-          {/* Square: it matches the photo's width for a clean editorial stack, and
-              photo plus artwork still fit inside a laptop viewport — a sticky column
-              taller than the screen can never be scrolled to its own bottom.
-              A square crop of the 400×560 canvas keeps the middle 70%, which costs
-              only the repeating edges (the lowest wave, the last paving course);
-              scaled-to-fit was tried first and left the drawing floating in white
-              margins, which reads as a broken image rather than as decoration. */}
+          {/* Square, matching the photo's width: a square crop of the 400×560 canvas
+              keeps the middle 70%, costing only the repeating edges (the lowest wave,
+              the last paving course). Scaled-to-fit was tried first and left the
+              drawing floating in margins, which read as a broken image. */}
           <ProductArtPanel
             product={product}
             label={product.categoryName}
-            className="mt-3 aspect-square"
+            className="mt-6 aspect-square"
           />
         </div>
       ) : (

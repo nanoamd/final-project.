@@ -102,3 +102,59 @@ describe("sanityImageLoader", () => {
     }
   });
 });
+
+describe("no upscaling", () => {
+  /**
+   * The regression that made the site slower. Sanity happily upscales — asked for
+   * w=3840 from a 1600px source it returns a real 3840x3840 image, 84KB and 2.6s
+   * cold, against 4.7KB at 640px, carrying no more detail than the original. Vercel's
+   * optimiser never did that, and Next puts its largest device size in the plain
+   * `src` as a fallback, so every image on every page was fetching an upscale.
+   */
+  it("clamps the requested width to the source width in the filename", () => {
+    const out = params(sanityImageLoader({ src: ASSET, width: 3840 }));
+    expect(out.get("w")).toBe("2000"); // ASSET is -2000x2000
+  });
+
+  it("still allows anything at or below the source width", () => {
+    for (const width of [128, 640, 1080, 2000]) {
+      expect(params(sanityImageLoader({ src: ASSET, width })).get("w")).toBe(
+        String(width),
+      );
+    }
+  });
+
+  it("adapts per asset rather than applying one global cap", () => {
+    // A large photograph keeps its detail; a small supplier thumbnail is not blown up.
+    const big = "https://cdn.sanity.io/images/p/production/abc-4000x3000.jpg";
+    const small = "https://cdn.sanity.io/images/p/production/def-700x700.jpg";
+    expect(params(sanityImageLoader({ src: big, width: 2048 })).get("w")).toBe(
+      "2048",
+    );
+    expect(
+      params(sanityImageLoader({ src: small, width: 2048 })).get("w"),
+    ).toBe("700");
+  });
+
+  it("scales a paired height against the clamped width, not the asked-for one", () => {
+    // Otherwise a clamp would silently change the aspect ratio of every card.
+    const out = params(
+      sanityImageLoader({
+        src: `${ASSET}?w=1000&h=1250&fit=crop`,
+        width: 3840,
+      }),
+    );
+    expect(out.get("w")).toBe("2000");
+    expect(out.get("h")).toBe("2500"); // 2000 x (1250/1000)
+  });
+
+  it("passes the width through when the filename carries no dimensions", () => {
+    // Not every asset path is named that way, and guessing a cap would crop detail
+    // out of images that genuinely have it.
+    const odd =
+      "https://cdn.sanity.io/images/p/production/no-dimensions-here.jpg";
+    expect(params(sanityImageLoader({ src: odd, width: 1600 })).get("w")).toBe(
+      "1600",
+    );
+  });
+});
