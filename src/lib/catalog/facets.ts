@@ -86,7 +86,27 @@ export const MATERIAL_GROUPS = [
   },
   {
     group: "Stone & glass",
-    tags: ["Marble", "Glass", "Mirrored glass", "Concrete", "Faux concrete"],
+    tags: [
+      "Marble",
+      "Glass",
+      "Mirrored glass",
+      "Concrete",
+      "Faux concrete",
+      /**
+       * Ceramic was missing, and it is not a small gap: a large share of the table
+       * lamps are ceramic and could not be tagged by material at all. Found by
+       * mapping the supplier's own material field across 91 products, where
+       * `ceramic` had nowhere honest to go — see scripts/enrich-from-supplier.ts,
+       * which records unmapped values rather than fudging them.
+       *
+       * Grouped with stone and glass because that is what a shopper filtering for
+       * a hard, fired, non-timber finish is after; it is not a fabric and it is
+       * not "Other".
+       */
+      "Ceramic",
+      /** Stoneware is a ceramic body, and the supplier lists both. */
+      "Stoneware",
+    ],
   },
   { group: "Metal", tags: ["Steel", "Metal", "Brass"] },
   {
@@ -102,6 +122,18 @@ export const MATERIAL_GROUPS = [
       "Resin",
       "High gloss",
       "Himalayan salt",
+      /**
+       * Also missing, and a genuine choice rather than a compromise: several garden
+       * tables and the LED light strings are plastic, and a shopper who wants
+       * lightweight, weatherproof and wipe-clean is filtering for exactly that.
+       *
+       * It is deliberately NOT the home for the supplier's "synthetic fibres",
+       * which is the rattan-effect weave on the outdoor sets. That stays untagged —
+       * the Materials field's own description excludes a material the piece only
+       * imitates, and a shopper filtering Plastic does not want a woven lounger any
+       * more than one filtering Rattan wants a resin one.
+       */
+      "Plastic",
     ],
   },
 ] as const;

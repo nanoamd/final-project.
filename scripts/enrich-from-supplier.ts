@@ -271,13 +271,15 @@ const MATERIAL_MAP: Record<string, string | null> = {
   mdf: "MDF",
   // Present in MATERIAL_GROUPS and missed on the first pass.
   "mirrored glass": "Mirrored glass",
-  plastic: null,
+  // Added to facets.ts after this script's dry run reported them as unmapped.
+  plastic: "Plastic",
+  ceramic: "Ceramic",
+  stoneware: "Stoneware",
+  // Still null, and deliberately. "Synthetic fibres" is the supplier's term for the
+  // rattan-effect weave on the outdoor sets, and the Materials field excludes a
+  // material the piece only imitates. Rope has no canonical home.
   "synthetic fibres": null,
   "synthetic fibre": null,
-  // Genuinely absent from facets.ts, not fudged here — a good number of the lamps
-  // are ceramic and cannot currently be tagged at all. Worth adding to the
-  // vocabulary rather than mapping to something it is not.
-  ceramic: null,
   rope: null,
   stone: null,
   paper: null,
