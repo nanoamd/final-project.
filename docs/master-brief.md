@@ -987,11 +987,84 @@ before. If a deploy still errors, the log will now name the variable.
       `bathroom-accessories` directly, which is empty. **No application needed; this
       is listable tonight.** It should have been the first suggestion, not
       Ankorstore.
-- [!] **11 categories genuinely need stock** and cannot be filled from the
+- [!] **9 categories genuinely need stock** and cannot be filled from the
   catalogue, because nothing in it is one of these things: bathroom-accessories,
   bathroom-lighting, fire-pits, garden-lighting, kitchen-furniture,
-  kitchen-lighting, privacy-screens, rugs, towel-rails, water-features — plus
-  pergolas, untouched by instruction.
+  kitchen-lighting, privacy-screens, towel-rails, water-features — plus
+  pergolas, untouched by instruction. **Rugs came off this list** — see below.
+- [~] **Five new Decor categories filled from Hill Interiors (395 drafts).
+  Rugs filled from Viva Rugs, then all 564 of those drafts were deleted
+  two days later — unresolved, see below.** — "import as many products as
+  you like from hill interiors, di designs and viva rugs, can be 200 plus
+  too fill up the categories, ill work through them this week." Two of the
+  three suppliers were legitimately open to reading; the third was checked
+  and is not.
+  - **D.I. Designs: still fully bot-protected, not attempted.** A direct,
+    non-destructive check (`curl` to its own `robots.txt`) returns HTTP 202
+    with `sg-captcha: challenge` and `x-robots-tag: noindex` — the CAPTCHA
+    gate you have refused to defeat covers even that file. Nothing was
+    fetched from them.
+  - **Viva Rugs** publishes a public Shopify `/products.json` feed and its own
+    `robots.txt` says plainly that the catalogue is crawlable, naming an
+    agent-discovery sitemap for exactly this kind of reading.
+    `scripts/import-viva-rugs.ts` created 564 drafts into `rugs` on 15–16
+    August, one per _design_ rather than per size (Viva sell three sizes as
+    three variants; Kaiku's schema holds one set of dimensions per product, so
+    each draft used the smallest currently-in-stock size — a real, buyable
+    figure rather than an invented "one size"). Titles were rewritten from the
+    product's own colour and pattern facts, never kept from the supplier —
+    their own titles are SEO keyword-stuffing ("Deep Purple Rug Geometric
+    Large XL Small Soft Modern Room Carpet Abstract Rug").
+    **All 564 are gone as of this check — deleted, not published.** Sanity's
+    own transaction history (`/data/history/production/transactions/<id>`,
+    checked directly, not inferred) shows every `drafts.viva-rug-*` document
+    created 15–16 August and then hit with a `delete` mutation in a tight
+    window on **17 August, 17:30–18:19**. A sampled one
+    (`drafts.viva-rug-6066883952793`) had been opened, patched and
+    `createOrReplace`d several times in Studio between creation and deletion —
+    somebody was actively working in it before it was removed. Nothing
+    published under a `viva-rug-*` id exists either, so this was not "edited
+    then went live"; the content is simply gone. The five Hill Interiors Decor
+    categories, imported the same way in the same window, were **not**
+    touched — only the rugs batch was removed, which reads as a deliberate,
+    rugs-specific decision rather than a blanket rejection of the import
+    method. **Not re-run.** Recreating 564 drafts someone appears to have
+    deliberately deleted — after working inside at least one of them — needs
+    your word first, not a second guess: was this you clearing out a batch you
+    didn't want, a mistake, or something else? Say the word and it goes back
+    in five minutes; `scripts/import-viva-rugs.ts` is unchanged and the
+    supplier feed is still there to re-read.
+  - **Hill Interiors** is a trade account already open, with 1,545 of 1,662
+    items in the account unused (`scripts/supplier-coverage.ts`). Five Decor
+    categories did not previously exist — `wall-clocks`, `candles-and-lanterns`,
+    `vases`, `wall-art`, `mirrors` — created by `scripts/create-decor-categories.ts`
+    and filled by `scripts/import-hill-decor.ts`: **395 drafts**, confirmed by
+    a direct Sanity count, not the log (candles-and-lanterns 201, vases 114,
+    wall-clocks 31, mirrors 25, wall-art 24). The first apply run was
+    interrupted by a genuine network drop (`ECONNRESET` mid-fetch, not a logic
+    bug) after 390 of 405 candidates; re-running `--apply` is safe and
+    idempotent (it checks each item's supplier code against what already
+    exists before creating anything), and it picked up the remaining 5 on the
+    second pass. 9 items could not be parsed (no readable title/code on the
+    page) and were skipped, not guessed at. **Confirmed still present today**,
+    unlike the Viva Rugs batch above.
+  - **Every draft from both suppliers has photographs, dimensions where the
+    supplier states them, material and colour tags mapped to Kaiku's own
+    closed vocabulary, and a category. None has a price, a summary or a
+    description — those stay yours to write, same as every other import this
+    project has done.** A priceless product cannot be published (the schema
+    requires one), so nothing here is visible on the site until you set a
+    price.
+  - Real supplier data widened Kaiku's own material vocabulary rather than
+    dropping facts that did not fit an existing tag: `src/lib/catalog/facets.ts`
+    gained `Polypropylene`, `Cotton`, `Wool` and `Polyester` under Fabric —
+    Viva Rugs' catalogue is almost entirely these four fibres.
+  - **AliExpress**, the fallback you raised for filling categories like
+    outdoor kitchens: not used. Between UK Furniture and Furnishings Fire
+    Safety Regulations, GPSR, plug/WEEE compliance as importer of record, and
+    Merchant Center suspension risk for duplicate-content listings, it is a
+    materially different risk profile from a UK trade account — flagged for
+    you to weigh, not acted on unilaterally.
 - [ ] **Category page value** — listings plus SEO content, filters, buying
       guides, FAQs, related categories.
 
