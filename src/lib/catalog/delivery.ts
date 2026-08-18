@@ -64,10 +64,69 @@ export function availabilityLine(product: SanityProduct): string {
   }
 }
 
-/** "Delivered in 3–4 weeks", or null when the product does not say. */
-export function leadTimeLine(product: SanityProduct): string | null {
-  const lead = product.deliveryLeadTime?.trim();
-  if (!lead) return null;
-  // Reads as a sentence whether the value is "3–4 weeks" or "2–5 days".
-  return `Delivered in ${lead}`;
+/**
+ * Kaiku's standard delivery windows, by price. Damien's rule, verbatim:
+ * "under £50 should be 7-14 days delivery and over 50 should be 2-3 weeks and
+ * above 120 should be 3-4 weeks shipping".
+ *
+ * Price is the band, not weight or supplier, deliberately: it is the one
+ * figure every product in the catalogue actually has (unlike weight, unset on
+ * most of it — see isLargeFurniture's note), so a band derived from it can be
+ * stated on all 235 published products without a single gap or guess. Kaiku
+ * sells nothing cheap that is also slow, so price tracks fulfilment
+ * complexity closely enough to promise on.
+ *
+ * This is the **default**, not an override. A product carrying a genuine,
+ * supplier-confirmed `deliveryLeadTime` keeps it — see `deliveryWindow`.
+ */
+export function standardWindowForPrice(price: number): string {
+  // Boundaries read exactly as Damien wrote them: "under £50" excludes £50
+  // itself, and "above 120" excludes £120 itself — so £50 is 2–3 weeks and
+  // £120 is still 2–3 weeks, not 3–4.
+  if (price < 50) return "7–14 days";
+  if (price <= 120) return "2–3 weeks";
+  return "3–4 weeks";
+}
+
+/**
+ * Suppliers whose lead times are real, quoted commitments rather than Kaiku's
+ * own standard bands — made-to-order goods built after the order is placed.
+ *
+ * The SaunaPlunge range is 4–6 weeks because that is how long Outdoor Living
+ * 365 take to build one, stated in each product's own delivery copy. Every
+ * sauna is over £120, so the band above would otherwise print "3–4 weeks" on
+ * a £6,500 cabin that genuinely takes six — a promise the supplier cannot
+ * keep. Damien's call when this conflict was put to him: the real lead time
+ * wins, the band is for everything else.
+ */
+const CONFIRMED_LEAD_TIME_SUPPLIERS = [/^SaunaPlunge/i];
+
+function hasConfirmedLeadTime(supplierName?: string | null): boolean {
+  return Boolean(
+    supplierName &&
+    CONFIRMED_LEAD_TIME_SUPPLIERS.some((pattern) => pattern.test(supplierName)),
+  );
+}
+
+/**
+ * The delivery window to state for this product — one answer, used by every
+ * surface that mentions delivery, so the product page, the cart, the
+ * Merchant feed, the comparison table and the confirmation email cannot
+ * disagree with each other.
+ *
+ * A supplier-confirmed lead time wins where one exists; otherwise the price
+ * band applies. Never returns null: a product with no recorded lead time
+ * still has a price, so it still has an honest window to state — which is the
+ * point, since "Delivery: not specified" on a £300 table is precisely the
+ * kind of gap that costs a sale.
+ */
+export function deliveryWindow(product: SanityProduct): string {
+  const recorded = product.deliveryLeadTime?.trim();
+  if (recorded && hasConfirmedLeadTime(product.supplier?.name)) return recorded;
+  return standardWindowForPrice(product.price ?? 0);
+}
+
+/** "Delivered in 3–4 weeks" — always answers, per `deliveryWindow`. */
+export function leadTimeLine(product: SanityProduct): string {
+  return `Delivered in ${deliveryWindow(product)}`;
 }

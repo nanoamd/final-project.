@@ -23,6 +23,7 @@ import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { useSavedProducts } from "@/hooks/use-saved-products";
 import { trackAddToCart } from "@/lib/analytics/events";
+import { leadTimeLine } from "@/lib/catalog/delivery";
 import { selectableOptions } from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
@@ -296,11 +297,11 @@ export function ProductSummary({
               />
               {product.stockStatus}
             </span>
-            {product.deliveryLeadTime ? (
-              <span className="text-muted">
-                Delivered in {product.deliveryLeadTime}
-              </span>
-            ) : null}
+            {/* deliveryWindow, not the raw field — so the buy-box, the
+                delivery panel below, the comparison table and the
+                confirmation email all state the same window for the same
+                product. See src/lib/catalog/delivery.ts. */}
+            <span className="text-muted">{leadTimeLine(product)}</span>
           </div>
           {product.stockStatus === "In Stock" &&
           typeof product.stockQuantity === "number" &&

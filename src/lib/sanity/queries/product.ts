@@ -652,6 +652,10 @@ export interface MerchantFeedProduct {
   stockStatus: string;
   /** Same string the product page renders; parsed into handling days. */
   deliveryLeadTime: string | null;
+  /** Needed to apply the same delivery rule the storefront applies — a
+   * made-to-order supplier's real lead time beats the price band. See
+   * src/lib/catalog/delivery.ts. */
+  supplierName: string | null;
 }
 
 const MERCHANT_FEED_QUERY = /* groq */ `
@@ -673,7 +677,8 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   mpn,
   sku,
   stockStatus,
-  deliveryLeadTime
+  deliveryLeadTime,
+  "supplierName": supplier->name
 }`;
 
 /**

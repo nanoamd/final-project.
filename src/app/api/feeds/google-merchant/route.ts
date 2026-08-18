@@ -1,6 +1,8 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
+import { deliveryWindow } from "@/lib/catalog/delivery";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
+import type { SanityProduct } from "@/types/sanity-content";
 
 export const revalidate = 3600;
 
@@ -165,7 +167,18 @@ export async function GET() {
       const link = `${siteUrl}/shop/${product.category}/${product.slug}`;
       const priceValue = `${product.price.toFixed(2)} ${(product.currency || "GBP").toUpperCase()}`;
       const type = productType(product);
-      const handling = handlingDays(product.deliveryLeadTime);
+      // The same window the product page states, via the shared rule — a feed
+      // that promised a different lead time from the page it links to is
+      // exactly the misrepresentation Merchant Center suspends accounts for.
+      const handling = handlingDays(
+        deliveryWindow({
+          price: product.price,
+          deliveryLeadTime: product.deliveryLeadTime ?? undefined,
+          supplier: product.supplierName
+            ? { name: product.supplierName }
+            : null,
+        } as SanityProduct),
+      );
 
       return `  <item>
     <g:id>${escapeXml(product.slug)}</g:id>

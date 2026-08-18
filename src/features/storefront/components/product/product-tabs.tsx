@@ -57,7 +57,7 @@ function bandFeatures(
     title: "Free UK delivery",
     // leadTimeLine, not a second copy of the same template — the band and the
     // delivery panel below it must not be able to word this differently.
-    copy: leadTimeLine(product) ?? "Included in the price",
+    copy: leadTimeLine(product),
   });
 
   features.push({
@@ -370,12 +370,10 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
               so the one thing every buyer wants to know was the one thing the
               panel did not say. */}
           <dl className="mt-3 space-y-1.5 text-[14px] leading-relaxed">
-            {leadTime ? (
-              <div>
-                <dt className="sr-only">Lead time</dt>
-                <dd className="text-ink font-medium">{leadTime}</dd>
-              </div>
-            ) : null}
+            <div>
+              <dt className="sr-only">Lead time</dt>
+              <dd className="text-ink font-medium">{leadTime}</dd>
+            </div>
             <div>
               <dt className="sr-only">Availability</dt>
               <dd className="text-graphite">{availabilityLine(product)}</dd>
