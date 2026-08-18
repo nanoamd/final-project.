@@ -12,6 +12,7 @@ import { post } from "./documents/post";
 import { priceAdjustment } from "./documents/price-adjustment";
 import { product } from "./documents/product";
 import { quoteRequest } from "./documents/quote-request";
+import { skuAssignment } from "./documents/sku-assignment";
 import { supplier } from "./documents/supplier";
 import { dimensions } from "./objects/dimensions";
 import { faqEntry } from "./objects/faq-entry";
@@ -49,6 +50,7 @@ export const schemaTypes = [
   collection,
   product,
   priceAdjustment,
+  skuAssignment,
   brand,
   supplier,
   author,
