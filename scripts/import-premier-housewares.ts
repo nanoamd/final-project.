@@ -74,23 +74,39 @@ const client = createClient({
 });
 
 /**
- * Outdoor first, on purpose — see the file header. `mirrors` excludes "tray" for
- * the same reason scripts/import-hill-decor.ts does: a handful of decorative
- * hanging trays have "mirror" in the name and are not wall mirrors.
- */
-/**
- * "Rattan" alone is not enough for garden-furniture: Premier Housewares uses it
- * for pendant lampshades, mirror frames and baskets just as often as for a
- * chair, so a bare `/rattan/` match put "Jaya Black Rattan Overlapping Pendant
- * Light" in the furniture range on the first dry run. Requiring a furniture
- * noun as well, and excluding titles that are clearly something else (a
- * light, a mirror, a cushion), is what a plain material-word regex can't do
- * alone.
+ * Outdoor first, on purpose — see the file header.
+ *
+ * Every bucket below is title-only (cheap, and it has to run before a page is
+ * fetched to build the candidate list at all), which means each one needs its
+ * own answer to "what does this supplier call something that isn't actually
+ * this category?" — a lesson learned three times over on the first dry runs:
+ *
+ * - `garden-furniture`: "rattan" alone is a material Premier Housewares uses
+ *   for pendant lampshades and mirror frames as often as a chair, so it needs
+ *   a furniture noun as well *and* an exclusion list, and even that isn't
+ *   enough on its own — see the `categoryPath` check in the main loop below,
+ *   which is the real backstop for indoor rattan furniture wearing the same
+ *   words as a patio set.
+ * - `wall-art`: a bare "canvas" catches canvas storage trunks, canvas
+ *   laundry hampers and a canvas-and-leather wall *mirror* — genuine wall art
+ *   always says so in one of a handful of set phrases, so the bucket matches
+ *   on those instead of the material.
+ * - `mirrors`: "mirror" is also what the supplier calls a mirrored tabletop,
+ *   a mirror-faced wall clock and a mirrored coat hook — none of them a
+ *   mirror to hang on a wall. Excluding the other product nouns that
+ *   "mirror(ed)" shows up next to catches these without needing a per-page
+ *   fetch the way garden-furniture does.
  */
 const FURNITURE_NOUN =
   /\b(chair|sofa|table|bench|stool|footstool|set|suite|day ?bed|chaise|swing|hammock|parasol|lounger|shelving)\b/i;
 const NOT_FURNITURE =
   /light|lamp|shade|mirror|clock|vase|planter|cushion|rug|throw|pillow|tray|basket/i;
+const WALL_ART_PHRASE =
+  /\bwall art\b|\bart print|\bframed print|\bcanvas print/i;
+const NOT_WALL_ART =
+  /storage|trunk|hamper|mirror|\btable\b|\btub\b|\bunit\b|\bbag\b|cushion/i;
+const NOT_A_MIRROR =
+  /\bclock\b|\bhook\b|\bhanger\b|\btables?\b|\bcabinet\b|\bwardrobe\b|jewellery|jewelry|\bbox\b|\btray\b|\bshelf\b|\bshelving\b|\bconsole\b|\bchest\b|\bdrawer\b|cushion|tea ?light|candle/i;
 
 const BUCKETS: {
   slug: string;
@@ -128,12 +144,12 @@ const BUCKETS: {
   { slug: "vases", test: (t) => /\bvase\b|\burn\b/i.test(t), outdoor: false },
   {
     slug: "wall-art",
-    test: (t) => /canvas|wall art|framed print|art print/i.test(t),
+    test: (t) => WALL_ART_PHRASE.test(t) && !NOT_WALL_ART.test(t),
     outdoor: false,
   },
   {
     slug: "mirrors",
-    test: (t) => /mirror/i.test(t) && !/\btray\b/i.test(t),
+    test: (t) => /mirror/i.test(t) && !NOT_A_MIRROR.test(t),
     outdoor: false,
   },
 ];
