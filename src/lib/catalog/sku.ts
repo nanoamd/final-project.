@@ -235,7 +235,12 @@ export function nameSegment(title: string): string {
   const cleaned = title
     .replace(/\s*\|\s*Kaiku.*$/i, "")
     .replace(/[^A-Za-z\s]/g, " ");
-  const words = cleaned.split(/\s+/).filter(Boolean);
+  // Two letters minimum. Stripping the digits out of a title like "13.6m Warm
+  // White LED String Lights" leaves a bare "m", which identifies nothing and —
+  // worse — fails isCanonicalSku, so every re-run would rewrite the same three
+  // products forever. Found by verifying the applied codes against the format
+  // rather than trusting them.
+  const words = cleaned.split(/\s+/).filter((word) => word.length >= 2);
   const distinctive = words.filter(
     (word) => !NAME_NOISE.has(word.toLowerCase()),
   );

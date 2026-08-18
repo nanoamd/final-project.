@@ -87,6 +87,29 @@ describe("nameSegment", () => {
   it("never exceeds the 12-character cap the format allows", () => {
     expect(nameSegment("Northumberlandshire Sideboard").length).toBe(12);
   });
+
+  it("never yields a one-letter segment from a stripped measurement", () => {
+    // "13.6m" reduces to a bare "m" once digits go, which identifies nothing
+    // and fails isCanonicalSku — so every re-run would rewrite it forever.
+    const segment = nameSegment(
+      "13.6m Warm White Decorative LED String Lights",
+    );
+    expect(segment.length).toBeGreaterThanOrEqual(2);
+    expect(segment).toBe("WARM");
+  });
+
+  it("produces a code that passes its own validity check", () => {
+    for (const title of [
+      "13.6m Warm White Decorative LED String Lights",
+      "2.75m\\9ft Plug-In LED 8 Sequence Warm White Cluster String",
+      "7.2m Plug In LED Warm White Cluster Micro Lights",
+      "Coffee Table",
+      "123 456",
+    ]) {
+      const sku = formatSku(skuStem({ title, categorySlug: "lighting" }), 1);
+      expect(isCanonicalSku(sku), `${title} -> ${sku}`).toBe(true);
+    }
+  });
 });
 
 describe("skuStem", () => {
