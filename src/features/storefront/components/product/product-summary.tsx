@@ -285,7 +285,7 @@ export function ProductSummary({
             </p>
           )}
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Shipping calculated at checkout.
+            Tax included. Free UK delivery.
           </p>
           <div className="text-graphite mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
             <span className="flex items-center gap-2">

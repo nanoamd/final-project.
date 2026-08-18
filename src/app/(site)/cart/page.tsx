@@ -178,7 +178,7 @@ export default function CartPage() {
             </span>
           </div>
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Shipping calculated at checkout.
+            Tax included. Free UK delivery.
           </p>
           {error ? (
             <p className="text-brass mt-4 text-[13px]">{error}</p>
