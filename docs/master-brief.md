@@ -1065,6 +1065,33 @@ before. If a deploy still errors, the log will now name the variable.
     Merchant Center suspension risk for duplicate-content listings, it is a
     materially different risk profile from a UK trade account — flagged for
     you to weigh, not acted on unilaterally.
+- [~] **Third supplier: Premier Housewares, trade account accepted 18 August.**
+  `scripts/import-premier-housewares.ts` (same read-facts-not-prose pattern,
+  see the file's own header) is running now, outdoor categories first per your
+  instruction. One real miscategorisation caught before anything was written:
+  Premier Housewares sells "rattan" as an indoor bohemian-interiors material
+  as often as a garden one, so a title-keyword match alone put an indoor
+  rattan chest of drawers in `garden-furniture`. Fixed by reading each
+  product's own breadcrumb trail (their structured category data, not prose)
+  and only accepting `garden-furniture` candidates the supplier itself filed
+  under "Conservatory and Outdoor". The same check on `wall-art` and
+  `mirrors` found a bare "canvas"/"mirror" keyword catching storage trunks,
+  laundry hampers and mirror-_topped_ furniture — tightened to the phrases and
+  exclusions in the script before the run below started. **Numbers below are
+  provisional — the run was still in progress when this was last updated; see
+  the next commit for final counts.**
+  - `garden-furniture`, `planters`, `outdoor-storage` run first (2,052 total
+    candidates across every bucket combined, before this run had processed
+    any of them).
+  - Then the same five Decor categories Hill Interiors already contributes
+    to — `mirrors`, `vases`, `wall-clocks`, `wall-art`, `candles-and-lanterns`
+    — since you asked for "the most suitable products in the most suitable
+    categories" rather than a capped top-up, so this pulls everything Premier
+    Housewares has that classifies cleanly, not an arbitrary sample.
+  - Same disciplines as every other importer: no price, no summary, no
+    description (yours to write), and no weight — the only weight figure on
+    these pages is packed shipping weight, not the item's own, so it is left
+    unset rather than mislabelled.
 - [ ] **Category page value** — listings plus SEO content, filters, buying
       guides, FAQs, related categories.
 
