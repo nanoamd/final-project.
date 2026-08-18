@@ -222,20 +222,16 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
     // does not need the same width as the copy.
     <div className="grid gap-10 lg:grid-cols-5 lg:gap-16">
       <div className="lg:col-span-3">
-        {/* The panel used to open with a fixed heading, "Designed for wellness.
-            Built for life.", on every product in the catalogue. The description
-            now brings its own section headings, so the summary leads instead —
-            and it is about this product. */}
-        <p className="text-ink max-w-prose text-[17px] leading-relaxed">
-          {product.summary}
-        </p>
+        {/* product.summary is not repeated here — ProductSummary already shows it
+            in the buy-box, above the fold and beside the price, so a shopper has
+            already read it before they ever open this tab. This panel used to
+            lead with it again, which put the same one or two sentences on the
+            page twice; the description's own opening line does that job now. */}
         {product.description?.length ? (
-          <div className="mt-8">
-            <PortableText
-              value={product.description}
-              components={productDescriptionComponents}
-            />
-          </div>
+          <PortableText
+            value={product.description}
+            components={productDescriptionComponents}
+          />
         ) : null}
 
         <div className="border-line mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-8 sm:grid-cols-4">
