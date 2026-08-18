@@ -1097,6 +1097,145 @@ before. If a deploy still errors, the log will now name the variable.
 
 ---
 
+## Part 4.5 — Full commercial audit (18 August)
+
+Damien's brief: stop treating Kaiku as a website project, audit it as an
+actual ecommerce operation — every product, published and unpublished,
+against real supplier facts, real margins, real conversion blockers. **This
+is a multi-week program, not one pass.** What follows is grounded in real
+queries against the live dataset, not estimates, and is honest about what is
+fixed versus found-and-flagged versus still to do.
+
+### Catalogue, as it actually stands
+
+901 total products: **235 published, 666 drafts** (390 Hill Interiors decor +
+some in progress from Premier Housewares, plus the pre-existing 91 Hill
+enrichment drafts and a handful from other suppliers — see the by-supplier
+count below). Published-product field completeness, queried directly:
+0 missing price, cost price, description, summary, delivery lead time, SEO
+or stock status; 93 missing an internal SKU, 36 missing a `supplierSku`, 83
+missing a recorded shipping cost, 81 missing colour tags, 55 missing
+material tags, 7 missing dimensions, 6 missing weight. No fabricated/generic
+SKUs found (checked for slug-matching or "product-import"-prefixed SKUs —
+zero).
+
+### P0 — fixed this session, with evidence
+
+- [x] **50 products were profitable but underpriced against their own real
+      cost.** Queried every published product's actual `price`/`costPrice`/
+      `shippingCost` — genuinely nobody was losing money, but 50 sat below the
+      20% margin `src/sanity/components/margin-display.tsx` already treats as
+      the "caution" line in Studio, down to 6.8% on a couple of the
+      Hampton/Bentley/Leckford pieces. Corrected each to the minimum price
+      clearing 20%, rounded up to the next whole pound — **cost price and
+      shipping cost were never touched**, only the retail price, per your own
+      correction to the brief. `scripts/audit-and-fix-margins.ts`.
+      Caught and fixed a real bug in the script itself before applying
+      anything: the first dry run treated GROQ's `null` as distinct from JS
+      `undefined` on a projected field, which would have logged ~105
+      meaningless "clearing stale compare-at" entries on products that never
+      had one. Fixed to a `typeof === "number"` check; the corrected dry run's
+      totals matched a hand cross-check exactly before `--apply` ran.
+- [x] **Mandatory price-adjustment audit log**, per your instruction verbatim
+      ("I need to know why Kaiku is charging £63 rather than £57 — not
+      discover six months later"). New `priceAdjustment` document type
+      (`src/sanity/schemaTypes/documents/price-adjustment.ts`): one record per
+      change, with before/after price, the cost figures used, and why. 55
+      entries created (50 margin corrections + 5 compare-at-only clears).
+- [x] **5 products had a broken `compareAtPrice`** — stored as literal `0`,
+      or already at/below the real selling price (a "was £45, now £47" that
+      isn't a discount). Cleared rather than shown as a false discount. 6 more
+      would have become broken _by_ the margin correction above (the new
+      price meeting or exceeding an until-then-valid compare-at figure) —
+      cleared for the same reason, in the same run. No compare-at price was
+      ever invented or raised, only removed once it stopped being true.
+- [x] **"Free UK Delivery" vs "Shipping calculated at checkout" — the exact
+      contradiction you asked to be audited for, found on every single product
+      page and the cart page.** `src/server/actions/checkout.ts` hard-codes a
+      £0 Stripe shipping option — the real policy is free UK delivery, full
+      stop — but the price line under every product's Add to Basket button,
+      and the cart subtotal, both said the opposite. Both now say "Free UK
+      delivery."
+- [x] **One "In Stock" vs "Made to order" contradiction, found and fixed on
+      real evidence, not inference.** Checked every published product's
+      `stockStatus` against its own `deliveryNotes` text. The SaunaPlunge™
+      Pennine Barrel 6-Person sauna's own delivery copy says outright "This
+      sauna is made to order... 4–6 weeks", while `stockStatus` said "In
+      Stock" — the schema's default value, evidently never changed.
+      `scripts/fix-pennine-barrel-stock-status.ts` (idempotent, checks the
+      same evidence before writing). **Three other SaunaPlunge products share
+      the same 4–6 week lead time but have no explicit "made to order" text of
+      their own — flagged below, not changed, because that would be inferring
+      a stock fact rather than reading one.**
+- [x] **The short summary was rendering twice on every product page** —
+      verified live on kaikuhome.com before fixing, not assumed: the buy-box
+      next to the price, and again verbatim atop the Description tab.
+      `DescriptionPanel` now goes straight to the real description, which
+      genuinely differs from the summary once you stop repeating the summary
+      first. `src/features/storefront/components/product/product-tabs.tsx`.
+
+### P1 — found, evidenced, deliberately NOT auto-fixed
+
+- [!] **93 of 235 published products (40%) carry trade-catalogue marketing
+  language in their description** — not a stray phrase, whole templated
+  sections: a heading like "Designed for Homes, Hotels & Interior Designers"
+  followed by a bulleted "Ideal for: Interior designers, Architects, Property
+  developers, Boutique hotels, Restaurants, Serviced apartments, Show homes,
+  Hospitality projects..." on products as ordinary as a bedside table or a
+  console table. This is the exact problem section 26/27 of your brief
+  describes, and it is not a job for search-and-replace — your own brief says
+  so, and rewriting 93 real product descriptions honestly, per-product,
+  without inventing facts, is a genuine content project, not a script. Sampled
+  two (Abberley One Drawer Black Console Table, Solara Orb Pendant Ceiling
+  Light) to confirm this is real templated content, not a false-positive
+  regex match. **Needs your call on priority and pace** — this is likely
+  several days of careful, individually-written rewrites at the standard the
+  batch-01 rewrite set earlier this project, not something to rush.
+- [!] **SaunaPlunge stock-status consistency** — of 8 SaunaPlunge products, all
+  sharing the same 4–6 week lead time (itself unusual for genuine shelf
+  stock): 4 say "In Stock", 2 say "Made to Order", 2 say "Out of Stock". Only
+  the Pennine Barrel's own copy said which it actually was, so only that one
+  was changed. **Worth confirming the real status of the other 7 with the
+  supplier** rather than Kaiku guessing from a lead time alone.
+- [!] **93 missing internal SKUs, 36 missing `supplierSku`** on published
+  products — not fabricated, just genuinely absent. Filling `supplierSku`
+  needs the real supplier code per product; filling the internal `sku` is
+  Kaiku's own numbering scheme and could be scripted once you confirm the
+  format you want (the existing ones look like `AW-ACShop-18` — supplier
+  prefix plus their code, not a Kaiku-invented sequence).
+
+### Still to do, scoped honestly rather than attempted at once
+
+Per section 40 of your own brief ("batch safety" — audit, small batch,
+validate, then scale), and because several of these need real time, not a
+clever script:
+
+- [ ] **Full per-product supplier-fact re-verification** (materials,
+      dimensions, weight, included/excluded accessories) against each
+      product's own `sourceUrl` where one exists. Feasible for the ~470
+      products with a recorded source, but re-fetching each one respectfully
+      (Hill: 500ms between requests; Premier Housewares: 10s, per their
+      robots.txt) is realistically hours of background crawling, not a single
+      pass — proposed as its own phased run once you confirm you want it
+      before the 93-product content rewrite above.
+- [ ] **Description/summary humanisation** at catalogue scale — the 93 flagged
+      above are the worst of it, but the wider "avoid _elevate your space_,
+      _timeless elegance_, _seamlessly blends_" instruction applies to a good
+      deal more of the catalogue than that; not yet measured precisely.
+- [ ] **Image audit** (correct product, order, duplicates, permission status)
+      — not started.
+- [ ] **Returns workflow design**, **Stripe production instruction guide**,
+      **order-operations chain (automated vs manual vs needs building)**,
+      **quality scoring system** — all requested, none started this session;
+      each is its own real piece of work.
+- [~] **Premier Housewares import, running in the background as this is
+  written** — outdoor categories first (garden-furniture, planters),
+  then the same five Decor categories Hill Interiors contributes to.
+  Numbers will follow once it completes; see the entry above this one for
+  the miscategorisation fixes already made before it started.
+
+---
+
 ## Part 5 — Product pages and conversion
 
 - [x] **Department tabs open the dark category hub again; category tiles open the
