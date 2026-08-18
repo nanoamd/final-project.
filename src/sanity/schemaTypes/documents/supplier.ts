@@ -43,6 +43,20 @@ export const supplier = defineType({
       description:
         "On: the cost price already covers delivery to the customer, so a shipping cost of 0 on their products is real. Off or unset: they bill carriage separately, and a product with no shipping cost recorded has an overstated margin.",
     }),
+    /**
+     * The supplier's carriage terms, which supersede `carriageIncludedInCost`
+     * for anything more complex than a yes/no — a weight-banded courier rate or
+     * a carriage-paid threshold cannot be expressed as a boolean.
+     *
+     * scripts/apply-supplier-shipping-rules.ts derives each product's
+     * `shippingCost` from this, so a change to a supplier's terms is one edit
+     * here rather than a pass over every product they supply.
+     */
+    defineField({
+      name: "shippingRule",
+      title: "Carriage terms",
+      type: "shippingRule",
+    }),
     defineField({ name: "notes", type: "text", rows: 3 }),
   ],
   preview: {

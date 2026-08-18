@@ -21,6 +21,7 @@ import { productOption } from "./objects/product-option";
 import { productSpec } from "./objects/product-spec";
 import { richText } from "./objects/rich-text";
 import { seo } from "./objects/seo";
+import { shippingRule } from "./objects/shipping-rule";
 import { weight } from "./objects/weight";
 import { homepage } from "./singletons/homepage";
 import { navigation } from "./singletons/navigation";
@@ -42,6 +43,7 @@ export const schemaTypes = [
   weight,
   productSpec,
   productOption,
+  shippingRule,
   faqEntry,
   richText,
   // Documents
