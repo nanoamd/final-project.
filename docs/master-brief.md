@@ -1174,6 +1174,96 @@ zero).
       genuinely differs from the summary once you stop repeating the summary
       first. `src/features/storefront/components/product/product-tabs.tsx`.
 
+### Second round, after your review (same day)
+
+Your follow-up: revert the D.I. Designs price changes, don't bother about ~18%
+margins, build a site-wide shipping logic system with price-banded delivery
+windows, replace the delivery wording in the sauna descriptions, give
+everything a SKU in one format, and "maximize trust on this site with maximum
+consistency".
+
+- [x] **49 of the 50 price corrections reverted.** D.I. Designs unconditionally,
+      per your instruction. For everyone else the rule was "only if it's
+      genuinely thin" — and it turned out every non-D.I.-Designs correction sat
+      between 15.6% and 19.9%, comfortably inside your "don't worry" example, so
+      those reverted too. **The one exception kept: SaunaPlunge Yorkshire Cabin
+      4-Person at 12.23%**, genuinely thin rather than borderline.
+      `scripts/revert-margin-adjustments.ts`. compareAtPrice restored on the four
+      products where the reverted price makes the original "was" figure true
+      again; Charlton's stays cleared because it was literally `0` before any of
+      this. Every reversal has its own log entry.
+- [x] **Site-wide delivery logic, one rule, one statement.** Your bands — under
+      £50 → 7–14 days, £50–£120 → 2–3 weeks, above £120 → 3–4 weeks — now live in
+      `deliveryWindow()` in `src/lib/catalog/delivery.ts`, and **every surface
+      that mentions delivery reads that one function**: the buy-box, the delivery
+      panel, the four-up trust band, the homepage flagship, the comparison table,
+      and the Google Merchant feed. Each of those previously read the raw field
+      independently (or nothing at all), which is precisely how a page and a feed
+      end up promising different things about the same product. Banded on price
+      because it is the one figure every product actually has — weight is unset
+      across most of the catalogue — so all 235 published products state a window
+      with no gaps and no guesses. **This supersedes the older "do not change
+      lead times" standing constraint**, which you have now replaced with these
+      bands.
+  - **Saunas keep 4–6 weeks**, your call when the conflict was put to you: they
+    are all over £120, so the band alone would print "3–4 weeks" on a £6,500
+    made-to-order cabin that genuinely takes six. A supplier-confirmed lead time
+    now beats the band; the bands cover everything else.
+  - A boundary bug the tests caught before anything shipped: "above 120"
+    excludes £120 itself, but the first implementation put exactly-£120 in the
+    3–4 week band. £50 and £120 now sit where your wording actually places them.
+- [x] **Delivery copy that contradicted the checkout — the real trust problem,
+      and worse than expected.** Auditing every published product's delivery
+      copy against what the site actually does found three separate
+      contradictions, all fixed by
+      `scripts/fix-delivery-copy-contradictions.ts`:
+  - **12 products claimed "Additional delivery charges may apply"** in prose,
+    directly beneath a page promising free UK delivery, against a checkout that
+    hard-codes a £0 shipping rate and _cannot_ take a surcharge. A
+    stated-but-never-charged fee is a consumer-law exposure as much as a trust
+    one.
+  - **21 hardcoded lead times** ("Estimated delivery within 2-4 weeks") that now
+    contradict the computed window. Not a judgement call about which is right:
+    the `deliveryNotes` field's own schema description already says the lead
+    time is shown automatically above it and must not be repeated — the prose
+    was violating its own field's contract.
+  - **A £3,189 sauna's delivery copy named a different product entirely** —
+    "Your SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna is typically
+    delivered..." on the **Yorkshire Cabin 2-Person** page. Corrected to its own
+    name rather than deleted; the sentence was otherwise fine. This is the sauna
+    delivery wording you asked to have replaced.
+  - Half these claims live in `deliveryNotes` and half in the rich-text
+    `description`. The first pass only handled the former and silently missed a
+    product whose contradiction was description-only — caught by cross-checking
+    the two audits against each other, then fixed to cover both.
+- [x] **One SKU format across the catalogue**, per "everything needs an sku made
+      in a certain format making products easy to identify". The catalogue held
+      **six** formats plus 93 products with no code at all: `KK-CT-ABB-BRN-001`
+      (yours, deliberate), `DI-CT-ABB-BLK-001`, `AW-ACShop-01` _alongside_
+      `AW-ACSHOP-08` (same scheme, inconsistent case), `KK-DL-23677`,
+      `HIL-23674`, `KA-HILL-20696`, and bare supplier codes like `24456`.
+      The format extends your own best one rather than replacing it:
+
+          KK-CT-ABBERLEY-BRN-001
+                 │  │        │   └── sequence, breaks ties
+                 │  │        └────── colour, omitted when there isn't one
+                 │  └─────────────── the range name
+                 └────────────────── category
+
+  `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
+  products now conform**; a code already matching is never rewritten, so
+  re-running is a clean no-op. Every change logged to a new `skuAssignment`
+  document. Drafts are being assigned in the background as this is written.
+  - Verifying the applied codes against the format — rather than trusting the
+    script's own success output — caught three that failed it (`KK-LT-M-001`):
+    titles like "13.6m Warm White…" reduce to a bare "m" once digits are
+    stripped, which identifies nothing _and_ would have made the script rewrite
+    those same three products on every future run. Fixed, and a test now asserts
+    every code the module builds passes its own validity check.
+  - Confirmed **zero genuine duplicate codes** — the 11 apparent collisions are
+    draft/published pairs of the same document, which is how Sanity represents
+    an edited product.
+
 ### P1 — found, evidenced, deliberately NOT auto-fixed
 
 - [!] **93 of 235 published products (40%) carry trade-catalogue marketing
