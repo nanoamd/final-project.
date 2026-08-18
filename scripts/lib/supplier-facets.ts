@@ -119,6 +119,13 @@ export const MATERIAL_MAP: Record<string, string | null> = {
   wool: "Wool",
   polypropylene: "Polypropylene",
   polyester: "Polyester",
+  // Premier Housewares lists a percentage breakdown per product ("PE Rattan
+  // 19%, Tempered Glass 9%, Steel 70%, Other 2%") rather than a plain material
+  // name, so the qualifiers themselves need an entry or the whole line falls
+  // through unmapped even though the underlying material is one already here.
+  "pe rattan": "Rattan",
+  "tempered glass": "Glass",
+  "inorganic resin": "Resin",
   // Still null, and deliberately. "Synthetic fibres" is the supplier's term for the
   // rattan-effect weave on the outdoor sets, and the Materials field excludes a
   // material the piece only imitates. Rope has no canonical home.
