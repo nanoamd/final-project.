@@ -9,6 +9,7 @@ import { faq } from "./documents/faq";
 import { newsletterSubscriber } from "./documents/newsletter-subscriber";
 import { page } from "./documents/page";
 import { post } from "./documents/post";
+import { priceAdjustment } from "./documents/price-adjustment";
 import { product } from "./documents/product";
 import { quoteRequest } from "./documents/quote-request";
 import { supplier } from "./documents/supplier";
@@ -47,6 +48,7 @@ export const schemaTypes = [
   category,
   collection,
   product,
+  priceAdjustment,
   brand,
   supplier,
   author,
