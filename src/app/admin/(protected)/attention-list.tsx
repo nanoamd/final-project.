@@ -4,108 +4,83 @@ import type { AttentionSummary } from "@/server/actions/hq-attention";
 import type { AttentionSeverity } from "@/server/hq/attention";
 
 /**
- * The first thing on the dashboard: what needs doing, worst first.
+ * ALERTS — the first panel, worst first.
  *
  * Each row carries the customer consequence, not just the internal state.
- * "Promised dispatch date has passed" is a fact; "the customer was given this
- * date, tell them before they notice" is the reason to click it now. The screen
- * has to survive being looked at every day, and an operator only keeps trusting
- * a list that explains itself.
+ * "Promised dispatch date has passed" is a fact; "they were given this date,
+ * tell them before they notice" is the reason to click it now. This screen has
+ * to survive being looked at every day, and an operator only keeps trusting a
+ * list that explains itself.
  */
 
-const SEVERITY_STYLE: Record<
-  AttentionSeverity,
-  { dot: string; chip: string; label: string }
-> = {
-  critical: {
-    dot: "bg-red-500",
-    chip: "bg-red-50 text-red-700",
-    label: "Now",
-  },
-  warning: {
-    dot: "bg-amber-500",
-    chip: "bg-amber-50 text-amber-800",
-    label: "Today",
-  },
-  due: {
-    dot: "bg-neutral-400",
-    chip: "bg-neutral-100 text-neutral-600",
-    label: "When you can",
-  },
+const SEVERITY: Record<AttentionSeverity, { colour: string; tag: string }> = {
+  critical: { colour: "var(--hq-down)", tag: "NOW" },
+  warning: { colour: "var(--hq-warn)", tag: "TODAY" },
+  due: { colour: "var(--hq-dim)", tag: "QUEUE" },
 };
 
 export function AttentionList({ summary }: { summary: AttentionSummary }) {
   const { items, counts } = summary;
 
   return (
-    <div className="mt-8 rounded-xl border border-neutral-200 bg-white p-5">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-xs tracking-[0.08em] text-neutral-400 uppercase">
-          Needs you
-        </p>
-        {counts.total > 0 ? (
-          <div className="flex items-center gap-1.5">
-            {counts.critical > 0 ? (
-              <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-semibold text-red-700">
-                {counts.critical} now
-              </span>
-            ) : null}
-            {counts.warning > 0 ? (
-              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800">
-                {counts.warning} today
-              </span>
-            ) : null}
-            {counts.due > 0 ? (
-              <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-semibold text-neutral-600">
-                {counts.due} when you can
-              </span>
-            ) : null}
-          </div>
-        ) : null}
+    <section className="hq-panel">
+      <div className="hq-panel-head">
+        <span>Alerts</span>
+        <span className="hq-num" style={{ color: "var(--hq-faint)" }}>
+          {counts.total === 0 ? "0" : `${counts.critical}/${counts.total}`}
+        </span>
       </div>
 
       {items.length === 0 ? (
-        <p className="mt-3 text-sm text-neutral-500">
-          Nothing is late and nothing is waiting on you. Every paid order is on
-          order with its supplier, and every promised date is still ahead.
+        <p
+          className="px-2.5 py-4 text-[12px]"
+          style={{ color: "var(--hq-dim)" }}
+        >
+          Nothing late, nothing waiting. Every paid order is on order with its
+          supplier and every promised date is still ahead.
         </p>
       ) : (
-        <ul className="mt-3 flex flex-col">
+        <ul>
           {items.map((item) => {
-            const style = SEVERITY_STYLE[item.severity];
+            const style = SEVERITY[item.severity];
             return (
-              <li
-                key={item.id}
-                className="border-b border-neutral-100 last:border-0"
-              >
+              <li key={item.id} className="hq-row">
                 <Link
                   href={`/admin/orders/${item.orderId}`}
-                  className="flex items-start gap-3 rounded-lg px-2 py-3 transition-colors hover:bg-neutral-50"
+                  className="hq-row-hover flex items-start gap-2.5 px-2.5 py-2"
                 >
+                  {/* A colour bar rather than a dot: it reads as a severity
+                      gutter down the whole list at a glance. */}
                   <span
-                    className={`mt-1.5 size-2 shrink-0 rounded-full ${style.dot}`}
+                    className="mt-0.5 w-0.5 shrink-0 self-stretch"
+                    style={{ background: style.colour }}
                     aria-hidden
                   />
+                  <span
+                    className="hq-num mt-px w-12 shrink-0 text-[9px] font-semibold tracking-[0.1em]"
+                    style={{ color: style.colour }}
+                  >
+                    {style.tag}
+                  </span>
                   <span className="min-w-0 flex-1">
-                    <span className="flex flex-wrap items-baseline gap-2">
-                      <span className="text-sm font-medium text-neutral-900">
-                        {item.title}
-                      </span>
-                      <span
-                        className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.04em] uppercase ${style.chip}`}
-                      >
-                        {style.label}
-                      </span>
+                    <span
+                      className="block truncate text-[12.5px]"
+                      style={{ color: "var(--hq-text)" }}
+                    >
+                      {item.title}
                     </span>
-                    <span className="mt-0.5 block text-xs text-neutral-500">
+                    <span
+                      className="hq-num mt-0.5 block truncate text-[11px]"
+                      style={{ color: "var(--hq-dim)" }}
+                    >
                       {item.detail}
                     </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-neutral-400">
+                    <span
+                      className="mt-0.5 block text-[11px] leading-snug"
+                      style={{ color: "var(--hq-faint)" }}
+                    >
                       {item.consequence}
                     </span>
-                  </span>
-                  <span className="mt-1 text-neutral-300" aria-hidden>
-                    →
                   </span>
                 </Link>
               </li>
@@ -113,6 +88,6 @@ export function AttentionList({ summary }: { summary: AttentionSummary }) {
           })}
         </ul>
       )}
-    </div>
+    </section>
   );
 }

@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                 │  │        │   └── sequence, breaks ties
-                                                 │  │        └────── colour, omitted when there isn't one
-                                                 │  └─────────────── the range name
-                                                 └────────────────── category
+                                                         │  │        │   └── sequence, breaks ties
+                                                         │  │        └────── colour, omitted when there isn't one
+                                                         │  └─────────────── the range name
+                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1566,6 +1566,57 @@ storefront.
 
 Not a security boundary: /admin gates every page and action itself. This is a
 shortcut for the one person already allowed in.
+
+### [x] Kaiku HQ as a terminal
+
+"admin needs to be way more advanced then not just a few sidebars, it needs to be
+functional too" and "make my admin page feel like a bloomberg terminal."
+
+What actually makes a terminal a terminal is not the dark colour — it is that the
+whole screen is information, figures line up because they are tabular monospace,
+colour only ever means something, and you navigate by typing rather than
+pointing. So:
+
+- [x] **A dark, dense skin** scoped entirely to `[data-hq]` (`hq.css`), so none of
+      it can reach the storefront, which stays a warm off-white shop. Hairline panels
+      instead of cards, 11–13px type, no rounded corners, no display serif.
+- [x] **Every number is tabular monospace**, so a column of prices lines up and a
+      figure does not change width as it changes value.
+- [x] **⌘K command palette** as the primary navigation, with `g`-then-key jumps
+      (`gd` dashboard, `go` orders, `gi` inbox, `ge` emails, `gn` newsletter, `gs`
+      Studio). Order search by number, name or email runs through a **server action**,
+      not a client-side filter — HQ rows carry customer names, addresses and totals,
+      and none of that belongs in a browser bundle waiting to be searched.
+- [x] **Live top bar** — London clock, and the alert counts (now / today / queue)
+      visible from every page, not just the dashboard.
+- [x] **A status bar** with the signed-in operator, role, and open/urgent counts.
+- [x] **The dashboard is one screen**: money strip, ALERTS, PIPELINE with
+      proportional bars, and TAPE (the event log, newest first). A dashboard you have
+      to scroll is a report.
+- [x] **The orders list is a blotter, not cards.** It was six lines of detail per
+      order, three orders visible at once, and no way to compare them — a card is
+      right for one thing and wrong for a book of them. Now one row per order with
+      aligned columns (ref, placed, customer, total, stage, items, supplier), thirty
+      visible at a time. Line items and addresses moved to the order page, which is
+      where you go once you have found the order.
+
+Two implementation notes worth keeping:
+
+- **The clock uses `useSyncExternalStore`**, not `useState` + `useEffect`. Time is
+  an external source being subscribed to, which is what that hook is for, and it
+  gives a real server snapshot so the placeholder renders server-side with no
+  hydration mismatch. A clock rendered on the server is already wrong by the time
+  it arrives.
+- **`hq.css` ends with a documented bridge layer.** Five pages predate the skin
+  and are written in light-mode utilities (`bg-white`, `text-neutral-500`); on a
+  near-black ground those are white boxes and black-on-black text. The utilities
+  are remapped under `[data-hq]`, which outranks the originals on specificity.
+  It is explicitly a bridge: a page is properly converted when deleting its
+  entries from that list changes nothing.
+
+**Not yet verified in a browser.** Typecheck, lint, 604 tests and a production
+build all pass, but /admin is behind a login this session cannot reach, so the
+rendered result is unconfirmed.
 
 ### Still open on orders
 
