@@ -5,6 +5,7 @@ import { category } from "./documents/category";
 import { collection } from "./documents/collection";
 import { contactSubmission } from "./documents/contact-submission";
 import { department } from "./documents/department";
+import { emailTemplate } from "./documents/email-template";
 import { faq } from "./documents/faq";
 import { newsletterSubscriber } from "./documents/newsletter-subscriber";
 import { page } from "./documents/page";
@@ -52,6 +53,7 @@ export const schemaTypes = [
   collection,
   product,
   priceAdjustment,
+  emailTemplate,
   skuAssignment,
   brand,
   supplier,

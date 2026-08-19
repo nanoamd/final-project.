@@ -2,6 +2,9 @@ import "server-only";
 
 import { siteUrl } from "@/config/site";
 import { env } from "@/env";
+import { loadEmailTemplate } from "@/server/emails/load-template";
+import { buildNewsletterWelcomeEmail } from "@/server/emails/newsletter-welcome";
+import { renderTemplate } from "@/server/emails/template-renderer";
 
 const RESEND_API = "https://api.resend.com/emails";
 const DEFAULT_FROM = "Kaiku <onboarding@resend.dev>";
@@ -10,6 +13,12 @@ interface SendEmailInput {
   to: string;
   subject: string;
   html: string;
+  /**
+   * Plain-text alternative. Worth passing whenever the caller has one: it is
+   * what text-only clients and screen readers read, and a message with no text
+   * part scores measurably worse with spam filters.
+   */
+  text?: string;
   replyTo?: string;
 }
 
@@ -76,6 +85,7 @@ export async function sendEmail(input: SendEmailInput): Promise<void> {
         to: input.to,
         subject: input.subject,
         html: input.html,
+        ...(input.text ? { text: input.text } : {}),
         ...(input.replyTo ? { reply_to: input.replyTo } : {}),
       }),
     });
@@ -92,25 +102,48 @@ export async function sendEmail(input: SendEmailInput): Promise<void> {
   }
 }
 
+/**
+ * The newsletter welcome, in the order that respects who owns what.
+ *
+ * 1. A template Damien has written and enabled in Studio, if there is one.
+ * 2. Otherwise `buildNewsletterWelcomeEmail` — the proper branded template.
+ *
+ * Step 2 is a fix, not a fallback: that template existed, carried the discount
+ * logic and the branded layout, and **nothing called it**. Every subscriber was
+ * getting an inline `<div>` of Georgia text written straight into this function,
+ * with no Kaiku header, no footer and no plain-text alternative. It has been
+ * dead code since it was added.
+ */
 export async function sendNewsletterWelcomeEmail(
   email: string,
   subscriberId: string,
 ): Promise<void> {
   const unsubscribeUrl = `${siteUrl}/newsletter/unsubscribe/${subscriberId}`;
+
+  const template = await loadEmailTemplate("newsletter-welcome");
+  const authored = renderTemplate({
+    template,
+    variables: {
+      unsubscribeUrl,
+      shopUrl: `${siteUrl}/shop`,
+      siteUrl,
+    },
+  });
+
+  const built =
+    authored ??
+    buildNewsletterWelcomeEmail({
+      unsubscribeUrl,
+      siteUrl,
+      // No discount engine exists yet — see the note in newsletter-welcome.ts
+      // for why printing a code here would be dishonest.
+      discountCode: null,
+    });
+
   await sendEmail({
     to: email,
-    subject: "You're on the list",
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
-        <p style="font-size: 16px; line-height: 1.6;">Thank you for subscribing to Kaiku.</p>
-        <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a;">
-          We'll send considered writing on home improvement and design —
-          never noise.
-        </p>
-        <p style="font-size: 13px; color: #9a9a9a; margin-top: 32px;">
-          <a href="${unsubscribeUrl}" style="color: #9a9a9a;">Unsubscribe</a>
-        </p>
-      </div>
-    `,
+    subject: built.subject,
+    html: built.html,
+    text: built.text,
   });
 }
