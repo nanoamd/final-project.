@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                         │  │        │   └── sequence, breaks ties
-                                                         │  │        └────── colour, omitted when there isn't one
-                                                         │  └─────────────── the range name
-                                                         └────────────────── category
+                                                                 │  │        │   └── sequence, breaks ties
+                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                 │  └─────────────── the range name
+                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1617,6 +1617,52 @@ Two implementation notes worth keeping:
 **Not yet verified in a browser.** Typecheck, lint, 604 tests and a production
 build all pass, but /admin is behind a login this session cannot reach, so the
 rendered result is unconfirmed.
+
+### [x] The zoom button now zooms — and a regression it uncovered
+
+"this button needs to start working on images." It had no `onClick` at all: it
+rendered, invited a click, and did nothing. Worse than absent, because it
+promised something.
+
+- [x] **A real image viewer.** Full screen, opaque black, opens from the button
+      _or_ from clicking the photo itself (clicking a product photo to see it bigger
+      is the expectation; making a small corner button the only way in is a puzzle).
+- [x] **Zoom anchored on the point clicked**, not the centre — the thing you want
+      a closer look at is the thing you clicked. Drag to pan, wheel to zoom to 4x,
+      click again to fit.
+- [x] **Keyboard**: Esc closes, arrows change photo, `+`/`-` zoom, `0` fits.
+      Thumbnails for a long gallery, and a counter so you know how many there are.
+- [x] **Lenis is stopped while it is open.** Smooth scroll runs in `root` mode
+      across the storefront, so it would otherwise keep scrolling the page underneath
+      and swallow the wheel gestures meant for zooming. Body `overflow: hidden` alone
+      is not enough — Lenis translates the page itself.
+- [x] **The zoom arithmetic is a separate, tested module** (`zoom-math.ts`, 11
+      tests). A sign error there zooms _away_ from the point clicked and a wrong clamp
+      lets the photograph be dragged off screen with no way back; neither throws,
+      neither fails a typecheck, and both are obvious in a test.
+- [x] **Verified in a real browser**, not just built: the dialog opens, the
+      transform goes from `matrix(1,0,0,1,0,0)` to `matrix(2.5,0,0,2.5,-660,192)` —
+      scaled _and_ anchored, offsets in the right directions for a click above and
+      right of centre — the right arrow steps 1/8 to 2/8, Escape closes, and the page
+      behind has not scrolled.
+
+**The regression that verification caught.** The admin bar added earlier was a
+Server Component in the storefront layout, reading cookies to identify the admin.
+Product pages are statically prerendered (`● /shop/[category]/[product]`), and
+reading cookies in a layout above them makes that impossible — **every product
+page on the site returned 500 with `DYNAMIC_SERVER_USAGE`.** It had passed
+typecheck, lint, 604 tests and a production build, and would have taken the shop
+down on deploy.
+
+Fixed by moving the check to `/api/admin-bar`, which the storefront fetches after
+loading: pages stay static, the bar appears a moment later for one person, and the
+route answers `204` with no body for everyone else. The links come back in that
+response rather than living in the client bundle. It also now fails soft — a
+missing Supabase variable makes the bar absent, not the shop broken.
+
+Two lessons recorded rather than just fixed: a green build is not a working site,
+and a convenience for the operator must never sit in the render path of a page a
+customer needs.
 
 ### Still open on orders
 
