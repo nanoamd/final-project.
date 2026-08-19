@@ -5,6 +5,7 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 
 import { getAuthorizedAdmin } from "@/server/auth/admin";
+import { sendStageEmail } from "@/server/emails/send-stage-email";
 import { nextStage, stageLabel } from "@/server/hq/workflows";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -191,6 +192,10 @@ export async function advanceOrderStage(
     title: `Moved to ${stageLabel(next)}`,
   });
 
+  // Tells the customer, if this is a stage they should hear about. Never
+  // throws and never sends twice — see sendStageEmail.
+  await sendStageEmail({ admin, orderId, stage: next });
+
   revalidateOrder(orderId);
   return { ok: true };
 }
@@ -217,6 +222,10 @@ export async function setOrderStage(
     stage,
     title: `Set to ${stageLabel(stage)}`,
   });
+
+  // Jumping straight to cancelled/refunded/on_hold is exactly when the
+  // customer most needs telling, so this path notifies as well.
+  await sendStageEmail({ admin, orderId, stage });
 
   revalidateOrder(orderId);
   return { ok: true };
@@ -286,6 +295,20 @@ export async function setOrderTracking(
   await writeEvent(admin, orderId, {
     type: "edit",
     title: `Tracking added — ${input.carrier.trim()} ${input.number.trim()}`,
+  });
+
+  // Entering tracking is the moment a dispatch email becomes worth sending —
+  // it is the first point at which there is something for the customer to
+  // follow. Passing the values explicitly avoids racing the update above.
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage: "tracking",
+    context: {
+      trackingCarrier: input.carrier.trim(),
+      trackingNumber: input.number.trim(),
+      trackingUrl: input.url?.trim() || null,
+    },
   });
 
   revalidateOrder(orderId);
