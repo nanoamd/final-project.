@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { signOutAdmin } from "@/server/actions/admin-auth";
+import { getAttentionCounts } from "@/server/actions/hq-attention";
 import { getAuthorizedAdmin } from "@/server/auth/admin";
 
 const NAV_ITEMS: {
@@ -57,6 +58,10 @@ export default async function AdminProtectedLayout({
     redirect("/admin/login");
   }
 
+  // On every admin page, not just the dashboard: the point of a count is that
+  // you see it while you are somewhere else.
+  const attention = await getAttentionCounts();
+
   return (
     <div className="flex min-h-screen bg-neutral-50 text-neutral-900">
       <aside className="flex w-56 shrink-0 flex-col border-r border-neutral-200 bg-white px-4 py-6">
@@ -69,9 +74,24 @@ export default async function AdminProtectedLayout({
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-2.5 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100"
+              className="flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100"
             >
               {item.label}
+              {/* Red only for the things that are actually costing a customer
+                  something today; anything else would train him to ignore it. */}
+              {item.href === "/admin" && attention.total > 0 ? (
+                <span
+                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums ${
+                    attention.critical > 0
+                      ? "bg-red-100 text-red-700"
+                      : "bg-neutral-100 text-neutral-600"
+                  }`}
+                >
+                  {attention.critical > 0
+                    ? attention.critical
+                    : attention.total}
+                </span>
+              ) : null}
             </Link>
           ))}
           <div className="mt-3 border-t border-neutral-100 pt-3">

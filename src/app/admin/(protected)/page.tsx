@@ -1,10 +1,16 @@
 import Link from "next/link";
 
 import { formatPriceExact } from "@/lib/format";
+import { getAttention } from "@/server/actions/hq-attention";
 import { getDashboardData } from "@/server/actions/hq-dashboard";
 
+import { AttentionList } from "./attention-list";
+
 export default async function AdminDashboardPage() {
-  const data = await getDashboardData();
+  const [data, attention] = await Promise.all([
+    getDashboardData(),
+    getAttention(),
+  ]);
 
   return (
     <div>
@@ -38,36 +44,8 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Needs action */}
-      <div className="mt-8 rounded-xl border border-neutral-200 bg-white p-5">
-        <p className="text-xs tracking-[0.08em] text-neutral-400 uppercase">
-          Needs action
-        </p>
-        {data.needsAction.length === 0 ? (
-          <p className="mt-3 text-sm text-neutral-500">
-            Nothing needs you. Go sell something.
-          </p>
-        ) : (
-          <ul className="mt-3 flex flex-col gap-2">
-            {data.needsAction.map((item, i) => (
-              <li key={i}>
-                <Link
-                  href={`/admin/orders/${item.orderId}`}
-                  className="flex items-center justify-between rounded-lg px-2 py-2 text-sm transition-colors hover:bg-neutral-50"
-                >
-                  <span>
-                    <span className="font-medium text-neutral-900">
-                      {item.label}
-                    </span>
-                    <span className="text-neutral-500"> — {item.detail}</span>
-                  </span>
-                  <span className="text-neutral-400">→</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {/* What needs you, and what it costs the customer if it waits. */}
+      <AttentionList summary={attention} />
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {/* Pipeline */}

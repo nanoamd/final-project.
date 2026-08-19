@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                         │  │        │   └── sequence, breaks ties
-                                         │  │        └────── colour, omitted when there isn't one
-                                         │  └─────────────── the range name
-                                         └────────────────── category
+                                                 │  │        │   └── sequence, breaks ties
+                                                 │  │        └────── colour, omitted when there isn't one
+                                                 │  └─────────────── the range name
+                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1510,6 +1510,62 @@ useful, handing a competitor Kaiku's supplier list and the person to ring.
 Nothing on the storefront read any of it. The projection is now `name` only, and
 `SanitySupplier` is narrowed to a single field so the rest cannot return by
 accident; contacts are read server-side by `src/server/suppliers/contacts.ts`.
+
+### The operations brain — [x] eight watchdogs, worst first
+
+"it needs to have enough functions to make the customer say wow this is amazing
+service." Amazing service is mostly the absence of silence, so the dashboard now
+computes what is going wrong _before the customer finds out_.
+
+`src/server/hq/attention.ts` — a pure, tested rules engine (26 tests). Each rule
+exists because of a specific way a customer learns something failed before Kaiku
+did, and each row on screen carries the **customer consequence**, not the internal
+state:
+
+| Rule                                            | Severity     | Why                                                                   |
+| ----------------------------------------------- | ------------ | --------------------------------------------------------------------- |
+| Paid, no purchase order sent (12h+)             | Now          | Their money is taken and nothing is on order anywhere                 |
+| Supplier has not confirmed (2 working days)     | Today        | Nobody has confirmed it is being made; the promised date is slipping  |
+| Promised dispatch date passed, no tracking      | Now          | They were given that date                                             |
+| Promised delivery date passed, nothing recorded | Now          | Either it arrived and nobody logged it, or it did not and nobody said |
+| Paid 48h+, no promised dates at all             | Today        | The most common reason people email to ask                            |
+| Delivered 7 days ago, no review requested       | When you can | They are happiest now                                                 |
+| Flagged by hand                                 | Today        | A human decided it mattered                                           |
+
+Details worth keeping:
+
+- **Working days, not calendar days**, for the supplier chase. A supplier who has
+  not replied since Friday afternoon is not late on Sunday, and alerting then is
+  how an operator learns to ignore alerts.
+- **Lateness counted the way a customer counts it** — "you said Monday and it is
+  Wednesday" is two days. The first implementation rounded that to one; a test
+  caught it, and understating lateness on the one screen meant to surface it is
+  the wrong direction to be wrong in.
+- **Silent on cancelled and refunded orders**, except when flagged by hand.
+- **Purchase-order and supplier-confirmation state is read from the timeline**, not
+  from a column somebody has to remember to update. The point of an append-only
+  event log is that "has this happened" is a question you ask of history.
+- **The old two-rule `needsAction` in `hq-dashboard.ts` was deleted**, not left
+  beside it. Two implementations of "what needs doing" drift, and then neither is
+  trusted — the same failure as the email key lists.
+- A count in the sidebar on every admin page, red only when something is
+  genuinely costing a customer something today.
+
+### [x] A private admin bar on the storefront
+
+"accessible only for me on the website and not visible to other customers, it
+makes it quicker to access." A strip at the bottom of every storefront page with
+Dashboard, Orders, Emails and Studio.
+
+Resolved server-side and rendering **nothing at all** for anyone else — a bar
+hidden with CSS, or removed on the client, still ships its markup to every
+visitor, so a signed-out reader of the page source would learn the admin URLs and
+their names. Collapses to a single small tab, with the preference kept in a cookie
+so the server renders the right state first time and no bar ever flashes over the
+storefront.
+
+Not a security boundary: /admin gates every page and action itself. This is a
+shortcut for the one person already allowed in.
 
 ### Still open on orders
 
