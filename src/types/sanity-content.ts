@@ -77,12 +77,20 @@ export interface SanityBrand {
   logo?: string | null;
 }
 
+/**
+ * What the *storefront* may know about a supplier: the name, and nothing else.
+ *
+ * The supplier document in Sanity also carries a trade contact name, email and
+ * phone. Those are commercially sensitive — a competitor reading this site's
+ * page source should not be handed Kaiku's supplier list and the person to ring
+ * — and the contact name is a real individual's personal data. They are read
+ * only server-side, in admin, by `src/server/suppliers/contacts.ts`.
+ *
+ * Deliberately narrow rather than optional: the product query is shared with
+ * client components, so anything on this interface ends up in the browser.
+ */
 export interface SanitySupplier {
   name: string;
-  contactName?: string;
-  email?: string;
-  phone?: string;
-  defaultLeadTimeDays?: number;
 }
 
 export interface SanityDepartment {

@@ -32,6 +32,8 @@ export interface HqOrderEvent {
 
 export interface HqOrderDetail {
   id: string;
+  /** The readable "KH-1042" reference. Null on orders predating migration 0005. */
+  orderNumber: string | null;
   createdAt: string;
   amountTotal: number;
   currency: string;
@@ -97,6 +99,7 @@ export async function getOrderDetail(
 
   return {
     id: order.id,
+    orderNumber: order.order_number ?? null,
     createdAt: order.created_at,
     amountTotal: order.amount_total,
     currency: order.currency,

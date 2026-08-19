@@ -60,7 +60,13 @@ const PRODUCT_PROJECTION = /* groq */ `{
   sku,
   gtin,
   mpn,
-  "supplier": supplier->{ name, contactName, email, phone, defaultLeadTimeDays },
+  // Name only. The supplier document also holds a trade contact name, email and
+  // phone, and this projection used to pull all of them — which shipped them
+  // into the product page's own HTML, where "contactName" was readable in the
+  // page source of every public product page. Nothing on the storefront reads
+  // them; delivery.ts needs the name and nothing else. Supplier contacts are
+  // fetched server-side, in admin, by src/server/suppliers/contacts.ts.
+  "supplier": supplier->{ name },
   dimensions,
   weight,
   deliveryLeadTime,

@@ -15,12 +15,15 @@ import {
   toggleOrderFlag,
   updateTradeCost,
 } from "@/server/actions/hq-orders";
+import type { SupplierOrderDraft } from "@/server/actions/supplier-orders";
 import {
   EXCEPTION_STAGES,
   nextStage,
   stageLabel,
   stagesForWorkflow,
 } from "@/server/hq/workflows";
+
+import { SupplierPanel } from "./supplier-panel";
 
 function formatDate(value: string | null) {
   if (!value) return null;
@@ -42,7 +45,13 @@ function formatDateOnly(value: string | null) {
   });
 }
 
-export function OrderDetailView({ order }: { order: HqOrderDetail }) {
+export function OrderDetailView({
+  order,
+  supplierDrafts,
+}: {
+  order: HqOrderDetail;
+  supplierDrafts: SupplierOrderDraft[];
+}) {
   const [pending, setPending] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [note, setNote] = React.useState("");
@@ -441,6 +450,10 @@ export function OrderDetailView({ order }: { order: HqOrderDetail }) {
 
         {/* The work */}
         <div className="flex flex-col gap-5">
+          {/* First in this column deliberately: on a freshly paid order this is
+              the next thing that has to happen. */}
+          <SupplierPanel orderId={order.id} drafts={supplierDrafts} />
+
           <div className="rounded-xl border border-neutral-200 bg-white p-5">
             <p className="text-xs font-medium tracking-[0.08em] text-neutral-400 uppercase">
               Warranty

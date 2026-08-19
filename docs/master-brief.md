@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                 │  │        │   └── sequence, breaks ties
-                                 │  │        └────── colour, omitted when there isn't one
-                                 │  └─────────────── the range name
-                                 └────────────────── category
+                                         │  │        │   └── sequence, breaks ties
+                                         │  │        └────── colour, omitted when there isn't one
+                                         │  └─────────────── the range name
+                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1446,6 +1446,70 @@ catalogue is a real workflow stage, since `ready_for_dispatch` (the real name is
       direct admin link as metadata, so Stripe's search box finds a payment by order
       number. Done after payment rather than by reserving a number at checkout, so
       an abandoned basket does not burn one.
+
+### Operations: Sanity is not the answer, and the answer already existed
+
+"could we make sanity the operating system for the entire business" — no, and
+`docs/kaiku-hq-design.md` §1.1–1.2 already decided this, for reasons that still
+hold:
+
+> **Sanity holds what customers see. Supabase holds what the business does.**
+> HQ is the existing `/admin` area of kaikuhome.com, expanded.
+
+Orders in Sanity would mean customer addresses, phone numbers and order values
+sitting in the dataset the public storefront reads with a read token; no
+row-level security, so a customer could not be restricted to their own orders;
+no unique constraints, so `KH-1042` could be issued twice; and a Stripe webhook
+writing to a content lake instead of a database.
+
+**The real reason operations underperform: the design is finished and the build
+stopped.** Migration 0003 created `suppliers`, `supplier_files`,
+`supplier_price_events`, `tickets`, `ticket_messages`, `email_log`, `tasks`,
+`subscribers`, `abandoned_checkouts` and `notifications` — **ten tables, and a
+grep finds zero references to any of them in `src/`.** Of the fifteen admin pages
+specified in §4, seven exist. That gap is the underperformance.
+
+### Ordering from the supplier — [x] one press, after reading it
+
+The last step in the chain still done by hand, per order, from memory. Specified
+in §4.4 ("Notify supplier"), now built.
+
+- [x] **A purchase order per supplier on the order**, since an order can span two
+      and each supplier must only see their own lines.
+- [x] **Read it before it sends.** The exact email renders in an iframe on the
+      order page, with a separate Send. One press with no preview is how the wrong
+      SKU gets ordered.
+- [x] **Problems surfaced, not hidden** — missing supplier SKU (named per
+      product), missing delivery address, missing phone. A missing address blocks the
+      send; the rest are warnings, because a supplier query costs a day.
+- [x] **No prices in the purchase order, ever.** 16 tests, one of which asserts
+      no `£` appears anywhere in the output. The supplier invoices at their own trade
+      price: quoting Kaiku's retail price hands them the margin, and quoting a trade
+      cost that has drifted since import invites a dispute over the invoice.
+- [x] **Their SKU leads, ours follows** as a cross-reference. A supplier warehouse
+      cannot pick by a Kaiku code.
+- [x] **The customer's phone, never the customer's email.** Delivery booking needs
+      a phone call; the email relationship is Kaiku's, and the PO says so explicitly.
+- [x] **Recorded on the timeline** with the address it went to, and a confirm
+      prompt before sending the same order twice.
+
+### [x] A supplier-contact leak on every public product page
+
+Found while wiring the above. The storefront's product query projected
+`supplier->{ name, contactName, email, phone, defaultLeadTimeDays }`, and the
+product page passes the product into client components — so those fields were
+serialised into the HTML of every public product page. Verified on the live site:
+`"supplier":{"contactName":"Kelly Marsden", ... "name":"SaunaPlunge (Outdoor
+Living 365 Ltd)"}` was readable in the page source.
+
+`email` and `phone` happened to be `null` only because no supplier had them
+filled in yet — and the purchase-order feature above requires filling them in.
+So this would have published every supplier's trade email the moment it became
+useful, handing a competitor Kaiku's supplier list and the person to ring.
+
+Nothing on the storefront read any of it. The projection is now `name` only, and
+`SanitySupplier` is narrowed to a single field so the rest cannot return by
+accident; contacts are read server-side by `src/server/suppliers/contacts.ts`.
 
 ### Still open on orders
 
