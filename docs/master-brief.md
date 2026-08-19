@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                 │  │        │   └── sequence, breaks ties
-                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                 │  └─────────────── the range name
-                                                                 └────────────────── category
+                                                                         │  │        │   └── sequence, breaks ties
+                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                         │  └─────────────── the range name
+                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1663,6 +1663,73 @@ missing Supabase variable makes the bar absent, not the shop broken.
 Two lessons recorded rather than just fixed: a green build is not a working site,
 and a convenience for the operator must never sit in the render path of a page a
 customer needs.
+
+### [x] Catalogue placement audit — mirrors, lighting, cross-categories
+
+"all mirrors should be in this category… make sure we are using cross
+categories… all lighting products should be in lighting… audit the entire site."
+
+**The blocker was structural, not a matter of dragging products about.** Two new
+scripts, and the first one found why the request could not be satisfied as asked:
+
+| Category name | Exists | Products across them |
+| ------------- | ------ | -------------------- |
+| Lighting      | ×6     | 38                   |
+| Storage       | ×5     | 42                   |
+| Mirrors       | ×3     | 18                   |
+| Shelving      | ×3     | 22                   |
+
+"Mirrors" existed three times — Decor, Bedroom, Bathroom — so a customer browsing
+mirrors saw whichever third belonged to the room they entered through. No amount
+of moving products could make "all mirrors in Mirrors" true of any of the three.
+
+- [x] **`scripts/audit-catalogue-placement.ts`** — reports duplicate category
+      names, products whose title contradicts their category, empty categories and
+      cross-listing coverage. Report-only: the fixes it implies are different in kind
+      and each wants deciding.
+- [x] **`scripts/canonicalise-categories.ts`** — one canonical category per type,
+      every sibling's products cross-listed into it. **Additive**: the room
+      categories keep their products and stay in the navigation, which is a standing
+      constraint. Dry run by default.
+- [x] **Applied.** 14 products cross-listed, 4 re-parented. **Mirrors went from 8
+      to 15 and Lighting from 24 to 25** — verified in a browser, not just in the
+      data.
+
+Four products were simply in the wrong place, and are named individually in the
+script rather than moved by rule, because a rule that re-parents automatically
+eventually moves one it should not:
+
+- **Tristan Mirror And Wood 4X6 / 5X7 Frame** → Wall Art. Photo frames with
+  mirrored borders. These two were on the Mirrors page Damien was looking at.
+- **Antique Etched foxed Wall Art Mirror** → Mirrors. A mirror filed under Wall Art.
+- **Large Grey Stone Effect Hurricane Lantern** → Candles & Lanterns. Filed under
+  Christmas Decorations, which made it invisible for eleven months of the year.
+
+**Redirects, because a product's URL is built from its primary category.**
+Re-parenting one moves its address, and the two frames had been indexed under
+Mirrors. `RECATEGORISED_PRODUCT_URLS` is a new list rather than an addition to
+`RENAMED_PRODUCT_URLS` — that list carries a tested invariant that the category
+segment never changes, which is exactly what these entries change. All four
+verified returning 308 to a live 200.
+
+**Tuning the audit mattered as much as writing it.** The first run flagged 20
+products; 16 were false positives — wall plaques in Wall Art, plants in pots in
+Planters, and a "Soft Squiggly Mirror – Chunky Frame" caught by a rule meant for
+photo frames. A list that cries wolf gets ignored, so the rules now only report a
+title that reads as a _specific different_ type. It is down to zero.
+
+Still open, reported and not acted on:
+
+- [ ] **Storage ×5 and Shelving ×3 were cross-listed but not merged.** Whether
+      those should be one category or stay room-scoped is a judgement about how people
+      shop, not a data fix.
+- [ ] **7 empty categories** — bathroom-accessories, bathroom-lighting, fire-pits,
+      pergolas (untouchable by standing constraint), privacy-screens, rugs,
+      towel-rails. A supplier problem, not a placement one.
+- [ ] **Related products still match on the primary category only**
+      (`RELATED_BY_CATEGORY_QUERY`), so a mirror in Bedroom → Mirrors is never offered
+      beside one in Decor → Mirrors. Cross-listing does not reach the related rail yet.
+- [ ] **Cross-listing is at 18%** of the catalogue, up from 15%.
 
 ### Still open on orders
 

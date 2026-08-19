@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { RENAMED_PRODUCT_URLS, RETIRED_PRODUCT_URLS } from "./retired-urls";
+import {
+  RECATEGORISED_PRODUCT_URLS,
+  RENAMED_PRODUCT_URLS,
+  RETIRED_PRODUCT_URLS,
+} from "./retired-urls";
 
 describe("RETIRED_PRODUCT_URLS", () => {
   it("redirects every retired product URL somewhere else", () => {
@@ -87,5 +91,48 @@ describe("RENAMED_PRODUCT_URLS", () => {
     const renamedTargets = new Set(RENAMED_PRODUCT_URLS.map((u) => u.to));
     for (const { from } of [...RETIRED_PRODUCT_URLS, ...RENAMED_PRODUCT_URLS])
       expect(renamedTargets.has(from)).toBe(false);
+  });
+});
+
+describe("RECATEGORISED_PRODUCT_URLS", () => {
+  it("keeps the slug and changes only the category", () => {
+    // The mirror image of the rename invariant: these entries exist because a
+    // product moved category, so the last segment must be untouched. A changed
+    // slug here means the entry is describing two changes at once and one of
+    // them will be wrong.
+    for (const { from, to } of RECATEGORISED_PRODUCT_URLS) {
+      expect(from.split("/").at(-1)).toBe(to.split("/").at(-1));
+      expect(from.split("/").slice(0, 3).join("/")).not.toBe(
+        to.split("/").slice(0, 3).join("/"),
+      );
+    }
+  });
+
+  it("points at a product URL, not a category", () => {
+    for (const { to } of RECATEGORISED_PRODUCT_URLS)
+      expect(to).toMatch(/^\/shop\/[a-z0-9-]+\/[a-z0-9-]+$/);
+  });
+
+  it("does not send a URL to itself", () => {
+    for (const { from, to } of RECATEGORISED_PRODUCT_URLS)
+      expect(from).not.toBe(to);
+  });
+
+  it("does not chain: no source is also a target", () => {
+    // Two products swapping categories is exactly how a redirect loop gets
+    // written by accident here — one mirror moved out of wall-art while two
+    // frames moved in.
+    const targets = new Set(RECATEGORISED_PRODUCT_URLS.map((u) => u.to));
+    for (const { from } of RECATEGORISED_PRODUCT_URLS)
+      expect(targets.has(from)).toBe(false);
+  });
+
+  it("has no duplicate sources, here or against the other lists", () => {
+    const all = [
+      ...RETIRED_PRODUCT_URLS,
+      ...RENAMED_PRODUCT_URLS,
+      ...RECATEGORISED_PRODUCT_URLS,
+    ].map((u) => u.from);
+    expect(new Set(all).size).toBe(all.length);
   });
 });

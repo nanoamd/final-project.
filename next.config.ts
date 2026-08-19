@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 import {
+  RECATEGORISED_PRODUCT_URLS,
   RENAMED_PRODUCT_URLS,
   RETIRED_PRODUCT_URLS,
 } from "./src/lib/seo/retired-urls";
@@ -89,13 +90,15 @@ const nextConfig: NextConfig = {
    * a 404.
    */
   async redirects() {
-    return [...RETIRED_PRODUCT_URLS, ...RENAMED_PRODUCT_URLS].map(
-      ({ from, to }) => ({
-        source: from,
-        destination: to,
-        permanent: true,
-      }),
-    );
+    return [
+      ...RETIRED_PRODUCT_URLS,
+      ...RENAMED_PRODUCT_URLS,
+      ...RECATEGORISED_PRODUCT_URLS,
+    ].map(({ from, to }) => ({
+      source: from,
+      destination: to,
+      permanent: true,
+    }));
   },
 };
 

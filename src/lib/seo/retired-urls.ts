@@ -99,3 +99,36 @@ export const RENAMED_PRODUCT_URLS: readonly RetiredUrl[] = [
     to: "/shop/lighting/small-rectangular-gesso-table-lamp",
   },
 ];
+
+/**
+ * Products that moved to a different category.
+ *
+ * Distinct from `RENAMED_PRODUCT_URLS` on purpose: that list is slug repairs,
+ * and it carries a tested invariant that the category segment never changes —
+ * which is what makes it obvious when an entry is describing something else.
+ * These entries change exactly that segment.
+ *
+ * A product's URL is built from its primary category, so re-parenting one moves
+ * its address. The two Tristan photo frames had been sitting in Mirrors long
+ * enough to be indexed there, and the Mirrors page is the one Damien was looking
+ * at when he said "all mirrors should be in this category" — they are frames.
+ * See scripts/canonicalise-categories.ts for the reasoning per product.
+ */
+export const RECATEGORISED_PRODUCT_URLS: readonly RetiredUrl[] = [
+  {
+    from: "/shop/mirrors/tristan-mirror-and-wood-4x6-frame",
+    to: "/shop/wall-art/tristan-mirror-and-wood-4x6-frame",
+  },
+  {
+    from: "/shop/mirrors/tristan-mirror-and-wood-5x7-frame",
+    to: "/shop/wall-art/tristan-mirror-and-wood-5x7-frame",
+  },
+  {
+    from: "/shop/wall-art/antique-etched-foxed-wall-art-mirror",
+    to: "/shop/mirrors/antique-etched-foxed-wall-art-mirror",
+  },
+  {
+    from: "/shop/christmas-decorations/large-grey-stone-effect-hurricane-lantern",
+    to: "/shop/candles-and-lanterns/large-grey-stone-effect-hurricane-lantern",
+  },
+];
