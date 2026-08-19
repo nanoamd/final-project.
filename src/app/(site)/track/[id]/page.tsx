@@ -30,6 +30,16 @@ export default async function TrackOrderPage({
         {order.lineItems[0]?.description ?? "Your order"}
       </h1>
       <p className="text-muted mt-4 text-[15px]">
+        {/* The reference first: this is the line a customer reads back to us in
+            an email, so it needs to be the thing they see, not the date. */}
+        {order.orderNumber ? (
+          <>
+            <span className="text-graphite font-medium">
+              {order.orderNumber}
+            </span>
+            {" · "}
+          </>
+        ) : null}
         Placed{" "}
         {new Date(order.createdAt).toLocaleDateString("en-GB", {
           day: "numeric",

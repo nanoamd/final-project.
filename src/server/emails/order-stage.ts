@@ -76,7 +76,7 @@ export function stageVariables(
 ): Record<string, string | null> {
   return {
     customerName: order.customerName ?? "there",
-    orderNumber: order.orderId,
+    orderNumber: order.orderNumber ?? order.orderId,
     orderTotal: formatMoney(order.amountTotal, order.currency),
     trackingUrl: context.trackingUrl ?? null,
     trackingNumber: context.trackingNumber ?? null,
@@ -97,7 +97,7 @@ function statusFooter(order: OrderEmailData): string {
   return (
     button(url, "View your order") +
     smallPrint(
-      `Order reference ${escapeHtml(order.orderId)}. Reply to this email if anything looks wrong — it reaches a person.`,
+      `Order reference ${escapeHtml(order.orderNumber ?? order.orderId)}. Reply to this email if anything looks wrong — it reaches a person.`,
     )
   );
 }
@@ -131,7 +131,7 @@ function shell(
       title,
       ...text,
       `View your order: ${absoluteUrl(order.siteUrl, `/track/${order.orderId}`)}`,
-      `Order reference ${order.orderId}`,
+      `Order reference ${order.orderNumber ?? order.orderId}`,
     ]),
   };
 }

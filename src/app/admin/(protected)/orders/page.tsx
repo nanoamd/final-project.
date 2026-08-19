@@ -37,9 +37,18 @@ export default async function AdminOrdersPage() {
                 aria-label="View order"
               />
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="font-display text-lg">
-                  {formatPriceExact(order.amountTotal / 100)}
-                </p>
+                <div className="flex flex-wrap items-baseline gap-3">
+                  {/* The order number leads, because it is what Damien and the
+                      customer both say out loud. Before this the row opened
+                      with a price and identified the order only by the UUID in
+                      its link, which is unreadable and unquotable. */}
+                  <p className="font-display text-lg">
+                    {order.orderNumber ?? "No number"}
+                  </p>
+                  <p className="text-base text-neutral-600">
+                    {formatPriceExact(order.amountTotal / 100)}
+                  </p>
+                </div>
                 <p className="text-sm text-neutral-500">
                   {new Date(order.createdAt).toLocaleString("en-GB")}
                 </p>

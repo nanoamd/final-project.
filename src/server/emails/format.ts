@@ -57,6 +57,13 @@ export interface OrderEmailData {
    * derived from it, since a short code would match nothing in the database.
    */
   orderId: string;
+  /**
+   * The human order number ("KH-1042"). Shown to the customer in place of the
+   * UUID wherever there is room for only one reference — a UUID is unreadable
+   * over the phone and unquotable in a reply. `null` for orders placed before
+   * migration 0005, which fall back to the UUID.
+   */
+  orderNumber?: string | null;
   placedAt: Date;
   customerName: string | null;
   customerEmail: string;

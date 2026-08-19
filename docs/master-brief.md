@@ -47,11 +47,13 @@ Ranked by what it costs to leave undone.
 | --- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0   | ~~Get the work live~~             | **Done 12 August, 23:5x.** Vercel's Production Branch is `claude/init-production-codebase-phv4c7`, last pushed 9 August. Fast-forwarded it; kaikuhome.com now serves the current work. **Still worth doing: point Production Branch at `main`** so this cannot recur                                                              |
 | 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                                                                                                                                                                      |
-| 2   | **Stripe live keys**              | The site is on `pk_test_`. No card can be charged. Conversion rate is exactly zero until this changes                                                                                                                                                                                                                             |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. The confirmation email exists in code and cannot send                                                                                                                                                                                                                                          |
-| 4   | **One real test order**           | Payment → webhook → order record → email has never run against a real card                                                                                                                                                                                                                                                        |
+| 2   | ~~Stripe live keys~~              | **Done 19 August.** Live keys and the webhook are set, verified against the deployed site. A real card has been charged                                                                                                                                                                                                           |
+| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. This is exactly what happened on the 19 August order. Eight customer emails are now built and previewable at `/admin/emails`, and none of them can leave the building. Verify a sending domain in Resend, then set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in Vercel                          |
+| 4   | ~~One real test order~~           | **Done 19 August — £19.00, £18.51 net.** Payment and webhook worked. Two faults it exposed are fixed below; the email did not send, which is row 3                                                                                                                                                                                |
 | 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                                                                                                                                                                    |
 | 6   | **Companies House number**        | One field, and it unblocks two things. A UK limited company is required to publish it on its website, and it is what a wholesale platform checks against Companies House to decide Kaiku is a real retailer — the likeliest reason the trade applications get silence. Set `companyDetails.companyNumber` in `src/config/site.ts` |
+
+| 7 | **Run migration `0005`** | `supabase/migrations/0005_order_numbers.sql`, in Supabase → SQL Editor → New query. Until it runs there is no `order_number` column, so every order stays labelled by its UUID — the thing you said was unusable. Safe to re-run; it backfills the orders you already have |
 
 See `docs/first-sale-plan.md` for what these gate.
 
@@ -1245,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                 │  │        │   └── sequence, breaks ties
-                 │  │        └────── colour, omitted when there isn't one
-                 │  └─────────────── the range name
-                 └────────────────── category
+                         │  │        │   └── sequence, breaks ties
+                         │  │        └────── colour, omitted when there isn't one
+                         │  └─────────────── the range name
+                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1323,6 +1325,85 @@ clever script:
   then the same five Decor categories Hill Interiors contributes to.
   Numbers will follow once it completes; see the entry above this one for
   the miscategorisation fixes already made before it started.
+
+---
+
+## Part 4.6 — Orders, emails and the first real sale (19 August)
+
+Prompted by "a functioning shop needs all its categories filled in, test
+payments, emails for every situation automated and created and live stock,
+prices and fulfilment in place, and an understanding of how we let the customer
+track their order", and then sharpened by the first live order actually going
+through.
+
+### The first live order, and the two faults it exposed
+
+£19.00 taken, £18.51 net. Payment and webhook both worked. Two things did not:
+
+1. **"why is the order hidden and labelled by random numbers"** — the order was
+   a guest checkout, so nothing tied it to your account and it appeared nowhere
+   in `/account/orders`. It existed; it was just unreachable.
+2. **"i also didnt recieve any email"** — correct, and not a bug. `RESEND_API_KEY`
+   has never been set, so no email has ever sent. Row 3 of _Blocked on you_.
+
+### Emails — [x] built, editable, previewable
+
+- [x] **Editable in Studio.** An `emailTemplate` document type with heading,
+      text, image, button, order-summary, divider and spacer blocks, and an
+      `enabled` toggle. Renders through the same Outlook-safe table layout as the
+      built-in emails — inline styles, `width` attributes, real `alt` text, images
+      capped at 600px. Answering "How can I fully customise my emails and add
+      images etc on newsletters and confirmations and make them exactly how I want
+      them?"
+- [x] **A template you write wins; otherwise the built-in one sends.** Unknown
+      `{{placeholders}}` are left visible rather than silently blanked, so a typo
+      shows up in the preview instead of in a customer's inbox.
+- [x] **Eight customer-facing emails**, one per stage an order actually moves
+      through: confirmation, in production, dispatched with tracking, delivered,
+      review request, delayed, cancelled, refunded. The six internal stages send
+      nothing, deliberately.
+- [x] **Sending is idempotent** — a prior `email_sent` order event blocks a
+      duplicate, so advancing a stage twice does not email twice — and never
+      throws, so a failed send cannot roll back the stage change it was reporting.
+- [x] **`/admin/emails`** previews all eight, HTML and plain text, desktop and
+      mobile, and test-sends any of them to a real address with `[TEST]` on the
+      subject and the sample order's details, never a customer's. Answering "how do
+      we test the emails?". The previewer and the live sender share one resolver, so
+      a preview cannot drift from what actually gets sent.
+- [x] **Fixed a dead template** — `buildNewsletterWelcomeEmail` existed and was
+      never called. Subscribers were getting a crude inline `<div>`.
+
+### Orders — [x] readable numbers, [x] no guest checkout
+
+- [x] **`KH-1000` and upwards.** A Postgres sequence with a column default
+      rather than application code, so an order cannot exist without a number no
+      matter which path created it — webhook retry, manual insert, or code nobody
+      has written yet. Backfilled oldest-first so the numbering matches the order
+      things were actually bought in. Threaded through the admin orders list (where
+      it now leads each row, ahead of the price), your own order history, the
+      customer tracking page, and every email.
+- [x] **Guest checkout removed** — "checking out as a guest shouldnt be
+      possible". Enforced in the server action that creates the Stripe session,
+      which is the only path to payment, rather than by hiding a button. Every
+      order now attaches to an account, which is what fault 1 above was really
+      about.
+- [x] **Signing in returns you to your basket.** The redirect carries `?next=`,
+      the login and signup pages honour it, and the login page says why it happened
+      instead of dumping you on a form with no explanation. `?next=` is sanitised to
+      same-site paths only (`src/lib/safe-next-path.ts`, 12 tests) — an unchecked
+      one is an open redirect on our own domain, which is the exact shape a phishing
+      link wants.
+- [x] **The tracking page is still keyed by UUID, not by `KH-1042`.** The
+      readable number is for people to quote; the UUID is what unlocks somebody's
+      address and delivery date, and `KH-1042` is guessable.
+
+### Still open on orders
+
+- [ ] **"one place to track all orders easily then quickly order it by pressing
+      a link"** — the admin list is that place now, but the second half, a
+      one-press supplier order from the order row, is not built.
+- [ ] **Failed-payment handling** and **abandoned-basket recovery**.
+- [ ] **The 10% off second order** for creating an account.
 
 ---
 
@@ -1434,17 +1515,24 @@ clever script:
 
 ## Part 6 — Business systems and conversion
 
-- [ ] **Checkout audit** — add to basket, basket, checkout, payment,
-      confirmation, customer emails.
-- [!] **Stripe** — live payments, payment methods, checkout flow, order
-  confirmation, failed payment handling, receipts. Blocked on live keys.
-- [!] **Full test order before launch.**
+- [~] **Checkout audit** — add to basket, basket, checkout, payment,
+  confirmation, customer emails. Done as far as the 19 August order exposed:
+  guest checkout removed, order numbers added, the free-delivery contradiction
+  fixed. Abandoned-basket recovery and failed-payment handling are still open.
+- [x] **Stripe** — live payments, payment methods, checkout flow, order
+      confirmation, receipts. Live and proven with a real charge on 19 August.
+      Failed-payment handling is the one part not yet built.
+- [x] **Full test order before launch** — 19 August, £19.00.
 - [~] **Customer accounts** — create, view orders, save details, track
-  purchases. Pages exist; needs an audit.
+  purchases. Audited 19 August: checkout now requires an account, so an order
+  can no longer exist without one to appear in. Order history and the tracking
+  page both show the readable order number. Saved details are still not built.
 - [~] **Email system** — welcome, order confirmation, payment confirmation,
   shipping update, delivery notification, abandoned basket, account
-  creation, follow-up. Order confirmation and owner alert are wired into the
-  Stripe webhook; the rest are not built. All blocked on `RESEND_API_KEY`.
+  creation, follow-up. Eight are built, editable in Studio, and previewable
+  and test-sendable from `/admin/emails`. Abandoned basket and the 10%-off
+  follow-up are not built. Every one of them is still blocked on
+  `RESEND_API_KEY` — nothing has ever actually sent.
 - [ ] **10% off second order for creating an account** — framed as joining the
       Kaiku community, not as a hard sell.
 - [~] **Product badges** — new arrival, low stock, limited availability, popular

@@ -59,7 +59,7 @@ export async function sendStageEmail({
     const { data: order, error } = await admin
       .from("orders")
       .select(
-        "id, email, customer_name, phone, amount_total, currency, line_items, shipping_address, created_at, tracking_carrier, tracking_number, tracking_url, promised_delivery_date",
+        "id, order_number, email, customer_name, phone, amount_total, currency, line_items, shipping_address, created_at, tracking_carrier, tracking_number, tracking_url, promised_delivery_date",
       )
       .eq("id", orderId)
       .single();
@@ -81,6 +81,7 @@ export async function sendStageEmail({
 
     const emailData: OrderEmailData = {
       orderId: order.id as string,
+      orderNumber: (order.order_number as string | null) ?? null,
       placedAt: new Date(order.created_at as string),
       customerName: (order.customer_name as string | null) ?? null,
       customerEmail: order.email as string,
