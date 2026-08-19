@@ -4,15 +4,9 @@ import { siteConfig } from "@/config/site";
 import { getProductsBySlugs } from "@/lib/sanity/queries";
 import type { createAdminClient } from "@/server/supabase/admin";
 
-import { formatMoney, type OrderEmailData } from "./format";
-import { loadEmailTemplate } from "./load-template";
-import {
-  buildStageEmail,
-  emailKeyForStage,
-  type StageContext,
-  stageVariables,
-} from "./order-stage";
-import { renderTemplate } from "./template-renderer";
+import type { OrderEmailData } from "./format";
+import { emailKeyForStage, type StageContext } from "./order-stage";
+import { resolveStageEmail } from "./resolve-email";
 import { sendBuiltEmail } from "./transport";
 
 /**
@@ -130,21 +124,15 @@ export async function sendStageEmail({
       note: context.note ?? null,
     };
 
-    // A template Damien wrote in Studio wins; otherwise the built-in one.
-    const template = await loadEmailTemplate(templateKey);
-    const authored = renderTemplate({
-      template,
-      variables: stageVariables(emailData, fullContext),
-      orderLines: emailData.items.map((item) => ({
-        description: item.description ?? "Item",
-        quantity: item.quantity,
-        amount: formatMoney(item.amountTotal ?? 0, emailData.currency),
-        meta: item.leadTime,
-      })),
+    // Exactly what /admin/emails previews — one resolver, so the preview can
+    // never drift from what actually reaches a customer.
+    const resolved = await resolveStageEmail({
+      stage,
+      order: emailData,
+      context: fullContext,
     });
-
-    const built = authored ?? buildStageEmail(stage, emailData, fullContext);
-    if (!built) return;
+    if (!resolved) return;
+    const { built, source } = resolved;
 
     await sendBuiltEmail(emailData.customerEmail, built);
 
@@ -153,9 +141,10 @@ export async function sendStageEmail({
       type: "email_sent",
       stage,
       title: `Emailed the customer: ${built.subject}`,
-      detail: authored
-        ? "Sent using your Studio template."
-        : "Sent using the built-in template.",
+      detail:
+        source === "studio"
+          ? "Sent using your Studio template."
+          : "Sent using the built-in template.",
       actor: "system",
     });
   } catch (err) {

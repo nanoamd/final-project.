@@ -13,12 +13,14 @@ const NAV_ITEMS: {
     | "/admin/orders"
     | "/admin/inbox"
     | "/admin/newsletter"
+    | "/admin/emails"
     | "/admin/import";
 }[] = [
   { label: "Dashboard", href: "/admin" },
   { label: "Orders", href: "/admin/orders" },
   { label: "Inbox", href: "/admin/inbox" },
   { label: "Newsletter", href: "/admin/newsletter" },
+  { label: "Emails", href: "/admin/emails" },
   { label: "Import product", href: "/admin/import" },
 ];
 
