@@ -74,6 +74,15 @@ export const structure: StructureResolver = (S) =>
               ),
             ]),
         ),
+      S.listItem()
+        .title("Emails")
+        .child(
+          S.list()
+            .title("Emails")
+            .items([
+              S.documentTypeListItem("emailTemplate").title("Email Templates"),
+            ]),
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>
@@ -94,6 +103,7 @@ export const structure: StructureResolver = (S) =>
             "contactSubmission",
             "quoteRequest",
             "newsletterSubscriber",
+            "emailTemplate",
           ].includes(item.getId() as string),
       ),
     ]);
