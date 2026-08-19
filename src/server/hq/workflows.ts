@@ -47,6 +47,13 @@ const STAGE_LABELS: Record<OrderStage, string> = {
   on_hold: "On Hold",
 };
 
+/**
+ * Every stage that exists, for anything that needs to check a stage name is
+ * real. A stage misspelled in another file fails silently — an email keyed to
+ * "ready_for_dispatch" simply never sends — so this is worth exporting.
+ */
+export const ALL_STAGES = Object.keys(STAGE_LABELS) as OrderStage[];
+
 const FULL_WORKFLOW: OrderStage[] = [
   "paid",
   "review",

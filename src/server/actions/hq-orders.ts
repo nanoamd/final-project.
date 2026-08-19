@@ -162,6 +162,7 @@ function revalidateOrder(orderId: string) {
  * build, not this one. */
 export async function advanceOrderStage(
   orderId: string,
+  customerNote?: string,
 ): Promise<HqActionResult> {
   if (!(await requireAdmin())) return { ok: false, error: "Unauthorized." };
   const admin = createAdminClient();
@@ -193,8 +194,23 @@ export async function advanceOrderStage(
   });
 
   // Tells the customer, if this is a stage they should hear about. Never
-  // throws and never sends twice — see sendStageEmail.
-  await sendStageEmail({ admin, orderId, stage: next });
+  // throws and never sends twice — see sendStageEmail. `note` becomes
+  // {{customerNote}} in the email, and is recorded on the timeline below so
+  // there is a record of exactly what the customer was told.
+  const note = customerNote?.trim() || null;
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage: next,
+    context: note ? { note } : undefined,
+  });
+  if (note) {
+    await writeEvent(admin, orderId, {
+      type: "note",
+      title: "Note included in the customer's email",
+      detail: note,
+    });
+  }
 
   revalidateOrder(orderId);
   return { ok: true };
@@ -207,6 +223,7 @@ export async function advanceOrderStage(
 export async function setOrderStage(
   orderId: string,
   stage: string,
+  customerNote?: string,
 ): Promise<HqActionResult> {
   if (!(await requireAdmin())) return { ok: false, error: "Unauthorized." };
   const admin = createAdminClient();
@@ -224,8 +241,23 @@ export async function setOrderStage(
   });
 
   // Jumping straight to cancelled/refunded/on_hold is exactly when the
-  // customer most needs telling, so this path notifies as well.
-  await sendStageEmail({ admin, orderId, stage });
+  // customer most needs telling, so this path notifies as well — and it is
+  // where the note matters most, since "cancelled" with no reason given is
+  // worse than no email.
+  const note = customerNote?.trim() || null;
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage,
+    context: note ? { note } : undefined,
+  });
+  if (note) {
+    await writeEvent(admin, orderId, {
+      type: "note",
+      title: "Note included in the customer's email",
+      detail: note,
+    });
+  }
 
   revalidateOrder(orderId);
   return { ok: true };

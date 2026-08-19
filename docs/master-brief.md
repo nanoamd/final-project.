@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                         │  │        │   └── sequence, breaks ties
-                         │  │        └────── colour, omitted when there isn't one
-                         │  └─────────────── the range name
-                         └────────────────── category
+                                 │  │        │   └── sequence, breaks ties
+                                 │  │        └────── colour, omitted when there isn't one
+                                 │  └─────────────── the range name
+                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1396,6 +1396,56 @@ through.
 - [x] **The tracking page is still keyed by UUID, not by `KH-1042`.** The
       readable number is for people to quote; the UUID is what unlocks somebody's
       address and delivery date, and `KH-1042` is guessable.
+
+### Emails, second pass — the customisation was not actually complete
+
+Prompted by "i want to fully customise my emails". Auditing the system built
+earlier the same day against itself found it was not true:
+
+- **Three of the eleven emails could not be selected in Studio at all.** The
+  dropdown and the sending code each kept their own list of template keys, and
+  they had drifted. `order-in-production`, `order-delivered` and
+  `order-review-request` were looked up by the sender and absent from the
+  dropdown, so no template could ever be written for them.
+- **Three dropdown entries pointed at nothing.** `order-confirmation`,
+  `quote-received` and `contact-received` could be selected, saved and enabled —
+  and were never read by any sender. Including the order confirmation: the one
+  email every customer definitely receives was the one that could not be
+  customised.
+- **A template keyed wrongly fails silently.** It saves, it enables, it simply
+  never sends. Nothing anywhere reports it. That is what made this worth fixing
+  properly rather than patching the list.
+
+Fixed by making `src/lib/emails/catalogue.ts` the single list both sides read —
+the Studio dropdown is generated from it, and the senders resolve their key from
+it. 11 tests cover it, including one that checks every stage named in the
+catalogue is a real workflow stage, since `ready_for_dispatch` (the real name is
+`ready_dispatch`) would otherwise be another silent failure.
+
+- [x] **The order confirmation now respects a Studio template**, via the same
+      resolver everything else uses, falling back to the built-in one.
+- [x] **Quote and contact acknowledgements rebuilt.** Both were bare Georgia
+      `<div>`s written inline in the form actions — no Kaiku header, no footer, no
+      plain-text alternative. The same fault the newsletter welcome had. Both now go
+      through the shared Outlook-safe layout and accept a Studio template.
+- [x] **An HTML-injection bug in the contact form's admin notification.** The
+      visitor's name, email and message were interpolated into HTML unescaped. A
+      message containing markup could inject links or images into the notification,
+      and a stray `<` was enough to swallow the rest of the enquiry before it was
+      read. The quote form escaped correctly; the contact form did not.
+- [x] **`{{customerNote}}`** — "a placeholder for where i insert info about the
+      order". A box on the order in `/admin/orders/[id]`: type something, change the
+      stage, and it appears in that email wherever the template puts
+      `{{customerNote}}`. Saved to the order's timeline too, so there is a record of
+      what the customer was told, and cleared after use so the next stage change
+      cannot repeat it.
+- [x] **Order numbers in Stripe.** "order numbers should show here too" — the
+      Transactions list showed `pi_3U6FWWB6fKxUzUPh05AeN0ur`, unmatchable against
+      anything in admin. The webhook now writes `Kaiku KH-1000 — <first item>` onto
+      the PaymentIntent as its description, plus the order number, order id and a
+      direct admin link as metadata, so Stripe's search box finds a payment by order
+      number. Done after payment rather than by reserving a number at checkout, so
+      an abandoned basket does not burn one.
 
 ### Still open on orders
 

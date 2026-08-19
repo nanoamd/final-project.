@@ -2,87 +2,135 @@
 
 import "server-only";
 
+import { siteUrl } from "@/config/site";
+import { EMAIL_KINDS, type EmailKind } from "@/lib/emails/catalogue";
 import { getAuthorizedAdmin } from "@/server/auth/admin";
-import type { BuiltEmail } from "@/server/emails/layout";
-import { buildOrderConfirmationEmail } from "@/server/emails/order-confirmation";
-import { emailKeyForStage } from "@/server/emails/order-stage";
-import { resolveStageEmail } from "@/server/emails/resolve-email";
+import {
+  buildContactReceivedEmail,
+  buildQuoteReceivedEmail,
+} from "@/server/emails/form-acknowledgements";
+import { buildNewsletterWelcomeEmail } from "@/server/emails/newsletter-welcome";
+import {
+  resolveConfirmationEmail,
+  resolveFormEmail,
+  resolveStageEmail,
+} from "@/server/emails/resolve-email";
 import { SAMPLE_CONTEXT, SAMPLE_ORDER } from "@/server/emails/sample-order";
 import { sendBuiltEmail } from "@/server/emails/transport";
 
 /**
- * Renders and test-sends the transactional emails, for /admin/emails.
+ * Renders and test-sends every email Kaiku sends, for /admin/emails.
  *
- * Both paths go through `resolveStageEmail`, the same resolver the live sender
- * uses, so what is previewed here is what a customer receives — including
- * whether a Studio template or the built-in version wins.
+ * The list comes from the shared catalogue rather than a second list kept here,
+ * and every preview goes through the same resolver the live sender uses. Both
+ * points matter for the same reason: a preview built from its own list, or its
+ * own rendering path, tells you about the preview rather than about what the
+ * customer gets. This page previously listed eight emails when the code sent
+ * eleven, and three of them could not be reached at all.
  */
 
 export interface EmailPreview {
-  stage: string;
+  /** The catalogue key — also the id the client passes back to test-send. */
+  key: string;
   label: string;
+  /** What makes it send, shown so a preview is not mistaken for a schedule. */
+  when: string;
   subject: string;
   html: string;
   text: string;
   source: "studio" | "built-in";
-  templateKey: string;
 }
 
-/** Every customer-facing email, in the order an order actually moves through. */
-const PREVIEWABLE: { stage: string; label: string }[] = [
-  { stage: "__confirmation", label: "Order confirmation (after payment)" },
-  { stage: "production", label: "In production" },
-  { stage: "tracking", label: "Dispatched, with tracking" },
-  { stage: "delivered", label: "Delivered" },
-  { stage: "review_requested", label: "Review request" },
-  { stage: "on_hold", label: "Delayed" },
-  { stage: "cancelled", label: "Cancelled" },
-  { stage: "refunded", label: "Refunded" },
-];
+/** Sample data for the form emails, matching SAMPLE_ORDER's tone. */
+const SAMPLE_QUOTE = {
+  customerName: "Alex Hartley",
+  reference: "KQ-4821",
+  siteUrl,
+  projectTypes: ["Garden sauna", "Cold plunge"],
+};
 
-/**
- * The order confirmation does not come from the stage machine — the Stripe
- * webhook sends it on payment — so it is resolved separately here rather than
- * left out of the previews, which would leave the one email every customer
- * definitely receives untestable.
- */
-async function confirmationPreview(): Promise<EmailPreview> {
-  const built: BuiltEmail = buildOrderConfirmationEmail(SAMPLE_ORDER);
-  return {
-    stage: "__confirmation",
-    label: "Order confirmation (after payment)",
-    subject: built.subject,
-    html: built.html,
-    text: built.text,
-    source: "built-in",
-    templateKey: "order-confirmation",
-  };
+const SAMPLE_CONTACT = {
+  customerName: "Alex Hartley",
+  siteUrl,
+  message:
+    "Hello — we are looking at the two-seater sauna for a garden in Buckinghamshire. Is the door reversible, and can it be delivered through a side gate about 900mm wide?",
+};
+
+/** Resolves one catalogue entry into a preview, or `null` if it cannot send. */
+async function previewFor(kind: EmailKind): Promise<EmailPreview | null> {
+  const base = { key: kind.key, label: kind.label, when: kind.when };
+
+  if (kind.trigger === "payment") {
+    const { built, source } = await resolveConfirmationEmail(SAMPLE_ORDER);
+    return { ...base, ...built, source };
+  }
+
+  if (kind.trigger === "stage") {
+    if (!kind.stage) return null;
+    const resolved = await resolveStageEmail({
+      stage: kind.stage,
+      order: SAMPLE_ORDER,
+      context: SAMPLE_CONTEXT,
+    });
+    if (!resolved) return null;
+    return { ...base, ...resolved.built, source: resolved.source };
+  }
+
+  const resolved = await resolveFormEmail(formArgs(kind.key));
+  return { ...base, ...resolved.built, source: resolved.source };
+}
+
+/** The template key, variables and built-in fallback for a form email. */
+function formArgs(key: string) {
+  switch (key) {
+    case "quote-received":
+      return {
+        templateKey: key,
+        variables: {
+          customerName: SAMPLE_QUOTE.customerName,
+          reference: SAMPLE_QUOTE.reference,
+          shopUrl: `${siteUrl}/shop`,
+          projectTypes: SAMPLE_QUOTE.projectTypes.join(", "),
+        },
+        fallback: () => buildQuoteReceivedEmail(SAMPLE_QUOTE),
+      };
+    case "contact-received":
+      return {
+        templateKey: key,
+        variables: {
+          customerName: SAMPLE_CONTACT.customerName,
+          shopUrl: `${siteUrl}/shop`,
+          message: SAMPLE_CONTACT.message,
+        },
+        fallback: () => buildContactReceivedEmail(SAMPLE_CONTACT),
+      };
+    default: {
+      // newsletter-welcome. The unsubscribe link is a real route shape with a
+      // sample id, so the preview shows the layout the subscriber gets.
+      const unsubscribeUrl = `${siteUrl}/newsletter/unsubscribe/sample-subscriber`;
+      return {
+        templateKey: "newsletter-welcome",
+        variables: { unsubscribeUrl, shopUrl: `${siteUrl}/shop`, siteUrl },
+        fallback: () =>
+          buildNewsletterWelcomeEmail({
+            unsubscribeUrl,
+            siteUrl,
+            // No discount engine exists yet — see newsletter-welcome.ts.
+            discountCode: null,
+          }),
+      };
+    }
+  }
 }
 
 export async function getEmailPreviews(): Promise<EmailPreview[]> {
   if (!(await getAuthorizedAdmin())) return [];
 
-  const previews: EmailPreview[] = [await confirmationPreview()];
-
-  for (const { stage, label } of PREVIEWABLE) {
-    if (stage === "__confirmation") continue;
-    const resolved = await resolveStageEmail({
-      stage,
-      order: SAMPLE_ORDER,
-      context: SAMPLE_CONTEXT,
-    });
-    if (!resolved) continue;
-    previews.push({
-      stage,
-      label,
-      subject: resolved.built.subject,
-      html: resolved.built.html,
-      text: resolved.built.text,
-      source: resolved.source,
-      templateKey: resolved.templateKey,
-    });
+  const previews: EmailPreview[] = [];
+  for (const kind of EMAIL_KINDS) {
+    const preview = await previewFor(kind);
+    if (preview) previews.push(preview);
   }
-
   return previews;
 }
 
@@ -97,7 +145,7 @@ export interface SendTestResult {
  * that Outlook broke your layout or that the images were blocked.
  */
 export async function sendTestEmail(
-  stage: string,
+  key: string,
   to: string,
 ): Promise<SendTestResult> {
   if (!(await getAuthorizedAdmin()))
@@ -107,39 +155,23 @@ export async function sendTestEmail(
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address))
     return { ok: false, message: "That does not look like an email address." };
 
-  const built =
-    stage === "__confirmation"
-      ? buildOrderConfirmationEmail(SAMPLE_ORDER)
-      : (
-          await resolveStageEmail({
-            stage,
-            order: SAMPLE_ORDER,
-            context: SAMPLE_CONTEXT,
-          })
-        )?.built;
+  const kind = EMAIL_KINDS.find((entry) => entry.key === key);
+  if (!kind) return { ok: false, message: "No such email." };
 
-  if (!built)
-    return { ok: false, message: "That stage does not send an email." };
+  const preview = await previewFor(kind);
+  if (!preview)
+    return { ok: false, message: "That one does not send an email." };
 
   // Prefixed so a test can never be mistaken for a real order's email if it
   // is forwarded or found again later.
   await sendBuiltEmail(address, {
-    ...built,
-    subject: `[TEST] ${built.subject}`,
+    subject: `[TEST] ${preview.subject}`,
+    html: preview.html,
+    text: preview.text,
   });
 
   return {
     ok: true,
     message: `Sent to ${address}. If nothing arrives, RESEND_API_KEY or RESEND_FROM_EMAIL is not set — check the deploy logs.`,
   };
-}
-
-export async function listPreviewableStages(): Promise<
-  { stage: string; label: string; sends: boolean }[]
-> {
-  return PREVIEWABLE.map(({ stage, label }) => ({
-    stage,
-    label,
-    sends: stage === "__confirmation" || emailKeyForStage(stage) !== null,
-  }));
 }

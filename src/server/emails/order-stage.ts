@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { OrderStage } from "@/server/hq/workflows";
+import { emailKeyForOrderStage } from "@/lib/emails/catalogue";
 
 import {
   absoluteUrl,
@@ -54,19 +54,14 @@ export interface StageContext {
   note?: string | null;
 }
 
-/** Which template key, if any, a stage sends. `null` means stay quiet. */
-const STAGE_EMAIL: Partial<Record<OrderStage, string>> = {
-  production: "order-in-production",
-  tracking: "order-dispatched",
-  delivered: "order-delivered",
-  review_requested: "order-review-request",
-  on_hold: "order-delayed",
-  cancelled: "order-cancelled",
-  refunded: "order-refunded",
-};
-
+/**
+ * Which template key, if any, a stage sends. `null` means stay quiet.
+ *
+ * Delegated to the shared catalogue so the Studio dropdown and this cannot
+ * disagree — they did, and three emails were unreachable as a result.
+ */
 export function emailKeyForStage(stage: string): string | null {
-  return STAGE_EMAIL[stage as OrderStage] ?? null;
+  return emailKeyForOrderStage(stage);
 }
 
 /** The variables an editor can use in a Studio template for this order. */
@@ -78,6 +73,11 @@ export function stageVariables(
     customerName: order.customerName ?? "there",
     orderNumber: order.orderNumber ?? order.orderId,
     orderTotal: formatMoney(order.amountTotal, order.currency),
+    // Damien's own words about this specific order, typed on the order in
+    // /admin/orders. `null` rather than "" when unwritten, so a template using
+    // {{customerNote}} leaves no empty paragraph behind on the orders where he
+    // had nothing to add.
+    customerNote: context.note?.trim() || null,
     trackingUrl: context.trackingUrl ?? null,
     trackingNumber: context.trackingNumber ?? null,
     carrier: context.trackingCarrier ?? null,

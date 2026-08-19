@@ -1,6 +1,8 @@
 import { MailboxIcon } from "lucide-react";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
+import { EMAIL_KIND_OPTIONS } from "@/lib/emails/catalogue";
+
 /**
  * An email Damien can edit himself — subject line, images, wording, buttons —
  * without anyone touching TypeScript.
@@ -28,7 +30,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 /** Variables the renderer substitutes, per email kind. Documented in the UI so
  *  the editor does not have to guess what is available. */
 const VARIABLE_HELP =
-  "Insert live order details with double braces: {{customerName}}, {{orderNumber}}, {{orderTotal}}, {{trackingUrl}}, {{trackingNumber}}, {{carrier}}, {{leadTime}}, {{shopUrl}}, {{unsubscribeUrl}}. Anything unrecognised is left alone rather than blanked, so a stray brace never eats your copy.";
+  "Insert live order details with double braces: {{customerName}}, {{orderNumber}}, {{orderTotal}}, {{customerNote}}, {{orderStatusUrl}}, {{trackingUrl}}, {{trackingNumber}}, {{carrier}}, {{leadTime}}, {{shopUrl}}, {{unsubscribeUrl}}. {{customerNote}} is the per-order note you type on the order itself in /admin/orders — put it where you want your own words about that specific order to appear, and it disappears cleanly on orders where you did not write one. Anything unrecognised is left alone rather than blanked, so a stray brace never eats your copy.";
 
 export const emailTemplate = defineType({
   name: "emailTemplate",
@@ -42,21 +44,7 @@ export const emailTemplate = defineType({
       type: "string",
       description:
         "Each email can have one template. Two templates with the same key: the most recently updated one wins.",
-      options: {
-        list: [
-          {
-            title: "Order confirmation (after payment)",
-            value: "order-confirmation",
-          },
-          { title: "Order dispatched", value: "order-dispatched" },
-          { title: "Order delayed", value: "order-delayed" },
-          { title: "Order cancelled", value: "order-cancelled" },
-          { title: "Refund issued", value: "order-refunded" },
-          { title: "Newsletter welcome", value: "newsletter-welcome" },
-          { title: "Quote request received", value: "quote-received" },
-          { title: "Contact form received", value: "contact-received" },
-        ],
-      },
+      options: { list: EMAIL_KIND_OPTIONS },
       validation: (rule) => rule.required(),
     }),
     defineField({

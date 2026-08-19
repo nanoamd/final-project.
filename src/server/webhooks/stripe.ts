@@ -7,7 +7,7 @@ import { env } from "@/env";
 import { getProductsBySlugs } from "@/lib/sanity/queries";
 import type { OrderEmailData } from "@/server/emails/format";
 import { buildOrderAlertEmail } from "@/server/emails/order-alert";
-import { buildOrderConfirmationEmail } from "@/server/emails/order-confirmation";
+import { resolveConfirmationEmail } from "@/server/emails/resolve-email";
 import { sendBuiltEmail } from "@/server/emails/transport";
 import { assignWorkflow } from "@/server/hq/workflows";
 import { getStripe } from "@/server/stripe/client";
@@ -28,6 +28,12 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
         `[stripe] checkout completed: session=${session.id} amount=${session.amount_total} currency=${session.currency}`,
       );
       const { orderId, orderNumber, lineItems } = await persistOrder(session);
+      // Stamps the order number onto the payment itself, so Stripe's own
+      // Transactions list reads "Kaiku KH-1000" instead of a raw pi_ id. Same
+      // fail-soft rule as the emails below: a failure here must never make this
+      // webhook answer non-2xx, because Stripe would retry a charge that has
+      // already succeeded.
+      await labelPayment(session, orderId, orderNumber, lineItems);
       // Deliberately after the order is safely persisted, and deliberately not
       // inside persistOrder's throwing path. Every send in sendOrderEmails is
       // fail-soft by contract, so a Resend outage logs and moves on — it must
@@ -167,6 +173,60 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<{
   };
 }
 
+/**
+ * Writes the Kaiku order number back onto the Stripe PaymentIntent.
+ *
+ * Damien, looking at Stripe's Transactions list: "order numbers should show here
+ * too". Without this the Description column shows the payment intent id —
+ * `pi_3U6FWWB6fKxUzUPh05AeN0ur` — which is unmatchable against anything in
+ * /admin/orders without opening both and comparing timestamps.
+ *
+ * Done here rather than at checkout because the order number does not exist
+ * until the order row does; the alternative, reserving a number before payment,
+ * would burn a number on every abandoned basket.
+ *
+ * Metadata as well as the description: the description is what the list shows,
+ * and the metadata is what Stripe's search box can actually find. Searching
+ * "KH-1000" in Stripe now lands on the payment.
+ */
+async function labelPayment(
+  session: Stripe.Checkout.Session,
+  orderId: string,
+  orderNumber: string | null,
+  lineItems: MappedLineItem[],
+): Promise<void> {
+  const paymentIntentId =
+    typeof session.payment_intent === "string"
+      ? session.payment_intent
+      : session.payment_intent?.id;
+  if (!paymentIntentId || !orderNumber) return;
+
+  // The first item, so the row says what was bought as well as which order it
+  // was. Stripe truncates the column, hence the number first.
+  const firstItem = lineItems[0]?.description?.trim();
+  const description = firstItem
+    ? `Kaiku ${orderNumber} — ${firstItem}`
+    : `Kaiku ${orderNumber}`;
+
+  try {
+    await getStripe().paymentIntents.update(paymentIntentId, {
+      description,
+      metadata: {
+        kaiku_order_number: orderNumber,
+        kaiku_order_id: orderId,
+        kaiku_admin_url: `${siteConfig.url}/admin/orders/${orderId}`,
+      },
+    });
+  } catch (error) {
+    // Cosmetic. The order is already saved and the customer is already being
+    // emailed; a failure to relabel the payment is not worth a retried webhook.
+    console.error(
+      `[stripe] could not label payment ${paymentIntentId} with ${orderNumber}`,
+      error,
+    );
+  }
+}
+
 /** The line-item shape persistOrder writes into `orders.line_items`. */
 interface MappedLineItem {
   description: string | null;
@@ -244,7 +304,10 @@ async function sendOrderEmails(
       siteUrl: siteConfig.url,
     };
 
-    await sendBuiltEmail(email, buildOrderConfirmationEmail(order));
+    // Through the resolver, so a confirmation template written in Studio wins
+    // over the built-in one. Falls back to built-in on its own.
+    const { built } = await resolveConfirmationEmail(order);
+    await sendBuiltEmail(email, built);
 
     // The owner alert is a separate send on purpose: if the customer's address
     // bounces, Damien should still learn that a sale happened.

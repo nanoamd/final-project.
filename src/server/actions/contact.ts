@@ -2,7 +2,11 @@
 
 import "server-only";
 
+import { siteUrl } from "@/config/site";
 import { env } from "@/env";
+import { buildContactReceivedEmail } from "@/server/emails/form-acknowledgements";
+import { escapeHtml, escapeHtmlWithBreaks } from "@/server/emails/layout";
+import { resolveFormEmail } from "@/server/emails/resolve-email";
 import { sendEmail } from "@/server/integrations/resend";
 import { getSanityWriteClient } from "@/server/sanity/write-client";
 
@@ -74,27 +78,43 @@ export async function submitContactForm(
       to: env.ADMIN_EMAIL,
       subject: `New enquiry from ${name.trim()}`,
       replyTo: email.trim(),
+      // Escaped, all three. This is text a stranger typed into a public form
+      // and it was being interpolated into HTML raw — a message containing
+      // markup could inject links or images into Damien's own inbox, and a
+      // stray `<` was enough to eat the rest of the enquiry before he read it.
       html: `
         <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
-          <p style="font-size: 16px; line-height: 1.6;"><strong>${name.trim()}</strong> (${email.trim()}) sent this via the contact form:</p>
-          <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a; white-space: pre-wrap;">${message.trim()}</p>
+          <p style="font-size: 16px; line-height: 1.6;"><strong>${escapeHtml(name.trim())}</strong> (${escapeHtml(email.trim())}) sent this via the contact form:</p>
+          <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a;">${escapeHtmlWithBreaks(message.trim())}</p>
           <p style="font-size: 13px; color: #9a9a9a;">Reply to this email to respond directly.</p>
         </div>
       `,
     });
   }
 
+  // Through the resolver so a Studio template can replace it, and through the
+  // shared layout either way — this used to be a bare Georgia `<div>` that
+  // looked nothing like the rest of Kaiku's mail.
+  const { built } = await resolveFormEmail({
+    templateKey: "contact-received",
+    variables: {
+      customerName: name.trim(),
+      shopUrl: `${siteUrl}/shop`,
+      message: message.trim(),
+    },
+    fallback: () =>
+      buildContactReceivedEmail({
+        customerName: name.trim(),
+        siteUrl,
+        message: message.trim(),
+      }),
+  });
+
   await sendEmail({
     to: email.trim(),
-    subject: "We've received your message",
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
-        <p style="font-size: 16px; line-height: 1.6;">Thank you, ${name.trim()}.</p>
-        <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a;">
-          We've received your message and will get back to you shortly.
-        </p>
-      </div>
-    `,
+    subject: built.subject,
+    html: built.html,
+    text: built.text,
   });
 
   return { ok: true };

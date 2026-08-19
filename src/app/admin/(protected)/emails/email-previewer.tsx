@@ -18,21 +18,21 @@ import {
  * the only way the preview is worth trusting.
  */
 export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
-  const [activeStage, setActiveStage] = React.useState(previews[0]!.stage);
+  const [activeStage, setActiveStage] = React.useState(previews[0]!.key);
   const [view, setView] = React.useState<"html" | "text">("html");
   const [width, setWidth] = React.useState<"desktop" | "mobile">("desktop");
   const [testTo, setTestTo] = React.useState("");
   const [sending, setSending] = React.useState(false);
   const [result, setResult] = React.useState<string | null>(null);
 
-  const active = previews.find((p) => p.stage === activeStage) ?? previews[0]!;
+  const active = previews.find((p) => p.key === activeStage) ?? previews[0]!;
 
   async function handleSend(event: React.FormEvent) {
     event.preventDefault();
     setSending(true);
     setResult(null);
     try {
-      const outcome = await sendTestEmail(active.stage, testTo);
+      const outcome = await sendTestEmail(active.key, testTo);
       setResult(outcome.message);
     } catch {
       setResult("Could not send — check the deploy logs.");
@@ -46,13 +46,13 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
       <nav aria-label="Emails">
         <ul className="flex flex-col gap-1">
           {previews.map((preview) => {
-            const isActive = preview.stage === active.stage;
+            const isActive = preview.key === active.key;
             return (
-              <li key={preview.stage}>
+              <li key={preview.key}>
                 <button
                   type="button"
                   onClick={() => {
-                    setActiveStage(preview.stage);
+                    setActiveStage(preview.key);
                     setResult(null);
                   }}
                   aria-current={isActive ? "true" : undefined}
@@ -85,9 +85,10 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
           <p className="text-ink mt-1 text-[15px] font-medium">
             {active.subject}
           </p>
-          <p className="text-muted mt-2 text-[12px]">
+          <p className="text-muted mt-2 text-[12px]">{active.when}</p>
+          <p className="text-muted mt-1 text-[12px]">
             Studio template key:{" "}
-            <code className="text-graphite">{active.templateKey}</code> ·{" "}
+            <code className="text-graphite">{active.key}</code> ·{" "}
             {active.source === "studio"
               ? "a template you wrote is live for this"
               : "no Studio template enabled, so the built-in one sends"}
@@ -137,7 +138,7 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
             <iframe
               // Keyed so switching emails remounts rather than reusing a
               // document that has already been written to.
-              key={`${active.stage}-${width}`}
+              key={`${active.key}-${width}`}
               title={`${active.label} preview`}
               srcDoc={active.html}
               sandbox=""
