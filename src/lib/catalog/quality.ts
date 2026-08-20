@@ -74,6 +74,8 @@ export interface QualityInput {
   descriptionText?: string | null;
   /** The description's h2/h3 headings, in order. */
   headings?: string[];
+  /** Whether the SKU matches the house format, so identity scores too. */
+  skuIsCanonical?: boolean;
   faqs?: { question?: string | null; answer?: string | null }[] | null;
   price?: number | null;
   costPrice?: number | null;
@@ -186,6 +188,89 @@ const TEMPLATE_HEADINGS = new Set(
 /** An FAQ answer that admits it has nothing to say is worse than no FAQ. */
 const EMPTY_ANSWER_PATTERN =
   /\b(?:not specified|no(?:t)? (?:available|provided|listed|stated)|unavailable|please contact|refer to the (?:supplier|manufacturer)|information is not)\b/i;
+
+/**
+ * Artefacts of the machinery that produced the copy, rather than faults in the
+ * copy itself. Every one was found in the live catalogue on 20 August 2026 —
+ * none is hypothetical.
+ *
+ * Severity is meant literally: serialisation garbage is a blocker because a
+ * customer is reading raw template syntax on a live page, whereas a doubled
+ * space is a blemish.
+ */
+const ARTEFACTS: {
+  dimension: Dimension;
+  severity: Finding["severity"];
+  pattern: RegExp;
+  message: string;
+}[] = [
+  {
+    dimension: "accuracy",
+    severity: "blocker",
+    // "}},{ heading Delivery paragraphs :[" — the generator's own scaffolding.
+    pattern: /[{}]|\bparagraphs\b\s*[:[]|(?:,\s*){3,}|\/g\s*,/,
+    message: "Raw template syntax is visible in the copy.",
+  },
+  {
+    dimension: "readability",
+    severity: "major",
+    pattern: /\*\*|\[[^\]]+\]\([^)]+\)/,
+    message: "Markdown markup left in the text.",
+  },
+  {
+    dimension: "readability",
+    severity: "major",
+    pattern: /&(?:amp|nbsp|quot|lt|gt|#\d+);|<\/?[a-z]+>/i,
+    message: "An HTML entity or tag is showing as literal text.",
+  },
+  {
+    dimension: "humanQuality",
+    severity: "major",
+    pattern:
+      /\b(?:as an ai|i'm sorry|i cannot|certainly!|here(?:'s| is) (?:a|the) (?:list|description|overview))/i,
+    message: "Chatbot phrasing left in the copy.",
+  },
+  {
+    dimension: "usefulness",
+    severity: "major",
+    pattern: /\bnot specified\b|\bnot stated\b|\bnot provided\b|\bN\/A\b/i,
+    message:
+      "The copy admits it does not know something instead of finding it out.",
+  },
+  {
+    dimension: "brandFit",
+    severity: "major",
+    pattern: /\bthe supplier\b|\baccording to the (?:supplier|manufacturer)\b/i,
+    message:
+      "Quotes \u201Cthe supplier\u201D rather than stating the fact as Kaiku's own.",
+  },
+  {
+    dimension: "usefulness",
+    severity: "major",
+    pattern: /\b(?:refer to|check|see) the product page\b/i,
+    message: "Tells the reader to check the product page they are already on.",
+  },
+  {
+    dimension: "accuracy",
+    severity: "blocker",
+    // "delivery for orders under £50" contradicts free delivery on everything.
+    pattern: /(?:under|over|above|below)\s*\u00A3\s?\d/i,
+    message:
+      "States a delivery price threshold. Delivery is free on everything, so this is wrong.",
+  },
+  {
+    dimension: "readability",
+    severity: "minor",
+    pattern: /\b(\w{4,})\s+\1\b/i,
+    message: "A word is repeated back to back.",
+  },
+  {
+    dimension: "readability",
+    severity: "minor",
+    pattern: /[a-z]\s{2,}[a-z]/i,
+    message: "Doubled spacing inside a sentence.",
+  },
+];
 
 /** Words that a supplier's own copy leaves behind. See Step 15 of the brief. */
 const SUPPLIER_LEAK_PATTERN =
@@ -345,9 +430,26 @@ export function scoreProduct(input: QualityInput): QualityResult {
       `${emptyFaqs.length} FAQ${emptyFaqs.length === 1 ? "" : "s"} answer nothing (e.g. "${(emptyFaqs[0]?.question ?? "").slice(0, 60)}").`,
     );
   }
-  if (SUPPLIER_LEAK_PATTERN.test(description)) {
+  // Checked across summary, description, FAQs and meta together. An earlier
+  // version looked only at the description, and therefore missed 15 summaries
+  // naming a supplier plus every leak sitting inside an FAQ answer.
+  const everyField = [
+    summary,
+    description,
+    (input.faqs ?? [])
+      .map((f) => `${f?.question ?? ""} ${f?.answer ?? ""}`)
+      .join("\n"),
+    input.seoTitle ?? "",
+    input.seoDescription ?? "",
+  ].join("\n");
+
+  if (SUPPLIER_LEAK_PATTERN.test(everyField)) {
     accuracy -= 3;
-    add("accuracy", "major", "Supplier name or link left in the description.");
+    add(
+      "accuracy",
+      "major",
+      "Supplier name or link left in customer-facing copy.",
+    );
   }
   accuracy = clamp(accuracy);
 
@@ -508,16 +610,38 @@ export function scoreProduct(input: QualityInput): QualityResult {
     add("usefulness", "minor", "No short summary.");
   }
 
+  // Artefacts, applied across every customer-facing field.
+  const artefactPenalty: Partial<Record<Dimension, number>> = {};
+  for (const artefact of ARTEFACTS) {
+    if (!artefact.pattern.test(everyField)) continue;
+    add(artefact.dimension, artefact.severity, artefact.message);
+    const cost =
+      artefact.severity === "blocker"
+        ? 6
+        : artefact.severity === "major"
+          ? 3
+          : 1;
+    artefactPenalty[artefact.dimension] =
+      (artefactPenalty[artefact.dimension] ?? 0) + cost;
+  }
+  const less = (dimension: Dimension, value: number) =>
+    clamp(value - (artefactPenalty[dimension] ?? 0));
+
+  if (input.skuIsCanonical === false) {
+    add("commercial", "major", "SKU is not in the house format.");
+    commercial = clamp(commercial - 2);
+  }
+
   const scores: Record<Dimension, number> = {
-    accuracy: round1(accuracy),
-    usefulness: round1(usefulness),
-    humanQuality: round1(humanQuality),
-    brandFit: round1(brandFit),
+    accuracy: round1(less("accuracy", accuracy)),
+    usefulness: round1(less("usefulness", usefulness)),
+    humanQuality: round1(less("humanQuality", humanQuality)),
+    brandFit: round1(less("brandFit", brandFit)),
     specificity: round1(specificity),
     seo: round1(seo),
     commercial: round1(commercial),
     returnRisk: round1(returnRisk),
-    readability: round1(readability),
+    readability: round1(less("readability", readability)),
     aiRisk: round1(aiRisk),
   };
 

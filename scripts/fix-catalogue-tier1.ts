@@ -162,11 +162,12 @@ async function main() {
   const rows: {
     _id: string;
     title?: string;
+    summary?: string;
     description?: Block[];
     faqs?: { question?: string; answer?: string }[];
     seo?: { metaTitle?: string; metaDescription?: string };
   }[] = await client.fetch(
-    `*[_type == "product"]{ _id, title, description, faqs, seo }`,
+    `*[_type == "product"]{ _id, title, summary, description, faqs, seo }`,
   );
 
   const patches: { id: string; set: Record<string, unknown> }[] = [];
@@ -247,7 +248,12 @@ async function main() {
           });
           continue;
         }
-        if (cleaned !== original) {
+        // Content only, for the same reason as the summary and FAQ guards
+        // above: a whitespace-only rewrite changes nothing a customer sees.
+        const sameWords =
+          cleaned.replace(/\s+/g, " ").trim() ===
+          original.replace(/\s+/g, " ").trim();
+        if (cleaned !== original && !sameWords) {
           if (new RegExp(SUPPLIER_ALTERNATION, "i").test(cleaned)) {
             // Half-cleaned copy is worse than untouched copy: it reads as an
             // editing mistake rather than as a citation.
@@ -299,25 +305,120 @@ async function main() {
       if (touched) set.description = pruned;
     }
 
-    // ---- 3. FAQs that answer nothing -----------------------------------
+    // ---- 2b. Summary ---------------------------------------------------
+    // The first pass never looked here, and 15 published summaries named a
+    // supplier or carried a "(hill-interiors.com)" citation.
+    if (typeof row.summary === "string" && row.summary.trim()) {
+      if (NEEDS_JUDGEMENT.test(row.summary)) {
+        flags.push({
+          id: row._id,
+          title,
+          reason: "summary needs a rewrite, not a strip",
+          detail: row.summary.trim().slice(0, 160),
+        });
+      } else {
+        const tidied = cleanText(row.summary).text.trim();
+        // Only when the *content* changed. Collapsing whitespace alone would
+        // rewrite 568 documents to no benefit, and a summary's line breaks are
+        // deliberate — flattening them is a regression, not a tidy-up.
+        const sameWords = (a: string, b: string) =>
+          a.replace(/\s+/g, " ").trim() === b.replace(/\s+/g, " ").trim();
+        if (
+          !sameWords(tidied, row.summary) &&
+          !new RegExp(SUPPLIER_ALTERNATION, "i").test(tidied)
+        ) {
+          set.summary = tidied;
+          changes.push({
+            id: row._id,
+            title,
+            field: "summary",
+            kind: "supplier-reference",
+            before: row.summary,
+            after: tidied,
+          });
+        }
+      }
+    }
+
+    // ---- 3. FAQs -------------------------------------------------------
     if (Array.isArray(row.faqs) && row.faqs.length > 0) {
       const EMPTY =
         /\b(?:not specified|no(?:t)? (?:available|provided|listed|stated)|unavailable|information is not)\b/i;
-      const kept = row.faqs.filter((f) => !EMPTY.test(f?.answer ?? ""));
-      if (kept.length !== row.faqs.length) {
-        for (const dropped of row.faqs.filter((f) =>
-          EMPTY.test(f?.answer ?? ""),
-        ))
+      const kept: { question?: string; answer?: string }[] = [];
+      let faqsTouched = false;
+
+      for (const faq of row.faqs) {
+        const answer = faq?.answer ?? "";
+
+        // An answer that admits it knows nothing is worse than no FAQ at all.
+        if (EMPTY.test(answer)) {
+          faqsTouched = true;
           changes.push({
             id: row._id,
             title,
             field: "faqs",
             kind: "removed-empty-faq",
-            before: `Q: ${dropped.question} / A: ${dropped.answer}`,
+            before: `Q: ${faq.question} / A: ${answer}`,
             after: "(removed)",
           });
-        set.faqs = kept;
+          continue;
+        }
+
+        // "delivery for orders under £50" contradicts free delivery on
+        // everything. A wrong delivery promise is worse than a missing one and
+        // cannot be patched by deleting a word, so the whole answer goes.
+        if (/(?:under|over|above|below)\s*£\s?\d/i.test(answer)) {
+          faqsTouched = true;
+          changes.push({
+            id: row._id,
+            title,
+            field: "faqs",
+            kind: "removed-wrong-delivery-faq",
+            before: `Q: ${faq.question} / A: ${answer}`,
+            after: "(removed — delivery is free on everything)",
+          });
+          continue;
+        }
+
+        const nextQuestion = cleanText(faq?.question ?? "").text.trim();
+        const nextAnswer = cleanText(answer).text.trim();
+
+        // Content only. HTML collapses consecutive spaces anyway, so a
+        // whitespace-only edit rewrites the document and changes nothing a
+        // customer can see.
+        const sameWords = (a: string, b: string) =>
+          a.replace(/\s+/g, " ").trim() === b.replace(/\s+/g, " ").trim();
+        if (
+          !sameWords(nextQuestion, faq.question ?? "") ||
+          !sameWords(nextAnswer, answer)
+        ) {
+          if (new RegExp(SUPPLIER_ALTERNATION, "i").test(nextAnswer)) {
+            // Never leave a half-cleaned answer behind.
+            flags.push({
+              id: row._id,
+              title,
+              reason: "FAQ answer needs a rewrite, not a strip",
+              detail: nextAnswer.slice(0, 160),
+            });
+            kept.push(faq);
+            continue;
+          }
+          faqsTouched = true;
+          changes.push({
+            id: row._id,
+            title,
+            field: "faqs",
+            kind: "supplier-reference",
+            before: `Q: ${faq.question} / A: ${answer}`,
+            after: `Q: ${nextQuestion} / A: ${nextAnswer}`,
+          });
+          kept.push({ ...faq, question: nextQuestion, answer: nextAnswer });
+          continue;
+        }
+        kept.push(faq);
       }
+
+      if (faqsTouched) set.faqs = kept;
     }
 
     // ---- 4. Over-long meta descriptions --------------------------------

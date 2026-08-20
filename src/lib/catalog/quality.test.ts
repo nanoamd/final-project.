@@ -258,3 +258,142 @@ describe("grades and tiers", () => {
     expect(result.stats.words).toBe(0);
   });
 });
+
+describe("generator artefacts, all found in the live catalogue", () => {
+  const cases: [string, Partial<QualityInput>, RegExp][] = [
+    [
+      "raw template syntax",
+      {
+        descriptionText:
+          "Care and Cleaning }},{ heading Delivery paragraphs :[ At Kaiku",
+      },
+      /template syntax/,
+    ],
+    [
+      "markdown left in the text",
+      {
+        descriptionText:
+          "Ideas to inspire you: - **Living Room:** place it on a mantel.",
+      },
+      /Markdown/,
+    ],
+    [
+      "an HTML entity showing literally",
+      { descriptionText: "Wicker Lantern With Glass Holder &amp; LED Lights." },
+      /HTML entity/,
+    ],
+    [
+      "chatbot phrasing",
+      { faqs: [{ question: "Indoors?", answer: "Certainly! It suits both." }] },
+      /Chatbot/,
+    ],
+    [
+      "admitting it does not know",
+      { descriptionText: "Colour: Clear. Dimensions: Not specified." },
+      /does not know/,
+    ],
+    [
+      "quoting the supplier as narrator",
+      {
+        descriptionText: "The supplier states that assembly needs two people.",
+      },
+      /the supplier/i,
+    ],
+    [
+      "pointing at the page you are on",
+      {
+        faqs: [
+          { question: "Price?", answer: "Please refer to the product page." },
+        ],
+      },
+      /product page they are already on/,
+    ],
+    [
+      "a delivery price threshold that contradicts free delivery",
+      {
+        faqs: [
+          { question: "Delivery?", answer: "7-14 days for orders under £50." },
+        ],
+      },
+      /free on everything/,
+    ],
+    [
+      "a word repeated back to back",
+      {
+        descriptionText: "Specifications Specifications of the wreath follow.",
+      },
+      /repeated back to back/,
+    ],
+  ];
+
+  for (const [name, patch, expected] of cases) {
+    it(`catches ${name}`, () => {
+      const result = scoreProduct({ ...SOUND, ...patch });
+      expect(
+        result.findings.some((f) => expected.test(f.message)),
+        name,
+      ).toBe(true);
+    });
+  }
+
+  it("treats raw template syntax as a blocker, not a blemish", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText: "The chair is , , , , ,, , , ,{ , , , , , , }",
+    });
+    expect(result.tier).toBe("REVIEW");
+    expect(
+      result.findings.some(
+        (f) => f.severity === "blocker" && /template syntax/.test(f.message),
+      ),
+    ).toBe(true);
+  });
+
+  it("finds a supplier name in the summary, not only the description", () => {
+    // 15 published summaries named a supplier and the first pass missed all of
+    // them, because it looked only at the description.
+    const result = scoreProduct({
+      ...SOUND,
+      summary: "Curated coffee tables from premium UK supplier D.I. Designs.",
+    });
+    expect(
+      result.findings.some((f) => /Supplier name or link/.test(f.message)),
+    ).toBe(true);
+  });
+
+  it("finds a supplier name inside an FAQ answer", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      faqs: [
+        { question: "Who makes it?", answer: "It is made by Hill Interiors." },
+      ],
+    });
+    expect(
+      result.findings.some((f) => /Supplier name or link/.test(f.message)),
+    ).toBe(true);
+  });
+
+  it("leaves clean copy alone", () => {
+    const result = scoreProduct(SOUND);
+    for (const bad of [
+      /template syntax/,
+      /Markdown/,
+      /HTML entity/,
+      /Chatbot/,
+      /does not know/,
+      /repeated back to back/,
+    ]) {
+      expect(
+        result.findings.some((f) => bad.test(f.message)),
+        String(bad),
+      ).toBe(false);
+    }
+  });
+
+  it("flags a SKU that is not in the house format", () => {
+    const result = scoreProduct({ ...SOUND, skuIsCanonical: false });
+    expect(result.findings.some((f) => /house format/.test(f.message))).toBe(
+      true,
+    );
+  });
+});

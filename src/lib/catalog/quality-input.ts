@@ -10,6 +10,7 @@
  */
 
 import type { QualityInput } from "./quality";
+import { isCanonicalSku } from "./sku";
 
 interface PortableBlock {
   _type?: string;
@@ -85,6 +86,9 @@ export function toQualityInput(doc: ProductDocument): QualityInput {
     weight: doc.weight ?? null,
     stockStatus: doc.stockStatus ?? null,
     galleryCount: doc.galleryCount ?? 0,
+    // `undefined` when there is no SKU at all — the missing-SKU case is already
+    // reported separately, and flagging it twice would double-count it.
+    skuIsCanonical: doc.sku ? isCanonicalSku(doc.sku) : undefined,
     seoTitle: doc.seoTitle ?? null,
     seoDescription: doc.seoDescription ?? null,
     published: !doc._id.startsWith("drafts."),
