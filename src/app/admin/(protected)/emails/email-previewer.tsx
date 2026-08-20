@@ -24,6 +24,9 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
   const [testTo, setTestTo] = React.useState("");
   const [sending, setSending] = React.useState(false);
   const [result, setResult] = React.useState<string | null>(null);
+  // Whether the last send actually worked. A failure that reads like a success
+  // is the exact fault this page is here to avoid.
+  const [resultOk, setResultOk] = React.useState(false);
 
   const active = previews.find((p) => p.key === activeStage) ?? previews[0]!;
 
@@ -34,8 +37,10 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
     try {
       const outcome = await sendTestEmail(active.key, testTo);
       setResult(outcome.message);
+      setResultOk(outcome.ok);
     } catch {
       setResult("Could not send — check the deploy logs.");
+      setResultOk(false);
     } finally {
       setSending(false);
     }
@@ -54,6 +59,7 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
                   onClick={() => {
                     setActiveStage(preview.key);
                     setResult(null);
+                    setResultOk(false);
                   }}
                   aria-current={isActive ? "true" : undefined}
                   className={`w-full rounded-lg border px-3 py-2.5 text-left text-[13.5px] transition-colors ${
@@ -183,7 +189,9 @@ export function EmailPreviewer({ previews }: { previews: EmailPreview[] }) {
           {result ? (
             <p
               role="status"
-              className="text-graphite w-full text-[13px] leading-relaxed"
+              className={`w-full text-[13px] leading-relaxed ${
+                resultOk ? "text-green-700" : "text-red-700"
+              }`}
             >
               {result}
             </p>

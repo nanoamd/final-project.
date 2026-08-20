@@ -16,7 +16,10 @@ import {
   resolveStageEmail,
 } from "@/server/emails/resolve-email";
 import { SAMPLE_CONTEXT, SAMPLE_ORDER } from "@/server/emails/sample-order";
-import { sendBuiltEmail } from "@/server/emails/transport";
+import {
+  describeEmailConfig,
+  sendEmailWithOutcome,
+} from "@/server/emails/transport";
 
 /**
  * Renders and test-sends every email Kaiku sends, for /admin/emails.
@@ -164,14 +167,68 @@ export async function sendTestEmail(
 
   // Prefixed so a test can never be mistaken for a real order's email if it
   // is forwarded or found again later.
-  await sendBuiltEmail(address, {
+  //
+  // `sendEmailWithOutcome`, not `sendBuiltEmail`: the live senders are
+  // deliberately fail-soft and swallow the reason, which is correct for them and
+  // useless here. This button exists to answer "does email work", and it used to
+  // report "Sent" whether or not anything left the building.
+  const outcome = await sendEmailWithOutcome({
+    to: address,
     subject: `[TEST] ${preview.subject}`,
     html: preview.html,
     text: preview.text,
   });
 
-  return {
-    ok: true,
-    message: `Sent to ${address}. If nothing arrives, RESEND_API_KEY or RESEND_FROM_EMAIL is not set — check the deploy logs.`,
-  };
+  switch (outcome.reason) {
+    case "sent":
+      return { ok: true, message: `Sent to ${address}. Check your inbox.` };
+
+    case "no-from-address":
+      return {
+        ok: false,
+        message:
+          `Resend accepted it, but RESEND_FROM_EMAIL is not set, so it went out as ` +
+          `Resend's onboarding sender. That address only delivers to your own Resend ` +
+          `account — mail to anyone else is dropped. Set RESEND_FROM_EMAIL in Vercel ` +
+          `to an address on a domain you have verified, then redeploy.`,
+      };
+
+    case "no-api-key":
+      return {
+        ok: false,
+        message:
+          "Nothing was sent: RESEND_API_KEY is not set on this deployment. " +
+          "Add it in Vercel under Settings → Environment Variables (Production), " +
+          "then redeploy — a new variable needs a fresh build to take effect.",
+      };
+
+    case "rejected":
+      return {
+        ok: false,
+        message: `Resend refused it. ${outcome.detail ?? ""}`.trim(),
+      };
+
+    default:
+      return {
+        ok: false,
+        message: `Could not reach Resend. ${outcome.detail ?? ""}`.trim(),
+      };
+  }
+}
+
+export interface EmailConfigStatus {
+  canSend: boolean;
+  hasApiKey: boolean;
+  hasFromAddress: boolean;
+  fromAddress: string;
+}
+
+/**
+ * The deployment's email configuration, so the page can say up front whether a
+ * test send has any chance of arriving — rather than letting someone press the
+ * button and wait for an email that was never going to come.
+ */
+export async function getEmailConfigStatus(): Promise<EmailConfigStatus | null> {
+  if (!(await getAuthorizedAdmin())) return null;
+  return describeEmailConfig();
 }

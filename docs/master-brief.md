@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                         │  └─────────────── the range name
-                                                                                         └────────────────── category
+                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                 │  └─────────────── the range name
+                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1799,6 +1799,40 @@ guest either way."_ That stopped being true when guest checkout was removed. Now
 it says an account is needed, and why. Exactly the class of contradiction the
 site-wide audit is meant to catch, found by reading the file rather than by a
 rule.
+
+### [x] The test-send button was lying
+
+"emailing my self a template didnt work."
+
+It very likely did not send, and the page said it had. `sendTestEmail` called
+`sendBuiltEmail`, ignored the boolean it returns, and reported
+`ok: true, "Sent to you@example.com"` unconditionally. The reason went to a server
+log nobody was reading. **A button whose only purpose is to answer "does email
+work" answered yes regardless** — worse than not having one.
+
+Fixed so the page tells the truth:
+
+- [x] **`sendEmailWithOutcome`** returns why, not just whether: `sent`,
+      `no-api-key`, `no-from-address`, `rejected`, `network-error`, with Resend's own
+      error text passed back. `sendEmail` keeps its boolean signature, so the
+      deliberately fail-soft live senders — order confirmation, stage emails — are
+      untouched. An order must never fail because an email did.
+- [x] **`no-from-address` is reported as a failure even though Resend accepts
+      it.** Without `RESEND_FROM_EMAIL` the mail goes out as Resend's onboarding
+      sender, which only ever delivers to the account holder's own address. A boolean
+      says "true"; a customer gets nothing. That is the single most likely reason a
+      test send silently vanishes.
+- [x] **A banner before anyone presses anything.** `/admin/emails` now states up
+      front whether the deployment can send at all, and which address it sends as.
+      The old flow made "email is switched off" discoverable only by sending a test
+      and waiting for something that was never coming.
+- [x] **Result text is coloured** by outcome. It was neutral grey either way.
+- [x] **10 tests** (`transport.test.ts`), including one asserting the API key
+      never appears in text shown to an operator, and one pinning `sendEmail`'s
+      boolean contract so the fail-soft callers cannot be broken by a later change.
+      Runs under `// @vitest-environment node` — the `env` proxy refuses server
+      variables when `window` exists, so under the project's default jsdom every
+      assertion failed for reasons unrelated to email.
 
 ### Still open on orders
 
