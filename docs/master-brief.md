@@ -55,6 +55,8 @@ Ranked by what it costs to leave undone.
 
 | 7 | **Run migration `0005`** | `supabase/migrations/0005_order_numbers.sql`, in Supabase → SQL Editor → New query. Until it runs there is no `order_number` column, so every order stays labelled by its UUID — the thing you said was unusable. Safe to re-run; it backfills the orders you already have |
 
+| 8 | **Three supplier emails into Studio** | Hill Interiors, AW Dropship, SaunaPlunge have no trade email on record, so the admin purchase-order screen has nowhere to send. **183 of 237 published products cannot be ordered.** Ten minutes of typing unblocks 76% of the catalogue. Studio → Supplier → Email |
+
 See `docs/first-sale-plan.md` for what these gate.
 
 ### The deploy — solved
@@ -1247,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                         │  └─────────────── the range name
-                                                                                                                         └────────────────── category
+                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1905,6 +1907,55 @@ Still to finish:
 - [ ] **Have the policy itself reviewed by someone qualified.** The code
       implements it conservatively in the customer's favour, which is the safer legal
       position, but that is not the same as legal advice.
+
+### [x] Every piece of external data we need, listed — `docs/external-data-requirements.md`
+
+"we should make a list of all external info we need to retrieve, shipping rules,
+live prices, live stock, auto fulfilment too". Written against the live dataset
+rather than from memory, which changed several of the numbers this ledger was
+carrying.
+
+Four areas, plus a fifth that turned out to be the precondition for all of them:
+**the identifiers**. A stock feed that cannot be matched to our products is not a
+stock feed. 36 published products have no `supplierSku` and 68 have no GTIN, so
+those rows would land nowhere.
+
+The single highest-value finding, and it is not a technical one: **only one
+supplier of five has a trade email on record.** D.I. Designs does; Hill
+Interiors (136 products), AW Dropship (38), SaunaPlunge (8) and Aosom (1) do
+not. **183 of 237 published products cannot be ordered from the admin at all**,
+because the purchase-order screen has no address to send to. Three email
+addresses typed into Studio unblocks 76% of the catalogue, and takes ten
+minutes. It is the first thing in "Blocked on you" now.
+
+The document is written as **asks, not scrapes** throughout — a supplier's bot
+protection stays untouched, so every line is something a trade account can
+legitimately be given. It includes the email to send, and the order to send it
+in, because the answer to most of this is a file we have never requested.
+
+**Two corrections to things this ledger previously recorded wrongly:**
+
+- **The images are fine.** An earlier count claimed all 236 published products
+  had no `images` field. The field is called `gallery`. All 237 have one, and
+  all 237 have a `sourceUrl` too. The earlier finding was a query against a
+  field name that has never existed.
+- **The carriage unknowns are 10, not 9**, and they are D.I. Designs 4 plus AW
+  Dropship 6. AW Dropship's are unresolvable until they send their weight-band
+  table, because the rule shape needs a per-item weight and none of their 38
+  products carry one.
+
+Also found, flagged rather than fixed: Hill Interiors spells the same lead time
+four ways — `7–14 days` on 57 products, `7-14 days` on 13, `3-4 weeks ` with a
+trailing space on 43. Standing constraint says lead times are not to be changed,
+so I have not. `scripts/normalise-lead-time-punctuation.ts` already exists and
+touches only the punctuation, if you want it run.
+
+- [ ] **Put the three missing supplier emails into Studio** — Hill Interiors, AW
+      Dropship, SaunaPlunge. Unblocks 183 products for ordering.
+- [ ] **Send the five supplier emails** in `docs/external-data-requirements.md`.
+- [ ] **Feed ingestion, `lastVerifiedAt` timestamps, a stale-data watchdog and
+      automatic price-change audit entries** — all scoped in section G, none of
+      it worth building before a supplier has said what they can give us.
 
 ### Still open on orders
 
