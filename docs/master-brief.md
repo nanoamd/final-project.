@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                 │  └─────────────── the range name
-                                                                                                 └────────────────── category
+                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                         │  └─────────────── the range name
+                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1833,6 +1833,64 @@ Fixed so the page tells the truth:
       Runs under `// @vitest-environment node` — the `env` proxy refuses server
       variables when `window` exists, so under the project's default jsdom every
       assertion failed for reasons unrelated to email.
+
+### [~] Returns — the last legal gap
+
+Kaiku published a returns policy and had no way to act on one. A customer who
+read it was told to "contact us with your order number", which meant an email
+into an inbox with no reference, no record and nothing tying it to the order.
+Under the Consumer Contracts Regulations 2013 a customer has a **right** to
+cancel, and a shop that cannot reliably receive a cancellation will eventually
+fail to honour one.
+
+**The distinction the whole build turns on:** what the customer is legally owed
+is not the same question as whether the supplier will still accept a claim. The
+policy asks customers to report damage within 48 hours _because suppliers set
+their own windows, some as short as three working days_. That is an operational
+fact about Kaiku's suppliers — it cannot shorten a statutory right. Code that
+refused a fault on day 20 would be unlawful.
+
+- [x] **`server/returns/eligibility.ts`** — pure and tested, 21 tests. Encodes the
+      published policy plus the statutory minimums: 14 days to cancel (Consumer
+      Contracts Regulations 2013), 30-day short-term right to reject and
+      repair/replace after (Consumer Rights Act 2015).
+- [x] **A fault can never be auto-declined.** Asserted exhaustively across every
+      fault reason × 8 ages × used/unused × packaging × photos — 256 combinations,
+      none of which may return `decline`. The worst outcome for a fault is "a human
+      should look at this", and Kaiku always pays the return shipping.
+- [x] **Change of mind is the only route that can decline**, and only past the
+      statutory window — where the customer is pointed at the fault route, which has
+      no deadline. Used or unpackaged goods go to review, never refusal: the law
+      allows a _reduced_ refund for handling, not a rejection.
+- [x] **Made-to-order in production goes to review, not decline.** The policy says
+      it cannot be cancelled "unless required by law", and that caveat is doing real
+      work — only genuinely bespoke or personalised goods lose the statutory right
+      (reg. 28), and a standard product built to order usually keeps it.
+- [x] **Migration `0006_returns.sql`** — `KR-` references from a sequence (the
+      policy promises "the reference the warehouse needs"), RLS letting a customer
+      read only their own, and **deliberately no customer UPDATE policy**: letting
+      someone mark their own return "refunded" is not a hypothetical risk.
+- [x] **`requestReturn`** verifies the order belongs to the signed-in user
+      server-side rather than trusting the form, refuses a second open return on the
+      same order, and writes a `return_requested` event onto the order timeline so it
+      appears in admin beside everything else rather than in a silo.
+- [x] **The form lives on the order's own page**, not behind an email address.
+      Condition questions are asked only for a change of mind — asking whether a
+      broken table is "unused and in its original packaging" reads as hunting for a
+      reason to say no, and the answer changes nothing.
+
+Still to finish:
+
+- [ ] **Photograph upload.** The assessment already asks for pictures on a
+      transit-damage claim and routes it to review without them; the upload itself is
+      not built, so `photoCount` is always 0 today.
+- [ ] **Admin returns screen**, and the supplier return request. Visible on the
+      order timeline meanwhile.
+- [ ] **Emails** — `return-requested` is not in the email catalogue yet.
+- [ ] **Migration 0006 needs running** in Supabase before any of it works.
+- [ ] **Have the policy itself reviewed by someone qualified.** The code
+      implements it conservatively in the customer's favour, which is the safer legal
+      position, but that is not the same as legal advice.
 
 ### Still open on orders
 

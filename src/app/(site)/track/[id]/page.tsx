@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { ReturnRequestForm } from "@/features/storefront/components/order/return-request-form";
 import { getPublicOrderStatus } from "@/server/actions/order-tracking";
 import { stageLabel, stagesForWorkflow } from "@/server/hq/workflows";
 
@@ -105,6 +106,12 @@ export default async function TrackOrderPage({
           })}
         </p>
       ) : null}
+
+      {/* Offered on the order's own page, because the moment someone wants to
+          send something back is the moment they are least willing to go hunting
+          for an email address. The form checks they own the order server-side —
+          this page is reachable with the id alone. */}
+      <ReturnRequestForm orderId={order.id} />
     </Container>
   );
 }
