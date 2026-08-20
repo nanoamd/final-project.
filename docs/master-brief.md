@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                         │  │        │   └── sequence, breaks ties
-                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                         │  └─────────────── the range name
-                                                                         └────────────────── category
+                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                 │  └─────────────── the range name
+                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1730,6 +1730,53 @@ Still open, reported and not acted on:
       (`RELATED_BY_CATEGORY_QUERY`), so a mirror in Bedroom → Mirrors is never offered
       beside one in Decor → Mirrors. Cross-listing does not reach the related rail yet.
 - [ ] **Cross-listing is at 18%** of the catalogue, up from 15%.
+
+### [~] Carriage and margins — 75 unknowns down to 9
+
+"Most suppliers are good for free delivery." Right for two of the four, and the
+data proved which rather than it being taken on trust.
+
+**Hill Interiors — free, evidenced.** 70 of its 136 products were already
+recorded at exactly £0 carriage and **none above zero**. Rule set to `included`
+and the remaining 66 backfilled by the existing
+`scripts/apply-supplier-shipping-rules.ts`. No price touched, nothing reaching a
+customer. **Carriage unknowns: 75 → 9.**
+
+**Two suppliers are demonstrably not free, whatever the general picture:**
+
+- **AW Dropship** charges £2.79–£5.99 on 26 of its 37 products. Setting it to
+  `included` would have written a fake zero onto small-parcel items and made them
+  look more profitable than they are. 5 products still need a rule.
+- **D.I. Designs** charges £80 on heavy items — three marble/oak coffee tables
+  carry it. "Included in the sales price" reads as Damien having absorbed it into
+  his retail price, which the recorded figures support, so those stay. 4 products
+  still need a value.
+
+**Margins, now on real carriage for 96% of the catalogue:**
+
+| Band        | Products                                                 |
+| ----------- | -------------------------------------------------------- |
+| Loss-making | **0**                                                    |
+| Under 10%   | 3 (all D.I. Designs, untouchable by standing constraint) |
+| 10–15%      | 13                                                       |
+| 15–20%      | 33                                                       |
+| 20–35%      | 91                                                       |
+| 35%+        | 95                                                       |
+
+Nothing is being sold at a loss. That was the open question behind "prices
+reviewed to make sure we make profit", and the answer is better than feared.
+
+- [!] **Berkeley White Console Table is a data-entry transposition.** `costPrice
+£0`, `shippingCost £510`, price £680. £510 carriage on a console table is not
+  credible; £510 as the cost price with £0 or £80 carriage is, and would put it on
+  the same ~25% margin as its siblings. Flagged repeatedly and still never guessed
+  at — it needs Damien's confirmation, because inventing either number is how a
+  margin report starts lying.
+- [ ] **AW Dropship's carriage rule** — the recorded range suggests per-item by
+      size. 5 products awaiting it.
+- [ ] **D.I. Designs' 4 missing carriage values.**
+- [x] **Junk supplier records identified**: `AOSON` is a typo duplicate of `Aosom`,
+      both with zero published products.
 
 ### Still open on orders
 
