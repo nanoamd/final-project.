@@ -283,6 +283,113 @@ export function assessOrder(
   return items;
 }
 
+/**
+ * An open return, as the alerts feed needs to see it.
+ *
+ * Returns get their own rules rather than being squeezed into `AttentionOrder`
+ * because the clock that matters is different: an order is late against a date
+ * promised to a customer, whereas a return is late against a *supplier's* claim
+ * window, and missing that costs Kaiku the money rather than the customer the
+ * goods.
+ */
+export interface AttentionReturn {
+  id: string;
+  returnNumber: string;
+  orderId: string;
+  orderNumber: string | null;
+  customerName: string | null;
+  email: string | null;
+  reason: string;
+  decision: "accept" | "review" | "decline";
+  status: string;
+  /** True when the supplier's own claim window has probably closed already. */
+  supplierWindowLikelyClosed: boolean;
+  createdAt: string;
+}
+
+/** Statuses where the return is finished and nothing more is owed. */
+const CLOSED_RETURN_STATUSES = new Set(["refunded", "replaced", "rejected"]);
+
+/**
+ * What an open return needs from Damien.
+ *
+ * A customer who starts a return has been told "we'll come back to you within
+ * one working day". Nothing else in the system enforces that promise, so this
+ * does — a return sitting unanswered is the same class of failure as an order
+ * sitting unordered, and it is the one the customer is already unhappy about.
+ */
+export function assessReturns(
+  returns: AttentionReturn[],
+  now: Date = new Date(),
+): AttentionItem[] {
+  const items: AttentionItem[] = [];
+
+  for (const entry of returns) {
+    if (CLOSED_RETURN_STATUSES.has(entry.status)) continue;
+
+    const ageHours = hoursSince(entry.createdAt, now) ?? 0;
+    const waited = businessDaysBetween(new Date(entry.createdAt), now);
+    const who = entry.customerName?.trim() || entry.email?.trim() || "Customer";
+    const ref = `${entry.returnNumber} · ${entry.orderNumber ?? entry.orderId.slice(0, 8)}`;
+    const base = { orderId: entry.orderId, orderNumber: entry.orderNumber };
+
+    // 1. Needs a human decision, and the customer was promised one working day.
+    if (entry.decision === "review" && entry.status === "requested") {
+      items.push({
+        ...base,
+        id: `${entry.id}:return-review`,
+        // A supplier window closing is money leaving; that outranks the promise.
+        severity:
+          entry.supplierWindowLikelyClosed || waited >= 1
+            ? "critical"
+            : "warning",
+        title: "Return waiting on your decision",
+        detail: `${ref} · ${who} · ${entry.reason.replace(/-/g, " ")} · raised ${waited} working day${waited === 1 ? "" : "s"} ago`,
+        consequence: entry.supplierWindowLikelyClosed
+          ? "The supplier's claim window has probably closed, so every day now is money Kaiku absorbs rather than recovers."
+          : "They were told they would hear back within one working day, and they are already unhappy.",
+        ageHours,
+      });
+      continue;
+    }
+
+    // 2. Approved and told to send it back, but nothing has arrived. Not a
+    //    failure yet — it becomes one silently if nobody is watching.
+    if (entry.status === "approved" || entry.status === "awaiting_item") {
+      if (waited >= 10) {
+        items.push({
+          ...base,
+          id: `${entry.id}:return-stalled`,
+          severity: "warning",
+          title: "Approved return has not come back",
+          detail: `${ref} · ${who} · approved ${waited} working days ago`,
+          consequence:
+            "Either it is lost in transit or they changed their mind. Ask — an open return is an unresolved refund either way.",
+          ageHours,
+        });
+      }
+      continue;
+    }
+
+    // 3. Received, and the refund has not been issued. The customer has sent
+    //    their goods back and is waiting on money.
+    if (entry.status === "received" && waited >= 1) {
+      items.push({
+        ...base,
+        id: `${entry.id}:return-refund-due`,
+        severity: "critical",
+        title: "Returned goods received, refund not issued",
+        detail: `${ref} · ${who}`,
+        consequence:
+          "They have given the item back and are out of pocket. The law allows 14 days from receipt; making them wait for it is how a return becomes a chargeback.",
+        ageHours,
+      });
+    }
+  }
+
+  return items;
+}
+
 const SEVERITY_ORDER: Record<AttentionSeverity, number> = {
   critical: 0,
   warning: 1,

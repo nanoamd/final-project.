@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                         │  └─────────────── the range name
-                                                                                                         └────────────────── category
+                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                 │  └─────────────── the range name
+                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so

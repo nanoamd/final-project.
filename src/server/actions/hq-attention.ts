@@ -5,9 +5,11 @@ import "server-only";
 import { getAuthorizedAdmin } from "@/server/auth/admin";
 import {
   assessOrders,
+  assessReturns,
   attentionCounts,
   type AttentionItem,
   type AttentionOrder,
+  type AttentionReturn,
 } from "@/server/hq/attention";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -113,8 +115,66 @@ export async function getAttention(): Promise<AttentionSummary> {
     };
   });
 
-  const items = assessOrders(assessable);
+  // Returns are assessed alongside orders and merged into one feed. A customer
+  // waiting on a return decision is not a lesser problem than an order waiting
+  // on a purchase order — it is the same failure, to someone already unhappy.
+  const items = [
+    ...assessOrders(assessable),
+    ...assessReturns(await openReturns(admin)),
+  ].sort(bySeverityThenAge);
+
   return { items, counts: attentionCounts(items) };
+}
+
+const SEVERITY_RANK = { critical: 0, warning: 1, due: 2 } as const;
+
+function bySeverityThenAge(a: AttentionItem, b: AttentionItem): number {
+  return (
+    SEVERITY_RANK[a.severity] - SEVERITY_RANK[b.severity] ||
+    b.ageHours - a.ageHours
+  );
+}
+
+/**
+ * Returns that are not finished with.
+ *
+ * Fails soft to an empty list: migration 0006 may not have been run yet, and a
+ * missing `returns` table must not blank the whole alerts feed — the order
+ * watchdogs are the more important half and have to keep working regardless.
+ */
+async function openReturns(
+  admin: ReturnType<typeof createAdminClient>,
+): Promise<AttentionReturn[]> {
+  const { data, error } = await admin
+    .from("returns")
+    .select(
+      "id, return_number, order_id, email, customer_name, reason, decision, status, supplier_window_likely_closed, created_at, orders(order_number)",
+    )
+    .not("status", "in", '("refunded","replaced","rejected")')
+    .order("created_at", { ascending: true })
+    .limit(200);
+
+  if (error) {
+    // Expected until 0006 has been applied. Logged once per request, not raised.
+    console.warn("[attention] could not read returns:", error.message);
+    return [];
+  }
+
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    returnNumber: row.return_number,
+    orderId: row.order_id,
+    orderNumber:
+      (row.orders as { order_number?: string | null } | null)?.order_number ??
+      null,
+    customerName: row.customer_name ?? null,
+    email: row.email ?? null,
+    reason: row.reason,
+    decision: row.decision,
+    status: row.status,
+    supplierWindowLikelyClosed: Boolean(row.supplier_window_likely_closed),
+    createdAt: row.created_at,
+  }));
 }
 
 /** The distinct supplier names on an order's line items. */

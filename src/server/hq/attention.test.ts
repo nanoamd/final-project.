@@ -3,8 +3,10 @@ import { describe, expect, it } from "vitest";
 import {
   assessOrder,
   assessOrders,
+  assessReturns,
   attentionCounts,
   type AttentionOrder,
+  type AttentionReturn,
   businessDaysBetween,
 } from "./attention";
 
@@ -380,5 +382,101 @@ describe("attentionCounts", () => {
       due: 0,
       total: 0,
     });
+  });
+});
+
+/** A return raised this morning, awaiting a decision. */
+const OPEN_RETURN: AttentionReturn = {
+  id: "ret-1",
+  returnNumber: "KR-1001",
+  orderId: "11111111-2222-3333-4444-555555555555",
+  orderNumber: "KH-1042",
+  customerName: "Alex Hartley",
+  email: "alex@example.com",
+  reason: "damaged-in-transit",
+  decision: "review",
+  status: "requested",
+  supplierWindowLikelyClosed: false,
+  createdAt: hoursAgo(3),
+};
+
+describe("assessReturns", () => {
+  it("raises a return that needs a decision", () => {
+    const items = assessReturns([OPEN_RETURN], NOW);
+    expect(items).toHaveLength(1);
+    expect(items[0]!.title).toContain("waiting on your decision");
+    expect(items[0]!.detail).toContain("KR-1001");
+    expect(items[0]!.detail).toContain("KH-1042");
+  });
+
+  it("escalates once the promised working day has passed", () => {
+    // The customer was told "within one working day". Nothing else enforces it.
+    expect(assessReturns([OPEN_RETURN], NOW)[0]!.severity).toBe("warning");
+    expect(
+      assessReturns(
+        [{ ...OPEN_RETURN, createdAt: "2026-08-17T09:00:00Z" }],
+        NOW,
+      )[0]!.severity,
+    ).toBe("critical");
+  });
+
+  it("treats a closed supplier window as urgent from the start", () => {
+    // Here the delay costs Kaiku money rather than goodwill, which is worse.
+    const items = assessReturns(
+      [{ ...OPEN_RETURN, supplierWindowLikelyClosed: true }],
+      NOW,
+    );
+    expect(items[0]!.severity).toBe("critical");
+    expect(items[0]!.consequence).toContain("Kaiku absorbs");
+  });
+
+  it("says nothing about a return that was auto-accepted", () => {
+    // Accepted returns need no decision; they need the item to arrive.
+    const items = assessReturns(
+      [{ ...OPEN_RETURN, decision: "accept", status: "approved" }],
+      NOW,
+    );
+    expect(items).toEqual([]);
+  });
+
+  it("chases an approved return that never came back", () => {
+    const items = assessReturns(
+      [
+        {
+          ...OPEN_RETURN,
+          decision: "accept",
+          status: "approved",
+          createdAt: daysAgo(21),
+        },
+      ],
+      NOW,
+    );
+    expect(items[0]!.title).toContain("has not come back");
+  });
+
+  it("treats received-but-unrefunded as critical", () => {
+    // They have handed the goods back and are out of pocket.
+    const items = assessReturns(
+      [{ ...OPEN_RETURN, status: "received", createdAt: daysAgo(3) }],
+      NOW,
+    );
+    expect(items[0]!.severity).toBe("critical");
+    expect(items[0]!.consequence).toContain("chargeback");
+  });
+
+  it("goes quiet once the return is finished", () => {
+    for (const status of ["refunded", "replaced", "rejected"]) {
+      expect(
+        assessReturns(
+          [{ ...OPEN_RETURN, status, createdAt: daysAgo(30) }],
+          NOW,
+        ),
+        status,
+      ).toEqual([]);
+    }
+  });
+
+  it("returns nothing when there are no returns", () => {
+    expect(assessReturns([], NOW)).toEqual([]);
   });
 });
