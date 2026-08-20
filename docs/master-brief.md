@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                 │  └─────────────── the range name
-                                                                                 └────────────────── category
+                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                         │  └─────────────── the range name
+                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1777,6 +1777,28 @@ reviewed to make sure we make profit", and the answer is better than feared.
 - [ ] **D.I. Designs' 4 missing carriage values.**
 - [x] **Junk supplier records identified**: `AOSON` is a typo duplicate of `Aosom`,
       both with zero published products.
+
+### [x] Kaiku HQ tile on the account page, and a stale line removed
+
+"add admin here" — a fourth tile on `/account`, dark against the three light ones,
+because that is the back of the shop and should never look like something a
+customer is meant to click.
+
+Rendered only when `getAuthorizedAdmin()` returns an admin, so a customer's HTML
+contains no trace of it. Verified against a running server: a signed-out request
+to `/account` returns **zero** occurrences of "Kaiku HQ" and **zero** of `/admin`.
+
+Safe to resolve the admin here, unlike the storefront bar: this page already reads
+cookies to find the user, so it is dynamic (`ƒ /account` in the build) and cannot
+be caught by the prerender trap that made every product page 500. Checked in the
+build output that product pages are still `●` prerendered. The admin lookup also
+fails soft — a missing tile is invisible, a broken account page is not.
+
+**While in there:** the signed-out state told visitors _"Checkout still works as a
+guest either way."_ That stopped being true when guest checkout was removed. Now
+it says an account is needed, and why. Exactly the class of contradiction the
+site-wide audit is meant to catch, found by reading the file rather than by a
+rule.
 
 ### Still open on orders
 

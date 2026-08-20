@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { createClient } from "@/lib/supabase/server";
 import { signOutCustomer } from "@/server/actions/customer-auth";
+import { getAuthorizedAdmin } from "@/server/auth/admin";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -23,6 +24,15 @@ export default async function AccountPage({
     data: { user },
   } = await supabase.auth.getUser();
 
+  let admin: Awaited<ReturnType<typeof getAuthorizedAdmin>> = null;
+  if (user) {
+    try {
+      admin = await getAuthorizedAdmin();
+    } catch (error) {
+      console.error("[account] could not resolve the admin identity", error);
+    }
+  }
+
   if (!user) {
     return (
       <Container width="narrow" className="py-20 md:py-28">
@@ -31,8 +41,9 @@ export default async function AccountPage({
           Your orders and saved pieces
         </h1>
         <p className="text-muted mt-6 max-w-md text-[15px] leading-relaxed">
-          Sign in to see your order history and manage your saved addresses.
-          Checkout still works as a guest either way.
+          Sign in to see your order history and manage your saved addresses. An
+          account is needed to check out, so your order is always somewhere you
+          can find it.
         </p>
         <div className="mt-8 flex gap-3">
           <AppLink href="/account/login" className={buttonVariants({})}>
@@ -102,6 +113,22 @@ export default async function AccountPage({
             Pieces you&rsquo;ve saved for later, ready to add to your basket.
           </p>
         </AppLink>
+
+        {/* Only rendered for an authorised admin — a customer's page contains no
+            trace of it, not even a hidden one. Deliberately dark against the
+            three light tiles: this is the back of the shop, and it should never
+            be mistaken for something a customer is meant to click. */}
+        {admin ? (
+          <AppLink
+            href="/admin"
+            className="bg-ink hover:bg-ink/90 rounded-xl border border-transparent p-6 transition-colors"
+          >
+            <p className="font-display text-canvas text-lg">Kaiku HQ</p>
+            <p className="text-canvas/70 mt-1 text-[14px]">
+              Orders, alerts, suppliers and emails. Only you can see this.
+            </p>
+          </AppLink>
+        ) : null}
       </div>
     </Container>
   );
