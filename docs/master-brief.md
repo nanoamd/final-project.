@@ -1247,10 +1247,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                 │  └─────────────── the range name
-                                                                                                                 └────────────────── category
+                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                         │  └─────────────── the range name
+                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1884,8 +1884,22 @@ Still to finish:
 - [ ] **Photograph upload.** The assessment already asks for pictures on a
       transit-damage claim and routes it to review without them; the upload itself is
       not built, so `photoCount` is always 0 today.
-- [ ] **Admin returns screen**, and the supplier return request. Visible on the
-      order timeline meanwhile.
+- [x] **Returns now appear in the alerts feed**, merged with the order watchdogs
+      into one list. A customer waiting on a return decision is not a lesser problem
+      than an order waiting on a purchase order — it is the same failure, to someone
+      already unhappy. Three rules, 8 tests:
+  - **Waiting on a decision** — warning immediately, **critical** once the
+    promised working day has passed, and critical from the start when the
+    supplier's claim window has already closed, because then the delay costs
+    Kaiku money rather than goodwill.
+  - **Approved but never came back** after 10 working days.
+  - **Received but not refunded** — critical. They have handed the goods over and
+    are out of pocket; the law allows 14 days, and making them wait for it is how
+    a return becomes a chargeback.
+  - Reading the `returns` table **fails soft to an empty list**, so the order
+    watchdogs keep working before migration 0006 has been run.
+- [ ] **A dedicated admin returns screen** and the supplier return request.
+      Actionable from the order page and visible in alerts meanwhile.
 - [ ] **Emails** — `return-requested` is not in the email catalogue yet.
 - [ ] **Migration 0006 needs running** in Supabase before any of it works.
 - [ ] **Have the policy itself reviewed by someone qualified.** The code
