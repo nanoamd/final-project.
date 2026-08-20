@@ -33,6 +33,7 @@ const NAV_ITEMS: {
   href:
     | "/admin"
     | "/admin/orders"
+    | "/admin/products"
     | "/admin/inbox"
     | "/admin/newsletter"
     | "/admin/emails"
@@ -42,6 +43,7 @@ const NAV_ITEMS: {
 }[] = [
   { label: "Dashboard", href: "/admin", key: "d" },
   { label: "Orders", href: "/admin/orders", key: "o" },
+  { label: "Products", href: "/admin/products", key: "r" },
   { label: "Inbox", href: "/admin/inbox", key: "i" },
   { label: "Emails", href: "/admin/emails", key: "e" },
   { label: "Newsletter", href: "/admin/newsletter", key: "n" },

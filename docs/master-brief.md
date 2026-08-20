@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                 └────────────────── category
+                                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                                         │  └─────────────── the range name
+                                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1956,6 +1956,49 @@ touches only the punctuation, if you want it run.
 - [ ] **Feed ingestion, `lastVerifiedAt` timestamps, a stale-data watchdog and
       automatic price-change audit entries** — all scoped in section G, none of
       it worth building before a supplier has said what they can give us.
+
+### [x] Catalogue quality audit — drift found, dated and measured
+
+`docs/catalogue-quality-audit.md`. The full audit pass, **with nothing
+rewritten**, because the brief said to show findings first.
+
+**Drift is real and it has a date.** Products written before 13 August: 88
+published, 2 failing (2.3%), median score 9.0, 0.70 facts per hundred words.
+Products written 13–16 August: 148 published, **35 failing (23.6%)**, median 7.8,
+**0.20 facts**. The failure rate went up tenfold while the descriptions got 60%
+_longer_. Length was substituted for knowing anything about the product.
+
+The measure that separates good from bad is **fact density**, not word count —
+word count ranks the worst products highest. The archetype is a 1,105-word Glass
+Candle Holder that never states its height, its diameter, the candle size it
+takes or whether it can go outside, and whose FAQ reads "Dimensions are not
+specified for this product."
+
+**I threw away my own first hypothesis.** I assumed bespoke-sounding headings
+marked the good products; "Effortless Placement in Any Room" proved that wrong.
+Rebuilt on fact density, which survives inspection.
+
+Nine of the ten scored dimensions are healthy at a median of 10.0. Only
+specificity is on the floor at 1.5. The catalogue does not have general rot; it
+has one specific, fixable disease.
+
+**Two corrections to what was expected:** the 40 supplier-name leaks are all
+**Hill Interiors**, not D.I. Designs — D.I. Designs has zero and is the
+best-scoring supplier at 9.0. And 34 of the 37 failures are Hill Interiors.
+
+- [x] **The scoring engine** — `src/lib/catalog/quality.ts`, 26 tests, pure and
+      Sanity-free so the script and the admin screen score identically.
+- [x] **`/admin/products`** — the live readiness screen, worst first, filterable
+      by tier, supplier, published/draft and the unwritten backlog. Click a row
+      for all ten scores and every finding. Re-runs itself; new products are
+      scored the moment they exist.
+- [ ] **Tier 1 fixes** (~1 hour, mechanical): 40 supplier leaks, 17 titles
+      missing `| Kaiku` including a "Kaiku Tagline" template bug, 4 FAQs that
+      answer nothing, 16 over-long meta descriptions.
+- [ ] **Tier 2 rewrite**: the 37 REVIEW products, then the 93 padded ones.
+      Target 350–650 words — most get _shorter_ by half. Awaiting confirmation.
+- [ ] **674 unwritten drafts** (691 Premier Housewares). Recommendation: do not
+      bulk-generate. That process is what produced the 13–16 August cohort.
 
 ### Still open on orders
 
