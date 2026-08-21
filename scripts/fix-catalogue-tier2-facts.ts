@@ -261,7 +261,18 @@ async function main() {
   console.log(`\nPatched ${done} products.`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+/**
+ * Only run when executed directly. Without this, importing the module for a
+ * test runs the whole script — which is exactly what happened: the Tier 2
+ * test file was quietly performing a live Sanity fetch on every test run.
+ */
+const isDirectRun =
+  process.argv[1] !== undefined &&
+  import.meta.url === `file://${process.argv[1]}`;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
