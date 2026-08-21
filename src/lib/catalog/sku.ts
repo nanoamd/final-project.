@@ -196,6 +196,93 @@ const NAME_NOISE = new Set([
   "luxury",
   "designer",
   "premium",
+  // Colour words. The code already carries a colour segment, so picking one
+  // here says it twice — and worse, can contradict it: "Large White Allium
+  // Plant In Pot" produced KK-PLNT-WHITE-GRN-001, which reads white and green
+  // at once. The colour segment is derived from `primaryColour`, which is the
+  // trustworthy source.
+  "white",
+  "black",
+  "grey",
+  "gray",
+  "silver",
+  "gold",
+  "golden",
+  "brown",
+  "cream",
+  "ivory",
+  "beige",
+  "taupe",
+  "green",
+  "blue",
+  "red",
+  "pink",
+  "brass",
+  "bronze",
+  "copper",
+  "chrome",
+  "nickel",
+  "antique",
+  "natural",
+  // Generic style adjectives. "Rustic" gave a reindeer and a Santa star the
+  // codes KK-XMSD-RUSTIC-001 and -002, which are told apart only by a
+  // sequence number — the opposite of a code you can read at a glance.
+  "rustic",
+  "modern",
+  "classic",
+  "contemporary",
+  "traditional",
+  "vintage",
+  "decorative",
+  "modular",
+  "all",
+  "season",
+  "tall",
+  "short",
+  "round",
+  "square",
+  "rectangular",
+  "hanging",
+  "standing",
+]);
+
+/**
+ * Materials, which are a weaker choice than a real noun but better than
+ * nothing.
+ *
+ * They are not in NAME_NOISE because sometimes the material *is* the most
+ * identifying word a title offers — "Natural Teak Corner Shelf Unit" should
+ * yield TEAK. But "Medium Rustic Metal Reindeer On Stand" should yield
+ * REINDEER, not METAL. So a material is only picked when the title has no
+ * stronger word left.
+ */
+const WEAK_NAME_WORDS = new Set([
+  "metal",
+  "metallic",
+  "wood",
+  "wooden",
+  "ceramic",
+  "glass",
+  "porcelain",
+  "stoneware",
+  "jute",
+  "wicker",
+  "rattan",
+  "bamboo",
+  "marble",
+  "stone",
+  "concrete",
+  "resin",
+  "fabric",
+  "linen",
+  "velvet",
+  "leather",
+  "steel",
+  "iron",
+  "aluminium",
+  "plastic",
+  "effect",
+  "finish",
 ]);
 
 /** A category's code: the tuned one, or initials derived from the slug. */
@@ -244,7 +331,15 @@ export function nameSegment(title: string): string {
   const distinctive = words.filter(
     (word) => !NAME_NOISE.has(word.toLowerCase()),
   );
-  const chosen = (distinctive.length ? distinctive : words)[0] ?? "";
+  // Three tiers, strongest first: a real noun, then a material, then anything.
+  // A material only wins when the title offers nothing better, which keeps
+  // TEAK on the teak shelf and puts REINDEER ahead of METAL on the reindeer.
+  const strong = distinctive.filter(
+    (word) => !WEAK_NAME_WORDS.has(word.toLowerCase()),
+  );
+  const chosen =
+    (strong.length ? strong : distinctive.length ? distinctive : words)[0] ??
+    "";
   return chosen.slice(0, 12).toUpperCase() || "ITEM";
 }
 

@@ -160,3 +160,58 @@ describe("isCanonicalSku", () => {
     expect(isCanonicalSku("")).toBe(false);
   });
 });
+
+describe("the name segment picks something that identifies the product", () => {
+  it("does not pick a colour word, which the colour segment already carries", () => {
+    // KK-PLNT-WHITE-GRN-001 read as white and green at once.
+    expect(nameSegment("Large White Allium Plant In Pot")).toBe("ALLIUM");
+  });
+
+  it("does not pick a generic style adjective", () => {
+    // These two gave KK-XMSD-RUSTIC-001 and -002 — a reindeer and a Santa
+    // star told apart only by a sequence number.
+    expect(nameSegment("Medium Rustic Metal Reindeer On Stand")).toBe(
+      "REINDEER",
+    );
+    expect(nameSegment("Rustic Hanging Santa Star")).toBe("SANTA");
+  });
+
+  it("keeps a range name that happens to contain a colour-ish word", () => {
+    // "Midnight" and "Ocean" are range names here, not colours.
+    expect(nameSegment("Midnight Shadows Table Lamp With Linen Shade")).toBe(
+      "MIDNIGHT",
+    );
+    expect(nameSegment("Ocean Shadows Squat Table Lamp")).toBe("OCEAN");
+  });
+
+  it("keeps a material when the title offers nothing stronger", () => {
+    expect(nameSegment("Natural Teak Corner Shelf Unit")).toBe("TEAK");
+  });
+
+  it("still yields a segment when every word is noise", () => {
+    expect(nameSegment("Large Round White Wall Mirror").length).toBeGreaterThan(
+      1,
+    );
+  });
+
+  it("gives two different products two different stems", () => {
+    const a = skuStem({
+      title: "Medium Rustic Metal Reindeer On Stand",
+      categorySlug: "christmas-decorations",
+    });
+    const b = skuStem({
+      title: "Rustic Hanging Santa Star",
+      categorySlug: "christmas-decorations",
+    });
+    expect(a).not.toBe(b);
+  });
+
+  it("produces a code that passes the format check", () => {
+    const stem = skuStem({
+      title: "Large White Allium Plant In Pot",
+      categorySlug: "planters",
+      primaryColour: "Green",
+    });
+    expect(isCanonicalSku(formatSku(stem, 1))).toBe(true);
+  });
+});
