@@ -123,10 +123,19 @@ export function parseHill(text: string): HarvestedFacts {
   facts.widthCm = num(grab("Width"));
   facts.heightCm = num(grab("Height"));
   facts.weightKg = num(grab("Weight"));
-  facts.material = text
-    .match(/Material:\s*([A-Za-z ,/&-]{2,40})/i)?.[1]
-    ?.trim();
-  facts.colour = text.match(/Colour:\s*([A-Za-z ,/-]{2,30})/i)?.[1]?.trim();
+  // Stop at the next label. Hill prints "Material: stone Inner Qty: 1", and a
+  // greedy character class swallowed "stone Inner Qty" as the material.
+  const untilNextLabel = (label: string) =>
+    text
+      // No "i" flag: it would make [A-Z] match lowercase, so the lookahead
+      // fired on "glass" and cut "mirrored glass" down to "mirrored". Hill
+      // prints these labels capitalised, so case-sensitive is correct.
+      .match(
+        new RegExp(`${label}:\\s*(.+?)(?=\\s+[A-Z][A-Za-z ]{1,20}:|$)`),
+      )?.[1]
+      ?.trim();
+  facts.material = untilNextLabel("Material");
+  facts.colour = untilNextLabel("Colour");
   facts.barcode = text.match(/Barcode:\s*(\d{8,14})/i)?.[1];
 
   // Extra labelled rows. Matched against an explicit label list rather than a
@@ -173,8 +182,13 @@ export function parsePremier(text: string): HarvestedFacts {
     facts.weightKg = carton;
     facts.weightIsCartonOnly = true;
   }
+  // Stops before the next label. Premier prints "Materials Iron 40%,Mdf 30%,
+  // Glass 30% Cart Weight (kg) 11", and a greedy class took "Cart Weight" as a
+  // material.
   facts.material = text
-    .match(/Materials\s+([A-Za-z0-9 ,%/&-]{2,60})/i)?.[1]
+    .match(
+      /Materials\s+(.+?)(?=\s+(?:Cart|Number|Barcode|Assembly|Product|Country)\b|$)/,
+    )?.[1]
     ?.trim();
   facts.barcode = text.match(/Barcode\s+(\d{8,14})/i)?.[1];
   facts.assembly = text

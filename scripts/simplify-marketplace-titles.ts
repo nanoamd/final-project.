@@ -49,13 +49,6 @@ const FINISH =
 /** A pack size, which changes what you receive and so belongs in the name. */
 const PACK = /\b(\d+)\s*(?:pack|pcs?|pieces?|piece set)\b/i;
 
-/**
- * Clauses that exist purely for marketplace search and say nothing a shopper
- * browsing Kaiku needs in a product name.
- */
-const NOISE_CLAUSE =
-  /^(?:for\b|with built-in|bulbs? not included|easy to (?:assemble|clean)|ideal for|perfect for|suitable for|indoor|outdoor use)/i;
-
 export function simplify(raw: string): string {
   const withoutSuffix = raw
     .replace(/\s*\|\s*Kaiku(?:\s+Tagline)?\s*$/i, "")
