@@ -55,3 +55,7 @@ next-env.d.ts
 # and is the readable one. Committing both churned 89,000 lines per run,
 # because prettier reformats it and the script rewrites it minified.
 docs/change-log/remediation-items.json
+
+# Throwaway investigation scripts. Anything worth keeping becomes a real
+# script in scripts/ with a comment explaining why it exists.
+.tmp-*
