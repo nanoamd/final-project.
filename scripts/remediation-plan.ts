@@ -237,6 +237,9 @@ async function main() {
   }
 
   mkdirSync("docs/change-log", { recursive: true });
+  // Machine-readable copy, gitignored: prettier reformats it on commit and the
+  // next run rewrites it minified, which churned 89,000 lines per run for no
+  // benefit. The CSV below carries the same rows and is the one to read.
   writeFileSync(
     "docs/change-log/remediation-items.json",
     JSON.stringify({ generatedAt: new Date().toISOString(), items }, null, 0),

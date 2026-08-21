@@ -50,3 +50,8 @@ next-env.d.ts
 /playwright/.cache
 .image-work/
 .audit/
+
+# Regenerated on every audit run; the CSV beside it carries the same rows
+# and is the readable one. Committing both churned 89,000 lines per run,
+# because prettier reformats it and the script rewrites it minified.
+docs/change-log/remediation-items.json
