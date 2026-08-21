@@ -184,7 +184,7 @@ const GENERATED: {
   {
     topic: "safety warning",
     covers: /\bsafety|warning|hazard\b/i,
-    build: ({ facts, name }) => {
+    build: ({ facts }) => {
       const warning = facts.extra?.["Product Warning"];
       if (!warning) return null;
       return {
