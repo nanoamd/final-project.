@@ -253,10 +253,14 @@ const ARTEFACTS: {
   {
     dimension: "accuracy",
     severity: "blocker",
-    // "delivery for orders under £50" contradicts free delivery on everything.
+    // "delivery within 7-14 days for orders under £50". The threshold is real,
+    // but it is one of Kaiku's internal rules — same family as a supplier code
+    // or a trade pack size. A customer pays £0 carriage on everything, so
+    // publishing the rule invites them to infer a tier that does not apply to
+    // them.
     pattern: /(?:under|over|above|below)\s*\u00A3\s?\d/i,
     message:
-      "States a delivery price threshold. Delivery is free on everything, so this is wrong.",
+      "Publishes an internal value threshold. That rule is ours, not the customer's.",
   },
   {
     dimension: "readability",

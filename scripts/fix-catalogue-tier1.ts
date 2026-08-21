@@ -56,10 +56,17 @@ const TRAILING_CITATION = new RegExp(
 const PARENTHETICAL_DOMAIN =
   /\s*\((?:https?:\/\/)?(?:www\.)?[a-z0-9-]+\.(?:com|co\.uk|net)\/?[^)]*\)/gi;
 /** A whole line that only exists to carry internal data. */
-const INTERNAL_ONLY_LINE = new RegExp(
-  `^\\s*(?:Brand|Supplier(?:\\s*Code)?|Outer Quantity|Barcode|EAN)\\s*:\\s*.*(?:${SUPPLIER_ALTERNATION})?\\s*$`,
-  "i",
-);
+/**
+ * Lines that carry Kaiku's own trade data rather than anything a customer can
+ * use. Damien, on the £50 delivery threshold: "This is the rule for us, not
+ * customer facing information" — the same is true of a carton quantity, a
+ * shipping volume and a supplier's item code.
+ *
+ * `Barcode` is handled separately below, because it is the one line here whose
+ * value is worth keeping: it belongs in the `gtin` field, not in prose.
+ */
+const INTERNAL_ONLY_LINE =
+  /^\s*(?:Brand|Supplier(?:\s*Code)?|Code|Inner Quantity|Outer Quantity|Carton Qty|Pack Size|CBM)\s*:\s*/i;
 const SUPPLIER_LINE = new RegExp(
   `^\\s*(?:Brand|Supplier)\\s*:\\s*(?:${SUPPLIER_ALTERNATION})\\s*$`,
   "i",
@@ -118,19 +125,11 @@ function recapitalise(text: string): string {
 
 function cleanText(raw: string): { text: string; drop: boolean } {
   let text = raw;
-  if (SUPPLIER_LINE.test(text) || INTERNAL_ONLY_LINE.test(text)) {
-    // A line that is only "Brand: Hill Interiors" or "Supplier Code: 23677"
-    // has no reader. Removing the words would leave "Brand:" behind, so the
-    // whole block goes.
-    // "Outer Quantity: 12" is the supplier's trade pack size. It means nothing
-    // to a customer and quietly announces that we are a reseller.
-    if (
-      SUPPLIER_LINE.test(text) ||
-      /Supplier\s*Code/i.test(text) ||
-      /^\s*Outer Quantity\s*:/i.test(text)
-    )
-      return { text: "", drop: true };
-  }
+  // A line that is only "Brand: Hill Interiors", "Code: 23193" or
+  // "CBM: 0.0700" has no reader. Stripping the words would leave "Brand:"
+  // behind, so the whole block goes.
+  if (SUPPLIER_LINE.test(text) || INTERNAL_ONLY_LINE.test(text))
+    return { text: "", drop: true };
   text = text.replace(PARENTHETICAL_DOMAIN, "");
   for (const [pattern, replacement] of HEDGE_REWRITES) {
     if (pattern.test(text)) {
@@ -162,15 +161,19 @@ async function main() {
   const rows: {
     _id: string;
     title?: string;
+    gtin?: string;
     summary?: string;
     description?: Block[];
     faqs?: { question?: string; answer?: string }[];
     seo?: { metaTitle?: string; metaDescription?: string };
   }[] = await client.fetch(
-    `*[_type == "product"]{ _id, title, summary, description, faqs, seo }`,
+    `*[_type == "product"]{ _id, title, gtin, summary, description, faqs, seo }`,
   );
 
   const patches: { id: string; set: Record<string, unknown> }[] = [];
+
+  /** A `Barcode: 5050140319581` line, which belongs in `gtin`, not in prose. */
+  const BARCODE_LINE = /^\s*(?:Barcode|EAN)\s*:\s*(\d{8,14})\s*$/i;
 
   for (const row of rows) {
     const set: Record<string, unknown> = {};
@@ -232,6 +235,47 @@ async function main() {
             detail: original.trim().slice(0, 160),
           });
           nextBlocks.push(block);
+          continue;
+        }
+
+        // A barcode is the one piece of trade data worth keeping. Recovered
+        // into `gtin` where that field is empty; where the two disagree it is
+        // flagged, because guessing which barcode is the real one would put a
+        // wrong identifier into a Merchant Center feed.
+        const barcode = original.match(BARCODE_LINE);
+        if (barcode) {
+          const found = barcode[1] ?? "";
+          const existing = (row.gtin ?? "").trim();
+          if (existing && existing !== found) {
+            flags.push({
+              id: row._id,
+              title,
+              reason: "two different barcodes",
+              detail: `gtin field ${existing}, description ${found}`,
+            });
+            nextBlocks.push(block);
+            continue;
+          }
+          if (!existing) {
+            set.gtin = found;
+            changes.push({
+              id: row._id,
+              title,
+              field: "gtin",
+              kind: "recovered-barcode",
+              before: "(empty)",
+              after: found,
+            });
+          }
+          changes.push({
+            id: row._id,
+            title,
+            field: "description",
+            kind: "removed-internal-line",
+            before: original.trim(),
+            after: "(block removed — barcode lives in the gtin field)",
+          });
+          touched = true;
           continue;
         }
 
@@ -364,18 +408,19 @@ async function main() {
           continue;
         }
 
-        // "delivery for orders under £50" contradicts free delivery on
-        // everything. A wrong delivery promise is worse than a missing one and
-        // cannot be patched by deleting a word, so the whole answer goes.
+        // "delivery within 7-14 days for orders under £50". The threshold is
+        // a real internal rule of ours, not customer-facing information —
+        // the same category as a supplier code or a trade pack size. The
+        // answer cannot be patched by deleting a word, so it goes whole.
         if (/(?:under|over|above|below)\s*£\s?\d/i.test(answer)) {
           faqsTouched = true;
           changes.push({
             id: row._id,
             title,
             field: "faqs",
-            kind: "removed-wrong-delivery-faq",
+            kind: "removed-internal-rule-faq",
             before: `Q: ${faq.question} / A: ${answer}`,
-            after: "(removed — delivery is free on everything)",
+            after: "(removed — internal rule, not customer-facing)",
           });
           continue;
         }

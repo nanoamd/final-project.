@@ -309,13 +309,13 @@ describe("generator artefacts, all found in the live catalogue", () => {
       /product page they are already on/,
     ],
     [
-      "a delivery price threshold that contradicts free delivery",
+      "an internal value threshold published to customers",
       {
         faqs: [
           { question: "Delivery?", answer: "7-14 days for orders under £50." },
         ],
       },
-      /free on everything/,
+      /internal value threshold/,
     ],
     [
       "a word repeated back to back",
