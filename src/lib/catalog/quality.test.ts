@@ -397,3 +397,39 @@ describe("generator artefacts, all found in the live catalogue", () => {
     );
   });
 });
+
+describe("readability checks respect block boundaries", () => {
+  it("does not call a heading plus its paragraph a repeated word", () => {
+    // "Care and Cleaning" is an h2; "Cleaning the vase…" is the paragraph under
+    // it. Flattened they look like a repeat, and they are not.
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText: "Care and Cleaning\nCleaning the vase is simple.",
+    });
+    expect(
+      result.findings.some((f) => /repeated back to back/.test(f.message)),
+    ).toBe(false);
+  });
+
+  it("still catches a real repeat on one line", () => {
+    // Four characters or more only: "had had" and "that that" are valid
+    // English, and flagging them would be noise.
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText: "The vase vase measures 20cm across.",
+    });
+    expect(
+      result.findings.some((f) => /repeated back to back/.test(f.message)),
+    ).toBe(true);
+  });
+
+  it("does not treat a line break as doubled spacing", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText: "Materials\nSolid teak with a light oil finish.",
+    });
+    expect(result.findings.some((f) => /Doubled spacing/.test(f.message))).toBe(
+      false,
+    );
+  });
+});

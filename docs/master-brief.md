@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                                         │  └─────────────── the range name
-                                                                                                                                         └────────────────── category
+                                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1999,6 +1999,43 @@ best-scoring supplier at 9.0. And 34 of the 37 failures are Hill Interiors.
       Target 350–650 words — most get _shorter_ by half. Awaiting confirmation.
 - [ ] **674 unwritten drafts** (691 Premier Housewares). Recommendation: do not
       bulk-generate. That process is what produced the 13–16 August cohort.
+
+### [~] Remediation plan — all 8,118 findings itemised
+
+`docs/remediation-plan.md`, with every finding as a row in
+`docs/change-log/remediation-items.csv`. Damien: "All 10,508 findings must be
+rectified and I want it listed."
+
+**The number is now 8,118, not 10,508, and the reason matters.** 10,508 was true
+at 23:10 on 20 August. **1,379 products were edited between 23:00 and 01:13**,
+all gaining a description and a meta title, closing roughly 2,200. A further 152
+were my own false positives: the repeated-word and doubled-space checks matched
+across block boundaries, so a heading "Care and Cleaning" above the paragraph
+"Cleaning the vase is simple" counted as a repeated word. Fixed with tests.
+
+Every finding now carries a route to closing it:
+
+| Route        | Findings |     |                                    |
+| ------------ | -------: | --: | ---------------------------------- |
+| AUTOMATIC    |    2,943 | 36% | a script closes it                 |
+| NEEDS DATA   |    2,826 | 35% | only the supplier holds the fact   |
+| NEEDS DAMIEN |    1,187 | 15% | almost entirely price              |
+| WRITING      |    1,162 | 14% | nothing blocks it, it is just work |
+
+**The honest ceiling on what can be closed without Damien or a supplier is about
+5,100 of 8,118 — 63%.** The rest needs an email answered or a price set. Closing
+them any other way would mean inventing data, which is the failure this audit
+exists to stop.
+
+The largest recoverable block is the 976 "copy admits it does not know"
+findings: every product has a `sourceUrl`, so those facts can be read from the
+supplier's own page for that product without waiting on anybody.
+
+- [ ] **Run the three automatic scripts** — tier1, assign-skus, rewrite-meta.
+      2,943 findings, minutes of runtime, every change logged and reversible.
+- [ ] **The 15 loss-making products** — smallest count, most direct cost.
+- [ ] **Harvest facts from `sourceUrl`** — recovers ~1,000 with no supplier
+      contact needed.
 
 ### Still open on orders
 

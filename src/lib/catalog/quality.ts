@@ -265,13 +265,18 @@ const ARTEFACTS: {
   {
     dimension: "readability",
     severity: "minor",
-    pattern: /\b(\w{4,})\s+\1\b/i,
+    // Spaces and tabs only, never a newline. Headings are flattened into the
+    // same text stream as the paragraph beneath them, so a heading "Care and
+    // Cleaning" followed by "Cleaning the vase is simple" is not a repeated
+    // word — it is two blocks, and matching across the break invented 108
+    // findings that were not real.
+    pattern: /\b(\w{4,})[ \t]+\1\b/i,
     message: "A word is repeated back to back.",
   },
   {
     dimension: "readability",
     severity: "minor",
-    pattern: /[a-z]\s{2,}[a-z]/i,
+    pattern: /[a-z][ \t]{2,}[a-z]/i,
     message: "Doubled spacing inside a sentence.",
   },
 ];
