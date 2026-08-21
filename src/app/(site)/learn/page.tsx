@@ -4,7 +4,7 @@ import { ArticleList } from "@/features/storefront/components/content/article-li
 import { getBuyingGuides } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export const metadata: Metadata = buildMetadata({
   title: "Buying Guides",

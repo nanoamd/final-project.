@@ -4,7 +4,7 @@ import { GenericPage } from "@/features/storefront/components/content/generic-pa
 import { getPageBySlug } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug("cookies");

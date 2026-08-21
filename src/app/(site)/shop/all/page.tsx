@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getTotalProductCount } from "@/lib/sanity/queries";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const count = await getTotalProductCount();

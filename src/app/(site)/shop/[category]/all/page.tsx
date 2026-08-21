@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getCategories } from "@/lib/sanity/queries";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   try {

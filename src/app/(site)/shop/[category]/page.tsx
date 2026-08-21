@@ -4,7 +4,7 @@ import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getCategories, getCategory } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const categories = await getCategories();

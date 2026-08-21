@@ -5,7 +5,7 @@ import { ArticleDetail } from "@/features/storefront/components/content/article-
 import { getPost, getPosts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const posts = await getPosts({ limit: 200 });

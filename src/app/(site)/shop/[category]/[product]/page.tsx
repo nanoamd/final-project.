@@ -6,7 +6,7 @@ import { TrackViewItem } from "@/features/storefront/components/analytics/track-
 import { getProduct, getProductParams } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   return getProductParams();
