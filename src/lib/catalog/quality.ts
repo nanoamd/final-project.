@@ -65,6 +65,21 @@ export const DIMENSION_LABELS: Record<Dimension, string> = {
   aiRisk: "AI-pattern risk",
 };
 
+/**
+ * A specification value that tells a buyer nothing.
+ *
+ * Two kinds, both found live. An outright placeholder — "To be confirmed",
+ * "Not specified" — is a note-to-self published on the product page, in the
+ * table a buyer opens precisely to find facts. A weasel value — "High-Quality
+ * Wood", "Neutral Finish", "Standard size" — looks like an answer and is not
+ * one: it names no wood, no colour and no measurement.
+ */
+export const PLACEHOLDER_SPEC =
+  /^(?:to be confirmed|tbc|tba|n\/?a|not specified|not stated|unknown|various|assorted|standard|as shown|see description|please enquire|contact us.*)$/i;
+
+export const WEASEL_SPEC =
+  /\b(?:high[- ]quality|premium|luxury|superior|top[- ]grade|quality|durable) (?:wood|glass|metal|material|materials|finish|fabric)\b|^(?:neutral|standard)(?: finish| size| bulb)?$/i;
+
 /** What the scorer needs to know about a product. All of it optional but title. */
 export interface QualityInput {
   title: string;
@@ -91,6 +106,8 @@ export interface QualityInput {
   galleryCount?: number | null;
   seoTitle?: string | null;
   seoDescription?: string | null;
+  /** The label/value rows shown in the Specifications tab. */
+  specs?: { label?: string | null; value?: string | null }[] | null;
   published?: boolean;
 }
 
@@ -214,7 +231,10 @@ const ARTEFACTS: {
   {
     dimension: "readability",
     severity: "major",
-    pattern: /\*\*|\[[^\]]+\]\([^)]+\)/,
+    // Bold, links, and — the one this originally missed — list markers.
+    // "The dining table measures: * Length: 180 cm * Width: 77 cm" was
+    // rendering the asterisks literally on eleven published product pages.
+    pattern: /\*\*|\[[^\]]+\]\([^)]+\)|(?:^|\s)\*\s+\w|(?:^|\s)#{1,4}\s+\w/,
     message: "Markdown markup left in the text.",
   },
   {
@@ -617,6 +637,38 @@ export function scoreProduct(input: QualityInput): QualityResult {
   if (summary.length === 0) {
     usefulness = clamp(usefulness - 1);
     add("usefulness", "minor", "No short summary.");
+  }
+
+  // --- Specification rows that say nothing ------------------------------
+  const emptySpecs = (input.specs ?? []).filter((spec) =>
+    PLACEHOLDER_SPEC.test((spec?.value ?? "").trim()),
+  );
+  const weaselSpecs = (input.specs ?? []).filter(
+    (spec) =>
+      !PLACEHOLDER_SPEC.test((spec?.value ?? "").trim()) &&
+      WEASEL_SPEC.test((spec?.value ?? "").trim()),
+  );
+  if (emptySpecs.length > 0) {
+    accuracy = clamp(accuracy - 3);
+    add(
+      "accuracy",
+      "major",
+      `${emptySpecs.length} specification${emptySpecs.length === 1 ? "" : "s"} published as a placeholder (${emptySpecs
+        .slice(0, 2)
+        .map((s) => `${s.label}: ${s.value}`)
+        .join("; ")}).`,
+    );
+  }
+  if (weaselSpecs.length > 0) {
+    usefulness = clamp(usefulness - 2);
+    add(
+      "usefulness",
+      "major",
+      `${weaselSpecs.length} specification${weaselSpecs.length === 1 ? "" : "s"} that name nothing (${weaselSpecs
+        .slice(0, 2)
+        .map((s) => `${s.label}: ${s.value}`)
+        .join("; ")}).`,
+    );
   }
 
   // Artefacts, applied across every customer-facing field.

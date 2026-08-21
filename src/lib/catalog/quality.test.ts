@@ -433,3 +433,92 @@ describe("readability checks respect block boundaries", () => {
     );
   });
 });
+
+describe("specification rows that say nothing", () => {
+  it("flags an outright placeholder published on the page", () => {
+    // Seen live on the Delphine chest: "Dimensions | To be confirmed".
+    const result = scoreProduct({
+      ...SOUND,
+      specs: [{ label: "Dimensions", value: "To be confirmed" }],
+    });
+    expect(
+      result.findings.some((f) => /published as a placeholder/.test(f.message)),
+    ).toBe(true);
+  });
+
+  it("flags a value that looks like an answer but names nothing", () => {
+    for (const value of [
+      "High-Quality Wood",
+      "High-quality glass",
+      "Neutral Finish",
+      "Standard size",
+    ]) {
+      const result = scoreProduct({
+        ...SOUND,
+        specs: [{ label: "Material", value }],
+      });
+      expect(
+        result.findings.some((f) => /name nothing/.test(f.message)),
+        value,
+      ).toBe(true);
+    }
+  });
+
+  it("leaves a real specification alone", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      specs: [
+        { label: "Material", value: "Solid reclaimed teak" },
+        { label: "Dimensions", value: "180L x 77W x 80H cm" },
+        { label: "Finish", value: "Natural oil" },
+      ],
+    });
+    for (const bad of [/placeholder/, /name nothing/]) {
+      expect(result.findings.some((f) => bad.test(f.message))).toBe(false);
+    }
+  });
+
+  it("does not fire on a legitimate use of the word quality", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      specs: [{ label: "Grade", value: "A-grade kiln-dried oak" }],
+    });
+    expect(result.findings.some((f) => /name nothing/.test(f.message))).toBe(
+      false,
+    );
+  });
+});
+
+describe("markdown list markers are markup, not prose", () => {
+  it("catches an asterisk list rendered literally", () => {
+    // Live on eleven published pages, in the reclaimed teak range.
+    const result = scoreProduct({
+      ...SOUND,
+      faqs: [
+        {
+          question: "What are the dimensions?",
+          answer:
+            "The dining table measures: * Length: 180 cm * Width: 77 cm * Height: 80 cm",
+        },
+      ],
+    });
+    expect(result.findings.some((f) => /Markdown/.test(f.message))).toBe(true);
+  });
+
+  it("does not fire on an asterisk used as a footnote marker", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText:
+        "Delivery is free*. Teak greys outdoors within 12 months.",
+    });
+    expect(result.findings.some((f) => /Markdown/.test(f.message))).toBe(false);
+  });
+
+  it("catches a hash heading left in the text", () => {
+    const result = scoreProduct({
+      ...SOUND,
+      descriptionText: "## Materials\nSolid teak, 90cm tall.",
+    });
+    expect(result.findings.some((f) => /Markdown/.test(f.message))).toBe(true);
+  });
+});

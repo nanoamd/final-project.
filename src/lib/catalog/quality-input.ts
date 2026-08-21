@@ -64,6 +64,7 @@ export interface ProductDocument {
   galleryCount?: number | null;
   seoTitle?: string | null;
   seoDescription?: string | null;
+  specs?: { label?: string | null; value?: string | null }[] | null;
 }
 
 export function toQualityInput(doc: ProductDocument): QualityInput {
@@ -91,6 +92,7 @@ export function toQualityInput(doc: ProductDocument): QualityInput {
     skuIsCanonical: doc.sku ? isCanonicalSku(doc.sku) : undefined,
     seoTitle: doc.seoTitle ?? null,
     seoDescription: doc.seoDescription ?? null,
+    specs: doc.specs ?? null,
     published: !doc._id.startsWith("drafts."),
   };
 }
@@ -104,6 +106,7 @@ export const QUALITY_PROJECTION = /* groq */ `{
   price, costPrice, shippingCost, sku, supplierSku, gtin,
   stockStatus, dimensions, weight,
   "galleryCount": count(gallery),
+  specs,
   "seoTitle": seo.metaTitle,
   "seoDescription": seo.metaDescription
 }`;
