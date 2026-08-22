@@ -98,6 +98,10 @@ export interface DescribeInput {
   deliveryLeadTime?: string | null;
   /** Set when the name and the supplier disagree; suppresses material claims. */
   materialDisputed?: boolean;
+  /** Discrete facts the supplier publishes as a feature list. */
+  features?: string[];
+  /** The supplier's own prose, mined for facts — never reproduced. */
+  supplierCopy?: string | null;
 }
 
 export interface Section {
@@ -307,6 +311,34 @@ export function describeProduct(input: DescribeInput): Section[] {
     });
   }
 
+  // --- Features the supplier states as discrete facts --------------------
+  const features = (input.features ?? []).filter(
+    (f) => f && f.length > 2 && !/^(?:versatile|quality|stylish)$/i.test(f),
+  );
+  if (features.length >= 2) {
+    sections.push({
+      heading: pick(
+        ["What You Get", "Features", "The Particulars"],
+        input.slug,
+        6,
+      ),
+      paragraphs: features.map((f) => f.replace(/\.?$/, "")),
+    });
+  }
+
+  // --- Finish and design, from facts inside the supplier's own prose -----
+  const observed = observationsFrom(input.supplierCopy, name);
+  if (observed.length) {
+    sections.push({
+      heading: pick(
+        ["Design and Finish", "How It Looks", "The Look of It"],
+        input.slug,
+        7,
+      ),
+      paragraphs: observed,
+    });
+  }
+
   // --- Care, where the material implies it -------------------------------
   const care = careFor(material);
   if (care) {
@@ -331,6 +363,121 @@ export function describeProduct(input: DescribeInput): Section[] {
   }
 
   return sections;
+}
+
+/**
+ * Facts pulled out of the supplier's prose and restated in Kaiku's voice.
+ *
+ * The brief is explicit that "every product is written individually, not
+ * copied from the supplier's description", and that copy is written for trade
+ * buyers in any case — it talks about "retailers seeking to meet the growing
+ * demand". So nothing here reproduces a sentence. It looks for specific,
+ * checkable attributes and says them plainly.
+ */
+function observationsFrom(
+  copy: string | null | undefined,
+  name: string,
+): string[] {
+  if (!copy) return [];
+  const notes: string[] = [];
+  const text = copy.toLowerCase();
+
+  const finishes: [RegExp, string][] = [
+    [
+      /distressed/,
+      "a deliberately distressed finish, so no two pieces are marked quite alike",
+    ],
+    [
+      /hand-?woven/,
+      "hand-woven construction, which is why the weave varies slightly across the surface",
+    ],
+    [
+      /hand-?painted|hand-?finished|hand-?crafted|artisanal/,
+      "hand-finishing, so small variations between pieces are part of it rather than faults",
+    ],
+    [
+      /glazed|glaze\b/,
+      "a glazed surface that catches the light rather than absorbing it",
+    ],
+    [
+      /brushed/,
+      "a brushed finish that hides fingerprints better than a polished one",
+    ],
+    [
+      /textured|texture\b/,
+      "a textured surface that reads as depth rather than pattern",
+    ],
+    [
+      /matt\b|matte/,
+      "a matt finish, which sits quieter in a room than a gloss",
+    ],
+    [
+      /antiqued|aged\b|weathered/,
+      "an aged finish applied deliberately, not wear from use",
+    ],
+    [
+      /fluted|ribbed/,
+      "fluting that throws vertical shadow lines as the light moves",
+    ],
+    [/bevel/, "a bevelled edge, which catches light along the border"],
+  ];
+  // The first mention names the product; later ones say "it". Repeating a
+  // sixty-character product name at the head of three consecutive sentences is
+  // how generated copy announces itself.
+  for (const [pattern, sentence] of finishes) {
+    if (!pattern.test(text)) continue;
+    notes.push(
+      notes.length === 0
+        ? `The ${name} has ${sentence}.`
+        : `It also has ${sentence}.`,
+    );
+    if (notes.length >= 3) break;
+  }
+
+  // Where it is meant to go, and what it is meant to hold — both stated by the
+  // supplier and both things a buyer weighs before ordering.
+  const placements: [RegExp, string][] = [
+    [/mantel|mantelpiece/, "a mantelpiece"],
+    [/console table/, "a console table"],
+    [/dining table|table centre|centrepiece/, "a dining table"],
+    [/hallway|entrance|entryway/, "a hallway"],
+    [/bedside/, "a bedside table"],
+    [/windowsill|window sill/, "a windowsill"],
+    [/shelf|shelving|bookcase/, "a shelf"],
+  ];
+  const places = placements
+    .filter(([pattern]) => pattern.test(text))
+    .map(([, where]) => where);
+  if (places.length)
+    notes.push(
+      `It is sized for ${places
+        .slice(0, 3)
+        .join(", ")
+        .replace(/, ([^,]*)$/, " or $1")}.`,
+    );
+
+  const holds = text.match(
+    /\b(?:holds?|suits?|takes?|designed for|ideal for)\s+((?:artificial |dried |fresh |cut |real )?(?:flowers?|stems?|orchids?|foliage|pillar candles?|tealights?|tapers?|plants?))/,
+  )?.[1];
+  if (holds) notes.push(`The supplier lists it as suiting ${holds}.`);
+
+  // A design reference tells a shopper what tradition it sits in.
+  const reference = text.match(
+    /\b(?:inspired by|drawing (?:on|inspiration from)|reminiscent of|echoes)\s+([a-z][a-z\s-]{4,40}?)(?:[,.]|\s+aesthetic)/,
+  )?.[1];
+  if (reference) notes.push(`Its shape draws on ${reference.trim()}.`);
+
+  // A named collection is a genuine fact and useful: it tells a buyer what
+  // else will match.
+  const collection = copy.match(
+    /\b([A-Z][a-z]+)\s+(?:collection|range|series)\b/,
+  )?.[1];
+  if (collection && !new RegExp(collection, "i").test(name))
+    notes.push(
+      `It belongs to the ${collection} range, so the other pieces in it are made to sit together.`,
+    );
+
+  return notes;
 }
 
 /**

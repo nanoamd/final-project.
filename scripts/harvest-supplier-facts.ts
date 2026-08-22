@@ -62,6 +62,19 @@ const client = createClient({
 });
 
 export interface HarvestedFacts {
+  /**
+   * The supplier's own description, kept as source material only.
+   *
+   * Never published. Kaiku's brief is explicit that "every product is written
+   * individually, not copied from the supplier's description", and this copy
+   * is written for trade buyers anyway — it says things like "an ideal choice
+   * for retailers seeking to meet the growing demand". It is held so that
+   * facts inside it (a finish, a collection, the pieces that coordinate) can
+   * be extracted and restated in Kaiku's own words.
+   */
+  supplierCopy?: string;
+  /** Premier prints a numbered feature list; each row is a discrete fact. */
+  features?: string[];
   lengthCm?: number;
   widthCm?: number;
   heightCm?: number;
@@ -115,8 +128,21 @@ const HILL_SPEC_LABELS = [
   "Drainage",
 ];
 
+/**
+ * The supplier's descriptive paragraph, from between the page furniture and
+ * the specification block.
+ */
+export function extractSupplierCopy(text: string): string | undefined {
+  const match = text.match(
+    /Q&A's\s*(.{120,2400}?)(?:\s+Length:|\s+Specification|\s+PDF Download|$)/s,
+  );
+  const copy = match?.[1]?.replace(/\s+/g, " ").trim();
+  return copy && copy.length > 120 ? copy : undefined;
+}
+
 export function parseHill(text: string): HarvestedFacts {
   const facts: HarvestedFacts = { extra: {} };
+  facts.supplierCopy = extractSupplierCopy(text);
   const grab = (label: string) =>
     text.match(new RegExp(`${label}:\\s*([0-9.]+)`, "i"))?.[1];
   facts.lengthCm = num(grab("Length"));
@@ -169,6 +195,24 @@ export function parseHill(text: string): HarvestedFacts {
  */
 export function parsePremier(text: string): HarvestedFacts {
   const facts: HarvestedFacts = { extra: {} };
+
+  // Premier leads with a written description, then a numbered feature list —
+  // "Feature 1 Padded seat", "Feature 2 Cream fabric upholstery". The list is
+  // the more useful half: each row is one discrete, checkable fact.
+  const description = text.match(
+    /(?:Product Description|Description)\s+(.{120,1200}?)(?=\s+Features\b|\s+Specification|\s+Product Dimensions)/s,
+  )?.[1];
+  if (description) facts.supplierCopy = description.replace(/\s+/g, " ").trim();
+
+  const features: string[] = [];
+  for (const match of text.matchAll(
+    /Feature\s*\d+\s+([A-Za-z][^\n]{2,60}?)(?=\s+Feature\s*\d|\s{2,}|$)/g,
+  )) {
+    const value = match[1]?.replace(/\s+/g, " ").trim();
+    if (value && value.length > 2 && !features.includes(value))
+      features.push(value);
+  }
+  if (features.length) facts.features = features.slice(0, 8);
   const dims = text.match(
     /Product Dimensions\s*w([0-9.]+)\s*x\s*d([0-9.]+)\s*x\s*h([0-9.]+)/i,
   );

@@ -125,6 +125,8 @@ async function main() {
       material: facts.material ?? null,
       colour: facts.colour ?? null,
       extra: facts.extra ?? {},
+      features: (facts as { features?: string[] }).features ?? [],
+      supplierCopy: (facts as { supplierCopy?: string }).supplierCopy ?? null,
       deliveryLeadTime: doc.deliveryLeadTime ?? null,
       materialDisputed: DISPUTED.has(doc._id),
     });
