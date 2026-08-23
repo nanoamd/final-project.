@@ -339,6 +339,30 @@ export function describeProduct(input: DescribeInput): Section[] {
     });
   }
 
+  // --- Styling and placement, derived from the actual measurements -------
+  // Damien, comparing a ChatGPT-written vase page to this one: "i dont
+  // understand why we cant just make every product description like this
+  // whilst also making it factual". He is right, and the first version threw
+  // out the form along with the emptiness. Styling and placement are what a
+  // shopper wants; the fault in that page was that "the options are endless"
+  // told them nothing. So the same sections are written here, with every
+  // claim doing arithmetic on a real dimension.
+  const styling = stylingFor(input, family, name);
+  if (styling.length) {
+    sections.push({
+      heading: pick(
+        family === "vessel"
+          ? ["Styling It", "What It Holds", "Arranging In It"]
+          : family === "wall"
+            ? ["Where It Works", "Hanging and Placement", "Finding Its Wall"]
+            : ["Living With It", "Where It Goes", "In the Room"],
+        input.slug,
+        8,
+      ),
+      paragraphs: styling,
+    });
+  }
+
   // --- Care, where the material implies it -------------------------------
   const care = careFor(material);
   if (care) {
@@ -363,6 +387,82 @@ export function describeProduct(input: DescribeInput): Section[] {
   }
 
   return sections;
+}
+
+/**
+ * Styling and placement advice, calculated rather than asserted.
+ *
+ * "Pair it with seasonal blooms for a rustic charm" is true of every vase ever
+ * made and helps nobody. "At 38cm it takes stems around 55cm, so a supermarket
+ * bunch needs about a third off" is advice a person can act on, and it comes
+ * out of the height we already hold.
+ *
+ * Every line here does arithmetic on a recorded measurement. A product with no
+ * dimensions gets none of it.
+ */
+function stylingFor(
+  input: DescribeInput,
+  family: Family,
+  name: string,
+): string[] {
+  const d = input.dimensions;
+  if (!d) return [];
+  const unit = d.unit ?? "cm";
+  const notes: string[] = [];
+  const height = has(d.height) ? d.height : null;
+  const width = has(d.width) ? d.width : has(d.length) ? d.length : null;
+
+  if (family === "vessel" && height) {
+    // Floristry rule of thumb: arrangement height roughly 1.5x the vase, so
+    // stems sit about that much above the rim plus the depth they sink.
+    const stems = Math.round(height * 1.5);
+    notes.push(
+      `At ${height}${unit} tall it suits stems of roughly ${stems}${unit} overall, so a bought bunch usually wants a third taken off the bottom before it sits right.`,
+    );
+    if (width)
+      notes.push(
+        `The ${width}${unit} opening is the constraint on how full an arrangement can go — wide enough for a generous hand-tied bunch, and narrow enough that a few stems will not fall open across the rim.`,
+      );
+  }
+
+  if (family === "wall" && height && width) {
+    // Gallery convention places a centre at about 145cm from the floor.
+    const top = Math.round(145 + height / 2);
+    notes.push(
+      `Hung so its centre sits at eye level, around 145${unit} from the floor, the top edge lands near ${top}${unit} — worth checking against a picture rail or coving before you drill.`,
+    );
+    notes.push(
+      `At ${width}${unit} wide it wants a wall span of roughly ${Math.round(width * 1.6)}${unit} to sit comfortably, rather than filling the space corner to corner.`,
+    );
+  }
+
+  if (family === "furniture" && height && width) {
+    if (height <= 50)
+      notes.push(
+        `At ${height}${unit} high it sits below the seat line of most sofas, which is what keeps a coffee table usable rather than something you reach down into.`,
+      );
+    else if (height >= 100)
+      notes.push(
+        `At ${height}${unit} it reads as a tall piece and will draw the eye, so it works best against a wall with room above rather than under a low ceiling or a sloped one.`,
+      );
+    notes.push(
+      `Leave about 75${unit} clear in front for a walkway, so the ${width}${unit} width wants roughly ${width + 150}${unit} of wall to feel unhurried.`,
+    );
+  }
+
+  if (family === "candle" && height) {
+    notes.push(
+      `At ${height}${unit} it stands above a dining table's sightline, so on a table it is better placed to one side than in the middle where it interrupts a conversation.`,
+    );
+  }
+
+  if (family === "outdoor" && width) {
+    notes.push(
+      `The ${width}${unit} footprint is what to measure against your paving or decking, remembering that furniture wants clearance around it rather than sitting flush to a wall.`,
+    );
+  }
+
+  return notes;
 }
 
 /**
