@@ -91,9 +91,24 @@ describe("it cannot produce the filler it replaces", () => {
     });
   }
 
-  it("stays well under the length that made the old copy useless", () => {
+  it("keeps density up rather than keeping length down", () => {
+    // Length was never the fault. A 1,105-word candle holder listing was
+    // useless because it held no measurement, not because it was long, and
+    // Damien's brief is explicit that long descriptive copy is right for
+    // Kaiku "as long as all facts are correct". So the guard is that the
+    // writing stays anchored — a real figure every few sentences — with a
+    // ceiling only to catch runaway.
+    const FACT = /\d+(?:\.\d+)?\s*(?:cm|mm|kg|m\b|W\b|°C)/g;
     for (const input of cases) {
-      expect(wordsIn(describeProduct(input))).toBeLessThan(300);
+      const sections = describeProduct(input);
+      const words = wordsIn(sections);
+      const text = sections.flatMap((s) => s.paragraphs).join(" ");
+      const facts = (text.match(FACT) ?? []).length;
+      expect(words, `${input.category} length`).toBeLessThan(900);
+      expect(
+        facts / Math.max(1, words / 100),
+        `${input.category} facts per 100 words`,
+      ).toBeGreaterThan(0.8);
     }
   });
 });

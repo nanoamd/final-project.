@@ -381,7 +381,9 @@ export function describeProduct(input: DescribeInput): Section[] {
     sections.push({
       heading: "Delivery",
       paragraphs: [
-        `Dispatched within ${input.deliveryLeadTime}, with free UK delivery.`,
+        // The stored lead time is not altered — a standing constraint — but a
+        // trailing space in the field must not become "2-4 weeks , with".
+        `Dispatched within ${input.deliveryLeadTime.trim()}, with free UK delivery.`,
       ],
     });
   }
@@ -411,54 +413,74 @@ function stylingFor(
   const notes: string[] = [];
   const height = has(d.height) ? d.height : null;
   const width = has(d.width) ? d.width : has(d.length) ? d.length : null;
+  const depth =
+    has(d.length) && has(d.width) && d.length !== d.width ? d.width : null;
 
   if (family === "vessel" && height) {
-    // Floristry rule of thumb: arrangement height roughly 1.5x the vase, so
-    // stems sit about that much above the rim plus the depth they sink.
     const stems = Math.round(height * 1.5);
     notes.push(
-      `At ${height}${unit} tall it suits stems of roughly ${stems}${unit} overall, so a bought bunch usually wants a third taken off the bottom before it sits right.`,
+      `At ${height}${unit} tall the ${name} suits stems of roughly ${stems}${unit} overall — the rule of thumb florists work to is an arrangement about half again as tall as the vessel holding it. A supermarket bunch arrives longer than that, so expect to take a third off the bottom before it sits properly. Cut on a slant, and the stems draw water better and last several days longer.`,
     );
     if (width)
       notes.push(
-        `The ${width}${unit} opening is the constraint on how full an arrangement can go — wide enough for a generous hand-tied bunch, and narrow enough that a few stems will not fall open across the rim.`,
+        `The ${width}${unit} opening is what governs how full an arrangement can go. It is wide enough to take a generous hand-tied bunch without crushing the outer stems, and narrow enough that five or six stems will still hold their shape rather than falling open across the rim. If you want a looser, more sculptural look, work with fewer stems of varying height rather than filling it.`,
+      );
+    if (height && height >= 45)
+      notes.push(
+        `A vessel of this height changes the proportions of whatever it stands on. On a console table or a hall table it reads as a deliberate gesture and draws the eye down a corridor; on a dining table it would sit above the sightline and interrupt conversation across it. Against a wall with height above — beside a tall window, under a stairwell — is where it earns its scale.`,
       );
   }
 
   if (family === "wall" && height && width) {
-    // Gallery convention places a centre at about 145cm from the floor.
     const top = Math.round(145 + height / 2);
     notes.push(
-      `Hung so its centre sits at eye level, around 145${unit} from the floor, the top edge lands near ${top}${unit} — worth checking against a picture rail or coving before you drill.`,
+      `Galleries hang to a centre line about 145${unit} from the floor, which is average eye level. Follow that with the ${name} and its top edge lands near ${top}${unit} — worth measuring against a picture rail, coving or the underside of a shelf before you drill, because the fixing is the part you cannot undo.`,
     );
     notes.push(
-      `At ${width}${unit} wide it wants a wall span of roughly ${Math.round(width * 1.6)}${unit} to sit comfortably, rather than filling the space corner to corner.`,
+      `At ${width}${unit} wide it wants a wall span of roughly ${Math.round(width * 1.6)}${unit} to breathe. Filling a wall corner to corner makes a room feel smaller, not fuller; leaving a margin either side is what lets a piece read as chosen rather than fitted. Above a sofa or a console, the convention is to keep it to about two thirds of the furniture's width, so ${Math.round(width * 1.5)}${unit} of furniture beneath is the comfortable minimum.`,
     );
   }
 
   if (family === "furniture" && height && width) {
     if (height <= 50)
       notes.push(
-        `At ${height}${unit} high it sits below the seat line of most sofas, which is what keeps a coffee table usable rather than something you reach down into.`,
+        `At ${height}${unit} high the ${name} sits at or below the seat line of most sofas, which is what keeps a low table usable — you reach across to it rather than down into it. Anything taller starts to feel like a barrier between the seating and the room.`,
       );
     else if (height >= 100)
       notes.push(
-        `At ${height}${unit} it reads as a tall piece and will draw the eye, so it works best against a wall with room above rather than under a low ceiling or a sloped one.`,
+        `At ${height}${unit} this is a tall piece and it will anchor whichever wall it stands against. That is an advantage in a room with height to spare and a liability under a low or sloping ceiling, where it closes the space in. Give it a wall it can own rather than tucking it into an alcove that crowds it.`,
       );
     notes.push(
-      `Leave about 75${unit} clear in front for a walkway, so the ${width}${unit} width wants roughly ${width + 150}${unit} of wall to feel unhurried.`,
+      `Allow around 75${unit} clear in front for a comfortable walkway — the figure building regulations use for a circulation route — so the ${width}${unit} width really wants about ${width + 150}${unit} of wall to sit without the room feeling tight. Measure the route in as well as the space it lands in; a piece this size has to get through the door and round the turn of a stair.`,
     );
+    if (depth)
+      notes.push(
+        `Its ${depth}${unit} depth is the number that decides whether a room still works around it. In a hallway or behind a sofa, anything much past 40${unit} starts to catch shoulders and bags as people pass.`,
+      );
   }
 
   if (family === "candle" && height) {
     notes.push(
-      `At ${height}${unit} it stands above a dining table's sightline, so on a table it is better placed to one side than in the middle where it interrupts a conversation.`,
+      `At ${height}${unit} the ${name} stands above the sightline across a dining table, so it works better set to one side, on a sideboard or a mantel, than in the centre where it interrupts the conversation it is meant to warm. Grouped at differing heights it reads as a considered arrangement rather than a row.`,
+    );
+    notes.push(
+      `Light behaves differently at this scale. A flame or LED held ${height}${unit} up throws its glow outward across a room rather than pooling on the surface beneath, which is what makes a tall holder useful in a corner that overhead lighting reaches badly.`,
     );
   }
 
   if (family === "outdoor" && width) {
     notes.push(
-      `The ${width}${unit} footprint is what to measure against your paving or decking, remembering that furniture wants clearance around it rather than sitting flush to a wall.`,
+      `The ${width}${unit} footprint is the figure to measure against your paving, decking or lawn — and to measure with clearance, not flush to a wall. Outdoor furniture wants air around it to dry after rain, and anything sitting hard against a fence or a house wall will stay damp on that side long after the rest has dried.`,
+    );
+    if (height)
+      notes.push(
+        `At ${height}${unit} it will read against the skyline of your garden from indoors as much as from outside. Worth standing at the kitchen or living room window before deciding where it goes, because that is the view you will have of it most often.`,
+      );
+  }
+
+  if (family === "lighting" && height) {
+    notes.push(
+      `At ${height}${unit} the ${name} sits well on a side table or a console where the shade falls near seated eye level — high enough to light a room, low enough that the bulb is not glaring straight at anyone sitting down. On a low table it will feel undersized, and on a tall chest it will throw light at the ceiling rather than the room.`,
     );
   }
 
@@ -526,10 +548,13 @@ function observationsFrom(
   // how generated copy announces itself.
   for (const [pattern, sentence] of finishes) {
     if (!pattern.test(text)) continue;
+    // Vary the connective. Three sentences opening "It also has" is the same
+    // fault as three opening with the product's full name.
+    const connectives = ["It also has", "There is", "The surface carries"];
     notes.push(
       notes.length === 0
         ? `The ${name} has ${sentence}.`
-        : `It also has ${sentence}.`,
+        : `${connectives[(notes.length - 1) % connectives.length]} ${sentence}.`,
     );
     if (notes.length >= 3) break;
   }
