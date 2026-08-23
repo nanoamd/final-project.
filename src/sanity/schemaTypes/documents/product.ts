@@ -34,7 +34,23 @@ export const product = defineType({
       name: "slug",
       type: "slug",
       group: "identity",
-      options: { source: "title", maxLength: 96 },
+      options: {
+        /**
+         * Derived from the title with the brand suffix removed.
+         *
+         * Sanity's default `source: "title"` slugifies the whole string, and
+         * every product title ends "| Kaiku" — which slugifies to "-or-kaiku".
+         * Pressing Generate in Studio produced live URLs like
+         * `rhombus-metal-privacy-screen-with-stand-black-or-kaiku`, on
+         * published products, silently changing the address a page had been
+         * indexed under.
+         */
+        source: (doc) =>
+          String((doc as { title?: unknown }).title ?? "")
+            .replace(/\s*\|\s*Kaiku(?:\s+Tagline)?\s*$/i, "")
+            .trim(),
+        maxLength: 96,
+      },
       validation: (rule) => rule.required(),
     }),
     defineField({
