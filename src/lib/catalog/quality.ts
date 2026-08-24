@@ -138,7 +138,7 @@ export interface QualityResult {
  * these facts are actually written in the catalogue; an earlier version of this
  * regex required a space and scored the SaunaPlunge barrel saunas at zero.
  */
-const FACT_PATTERN =
+export const FACT_PATTERN =
   /\b\d+(?:[.,]\d+)?\s*(?:-\s*)?(?:mm|cm|metres?|metre|m\b|kg|grams?|g\b|kW|W\b|watts?|V\b|volts?|amps?|°C|°|litres?|ltr|l\b|hours?|hrs?|years?|months?|weeks?|days?|person|people|seater|tier|drawer|shelf|shelves|pack|piece|set|inch|in\b|ft\b|")/gi;
 
 /**
@@ -408,7 +408,13 @@ export function scoreProduct(input: QualityInput): QualityResult {
       "major",
       `${words} words carrying ${facts} facts — length standing in for substance.`,
     );
-  } else if (words > 1200) {
+  } else if (words > 2000) {
+    // Length alone is not a fault here. Kaiku's house style is the long,
+    // fully-explained page — the Sorelle Two Seater Sofa runs to 1,628 words
+    // and is the benchmark Damien pointed at — so the threshold sits above it.
+    // Padding is still caught, by the facts-per-100-words rule above: a long
+    // page carrying real measurements passes, a long page carrying none does
+    // not. This only fires where a page has gone past any plausible reading.
     humanQuality -= 2;
     add(
       "humanQuality",

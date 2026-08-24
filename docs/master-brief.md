@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                                 └────────────────── category
+                                                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                         │  └─────────────── the range name
+                                                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -1995,8 +1995,57 @@ best-scoring supplier at 9.0. And 34 of the 37 failures are Hill Interiors.
 - [ ] **Tier 1 fixes** (~1 hour, mechanical): 40 supplier leaks, 17 titles
       missing `| Kaiku` including a "Kaiku Tagline" template bug, 4 FAQs that
       answer nothing, 16 over-long meta descriptions.
-- [ ] **Tier 2 rewrite**: the 37 REVIEW products, then the 93 padded ones.
-      Target 350–650 words — most get _shorter_ by half. Awaiting confirmation.
+- [~] **Tier 2 rewrite**: the 37 REVIEW products, then the 93 padded ones.
+  **Target corrected.** The earlier 350–650 word target was wrong. Damien:
+  _"the descriptions fully desribing the product and telling you how to
+  style it is what aligns with kaiku, as long as all facts are correct we
+  can make long descriptive descriptions"_, then _"try make the pergola
+  description excactly like the sorelle sofa, same length"_. The Sorelle Two
+  Seater Sofa runs to **1,628 words** and is the benchmark. Shortening the
+  catalogue would have been the opposite of what was asked for.
+
+### [~] Long-form descriptions in the house style
+
+`src/lib/catalog/describe-long.ts` (+16 tests). Reproduces the Sorelle's actual
+structure, which is one move repeated: a short prose section that says something
+specific, then a themed list. "Perfect for:" eighteen settings. "Pair it with:"
+eleven materials. "Position it alongside:" seven pieces. The lists carry the
+long-tail phrases people search and cannot state anything false; the prose
+between them is where the measurements go.
+
+Current output: **pergola 1,586 words, sofa 1,409** against the benchmark's
+1,628, from nineteen sections. Nothing is invented — a test asserts that every
+number appearing in the copy is one we hold on the product.
+
+Faults found and fixed while building it, each now covered by a test:
+
+- It told a pergola buyer how the piece would read _"in the room"_.
+- It paired a garden pergola with linen, leather, marble and woven rugs, because
+  the pairing table only knew indoor schemes. Outdoor products now get outdoor
+  pairings, and both directions are tested.
+- It repeated the full 60-character product name in every section. The Sorelle
+  says "the Sorelle" after introducing itself, which is why it reads as prose.
+- Section closing lines printed _above_ their own lists.
+- It stated measurements only when they were large, so the Sorelle itself — the
+  benchmark — came out at 798 words while the pergola got 1,472. The real page
+  repeats its 197 cm throughout, because that is the number being decided on.
+
+**Length is now earned rather than assumed.** `trimToSubstance` builds the whole
+page, measures its own fact density with the scorer's own pattern, and drops
+styling sections from the back until the remainder clears the bar. A product we
+hold real measurements for keeps the full page; one we hold almost nothing on
+gets a shorter honest page and shows up in the audit as needing its facts
+harvested. An earlier version gated on how many fields were filled in and got it
+exactly backwards — it kept 1,400 words on a vase with no recorded height while
+stripping the pergola's styling sections because no colour was set.
+
+- [x] The `words > 1200` penalty in `quality.ts` raised to 2,000. It was written
+      before Damien set the house style and would have marked down the Sorelle
+      itself. The padding rule that actually catches filler — long copy carrying
+      no facts — is untouched.
+- [ ] **Confirm the pergola output with Damien before scaling to the catalogue.**
+      He has said twice that the result was "nothing like our old ones"; this is
+      the third attempt and it should be looked at before 368 products move.
 - [ ] **674 unwritten drafts** (691 Premier Housewares). Recommendation: do not
       bulk-generate. That process is what produced the 13–16 August cohort.
 
