@@ -7,6 +7,7 @@ import {
   longWordCount,
   shortName,
   trimToSubstance,
+  withThe,
 } from "./describe-long";
 import { FACT_PATTERN } from "./quality";
 
@@ -192,6 +193,33 @@ describe("shortName", () => {
     expect(shortName("Garda Grey Glazed Chive Vase")).toBe(
       "Garda Grey Glazed Chive Vase",
     );
+  });
+});
+
+describe("withThe", () => {
+  it("does not double an article the name already has", () => {
+    // "The The Rutland Collection Rectangular Dining table brings together…"
+    // shipped on ten Furniture drafts.
+    expect(
+      withThe("The Rutland Collection Rectangular Dining table", true),
+    ).toBe("The Rutland Collection Rectangular Dining table");
+    expect(withThe("The Rutland Collection", false)).toBe(
+      "the Rutland Collection",
+    );
+  });
+
+  it("adds one where there is none", () => {
+    expect(withThe("Sorelle Two Seater Sofa", true)).toBe(
+      "The Sorelle Two Seater Sofa",
+    );
+    expect(withThe("Sorelle Two Seater Sofa", false)).toBe(
+      "the Sorelle Two Seater Sofa",
+    );
+  });
+
+  it("never writes a doubled article into a description", () => {
+    for (const input of [pergola, sofa])
+      expect(text(describeLong(input))).not.toMatch(/\bthe the\b/i);
   });
 });
 

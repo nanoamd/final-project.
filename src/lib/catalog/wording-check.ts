@@ -218,6 +218,17 @@ function dimensionFaults(input: WordingInput): WordingFault[] {
   for (const measurement of measurementsIn(input.text)) {
     if (measurement.unit !== unit) continue;
     if (measurement.value < 40) continue;
+    // Advice about where to hang something is not a claim about its size.
+    // "About 145cm from the floor is the gallery convention" was reported as
+    // contradicting an 8cm bauble.
+    const inSentence =
+      sentencesOf(input.text).find((s) => s.includes(measurement.raw)) ?? "";
+    if (
+      /\b(from the floor|convention|eye level|centre line|hang|hung)\b/i.test(
+        inSentence,
+      )
+    )
+      continue;
     if (seen.has(measurement.value)) continue;
     // Diameters, diagonals and totals are legitimately derived, so allow any
     // recorded figure, their sum, and a 2% tolerance for rounding.
@@ -322,6 +333,18 @@ function colourFaults(input: WordingInput): WordingFault[] {
         )
       )
         continue;
+      // A bulleted list item — "Terracotta", "Aged brass or copper lanterns" —
+      // arrives here as a sentence of its own, stripped of the "Pair it with:"
+      // line above it. Flagging those reported a black barbecue as claiming to
+      // be brass, copper and terracotta at once. A short fragment that does not
+      // end in a full stop is a list item, not a claim about the product.
+      const trimmed = sentence.trim();
+      if (!/[.!?]$/.test(trimmed) && trimmed.split(/\s+/).length <= 8) continue;
+      // A glossary line — "Walnut — Darker and richer, for schemes that want
+      // more depth." — names a material and explains it. It is the clearest
+      // possible case of pairing advice, and it ends in a full stop, so the
+      // fragment test above does not catch it.
+      if (/^[A-Z][A-Za-z\s]{2,30}\s[—–-]\s/.test(trimmed)) continue;
       seen.add(colour);
       faults.push({
         check: "colour-contradiction",

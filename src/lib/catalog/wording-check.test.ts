@@ -132,6 +132,27 @@ describe("wordingFaults", () => {
       ).not.toContain("colour-contradiction");
     });
 
+    it("does not mistake a glossary line for a claim", () => {
+      // The writer's "Natural Material Pairings" section is a list of
+      // materials with a note on each. Flagging those reported a black
+      // barbecue as claiming to be brass, copper and terracotta at once.
+      expect(
+        checks({
+          title: "Five-Burner Steel Gas Barbecue, Black | Kaiku",
+          text: "Walnut — Darker and richer, for schemes that want more depth.",
+        }),
+      ).not.toContain("colour-contradiction");
+    });
+
+    it("does not mistake a bulleted list item for a claim", () => {
+      expect(
+        checks({
+          title: "Five-Burner Steel Gas Barbecue, Black | Kaiku",
+          text: "Aged brass or copper lanterns",
+        }),
+      ).not.toContain("colour-contradiction");
+    });
+
     it("treats near-synonyms as the same colour", () => {
       expect(
         checks({

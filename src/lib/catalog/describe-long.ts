@@ -19,6 +19,7 @@
  * from the product's family and material, and every number is one we hold.
  */
 
+import { sitingFor } from "./context-check";
 import { type Family, familyFor } from "./describe";
 import { FACT_PATTERN } from "./quality";
 
@@ -108,6 +109,22 @@ export function shortName(full: string): string {
   const joint = words.findIndex(isConnector);
   if (joint >= 3) return words.slice(0, joint).join(" ");
   return beforeComma;
+}
+
+/**
+ * The product name with its definite article, without doubling it.
+ *
+ * "The Rutland Collection Rectangular Dining Table" already carries its "The",
+ * so `The ${name}` produced "The The Rutland Collection". Ten products in
+ * Furniture read that way in the first catalogue run.
+ */
+export function withThe(name: string, capitalised: boolean): string {
+  const article = capitalised ? "The" : "the";
+  return /^the\s/i.test(name)
+    ? capitalised
+      ? name
+      : name.replace(/^The\s/, "the ")
+    : `${article} ${name}`;
 }
 
 function pick<T>(options: readonly T[], slug: string, salt: number): T {
@@ -1076,9 +1093,22 @@ export function describeLong(input: LongFormInput): LongSection[] {
   const sections: LongSection[] = [];
   const short = shortName(name);
   // A pergola does not sit in a "room".
-  const place = family === "outdoor" ? "garden" : "room";
-  const placeThe = family === "outdoor" ? "the garden" : "the room";
-  const zone: Zone = family === "outdoor" ? "outdoor" : "indoor";
+  // Siting, not family, decides whether this thing stands in the rain. An
+  // outdoor sauna writes like wellness copy — that is its family — but it is
+  // in a garden, and the first version told its buyer about sightlines across
+  // the room. Family is only the fallback, for categories siting does not
+  // recognise.
+  const siting = sitingFor(input.category);
+  const zone: Zone =
+    siting === "outdoor"
+      ? "outdoor"
+      : siting === "indoor"
+        ? "indoor"
+        : family === "outdoor"
+          ? "outdoor"
+          : "indoor";
+  const place = zone === "outdoor" ? "garden" : "room";
+  const placeThe = zone === "outdoor" ? "the garden" : "the room";
   const { materials, colours } = pairingsFor(
     material,
     colour,
@@ -1094,7 +1124,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   // 1. Opening — design, proportion, the headline measurement.
   const opening: string[] = [];
   opening.push(
-    `The ${name} brings together ${material ? `${material} construction, ` : ""}considered proportions and a restrained design. The result works as comfortably in a relaxed everyday setting as in a carefully styled one.`,
+    `${withThe(name, true)} brings together ${material ? `${material} construction, ` : ""}considered proportions and a restrained design. The result works as comfortably in a relaxed everyday setting as in a carefully styled one.`,
   );
   if (width && height)
     opening.push(
@@ -1109,7 +1139,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   if (length && width && length !== width)
     opening.push(
       placement === "floor"
-        ? `The ${length} × ${width}${unit} footprint is the figure to measure against your space before ordering. Allow clearance around it rather than fitting it wall to wall. That is what keeps a ${place} feeling generous.`
+        ? `The ${length} × ${width}${unit} footprint is the figure to measure against your space before ordering. Allow clearance around it rather than filling the space ${zone === "outdoor" ? "boundary to boundary" : "wall to wall"}. That is what keeps a ${place} feeling generous.`
         : placement === "wall"
           ? `Measure the wall rather than the ${place}. A clear run of ${width}${unit} is what it needs, and the gap between a door architrave and the end of a shelf is what usually decides the answer.`
           : `It needs ${width}${unit} of clear surface. Measure the sideboard, shelf or table it is going on rather than the ${place}, and leave space around it so it reads as placed rather than wedged in.`,
@@ -1134,6 +1164,19 @@ export function describeLong(input: LongFormInput): LongSection[] {
   });
 
   // 2. Where it belongs — the long settings list.
+  // A wellness product's settings list holds both "Poolside areas" and "Spa
+  // rooms". Which of those is wrong depends entirely on where the product
+  // stands, so the list is filtered rather than written twice.
+  const OUTDOOR_ONLY_SETTINGS =
+    /^(?:poolside|garden|patio|terrace|decking|balcon|roof terrace|courtyard|outdoor|show garden|landscap|allotment|barbecue|hot tub)/i;
+  const INDOOR_ONLY_SETTINGS =
+    /^(?:spa room|treatment room|home gym|recovery studio|living room|bedroom|hallway|landing|cloakroom|stairwell|mantelpiece|windowsill|conservator)/i;
+  const settings = SETTINGS[family].filter((setting) =>
+    zone === "outdoor"
+      ? !INDOOR_ONLY_SETTINGS.test(setting)
+      : !OUTDOOR_ONLY_SETTINGS.test(setting),
+  );
+
   sections.push({
     heading: pick(
       family === "outdoor"
@@ -1151,9 +1194,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
       2,
     ),
     paragraphs: [
-      `The ${short} has been chosen to suit a wide range of residential and professional settings rather than one narrow use.`,
+      `${withThe(short, true)} has been chosen to suit a wide range of residential and professional settings rather than one narrow use.`,
     ],
-    list: { intro: "Perfect for:", items: SETTINGS[family] },
+    list: { intro: "Perfect for:", items: settings },
   });
 
   // 3. Material, and what sits beside it.
@@ -1169,10 +1212,10 @@ export function describeLong(input: LongFormInput): LongSection[] {
         3,
       ),
       paragraphs: [
-        `The ${material} construction is central to how the ${short} reads in ${placeThe}. It carries its own texture and weight. That is what lets a piece sit within ${scheme} rather than appearing visually isolated.`,
+        `The ${material} construction is central to how ${withThe(short, false)} reads in ${placeThe}. It carries its own texture and weight. That is what lets a piece sit within ${scheme} rather than appearing visually isolated.`,
         `Materials of this kind work best when they are answered elsewhere in the scheme rather than left to stand alone.`,
       ],
-      list: { intro: `Pair the ${short} with:`, items: materials },
+      list: { intro: `Pair ${withThe(short, false)} with:`, items: materials },
     });
   }
 
@@ -1189,7 +1232,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
         4,
       ),
       paragraphs: [
-        `The ${colour} finish gives the ${short} a versatile foundation. The rest of ${placeThe} can then be styled around it rather than against it.`,
+        `The ${colour} finish gives ${withThe(short, false)} a versatile foundation. The rest of ${placeThe} can then be styled around it rather than against it.`,
         `It also makes seasonal changes straightforward. The same piece can be refreshed with different textiles and accessories without anything looking forced.`,
       ],
       list: { intro: "Pair it with:", items: colours },
@@ -1204,7 +1247,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
       5,
     ),
     paragraphs: [
-      `The ${short} adapts to several different directions depending on what surrounds it. Each of these keeps the piece itself unchanged and shifts everything around it.`,
+      `${withThe(short, true)} adapts to several different directions depending on what surrounds it. Each of these keeps the piece itself unchanged and shifts everything around it.`,
       ...(zone === "outdoor" ? OUTDOOR_STYLING : STYLING_DIRECTIONS).map(
         (s) => `${s.name} — ${s.how}`,
       ),
@@ -1290,7 +1333,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
       8,
     ),
     paragraphs: [
-      `The ${short} rarely stands alone. What surrounds it decides whether it reads as a considered choice or an isolated object. The pieces below are the ones that most often do that work.`,
+      `${withThe(short, true)} rarely stands alone. What surrounds it decides whether it reads as a considered choice or an isolated object. The pieces below are the ones that most often do that work.`,
       ...(width
         ? [
             `Scale everything around it to the same ${width}${unit} span. A piece that is noticeably shorter or taller than what it sits beside is what makes an arrangement look assembled rather than chosen.`,
@@ -1362,7 +1405,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
       9,
     ),
     paragraphs: [
-      `A piece is only worth its space if it is used, and the ${short} suits several patterns of use rather than one.`,
+      `A piece is only worth its space if it is used, and ${withThe(short, false)} suits several patterns of use rather than one.`,
       // A wall piece is screwed to the wall; telling the reader it "stays
       // where you put it" is describing something else entirely.
       ...(has(input.weight?.value) && placement !== "wall"
@@ -1377,7 +1420,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   // 5d. Scale and presence — the Sorelle's closing argument.
   if (width || height) {
     const scale: string[] = [
-      `The ${short} has enough presence to hold ${placeThe} without becoming the only thing in it. That balance matters more than size alone. A piece that dominates makes a space feel smaller. One that disappears was not worth buying.`,
+      `${withThe(short, true)} has enough presence to hold ${placeThe} without becoming the only thing in it. That balance matters more than size alone. A piece that dominates makes a space feel smaller. One that disappears was not worth buying.`,
     ];
     // The Sorelle states its 197 cm width in section after section, and that
     // repetition is not padding — it is the number the reader is deciding on,
@@ -1491,7 +1534,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
         ? "For Garden Designers and Hospitality Projects"
         : "For Interior Designers and Hospitality Projects",
     paragraphs: [
-      `The ${short} suits professional specification as readily as a single private order. That usually comes down to one question: whether a piece can be repeated across a scheme without looking repeated.`,
+      `${withThe(short, true)} suits professional specification as readily as a single private order. That usually comes down to one question: whether a piece can be repeated across a scheme without looking repeated.`,
     ],
     list: { intro: "Specified by:", items: TRADE[zone] },
   });
@@ -1536,7 +1579,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   if (assembly)
     practical.push(
       /^no\b/i.test(assembly)
-        ? `The ${short} arrives assembled and ready to use, with nothing to build on arrival.`
+        ? `${withThe(short, true)} arrives assembled and ready to use, with nothing to build on arrival.`
         : `Assembly is required. The fixings and instructions are supplied, and a piece of this size is far easier with two people than one.`,
     );
   if (has(weight))
@@ -1594,7 +1637,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
         input.slug,
         7,
       ),
-      paragraphs: [`Recorded against the ${short}:`],
+      paragraphs: [`Recorded against ${withThe(short, false)}:`],
       list: { intro: "", items: features },
     });
   }

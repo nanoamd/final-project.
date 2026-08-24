@@ -75,6 +75,18 @@ async function main() {
   );
 
   const restores: { id: string; title: string; blocks: unknown }[] = [];
+  /**
+   * Documents that existed but held no Portable Text description.
+   *
+   * Restoring these means *removing* the description, because that is what
+   * they had. Ten of the thirteen had no description field at all — they are
+   * the unwritten-drafts cohort — and three held a plain string where the
+   * schema expects an array, which would not render and which the Studio
+   * would refuse to edit. The string is recorded rather than written back,
+   * because putting a string into a Portable Text field is what put them in
+   * that state to begin with.
+   */
+  const clears: { id: string; title: string; held: string | null }[] = [];
   const unavailable: string[] = [];
 
   for (const doc of touched) {
@@ -83,10 +95,13 @@ async function main() {
       unavailable.push(doc._id);
       continue;
     }
-    // A document that did not exist then, or held no description, is left
-    // alone rather than having an empty description written over it.
     if (!Array.isArray(before.description)) {
-      unavailable.push(doc._id);
+      clears.push({
+        id: doc._id,
+        title: doc.title ?? "",
+        held:
+          typeof before.description === "string" ? before.description : null,
+      });
       continue;
     }
     restores.push({
@@ -97,8 +112,14 @@ async function main() {
   }
 
   console.log(`Restorable from history:     ${restores.length}`);
+  if (clears.length)
+    console.log(
+      `Had no description then:     ${clears.length} (${clears.filter((c) => c.held).length} held a plain string, shown below)`,
+    );
   if (unavailable.length)
-    console.log(`No usable history:           ${unavailable.length}`);
+    console.log(`No usable history at all:    ${unavailable.length}`);
+  for (const clear of clears.filter((c) => c.held))
+    console.log(`   ${clear.title.slice(0, 42)}: ${clear.held!.slice(0, 88)}`);
 
   mkdirSync("docs/change-log", { recursive: true });
   const stamp = new Date().toISOString();
@@ -111,6 +132,9 @@ async function main() {
         applied: apply,
         unavailable,
         ids: restores.map((r) => r.id),
+        // Kept verbatim: these carry real facts — "120W x 50D x 55H cm 33kg"
+        // — that belong in the dimensions and weight fields, not in prose.
+        cleared: clears,
       },
       null,
       2,
@@ -131,6 +155,13 @@ async function main() {
     if (++done % 50 === 0) console.log(`  restored ${done}/${restores.length}`);
   }
   console.log(`\nRestored ${done} descriptions.`);
+
+  let cleared = 0;
+  for (const clear of clears) {
+    await client.patch(clear.id).unset(["description"]).commit();
+    cleared += 1;
+  }
+  if (cleared) console.log(`Cleared ${cleared} back to having no description.`);
 }
 
 const isDirectRun =

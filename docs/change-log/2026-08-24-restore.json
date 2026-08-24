@@ -1,23 +1,10 @@
 {
-  "generatedAt": "2026-08-24T19:24:47.696Z",
+  "generatedAt": "2026-08-24T19:41:06.286Z",
   "restoredTo": "2026-08-24T19:00:00Z",
   "applied": true,
-  "unavailable": [
-    "drafts.hill-decor-23980",
-    "drafts.hill-decor-23986",
-    "drafts.hill-decor-23987",
-    "drafts.hill-decor-24382",
-    "drafts.hill-decor-24671",
-    "drafts.hill-decor-24917",
-    "drafts.product-aw-acshop-07b",
-    "drafts.product-di-bredon-round-dining-table",
-    "drafts.product-di-hackwood-dining-table",
-    "drafts.product-di-pershore-rectangular-aged-oak-dining-table",
-    "drafts.product-import-abberley-brown-tv-unit",
-    "drafts.product-import-hampton-black-tv-unit",
-    "drafts.product-import-hampton-brown-tv-unit"
-  ],
+  "unavailable": [],
   "ids": [
+    "drafts.premier-housewares-5505803",
     "drafts.hill-decor-16210",
     "drafts.hill-decor-17461",
     "drafts.hill-decor-17857",
@@ -157,7 +144,6 @@
     "drafts.hill-decor-24476",
     "drafts.hill-decor-24481",
     "drafts.hill-decor-24490",
-    "drafts.premier-housewares-5505803",
     "drafts.hill-decor-24493",
     "drafts.hill-decor-24494",
     "drafts.hill-decor-24495",
@@ -401,5 +387,72 @@
     "drafts.product-import-lentia-urn-table-lamp-with-linen-shade",
     "drafts.product-import-leptis-magna-table-lamp",
     "drafts.product-import-medium-rustic-metal-reindeer-on-stand"
+  ],
+  "cleared": [
+    {
+      "id": "drafts.hill-decor-23980",
+      "title": "The Rutland Collection Rectangular Dining table",
+      "held": null
+    },
+    {
+      "id": "drafts.hill-decor-23986",
+      "title": "The Rutland Collection Round Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.hill-decor-23987",
+      "title": "Live Edge Collection Light Acacia River Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.hill-decor-24382",
+      "title": "Stellen Rectangular Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.hill-decor-24671",
+      "title": "Haldon Collection Large Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.hill-decor-24917",
+      "title": "Romanby Stone Extending Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.product-aw-acshop-07b",
+      "title": "Recycled Teakwood Display / Dining Table 2.2m - No Bottom Shelf",
+      "held": null
+    },
+    {
+      "id": "drafts.product-di-bredon-round-dining-table",
+      "title": "Bredon Grey Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.product-di-hackwood-dining-table",
+      "title": "Hackwood Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.product-di-pershore-rectangular-aged-oak-dining-table",
+      "title": "Pershore Oak Dining Table",
+      "held": null
+    },
+    {
+      "id": "drafts.product-import-abberley-brown-tv-unit",
+      "title": "Abberley Brown TV Unit",
+      "held": "Brown TV media unit in dark stained oak and oak veneer, visible grain, ribbed design at front. Removable shelves. 120W x 50D x 55H cm 33kg"
+    },
+    {
+      "id": "drafts.product-import-hampton-black-tv-unit",
+      "title": "Hampton Black TV Unit",
+      "held": "Two door black TV/media unit in faux shagreen with chrome handles and base, fixed shelving. Handles need attaching. Please see attached care instructions and handle attachment instructions"
+    },
+    {
+      "id": "drafts.product-import-hampton-brown-tv-unit",
+      "title": "Hampton Brown TV Unit",
+      "held": "Two door brown TV/media unit in faux shagreen with brass style handles and base, fixed shelving. Handles require attaching. Please see attached care instructions and handle attachment instructions"
+    }
   ]
 }

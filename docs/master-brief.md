@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                                                 └────────────────── category
+                                                                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                         │  └─────────────── the range name
+                                                                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2081,9 +2081,37 @@ Two process faults of mine, worth recording because they caused this:
       change log stored the previous copy as _plain text_, which reads fine and
       cannot restore: it loses the blocks, headings and keys. The log now
       records the previous copy for reference and history is the restore path.
-- [ ] **Show Damien pages across several categories before applying again.**
+- [x] **Sampled every category before applying again** — instead of picking
+      two products by hand, the fixed writer was run over one product from each
+      of the 33 categories and its output fed through `context-check` and
+      `wording-check`. **Only 4 of 33 came back clean.** That found six more
+      faults, three in the writer and three in the detectors:
+
+      - **"The The Rutland Collection Rectangular Dining table"** — the copy
+                prefixes "The" to a name that already begins with it. Ten Furniture
+                drafts read that way.
+              - **An outdoor sauna was told about "sightlines across the room"** —
+                `familyFor` sends it to the wellness writing family, and place was
+                being taken from family instead of siting. Siting now decides.
+              - **An indoor sauna was offered "Poolside areas"** — the wellness
+                settings list holds both indoor and outdoor entries. It is now filtered
+                by siting.
+              - "Allow clearance rather than fitting it wall to wall" on a garden
+                product — a room idiom. Now "boundary to boundary" outdoors.
+              - Detector: "cushions and throws" is not indoor language when they are
+                weatherproof.
+              - Detector: a black barbecue was reported as claiming to be brass, copper
+                and terracotta, because bulleted pairing items and glossary lines
+                ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                "Pair it with:" heading above them.
+
+              After the fixes, **32 of 33 categories are clean**. The remaining one is a
+              pairing colour on a single bedside table.
+
+- [ ] **Show Damien the sampled pages before applying again.** The dry run is
+      ready; nothing is written until he has read some.
 - [ ] **Supplier name in published titles** — `Sweet Birch Essential Oil 50ml |
-  Ancient Wisdom | Kaiku`. Its draft has no `| Kaiku` suffix at all. Found
+Ancient Wisdom | Kaiku`. Its draft has no `| Kaiku` suffix at all. Found
       incidentally; not yet swept for across the catalogue.
 
 - [ ] **Confirm the pergola output with Damien before scaling to the catalogue.**

@@ -31,7 +31,6 @@ import {
 } from "../src/lib/catalog/describe-long";
 import { scoreProduct } from "../src/lib/catalog/quality";
 import {
-  headingsOf,
   plainTextOf,
   type ProductDocument,
   QUALITY_PROJECTION,

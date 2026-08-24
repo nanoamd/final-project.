@@ -121,7 +121,8 @@ const INDOOR_PHRASES = [
   "radiator*",
   // "curtains" is deliberately absent: our gazebos and pergolas genuinely ship
   // with side curtains, and the phrase flagged five of them wrongly.
-  "cushions and throws",
+  // "cushions and throws" is deliberately absent: weatherproof outdoor
+  // cushions and throws are a normal part of a garden scheme.
   "houseplant*",
 ];
 
