@@ -338,6 +338,19 @@ function colourFaults(input: WordingInput): WordingFault[] {
       // line above it. Flagging those reported a black barbecue as claiming to
       // be brass, copper and terracotta at once. A short fragment that does not
       // end in a full stop is a list item, not a claim about the product.
+      // "oak" in "brings together oak wood construction" names the material,
+      // not the colour. A sentence about what a thing is made from is not a
+      // claim about what shade it is.
+      if (
+        /\b(construction|made from|made of|composition|constructed)\b/i.test(
+          sentence,
+        ) ||
+        new RegExp(
+          `${colour}\\s+(?:wood|veneer|timber|effect|mdf|ply|laminate)`,
+          "i",
+        ).test(lower)
+      )
+        continue;
       const trimmed = sentence.trim();
       if (!/[.!?]$/.test(trimmed) && trimmed.split(/\s+/).length <= 8) continue;
       // A glossary line — "Walnut — Darker and richer, for schemes that want

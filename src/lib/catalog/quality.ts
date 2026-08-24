@@ -215,7 +215,7 @@ const EMPTY_ANSWER_PATTERN =
  * customer is reading raw template syntax on a live page, whereas a doubled
  * space is a blemish.
  */
-const ARTEFACTS: {
+export const ARTEFACTS: {
   dimension: Dimension;
   severity: Finding["severity"];
   pattern: RegExp;

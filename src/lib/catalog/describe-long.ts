@@ -69,8 +69,106 @@ function title(value: string): string {
   return value.replace(/\b[a-z]/g, (c) => c.toUpperCase());
 }
 
+/**
+ * A colour value as it should read in a sentence.
+ *
+ * Harvested colours arrive as compound strings — "grey, white", "black/brown"
+ * — and interpolating one raw produced "The grey, white finish gives the
+ * Marble Effect Olpe Vase a versatile foundation", which reads like a database
+ * field and trips the colour checker into reporting a contradiction with
+ * itself.
+ */
+export function formatColour(colour: string): string {
+  const parts = colour
+    .split(/\s*(?:,|\/|\band\b)\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (parts.length <= 1) return colour.trim();
+  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+}
+
+/**
+ * Facts that are safe to put in front of a customer.
+ *
+ * Harvested feature lists and specification values are supplier data, and some
+ * of it carries HTML tags, unclosed brackets, or a stray sentence from a
+ * different product. Interpolating those straight into copy is how "8 ( against
+ * 1 )" and a literal &nbsp; reached the page. Anything that fails is dropped
+ * rather than repaired: we do not know what it was meant to say.
+ */
+export function usableFact(value: string): boolean {
+  if (!value || value.trim().length < 3) return false;
+  if (/<\/?[a-z][^>]*>|&(?:amp|nbsp|quot|lt|gt|#\d+);/i.test(value))
+    return false;
+  const opens = (value.match(/\(/g) ?? []).length;
+  const closes = (value.match(/\)/g) ?? []).length;
+  if (opens !== closes) return false;
+  if (/\s[,.;:]/.test(value)) return false;
+  return true;
+}
+
+/**
+ * The dominant material, from a supplier composition string.
+ *
+ * Harvested material arrives as "mdf 10%, mirror 40%, oak wood 50%" or
+ * "foam 45%,velvet 10%,gold electroplating hardware leg 5%,solid eucalyptus
+ * 40%". Interpolated raw it produced "brings together mdf 10%, mirror 40%, oak
+ * wood 50% construction", which reads like a spreadsheet cell and made the copy
+ * describe a grey sofa as gold. The largest component is what a shopper means
+ * when they ask what a thing is made of.
+ */
+export function dominantMaterial(value: string): string | null {
+  const cleaned = value.trim();
+  if (!cleaned) return null;
+  const parts = [
+    ...cleaned.matchAll(/([a-z][a-z\s-]*?)\s*(\d+(?:\.\d+)?)\s*%/gi),
+  ];
+  if (parts.length) {
+    // "gold electroplating hardware leg" is a component, not a material a
+    // sentence can carry, so the largest *usable* component wins rather than
+    // simply the largest. Falling back to the next one down says something
+    // true; returning nothing throws away a fact we hold.
+    const usable = parts
+      .map((part) => ({
+        name: part[1]!.trim().replace(/^[,;]+|[,;]+$/g, ""),
+        share: Number(part[2]),
+      }))
+      .filter((part) => part.name && part.name.split(/\s+/).length <= 3)
+      .sort((a, b) => b.share - a.share);
+    return usable[0]?.name ?? null;
+  }
+  if (/[,;/]/.test(cleaned)) {
+    const first = cleaned.split(/[,;/]/)[0]!.trim();
+    return first && first.split(/\s+/).length <= 3 ? first : null;
+  }
+  return cleaned.split(/\s+/).length <= 3 ? cleaned : null;
+}
+
+/** "a" or "an", by the sound of the word that follows. */
+export function articleFor(word: string, capitalised = false): string {
+  const vowelSound =
+    /^[aeiou]/i.test(word) && !/^(?:uni|use|user|one|once|euro)/i.test(word);
+  const article = vowelSound ? "an" : "a";
+  return capitalised ? article[0]!.toUpperCase() + article.slice(1) : article;
+}
+
+const ENTITIES: Record<string, string> = {
+  "&amp;": "&",
+  "&nbsp;": " ",
+  "&quot;": '"',
+  "&#39;": "'",
+  "&apos;": "'",
+  "&lt;": "<",
+  "&gt;": ">",
+};
+
 function displayName(title: string): string {
-  return title.replace(/\s*\|\s*Kaiku(?:\s+Tagline)?\s*$/i, "").trim();
+  // Some titles carry "&amp;" from the import. The title is Damien's to change,
+  // but reproducing the entity inside the description puts it on the page twice.
+  let name = title.replace(/\s*\|\s*Kaiku(?:\s+Tagline)?\s*$/i, "").trim();
+  for (const [entity, character] of Object.entries(ENTITIES))
+    name = name.split(entity).join(character);
+  return name;
 }
 
 /**
@@ -1088,8 +1186,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
   const material =
     input.materialDisputed || !input.material
       ? null
-      : input.material.toLowerCase();
-  const colour = input.colour?.toLowerCase() ?? null;
+      : dominantMaterial(input.material.toLowerCase());
+  const rawColour = input.colour?.toLowerCase() ?? null;
+  const colour = rawColour ? formatColour(rawColour) : null;
   const sections: LongSection[] = [];
   const short = shortName(name);
   // A pergola does not sit in a "room".
@@ -1224,7 +1323,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
     sections.push({
       heading: pick(
         [
-          `A ${title(colour)} Finish`,
+          `${articleFor(colour, true)} ${title(colour)} Finish`,
           "Colour and Palette",
           "Working With the Finish",
         ],
@@ -1318,7 +1417,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   };
   sections.push({
     heading: pick(
-      family === "outdoor"
+      zone === "outdoor"
         ? [
             "Building the Space Around It",
             "What to Put Beside It",
@@ -1571,8 +1670,12 @@ export function describeLong(input: LongFormInput): LongSection[] {
   //    with "197 cm width" woven through, and the part that has to be true.
   const practical: string[] = [];
   const extra = input.extra ?? {};
-  const assembly = extra["Assembly Required"];
-  const outdoorUse = extra["Indoor Outdoor Use"];
+  const rawAssembly = extra["Assembly Required"];
+  const rawOutdoorUse = extra["Indoor Outdoor Use"];
+  const assembly =
+    rawAssembly && usableFact(rawAssembly) ? rawAssembly : undefined;
+  const outdoorUse =
+    rawOutdoorUse && usableFact(rawOutdoorUse) ? rawOutdoorUse : undefined;
   const weight = input.weight?.value;
   const wUnit = input.weight?.unit ?? "kg";
 
@@ -1602,7 +1705,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
         ? `Despite how it looks, this is an indoor piece and should not be left out in the weather.`
         : /fair weather/i.test(outdoorUse)
           ? `It suits sheltered outdoor use in fair weather. Bringing it in or covering it over winter will add years to it.`
-          : outdoorUse,
+          : usableFact(outdoorUse)
+            ? outdoorUse
+            : "",
     );
   if (width)
     practical.push(
@@ -1615,7 +1720,8 @@ export function describeLong(input: LongFormInput): LongSection[] {
             : `Measure the ${width}${unit} width against the wall or alcove it is going into before ordering, and measure the doorways it has to come through as well. The second measurement is the one people forget.`,
     );
   const warning = extra["Product Warning"];
-  if (warning) practical.push(warning.replace(/\.?$/, "."));
+  if (warning && usableFact(warning))
+    practical.push(warning.replace(/\.?$/, "."));
 
   if (practical.length) {
     sections.push({
@@ -1629,7 +1735,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
   }
 
   // 7. Features the supplier states, if any.
-  const features = (input.features ?? []).filter((f) => f && f.length > 2);
+  const features = (input.features ?? []).filter(
+    (f) => f && f.length > 2 && usableFact(f),
+  );
   if (features.length >= 2) {
     sections.push({
       heading: pick(

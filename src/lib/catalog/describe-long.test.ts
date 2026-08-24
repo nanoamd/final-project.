@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  articleFor,
   describeLong,
+  dominantMaterial,
+  formatColour,
   type LongFormInput,
   type LongSection,
   longWordCount,
   shortName,
   trimToSubstance,
+  usableFact,
   withThe,
 } from "./describe-long";
 import { FACT_PATTERN } from "./quality";
@@ -240,6 +244,68 @@ describe("honest headings", () => {
       describeLong({ ...pergola, slug: "measured-thing" })[0]!.paragraphs
         .length,
     ).toBeGreaterThan(1);
+  });
+});
+
+describe("supplier data reaching the copy", () => {
+  it("takes the dominant material from a composition string", () => {
+    // "brings together mdf 10%, mirror 40%, oak wood 50% construction" reads
+    // like a spreadsheet cell, and made a grey sofa describe itself as gold.
+    expect(dominantMaterial("mdf 10%, mirror 40%, oak wood 50%")).toBe(
+      "oak wood",
+    );
+    expect(dominantMaterial("plastic 5%,seagrass 85%,natural wood 10%")).toBe(
+      "seagrass",
+    );
+  });
+
+  it("says nothing rather than guess at a component name", () => {
+    // "gold electroplating hardware leg" is a part, not a material.
+    expect(
+      dominantMaterial("gold electroplating hardware leg 95%, foam 5%"),
+    ).toBe("foam");
+    expect(dominantMaterial("")).toBeNull();
+  });
+
+  it("leaves a plain material alone", () => {
+    expect(dominantMaterial("steel")).toBe("steel");
+    expect(dominantMaterial("solid oak")).toBe("solid oak");
+  });
+
+  it("reads a compound colour as English", () => {
+    expect(formatColour("grey, white")).toBe("grey and white");
+    expect(formatColour("black/brown")).toBe("black and brown");
+    expect(formatColour("grey")).toBe("grey");
+  });
+
+  it("refuses facts carrying markup or unclosed brackets", () => {
+    expect(usableFact("Solid oak frame")).toBe(true);
+    expect(usableFact("Solid oak <br> frame")).toBe(false);
+    expect(usableFact("Holder &amp; lights")).toBe(false);
+    expect(usableFact("Seats six (with the leaf extended")).toBe(false);
+    expect(usableFact("ok")).toBe(false);
+  });
+
+  it("does not repeat an HTML entity from the title", () => {
+    const sections = describeLong({
+      title:
+        "Large Conical Wicker Lantern With Glass Holder &amp; LED Lights | Kaiku",
+      slug: "large-conical-wicker-lantern",
+      category: "Candles & Lanterns",
+      dimensions: { length: 30, width: 30, height: 45, unit: "cm" },
+      material: "wicker",
+    });
+    const body = text(sections);
+    expect(body).not.toContain("&amp;");
+    expect(body).toContain("Holder & LED Lights");
+  });
+
+  it("agrees the article with the colour that follows it", () => {
+    expect(articleFor("antique", true)).toBe("An");
+    expect(articleFor("grey", true)).toBe("A");
+    expect(articleFor("ivory", true)).toBe("An");
+    // Sound, not spelling.
+    expect(articleFor("unique", true)).toBe("A");
   });
 });
 

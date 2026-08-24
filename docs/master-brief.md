@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                                                                 └────────────────── category
+                                                                                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                                         │  └─────────────── the range name
+                                                                                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2088,25 +2088,25 @@ Two process faults of mine, worth recording because they caused this:
       faults, three in the writer and three in the detectors:
 
       - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                        prefixes "The" to a name that already begins with it. Ten Furniture
-                        drafts read that way.
-                      - **An outdoor sauna was told about "sightlines across the room"** —
-                        `familyFor` sends it to the wellness writing family, and place was
-                        being taken from family instead of siting. Siting now decides.
-                      - **An indoor sauna was offered "Poolside areas"** — the wellness
-                        settings list holds both indoor and outdoor entries. It is now filtered
-                        by siting.
-                      - "Allow clearance rather than fitting it wall to wall" on a garden
-                        product — a room idiom. Now "boundary to boundary" outdoors.
-                      - Detector: "cushions and throws" is not indoor language when they are
-                        weatherproof.
-                      - Detector: a black barbecue was reported as claiming to be brass, copper
-                        and terracotta, because bulleted pairing items and glossary lines
-                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                        "Pair it with:" heading above them.
+                                prefixes "The" to a name that already begins with it. Ten Furniture
+                                drafts read that way.
+                              - **An outdoor sauna was told about "sightlines across the room"** —
+                                `familyFor` sends it to the wellness writing family, and place was
+                                being taken from family instead of siting. Siting now decides.
+                              - **An indoor sauna was offered "Poolside areas"** — the wellness
+                                settings list holds both indoor and outdoor entries. It is now filtered
+                                by siting.
+                              - "Allow clearance rather than fitting it wall to wall" on a garden
+                                product — a room idiom. Now "boundary to boundary" outdoors.
+                              - Detector: "cushions and throws" is not indoor language when they are
+                                weatherproof.
+                              - Detector: a black barbecue was reported as claiming to be brass, copper
+                                and terracotta, because bulleted pairing items and glossary lines
+                                ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                                "Pair it with:" heading above them.
 
-                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
-                      pairing colour on a single bedside table.
+                              After the fixes, **32 of 33 categories are clean**. The remaining one is a
+                              pairing colour on a single bedside table.
 
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
@@ -2147,7 +2147,50 @@ while opening with an apology.
 This is deletion only — nothing generated, nothing reworded, no fact invented —
 which is what makes it safe to run catalogue-wide in a way the rewrite was not.
 
-- [ ] **Run `scripts/strip-admissions.ts --apply`** once Damien says go.
+- [x] Superseded by `scripts/finalise-descriptions.ts`, which does the cleaning
+      and the rewriting in one pass.
+
+### [~] Finalise: one standard, enforced by the code
+
+Damien: _"literally just make every product description great and consistent
+with 0 mistakes. this isnt too difficult"_.
+
+Consistency and zero mistakes are things code can guarantee. "Great" is not,
+because a page can only be as good as the facts behind it. So
+`scripts/finalise-descriptions.ts` separates the two honestly.
+
+**Every page is checked before it is written**, against every detector in the
+project — the context checker, the wording checker, and the quality scorer's
+artefact patterns. **One finding and the page is not written at all.** It goes
+on a list with the reason instead. That is the difference between "I sampled
+some and they looked fine", which is how the two failed runs happened, and a
+standard the code actually enforces.
+
+|                              |                                    |
+| ---------------------------- | ---------------------------------- |
+| Rewritten to the house style | **607** (183 live)                 |
+| Cleaned of admissions only   | **764** (51 live)                  |
+| Existing page already better | 1,001                              |
+| No dimensions — needs facts  | 31                                 |
+| **Held back by the gate**    | **3**                              |
+| Average rewritten page       | 1,306 words, score 7.79 → **8.72** |
+
+Getting the gate from ~90 rejections to 3 meant fixing five more faults, all of
+them raw supplier data reaching the copy:
+
+- **"The grey, white finish gives the Marble Effect Olpe Vase…"** — harvested
+  colours are compound strings. Now read as "grey and white".
+- **"brings together mdf 10%, mirror 40%, oak wood 50% construction"** — the
+  material field is a percentage composition. `dominantMaterial()` takes the
+  largest _usable_ component, so a grey sofa stops describing itself as gold.
+- **`&amp;` reproduced from the product title** into the description body.
+- **"A Antique Finish"** — the article never agreed with what followed it.
+- Spec values with unclosed brackets or HTML going straight into prose.
+
+The 3 the gate still refuses have supplier data that contradicts itself — a
+title saying 6-person against copy saying 2, a stated 90cm against a recorded
+98cm. They need the fact resolved, not the prose reworded.
+
 - [ ] **Supplier name in published titles** — `Sweet Birch Essential Oil 50ml |
 Ancient Wisdom | Kaiku`. Its draft has no `| Kaiku` suffix at all. Found
       incidentally; not yet swept for across the catalogue.
