@@ -1335,7 +1335,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
     if (height)
       scale.push(
         height >= 200
-          ? `At ${height}${unit} it works with height rather than against it, drawing the eye up. Under a low ceiling or a strong overhang it will feel compressed, so give it air above.`
+          ? `At ${height}${unit} it works with height rather than against it, drawing the eye up. ${zone === "outdoor" ? "Under a first-floor window or a deep overhang it will feel compressed, so give it air above." : "Under a low ceiling it will feel compressed, so give it air above."}`
           : `At ${height}${unit} it sits below eye level, which keeps sightlines across the ${place} open. That is what stops a piece of this footprint closing the space in.`,
       );
     if (width)
