@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                         │  └─────────────── the range name
-                                                                                                                                                                         └────────────────── category
+                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2088,28 +2088,66 @@ Two process faults of mine, worth recording because they caused this:
       faults, three in the writer and three in the detectors:
 
       - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                prefixes "The" to a name that already begins with it. Ten Furniture
-                drafts read that way.
-              - **An outdoor sauna was told about "sightlines across the room"** —
-                `familyFor` sends it to the wellness writing family, and place was
-                being taken from family instead of siting. Siting now decides.
-              - **An indoor sauna was offered "Poolside areas"** — the wellness
-                settings list holds both indoor and outdoor entries. It is now filtered
-                by siting.
-              - "Allow clearance rather than fitting it wall to wall" on a garden
-                product — a room idiom. Now "boundary to boundary" outdoors.
-              - Detector: "cushions and throws" is not indoor language when they are
-                weatherproof.
-              - Detector: a black barbecue was reported as claiming to be brass, copper
-                and terracotta, because bulleted pairing items and glossary lines
-                ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                "Pair it with:" heading above them.
+                        prefixes "The" to a name that already begins with it. Ten Furniture
+                        drafts read that way.
+                      - **An outdoor sauna was told about "sightlines across the room"** —
+                        `familyFor` sends it to the wellness writing family, and place was
+                        being taken from family instead of siting. Siting now decides.
+                      - **An indoor sauna was offered "Poolside areas"** — the wellness
+                        settings list holds both indoor and outdoor entries. It is now filtered
+                        by siting.
+                      - "Allow clearance rather than fitting it wall to wall" on a garden
+                        product — a room idiom. Now "boundary to boundary" outdoors.
+                      - Detector: "cushions and throws" is not indoor language when they are
+                        weatherproof.
+                      - Detector: a black barbecue was reported as claiming to be brass, copper
+                        and terracotta, because bulleted pairing items and glossary lines
+                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                        "Pair it with:" heading above them.
 
-              After the fixes, **32 of 33 categories are clean**. The remaining one is a
-              pairing colour on a single bedside table.
+                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
+                      pairing colour on a single bedside table.
 
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
+
+### [~] Copy that admits it does not know — 1,163 products
+
+Damien, on the live Lennox Black 2 Door Side Cupboard, whose first paragraph
+read "The details regarding assembly requirements … are not listed. For further
+information, please refer to the supplied instruction manual or contact
+customer support": _"thats language we shouldnt be using"_.
+
+He is right, and the fix is deletion, not rewriting. A page has two honest
+options about a fact it does not hold: state it, or say nothing. Announcing the
+gap tells a shopper we did not check, and sends them away for the thing they
+came to find out.
+
+`src/lib/catalog/admissions.ts` (+14 tests) works a **sentence** at a time, not
+a paragraph at a time, because the same paragraph often carries a real
+instruction beside the apology — "The specifics on the number of cartons are
+also not provided. It is advisable to check your access points regarding width
+and height." The first sentence goes, the second stays. A heading left with
+nothing beneath it goes too.
+
+The existing quality scorer knew "not specified", "not stated" and "not
+provided" but **not "not listed"**, which is why this page scored as publishable
+while opening with an apology.
+
+|                            |                                   |
+| -------------------------- | --------------------------------- |
+| Products affected          | **1,163** (97 live, 1,066 drafts) |
+| Sentences removed          | **2,797**                         |
+| Headings left empty        | **770**                           |
+| Words removed              | **47,483**                        |
+| Pages left under 120 words | 58 (2 live)                       |
+| Pages left under 60 words  | 0                                 |
+
+25 removed sentences sampled at random: every one correct, no false positives.
+This is deletion only — nothing generated, nothing reworded, no fact invented —
+which is what makes it safe to run catalogue-wide in a way the rewrite was not.
+
+- [ ] **Run `scripts/strip-admissions.ts --apply`** once Damien says go.
 - [ ] **Supplier name in published titles** — `Sweet Birch Essential Oil 50ml |
 Ancient Wisdom | Kaiku`. Its draft has no `| Kaiku` suffix at all. Found
       incidentally; not yet swept for across the catalogue.
