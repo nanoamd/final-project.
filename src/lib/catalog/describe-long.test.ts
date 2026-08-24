@@ -8,6 +8,7 @@ import {
   type LongFormInput,
   type LongSection,
   longWordCount,
+  scaleOf,
   shortName,
   trimToSubstance,
   usableFact,
@@ -309,6 +310,68 @@ describe("supplier data reaching the copy", () => {
   });
 });
 
+describe("scale", () => {
+  /** A 15cm planter: nobody plans a room around it. */
+  const planter: LongFormInput = {
+    title: "Honna Small White Silver Ceramic Planter | Kaiku",
+    slug: "honna-small-white-silver-ceramic-planter",
+    category: "Planters",
+    dimensions: { length: 15, width: 15, height: 14, unit: "cm" },
+    weight: { value: 0.6, unit: "kg" },
+    material: "stoneware 90%, plating 10%",
+    colour: "white",
+  };
+
+  it("sorts products by their largest dimension", () => {
+    expect(scaleOf({ length: 15, width: 15, height: 14 })).toBe("small");
+    expect(scaleOf({ length: 90, width: 60, height: 75 })).toBe("medium");
+    expect(scaleOf({ length: 297, width: 397, height: 220 })).toBe("large");
+    expect(scaleOf(null)).toBe("medium");
+  });
+
+  it("never heads a small product with its measurements", () => {
+    // Damien: "no one cares about the measurements of a small planter."
+    expect(describeLong(planter)[0]!.heading).not.toContain("Measurements");
+  });
+
+  it("does not claim a small object anchors a room", () => {
+    const body = text(describeLong(planter)).toLowerCase();
+    for (const overblown of [
+      "anchor the space",
+      "real presence",
+      "without dominating",
+      "presence without dominance",
+      "getting the scale right",
+      "suited to smaller spaces",
+      "footprint",
+      "measure the",
+    ])
+      expect(body).not.toContain(overblown);
+  });
+
+  it("states the size once, plainly, and moves on", () => {
+    const body = text(describeLong(planter));
+    expect(body).toContain("15cm across and 14cm tall");
+    expect(body.match(/15cm/g)).toHaveLength(1);
+  });
+
+  it("states the weight once", () => {
+    // "At 0.6kg it stays where you put it" beside "At 0.6kg it is light enough
+    // to move around" is the page arguing with itself.
+    expect(text(describeLong(planter)).match(/0\.6kg/g)).toHaveLength(1);
+  });
+
+  it("writes a shorter page for a smaller thing", () => {
+    // 1,300 words about a 15cm pot is the length being the point again.
+    expect(longWordCount(describeLong(planter))).toBeLessThan(900);
+  });
+
+  it("still gives a pergola the full treatment", () => {
+    expect(longWordCount(describeLong(pergola))).toBeGreaterThan(1200);
+    expect(text(describeLong(pergola)).toLowerCase()).toContain("footprint");
+  });
+});
+
 describe("placement", () => {
   /** A wall clock: hung, not stood on the floor. */
   const clock: LongFormInput = {
@@ -369,10 +432,19 @@ describe("placement", () => {
   });
 
   it("measures a tabletop piece against its surface, not the doorway", () => {
-    const body = text(describeLong(vase)).toLowerCase();
+    // A large floor vase is worth measuring against the surface it stands on.
+    // The small one below is not, which is what `scale` is for.
+    const large = { ...vase, dimensions: { ...vase.dimensions!, height: 80 } };
+    const body = text(describeLong(large)).toLowerCase();
     expect(body).not.toContain("doorways");
     expect(body).not.toContain("footprint");
     expect(body).toContain("surface it is going on");
+  });
+
+  it("does not tell anyone to measure up for a small vase", () => {
+    const body = text(describeLong(vase)).toLowerCase();
+    expect(body).not.toContain("surface it is going on");
+    expect(body).not.toContain("doorways");
   });
 
   it("still gives floor-standing furniture its footprint", () => {

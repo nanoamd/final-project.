@@ -722,6 +722,36 @@ type Zone = "indoor" | "outdoor";
  */
 type Placement = "floor" | "wall" | "surface";
 
+/**
+ * How big the thing actually is.
+ *
+ * Damien, on a 15cm planter headed "Built Around Its Measurements": "your way
+ * too focused on measurements, this is a small planter. absolutely no need for
+ * a title like that. no one cares about the measurements of a small planter."
+ *
+ * He is right, and the fault is the same one as the pergola being told about
+ * the room: furniture reasoning applied to something that is not furniture. A
+ * 15cm pot does not "anchor the space it sits in" and nobody measures their
+ * shelf before buying one. Scale decides how much of the page is about size,
+ * and for a small object the answer is almost none of it.
+ */
+export type Scale = "small" | "medium" | "large";
+
+export function scaleOf(
+  dimensions:
+    { length?: number; width?: number; height?: number } | null | undefined,
+): Scale {
+  const largest = Math.max(
+    ...[dimensions?.length, dimensions?.width, dimensions?.height].map((n) =>
+      typeof n === "number" && n > 0 ? n : 0,
+    ),
+  );
+  if (largest <= 0) return "medium";
+  if (largest < 45) return "small";
+  if (largest < 110) return "medium";
+  return "large";
+}
+
 const PLACEMENT_BY_FAMILY: Record<Family, Placement> = {
   outdoor: "floor",
   furniture: "floor",
@@ -1216,6 +1246,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   const scheme =
     zone === "outdoor" ? "a layered planting scheme" : "a layered interior";
   const placement = PLACEMENT_BY_FAMILY[family];
+  const scale = scaleOf(input.dimensions);
   /** What the product actually takes up space on. */
   const surfaceWord =
     placement === "wall" ? "wall" : placement === "surface" ? "surface" : place;
@@ -1225,7 +1256,14 @@ export function describeLong(input: LongFormInput): LongSection[] {
   opening.push(
     `${withThe(name, true)} brings together ${material ? `${material} construction, ` : ""}considered proportions and a restrained design. The result works as comfortably in a relaxed everyday setting as in a carefully styled one.`,
   );
-  if (width && height)
+  if (scale === "small") {
+    // One line, stated plainly and then dropped. A small object is bought on
+    // how it looks and what it holds, not on whether it will fit.
+    if (width && height)
+      opening.push(
+        `It is a small piece — ${width}${unit} across and ${height}${unit} tall — meant to be grouped, moved around and lived with rather than planned around.`,
+      );
+  } else if (width && height)
     opening.push(
       width === height
         ? `At ${width}${unit} across it has real presence without demanding the space of something larger. That balance is what makes it adaptable. Substantial enough to hold its own, contained enough not to crowd what surrounds it.`
@@ -1235,7 +1273,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
     opening.push(
       `At ${height}${unit} it has enough height to register in a ${place} without dominating it, which is what keeps a piece like this useful across very different spaces.`,
     );
-  if (length && width && length !== width)
+  if (scale !== "small" && length && width && length !== width)
     opening.push(
       placement === "floor"
         ? `The ${length} × ${width}${unit} footprint is the figure to measure against your space before ordering. Allow clearance around it rather than filling the space ${zone === "outdoor" ? "boundary to boundary" : "wall to wall"}. That is what keeps a ${place} feeling generous.`
@@ -1246,7 +1284,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
   // "Built Around Its Measurements" over a paragraph containing no measurement
   // is the page telling the reader something it has not done. The heading has
   // to follow what the section actually says.
-  const openingStatesSize = opening.length > 1;
+  const openingStatesSize = opening.length > 1 && scale !== "small";
   sections.push({
     heading: pick(
       openingStatesSize
@@ -1433,7 +1471,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
     ),
     paragraphs: [
       `${withThe(short, true)} rarely stands alone. What surrounds it decides whether it reads as a considered choice or an isolated object. The pieces below are the ones that most often do that work.`,
-      ...(width
+      ...(width && scale !== "small"
         ? [
             `Scale everything around it to the same ${width}${unit} span. A piece that is noticeably shorter or taller than what it sits beside is what makes an arrangement look assembled rather than chosen.`,
           ]
@@ -1507,7 +1545,10 @@ export function describeLong(input: LongFormInput): LongSection[] {
       `A piece is only worth its space if it is used, and ${withThe(short, false)} suits several patterns of use rather than one.`,
       // A wall piece is screwed to the wall; telling the reader it "stays
       // where you put it" is describing something else entirely.
-      ...(has(input.weight?.value) && placement !== "wall"
+      // The practical section already states the weight, and on a small object
+      // that is the only place it belongs. Saying it twice produced "it stays
+      // where you put it" beside "light enough to move around".
+      ...(has(input.weight?.value) && placement !== "wall" && scale !== "small"
         ? [
             `At ${input.weight!.value}${input.weight!.unit ?? "kg"} it stays where you put it in ordinary use, which matters more for some of these than others.`,
           ]
@@ -1517,8 +1558,11 @@ export function describeLong(input: LongFormInput): LongSection[] {
   });
 
   // 5d. Scale and presence — the Sorelle's closing argument.
-  if (width || height) {
-    const scale: string[] = [
+  // "Presence without dominance" and "getting the scale right" are questions
+  // you ask about a sofa, not about a 15cm pot. On a small object the whole
+  // section is invented importance, so it does not run.
+  if (scale !== "small" && (width || height)) {
+    const presence: string[] = [
       `${withThe(short, true)} has enough presence to hold ${placeThe} without becoming the only thing in it. That balance matters more than size alone. A piece that dominates makes a space feel smaller. One that disappears was not worth buying.`,
     ];
     // The Sorelle states its 197 cm width in section after section, and that
@@ -1526,7 +1570,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
     // put where the decision is being made. So the figures go in whatever
     // their magnitude, with only the reading of them changing.
     if (height)
-      scale.push(
+      presence.push(
         height >= 200
           ? `At ${height}${unit} it works with height rather than against it, drawing the eye up. ${zone === "outdoor" ? "Under a first-floor window or a deep overhang it will feel compressed, so give it air above." : "Under a low ceiling it will feel compressed, so give it air above."}`
           : placement === "wall"
@@ -1536,7 +1580,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
               : `At ${height}${unit} it sits below eye level, which keeps sightlines across the ${place} open. That is what stops a piece of this footprint closing the space in.`,
       );
     if (width)
-      scale.push(
+      presence.push(
         width >= 200
           ? `Its ${width}${unit} span reads as generous. Set against a boundary or a wall it defines an area. Set centrally it divides one. That is a different job, and worth deciding before you build around it.`
           : placement === "wall"
@@ -1545,7 +1589,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
               ? `Its ${width}${unit} width is substantial without being the largest option available. Given a surface to itself it reads as a single object; set among others it becomes part of a group, which is a different job and worth deciding first.`
               : `Its ${width}${unit} span is substantial without being the largest option available. Set against a wall it defines an area. Set out from one it divides the ${place}, which is a different job and worth deciding first.`,
       );
-    scale.push(
+    presence.push(
       `Contrast is what keeps that balance interesting. A ${place} in which every line runs the same way reads as flat. The quickest correction is to answer one shape with another.`,
     );
     sections.push({
@@ -1558,7 +1602,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
         input.slug,
         10,
       ),
-      paragraphs: scale,
+      paragraphs: presence,
       list: {
         intro: "Particularly effective alongside:",
         items: CONTRASTS[zone],
@@ -1566,26 +1610,28 @@ export function describeLong(input: LongFormInput): LongSection[] {
     });
   }
 
-  // 5e. Smaller spaces — the Sorelle's "Ideal for Apartments".
-  sections.push({
-    optional: true,
-    heading:
-      zone === "outdoor"
-        ? "Suited to Smaller Gardens"
-        : "Suited to Smaller Spaces",
-    paragraphs: [
-      width
-        ? placement === "floor"
-          ? `Not every ${place} has space to spare. A ${width}${unit} footprint is a figure worth holding against a tape measure before anything else. Where it fits, it fits properly rather than only just.`
-          : `Not every ${surfaceWord} has a clear run to spare. ${width}${unit} across is the figure to hold against the ${surfaceWord} you have in mind, before anything else about it matters.`
-        : `Not every ${place} has space to spare, which is where a piece of contained proportions earns its place over something larger.`,
-      `A smaller ${place} is not a reason to settle for a smaller version of what you wanted. What matters is that the piece is scaled to the ${surfaceWord} it is going on. Measure that rather than estimating it.`,
-    ],
-    list: {
-      intro: "It works particularly well within:",
-      items: COMPACT_SPACES[zone],
-    },
-  });
+  // 5e. Smaller spaces — the Sorelle's "Ideal for Apartments". A 15cm pot fits
+  // everywhere, so asking whether it will is a question nobody has.
+  if (scale !== "small")
+    sections.push({
+      optional: true,
+      heading:
+        zone === "outdoor"
+          ? "Suited to Smaller Gardens"
+          : "Suited to Smaller Spaces",
+      paragraphs: [
+        width
+          ? placement === "floor"
+            ? `Not every ${place} has space to spare. A ${width}${unit} footprint is a figure worth holding against a tape measure before anything else. Where it fits, it fits properly rather than only just.`
+            : `Not every ${surfaceWord} has a clear run to spare. ${width}${unit} across is the figure to hold against the ${surfaceWord} you have in mind, before anything else about it matters.`
+          : `Not every ${place} has space to spare, which is where a piece of contained proportions earns its place over something larger.`,
+        `A smaller ${place} is not a reason to settle for a smaller version of what you wanted. What matters is that the piece is scaled to the ${surfaceWord} it is going on. Measure that rather than estimating it.`,
+      ],
+      list: {
+        intro: "It works particularly well within:",
+        items: COMPACT_SPACES[zone],
+      },
+    });
 
   // 5f. Making a defined zone of it.
   const zoneCopy = ZONE[family];
@@ -1709,7 +1755,7 @@ export function describeLong(input: LongFormInput): LongSection[] {
             ? outdoorUse
             : "",
     );
-  if (width)
+  if (width && scale !== "small")
     practical.push(
       family === "outdoor"
         ? `Measure the ${width}${unit} footprint against your paving or decking. Leave clearance rather than setting it flush to a wall. Anything sitting hard against a fence stays damp on that side long after the rest has dried.`
