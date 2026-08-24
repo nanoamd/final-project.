@@ -3,6 +3,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 
 import { sanityDataset, sanityProjectId } from "./src/lib/sanity/config";
+import { WriteDescriptionAction } from "./src/sanity/actions/write-description";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
@@ -26,4 +27,13 @@ export default defineConfig({
   basePath: "/studio",
   plugins: [structureTool({ structure }), visionTool()],
   schema: { types: schemaTypes },
+  document: {
+    // The "Write description" button, on products only. Added alongside the
+    // built-in actions rather than replacing them, so publish/duplicate/delete
+    // all still behave exactly as they did.
+    actions: (previous, { schemaType }) =>
+      schemaType === "product"
+        ? [...previous, WriteDescriptionAction]
+        : previous,
+  },
 });

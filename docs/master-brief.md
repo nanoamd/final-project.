@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                                         │  └─────────────── the range name
-                                                                                                                                                                                         └────────────────── category
+                                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2088,25 +2088,25 @@ Two process faults of mine, worth recording because they caused this:
       faults, three in the writer and three in the detectors:
 
       - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                                prefixes "The" to a name that already begins with it. Ten Furniture
-                                drafts read that way.
-                              - **An outdoor sauna was told about "sightlines across the room"** —
-                                `familyFor` sends it to the wellness writing family, and place was
-                                being taken from family instead of siting. Siting now decides.
-                              - **An indoor sauna was offered "Poolside areas"** — the wellness
-                                settings list holds both indoor and outdoor entries. It is now filtered
-                                by siting.
-                              - "Allow clearance rather than fitting it wall to wall" on a garden
-                                product — a room idiom. Now "boundary to boundary" outdoors.
-                              - Detector: "cushions and throws" is not indoor language when they are
-                                weatherproof.
-                              - Detector: a black barbecue was reported as claiming to be brass, copper
-                                and terracotta, because bulleted pairing items and glossary lines
-                                ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                                "Pair it with:" heading above them.
+                                        prefixes "The" to a name that already begins with it. Ten Furniture
+                                        drafts read that way.
+                                      - **An outdoor sauna was told about "sightlines across the room"** —
+                                        `familyFor` sends it to the wellness writing family, and place was
+                                        being taken from family instead of siting. Siting now decides.
+                                      - **An indoor sauna was offered "Poolside areas"** — the wellness
+                                        settings list holds both indoor and outdoor entries. It is now filtered
+                                        by siting.
+                                      - "Allow clearance rather than fitting it wall to wall" on a garden
+                                        product — a room idiom. Now "boundary to boundary" outdoors.
+                                      - Detector: "cushions and throws" is not indoor language when they are
+                                        weatherproof.
+                                      - Detector: a black barbecue was reported as claiming to be brass, copper
+                                        and terracotta, because bulleted pairing items and glossary lines
+                                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                                        "Pair it with:" heading above them.
 
-                              After the fixes, **32 of 33 categories are clean**. The remaining one is a
-                              pairing colour on a single bedside table.
+                                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
+                                      pairing colour on a single bedside table.
 
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
@@ -2149,6 +2149,47 @@ which is what makes it safe to run catalogue-wide in a way the rewrite was not.
 
 - [x] Superseded by `scripts/finalise-descriptions.ts`, which does the cleaning
       and the rewriting in one pass.
+
+### [x] "Write description" button in the Studio — the right approach
+
+Damien, after a week of template output that read the same on every page:
+
+> "can we make a button in sanity that fills what we can specific to the
+> product?, its not sanity thats writing it its you so yes you can make it
+> specific to what the product is, the only way you wouldnt be able too is if
+> your not understanding the business"
+
+**He is right, and this is the correction to everything above it.** A template
+can be consistent or it can be particular, never both — it recombines fixed
+sentences, so a pergola and a candle holder come out the same shape with the
+nouns swapped. Every fix in the sections above was me patching the template to
+cover another case, which made the sameness worse, not better. Asking a model
+to write each page produces something genuinely different each time, because it
+is writing rather than filling slots.
+
+**How it works.** A document action on products calls
+`/api/admin/write-description`, which reads that product's facts, has the page
+written from them, and checks the result before returning it. The result is
+patched into the open document as an ordinary unsaved edit — visible,
+reviewable, undoable, never published behind Damien's back.
+
+- `src/lib/catalog/write-description.ts` (+21 tests) — the fact sheet, the
+  brief, and the gate. All pure, so it is testable without spending anything.
+- The brief describes a **voice and a set of prohibitions**, never a section
+  list. Naming the sections is what produced identical pages, so it says
+  "a candle holder, a pergola and a dining table have almost nothing in common,
+  so their pages should not share a shape" and lets it choose.
+- The **gate** runs every checker in the project over the finished text —
+  context, wording, artefacts, and filler. One finding and it is sent back once
+  with the specific objections. Fails twice and the objections are returned
+  instead of the copy.
+- Products with **no dimensions are refused** with a message saying to add them
+  first, rather than producing a page with nothing true in it.
+- Uses the OpenAI key already configured for the visualiser and importer, so
+  there is no new credential to set up.
+
+The template pipeline (`finalise-descriptions.ts`, `describe-long.ts`) stays in
+the repo unapplied. It is superseded.
 
 ### [~] Finalise: one standard, enforced by the code
 
