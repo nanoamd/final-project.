@@ -111,11 +111,12 @@ async function main() {
   if (ready.length) {
     console.log(`\n──── safe to publish tonight ────`);
     ready.sort((a, b) => b.price - a.price);
-    for (const item of ready.slice(0, 40))
+    // The whole list, not the first forty. "…and 12 more" is useless when the
+    // question is which products to publish.
+    for (const item of ready)
       console.log(
-        `  £${String(item.price).padStart(7)}  ${item.category.padEnd(24)}  ${item.title.slice(0, 52)}`,
+        `  £${String(item.price).padStart(7)}  ${item.category.padEnd(24)}  ${item.title}`,
       );
-    if (ready.length > 40) console.log(`  …and ${ready.length - 40} more`);
   }
 }
 
