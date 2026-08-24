@@ -1249,10 +1249,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                         │  └─────────────── the range name
-                                                                                                                                                         └────────────────── category
+                                                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2043,6 +2043,49 @@ stripping the pergola's styling sections because no colour was set.
       before Damien set the house style and would have marked down the Sorelle
       itself. The padding rule that actually catches filler — long copy carrying
       no facts — is untouched.
+
+#### [!] First catalogue-wide run was stopped mid-flight — 24 August
+
+Damien approved scaling to the catalogue ("make every single product
+description like the pergola, improve all descriptions published and
+unpublished"). The dry run reported 604 rewrites, average score 7.74 → 8.67,
+and I applied it after reading two sample pages. He caught a fault on a live
+draft within minutes and I killed the run.
+
+**Damage: 396 products written, all drafts, zero published.** 383 restored
+exactly from Sanity's document history; 13 had no prior description to restore
+to. Nothing live was touched.
+
+What was wrong, on "Sweet Birch Essential Oil 50ml":
+
+- **"The Sweet has been chosen to suit…"** — `shortName()` took the first word
+  of any name that was capitalised and four letters or more, on the theory it
+  was a range name like "Sorelle". It hit every product whose name starts with
+  an adjective. Names now shorten only at a joining word, or not at all.
+- **"Built Around Its Measurements"** over a paragraph with no measurements in
+  it. Headings now follow what the section actually says.
+- **1,200 words of styling advice about a 50ml bottle of oil.** It records no
+  dimensions, so every specific sentence was skipped and only the generic frame
+  survived. Products with no dimensions are now skipped outright — weight alone
+  buys one sentence about being light, and nothing else the long form does.
+
+Two process faults of mine, worth recording because they caused this:
+
+1. I applied to 604 products having read two pages.
+2. I chose those two samples myself, from the categories I had already reasoned
+   about, so the sampling confirmed what I already believed instead of testing
+   it.
+
+- [x] `scripts/restore-descriptions-from-history.ts` — puts descriptions back
+      to a given timestamp from Sanity's history API. Written because the
+      change log stored the previous copy as _plain text_, which reads fine and
+      cannot restore: it loses the blocks, headings and keys. The log now
+      records the previous copy for reference and history is the restore path.
+- [ ] **Show Damien pages across several categories before applying again.**
+- [ ] **Supplier name in published titles** — `Sweet Birch Essential Oil 50ml |
+  Ancient Wisdom | Kaiku`. Its draft has no `| Kaiku` suffix at all. Found
+      incidentally; not yet swept for across the catalogue.
+
 - [ ] **Confirm the pergola output with Damien before scaling to the catalogue.**
       He has said twice that the result was "nothing like our old ones"; this is
       the third attempt and it should be looked at before 368 products move.

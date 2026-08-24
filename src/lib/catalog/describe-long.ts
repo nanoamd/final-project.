@@ -76,26 +76,38 @@ function displayName(title: string): string {
  * The name to use after the first mention.
  *
  * The Sorelle page says "the Sorelle" once it has introduced itself, and that
- * is why it reads as prose. Repeating "Lean-To Steel Pergola with Sliding
- * Canopy, Dark Grey" in every paragraph is what makes generated copy
- * unmistakable. Takes the range name where there is one, otherwise the head
- * noun phrase before any comma.
+ * is why it reads as prose rather than as a generator repeating a 60-character
+ * string. The first attempt at this took the first word whenever it looked
+ * like a range name — capitalised, four letters or more — which introduced
+ * "Sweet Birch Essential Oil 50ml" as **"the Sweet"**, and did the same to
+ * every product whose name happens to start with an adjective.
+ *
+ * There is no reliable way to tell a range name from an ordinary English word
+ * without a dictionary, so this no longer tries. It keeps up to four words and
+ * trims anything left dangling, which gives "the Sorelle Two Seater Sofa" and
+ * "the Lean-To Steel Pergola" — slightly longer than the ideal, and never
+ * wrong. A name is the one thing a shopper is certain to notice us getting
+ * wrong.
  */
-function shortName(full: string): string {
+export function shortName(full: string): string {
   const beforeComma = full.split(",")[0]!.trim();
-  const words = beforeComma.split(/\s+/);
+  const words = beforeComma.split(/\s+/).filter(Boolean);
   if (words.length <= 4) return beforeComma;
-  // A capitalised first word that is not a size or material reads as a range
-  // name — "Sorelle", "Abberley", "Hampton".
-  const first = words[0]!;
-  if (
-    /^[A-Z][a-z]{3,}$/.test(first) &&
-    !/^(?:Large|Small|Medium|Metal|Steel|Wooden|Glass|Round|Square|Outdoor|Indoor|Modern|Classic)$/.test(
-      first,
-    )
-  )
-    return first;
-  return words.slice(0, 3).join(" ");
+
+  const isConnector = (word: string) =>
+    /^(?:with|and|in|for|on|of|the|a|an|&|to|by|from|plus|featuring|including)$/i.test(
+      word,
+    );
+
+  // Cut at a joining word or not at all. "Lean-To Steel Pergola with Sliding
+  // Canopy" shortens cleanly at "with"; "Large Conical Ceramic Lattice
+  // Hurricane Lantern" has no such seam, and taking the first four words of it
+  // produces "Large Conical Ceramic Lattice" — a name that drops the noun
+  // telling you what the thing is. Repeating a slightly long name costs a
+  // little elegance. Inventing a wrong one costs the reader's trust.
+  const joint = words.findIndex(isConnector);
+  if (joint >= 3) return words.slice(0, joint).join(" ");
+  return beforeComma;
 }
 
 function pick<T>(options: readonly T[], slug: string, salt: number): T {
@@ -546,7 +558,7 @@ const PAIRING_NOTES: Record<string, string> = {
   Oak: "Pale and open-grained, it keeps a scheme feeling light.",
   Walnut: "Darker and richer, for schemes that want more depth.",
   Linen: "A soft, slightly irregular texture that stops a scheme reading flat.",
-  Wool: "Warmth underfoot and a matte surface that absorbs light rather than bouncing it.",
+  Wool: "Warmth, and a matte surface that absorbs light rather than bouncing it back.",
   Bouclé: "Soft and sculptural, a contemporary counterpoint to straight lines.",
   Leather: "Ages visibly and takes on character rather than wearing out.",
   Rattan: "Relaxed, coastal and organic in character.",
@@ -583,6 +595,27 @@ const PAIRING_NOTES: Record<string, string> = {
 };
 
 type Zone = "indoor" | "outdoor";
+
+/**
+ * How the product meets the building.
+ *
+ * A wall clock has no footprint, cannot be "set out from the wall", and does
+ * not sit below eye level. Describing one with floor-standing furniture logic
+ * — clearance, circulation, doorway widths — is the same fault as telling a
+ * pergola about the room, and the first catalogue-wide run produced exactly
+ * that on every clock, mirror and framed piece we sell.
+ */
+type Placement = "floor" | "wall" | "surface";
+
+const PLACEMENT_BY_FAMILY: Record<Family, Placement> = {
+  outdoor: "floor",
+  furniture: "floor",
+  wellness: "floor",
+  wall: "wall",
+  vessel: "surface",
+  candle: "surface",
+  lighting: "surface",
+};
 
 /** Smaller spaces the piece particularly suits — the Sorelle's "Ideal for Apartments". */
 const COMPACT_SPACES: Record<Zone, string[]> = {
@@ -1053,6 +1086,10 @@ export function describeLong(input: LongFormInput): LongSection[] {
   );
   const scheme =
     zone === "outdoor" ? "a layered planting scheme" : "a layered interior";
+  const placement = PLACEMENT_BY_FAMILY[family];
+  /** What the product actually takes up space on. */
+  const surfaceWord =
+    placement === "wall" ? "wall" : placement === "surface" ? "surface" : place;
 
   // 1. Opening — design, proportion, the headline measurement.
   const opening: string[] = [];
@@ -1061,7 +1098,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
   );
   if (width && height)
     opening.push(
-      `Its ${width}${unit} span and ${height}${unit} height give it real presence without demanding the footprint of something larger. That balance is what makes it adaptable. Substantial enough to anchor the space it sits in, contained enough not to crowd it.`,
+      width === height
+        ? `At ${width}${unit} across it has real presence without demanding the space of something larger. That balance is what makes it adaptable. Substantial enough to hold its own, contained enough not to crowd what surrounds it.`
+        : `Its ${width}${unit} span and ${height}${unit} height give it real presence without demanding the ${placement === "floor" ? "footprint" : "space"} of something larger. That balance is what makes it adaptable. Substantial enough to anchor the space it sits in, contained enough not to crowd it.`,
     );
   else if (height)
     opening.push(
@@ -1069,15 +1108,25 @@ export function describeLong(input: LongFormInput): LongSection[] {
     );
   if (length && width && length !== width)
     opening.push(
-      `The ${length} × ${width}${unit} footprint is the figure to measure against your space before ordering. Allow clearance around it rather than fitting it wall to wall. That is what keeps a ${place} feeling generous.`,
+      placement === "floor"
+        ? `The ${length} × ${width}${unit} footprint is the figure to measure against your space before ordering. Allow clearance around it rather than fitting it wall to wall. That is what keeps a ${place} feeling generous.`
+        : placement === "wall"
+          ? `Measure the wall rather than the ${place}. A clear run of ${width}${unit} is what it needs, and the gap between a door architrave and the end of a shelf is what usually decides the answer.`
+          : `It needs ${width}${unit} of clear surface. Measure the sideboard, shelf or table it is going on rather than the ${place}, and leave space around it so it reads as placed rather than wedged in.`,
     );
+  // "Built Around Its Measurements" over a paragraph containing no measurement
+  // is the page telling the reader something it has not done. The heading has
+  // to follow what the section actually says.
+  const openingStatesSize = opening.length > 1;
   sections.push({
     heading: pick(
-      [
-        "Considered Proportions, Quiet Design",
-        "Design and Proportion",
-        "Built Around Its Measurements",
-      ],
+      openingStatesSize
+        ? [
+            "Considered Proportions, Quiet Design",
+            "Design and Proportion",
+            "Built Around Its Measurements",
+          ]
+        : ["Considered, Quiet Design", "The Design", "What It Is"],
       input.slug,
       1,
     ),
@@ -1314,7 +1363,9 @@ export function describeLong(input: LongFormInput): LongSection[] {
     ),
     paragraphs: [
       `A piece is only worth its space if it is used, and the ${short} suits several patterns of use rather than one.`,
-      ...(has(input.weight?.value)
+      // A wall piece is screwed to the wall; telling the reader it "stays
+      // where you put it" is describing something else entirely.
+      ...(has(input.weight?.value) && placement !== "wall"
         ? [
             `At ${input.weight!.value}${input.weight!.unit ?? "kg"} it stays where you put it in ordinary use, which matters more for some of these than others.`,
           ]
@@ -1336,13 +1387,21 @@ export function describeLong(input: LongFormInput): LongSection[] {
       scale.push(
         height >= 200
           ? `At ${height}${unit} it works with height rather than against it, drawing the eye up. ${zone === "outdoor" ? "Under a first-floor window or a deep overhang it will feel compressed, so give it air above." : "Under a low ceiling it will feel compressed, so give it air above."}`
-          : `At ${height}${unit} it sits below eye level, which keeps sightlines across the ${place} open. That is what stops a piece of this footprint closing the space in.`,
+          : placement === "wall"
+            ? `At ${height}${unit} tall it wants hanging with its centre near eye level. About 145cm from the floor is the gallery convention, and it is the right answer far more often than hanging it to match the furniture.`
+            : placement === "surface"
+              ? `At ${height}${unit} tall it reads at seated eye level on a table, which is where an object of this kind does its work.`
+              : `At ${height}${unit} it sits below eye level, which keeps sightlines across the ${place} open. That is what stops a piece of this footprint closing the space in.`,
       );
     if (width)
       scale.push(
         width >= 200
           ? `Its ${width}${unit} span reads as generous. Set against a boundary or a wall it defines an area. Set centrally it divides one. That is a different job, and worth deciding before you build around it.`
-          : `Its ${width}${unit} span is substantial without being the largest option available. Set against a wall it defines an area. Set out from one it divides the ${place}, which is a different job and worth deciding first.`,
+          : placement === "wall"
+            ? `Its ${width}${unit} width decides how much wall it needs. Leave more clear space around it than feels necessary — crowding a wall piece is the most reliable way to make it look smaller than it is.`
+            : placement === "surface"
+              ? `Its ${width}${unit} width is substantial without being the largest option available. Given a surface to itself it reads as a single object; set among others it becomes part of a group, which is a different job and worth deciding first.`
+              : `Its ${width}${unit} span is substantial without being the largest option available. Set against a wall it defines an area. Set out from one it divides the ${place}, which is a different job and worth deciding first.`,
       );
     scale.push(
       `Contrast is what keeps that balance interesting. A ${place} in which every line runs the same way reads as flat. The quickest correction is to answer one shape with another.`,
@@ -1374,9 +1433,11 @@ export function describeLong(input: LongFormInput): LongSection[] {
         : "Suited to Smaller Spaces",
     paragraphs: [
       width
-        ? `Not every ${place} has room to spare. A ${width}${unit} footprint is a figure worth holding against a tape measure before anything else. Where it fits, it fits properly rather than only just.`
-        : `Not every ${place} has room to spare, which is where a piece of contained proportions earns its place over something larger.`,
-      `A smaller ${place} is not a reason to settle for a smaller version of what you wanted. What matters is that the piece is scaled to the space it is going into. Measure that space rather than estimating it.`,
+        ? placement === "floor"
+          ? `Not every ${place} has space to spare. A ${width}${unit} footprint is a figure worth holding against a tape measure before anything else. Where it fits, it fits properly rather than only just.`
+          : `Not every ${surfaceWord} has a clear run to spare. ${width}${unit} across is the figure to hold against the ${surfaceWord} you have in mind, before anything else about it matters.`
+        : `Not every ${place} has space to spare, which is where a piece of contained proportions earns its place over something larger.`,
+      `A smaller ${place} is not a reason to settle for a smaller version of what you wanted. What matters is that the piece is scaled to the ${surfaceWord} it is going on. Measure that rather than estimating it.`,
     ],
     list: {
       intro: "It works particularly well within:",
@@ -1480,9 +1541,17 @@ export function describeLong(input: LongFormInput): LongSection[] {
     );
   if (has(weight))
     practical.push(
-      weight >= 25
-        ? `At ${weight}${wUnit} this is a two-person lift. Worth arranging help for the day it arrives. Check the route in beforehand too — ${zone === "outdoor" ? "side gates, alleyways and any steps down to the garden" : "doorways, turns and stair widths"}.`
-        : `At ${weight}${wUnit} one person can manage it comfortably. That makes repositioning it later a decision rather than an undertaking.`,
+      placement === "wall"
+        ? weight >= 5
+          ? `At ${weight}${wUnit} it needs a fixing matched to the wall it is going on. Masonry is straightforward; plasterboard needs a proper hollow-wall anchor rather than the plug that comes in the box, and finding a stud is better than either.`
+          : `At ${weight}${wUnit} it hangs from a single well-chosen fixing. On plasterboard that still means an anchor rather than a bare screw.`
+        : placement === "surface"
+          ? weight >= 5
+            ? `At ${weight}${wUnit} it has enough weight to stay put once placed, which is worth knowing if the surface it is going on is a narrow shelf.`
+            : `At ${weight}${wUnit} it is light enough to move around while you decide where it looks best.`
+          : weight >= 25
+            ? `At ${weight}${wUnit} this is a two-person lift. Worth arranging help for the day it arrives. Check the route in beforehand too — ${zone === "outdoor" ? "side gates, alleyways and any steps down to the garden" : "doorways, turns and stair widths"}.`
+            : `At ${weight}${wUnit} one person can manage it comfortably. That makes repositioning it later a decision rather than an undertaking.`,
     );
   if (outdoorUse)
     practical.push(
@@ -1496,7 +1565,11 @@ export function describeLong(input: LongFormInput): LongSection[] {
     practical.push(
       family === "outdoor"
         ? `Measure the ${width}${unit} footprint against your paving or decking. Leave clearance rather than setting it flush to a wall. Anything sitting hard against a fence stays damp on that side long after the rest has dried.`
-        : `Measure the ${width}${unit} width against the wall or alcove it is going into before ordering, and measure the doorways it has to come through as well. The second measurement is the one people forget.`,
+        : placement === "wall"
+          ? `Measure the ${width}${unit} width against the wall before ordering, and check what is behind the plaster before you drill. Pipework and cabling run where you would least like to find them.`
+          : placement === "surface"
+            ? `Measure the ${width}${unit} width against the surface it is going on. A piece that overhangs the edge of a shelf looks like a mistake however good it is.`
+            : `Measure the ${width}${unit} width against the wall or alcove it is going into before ordering, and measure the doorways it has to come through as well. The second measurement is the one people forget.`,
     );
   const warning = extra["Product Warning"];
   if (warning) practical.push(warning.replace(/\.?$/, "."));

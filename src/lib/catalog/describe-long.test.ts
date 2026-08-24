@@ -5,6 +5,7 @@ import {
   type LongFormInput,
   type LongSection,
   longWordCount,
+  shortName,
   trimToSubstance,
 } from "./describe-long";
 import { FACT_PATTERN } from "./quality";
@@ -151,6 +152,139 @@ describe("describeLong", () => {
       (s) => s.heading === "Delivery",
     );
     expect(delivery!.paragraphs.join(" ")).toContain("3-4 weeks");
+  });
+});
+
+describe("shortName", () => {
+  it("never reduces a name to a word that is not the product", () => {
+    // This shipped: "Sweet Birch Essential Oil 50ml" was introduced to the
+    // reader as "the Sweet", because the first word was capitalised and four
+    // letters long. Damien caught it on the live catalogue.
+    expect(shortName("Sweet Birch Essential Oil 50ml")).toBe(
+      "Sweet Birch Essential Oil 50ml",
+    );
+  });
+
+  it("shortens at a joining word", () => {
+    expect(shortName("Sorelle Two Seater Sofa with Cushions")).toBe(
+      "Sorelle Two Seater Sofa",
+    );
+    expect(
+      shortName("Lean-To Steel Pergola with Sliding Canopy, Dark Grey"),
+    ).toBe("Lean-To Steel Pergola");
+    expect(
+      shortName("5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey"),
+    ).toBe("5-Piece Aluminium Garden Sofa Set");
+  });
+
+  it("keeps a long name whole rather than dropping the noun", () => {
+    // "Large Conical Ceramic Lattice" does not tell you it is a lantern.
+    for (const name of [
+      "Large Conical Ceramic Lattice Hurricane Lantern",
+      "Luxe Collection Natural Glow S/ 2 Ivory LED Dinner Candles",
+      "Tristan Mirror And Wood 5X7 Frame",
+    ])
+      expect(shortName(name)).toBe(name);
+  });
+
+  it("leaves a short name exactly as it is", () => {
+    expect(shortName("Rothay Wall Clock")).toBe("Rothay Wall Clock");
+    expect(shortName("Garda Grey Glazed Chive Vase")).toBe(
+      "Garda Grey Glazed Chive Vase",
+    );
+  });
+});
+
+describe("honest headings", () => {
+  it("does not claim measurements it has not given", () => {
+    // "Built Around Its Measurements" over a paragraph containing no
+    // measurement is the page describing work it did not do.
+    const sections = describeLong({
+      title: "Sweet Birch Essential Oil 50ml | Kaiku",
+      slug: "sweet-birch-essential-oil-50ml",
+      category: "Wellness Accessories",
+    });
+    expect(sections[0]!.heading).not.toContain("Measurements");
+  });
+
+  it("claims them when it has given them", () => {
+    expect(
+      describeLong({ ...pergola, slug: "measured-thing" })[0]!.paragraphs
+        .length,
+    ).toBeGreaterThan(1);
+  });
+});
+
+describe("placement", () => {
+  /** A wall clock: hung, not stood on the floor. */
+  const clock: LongFormInput = {
+    title: "Rothay Wall Clock | Kaiku",
+    slug: "rothay-wall-clock",
+    category: "Wall Clocks",
+    dimensions: { length: 4, width: 49, height: 49, unit: "cm" },
+    weight: { value: 1.21, unit: "kg" },
+    material: "metal",
+    colour: "grey",
+  };
+
+  /** A vase: stands on a surface, not on the floor and not on a wall. */
+  const vase: LongFormInput = {
+    title: "Garda Grey Glazed Chive Vase | Kaiku",
+    slug: "garda-grey-glazed-chive-vase",
+    category: "Vases",
+    dimensions: { length: 18, width: 18, height: 42, unit: "cm" },
+    weight: { value: 2.4, unit: "kg" },
+    material: "ceramic",
+    colour: "grey",
+  };
+
+  it("never gives a wall-hung piece a footprint", () => {
+    // The first catalogue run described every clock and mirror we sell as
+    // though it stood on the floor: footprint, clearance, circulation.
+    const body = text(describeLong(clock)).toLowerCase();
+    for (const wrong of [
+      "footprint",
+      "allow clearance",
+      "wall to wall",
+      "below eye level",
+      "set out from one",
+      "doorways",
+      "two-person lift",
+    ])
+      expect(body).not.toContain(wrong);
+  });
+
+  it("tells a wall piece what it actually needs to know", () => {
+    const body = text(describeLong(clock)).toLowerCase();
+    expect(body).toContain("145cm");
+    expect(body).toContain("anchor");
+    expect(body).toContain("before you drill");
+  });
+
+  it("reads equal width and height as one measurement", () => {
+    // "Its 49cm span and 49cm height" is how a generator describes a circle.
+    expect(text(describeLong(clock))).not.toContain(
+      "49cm span and 49cm height",
+    );
+    expect(text(describeLong(clock))).toContain("49cm across");
+  });
+
+  it("never says a room has room", () => {
+    for (const input of [clock, vase, pergola, sofa])
+      expect(text(describeLong(input))).not.toMatch(/room has room/i);
+  });
+
+  it("measures a tabletop piece against its surface, not the doorway", () => {
+    const body = text(describeLong(vase)).toLowerCase();
+    expect(body).not.toContain("doorways");
+    expect(body).not.toContain("footprint");
+    expect(body).toContain("surface it is going on");
+  });
+
+  it("still gives floor-standing furniture its footprint", () => {
+    const body = text(describeLong(sofa)).toLowerCase();
+    expect(body).toContain("footprint");
+    expect(body).toContain("doorways");
   });
 });
 
