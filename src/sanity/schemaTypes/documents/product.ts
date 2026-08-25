@@ -15,7 +15,19 @@ export const product = defineType({
   type: "document",
   icon: PackageIcon,
   groups: [
+    /**
+     * Identity is the tab you land on, so it holds only what is needed to get a
+     * product listed: what it is, where it goes, and its name.
+     *
+     * The summary and the full description used to sit here too. Damien, while
+     * listing products: "stop making everything scroll when doing it its making
+     * uploading products really confusing". He was right — a three-row textarea
+     * and a full rich-text editor sat between the title and everything else, so
+     * every product opened with two large boxes in front of the fields that
+     * actually needed filling in. They have their own tab now.
+     */
     { name: "identity", title: "Identity", default: true },
+    { name: "copy", title: "Copy" },
     { name: "commerce", title: "Pricing" },
     { name: "identifiers", title: "Identifiers & Supplier" },
     { name: "logistics", title: "Logistics" },
@@ -75,19 +87,22 @@ export const product = defineType({
       group: "identity",
       to: [{ type: "brand" }],
     }),
-    defineField({ name: "tagline", type: "string", group: "identity" }),
+
+    // Copy ----------------------------------------------------------------
+    // Kept off the Identity tab so listing a product is a short form.
+    defineField({ name: "tagline", type: "string", group: "copy" }),
     defineField({
       name: "summary",
       title: "Short summary",
       type: "text",
       rows: 3,
-      group: "identity",
+      group: "copy",
     }),
     defineField({
       name: "description",
       title: "Full description",
       type: "richText",
-      group: "identity",
+      group: "copy",
     }),
 
     // Commerce ------------------------------------------------------------
