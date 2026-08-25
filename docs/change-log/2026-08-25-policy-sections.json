@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-25T19:36:35.609Z",
-  "applied": false,
+  "generatedAt": "2026-08-25T20:30:28.986Z",
+  "applied": true,
   "changes": [
     {
       "id": "drafts.hill-decor-16210",
@@ -2775,13 +2775,6 @@
       "words": 71
     },
     {
-      "id": "drafts.premier-housewares-0507597",
-      "title": "Vertex Square Basket | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 71
-    },
-    {
       "id": "drafts.premier-housewares-0507598",
       "title": "Vertex Hexagonal Basket | Kaiku",
       "published": false,
@@ -3260,20 +3253,6 @@
     {
       "id": "drafts.premier-housewares-1411390",
       "title": "Boho Elephant Planter | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 71
-    },
-    {
-      "id": "drafts.premier-housewares-1411435",
-      "title": "Zircon Small Ceramic Planter | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 72
-    },
-    {
-      "id": "drafts.premier-housewares-1411436",
-      "title": "Zircon Large Planter | Kaiku",
       "published": false,
       "removed": ["Delivery", "Returns"],
       "words": 71
@@ -4056,41 +4035,6 @@
       "words": 74
     },
     {
-      "id": "drafts.premier-housewares-2405941",
-      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 78
-    },
-    {
-      "id": "drafts.premier-housewares-2405942",
-      "title": "Weston Marble Effect Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 77
-    },
-    {
-      "id": "drafts.premier-housewares-2405944",
-      "title": "Westford Rectangle Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 76
-    },
-    {
-      "id": "drafts.premier-housewares-2405945",
-      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 75
-    },
-    {
-      "id": "drafts.premier-housewares-2405947",
-      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 77
-    },
-    {
       "id": "drafts.premier-housewares-2405953",
       "title": "Maka Natural Croco Rattan Stool | Kaiku",
       "published": false,
@@ -4551,27 +4495,6 @@
       "published": false,
       "removed": ["Delivery", "Returns"],
       "words": 78
-    },
-    {
-      "id": "drafts.premier-housewares-2502389",
-      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 74
-    },
-    {
-      "id": "drafts.premier-housewares-2502390",
-      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 74
-    },
-    {
-      "id": "drafts.premier-housewares-2502391",
-      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 74
     },
     {
       "id": "drafts.premier-housewares-2502410",
@@ -5974,20 +5897,6 @@
       "words": 72
     },
     {
-      "id": "drafts.premier-housewares-5506189",
-      "title": "Yuri White And Gold Spotted Planter | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 74
-    },
-    {
-      "id": "drafts.premier-housewares-5506190",
-      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 74
-    },
-    {
       "id": "drafts.premier-housewares-5506191",
       "title": "Yuri Large Terracotta Gold Spotted Planter | Kaiku",
       "published": false,
@@ -6623,13 +6532,6 @@
       "published": false,
       "removed": ["Delivery", "Returns"],
       "words": 78
-    },
-    {
-      "id": "drafts.premier-housewares-5511726",
-      "title": "Yara Matt Black 12 Bulb Statement Pendant Light | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 76
     },
     {
       "id": "drafts.premier-housewares-5511733",
@@ -8088,13 +7990,6 @@
       "words": 79
     },
     {
-      "id": "drafts.product-aosom-842-389v70sr",
-      "title": "11kW Adjustable Gas Patio Heater | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 73
-    },
-    {
       "id": "drafts.product-aosom-842-390v70bk",
       "title": "11kW Freestanding Gas Patio Heater, Black | Kaiku",
       "published": false,
@@ -8121,20 +8016,6 @@
       "published": false,
       "removed": ["Delivery", "Returns"],
       "words": 76
-    },
-    {
-      "id": "drafts.product-aosom-844-633v00bk",
-      "title": "Banana Leaf Metal Privacy Screen with Stand, Black | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 93
-    },
-    {
-      "id": "drafts.product-aosom-844-742v00bk",
-      "title": "Grid Metal Privacy Screen, Black | Kaiku",
-      "published": false,
-      "removed": ["Delivery", "Returns"],
-      "words": 73
     },
     {
       "id": "drafts.product-aosom-844-743v00bk",
@@ -9565,6 +9446,13 @@
       "words": 74
     },
     {
+      "id": "premier-housewares-0507597",
+      "title": "Vertex Square Basket | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 71
+    },
+    {
       "id": "premier-housewares-1104822",
       "title": "Aleki Extra Large Bamboo Chopping and Serving Board | Kaiku",
       "published": true,
@@ -9577,6 +9465,20 @@
       "published": true,
       "removed": ["Delivery", "Returns"],
       "words": 75
+    },
+    {
+      "id": "premier-housewares-1411435",
+      "title": "Zircon Small Ceramic Planter | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 72
+    },
+    {
+      "id": "premier-housewares-1411436",
+      "title": "Zircon Large Planter | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 71
     },
     {
       "id": "premier-housewares-1601839",
@@ -9621,11 +9523,67 @@
       "words": 74
     },
     {
+      "id": "premier-housewares-2405941",
+      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 78
+    },
+    {
+      "id": "premier-housewares-2405942",
+      "title": "Weston Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 77
+    },
+    {
+      "id": "premier-housewares-2405944",
+      "title": "Westford Rectangle Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 76
+    },
+    {
+      "id": "premier-housewares-2405945",
+      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 75
+    },
+    {
       "id": "premier-housewares-2405946",
       "title": "Wimslow BlackTempered Glass Dining Table with 6 Chairs | Kaiku",
       "published": true,
       "removed": ["Delivery", "Returns"],
       "words": 76
+    },
+    {
+      "id": "premier-housewares-2405947",
+      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 77
+    },
+    {
+      "id": "premier-housewares-2502389",
+      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 74
+    },
+    {
+      "id": "premier-housewares-2502390",
+      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 74
+    },
+    {
+      "id": "premier-housewares-2502391",
+      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 74
     },
     {
       "id": "premier-housewares-5100311",
@@ -9670,6 +9628,20 @@
       "words": 74
     },
     {
+      "id": "premier-housewares-5506189",
+      "title": "Yuri White And Gold Spotted Planter | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 74
+    },
+    {
+      "id": "premier-housewares-5506190",
+      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 74
+    },
+    {
       "id": "premier-housewares-5506395",
       "title": "Deomali Black Finish Large Bottle Vase | Kaiku",
       "published": true,
@@ -9696,6 +9668,13 @@
       "published": true,
       "removed": ["Delivery", "Returns"],
       "words": 77
+    },
+    {
+      "id": "premier-housewares-5511726",
+      "title": "Yara Matt Black 12 Bulb Statement Pendant Light | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 76
     },
     {
       "id": "product-aosom-831-804v70cw",
@@ -9759,6 +9738,27 @@
       "published": true,
       "removed": ["Delivery", "Returns"],
       "words": 75
+    },
+    {
+      "id": "product-aosom-842-389v70sr",
+      "title": "11kW Adjustable Gas Patio Heater | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 73
+    },
+    {
+      "id": "product-aosom-844-633v00bk",
+      "title": "Banana Leaf Metal Privacy Screen with Stand, Black | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 93
+    },
+    {
+      "id": "product-aosom-844-742v00bk",
+      "title": "Grid Metal Privacy Screen, Black | Kaiku",
+      "published": true,
+      "removed": ["Delivery", "Returns"],
+      "words": 73
     },
     {
       "id": "product-aosom-844-743v00gn",

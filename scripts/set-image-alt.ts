@@ -76,7 +76,18 @@ async function main() {
     let touched = false;
 
     const next = gallery.map((image, index) => {
-      if ((image.alt ?? "").trim()) {
+      const existing = (image.alt ?? "").trim();
+      // Existing alt text is kept, with one exception: text this script wrote
+      // itself from an unsanitised material field. "Wimslow Smoked Glass Dining
+      // Table with 6 Chairs Set, in glass 0%,metal 100% cart weight" is not
+      // alt text a person would have written, and leaving it because it is
+      // "existing" would leave 467 products reading a spreadsheet aloud.
+      const isPolluted =
+        /\d{1,3}\s?%/.test(existing) ||
+        /\b(?:cart|carton|gross|net|pack)\s+(?:weight|qty|quantity|size)\b/i.test(
+          existing,
+        );
+      if (existing && !isPolluted) {
         kept++;
         return image;
       }
@@ -90,6 +101,10 @@ async function main() {
         primaryColour: row.primaryColour ?? null,
         category: row.category ?? null,
       });
+      if (existing === alt) {
+        kept++;
+        return image;
+      }
       written++;
       touched = true;
       if (samples.length < 10) samples.push(alt);
