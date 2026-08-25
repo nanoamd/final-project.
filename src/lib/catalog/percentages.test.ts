@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   type Block,
   cleanSentence,
+  dominantMaterial,
   hasPercentages,
   stripPercentages,
   stripPercentagesFromBlocks,
@@ -134,5 +135,39 @@ describe("stripPercentagesFromBlocks", () => {
   it("copes with a non-array description", () => {
     expect(stripPercentagesFromBlocks(null).blocks).toEqual([]);
     expect(stripPercentagesFromBlocks("a string").blocks).toEqual([]);
+  });
+});
+
+describe("dominantMaterial", () => {
+  it("takes the largest real component", () => {
+    expect(dominantMaterial("mdf 10%, mirror 40%, oak wood 50%")).toBe(
+      "oak wood",
+    );
+    expect(dominantMaterial("carbon steel 90%,silicon 10%")).toBe(
+      "carbon steel",
+    );
+  });
+
+  it("ignores a component that is 0% of the product", () => {
+    // "glass 0%,metal 100%" produced alt text calling a glass table glass 0%.
+    expect(dominantMaterial("glass 0%,metal 100%")).toBe("metal");
+  });
+
+  it("drops supplier spreadsheet column names", () => {
+    // "iron 100% cart weight" reached 467 products' image alt text.
+    expect(dominantMaterial("iron 100% cart weight")).toBe("iron");
+    expect(dominantMaterial("carbon steel 90%,silicon 10% cart weight")).toBe(
+      "carbon steel",
+    );
+  });
+
+  it("leaves a plain material alone", () => {
+    expect(dominantMaterial("steel")).toBe("steel");
+    expect(dominantMaterial("solid oak")).toBe("solid oak");
+  });
+
+  it("returns null rather than guess at a long component name", () => {
+    expect(dominantMaterial("gold electroplating hardware leg 95%")).toBeNull();
+    expect(dominantMaterial("")).toBeNull();
   });
 });

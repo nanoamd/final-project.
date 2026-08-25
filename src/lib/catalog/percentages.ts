@@ -163,3 +163,50 @@ export function stripPercentagesFromBlocks(
   }
   return { blocks, changed };
 }
+
+/**
+ * The dominant material, from a supplier composition string.
+ *
+ * The material field is not a material — it is a composition line, and a dirty
+ * one: "carbon steel 90%,silicon 10% cart weight", "glass 0%,metal 100%". Fed
+ * straight into image alt text it produced "Wimslow Smoked Glass Dining Table
+ * with 6 Chairs Set, in glass 0%,metal 100% cart weight" on 467 products.
+ *
+ * The largest component is what a person means when they ask what a thing is
+ * made of. Anything longer than three words is a component description rather
+ * than a material, and trailing feed junk is dropped.
+ */
+export function dominantMaterial(value: string): string | null {
+  const cleaned = value
+    .trim()
+    // Column names that leaked out of the supplier's spreadsheet.
+    .replace(
+      /\b(?:cart|carton|gross|net|pack)\s+(?:weight|qty|quantity|size)\b/gi,
+      "",
+    )
+    .trim();
+  if (!cleaned) return null;
+
+  const parts = [
+    ...cleaned.matchAll(/([a-z][a-z\s-]*?)\s*(\d{1,3}(?:\.\d+)?)\s*%/gi),
+  ];
+  if (parts.length) {
+    const usable = parts
+      .map((part) => ({
+        name: part[1]!.trim().replace(/^[,;]+|[,;]+$/g, ""),
+        share: Number(part[2]),
+      }))
+      // A 0% component is not in the product at all.
+      .filter(
+        (part) =>
+          part.share > 0 && part.name && part.name.split(/\s+/).length <= 3,
+      )
+      .sort((a, b) => b.share - a.share);
+    return usable[0]?.name ?? null;
+  }
+  if (/[,;/]/.test(cleaned)) {
+    const first = cleaned.split(/[,;/]/)[0]!.trim();
+    return first && first.split(/\s+/).length <= 3 ? first : null;
+  }
+  return cleaned.split(/\s+/).length <= 3 ? cleaned : null;
+}

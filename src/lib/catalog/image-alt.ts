@@ -1,3 +1,4 @@
+import { dominantMaterial } from "./percentages";
 /**
  * Alt text for a product photograph.
  *
@@ -48,7 +49,11 @@ export function buildAlt(input: AltInput): string {
 
   const descriptors: string[] = [];
   const colour = input.primaryColour?.trim().toLowerCase();
-  const material = input.material?.trim().toLowerCase();
+  // Never the raw field: it is a composition line, often with feed junk on the
+  // end. "in glass 0%,metal 100% cart weight" reached 467 products' alt text.
+  const material = input.material
+    ? (dominantMaterial(input.material.trim().toLowerCase()) ?? undefined)
+    : undefined;
 
   // "in grey ceramic" reads better than "in ceramic, in grey", and repeating a
   // word already in the product's name adds nothing.
