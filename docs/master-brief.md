@@ -16,6 +16,77 @@ Status key:
 
 ---
 
+## The plan out of the plateau (25 August)
+
+Damien: _"we are losing motivation and currently at a plateau… we've made zero
+progress over the last week. But we're also so close to our first sale and
+gaining traffic, we need a plan"_.
+
+### Where the shop actually is
+
+Not zero, and worth stating because it does not feel this way:
+
+|                                      |                                                   |
+| ------------------------------------ | ------------------------------------------------- |
+| Live products                        | **287** — every one priced, every one with images |
+| Live categories                      | 49, of which **4 are empty**                      |
+| Published blog posts                 | **1**                                             |
+| Ready to publish tonight             | 52                                                |
+| Drafts needing only a price          | 433                                               |
+| **Commits built but never deployed** | **119**                                           |
+
+Checkout, Stripe live mode, order emails, the admin screens and the audit
+tooling are all built. The shop works. What has not happened is **shipping**.
+
+### The thing blocking everything else
+
+**A week of work sits on `claude/kaiku-home-continue-v94z7g` and `main` has
+none of it.** Vercel deploys `main`. Every fix — the analytics bot filter, the
+ISR cost work that took the Vercel bill down, the admin readiness screen, the
+Studio button — is invisible because it was never merged. That is one action
+and it unblocks the rest.
+
+### Week 1 — ship what exists
+
+1. **Merge and deploy.** Needs Damien's go; the branch is large.
+2. **Publish the 52.** Takes live products to 339.
+3. **Fix the 4 empty categories** — Accessories, Bathroom Lighting, Rugs, Towel
+   Rails are dead links in the navigation today.
+4. **Price the 433 Hill drafts.** Damien picks the multiple; the landed-cost
+   script does the arithmetic. Potentially ~770 live products.
+
+### Weeks 2–4 — the traffic problem, honestly
+
+**287 product pages will not produce 500 organic visits a day.** Product pages
+rank slowly and compete with Amazon, Wayfair and the suppliers themselves. The
+objective needs content that answers a question, and the site has **one blog
+post**.
+
+What Kaiku already has that can rank, and is under-used:
+
+- Four working tools — sauna size calculator, cold plunge planner, garden
+  furniture material selector, garden visualiser. Tools earn links; nobody
+  links to a product page.
+- A `buyingGuide` document type, unused.
+- Genuine niche authority in saunas and cold plunges, where the competition is
+  thin, rather than in vases, where it is not.
+
+The work is buying guides and comparisons against real search demand, not more
+product listings.
+
+### What only Damien can do
+
+- Say go on the merge.
+- Set prices, and get the Premier Housewares cost list (unlocks 724 drafts).
+- Decide the margin multiple.
+
+### What went wrong this week, so it is not repeated
+
+Descriptions consumed the week and shipped nothing. The approach was wrong from
+the start — a template cannot write per-product copy — and each correction made
+it worse rather than better. Descriptions are now a Studio button used one
+product at a time, and are **not on the critical path** to a sale or to traffic.
+
 ## Standing constraints
 
 These override anything below. Written down because they have been re-stated
@@ -1249,10 +1320,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                                                                                 └────────────────── category
+                                                                                                                                                                                                         │  │        │   └── sequence, breaks ties
+                                                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                                                         │  └─────────────── the range name
+                                                                                                                                                                                                         └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2088,25 +2159,25 @@ Two process faults of mine, worth recording because they caused this:
       faults, three in the writer and three in the detectors:
 
       - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                                        prefixes "The" to a name that already begins with it. Ten Furniture
-                                        drafts read that way.
-                                      - **An outdoor sauna was told about "sightlines across the room"** —
-                                        `familyFor` sends it to the wellness writing family, and place was
-                                        being taken from family instead of siting. Siting now decides.
-                                      - **An indoor sauna was offered "Poolside areas"** — the wellness
-                                        settings list holds both indoor and outdoor entries. It is now filtered
-                                        by siting.
-                                      - "Allow clearance rather than fitting it wall to wall" on a garden
-                                        product — a room idiom. Now "boundary to boundary" outdoors.
-                                      - Detector: "cushions and throws" is not indoor language when they are
-                                        weatherproof.
-                                      - Detector: a black barbecue was reported as claiming to be brass, copper
-                                        and terracotta, because bulleted pairing items and glossary lines
-                                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                                        "Pair it with:" heading above them.
+                                                prefixes "The" to a name that already begins with it. Ten Furniture
+                                                drafts read that way.
+                                              - **An outdoor sauna was told about "sightlines across the room"** —
+                                                `familyFor` sends it to the wellness writing family, and place was
+                                                being taken from family instead of siting. Siting now decides.
+                                              - **An indoor sauna was offered "Poolside areas"** — the wellness
+                                                settings list holds both indoor and outdoor entries. It is now filtered
+                                                by siting.
+                                              - "Allow clearance rather than fitting it wall to wall" on a garden
+                                                product — a room idiom. Now "boundary to boundary" outdoors.
+                                              - Detector: "cushions and throws" is not indoor language when they are
+                                                weatherproof.
+                                              - Detector: a black barbecue was reported as claiming to be brass, copper
+                                                and terracotta, because bulleted pairing items and glossary lines
+                                                ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                                                "Pair it with:" heading above them.
 
-                                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
-                                      pairing colour on a single bedside table.
+                                              After the fixes, **32 of 33 categories are clean**. The remaining one is a
+                                              pairing colour on a single bedside table.
 
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
