@@ -1320,10 +1320,10 @@ consistency".
       The format extends your own best one rather than replacing it:
 
           KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                                                         │  │        │   └── sequence, breaks ties
-                                                                                                                                                                                                         │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                                                         │  └─────────────── the range name
-                                                                                                                                                                                                         └────────────────── category
+                                                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
+                                                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
+                                                                                                                                                                                                                 │  └─────────────── the range name
+                                                                                                                                                                                                                 └────────────────── category
 
   `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
   products now conform**; a code already matching is never rewritten, so
@@ -2077,7 +2077,7 @@ best-scoring supplier at 9.0. And 34 of the 37 failures are Hill Interiors.
 
 ### [~] Long-form descriptions in the house style
 
-`src/lib/catalog/describe-long.ts` (+16 tests). Reproduces the Sorelle's actual
+the template writer (removed) (+16 tests). Reproduces the Sorelle's actual
 structure, which is one move repeated: a short prose section that says something
 specific, then a themed list. "Perfect for:" eighteen settings. "Pair it with:"
 eleven materials. "Position it alongside:" seven pieces. The lists carry the
@@ -2159,25 +2159,25 @@ Two process faults of mine, worth recording because they caused this:
       faults, three in the writer and three in the detectors:
 
       - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                                                prefixes "The" to a name that already begins with it. Ten Furniture
-                                                drafts read that way.
-                                              - **An outdoor sauna was told about "sightlines across the room"** —
-                                                `familyFor` sends it to the wellness writing family, and place was
-                                                being taken from family instead of siting. Siting now decides.
-                                              - **An indoor sauna was offered "Poolside areas"** — the wellness
-                                                settings list holds both indoor and outdoor entries. It is now filtered
-                                                by siting.
-                                              - "Allow clearance rather than fitting it wall to wall" on a garden
-                                                product — a room idiom. Now "boundary to boundary" outdoors.
-                                              - Detector: "cushions and throws" is not indoor language when they are
-                                                weatherproof.
-                                              - Detector: a black barbecue was reported as claiming to be brass, copper
-                                                and terracotta, because bulleted pairing items and glossary lines
-                                                ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                                                "Pair it with:" heading above them.
+                                                        prefixes "The" to a name that already begins with it. Ten Furniture
+                                                        drafts read that way.
+                                                      - **An outdoor sauna was told about "sightlines across the room"** —
+                                                        `familyFor` sends it to the wellness writing family, and place was
+                                                        being taken from family instead of siting. Siting now decides.
+                                                      - **An indoor sauna was offered "Poolside areas"** — the wellness
+                                                        settings list holds both indoor and outdoor entries. It is now filtered
+                                                        by siting.
+                                                      - "Allow clearance rather than fitting it wall to wall" on a garden
+                                                        product — a room idiom. Now "boundary to boundary" outdoors.
+                                                      - Detector: "cushions and throws" is not indoor language when they are
+                                                        weatherproof.
+                                                      - Detector: a black barbecue was reported as claiming to be brass, copper
+                                                        and terracotta, because bulleted pairing items and glossary lines
+                                                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
+                                                        "Pair it with:" heading above them.
 
-                                              After the fixes, **32 of 33 categories are clean**. The remaining one is a
-                                              pairing colour on a single bedside table.
+                                                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
+                                                      pairing colour on a single bedside table.
 
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
@@ -2218,7 +2218,7 @@ while opening with an apology.
 This is deletion only — nothing generated, nothing reworded, no fact invented —
 which is what makes it safe to run catalogue-wide in a way the rewrite was not.
 
-- [x] Superseded by `scripts/finalise-descriptions.ts`, which does the cleaning
+- [x] Superseded by the template pipeline (removed), which does the cleaning
       and the rewriting in one pass.
 
 ### [x] "Write description" button in the Studio — the right approach
@@ -2259,8 +2259,11 @@ reviewable, undoable, never published behind Damien's back.
 - Uses the OpenAI key already configured for the visualiser and importer, so
   there is no new credential to set up.
 
-The template pipeline (`finalise-descriptions.ts`, `describe-long.ts`) stays in
-the repo unapplied. It is superseded.
+**The template pipeline has been deleted, not parked.** Damien: "whichever
+change you said we shouldnt do which is included in this push then dont include
+it". It was never applied to a single published product and it is not coming
+back — a template cannot write per-product copy, so leaving it in the repo only
+invites someone to run it.
 
 ### [~] Finalise: one standard, enforced by the code
 
@@ -2269,7 +2272,7 @@ with 0 mistakes. this isnt too difficult"_.
 
 Consistency and zero mistakes are things code can guarantee. "Great" is not,
 because a page can only be as good as the facts behind it. So
-`scripts/finalise-descriptions.ts` separates the two honestly.
+the template pipeline (removed) separates the two honestly.
 
 **Every page is checked before it is written**, against every detector in the
 project — the context checker, the wording checker, and the quality scorer's
