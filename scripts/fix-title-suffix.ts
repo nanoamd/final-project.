@@ -170,12 +170,31 @@ async function main() {
     return;
   }
   let done = 0;
+  const failed: { id: string; reason: string }[] = [];
   for (const fix of fixes) {
-    // Title only. The slug is left exactly as it is.
-    await client.patch(fix.id).set({ title: fix.to }).commit();
-    if (++done % 100 === 0) console.log(`  fixed ${done}/${fixes.length}`);
+    try {
+      // Title only. The slug is left exactly as it is.
+      await client.patch(fix.id).set({ title: fix.to }).commit();
+      done += 1;
+    } catch (error) {
+      // A document deleted between the fetch and the patch is not a reason to
+      // abandon the other 780. The first run of this stopped dead on one
+      // missing draft with two-thirds of the catalogue still to go.
+      failed.push({
+        id: fix.id,
+        reason:
+          error instanceof Error ? error.message.slice(0, 120) : "unknown",
+      });
+    }
+    if ((done + failed.length) % 100 === 0)
+      console.log(`  ${done + failed.length}/${fixes.length}`);
   }
   console.log(`\nFixed ${done} titles.`);
+  if (failed.length) {
+    console.log(`Skipped ${failed.length} that could not be patched:`);
+    for (const failure of failed.slice(0, 10))
+      console.log(`  ${failure.id}: ${failure.reason}`);
+  }
 }
 
 const isDirectRun =
