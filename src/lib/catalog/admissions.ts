@@ -47,7 +47,27 @@ export interface Block {
  * as publishable while opening with an apology.
  */
 const ADMITS_A_GAP =
-  /\b(?:not (?:listed|specified|stated|provided|available|detailed|mentioned|disclosed|given|confirmed|known)|no information|not been (?:listed|provided|specified)|unspecified|remains? unclear|unclear from|we do not (?:know|have)|is unknown|are unknown)\b/i;
+  /\b(?:not (?:listed|specified|stated|provided|available|detailed|mentioned|disclosed|given|confirmed|known)|no information|not been (?:listed|provided|specified)|unspecified|remains? unclear|unclear from|we do not (?:know|have)|is unknown|are unknown|(?:no|none) (?:[a-z-]+ ){0,4}(?:are|is|were|was) (?:mentioned|specified|stated|listed|given))\b/i;
+
+/**
+ * Sentences that reason from an absence of information.
+ *
+ * The worst of the three, and the one Damien found on a pergola:
+ *
+ *   "No mounting options or specific wall types are mentioned, indicating that
+ *    it may not require wall attachment and is suitable for free-standing use."
+ *
+ * That is not admitting a gap, it is manufacturing a fact out of one — and
+ * then giving installation guidance on the strength of it. A pergola that does
+ * need anchoring, installed free-standing because our page inferred it did
+ * not, is a real hazard rather than an embarrassment.
+ *
+ * Matched on the reasoning, not on the topic, because the topic varies: "as no
+ * bulb type is specified, it is likely a standard fitting" is the same fault
+ * about a lamp.
+ */
+const GUESSES_FROM_ABSENCE =
+  /\b(?:(?:no|nothing|none)\b[^.]{0,80}?\b(?:mentioned|specified|stated|listed|indicated|given)\b[^.]{0,40}?\b(?:indicat\w+|suggest\w+|implies|implying|meaning|so it|therefore|which means)|(?:indicating|suggesting|implying) that it (?:may|might|should|would|is likely|probably)|\b(?:presumably|appears to be|would appear|seems to be|may well be)\b|\bsince (?:no|none|nothing)\b[^.]{0,60}|\bas (?:no|none|nothing)\b[^.]{0,60}\b(?:is|are)\b)/i;
 
 /**
  * Sentences that send the reader somewhere else for the answer.
@@ -68,7 +88,11 @@ export function sentencesOf(text: string): string[] {
 
 /** Whether one sentence should be removed from customer-facing copy. */
 export function isAdmission(sentence: string): boolean {
-  return ADMITS_A_GAP.test(sentence) || DEFLECTS.test(sentence);
+  return (
+    ADMITS_A_GAP.test(sentence) ||
+    DEFLECTS.test(sentence) ||
+    GUESSES_FROM_ABSENCE.test(sentence)
+  );
 }
 
 /**

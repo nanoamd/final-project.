@@ -30,6 +30,7 @@
  * prompt and the gate can be tested without spending anything.
  */
 
+import { isAdmission } from "./admissions";
 import { contextFaults, sitingFor } from "./context-check";
 import { AI_PHRASES, ARTEFACTS } from "./quality";
 import { wordingFaults } from "./wording-check";
@@ -250,13 +251,16 @@ export function checkWritten(
   for (const phrase of AI_PHRASES)
     if (lower.includes(phrase)) found.push(`Marketing filler: "${phrase}"`);
 
-  // The one fault the artefact list does not carry, and the one Damien found
-  // on a live page: copy that announces a gap instead of filling it.
-  const admits =
-    /\b(?:not (?:listed|specified|stated|provided|available|detailed|mentioned)|refer to the (?:supplied )?(?:instruction|manual)|contact (?:customer )?support)\b/i.exec(
-      text,
-    );
-  if (admits) found.push(`It admits a gap: "${admits[0]}"`);
+  // Copy that announces a gap, or worse, reasons from one. Both were found on
+  // live pages. `isAdmission` is the same function the stripper uses, so the
+  // button cannot write what the stripper would immediately remove.
+  for (const sentence of text.split(/(?<=[.!?])\s+/))
+    if (isAdmission(sentence.trim())) {
+      found.push(
+        `It admits or guesses at a gap: "${sentence.trim().slice(0, 90)}"`,
+      );
+      break;
+    }
 
   return found;
 }

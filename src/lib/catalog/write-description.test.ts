@@ -157,7 +157,7 @@ describe("checkWritten", () => {
       ],
       pergola,
     );
-    expect(found.join(" ")).toMatch(/admits a gap/);
+    expect(found.join(" ")).toMatch(/admits or guesses at a gap/);
   });
 
   it("rejects a garden product described as being in a room", () => {

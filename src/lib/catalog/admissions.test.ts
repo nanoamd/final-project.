@@ -63,6 +63,50 @@ describe("isAdmission", () => {
   });
 });
 
+describe("isAdmission — guesses made from an absence", () => {
+  it("catches the pergola install advice invented from nothing", () => {
+    // Damien found this on a live pergola. It does not admit a gap, it
+    // manufactures a fact out of one and then gives installation guidance on
+    // the strength of it.
+    expect(
+      isAdmission(
+        "No mounting options or specific wall types are mentioned, indicating that it may not require wall attachment and is suitable for free-standing use.",
+      ),
+    ).toBe(true);
+  });
+
+  it("catches the same reasoning about other things", () => {
+    for (const guess of [
+      "As no bulb type is specified, it is likely a standard E27 fitting.",
+      "Since no weight limit is given, it should hold most items.",
+      "Nothing is stated about the finish, suggesting it is untreated.",
+      "The finish appears to be a powder coat.",
+      "Presumably it arrives flat-packed.",
+    ])
+      expect(isAdmission(guess)).toBe(true);
+  });
+
+  it("keeps the real instruction sitting beside the guess", () => {
+    // The useful half of Damien's paragraph must survive.
+    expect(
+      cleanParagraph(
+        "It is essential to install the pergola on a firm, level base. No mounting options or specific wall types are mentioned, indicating that it may not require wall attachment and is suitable for free-standing use.",
+      ),
+    ).toBe("It is essential to install the pergola on a firm, level base.");
+  });
+
+  it("does not flag an ordinary statement of fact", () => {
+    for (const fine of [
+      "It is essential to install the pergola on a firm, level base.",
+      "Assembly is required and the fixings are supplied.",
+      "The frame is powder-coated steel.",
+      "It is likely the most popular size we sell.",
+      "No tools are required.",
+    ])
+      expect(isAdmission(fine)).toBe(false);
+  });
+});
+
 describe("cleanParagraph", () => {
   it("keeps the useful sentence and drops the admission beside it", () => {
     // The exact paragraph from the Lennox page: one admission, one real
