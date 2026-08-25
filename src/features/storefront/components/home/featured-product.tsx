@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
+import { leadTimeLine } from "@/lib/catalog/delivery";
 import { formatPriceExact } from "@/lib/format";
 import { getFlagshipProduct } from "@/lib/sanity/queries/product";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -71,10 +72,7 @@ export function FeaturedProductSection({
               {formatPriceExact(product.price)}
             </p>
             <p className="text-canvas/50 text-[13px]">
-              Free UK delivery
-              {product.deliveryLeadTime
-                ? ` · Delivered in ${product.deliveryLeadTime}`
-                : ""}
+              Free UK delivery · {leadTimeLine(product)}
             </p>
           </div>
 

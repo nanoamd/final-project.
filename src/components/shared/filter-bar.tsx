@@ -16,7 +16,7 @@ import {
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
- * The shopping filters.
+ * The shopping filters, as a tab on the edge of the screen that opens a sidebar.
  *
  * **Every control is a link, not a button.** That is the whole design. Links mean
  * the filtered grid is a real URL — shareable, indexable, and working with
@@ -24,6 +24,21 @@ import type { SanityProduct } from "@/types/sanity-content";
  * no client bundle at all. `?colour=Black` on the coffee tables page is a page
  * that can rank for "black coffee table", which is the sort of query the brief
  * names directly.
+ *
+ * **Why a sidebar rather than a band above the grid.** Damien: *"I think it should
+ * be a tab on the side which says filters and when you press it it opens up a
+ * sidebar rather than having it as the first thing you see"*. He is right, and the
+ * measurement agrees: with the facets laid out above the products, the first
+ * product on Coffee Tables started 965px down a 390px screen — the grid entirely
+ * below the fold, on the page whose job is to show products. Even with most of it
+ * folded away, the swatch rows were still the first thing on a shop page.
+ *
+ * **Still `<details>`, not a client component.** No JavaScript, no bundle, the
+ * links stay in the DOM for a crawler whether the panel is open or shut, and the
+ * browser supplies the keyboard and screen-reader behaviour for free. The tab is
+ * pinned to the panel's outer edge, so it travels out with the panel and the same
+ * control that opened it closes it — which is what a backdrop click would do, and
+ * a backdrop click is the one part of this that would need script.
  *
  * Only facets that actually appear in the current set are offered, and each shows
  * its count. Offering a swatch that returns nothing is the fastest way to make a
@@ -41,123 +56,19 @@ export function FilterBar({
   pathname: string;
 }) {
   const active = describeQuery(query);
+  const chosenCount = Object.values(query.facets).reduce(
+    (total, tags) => total + (tags?.length ?? 0),
+    query.inStockOnly ? 1 : 0,
+  );
 
   return (
-    <div className="border-line mb-8 border-b pb-6">
-      {/* Colour first, and as circles. The brief asks for visual swatches
-          specifically, and colour is the facet people actually shop furniture
-          by — a row of circles is scanned in a moment where a list of words has
-          to be read. */}
-      <ColourSwatches products={products} query={query} pathname={pathname} />
-
-      {/**
-       * Everything except colour sits behind a native `<details>`.
-       *
-       * Measured before deciding: with all five facets expanded, the first
-       * product on Coffee Tables started at **965px** on a 390px screen — the
-       * entire grid below the fold, on the page whose job is to show products.
-       * That is precisely the "excessive spacing, desktop layout forced into
-       * mobile" the brief opens with.
-       *
-       * Colour stays out here because it is two rows, it is the facet people
-       * actually shop furniture by, and a row of swatches is the thing that makes
-       * the page look like a shop. The rest — four more facets and the sort —
-       * is the part that was costing 700px.
-       *
-       * `<details>` rather than a client component: no JavaScript, no bundle, the
-       * content stays in the DOM for a crawler, and the browser gives keyboard
-       * and screen-reader behaviour for free. It stays closed on desktop too.
-       * That is not a compromise — one tap to open a filter panel is what every
-       * large retailer does, and it keeps one implementation instead of two.
-       */}
-      <details className="group mt-5">
-        <summary className="border-line text-ink hover:border-ink/50 flex w-fit cursor-pointer list-none items-center gap-2 border px-4 py-2 text-[12px] font-semibold tracking-[0.12em] uppercase transition-colors">
-          <span>More filters &amp; sort</span>
-          <span aria-hidden className="text-muted group-open:hidden">
-            +
-          </span>
-          <span aria-hidden className="text-muted hidden group-open:inline">
-            −
-          </span>
-        </summary>
-
-        <div className="mt-5 flex flex-wrap items-start gap-x-8 gap-y-4">
-          {FACET_DEFINITIONS.filter((d) => d.key !== "colour").map(
-            (definition) => (
-              <ChipFacet
-                key={definition.key}
-                label={definition.label}
-                facetKey={definition.key}
-                tags={definition.tags}
-                products={products}
-                query={query}
-                pathname={pathname}
-              />
-            ),
-          )}
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
-          {/* In-stock is a single toggle rather than a facet, because "Out of
-            Stock" is never something a shopper wants to filter *for*. */}
-          <AppLink
-            href={
-              query.inStockOnly
-                ? sortHref(
-                    pathname,
-                    { ...query, inStockOnly: false },
-                    query.sort,
-                  )
-                : sortHref(
-                    pathname,
-                    { ...query, inStockOnly: true },
-                    query.sort,
-                  )
-            }
-            className={`flex items-center gap-2 text-[13px] transition-colors ${
-              query.inStockOnly
-                ? "text-ink font-medium"
-                : "text-muted hover:text-ink"
-            }`}
-          >
-            <span
-              aria-hidden
-              className={`flex size-4 items-center justify-center border ${
-                query.inStockOnly
-                  ? "border-ink bg-ink text-canvas"
-                  : "border-line"
-              }`}
-            >
-              {query.inStockOnly ? "✓" : ""}
-            </span>
-            In stock only
-          </AppLink>
-
-          <div className="flex items-center gap-3">
-            <span className="text-muted text-[12px] tracking-[0.12em] uppercase">
-              Sort
-            </span>
-            <div className="flex flex-wrap gap-3">
-              {SORT_OPTIONS.map((option) => (
-                <AppLink
-                  key={option.key}
-                  href={sortHref(pathname, query, option.key)}
-                  className={`text-[13px] transition-colors ${
-                    query.sort === option.key
-                      ? "text-ink font-medium underline underline-offset-4"
-                      : "text-muted hover:text-ink"
-                  }`}
-                >
-                  {option.label}
-                </AppLink>
-              ))}
-            </div>
-          </div>
-        </div>
-      </details>
-
+    <>
+      {/* What is currently filtered stays in the page, not in the drawer. Hiding
+          the controls behind a tab is fine; hiding the *state* is not — a shopper
+          looking at 11 of 88 products needs to know why without opening anything,
+          and needs one tap to undo it. */}
       {active ? (
-        <div className="mt-5 flex flex-wrap items-center gap-2">
+        <div className="border-line mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-b pb-4">
           <span className="text-muted text-[12px] tracking-[0.12em] uppercase">
             Filtered by
           </span>
@@ -165,14 +76,139 @@ export function FilterBar({
           {!isEmptyQuery(query) ? (
             <AppLink
               href={pathname}
-              className="text-brass ml-2 text-[13px] underline underline-offset-4"
+              className="text-brass text-[13px] underline underline-offset-4"
             >
               Clear all
             </AppLink>
           ) : null}
         </div>
       ) : null}
-    </div>
+
+      <details className="group/filters">
+        {/* The tab. `left-0` closed, and out at the panel's edge once open, so it
+            reads as the handle on the drawer rather than a button that vanished.
+            Vertical text keeps it narrow.
+
+            **It has to fit the page gutter or it clips the grid.** Measured: the
+            product cards start at x=24 on a 390px screen, and the first version of
+            this tab was 31.5px wide — 7.5px of it sitting on top of the leftmost
+            column, cutting the corner off "Witley Coffee Table". Sized down to
+            ~22px it sits in the margin and touches nothing. Tall rather than wide
+            for the same reason: the tap target has to come from the height,
+            because the width belongs to the gutter. */}
+        <summary
+          aria-label={
+            chosenCount
+              ? `Filters (${chosenCount} applied)`
+              : "Filters and sorting"
+          }
+          className="border-line bg-canvas text-ink hover:border-ink/50 fixed top-1/2 left-0 z-50 flex -translate-y-1/2 cursor-pointer list-none items-center justify-center rounded-r-lg border border-l-0 px-1 py-7 shadow-sm transition-[left] duration-200 group-open/filters:left-[min(88vw,340px)]"
+        >
+          <span
+            className="text-[10px] font-semibold tracking-[0.16em] uppercase"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            {chosenCount ? `Filters · ${chosenCount}` : "Filters"}
+          </span>
+        </summary>
+
+        {/* `data-lenis-prevent` — Lenis owns the wheel on this site, and without
+            it a scroll inside the drawer scrolls the page behind it instead. */}
+        <div
+          data-lenis-prevent
+          className="border-line bg-canvas fixed inset-y-0 left-0 z-40 w-[min(88vw,340px)] overflow-y-auto border-r px-5 py-8"
+        >
+          <p className="text-ink font-display mb-6 text-xl">
+            Filter &amp; sort
+          </p>
+
+          {/* Colour first, and as circles. The brief asks for visual swatches
+              specifically, and colour is the facet people actually shop furniture
+              by — a row of circles is scanned in a moment where a list of words
+              has to be read. */}
+          <ColourSwatches
+            products={products}
+            query={query}
+            pathname={pathname}
+          />
+
+          <div className="mt-7 flex flex-col gap-7">
+            {FACET_DEFINITIONS.filter((d) => d.key !== "colour").map(
+              (definition) => (
+                <ChipFacet
+                  key={definition.key}
+                  label={definition.label}
+                  facetKey={definition.key}
+                  tags={definition.tags}
+                  products={products}
+                  query={query}
+                  pathname={pathname}
+                />
+              ),
+            )}
+          </div>
+
+          <div className="border-line mt-7 flex flex-col gap-5 border-t pt-6">
+            {/* In-stock is a single toggle rather than a facet, because "Out of
+                Stock" is never something a shopper wants to filter *for*. */}
+            <AppLink
+              href={sortHref(
+                pathname,
+                { ...query, inStockOnly: !query.inStockOnly },
+                query.sort,
+              )}
+              className={`flex items-center gap-2 text-[13px] transition-colors ${
+                query.inStockOnly
+                  ? "text-ink font-medium"
+                  : "text-muted hover:text-ink"
+              }`}
+            >
+              <span
+                aria-hidden
+                className={`flex size-4 items-center justify-center border ${
+                  query.inStockOnly
+                    ? "border-ink bg-ink text-canvas"
+                    : "border-line"
+                }`}
+              >
+                {query.inStockOnly ? "✓" : ""}
+              </span>
+              In stock only
+            </AppLink>
+
+            <div>
+              <p className="text-muted mb-2.5 text-[12px] tracking-[0.12em] uppercase">
+                Sort
+              </p>
+              <div className="flex flex-col gap-2">
+                {SORT_OPTIONS.map((option) => (
+                  <AppLink
+                    key={option.key}
+                    href={sortHref(pathname, query, option.key)}
+                    className={`text-[13px] transition-colors ${
+                      query.sort === option.key
+                        ? "text-ink font-medium underline underline-offset-4"
+                        : "text-muted hover:text-ink"
+                    }`}
+                  >
+                    {option.label}
+                  </AppLink>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {!isEmptyQuery(query) ? (
+            <AppLink
+              href={pathname}
+              className="border-line text-ink hover:border-ink/50 mt-7 flex items-center justify-center border py-2.5 text-[12px] font-semibold tracking-[0.12em] uppercase transition-colors"
+            >
+              Clear all filters
+            </AppLink>
+          ) : null}
+        </div>
+      </details>
+    </>
   );
 }
 
@@ -196,7 +232,7 @@ function ColourSwatches({
       <p className="text-muted mb-3 text-[12px] tracking-[0.12em] uppercase">
         Colour
       </p>
-      <div className="flex flex-wrap gap-2.5">
+      <div className="flex flex-wrap gap-x-2.5 gap-y-3">
         {available.map((colour) => {
           const isOn = chosen.includes(colour.tag);
           const count = counts.get(colour.tag) ?? 0;

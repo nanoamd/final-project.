@@ -113,9 +113,12 @@ export function buildOrderConfirmationEmail(order: OrderEmailData): BuiltEmail {
           ].join("")
         : "",
       subheading("Your order reference"),
+      // The human number when there is one, so a customer can read it back
+      // over the phone. Older orders (pre-migration 0005) still show the UUID
+      // rather than nothing.
       paragraph(
-        `<span style="font-family:Consolas,Menlo,monospace;font-size:13px;word-break:break-all;">${escapeHtml(
-          order.orderId,
+        `<span style="font-family:Consolas,Menlo,monospace;font-size:15px;word-break:break-all;">${escapeHtml(
+          order.orderNumber ?? order.orderId,
         )}</span>`,
       ),
       paragraph(
@@ -160,7 +163,7 @@ export function buildOrderConfirmationEmail(order: OrderEmailData): BuiltEmail {
     addressLines.length > 0
       ? `DELIVERING TO\n${addressLines.join("\n")}`
       : null,
-    `YOUR ORDER REFERENCE\n${order.orderId}`,
+    `YOUR ORDER REFERENCE\n${order.orderNumber ?? order.orderId}`,
     `Check the status of your order at any time: ${trackUrl}`,
     `CHANGING YOUR MIND\nYou have 14 days from delivery to return an unused item in its original packaging for a full refund. Made-to-order and bespoke pieces are non-returnable unless faulty — email us and we will confirm where your order stands. Full terms: ${returnsUrl}`,
     `IF YOU NEED US\nReply to this email, or write to ${siteConfig.email}. We answer by email only, and we read every message ourselves. Quote the reference above and we will have the order in front of us.`,

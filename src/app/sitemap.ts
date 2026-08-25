@@ -34,6 +34,27 @@ const STATIC_ROUTES: {
 type Change = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 
 /**
+ * Re-read the catalogue hourly.
+ *
+ * Without this the sitemap is wrong within a day of every deploy, and it was.
+ * Next's docs are explicit that `sitemap.js` "is a special Route Handler that is
+ * cached by default unless it uses a Request-time API or dynamic config option" —
+ * so with no config it is generated once at build time and never again. Caught by
+ * publishing eight buying guides and finding the live sitemap still listing one:
+ * 125 URLs when there were 133 pages to submit.
+ *
+ * That is the failure mode that matters here, because the catalogue changes in
+ * Sanity and not in the repository. A product added on a Tuesday would have waited
+ * for the next code deploy to be advertised to Google, which is exactly the wrong
+ * way round for a site whose whole problem is getting crawled.
+ *
+ * An hour rather than the 60 seconds the content pages use: a sitemap is fetched
+ * by crawlers occasionally rather than by people constantly, and nothing is gained
+ * by rebuilding a 133-line XML file every minute.
+ */
+export const revalidate = 3600;
+
+/**
  * Every category and product, plus published posts and buying guides, each with
  * the date it last changed.
  *

@@ -79,8 +79,33 @@ export function resetEmailWarnings() {
   warned.clear();
 }
 
+/**
+ * Why a send did or did not happen, in words fit to show an operator.
+ *
+ * `sendEmail` returns a bare boolean and logs the reason to the server console,
+ * which is right for the live paths — a customer's order must not fail because
+ * an email did — but useless for the one place whose entire job is to answer
+ * "does email work?". The test-sender on /admin/emails reported "Sent" whether
+ * or not anything left the building, which is worse than not having a button.
+ */
+export interface SendOutcome {
+  ok: boolean;
+  /** Machine-readable cause, for the UI to phrase. */
+  reason:
+    "sent" | "no-api-key" | "no-from-address" | "rejected" | "network-error";
+  /** What Resend actually said, when it said anything. Never includes the key. */
+  detail?: string;
+}
+
 /** `true` when a send was accepted by Resend. Callers may ignore it. */
 export async function sendEmail(input: SendEmailInput): Promise<boolean> {
+  return (await sendEmailWithOutcome(input)).ok;
+}
+
+/** As `sendEmail`, but says why. Used by the test-sender, not by live sends. */
+export async function sendEmailWithOutcome(
+  input: SendEmailInput,
+): Promise<SendOutcome> {
   try {
     const apiKey = env.RESEND_API_KEY;
     if (!apiKey) {
@@ -90,7 +115,12 @@ export async function sendEmail(input: SendEmailInput): Promise<boolean> {
           `Dropped: "${input.subject}" to ${input.to}. ` +
           "See docs/email-setup.md.",
       );
-      return false;
+      return {
+        ok: false,
+        reason: "no-api-key",
+        detail:
+          "RESEND_API_KEY is not set on this deployment, so nothing is sent at all.",
+      };
     }
 
     if (!env.RESEND_FROM_EMAIL) {
@@ -127,10 +157,25 @@ export async function sendEmail(input: SendEmailInput): Promise<boolean> {
         `[email] Resend rejected "${input.subject}" to ${input.to} ` +
           `with ${response.status}: ${body}`,
       );
-      return false;
+      return {
+        ok: false,
+        reason: "rejected",
+        // Resend's body names the actual problem — an unverified domain, a
+        // from-address that is not on it, a bad key. Worth showing verbatim.
+        detail: `Resend returned ${response.status}: ${body.slice(0, 400)}`,
+      };
     }
 
-    return true;
+    return env.RESEND_FROM_EMAIL
+      ? { ok: true, reason: "sent" }
+      : {
+          ok: true,
+          reason: "no-from-address",
+          detail:
+            `Accepted, but sent as "${DEFAULT_FROM}" because RESEND_FROM_EMAIL is not set. ` +
+            "Resend's onboarding sender only delivers to your own Resend account address, " +
+            "so mail to anyone else is silently dropped.",
+        };
   } catch (error) {
     // Deliberately the last line of defence: anything at all that went wrong
     // above — network, timeout, JSON, a throwing env proxy — stops here.
@@ -138,7 +183,11 @@ export async function sendEmail(input: SendEmailInput): Promise<boolean> {
       `[email] failed to send "${input.subject}" to ${input.to}`,
       error,
     );
-    return false;
+    return {
+      ok: false,
+      reason: "network-error",
+      detail: error instanceof Error ? error.message : String(error),
+    };
   }
 }
 
@@ -167,4 +216,24 @@ function timeoutSignal(): AbortSignal | undefined {
     typeof AbortSignal.timeout === "function"
     ? AbortSignal.timeout(REQUEST_TIMEOUT_MS)
     : undefined;
+}
+
+/**
+ * Whether this deployment can send email at all, without sending one.
+ *
+ * Deliberately reports presence, never values: an admin page has no business
+ * displaying an API key, and "is it set" is the entire question.
+ */
+export function describeEmailConfig(): {
+  canSend: boolean;
+  hasApiKey: boolean;
+  hasFromAddress: boolean;
+  fromAddress: string;
+} {
+  return {
+    canSend: Boolean(env.RESEND_API_KEY),
+    hasApiKey: Boolean(env.RESEND_API_KEY),
+    hasFromAddress: Boolean(env.RESEND_FROM_EMAIL),
+    fromAddress: env.RESEND_FROM_EMAIL || DEFAULT_FROM,
+  };
 }

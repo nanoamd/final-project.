@@ -98,12 +98,26 @@ describe("buildCompareRows", () => {
   });
 
   it("treats a missing value as a difference — one product tells you, the other does not", () => {
+    // Weight rather than Delivery, which used to be the example here: Delivery
+    // can no longer be missing at all, because every product has a price and
+    // therefore a window (see src/lib/catalog/delivery.ts). The behaviour under
+    // test — an absent value counting as a difference — is unchanged.
     const rows = buildCompareRows([
-      product({ deliveryLeadTime: "2–5 days" }),
-      product({ deliveryLeadTime: undefined }),
+      product({ weight: { value: 21, unit: "kg" } } as Partial<SanityProduct>),
+      product({ weight: undefined }),
+    ]);
+    const row = rows.find((r) => r.label === "Weight")!;
+    expect(row.values).toEqual(["21 kg", null]);
+    expect(row.differs).toBe(true);
+  });
+
+  it("always states a delivery window, since every product has a price to band on", () => {
+    const rows = buildCompareRows([
+      product({ price: 19 }),
+      product({ price: 409 }),
     ]);
     const row = rows.find((r) => r.label === "Delivery")!;
-    expect(row.values).toEqual(["2–5 days", null]);
+    expect(row.values).toEqual(["7–14 days", "3–4 weeks"]);
     expect(row.differs).toBe(true);
   });
 

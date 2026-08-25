@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
-import { RETIRED_PRODUCT_URLS } from "./src/lib/seo/retired-urls";
+import {
+  RECATEGORISED_PRODUCT_URLS,
+  RENAMED_PRODUCT_URLS,
+  RETIRED_PRODUCT_URLS,
+} from "./src/lib/seo/retired-urls";
 
 /**
  * Baseline security headers applied to every response.
@@ -40,6 +44,27 @@ const nextConfig: NextConfig = {
   // Statically type <Link href> and router calls; broken internal links fail the build.
   typedRoutes: true,
   images: {
+    /**
+     * Resize through Sanity's CDN, not Vercel's optimiser.
+     *
+     * Every product image on the live site stopped rendering, and the cause was
+     * `/_next/image?url=…` answering **HTTP 402 Payment Required** — Vercel had cut
+     * off image optimisation because the account hit its transformation allowance.
+     * Already-cached images kept working, so the symptom read as "the new products
+     * have no pictures": a new product is the only thing needing a transformation
+     * Vercel had not already done.
+     *
+     * Sanity's CDN does the same job from the same URL, and this codebase already
+     * builds `?w=&h=&fit=&auto=format` URLs for cards and the feed. The old pipeline
+     * asked Sanity for a 1000px JPEG and then paid Vercel to make it a 640px WebP —
+     * two paid transformations for one job, and the second is the one that ran out.
+     *
+     * `remotePatterns` stays for the dev server and for anything that reads it, but
+     * with a custom loader the allowlist is no longer what gates fetching; the loader
+     * passes non-Sanity sources through untouched.
+     */
+    loader: "custom",
+    loaderFile: "./src/lib/sanity/image-loader.ts",
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
     ],
@@ -56,7 +81,8 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   /**
-   * Permanently retired product URLs, sent to the category they belonged to.
+   * Permanently retired product URLs, sent to the category they belonged to, and
+   * repaired slugs, sent to the same product's new address.
    *
    * These are declared here rather than checked at request time so they cost
    * nothing per page view: a redirect in the config is matched before any
@@ -64,7 +90,11 @@ const nextConfig: NextConfig = {
    * a 404.
    */
   async redirects() {
-    return RETIRED_PRODUCT_URLS.map(({ from, to }) => ({
+    return [
+      ...RETIRED_PRODUCT_URLS,
+      ...RENAMED_PRODUCT_URLS,
+      ...RECATEGORISED_PRODUCT_URLS,
+    ].map(({ from, to }) => ({
       source: from,
       destination: to,
       permanent: true,

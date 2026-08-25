@@ -69,3 +69,66 @@ export const RETIRED_PRODUCT_URLS: readonly RetiredUrl[] = [
     to: "/shop/water-features",
   },
 ];
+
+/**
+ * Products whose slug was repaired, and the addresses they used to answer on.
+ *
+ * The slug audit (`scripts/audit-slugs.ts`) found two live products whose slug was not
+ * a slug: one held the entire title including a pipe character, the other held the
+ * marketing excerpt including a full stop. Both were being handed to Google in the
+ * sitemap as URLs full of `%20`.
+ *
+ * Renaming them is right, but a rename without a redirect is how a site loses pages it
+ * already had — so the old addresses keep answering, permanently, pointing at the new
+ * one. Unlike the retired URLs above these are not dead ends being softened: the exact
+ * page the visitor asked for still exists, it just lives at a readable address now.
+ *
+ * `from` is written **percent-encoded**, exactly as the character sequence a browser or
+ * a crawler puts on the wire. Next matches `redirects()` sources against the raw
+ * pathname, not the decoded one: verified on a running server, where a source written
+ * with literal spaces did not match the request at all, and the encoded source
+ * answered 308 to the new address.
+ */
+export const RENAMED_PRODUCT_URLS: readonly RetiredUrl[] = [
+  {
+    from: "/shop/rustic-reclaimed-furniture/Reclaimed%20Teak%20Dining%20Table%20180cm%20%7C%20Kaiku",
+    to: "/shop/rustic-reclaimed-furniture/reclaimed-teak-dining-table-180cm",
+  },
+  {
+    from: "/shop/lighting/Soft%20ambient%20lighting%20with%20timeless%20sculptural%20elegance.",
+    to: "/shop/lighting/small-rectangular-gesso-table-lamp",
+  },
+];
+
+/**
+ * Products that moved to a different category.
+ *
+ * Distinct from `RENAMED_PRODUCT_URLS` on purpose: that list is slug repairs,
+ * and it carries a tested invariant that the category segment never changes —
+ * which is what makes it obvious when an entry is describing something else.
+ * These entries change exactly that segment.
+ *
+ * A product's URL is built from its primary category, so re-parenting one moves
+ * its address. The two Tristan photo frames had been sitting in Mirrors long
+ * enough to be indexed there, and the Mirrors page is the one Damien was looking
+ * at when he said "all mirrors should be in this category" — they are frames.
+ * See scripts/canonicalise-categories.ts for the reasoning per product.
+ */
+export const RECATEGORISED_PRODUCT_URLS: readonly RetiredUrl[] = [
+  {
+    from: "/shop/mirrors/tristan-mirror-and-wood-4x6-frame",
+    to: "/shop/wall-art/tristan-mirror-and-wood-4x6-frame",
+  },
+  {
+    from: "/shop/mirrors/tristan-mirror-and-wood-5x7-frame",
+    to: "/shop/wall-art/tristan-mirror-and-wood-5x7-frame",
+  },
+  {
+    from: "/shop/wall-art/antique-etched-foxed-wall-art-mirror",
+    to: "/shop/mirrors/antique-etched-foxed-wall-art-mirror",
+  },
+  {
+    from: "/shop/christmas-decorations/large-grey-stone-effect-hurricane-lantern",
+    to: "/shop/candles-and-lanterns/large-grey-stone-effect-hurricane-lantern",
+  },
+];

@@ -130,13 +130,35 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     };
   });
 
-  // Signed-in customers get their order linked to their account (via
-  // client_reference_id, read back out in the Stripe webhook) so it shows up
-  // in their order history — guest checkout still works exactly as before.
+  /**
+   * **Sign-in is required to check out.** Damien: "checking out as a guest
+   * shouldnt be possible."
+   *
+   * The trade-off is real and worth stating: guest checkout exists because some
+   * buyers abandon rather than register, so this costs some conversion. What it
+   * buys is that every order is attached to a person — it appears in their own
+   * order history, they can track it without a magic link, and Kaiku never has
+   * an order it cannot tie to an account. His first live order was a guest
+   * checkout and consequently showed up nowhere in /account/orders, which is
+   * what prompted this.
+   *
+   * Enforced here, in the server action, rather than only by hiding the button:
+   * this is the only path that can create a Stripe session, so a signed-out
+   * request cannot reach payment however it was made.
+   */
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    // A redirect rather than a thrown error, for a practical reason: Next
+    // redacts server-action error messages in production, so a thrown
+    // "please sign in" would reach the cart as an opaque digest and render as
+    // "something went wrong". Sending them straight to the login page is both
+    // clearer and one fewer click.
+    redirect("/account/login?next=/cart");
+  }
 
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
@@ -159,9 +181,10 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
         },
       },
     ],
-    ...(user
-      ? { client_reference_id: user.id, customer_email: user.email }
-      : {}),
+    // Always set now that sign-in is required — the webhook reads
+    // client_reference_id back out to attach the order to this account.
+    client_reference_id: user.id,
+    customer_email: user.email,
   });
 
   if (!session.url) {

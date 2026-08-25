@@ -14,6 +14,21 @@ interface BuildMetadataInput {
   path: string;
   image?: string;
   noindex?: boolean;
+  /**
+   * The document's own SEO fields, which win over `title`, `description` and
+   * `image` when they are filled.
+   *
+   * Passed as the whole object rather than resolved at each call site because it was
+   * resolved at no call site: the `seo` group existed on five schemas, every page
+   * derived its own title and description from the product name and summary, and
+   * nothing ever read the fields. Every meta description in the dataset was
+   * decorative — including one that had a leaked prompt in it.
+   */
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+    ogImage?: string | null;
+  } | null;
 }
 
 /**
@@ -25,14 +40,21 @@ interface BuildMetadataInput {
  * should use the full object it returns rather than spreading over it.
  */
 export function buildMetadata({
-  title,
-  description,
+  title: derivedTitle,
+  description: derivedDescription,
   path,
   image,
   noindex,
+  seo,
 }: BuildMetadataInput): Metadata {
   const url = path === "/" ? siteConfig.url : `${siteConfig.url}${path}`;
-  const ogImage = image ?? DEFAULT_OG_IMAGE;
+  // Whitespace-only counts as empty: a field an editor opened and left is not an
+  // override, and publishing " " as a description is worse than deriving one.
+  const override = (value?: string | null) =>
+    value && value.trim() ? value.trim() : undefined;
+  const title = override(seo?.metaTitle) ?? derivedTitle;
+  const description = override(seo?.metaDescription) ?? derivedDescription;
+  const ogImage = override(seo?.ogImage) ?? image ?? DEFAULT_OG_IMAGE;
 
   /**
    * Most product titles already end in the brand ("… | Kaiku") — 37 of 39 at

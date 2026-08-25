@@ -12,6 +12,8 @@ import { getNavigation } from "@/lib/sanity/queries/navigation";
 import { getSiteSettings } from "@/lib/sanity/queries/site-settings";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
 
+import { AdminBar } from "./admin-bar";
+
 /**
  * Chrome for every standard storefront route (header + footer) plus smooth
  * scroll. Lenis is scoped to this group deliberately — its `root` mode
@@ -51,6 +53,10 @@ export default async function SiteLayout({
               settings={settings}
               onNewsletterSubscribe={subscribeToNewsletter}
             />
+            {/* Renders nothing at all unless the visitor is an authorised
+                admin — see the note in admin-bar.tsx about why it is resolved
+                server-side rather than hidden with CSS. */}
+            <AdminBar />
           </SmoothScroll>
         </RecentlyViewedProvider>
       </SavedProductsProvider>

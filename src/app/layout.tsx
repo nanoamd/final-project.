@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
@@ -9,6 +8,7 @@ import { CookieConsentBanner } from "@/components/shared/cookie-consent-banner";
 import { GoogleAnalytics } from "@/components/shared/google-analytics";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/shared/json-ld";
 import { MetaPixel } from "@/components/shared/meta-pixel";
+import { SiteAnalytics } from "@/components/shared/site-analytics";
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import { CookieConsentProvider } from "@/hooks/use-cookie-consent";
@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <MetaPixel />
           <CookieConsentBanner />
         </CookieConsentProvider>
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

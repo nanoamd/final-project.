@@ -1,6 +1,8 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
+import { deliveryWindow } from "@/lib/catalog/delivery";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
+import type { SanityProduct } from "@/types/sanity-content";
 
 export const revalidate = 3600;
 
@@ -165,14 +167,33 @@ export async function GET() {
       const link = `${siteUrl}/shop/${product.category}/${product.slug}`;
       const priceValue = `${product.price.toFixed(2)} ${(product.currency || "GBP").toUpperCase()}`;
       const type = productType(product);
-      const handling = handlingDays(product.deliveryLeadTime);
+      // The same window the product page states, via the shared rule — a feed
+      // that promised a different lead time from the page it links to is
+      // exactly the misrepresentation Merchant Center suspends accounts for.
+      const handling = handlingDays(
+        deliveryWindow({
+          price: product.price,
+          deliveryLeadTime: product.deliveryLeadTime ?? undefined,
+          supplier: product.supplierName
+            ? { name: product.supplierName }
+            : null,
+        } as SanityProduct),
+      );
 
       return `  <item>
     <g:id>${escapeXml(product.slug)}</g:id>
     <title>${escapeXml(product.title)}</title>
     <description>${escapeXml(product.summary)}</description>
     <link>${escapeXml(link)}</link>
-    ${product.image ? `<g:image_link>${escapeXml(product.image)}</g:image_link>` : ""}
+    ${
+      // feedImage first: a square 1:1 render honouring the hero's tightened crop, so
+      // the product fills the Shopping tile instead of sitting in reclaimable white
+      // space. Falls back to the raw asset for any product whose hero has no crop —
+      // which is what was sent before, so a missing crop degrades rather than breaks.
+      product.feedImage || product.image
+        ? `<g:image_link>${escapeXml(product.feedImage || product.image!)}</g:image_link>`
+        : ""
+    }
     <g:availability>${mapAvailability(product.stockStatus)}</g:availability>
     <g:price>${priceValue}</g:price>
     <g:condition>new</g:condition>

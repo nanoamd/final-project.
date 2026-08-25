@@ -77,12 +77,20 @@ export interface SanityBrand {
   logo?: string | null;
 }
 
+/**
+ * What the *storefront* may know about a supplier: the name, and nothing else.
+ *
+ * The supplier document in Sanity also carries a trade contact name, email and
+ * phone. Those are commercially sensitive — a competitor reading this site's
+ * page source should not be handed Kaiku's supplier list and the person to ring
+ * — and the contact name is a real individual's personal data. They are read
+ * only server-side, in admin, by `src/server/suppliers/contacts.ts`.
+ *
+ * Deliberately narrow rather than optional: the product query is shared with
+ * client components, so anything on this interface ends up in the browser.
+ */
 export interface SanitySupplier {
   name: string;
-  contactName?: string;
-  email?: string;
-  phone?: string;
-  defaultLeadTimeDays?: number;
 }
 
 export interface SanityDepartment {
@@ -127,6 +135,27 @@ export interface SanityCategory {
   comingSoon: boolean;
   /** Live count via GROQ count(), not editor-entered. */
   productCount: number;
+  /**
+   * The category's own page content — introduction, buying guidance, FAQs and the
+   * categories to send someone to next.
+   *
+   * All optional: a category without them renders exactly as it did before, which
+   * is what lets the copy be written a few categories at a time rather than all 43
+   * before anything ships.
+   */
+  intro?: PortableTextBlock[] | null;
+  buyingGuide?: PortableTextBlock[] | null;
+  faqs?: { question: string; answer: string }[] | null;
+  /** Editor-set meta title, meta description and share image. */
+  seo?: SanitySeo | null;
+  relatedCategories?:
+    | ({
+        slug: string;
+        name: string;
+        description?: string;
+        stocked?: boolean;
+      } | null)[]
+    | null;
   image?: string | null;
 }
 
@@ -211,6 +240,8 @@ export interface SanityProduct {
   rating?: number;
   reviewCount?: number;
   faqs: SanityProductFaq[];
+  /** Editor-set meta title, meta description and share image. */
+  seo?: SanitySeo | null;
   departmentSlug?: string | null;
 }
 
@@ -235,8 +266,33 @@ export interface SanityAuthor {
   bio?: string;
 }
 
+/**
+ * A product referenced by an article.
+ *
+ * Everything past `slug` is optional because two callers want different amounts:
+ * the product page only needs to know *whether* a guide points at it, while the
+ * article itself has to render a link a reader can follow — and a link a crawler
+ * can follow, which is the whole reason the references are worth having.
+ */
+/**
+ * The SEO overrides an editor can set on any content document.
+ *
+ * Optional throughout: an empty field means "derive it", which is what every page did
+ * unconditionally until these were wired up.
+ */
+export interface SanitySeo {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  ogImage?: string | null;
+}
+
 export interface SanityRelatedProductRef {
   slug: string;
+  title?: string;
+  /** Category slug, needed to build the product's URL. */
+  category?: string | null;
+  price?: number | null;
+  image?: string | null;
 }
 
 export interface SanityRelatedCategoryRef {
@@ -254,6 +310,7 @@ export interface SanityPost {
   publishedAt: string;
   tags?: string[];
   relatedProducts?: SanityRelatedProductRef[];
+  seo?: SanitySeo | null;
 }
 
 export interface SanityBuyingGuide {
@@ -266,6 +323,7 @@ export interface SanityBuyingGuide {
   publishedAt: string;
   relatedCategory?: SanityRelatedCategoryRef | null;
   relatedProducts?: SanityRelatedProductRef[];
+  seo?: SanitySeo | null;
 }
 
 export interface SanityPage {

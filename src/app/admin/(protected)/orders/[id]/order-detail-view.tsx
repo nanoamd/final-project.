@@ -15,12 +15,15 @@ import {
   toggleOrderFlag,
   updateTradeCost,
 } from "@/server/actions/hq-orders";
+import type { SupplierOrderDraft } from "@/server/actions/supplier-orders";
 import {
   EXCEPTION_STAGES,
   nextStage,
   stageLabel,
   stagesForWorkflow,
 } from "@/server/hq/workflows";
+
+import { SupplierPanel } from "./supplier-panel";
 
 function formatDate(value: string | null) {
   if (!value) return null;
@@ -42,10 +45,19 @@ function formatDateOnly(value: string | null) {
   });
 }
 
-export function OrderDetailView({ order }: { order: HqOrderDetail }) {
+export function OrderDetailView({
+  order,
+  supplierDrafts,
+}: {
+  order: HqOrderDetail;
+  supplierDrafts: SupplierOrderDraft[];
+}) {
   const [pending, setPending] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [note, setNote] = React.useState("");
+  // Separate from the internal `note` above: that one is a private timeline
+  // entry, this one goes to the customer in the stage email.
+  const [customerNote, setCustomerNote] = React.useState("");
   const [tracking, setTracking] = React.useState({
     carrier: order.trackingCarrier ?? "",
     number: order.trackingNumber ?? "",
@@ -155,11 +167,44 @@ export function OrderDetailView({ order }: { order: HqOrderDetail }) {
           ) : null}
 
           <div className="mt-5 flex flex-col gap-2 border-t border-neutral-100 pt-5">
+            {/* Goes into the email this stage change sends, wherever the
+                template puts {{customerNote}}. Cleared after it is used so the
+                next stage change cannot accidentally repeat it. */}
+            <label
+              htmlFor="customer-note"
+              className="text-xs font-medium tracking-[0.08em] text-neutral-400 uppercase"
+            >
+              Add to the customer&rsquo;s email
+            </label>
+            <textarea
+              id="customer-note"
+              rows={3}
+              value={customerNote}
+              onChange={(e) => setCustomerNote(e.target.value)}
+              placeholder="Optional — why it is delayed, what has been agreed, anything specific to this order."
+              className="rounded-lg border border-neutral-200 px-3 py-2 text-xs text-neutral-700 placeholder:text-neutral-400"
+            />
+            <p className="mb-1 text-[11px] text-neutral-400">
+              Appears in the email as{" "}
+              <code className="text-neutral-500">{"{{customerNote}}"}</code>,
+              and is saved to this order&rsquo;s timeline. Leave it empty and
+              the email sends without it.
+            </p>
+
             {next ? (
               <button
                 type="button"
                 disabled={pending}
-                onClick={() => run(() => advanceOrderStage(order.id))}
+                onClick={() =>
+                  run(async () => {
+                    const result = await advanceOrderStage(
+                      order.id,
+                      customerNote,
+                    );
+                    if (result.ok) setCustomerNote("");
+                    return result;
+                  })
+                }
                 className="rounded-lg bg-neutral-900 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800 disabled:opacity-50"
               >
                 Advance to {stageLabel(next)}
@@ -173,7 +218,15 @@ export function OrderDetailView({ order }: { order: HqOrderDetail }) {
               value=""
               onChange={(e) => {
                 if (e.target.value)
-                  run(() => setOrderStage(order.id, e.target.value));
+                  run(async () => {
+                    const result = await setOrderStage(
+                      order.id,
+                      e.target.value,
+                      customerNote,
+                    );
+                    if (result.ok) setCustomerNote("");
+                    return result;
+                  });
               }}
               className="rounded-lg border border-neutral-200 px-3 py-2 text-xs text-neutral-600"
             >
@@ -397,6 +450,10 @@ export function OrderDetailView({ order }: { order: HqOrderDetail }) {
 
         {/* The work */}
         <div className="flex flex-col gap-5">
+          {/* First in this column deliberately: on a freshly paid order this is
+              the next thing that has to happen. */}
+          <SupplierPanel orderId={order.id} drafts={supplierDrafts} />
+
           <div className="rounded-xl border border-neutral-200 bg-white p-5">
             <p className="text-xs font-medium tracking-[0.08em] text-neutral-400 uppercase">
               Warranty

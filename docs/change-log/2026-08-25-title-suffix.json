@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-08-25T19:04:09.942Z",
+  "applied": true,
+  "fixes": [
+    {
+      "id": "premier-housewares-5100316",
+      "from": "Thread and Loom 6 Piece Lilac Towel Set",
+      "to": "Thread and Loom 6 Piece Lilac Towel Set | Kaiku",
+      "why": "no suffix"
+    },
+    {
+      "id": "premier-housewares-5100314",
+      "from": "Thread and Loom 6 Piece Mustard Towel Set",
+      "to": "Thread and Loom 6 Piece Mustard Towel Set | Kaiku",
+      "why": "no suffix"
+    },
+    {
+      "id": "premier-housewares-5100312",
+      "from": "Thread and Loom 6 Piece Navy Blue Towel Set",
+      "to": "Thread and Loom 6 Piece Navy Blue Towel Set | Kaiku",
+      "why": "no suffix"
+    },
+    {
+      "id": "premier-housewares-5100313",
+      "from": "Thread and Loom 6 Piece Peach Pink Towel Set",
+      "to": "Thread and Loom 6 Piece Peach Pink Towel Set | Kaiku",
+      "why": "no suffix"
+    }
+  ],
+  "supplierInTitle": [
+    {
+      "id": "product-aw-eo-03",
+      "title": "Eucalyptus Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "supplier": "Ancient Wisdom"
+    },
+    {
+      "id": "product-aw-eo-76",
+      "title": "Sweet Birch Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "supplier": "Ancient Wisdom"
+    },
+    {
+      "id": "product-aw-preo-76",
+      "title": "Sweet Birch Essential Oil 50ml | Ancient Wisdom | Kaiku",
+      "supplier": "Ancient Wisdom"
+    }
+  ]
+}

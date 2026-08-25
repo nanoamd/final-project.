@@ -52,8 +52,11 @@ export default async function AccountOrdersPage() {
           {orders.map((order) => (
             <li key={order.id} className="border-line rounded-xl border p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
+                {/* The order number leads, not the total. When a customer gets
+                    in touch it is the reference they quote, so it has to be the
+                    thing they can find at a glance. */}
                 <p className="font-display text-ink text-lg">
-                  {formatOrderTotal(order.amountTotal, order.currency)}
+                  {order.orderNumber ?? "Order"}
                 </p>
                 <p className="text-muted text-[13px]">
                   {new Date(order.createdAt).toLocaleDateString("en-GB", {
@@ -63,7 +66,10 @@ export default async function AccountOrdersPage() {
                   })}
                 </p>
               </div>
-              <div className="mt-1 flex items-center gap-3">
+              <div className="mt-1 flex flex-wrap items-center gap-3">
+                <p className="text-ink text-[14px] font-medium">
+                  {formatOrderTotal(order.amountTotal, order.currency)}
+                </p>
                 <p className="text-muted text-[13px] tracking-[0.1em] uppercase">
                   {order.status}
                 </p>

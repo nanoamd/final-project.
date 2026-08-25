@@ -5,6 +5,7 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 
 import { getAuthorizedAdmin } from "@/server/auth/admin";
+import { sendStageEmail } from "@/server/emails/send-stage-email";
 import { nextStage, stageLabel } from "@/server/hq/workflows";
 import { createAdminClient } from "@/server/supabase/admin";
 
@@ -31,6 +32,8 @@ export interface HqOrderEvent {
 
 export interface HqOrderDetail {
   id: string;
+  /** The readable "KH-1042" reference. Null on orders predating migration 0005. */
+  orderNumber: string | null;
   createdAt: string;
   amountTotal: number;
   currency: string;
@@ -96,6 +99,7 @@ export async function getOrderDetail(
 
   return {
     id: order.id,
+    orderNumber: order.order_number ?? null,
     createdAt: order.created_at,
     amountTotal: order.amount_total,
     currency: order.currency,
@@ -161,6 +165,7 @@ function revalidateOrder(orderId: string) {
  * build, not this one. */
 export async function advanceOrderStage(
   orderId: string,
+  customerNote?: string,
 ): Promise<HqActionResult> {
   if (!(await requireAdmin())) return { ok: false, error: "Unauthorized." };
   const admin = createAdminClient();
@@ -191,6 +196,25 @@ export async function advanceOrderStage(
     title: `Moved to ${stageLabel(next)}`,
   });
 
+  // Tells the customer, if this is a stage they should hear about. Never
+  // throws and never sends twice — see sendStageEmail. `note` becomes
+  // {{customerNote}} in the email, and is recorded on the timeline below so
+  // there is a record of exactly what the customer was told.
+  const note = customerNote?.trim() || null;
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage: next,
+    context: note ? { note } : undefined,
+  });
+  if (note) {
+    await writeEvent(admin, orderId, {
+      type: "note",
+      title: "Note included in the customer's email",
+      detail: note,
+    });
+  }
+
   revalidateOrder(orderId);
   return { ok: true };
 }
@@ -202,6 +226,7 @@ export async function advanceOrderStage(
 export async function setOrderStage(
   orderId: string,
   stage: string,
+  customerNote?: string,
 ): Promise<HqActionResult> {
   if (!(await requireAdmin())) return { ok: false, error: "Unauthorized." };
   const admin = createAdminClient();
@@ -217,6 +242,25 @@ export async function setOrderStage(
     stage,
     title: `Set to ${stageLabel(stage)}`,
   });
+
+  // Jumping straight to cancelled/refunded/on_hold is exactly when the
+  // customer most needs telling, so this path notifies as well — and it is
+  // where the note matters most, since "cancelled" with no reason given is
+  // worse than no email.
+  const note = customerNote?.trim() || null;
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage,
+    context: note ? { note } : undefined,
+  });
+  if (note) {
+    await writeEvent(admin, orderId, {
+      type: "note",
+      title: "Note included in the customer's email",
+      detail: note,
+    });
+  }
 
   revalidateOrder(orderId);
   return { ok: true };
@@ -286,6 +330,20 @@ export async function setOrderTracking(
   await writeEvent(admin, orderId, {
     type: "edit",
     title: `Tracking added — ${input.carrier.trim()} ${input.number.trim()}`,
+  });
+
+  // Entering tracking is the moment a dispatch email becomes worth sending —
+  // it is the first point at which there is something for the customer to
+  // follow. Passing the values explicitly avoids racing the update above.
+  await sendStageEmail({
+    admin,
+    orderId,
+    stage: "tracking",
+    context: {
+      trackingCarrier: input.carrier.trim(),
+      trackingNumber: input.number.trim(),
+      trackingUrl: input.url?.trim() || null,
+    },
   });
 
   revalidateOrder(orderId);

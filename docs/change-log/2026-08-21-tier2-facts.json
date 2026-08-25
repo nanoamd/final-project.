@@ -1,0 +1,470 @@
+{
+  "generatedAt": "2026-08-21T07:10:14.004Z",
+  "applied": false,
+  "changes": [
+    {
+      "id": "drafts.product-aw-acshop-17",
+      "title": "Tall Reclaimed Teak Chest of 5 Drawers",
+      "question": "What are the dimensions of the chest?",
+      "before": "The specific dimensions are not listed. Please refer to the instruction manual or contact customer support for further information.",
+      "after": "The Tall Reclaimed Teak Chest of 5 Drawers measures 48 × 40 × 110cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-aw-acshop-21",
+      "title": "Large Reclaimed Wood Coffee Table",
+      "question": "What are the dimensions of the table?",
+      "before": "The specific dimensions of the table are not listed. We recommend measuring your space before purchase.",
+      "after": "The Large Reclaimed Wood Coffee Table measures 122 × 61 × 41cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-aw-csalt-01",
+      "title": "Himalayan Salt BBQ Cooking Plate",
+      "question": "What are the dimensions of the plate?",
+      "before": "The overall dimensions of the Himalayan Salt BBQ Cooking Plate are not listed. Please refer to the instruction manual for specifics.",
+      "after": "The Himalayan Salt BBQ Cooking Plate measures 30 × 20 × 5cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-aw-rwa-01",
+      "title": "Tamarind & Resin Coffee Table – Aqua",
+      "question": "What are the dimensions of the Tamarind & Resin Coffee Table?",
+      "before": "The dimensions of the coffee table are not provided. To ensure a good fit for your space, please refer to the supplied instruction manual.",
+      "after": "The Tamarind & Resin Coffee Table – Aqua measures 46cm long and 47cm wide.",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-aw-ssm-01",
+      "title": "Soft Squiggly Mirror – Cloud – Cloud Blue",
+      "question": "How heavy is the mirror?",
+      "before": "The weight of the mirror is not specified. Refer to the user manual or customer support for guidance on suitable fixings.",
+      "after": "The Soft Squiggly Mirror – Cloud – Cloud Blue weighs 0.519kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-aw-ssm-02",
+      "title": "Soft Squiggly Mirror – Oval Pebble – Royal Teal",
+      "question": "How heavy is the mirror?",
+      "before": "The product weight is not specified. Please consult the instruction manual or customer support for inquiries regarding the weight.",
+      "after": "The Soft Squiggly Mirror – Oval Pebble – Royal Teal weighs 0.466kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-aw-ssm-04",
+      "title": "Soft Squiggly Mirror – Square Pebble – Rose Blush",
+      "question": "What is the weight of the mirror?",
+      "before": "The weight of this mirror is not specified. Make sure to use appropriate fixings based on the eventual weight.",
+      "after": "The Soft Squiggly Mirror – Square Pebble – Rose Blush weighs 0.417kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-aw-ssm-05",
+      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue",
+      "question": "How heavy is the Soft Squiggly Mirror?",
+      "before": "The weight of the mirror is not specified, so ensure you choose appropriate fixings based on your wall type.",
+      "after": "The Soft Squiggly Mirror – Chunky Frame – Royal Blue weighs 0.58kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-aw-waterf-20",
+      "title": "Buddha Hand & Head Tabletop Water Feature",
+      "question": "What are the dimensions and weight of the feature?",
+      "before": "The exact dimensions and weight are not specified. Check the instruction manual or contact customer support for these details.",
+      "after": "The Buddha Hand & Head Tabletop Water Feature measures 20 × 25 × 35cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-aw-waterf-23",
+      "title": "Pebble Wall Tabletop Water Feature with Crystal Ball",
+      "question": "How heavy is the water feature for moving?",
+      "before": "The product weight is not provided on the page. For this information, please check with the customer support.",
+      "after": "The Pebble Wall Tabletop Water Feature with Crystal Ball weighs 1.39kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "question": "What are the dimensions of this table?",
+      "before": "The dimensions of the table are not specified. To find out whether it fits your space, you may need to check the instruction manual or contact customer support.",
+      "after": "The Amalfi Collection Outdoor Bistro Table With Wood Top measures 70 × 70 × 72cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-black-cannon-table-lamp-with-hessian-shade",
+      "title": "Black Cannon Table Lamp With Hessian Shade",
+      "question": "What are the dimensions of the table lamp?",
+      "before": "The exact dimensions are not listed. Refer to the instruction manual for size details, if available.",
+      "after": "The Black Cannon Table Lamp With Hessian Shade measures 25 × 25 × 61cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-blue-agapanthus-plant-in-pot",
+      "title": "Blue Agapanthus Plant In Pot",
+      "question": "How heavy is the pot when filled?",
+      "before": "The weight of the pot when empty is not provided, but keep in mind that the filled weight will be considerably higher.",
+      "after": "The Blue Agapanthus Plant In Pot weighs 0.82kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-coffee-ombre-set-of-6-baubles",
+      "title": "Coffee Ombre Set Of 6 Baubles",
+      "question": "What are the dimensions of the baubles?",
+      "before": "The exact dimensions of the baubles are not provided. For size details, please refer to the instruction manual or contact customer support.",
+      "after": "The Coffee Ombre Set Of 6 Baubles measures 8 × 8 × 8cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-decorative-hanging-black-mirror",
+      "title": "Decorative Hanging Black Mirror",
+      "question": "How heavy is the mirror?",
+      "before": "The weight of the product is not specified.",
+      "after": "The Decorative Hanging Black Mirror weighs 1.58kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-dunum-column-table-lamp-with-linen-shade",
+      "title": "Dunum Column Table Lamp With Linen Shade",
+      "question": "What are the dimensions of this lamp?",
+      "before": "The specific height, diameter, and adjustable drop or cable length are not listed. Consider your available space for appropriate placement.",
+      "after": "The Dunum Column Table Lamp With Linen Shade measures 13 × 13 × 44cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-echo-putty-grey-chair",
+      "title": "Echo Putty Grey Chair",
+      "question": "What are the dimensions of the chair?",
+      "before": "The overall dimensions are not specified. Please refer to the instruction manual or customer support for further details.",
+      "after": "The Echo Putty Grey Chair measures 50 × 55 × 77cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-incia-column-table-lamp",
+      "title": "Incia Column Table Lamp",
+      "question": "What are the dimensions of the Incia Column Table Lamp?",
+      "before": "The dimensions of the lamp are not specified. Please check the instruction manual or contact customer support for precise measurements.",
+      "after": "The Incia Column Table Lamp measures 12 × 12 × 50cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-incia-fluted-wooden-table-lamp",
+      "title": "Incia Fluted Wooden Table Lamp",
+      "question": "What are the dimensions of this lamp?",
+      "before": "Dimensions are not specified. Please refer to the instruction manual for complete details.",
+      "after": "The Incia Fluted Wooden Table Lamp measures 12 × 12 × 53cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-large-rustic-metal-hanging-bell",
+      "title": "Large Rustic Metal Hanging Bell",
+      "question": "What are the dimensions of the bell?",
+      "before": "Specifications for dimensions are not listed. Please consult customer support for more information.",
+      "after": "The Large Rustic Metal Hanging Bell measures 8 × 8 × 10cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-large-whitewashed-rustic-hanging-angel",
+      "title": "Large Whitewashed Rustic Hanging Angel",
+      "question": "What are the dimensions of the hanging angel?",
+      "before": "The dimensions of the Large Whitewashed Rustic Hanging Angel are not listed. Please refer to the supplied instruction manual or customer support.",
+      "after": "The Large Whitewashed Rustic Hanging Angel measures 6 × 15 × 20cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-lattice-ceramic-table-lamp-with-linen-shade",
+      "title": "Lattice Ceramic Table Lamp With Linen Shade",
+      "question": "What are the dimensions of this lamp?",
+      "before": "Overall dimensions are not specified. For details about its fit in your space, please refer to the instruction manual or customer support.",
+      "after": "The Lattice Ceramic Table Lamp With Linen Shade measures 38 × 38 × 58cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-lennox-black-drinks-unit",
+      "title": "Lennox Black Drinks Unit",
+      "question": "What are the dimensions of the unit?",
+      "before": "Overall dimensions are not specified. Please check with customer support to confirm if it fits your intended space.",
+      "after": "The Lennox Black Drinks Unit measures 39 × 50 × 183cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-medium-jute-hanging-star",
+      "title": "Medium Jute Hanging Star",
+      "question": "What are the dimensions of the star?",
+      "before": "The overall dimensions are not listed. Please refer to the supplied instruction manual or contact customer support for details.",
+      "after": "The Medium Jute Hanging Star measures 20 × 20 × 6cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-medium-rustic-metal-reindeer-on-stand",
+      "title": "Medium Rustic Metal Reindeer On Stand",
+      "question": "What are the dimensions of the reindeer?",
+      "before": "The exact dimensions are not listed. Please refer to the supplied instruction manual or contact customer support for details.",
+      "after": "The Medium Rustic Metal Reindeer On Stand measures 11 × 20 × 29cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-nahla-large-mirror-with-dimpled-frame",
+      "title": "Nahla Large Mirror With Dimpled Frame",
+      "question": "How heavy is the mirror?",
+      "before": "The weight of the mirror is not specified.",
+      "after": "The Nahla Large Mirror With Dimpled Frame weighs 8kg. One person can manage it comfortably.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-natural-wooden-snow-scene-tree-decoration",
+      "title": "Natural Wooden Snow Scene Tree Decoration",
+      "question": "What are the dimensions of this decoration?",
+      "before": "Overall dimensions are not listed. Please refer to the supplied instruction manual or customer support for specifics.",
+      "after": "The Natural Wooden Snow Scene Tree Decoration measures 4 × 15 × 20cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-ossia-table-lamp-with-linen-shade",
+      "title": "Ossia Table Lamp With Linen Shade",
+      "question": "What are the dimensions of the Ossia Table Lamp?",
+      "before": "The overall dimensions are not listed. We recommend referencing the instruction manual or customer support for more details.",
+      "after": "The Ossia Table Lamp With Linen Shade measures 38 × 38 × 71cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-oura-round-coffee-table",
+      "title": "Oura Round Coffee Table",
+      "question": "What are the dimensions of the Oura Round Coffee Table?",
+      "before": "Overall dimensions are not specified. It's best to consult the instruction manual or contact customer support for specific measurements.",
+      "after": "The Oura Round Coffee Table measures 72 × 72 × 40cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-palmyra-column-table-lamp-with-linen-shade",
+      "title": "Palmyra Column Table Lamp With Linen Shade",
+      "question": "What are the dimensions of the lamp?",
+      "before": "The specific dimensions of the Palmyra Column Table Lamp are not provided. Please assess your placement needs based on general table lamp sizing.",
+      "after": "The Palmyra Column Table Lamp With Linen Shade measures 10 × 10 × 20cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-pella-table-lamp",
+      "title": "Pella Table Lamp",
+      "question": "What are the dimensions of the Pella Table Lamp?",
+      "before": "Overall dimensions are not provided; please consult your existing space or the supplier for specifics.",
+      "after": "The Pella Table Lamp measures 20 × 20 × 38cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-rustic-hanging-santa-star",
+      "title": "Rustic Hanging Santa Star",
+      "question": "What are the dimensions of the Rustic Hanging Santa Star?",
+      "before": "Overall dimensions are not specified; please refer to the supplied instruction manual or customer support.",
+      "after": "The Rustic Hanging Santa Star measures 2 × 9 × 14cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-setia-column-table-lamp-with-linen-shade",
+      "title": "Setia Column Table Lamp With Linen Shade",
+      "question": "How heavy is the lamp?",
+      "before": "Weight specifications for the lamp are not listed; please consider this when deciding on placement.",
+      "after": "The Setia Column Table Lamp With Linen Shade weighs 0.4kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-silver-pinecone-finial",
+      "title": "Silver Pinecone Finial",
+      "question": "What are the dimensions of the finial?",
+      "before": "The measurements are not provided; refer to customer support for information.",
+      "after": "The Silver Pinecone Finial measures 15 × 15 × 23cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-slim-snowy-woodland-pre-lit-200-led-christmas-tree",
+      "title": "Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree",
+      "question": "What are the dimensions of the tree?",
+      "before": "The overall dimensions of the tree are not specified.",
+      "after": "The Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree measures 91 × 91 × 210cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "drafts.product-import-tuscan-grey-lamp",
+      "title": "Tuscan Grey Lamp",
+      "question": "How heavy is the Tuscan Grey Lamp?",
+      "before": "The weight of the Tuscan Grey Lamp is not specified. For weight details, please refer to the instruction manual.",
+      "after": "The Tuscan Grey Lamp weighs 3.79kg.",
+      "source": "weight field"
+    },
+    {
+      "id": "drafts.product-import-white-wash-collection-wooden-large-patterned-decorative-tree",
+      "title": "White Wash Collection Wooden Large Patterned Decorative Tree",
+      "question": "What are the dimensions of the decorative tree?",
+      "before": "The overall dimensions are not listed. Please refer to the supplied instruction manual or customer support.",
+      "after": "The White Wash Collection Wooden Large Patterned Decorative Tree measures 6 × 32 × 43cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-17461",
+      "title": "Set Of Three Wooden Lanterns With Archway Design | Kaiku",
+      "question": "What are the dimensions of the lanterns?",
+      "before": "The exact dimensions are not specified but they come in three varying sizes.",
+      "after": "The Set Of Three Wooden Lanterns With Archway Design measures 31 × 31 × 104cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-17857",
+      "title": "Silver Heart Skeleton Wall Clock | Kaiku",
+      "question": "What is the size of the clock?",
+      "before": "Specific dimensions are not provided, but it is designed to be a perfect fit for wall displays in various room sizes.",
+      "after": "The Silver Heart Skeleton Wall Clock measures 4 × 89 × 89cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-17858",
+      "title": "Large Silver Skeleton Wall Clock | Kaiku",
+      "question": "What is the size of the Large Silver Skeleton Wall Clock?",
+      "before": "Specific dimensions are not provided, but it is designed to be a large statement piece suitable for any prominent wall.",
+      "after": "The Large Silver Skeleton Wall Clock measures 4 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-20836",
+      "title": "Tristan Mirror And Wood 4X6 Frame | Kaiku",
+      "question": "What are the dimensions of the Tristan Mirror?",
+      "before": "Unfortunately, specific dimensions were not provided, but it has a 4X6 frame size.",
+      "after": "The Tristan Mirror And Wood 4X6 Frame measures 2 × 24 × 29cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-20837",
+      "title": "Tristan Mirror And Wood 5X7 Frame | Kaiku",
+      "question": "What are the dimensions of the Tristan Mirror?",
+      "before": "Dimensions are not specified for this product, but it is designed for generous visual impact.",
+      "after": "The Tristan Mirror And Wood 5X7 Frame measures 2 × 26 × 31cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21615",
+      "title": "Roco Wall Clock | Kaiku",
+      "question": "What is the size of the Roco Wall Clock?",
+      "before": "Exact dimensions are not specified, but it's designed to fit comfortably on various wall sizes.",
+      "after": "The Roco Wall Clock measures 5 × 45 × 45cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21629",
+      "title": "Ashmount Large Wall Clock | Kaiku",
+      "question": "What is the size of the Ashmount Large Wall Clock?",
+      "before": "Exact dimensions are not specified, but it's designed to be a significant visual element in your space.",
+      "after": "The Ashmount Large Wall Clock measures 5 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21631",
+      "title": "Ashmount Wall Clock | Kaiku",
+      "question": "What is the size of the Ashmount Wall Clock?",
+      "before": "The specific dimensions of the Ashmount Wall Clock are not provided, but it is designed to be appropriately scaled for wall placement.",
+      "after": "The Ashmount Wall Clock measures 4 × 49 × 49cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21632",
+      "title": "Brandon Large Wall Clock | Kaiku",
+      "question": "What are the dimensions of the Brandon Large Wall Clock?",
+      "before": "Specific dimensions are not listed for the Brandon Large Wall Clock.",
+      "after": "The Brandon Large Wall Clock measures 5 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21633",
+      "title": "Karlsson Large Wall Clock | Kaiku",
+      "question": "What is the size of the Karlsson Large Wall Clock?",
+      "before": "The exact dimensions are not provided, but it is designed to be a large wall clock, ideal for making a statement in any space.",
+      "after": "The Karlsson Large Wall Clock measures 5 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21718",
+      "title": "Hammered Silver Astral Vase | Kaiku",
+      "question": "How big is the vase?",
+      "before": "The Hammered Silver Astral Vase is designed to suit various placements effectively, though specific dimensions are not provided.",
+      "after": "The Hammered Silver Astral Vase measures 39 × 39 × 38cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21761",
+      "title": "Garda Grey Glazed Gisela Vase | Kaiku",
+      "question": "What are the dimensions of the Garda Grey Glazed Gisela Vase?",
+      "before": "The dimensions are not specified, but it is designed to fit well in various spaces including shelves and tables.",
+      "after": "The Garda Grey Glazed Gisela Vase measures 17 × 17 × 57cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-21795",
+      "title": "Galaxy Silver And Grey Hand Painted Canvas | Kaiku",
+      "question": "What are the dimensions of the Galaxy Silver and Grey Hand Painted Canvas?",
+      "before": "The dimensions are not specified, but it is crafted to fit various wall sizes elegantly.",
+      "after": "The Galaxy Silver And Grey Hand Painted Canvas measures 4 × 150 × 150cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-24505",
+      "title": "Mistora Hand Painted Canvas In Frame | Kaiku",
+      "question": "What are the dimensions of the artwork?",
+      "before": "The dimensions were not specified; however, it is designed to fit well in various spaces.",
+      "after": "The Mistora Hand Painted Canvas In Frame measures 3 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "hill-decor-24506",
+      "title": "Silvra Hand Painted Canvas In Frame | Kaiku",
+      "question": "What is the size of the Silvra Hand Painted Canvas?",
+      "before": "The dimensions of the Silvra Hand Painted Canvas are not specified, but it is designed to fit well in various room sizes.",
+      "after": "The Silvra Hand Painted Canvas In Frame measures 3 × 80 × 80cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-belluno-urn-table-lamp-with-linen-shade",
+      "title": "Belluno Urn Table Lamp With Linen Shade | Kaiku",
+      "question": "What are the dimensions of the lamp?",
+      "before": "The Belluno Urn Table Lamp dimensions are not specified. Please refer to the product page for updated information.",
+      "after": "The Belluno Urn Table Lamp With Linen Shade measures 11 × 11 × 24cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-large-grey-stone-effect-hurricane-lantern",
+      "title": "Large Grey Stone Effect Hurricane Lantern | Kaiku",
+      "question": "What are the dimensions of the lantern?",
+      "before": "Unfortunately, dimensions are not specified at this time, but it is designed to fit well in various settings.",
+      "after": "The Large Grey Stone Effect Hurricane Lantern measures 20 × 20 × 32cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-large-rustic-metal-hanging-bell",
+      "title": "Large Rustic Metal Hanging Bell | Kaiku",
+      "question": "What is the size of the bell?",
+      "before": "The exact dimensions are not specified, but it is designed to be large enough to make a statement.",
+      "after": "The Large Rustic Metal Hanging Bell measures 8 × 8 × 10cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-lennox-black-2-door-side-cupboard",
+      "title": "Lennox Black 2 Door Side Cupboard | Kaiku",
+      "question": "What are the dimensions of the Lennox Black 2 Door Side Cupboard?",
+      "before": "Dimensions are not specified, but the cupboard is designed to fit comfortably in various spaces.",
+      "after": "The Lennox Black 2 Door Side Cupboard measures 43 × 49 × 67cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-nahla-large-mirror-with-dimpled-frame",
+      "title": "Nahla Large Mirror With Dimpled Frame | Kaiku",
+      "question": "What is the size of the Nahla Large Mirror?",
+      "before": "Specific dimensions are not listed, but it is designed to be large and impactful in any room.",
+      "after": "The Nahla Large Mirror With Dimpled Frame measures 3 × 86 × 82cm (length × width × height).",
+      "source": "dimensions field"
+    },
+    {
+      "id": "product-import-slim-snowy-woodland-pre-lit-200-led-christmas-tree",
+      "title": "Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree | Kaiku",
+      "question": "What are the dimensions of the Slim Snowy Woodland tree?",
+      "before": "The specific dimensions are not provided, but this tree is designed to have a slim profile, ideal for tighter spaces.",
+      "after": "The Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree measures 91 × 91 × 210cm (length × width × height).",
+      "source": "dimensions field"
+    }
+  ]
+}

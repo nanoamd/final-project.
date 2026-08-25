@@ -4,7 +4,7 @@ import { ShopAll } from "@/features/storefront/components/category/shop-all";
 import { getCategories, getCategory } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const categories = await getCategories();
@@ -25,6 +25,7 @@ export async function generateMetadata({
       "Browse the full Kaiku collection — premium outdoor living and wellness pieces.",
     path: `/shop/${category}`,
     image: found?.image ?? undefined,
+    seo: found?.seo,
     // An empty category is a thin page. `noindex, follow` keeps it reachable and
     // keeps link equity flowing through it, while keeping it out of the index
     // until it has products — better than being ranked for a page that shows

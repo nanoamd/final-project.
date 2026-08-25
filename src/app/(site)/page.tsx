@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 // Every other content page sets this 60s floor; the homepage was the one
 // page relying purely on on-demand webhook revalidation, so a missed/failed
 // webhook could leave it stale indefinitely.
-export const revalidate = 60;
+export const revalidate = 1800;
 
 export default function Page() {
   return <HomePage />;

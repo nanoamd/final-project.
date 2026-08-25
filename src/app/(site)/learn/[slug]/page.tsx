@@ -5,7 +5,7 @@ import { ArticleDetail } from "@/features/storefront/components/content/article-
 import { getBuyingGuide, getBuyingGuides } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const guides = await getBuyingGuides({ limit: 200 });
@@ -24,6 +24,7 @@ export async function generateMetadata({
     description: guide?.excerpt ?? "Considered buying guides from Kaiku.",
     path: `/learn/${slug}`,
     image: guide?.coverImage ?? undefined,
+    seo: guide?.seo,
   });
 }
 
@@ -46,6 +47,7 @@ export default async function BuyingGuidePage({
       publishedAt={guide.publishedAt}
       body={guide.body}
       relatedCategory={guide.relatedCategory}
+      relatedProducts={guide.relatedProducts}
     />
   );
 }

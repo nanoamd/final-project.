@@ -8,6 +8,8 @@ import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { cn } from "@/lib/utils";
 import type { SanityProductVideo } from "@/types/sanity-content";
 
+import { ImageLightbox } from "./image-lightbox";
+
 /**
  * Product gallery — a large primary image with a thumbnail row and prev/next
  * controls, driven by the product's real gallery. A product with no photos
@@ -53,6 +55,15 @@ export function ProductGallery({
   const go = (delta: number) =>
     setActive((i) => (i + delta + slides.length) % slides.length);
 
+  /**
+   * Which photo the viewer is showing, or null when it is closed.
+   *
+   * Indexed against `images` rather than `slides`: the viewer shows photographs,
+   * and a video has its own controls and no business being zoomed. So the two
+   * lists need translating between — hence `imageIndexOf` below.
+   */
+  const [zoomAt, setZoomAt] = React.useState<number | null>(null);
+
   // The parent re-filters `images` when a colour/option is selected — reset
   // to the first shot of the new set rather than an index that may no
   // longer exist (or now points at an unrelated photo). Compared by content
@@ -67,6 +78,19 @@ export function ProductGallery({
     setLastImagesKey(imagesKey);
     setActive(0);
   }
+
+  /** The `images` index of a slide, or null for the video slide. */
+  const imageIndexOf = (slideIndex: number): number | null => {
+    const slide = slides[slideIndex];
+    if (!slide || slide.kind !== "image") return null;
+    const found = images.findIndex((img) => img.url === slide.url);
+    return found === -1 ? null : found;
+  };
+
+  const openZoom = () => {
+    const imageIndex = imageIndexOf(active);
+    if (imageIndex !== null) setZoomAt(imageIndex);
+  };
 
   if (!slides.length) {
     return (
@@ -115,19 +139,32 @@ export function ProductGallery({
                 into a tight, arbitrary zoom on whatever happens to be in the
                 centre. Thumbnails below stay cover — small squares read fine
                 cropped, and it's the main shot people zoom in on mentally. */}
-            <Image
-              key={active}
-              src={current.url}
-              alt={current.alt || name}
-              fill
-              priority={active === 0}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain"
-            />
-
+            {/* The photo itself opens the viewer, not just the button. Clicking
+                a product photo to see it bigger is the expectation; making the
+                small corner button the only way to do it is a puzzle. */}
             <button
               type="button"
-              aria-label="Zoom image"
+              onClick={openZoom}
+              aria-label={`Enlarge ${current.alt || name}`}
+              className="absolute inset-0 cursor-zoom-in"
+            >
+              <Image
+                key={active}
+                src={current.url}
+                alt={current.alt || name}
+                fill
+                priority={active === 0}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-contain"
+              />
+            </button>
+
+            {/* Kept as well as the clickable photo: it is the visible signal
+                that zooming is possible at all. */}
+            <button
+              type="button"
+              onClick={openZoom}
+              aria-label="Enlarge image"
               className="text-ink/70 hover:text-ink absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-colors"
             >
               <ZoomIn className="size-[18px]" strokeWidth={1.6} />
@@ -218,6 +255,25 @@ export function ProductGallery({
             <ChevronRight className="size-4" strokeWidth={1.8} />
           </button>
         </div>
+      ) : null}
+
+      {zoomAt !== null ? (
+        <ImageLightbox
+          images={images}
+          index={zoomAt}
+          name={name}
+          onClose={() => setZoomAt(null)}
+          onIndexChange={(next) => {
+            setZoomAt(next);
+            // Keep the page behind in step, so closing the viewer leaves you on
+            // the photo you were last looking at rather than the one you opened.
+            const slideIndex = slides.findIndex(
+              (slide) =>
+                slide.kind === "image" && slide.url === images[next]?.url,
+            );
+            if (slideIndex !== -1) setActive(slideIndex);
+          }}
+        />
       ) : null}
     </div>
   );

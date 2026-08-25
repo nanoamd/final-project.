@@ -5,12 +5,29 @@ import "server-only";
 import crypto from "node:crypto";
 
 import { cookies } from "next/headers";
+import sharp from "sharp";
 
 import { env } from "@/env";
 import {
   getProductsByDepartment,
   getProductsBySlugs,
 } from "@/lib/sanity/queries";
+import {
+  buildEditForm,
+  buildPrompt,
+  FALLBACK_IMAGE_MODEL,
+  fetchReferenceImages,
+  IMAGE_MODEL,
+  isModelUnavailable,
+  outputSize,
+} from "@/lib/visualiser/request";
+import {
+  curateSet,
+  OUTDOOR_DEPARTMENTS,
+  outdoorPool,
+  type SelectableProduct,
+} from "@/lib/visualiser/selection";
+import type { SanityDimensions } from "@/types/sanity-content";
 
 const WEEKLY_LIMIT = 3;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -28,6 +45,13 @@ export interface VisualiserProduct {
   image?: string | null;
   price: number;
   currency: string;
+  /**
+   * Passed through purely so the prompt can state the real size.
+   *
+   * Without it the model guesses scale from context, which is how a 2.4m barrel sauna
+   * came back looking like a shed.
+   */
+  dimensions?: SanityDimensions | null;
 }
 
 export interface VisualiserHotspot {
@@ -45,7 +69,10 @@ export interface VisualiserHotspot {
 export interface VisualiseGardenResult {
   ok: boolean;
   imageDataUrl?: string;
+  /** Only the products the vision model managed to locate in the result. */
   hotspots?: VisualiserHotspot[];
+  /** Every product that went into the render, located or not. */
+  products?: VisualiserProduct[];
   error?: string;
 }
 
@@ -88,21 +115,69 @@ async function writeUsage(count: number) {
 }
 
 /**
- * A small, real selection for "let Kaiku design it for me" — scoped to the
- * room the visitor actually picked (not the whole catalog, which today skews
- * heavily toward whichever department was most recently updated) and
- * randomised so repeat visits to the same room see variety rather than the
- * same fixed set every time. Prefers purchasable stock, but falls back to
- * whatever's in the department rather than showing nothing.
+ * A curated set for "let Kaiku design it for me".
+ *
+ * This used to shuffle the department's products and take three, which is what
+ * produced Damien's verdict on a real render — *"it just dumps random products"* — and
+ * put an indoor folding shelf on a decked terrace with nothing to sit on. Selection is
+ * now by role, and for an outdoor scene the pool spans every outdoor department so a
+ * garden can actually be shown a sauna. The reasoning is in
+ * src/lib/visualiser/selection.ts.
+ *
+ * Prefers purchasable stock, but falls back to whatever the departments hold rather
+ * than showing nothing.
  */
 async function pickAutoProducts(
   departmentSlug: string,
 ): Promise<VisualiserProduct[]> {
-  const products = await getProductsByDepartment(departmentSlug);
+  const outdoor = (OUTDOOR_DEPARTMENTS as readonly string[]).includes(
+    departmentSlug,
+  );
+
+  // For an outdoor scene the pool is every outdoor department, not just the one the
+  // visitor tapped. Picking "Outdoor Living" used to make the five outdoor saunas and
+  // the cold plunge ineligible, because they sit under their own departments — so the
+  // most transformative and most valuable things in the catalogue could never appear
+  // in a garden. That was the tool's best trick, switched off by a filter.
+  const departments = outdoor
+    ? (OUTDOOR_DEPARTMENTS as readonly string[])
+    : [departmentSlug];
+  const fetched = await Promise.all(
+    departments.map((slug) => getProductsByDepartment(slug)),
+  );
+
+  const seen = new Set<string>();
+  const products = fetched.flat().filter((product) => {
+    if (seen.has(product.slug)) return false;
+    seen.add(product.slug);
+    return true;
+  });
+
   const purchasable = products.filter((p) => p.stockStatus !== "Coming Soon");
-  const pool = purchasable.length ? purchasable : products;
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 3).map(toVisualiserProduct);
+  const available = purchasable.length ? purchasable : products;
+
+  const selectable: SelectableProduct[] = available.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    price: p.price,
+    image: p.image,
+    roomTags: p.roomTags,
+    departmentSlug: p.departmentSlug,
+  }));
+
+  const pool = outdoor ? outdoorPool(selectable) : selectable;
+
+  // Variety without randomness: the set is curated by role, and `rotate` shifts which
+  // candidate fills each role so a second attempt is not identical. Shuffling the
+  // whole pool is what produced "it just dumps random products".
+  const rotate = Math.floor(Math.random() * 3);
+  const curated = curateSet(pool, { max: 3, rotate });
+
+  return curated
+    .map((choice) => available.find((p) => p.slug === choice.slug))
+    .filter((p): p is (typeof available)[number] => Boolean(p))
+    .map(toVisualiserProduct);
 }
 
 function toVisualiserProduct(p: {
@@ -112,6 +187,7 @@ function toVisualiserProduct(p: {
   image?: string | null;
   price: number;
   currency: string;
+  dimensions?: SanityDimensions | null;
 }): VisualiserProduct {
   return {
     slug: p.slug,
@@ -120,12 +196,8 @@ function toVisualiserProduct(p: {
     image: p.image,
     price: p.price,
     currency: p.currency,
+    dimensions: p.dimensions ?? null,
   };
-}
-
-function buildPrompt(products: VisualiserProduct[]) {
-  const list = products.map((p) => `- ${p.name}`).join("\n");
-  return `Add the following real products into this garden photo, placed naturally and realistically at true-to-life scale:\n${list}\n\nDo not alter, resurface, regrow, or replace any existing element already in the photo — the lawn, patio, paving, decking, fencing, planting and sky must stay exactly as they are; only add the listed items on top of or within the existing scene. Keep the existing layout, lighting and perspective realistic and unchanged elsewhere. Each product should be clearly visible, identifiable and not partially hidden. Do not include any text, labels, signage, watermarks, or writing of any kind anywhere in the image.`;
 }
 
 /**
@@ -272,36 +344,62 @@ async function runVisualiseGarden(
   const imageBuffer = Buffer.from(await photo.arrayBuffer());
   const mimeType = photo.type;
 
-  const form = new FormData();
-  form.append("model", "gpt-image-1-mini");
-  form.append(
-    "image",
-    new Blob([new Uint8Array(imageBuffer)], { type: mimeType }),
-    "garden",
-  );
-  form.append("prompt", buildPrompt(products));
-  form.append("size", "1024x1024");
-  // "high"/"auto" quality regularly took ~60s in testing, right at the edge
-  // of (and in production, sometimes past) serverless function time limits.
-  // "medium" is markedly faster while still producing a convincing composite.
-  form.append("quality", "medium");
+  // The photograph's own shape, so the result is not squeezed into a square. Read
+  // with sharp rather than trusted from the client, which sends no dimensions.
+  let size = "1024x1024";
+  try {
+    const meta = await sharp(imageBuffer).metadata();
+    size = outputSize(meta.width ?? 0, meta.height ?? 0);
+  } catch (err) {
+    console.error("visualiseGarden: could not read photo dimensions", err);
+  }
 
-  const response = await fetch("https://api.openai.com/v1/images/edits", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: form,
-  });
+  const references = await fetchReferenceImages(products);
 
+  const send = (model: string) =>
+    fetch("https://api.openai.com/v1/images/edits", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+      body: buildEditForm({
+        model,
+        scene: imageBuffer,
+        sceneType: mimeType,
+        references,
+        prompt: buildPrompt(products),
+        size,
+      }),
+    });
+
+  let response = await send(IMAGE_MODEL);
   if (!response.ok) {
+    const detail = await response.text();
+    if (!isModelUnavailable(response.status, detail)) {
+      console.error(
+        "visualiseGarden: image edit failed",
+        response.status,
+        detail,
+      );
+      return {
+        ok: false,
+        error: "Something went wrong generating your image. Please try again.",
+      };
+    }
     console.error(
-      "visualiseGarden: image edit request failed",
-      response.status,
-      await response.text(),
+      `visualiseGarden: ${IMAGE_MODEL} unavailable, falling back to ${FALLBACK_IMAGE_MODEL}`,
+      detail,
     );
-    return {
-      ok: false,
-      error: "Something went wrong generating your image. Please try again.",
-    };
+    response = await send(FALLBACK_IMAGE_MODEL);
+    if (!response.ok) {
+      console.error(
+        "visualiseGarden: fallback model also failed",
+        response.status,
+        await response.text(),
+      );
+      return {
+        ok: false,
+        error: "Something went wrong generating your image. Please try again.",
+      };
+    }
   }
 
   const data = (await response.json()) as { data?: { b64_json?: string }[] };
@@ -322,5 +420,15 @@ async function runVisualiseGarden(
 
   await writeUsage(used + 1);
 
-  return { ok: true, imageDataUrl: resultImageDataUrl, hotspots };
+  // `products` is returned alongside the hotspots, and the UI renders it as a strip
+  // under the image. Hotspot positions come from a vision model asked for x/y
+  // percentages, which it is not reliable at — so a product used to vanish from the
+  // page entirely whenever the model failed to locate it. Now the marker is a bonus
+  // and the strip is the guarantee.
+  return {
+    ok: true,
+    imageDataUrl: resultImageDataUrl,
+    hotspots,
+    products,
+  };
 }

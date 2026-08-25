@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 
@@ -8,6 +10,18 @@ export default defineConfig({
   resolve: {
     // Resolve the "@/*" alias from tsconfig natively (Vite built-in).
     tsconfigPaths: true,
+    alias: {
+      // `import "server-only"` throws by design when a module is pulled into a
+      // client bundle, and jsdom looks like one to it. The guard is worth
+      // keeping in the source — it is what stops a secret-holding module
+      // reaching the browser — so it is stubbed for tests rather than removed
+      // there. Without this no server-side module can be unit-tested at all,
+      // which is why the email templates had no tests until now.
+      "server-only": path.resolve(
+        import.meta.dirname,
+        "vitest.server-only-stub.ts",
+      ),
+    },
   },
   test: {
     environment: "jsdom",

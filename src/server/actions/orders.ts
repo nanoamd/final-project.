@@ -29,6 +29,12 @@ export interface OrderShippingAddress {
 
 export interface OrderSummary {
   id: string;
+  /**
+   * The human order number, e.g. "KH-1042" — what a customer quotes and what
+   * goes on a supplier's order form. Null only for orders placed before
+   * migration 0005 ran; the UUID `id` remains the database key either way.
+   */
+  orderNumber: string | null;
   createdAt: string;
   amountTotal: number;
   currency: string;
@@ -43,6 +49,7 @@ export interface OrderSummary {
 
 interface OrderRow {
   id: string;
+  order_number: string | null;
   created_at: string;
   amount_total: number;
   currency: string;
@@ -67,6 +74,7 @@ interface OrderRow {
 function toOrderSummary(row: OrderRow): OrderSummary {
   return {
     id: row.id,
+    orderNumber: row.order_number ?? null,
     createdAt: row.created_at,
     amountTotal: row.amount_total,
     currency: row.currency,

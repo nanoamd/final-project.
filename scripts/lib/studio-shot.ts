@@ -205,6 +205,39 @@ const RANK: Record<ShotKind, number> = {
 };
 
 /**
+ * A dimensioned technical drawing, identified from the asset's filename.
+ *
+ * This is the blind spot in everything above. A dimensions drawing *is* a product
+ * on a pure white sweep, so it measures as the best possible catalogue shot — and
+ * one had reached the front of Abberley Coffee Table in Brown, which is what a
+ * shopper saw in the category grid and what Google Shopping would have listed.
+ *
+ * Two pixel heuristics were tried against the real images and both failed. Ink in a
+ * margin ring: known diagrams 0.000–0.034, ordinary photographs 0.000–0.149 —
+ * overlapping across the whole range. Hairline detection (long, one-pixel-thin
+ * straight rules): the diagrams scored 0–1 and plain furniture photos 4–6, i.e.
+ * backwards. The signal is not reliably in the pixels of a small thumbnail, and a
+ * detector that demotes real photographs would be worse than none.
+ *
+ * The filename is. Every one of these is supplier-generated and says so:
+ * `Abberley-Coffee-Table-Brown-Side-Dims.jpg`, `03-Bedside-grey-dimensions.jpg`,
+ * `03-CO14-BR-angle-left-measure.jpg`, `05-Drawing-pdf.jpg`. It matched 31 images
+ * across the published catalogue, of which exactly one was a hero — the one Damien
+ * found by eye, independently. Two counts agreeing on one is the closest thing to
+ * verification available here.
+ *
+ * Word-boundary matching, deliberately: a substring test for "dim" hits
+ * "dimmable", and one for "spec" hits "speckled" — both plausible in a lighting and
+ * homeware catalogue.
+ */
+const DIAGRAM_FILENAME =
+  /(^|[^a-z])(dim|dims|dimension|dimensions|measure|measurement|measurements|sizing|schematic|drawing|technical)([^a-z]|$)/i;
+
+export function isDimensionDiagram(filename?: string | null): boolean {
+  return Boolean(filename && DIAGRAM_FILENAME.test(filename));
+}
+
+/**
  * A leading catalogue shot this tight is a close crop, not a product shot.
  *
  * Found by looking at the rendered Coffee Tables grid on a phone: every tile
@@ -224,18 +257,35 @@ export interface Shot {
   kind: ShotKind;
   /** From `classifyShot`. Zero for an image that could not be measured. */
   whiteFraction: number;
+  /** From `isDimensionDiagram(filename)`. Sorted last whatever it measures. */
+  isDiagram?: boolean;
 }
+
+/** Last, behind even an undecided image — see `isDimensionDiagram`. */
+const DIAGRAM_RANK = 3;
+
+const rankOf = (shot: Shot): number =>
+  shot.isDiagram ? DIAGRAM_RANK : RANK[shot.kind];
 
 export function preferredOrder(shots: Shot[]): number[] {
   const order = shots
     .map((shot, index) => ({ ...shot, index }))
-    .sort((a, b) => RANK[a.kind] - RANK[b.kind] || a.index - b.index);
+    .sort((a, b) => rankOf(a) - rankOf(b) || a.index - b.index);
 
   const leader = order[0];
-  if (leader?.kind === "catalogue" && leader.whiteFraction < TIGHT_CROP_MAX) {
+  if (
+    leader?.kind === "catalogue" &&
+    !leader.isDiagram &&
+    leader.whiteFraction < TIGHT_CROP_MAX
+  ) {
+    // `!isDiagram` here as well: a dimensions drawing has a near-perfect white
+    // frame, so without it this rule would reach past a real photograph and lift
+    // the drawing to the front — the very fault it is meant to correct.
     const fuller = order.findIndex(
       (shot) =>
-        shot.kind === "catalogue" && shot.whiteFraction >= FULL_SHOT_MIN,
+        shot.kind === "catalogue" &&
+        !shot.isDiagram &&
+        shot.whiteFraction >= FULL_SHOT_MIN,
     );
     // One move, not a sort: lift the fuller shot to the front and let everything
     // else keep its place.

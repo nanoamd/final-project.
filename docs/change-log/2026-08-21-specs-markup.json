@@ -1,0 +1,336 @@
+{
+  "generatedAt": "2026-08-21T17:53:34.131Z",
+  "applied": false,
+  "changes": [
+    {
+      "id": "drafts.product-aw-ssm-05",
+      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Frame Material: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-aw-ssm-05",
+      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Glass Type: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-alto-shelf-unit-with-glass-shelves",
+      "title": "Alto Shelf Unit With Glass Shelves",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Finish: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-alto-shelf-unit-with-glass-shelves",
+      "title": "Alto Shelf Unit With Glass Shelves",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Weight capacity: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Assembly: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Cushions included: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Materials: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Weight capacity: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "field": "specs",
+      "kind": "placeholder-filled",
+      "before": "Dimensions: Not specified",
+      "after": "Dimensions: 70L x 70W x 72H cm"
+    },
+    {
+      "id": "drafts.product-import-incia-column-table-lamp",
+      "title": "Incia Column Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Material: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-incia-column-table-lamp",
+      "title": "Incia Column Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Finish: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-incia-column-table-lamp",
+      "title": "Incia Column Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Shade construction: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-incia-fluted-wooden-table-lamp",
+      "title": "Incia Fluted Wooden Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Finish: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-incia-urn-wooden-table-lamp",
+      "title": "Incia Urn Wooden Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Finish: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-lennox-black-drinks-unit",
+      "title": "Lennox Black Drinks Unit",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Material: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-lennox-black-drinks-unit",
+      "title": "Lennox Black Drinks Unit",
+      "field": "specs",
+      "kind": "placeholder-filled",
+      "before": "Dimensions: Not specified",
+      "after": "Dimensions: 39L x 50W x 183H cm"
+    },
+    {
+      "id": "drafts.product-import-lennox-black-drinks-unit",
+      "title": "Lennox Black Drinks Unit",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Weight capacity: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-metis-urn-table-lamp-with-linen-shade",
+      "title": "Metis Urn Table Lamp With Linen Shade",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Fitting Type: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-metis-urn-table-lamp-with-linen-shade",
+      "title": "Metis Urn Table Lamp With Linen Shade",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Cleaning Instructions: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-pallido-candlestick-table-lamp-with-linen-shade",
+      "title": "Pallido Candlestick Table Lamp With Linen Shade",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Bulb Requirements: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-pallido-candlestick-table-lamp-with-linen-shade",
+      "title": "Pallido Candlestick Table Lamp With Linen Shade",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Wiring: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-pallido-candlestick-table-lamp-with-linen-shade",
+      "title": "Pallido Candlestick Table Lamp With Linen Shade",
+      "field": "specs",
+      "kind": "placeholder-filled",
+      "before": "Dimensions: Not specified",
+      "after": "Dimensions: 25L x 25W x 81H cm"
+    },
+    {
+      "id": "drafts.product-import-pella-table-lamp",
+      "title": "Pella Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-removed",
+      "before": "Material: Not specified",
+      "after": "(row removed — nothing to put there)"
+    },
+    {
+      "id": "drafts.product-import-pella-table-lamp",
+      "title": "Pella Table Lamp",
+      "field": "specs",
+      "kind": "placeholder-filled",
+      "before": "Dimensions: Not specified",
+      "after": "Dimensions: 20L x 20W x 38H cm"
+    },
+    {
+      "id": "product-aw-acshop-01",
+      "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The sideboard measures:  * Length: 180 cm * Width: 60 cm * Height: 80 cm  Its generous size makes it ideal as a dining room sideboard, hallway console or living room storage unit.",
+      "after": "The sideboard measures: Length: 180 cm, Width: 60 cm, Height: 80 cm Its generous size makes it ideal as a dining room sideboard, hallway console or living room storage unit."
+    },
+    {
+      "id": "product-aw-acshop-02",
+      "title": "Reclaimed Teak Console Table with 3 Drawers | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The console table measures:  * Length: 150 cm * Width: 45 cm * Height: 80 cm  Its slim design makes it perfect for hallways, entryways and narrow spaces. ",
+      "after": "The console table measures: Length: 150 cm, Width: 45 cm, Height: 80 cm Its slim design makes it perfect for hallways, entryways and narrow spaces."
+    },
+    {
+      "id": "product-aw-acshop-07",
+      "title": "Reclaimed Teak Dining Table 180cm | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The dining table measures:  * Length: 180 cm * Width: 77 cm * Height: 80 cm",
+      "after": "The dining table measures: Length: 180 cm, Width: 77 cm, Height: 80 cm"
+    },
+    {
+      "id": "product-aw-acshop-08",
+      "title": "Reclaimed Teak Six Shelf Display Unit with Castors | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The shelving unit measures:  * Length: 79 cm * Width: 37 cm * Height: 180 cm  Its tall, slim profile makes it ideal for maximising vertical storage without occupying excessive floor space.",
+      "after": "The shelving unit measures: Length: 79 cm, Width: 37 cm, Height: 180 cm Its tall, slim profile makes it ideal for maximising vertical storage without occupying excessive floor space."
+    },
+    {
+      "id": "product-aw-acshop-11",
+      "title": "Small Reclaimed Teak Coffee Table | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The coffee table measures:  * Length: 81 cm * Width: 49 cm * Height: 41 cm  Its compact size makes it ideal for apartments and smaller living rooms.",
+      "after": "The coffee table measures: Length: 81 cm, Width: 49 cm, Height: 41 cm Its compact size makes it ideal for apartments and smaller living rooms."
+    },
+    {
+      "id": "product-aw-acshop-13",
+      "title": "Small Recycled Teak TV Stand with 2 Drawers | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The TV stand measures:  * Length: 79 cm * Width: 46 cm * Height: 61 cm  Its compact size makes it ideal for smaller living rooms, apartments and cosy entertainment spaces.",
+      "after": "The TV stand measures: Length: 79 cm, Width: 46 cm, Height: 61 cm Its compact size makes it ideal for smaller living rooms, apartments and cosy entertainment spaces."
+    },
+    {
+      "id": "product-aw-acshop-14",
+      "title": "Round Reclaimed Teak Bedside Table with Drawer | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The bedside table measures:  * Length: 45 cm * Width: 37 cm * Height: 57 cm  Its compact size makes it ideal for bedrooms, guest rooms and apartments.  ",
+      "after": "The bedside table measures: Length: 45 cm, Width: 37 cm, Height: 57 cm Its compact size makes it ideal for bedrooms, guest rooms and apartments."
+    },
+    {
+      "id": "product-aw-acshop-17",
+      "title": "Tall Reclaimed Teak Chest of 5 Drawers | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The chest measures:  * Length: 48 cm * Width: 40 cm * Height: 110 cm  Its tall, space-saving design makes it ideal for rooms where floor space is limited.  ",
+      "after": "The chest measures: Length: 48 cm, Width: 40 cm, Height: 110 cm Its tall, space-saving design makes it ideal for rooms where floor space is limited."
+    },
+    {
+      "id": "product-aw-acshop-19",
+      "title": "Bedside Table - Classic - Recycled Wood",
+      "field": "summary",
+      "kind": "markdown-stripped",
+      "before": "This beautiful piece of furniture has been hand-made in Bali using mostly upcycled teak wood from retired fishing boats.&nbsp;This square bedside table will look beautiful in any bedroom.The wood retains some of the original colours and rustic finish and will be a perfect additio",
+      "after": "This beautiful piece of furniture has been hand-made in Bali using mostly upcycled teak wood from retired fishing boats. This square bedside table will look beautiful in any bedroom.The wood retains some of the original colours and rustic finish and will be a perfect additio"
+    },
+    {
+      "id": "product-aw-bts-02",
+      "title": "Natural Wooden Beer Barrel Storage Stool | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The stool measures:  * Height: 38 cm * Diameter: 32 cm  Its compact size makes it ideal for smaller living spaces while still offering practical seating and storage.",
+      "after": "The stool measures: Height: 38 cm, Diameter: 32 cm Its compact size makes it ideal for smaller living spaces while still offering practical seating and storage."
+    },
+    {
+      "id": "product-aw-rds-146",
+      "title": "Large Brown Wooden Storage Tub | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The storage tub measures:  * Length: 45 cm * Width: 45 cm * Height: 32 cm",
+      "after": "The storage tub measures: Length: 45 cm, Width: 45 cm, Height: 32 cm"
+    },
+    {
+      "id": "product-aw-rds-151",
+      "title": "Brown Wooden Storage Crates (Set of 3) | Kaiku",
+      "field": "faqs",
+      "kind": "markdown-stripped",
+      "before": "The set includes three different-sized crates:  * Large: 45 × 30 × 25 cm * Medium: 35 × 25 × 24 cm * Small: 25 × 20 × 20 cm",
+      "after": "The set includes three different-sized crates: Large: 45 × 30 × 25 cm, Medium: 35 × 25 × 24 cm, Small: 25 × 20 × 20 cm"
+    },
+    {
+      "id": "product-import-delphine-collection-1-drawer-1-door-chest-right-hand",
+      "title": "Delphine Collection 1 Drawer 1 Door Chest Right Hand | Kaiku",
+      "field": "specs",
+      "kind": "placeholder-filled",
+      "before": "Dimensions: To be confirmed",
+      "after": "Dimensions: 38L x 50W x 72H cm"
+    }
+  ],
+  "flags": [
+    {
+      "title": "Capsa Column Table Lamp With Linen Shade",
+      "detail": "Light Type: Standard Bulb"
+    },
+    {
+      "title": "Capsa Column Table Lamp With Linen Shade",
+      "detail": "Colour: Neutral"
+    },
+    {
+      "title": "Candover Neutral Upholstered Sofa | Luxury 3 Seater Fabric Sofa | Kaiku",
+      "detail": "Colour: Neutral"
+    },
+    {
+      "title": "Delphine Collection 1 Drawer 1 Door Chest Right Hand | Kaiku",
+      "detail": "Material: High-Quality Wood"
+    },
+    {
+      "title": "Delphine Collection 1 Drawer 1 Door Chest Right Hand | Kaiku",
+      "detail": "Colour: Neutral Finish"
+    },
+    {
+      "title": "Delphine Collection Sliding Glass Dresser Top | Kaiku",
+      "detail": "Material: High-quality glass"
+    },
+    {
+      "title": "Delphine Collection Sliding Glass Dresser Top | Kaiku",
+      "detail": "Dimensions: Standard size"
+    },
+    {
+      "title": "Wadborough 3 Seater Sofa in Neutral | Kaiku",
+      "detail": "Colour: Neutral"
+    }
+  ]
+}

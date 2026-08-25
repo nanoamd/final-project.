@@ -292,6 +292,11 @@ function checkStripe() {
   }
 }
 
+// This file imports nothing, which leaves it in the global scope where its `main`
+// can collide with any other non-module script — `tsc --noEmit` was reporting
+// TS2393 here. An empty export makes it a module and gives it its own scope.
+export {};
+
 /* -------------------------------------------------------------------- main -- */
 
 async function main() {

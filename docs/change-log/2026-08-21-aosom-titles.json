@@ -1,0 +1,714 @@
+{
+  "generatedAt": "2026-08-21T20:23:52.849Z",
+  "applied": false,
+  "changes": [
+    {
+      "id": "drafts.product-aosom-02-0302",
+      "slug": "modern-crystal-chandelier-ceiling-light-pendant-lamp-chrome-finish-glass-droplets-new-for-",
+      "before": "Modern Crystal Chandelier Ceiling Light Pendant Lamp Chrome Finish Glass Droplets New | Kaiku",
+      "after": "Glass Droplet Pendant Chandelier, Chrome | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-831-804v70cw",
+      "slug": "4ft6-double-ottoman-bed-frame-with-front-drawer-cream",
+      "before": "4ft6 Double Ottoman Bed Frame, with Front Drawer - Cream",
+      "after": "4ft6 Double Ottoman Bed with Front Drawer, Cream | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-046wt",
+      "slug": "modern-computer-desk-home-office-table-small-writing-desk-with-storage-shelf-white-wood-gr",
+      "before": "Modern Computer Desk | Kaiku",
+      "after": "Modern Writing Desk with Storage Shelf, White Wood Grain | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-068v02bk",
+      "slug": "computer-desk-writing-table-pc-workstation-with-3-storage-shelves-and-drawers-handle-for-h",
+      "before": "Writing Workstation Computer Desk, Black | Kaiku",
+      "after": "Computer Desk with Three Shelves and Drawers, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-263gy",
+      "slug": "computer-desk-with-sliding-keyboard-tray-storage-drawer-shelf-home-office-workstation-grey",
+      "before": "Computer Desk with Sliding Keyboard Tray Storage Drawer Shelf Home | Kaiku",
+      "after": "Computer Desk with Sliding Keyboard Tray, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-296cg",
+      "slug": "folding-convertible-desk-with-blackboard-multi-function-computer-office-workstation-side-s",
+      "before": "Folding Convertible Desk with Blackboard Multi-function Computer Office Workstation Side Shelf, Grey | Kaiku",
+      "after": "Folding Convertible Desk with Blackboard, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-410v00gy",
+      "slug": "compact-computer-desk-with-keyboard-tray-and-drawer-study-desk-writing-desk-for-home-offic",
+      "before": "Compact Computer Desk with Keyboard Tray and Drawer, Grey | Kaiku",
+      "after": "Compact Computer Desk with Keyboard Tray, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-580v00rb",
+      "slug": "compact-folding-desk-for-small-spaces-with-storage-shelf-for-home-office-rustic-brown",
+      "before": "Compact Folding Desk for Small Spaces with Storage Shelf for Home Office | Kaiku",
+      "after": "Compact Folding Desk with Storage Shelf, Rustic Brown | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-836-668v01nd",
+      "slug": "folding-shelf-and-work-table-natural",
+      "before": "Folding Shelf and Work Table - Natural",
+      "after": "Folding Wall-Mounted Work Table, Natural | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83a-218v00nd",
+      "slug": "outsunny-6-seater-garden-dining-set-with-stackable-chairs-aluminium-frame-rectangular-plas",
+      "before": "6 Seater Garden Dining Set with Stackable Chairs | Kaiku",
+      "after": "6-Seater Garden Dining Set with Stackable Chairs | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-032v00gy",
+      "slug": "pine-storage-bed-3ft-single-solid-wooden-bed-frame-with-drawers-headboard-wood-slat-suppor",
+      "before": "Pine Storage Bed, Grey | Kaiku",
+      "after": "3ft Single Pine Storage Bed with Drawers, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-032v00nd",
+      "slug": "pine-storage-bed-3ft-single-solid-wooden-bed-frame-with-drawers-headboard-wood-slat-suppor",
+      "before": "Pine Storage Bed | Kaiku",
+      "after": "3ft Single Pine Storage Bed with Drawers, Natural | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-135v00bk",
+      "slug": "3ft-single-bed-frame-metal-platform-bed-frame-with-ood-slats-no-box-spring-needed-underbed",
+      "before": "3ft Single Bed Frame, Black | Kaiku",
+      "after": "3ft Single Metal Bed Frame with Underbed Storage, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-149v72cg",
+      "slug": "king-size-bed-frame-gas-end-lift-under-bed-storage-upholstered-platform-bed-tufted-headboa",
+      "before": "King Size Bed Frame Gas End Lift Under Bed Storage Upholstered | Kaiku",
+      "after": "King Size Gas-Lift Ottoman Bed with Tufted Headboard | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-185v03cg",
+      "slug": "5ft-king-bed-frame-with-headboard-platform-bed-frame-with-hydraulic-storage-led-lights-and",
+      "before": "5ft King Bed Frame with Headboard, Grey | Kaiku",
+      "after": "5ft King Bed Frame with Hydraulic Storage and LED Lighting, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-218v00bk",
+      "slug": "3ft-single-bed-frame-with-underbed-storage-metal-platform-bed-frame-with-steel-slat-suppor",
+      "before": "3ft Single Bed Frame with Underbed Storage | Kaiku",
+      "after": "3ft Single Bed Frame with Underbed Storage, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-220v03bk",
+      "slug": "4ft6-double-bed-frame-with-underbed-storage-and-steel-slat-support-32-5-cm-height-noise-fr",
+      "before": "4ft6 Double Bed Frame with Underbed Storage and Steel Slat Support, Black | Kaiku",
+      "after": "4ft6 Double Bed Frame with Underbed Storage, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-83d-299v70gy",
+      "slug": "metal-bunk-bed-with-desk-high-sleeper-bed-with-led-light-and-safety-guardrail-for-teens-ad",
+      "before": "Metal Bunk Bed with Desk | Kaiku",
+      "after": "Metal High Sleeper Bunk Bed with Desk | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-063",
+      "slug": "hanging-electric-patio-heater-with-2-power-settings-1000-2000w-waterproof-ceiling-mounted-",
+      "before": "Hanging Electric Patio Heater with 2 Power Settings, Black | Kaiku",
+      "after": "Hanging Electric Patio Heater, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-070",
+      "slug": "adjustable-power-1000-2500w-infrared-halogen-electric-patio-light-heater-ceiling-hanging-m",
+      "before": "Adjustable Power 1000/2500W Infrared Halogen Electric Patio Light Heater | Kaiku",
+      "after": "Ceiling-Mounted Infrared Halogen Patio Heater | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-108",
+      "slug": "outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-pathway-1-6m-tall-black",
+      "before": "Outdoor Garden Solar Post Lamp Sensor Dimmable LED Lantern Bollard | Kaiku",
+      "after": "1.6m Dimmable Solar Bollard Light, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-109",
+      "slug": "1-8m-traditional-victorian-style-3-way-head-outdoor-garden-solar-post-lamp-sensor-dimmable",
+      "before": "1.8m Traditional Victorian Style 3 Way Head Outdoor Garden Solar Post | Kaiku",
+      "after": "1.8m Victorian Three-Head Solar Lamp Post, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-135",
+      "slug": "3-head-solar-lamp-post-street-light-with-planter-automatic-on-6-hour-max-outdoor-ready-led",
+      "before": "3-head Solar Lamp Post, Black | Kaiku",
+      "after": "Three-Head Solar Lamp Post with Planter, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-252v01gy",
+      "slug": "outsunny-81-x-81cm-50-000-btu-gas-fire-pit-table-grey",
+      "before": "50,000 BTU Gas Fire Pit Table - Grey",
+      "after": "50,000 BTU Gas Fire Pit Table 81cm, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-252v01sr",
+      "slug": "outsunny-81cm-50000-btu-gas-fire-pit-table-black",
+      "before": "50,000 BTU Gas Fire Pit Table — Black",
+      "after": "50,000 BTU Gas Fire Pit Table 81cm, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-253",
+      "slug": "outsunny-71-x-71cm-40000-btu-gas-firepit-table-black-grey",
+      "before": "40000 BTU Gas Firepit Table - Black/Grey",
+      "after": "40,000 BTU Gas Fire Pit Table 71cm, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-253v00cg",
+      "slug": "40000-btu-gas-firepit-table-black-dark-grey",
+      "before": "40000 BTU Gas Firepit Table - Black/Dark Grey",
+      "after": "40,000 BTU Gas Fire Pit Table, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-303v70bk",
+      "slug": "outsunny-rattan-style-propane-gas-fire-pit-table-with-40-000-btu-burner-square-smokeless-f",
+      "before": "Rattan-style Propane Gas Fire Pit Table with 40,000 BTU Burner, Black | Kaiku",
+      "after": "Rattan-Style Propane Gas Fire Pit Table, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-303v70gy",
+      "slug": "rattan-style-propane-gas-fire-pit-table-with-40-000-btu-burner-square-smokeless-firepit-pa",
+      "before": "Rattan-style Propane Gas Fire Pit Table with 40,000 BTU Burner, Grey | Kaiku",
+      "after": "Rattan-Style Propane Gas Fire Pit Table, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-337v00sr",
+      "slug": "smokeless-fire-pit-portable-wood-burning-firepit-with-poker-for-garden-camping-bonfire-par",
+      "before": "Smokeless Fire Pit, Silver | Kaiku",
+      "after": "Portable Smokeless Wood-Burning Fire Pit, Silver | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-345v70cg",
+      "slug": "50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-dark-grey",
+      "before": "50,000 BTU Gas Fire Pit Table with Cover and Glass Screen - Dark Grey",
+      "after": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-345v70gy",
+      "slug": "outsunny-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "before": "50,000 BTU Gas Fire Pit Table with Cover and Glass Screen - Grey",
+      "after": "50,000 BTU Gas Fire Pit Table with Glass Screen, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-346v70cg",
+      "slug": "50-000-btu-gas-fire-pit-table-with-cover-dark-grey",
+      "before": "50,000 BTU Gas Fire Pit Table | Kaiku",
+      "after": "50,000 BTU Gas Fire Pit Table with Cover, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-346v70gy",
+      "slug": "outsunny-71cm-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "before": "50,000 BTU Gas Fire Pit Table with Cover and Glass Screen - Grey",
+      "after": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-389v70sr",
+      "slug": "11kw-adjustable-heat-gas-patio-heater",
+      "before": "11Kw Adjustable Heat Gas Patio Heater",
+      "after": "11kW Adjustable Gas Patio Heater | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-390v70bk",
+      "slug": "11-kw-freestanding-gas-patio-heater-adjustable-outdoor-garden-propane-heater-with-tip-over",
+      "before": "11 KW Freestanding Gas Patio Heater, Black | Kaiku",
+      "after": "11kW Freestanding Gas Patio Heater, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-415v70bk",
+      "slug": "patio-parasol-heater-electric-umbrella-mounted-heater-for-25-70-mm-poles",
+      "before": "Patio Parasol Heater | Kaiku",
+      "after": "Parasol-Mounted Electric Patio Heater | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-842-460v70bk",
+      "slug": "propane-gas-fire-pit-table-for-garden-11-7-kw-smokeless-firepit-outdoor-heater-with-wind-g",
+      "before": "Propane Gas Fire Pit Table, Black | Kaiku",
+      "after": "11.7kW Propane Gas Fire Pit Table, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-610v00bk",
+      "slug": "decorative-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-privacy",
+      "before": "Willow Branch Decorative Privacy Screen with Stand, Black | Kaiku",
+      "after": "Willow Branch Metal Privacy Screen with Stand, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-633v00bk",
+      "slug": "decorative-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-privacy",
+      "before": "Banana Leaf Decorative Privacy Screen with Stand, Black | Kaiku",
+      "after": "Banana Leaf Metal Privacy Screen with Stand, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-742v00bk",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-black-grid",
+      "before": "Metal Decorative Privacy Screen Outdoor Divider, Black Grid",
+      "after": "Grid Metal Privacy Screen, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-743v00bk",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-black-leaf",
+      "before": "Metal Decorative Privacy Screen Outdoor Divider, Black Leaf",
+      "after": "Leaf Metal Privacy Screen, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-743v00gn",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-green-leaf",
+      "before": "Metal Decorative Privacy Screen Outdoor Divider, Green Leaf",
+      "after": "Leaf Metal Privacy Screen, Green | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-744v00bk",
+      "slug": "decorative-outdoor-divider-metal-privacy-screen-with-stand-triangle-style-black",
+      "before": "Decorative Outdoor Divider, Black | Kaiku",
+      "after": "Triangle Metal Privacy Screen with Stand, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-747v00bk",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-black-twisted-lines",
+      "before": "Metal Decorative Privacy Screen Outdoor Divider, Black Twisted Lines",
+      "after": "Twisted Line Metal Privacy Screen, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-844-830v00mx",
+      "slug": "garden-water-feature-with-led-lights-dark-grey",
+      "before": "Garden Water Feature with LED Lights - Dark Grey",
+      "after": "Garden Water Feature with LED Lights, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-845-127v00gy",
+      "slug": "wood-planter-with-trellis-for-climbing-plants-raised-bed-planter-box-with-drainage-holes-t",
+      "before": "Wood Planter with Trellis for Climbing Plants, Grey | Kaiku",
+      "after": "Raised Wooden Planter with Climbing Trellis, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-846-136v70bk",
+      "slug": "outsunny-five-burner-steel-gas-grill-with-thermometer-black",
+      "before": "Five-Burner Steel Gas Grill, with Thermometer - Black",
+      "after": "Five-Burner Steel Gas Barbecue with Thermometer, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-846-195v70bk",
+      "slug": "outsunny-4-1-burner-gas-bbq-grill-with-clear-view-lid-portable-gas-barbecue-grill-with-bui",
+      "before": "4+1 Burner Gas BBQ Grill with Clear View Lid, Black | Kaiku",
+      "after": "4+1 Burner Gas Barbecue with Side Table, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84b-656",
+      "slug": "outsunny-6-piece-outdoor-couch-sectional-sofa-set-with-aluminum-patio-conversation-furnitu",
+      "before": "Outdoor Couch, Set of 6, Grey | Kaiku",
+      "after": "6-Piece Aluminium Sectional Garden Sofa Set, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84b-815v70",
+      "slug": "outsunny-4-piece-l-shaped-garden-furniture-set-8-seater-aluminium-outdoor-dining-set-conve",
+      "before": "L-shaped Garden Furniture Set 8-Seater Aluminium Outdoor Dining Set Conversation Sofa Set w/ Bench, Set of 4, Grey | Kaiku",
+      "after": "L-Shaped 8-Seater Aluminium Garden Dining Set with Bench, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-049v02",
+      "slug": "hardtop-gazebo-canopy-with-polycarbonate-roof-aluminium-frame-permanent-gazebo-dark-grey",
+      "before": "Hardtop Gazebo Canopy with Polycarbonate Roof | Kaiku",
+      "after": "Hardtop Gazebo with Polycarbonate Roof, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-092",
+      "slug": "3-5m-x-3-5m-metal-pergola-gazebo-awning-retractable-canopy-outdoor-garden-sun-shade-shelte",
+      "before": "3.5M X 3.5M Metal Pergola Gazebo Awning Retractable Canopy Outdoor Garden Sun Shade Shelter Marquee Party BBQ, Beige | Kaiku",
+      "after": "3.5 x 3.5m Metal Pergola with Retractable Canopy, Beige | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-093gy",
+      "slug": "metal-retractable-pergola-garden-gazebo-metal-pergola-canopy-outdoor-sun-shade-shelter-for",
+      "before": "Metal Retractable Pergola, Grey | Kaiku",
+      "after": "Retractable Metal Pergola Canopy, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-128",
+      "slug": "3-m-x-3-m-garden-gazebo-double-roof-outdoor-gazebo-canopy-shelter-with-netting-solid-steel",
+      "before": "3(m) x 3(m) Garden Gazebo | Kaiku",
+      "after": "3 x 3m Double-Roof Garden Gazebo with Netting | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-166v01lg",
+      "slug": "pop-up-gazebo-double-roof-garden-tent-with-netting-and-carry-bag-party-event-shelter-for-o",
+      "before": "Pop Up Gazebo | Kaiku",
+      "after": "Pop-Up Double-Roof Gazebo with Netting and Carry Bag | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-175",
+      "slug": "metal-outdoor-pergola-with-retractable-roof-outdoor-gazebo-canopy-shelter-with-drainage-ho",
+      "before": "Canopy Shelter Metal Outdoor Pergola with Retractable Roof, Grey | Kaiku",
+      "after": "Metal Pergola with Retractable Roof and Drainage, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-175v01",
+      "slug": "metal-outdoor-pergola-with-retractable-roof-outdoor-gazebo-with-drainage-holes-for-garden-",
+      "before": "Metal Outdoor Pergola with Retractable Roof, Grey | Kaiku",
+      "after": "Metal Garden Pergola with Retractable Roof, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-182",
+      "slug": "outdoor-patio-gazebo-pergola-retractable-pergola-canopy-aluminum-post-pc-roof-grey",
+      "before": "Outdoor Patio Gazebo Pergola, Grey | Kaiku",
+      "after": "Aluminium Patio Pergola with Retractable Canopy, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-191",
+      "slug": "outdoor-hardtop-gazebo-with-curtains-lean-to-aluminium-pergola-with-polycarbonate-roof-gar",
+      "before": "Outdoor Hardtop Gazebo with Curtains, Grey | Kaiku",
+      "after": "Lean-To Hardtop Gazebo with Curtains, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-269bg",
+      "slug": "m-patio-gazebo-canopy-garden-pavilion-tent-shelter-with-2-tier-water-repellent-roof-mosqui",
+      "before": "(m) Patio Gazebo Canopy Garden Pavilion Tent Shelter with 2 Tier Water Repellent Roof, Mosquito Netting and Curtains, Aluminium Frame, Beige",
+      "after": "Two-Tier Patio Gazebo with Netting and Curtains, Beige | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-441v00lg",
+      "slug": "moving-canopy-metal-pergola-with-curtains-grey",
+      "before": "Moving Canopy Metal Pergola, with Curtains - Grey",
+      "after": "Metal Pergola with Sliding Canopy and Curtains, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-470v02cg",
+      "slug": "lean-to-steel-pergola-with-moving-fabric-canopy-dark-grey",
+      "before": "Lean To Steel Pergola with Moving Fabric Canopy - Dark Grey",
+      "after": "Lean-To Steel Pergola with Sliding Canopy, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-470v02kk",
+      "slug": "steel-pergola-with-retractable-canopy-khaki",
+      "before": "Steel Pergola, with Retractable Canopy - Khaki",
+      "after": "Steel Pergola with Retractable Canopy, Khaki | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-628v00dr",
+      "slug": "outsunny-3-x-3-m-lean-to-pergola-with-upf-50-waterproof-polycarbonate-roof-wall-mounted-or",
+      "before": "m Lean to Pergola with UPF 50+ Waterproof Polycarbonate Roof, Wall-Mounted or Free Standing Hardtop Roof Garden Metal Pergola Gazebo, Heavy Duty Outdoor Sun Shade, Dark Grey",
+      "after": "3 x 3m Lean-To Pergola with Polycarbonate Roof, Dark Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84c-663v00rd",
+      "slug": "wooden-pergola-kit-graden-pergola-gazebo-grape-trellis-with-stable-structure-for-climbing-",
+      "before": "Wooden Pergola Kit | Kaiku",
+      "after": "Wooden Pergola Kit with Climbing Trellis | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84g-116v70gy",
+      "slug": "outsunny-6-piece-aluminium-garden-furniture-set-with-fire-pit-table-outdoor-dining-sofa-se",
+      "before": "6-Piece Aluminium Garden Furniture Set with Fire Pit Table, Grey | Kaiku",
+      "after": "6-Piece Aluminium Garden Set with Fire Pit Table, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84g-462v00cg",
+      "slug": "outsunny-five-piece-aluminium-garden-sofa-set-with-glass-top-table-grey",
+      "before": "Five-Piece Aluminium Garden Sofa Set, with Glass-Top Table - Grey",
+      "after": "5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84g-547v70lr",
+      "slug": "outsunny-six-piece-rattan-strong-garden-sofa-set-with-removable-and-washable-covers-grey",
+      "before": "Six-Piece Rattan Strong Garden Sofa Set with Removable and Washable | Kaiku",
+      "after": "6-Piece Rattan Garden Sofa Set with Washable Covers, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-037v00bk",
+      "slug": "decorative-privacy-fence-screen-metal-outdoor-privacy-screen-climbing-plant-trellis-with-s",
+      "before": "Decorative Privacy Fence Screen, Black | Kaiku",
+      "after": "Metal Privacy Screen and Climbing Trellis, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-042v00bk",
+      "slug": "decorative-garden-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-",
+      "before": "Rhombus Decorative Garden Privacy Screen with Stand, Black | Kaiku",
+      "after": "Rhombus Metal Privacy Screen with Stand, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-043v00bk",
+      "slug": "decorative-garden-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-",
+      "before": "Bamboo Decorative Garden Privacy Screen with Stand, Black | Kaiku",
+      "after": "Bamboo Metal Privacy Screen with Stand, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-250v70mx",
+      "slug": "5-tier-outdoor-fountain-cascading-waterfall-feature-with-led-lights-adjustable-flow-rustic",
+      "before": "5-Tier Outdoor Fountain | Kaiku",
+      "after": "Five-Tier Cascading Fountain with LED Lights, Rustic Brown | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-256v70mx",
+      "slug": "outdoor-fountain-with-4-tier-rustic-pots-planter-garden-fountain-with-led-lights-rustic-br",
+      "before": "Outdoor Fountain with 4-Tier Rustic Pots & Planter | Kaiku",
+      "after": "Four-Tier Rustic Pot Fountain with Planter, Rustic Brown | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-84j-257v70mx",
+      "slug": "5-tier-outdoor-waterfall-fountain-freestanding-self-contained-cascading-water-feature-gard",
+      "before": "5-Tier Outdoor Waterfall Fountain | Kaiku",
+      "after": "Five-Tier Freestanding Waterfall Fountain | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-860-015v70gg",
+      "slug": "outsunny-7-seater-patio-wicker-sofa-set-rattan-chair-furniture-w-glass-cushioned-dark-blue",
+      "before": "7-Seater Patio wicker Sofa Set Rattan Chair Furniture w/ Glass & Cushioned | Kaiku",
+      "after": "7-Seater Rattan Sofa Set with Glass-Top Table, Dark Blue | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-861-055v70",
+      "slug": "outsunny-6-seater-rattan-dining-set-with-cushions-grey",
+      "before": "6-Seater Rattan Dining Set with Cushions — Grey",
+      "after": "6-Seater Rattan Dining Set with Cushions, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-867-154v00bn",
+      "slug": "rattan-solar-floor-lamp-tall-outdoor-garden-lantern-pathway-light-decorative-lighting-with",
+      "before": "Rattan Solar Floor Lamp, Brown | Kaiku",
+      "after": "Rattan Solar Floor Lantern, Brown | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-867-154v00gy",
+      "slug": "rattan-solar-floor-lamp-tall-outdoor-garden-lantern-pathway-light-and-decorative-lighting-with",
+      "before": "Rattan Solar Floor Lamp, Grey | Kaiku",
+      "after": "Rattan Solar Floor Lantern, Grey | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-920-111v00bk",
+      "slug": "computer-desk-home-office-study-table-with-hutch-shelf-cup-holder-headphone-hook-black",
+      "before": "Study Hutch Computer Desk, Black | Kaiku",
+      "after": "Computer Desk with Hutch Shelf, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-005",
+      "slug": "2-pcs-1-3m-garden-solar-lamp-post-lights-solar-powered-led-lantern-patio-pathway-walkway-o",
+      "before": "1.3M Garden Solar Lamp Post Lights Solar Powered LED Lantern Patio | Kaiku",
+      "after": "1.3m Solar Lamp Post Lights, Set of 2, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-006",
+      "slug": "outdoor-garden-solar-post-lamp-sensor-light-led-lantern-bollard-pathway-torch-light-1-77m-",
+      "before": "Outdoor Garden Solar Post Lamp Sensor Light LED Lantern Bollard | Kaiku",
+      "after": "1.77m Solar Bollard Lantern, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-054v01bk",
+      "slug": "set-of-two-1-8m-traditional-style-solar-lamp-posts-black",
+      "before": "Set of Two 1.8m Traditional Style Solar Lamp Posts - Black",
+      "after": "1.8m Traditional Solar Lamp Posts, Set of 2, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-068v00bk",
+      "slug": "garden-solar-lamp-post-light-waterproof-led-solar-light-post-with-planter-black",
+      "before": "Garden Solar Lamp Post Light, Black | Kaiku",
+      "after": "Solar Lamp Post Light with Planter, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-070v00bk",
+      "slug": "solar-lamp-post-with-dusk-to-dawn-sensor-street-light-with-3-head-planter-185-cm-black",
+      "before": "Solar Lamp Post with Dusk-to-Dawn Sensor Street Light with 3-Head | Kaiku",
+      "after": "1.85m Three-Head Solar Lamp Post with Planter, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-p003",
+      "slug": "set-of-2-outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-ip44-energy-sa",
+      "before": "Set of 2 Outdoor Garden Solar Post Lamp Sensor Dimmable LED Lantern Bollard IP44 Energy-saving 1.2M Tall, Black | Kaiku",
+      "after": "1.2m Dimmable Solar Bollard Lights, Set of 2, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b30-p011",
+      "slug": "2-pieces-outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-pathway-1-6m-t",
+      "before": "Pieces Outdoor Garden Solar Post Lamp Sensor Dimmable LED Lantern Bollard | Kaiku",
+      "after": "1.6m Dimmable Solar Bollard Lights, Set of 2, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-001",
+      "slug": "crystal-chandeliers-k9-droplets-ceiling-light-with-3-e14-bulb-base-pendant-lights-for-livi",
+      "before": "Crystal Chandeliers | Kaiku",
+      "after": "K9 Crystal Droplet Chandelier, Three-Light | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-087",
+      "slug": "metal-crystal-ceiling-light-chandelier-elegant-pendant-lamp-living-room-stairway-spiral-ra",
+      "before": "Metal Crystal Ceiling Light Chandelier Elegant Pendant Lamp Living | Kaiku",
+      "after": "Spiral Raindrop Crystal Chandelier, Silver | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-562v00bk",
+      "slug": "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-300",
+      "before": "LED Wall Lamp, Set of 2, Black | Kaiku",
+      "after": "Spiral LED Wall Lights, Set of 2, Black | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-562v00sr",
+      "slug": "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-3000k",
+      "before": "LED Wall Lamp, Set of 2, Silver | Kaiku",
+      "after": "Spiral LED Wall Lights, Set of 2, Silver | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-563v00gd",
+      "slug": "led-wall-lamp-2-pack-5w-modern-indoor-starry-wall-light-colour-temperature-adjustable-3000k",
+      "before": "Starry LED Wall Lamp, Set of 2, Gold | Kaiku",
+      "after": "Starry LED Wall Lights, Set of 2, Gold | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-573v00sr",
+      "slug": "crystal-ceiling-light-fixture-39-cm-semi-flush-mount-modern-crystal-chandelier-ceiling-lig",
+      "before": "Crystal Ceiling Light Fixture, Silver | Kaiku",
+      "after": "39cm Crystal Semi-Flush Ceiling Light, Silver | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-573v01sr",
+      "slug": "semi-flush-mount-modern-crystal-chandelier-ceiling-light-crystal-ceiling-light-fixture-wit",
+      "before": "Semi Flush Mount Modern Crystal Chandelier Ceiling Light, Silver | Kaiku",
+      "after": "Crystal Semi-Flush Chandelier, Silver | Kaiku"
+    },
+    {
+      "id": "drafts.product-aosom-b31-633v00gd",
+      "slug": "pendant-light-with-3-colour-temperatures-gold-tone",
+      "before": "Pendant Light with 3 Colour Temperatures - Gold Tone",
+      "after": "Pendant Light with Three Colour Temperatures, Gold | Kaiku"
+    },
+    {
+      "id": "product-aosom-84h-084v00cg",
+      "slug": "garden-planter-box-with-back-trellis-grey",
+      "before": "Garden Planter Box, Grey | Kaiku",
+      "after": "Garden Planter Box with Back Trellis, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-025",
+      "slug": "outsunny-8-seater-garden-rattan-furniture-rattan-corner-dining-sofa-set-wicker-conservator",
+      "before": "8-Seater Garden Rattan Furniture Rattan Corner Dining Sofa Set Wicker | Kaiku",
+      "after": "8-Seater Rattan Corner Dining Set with Footstool, Black | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-053",
+      "slug": "outsunny-5-seater-aluminium-garden-furniture-set-garden-sofa-set-with-thick-cushions-for-p",
+      "before": "5 Seater Aluminium Garden Furniture Set, Grey | Kaiku",
+      "after": "5-Seater Aluminium Garden Sofa Set, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-146v70",
+      "slug": "outsunny-6-pieces-outdoor-pe-rattan-wicker-corner-sofa-set-with-10cm-thick-padded-cushions",
+      "before": "Outdoor PE Rattan Wicker Corner Sofa Set with Thick Padded Cushions, Set of 6, Grey | Kaiku",
+      "after": "6-Piece Rattan Corner Sofa Set with Glass-Top Table, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-290v70gg",
+      "slug": "outsunny-all-season-fire-pit-patio-furniture-set-wicker-sofa-set-with-50000-btu-fire-table",
+      "before": "All-Season Fire Pit Patio Furniture Set Wicker Sofa Set With 50000 | Kaiku",
+      "after": "All-Season Rattan Sofa Set with 50,000 BTU Fire Table, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-290v70gy",
+      "slug": "outsunny-seven-piece-firepit-table-rattan-sofa-set-grey",
+      "before": "Seven-Piece Firepit Table Rattan Sofa Set - Grey",
+      "after": "7-Piece Rattan Sofa Set with Fire Pit Table, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-860-335v70gy",
+      "slug": "outsunny-5-piece-rattan-patio-furniture-set-with-gas-fire-pit-table-loveseat-sofa-armchair",
+      "before": "5-Piece Rattan Patio Furniture Set with Gas Fire Pit Table, Grey | Kaiku",
+      "after": "5-Piece Rattan Garden Set with Gas Fire Pit Table, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-867-123v00cg",
+      "slug": "14-5-kw-rattan-gas-fire-pit-dining-table-with-rain-cover-wind-guard-lid-lava-rocks-dark-gr",
+      "before": "14.5 KW Rattan Gas Fire Pit Dining Table with Rain Cover | Kaiku",
+      "after": "14.5kW Rattan Gas Fire Pit Dining Table, Dark Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-867-123v00gy",
+      "slug": "14-5-kw-rattan-gas-fire-pit-dining-table-with-rain-cover-wind-guard-lid-lava-rocks-grey",
+      "before": "14.5 KW Rattan Gas Fire Pit Dining Table with Rain Cover, Grey | Kaiku",
+      "after": "14.5kW Rattan Gas Fire Pit Dining Table, Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-867-147v70gg",
+      "slug": "outsunny-outdoor-pe-rattan-gas-fire-pit-table-patio-square-propane-heater-with-rain-cover-",
+      "before": "Outdoor PE Rattan Gas Fire Pit Table | Kaiku",
+      "after": "PE Rattan Gas Fire Pit Table, Mixed Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-867-269v00yl",
+      "slug": "boho-rattan-floor-lamp-3-lights-rattan-lamp-with-shelf-freestanding-solar-garden-light-wit",
+      "before": "Boho Rattan Floor Lamp | Kaiku",
+      "after": "Boho Rattan Solar Floor Lamp with Shelf, Yellow | Kaiku"
+    },
+    {
+      "id": "product-aosom-920-026yl",
+      "slug": "computer-desk-with-drawers-and-storage-shelves-office-desk-writing-table-with-printer-stan",
+      "before": "Computer Desk with Drawers and Storage Shelves, Oak | Kaiku",
+      "after": "Computer Desk with Drawers and Printer Stand, Oak | Kaiku"
+    },
+    {
+      "id": "product-aosom-920-084v80rb",
+      "slug": "multi-storage-work-desk-with-sliding-keyboard-tray-brown-black",
+      "before": "Multi-Storage Work Desk, with Sliding Keyboard Tray - Brown/Black",
+      "after": "Multi-Storage Work Desk with Sliding Keyboard Tray, Brown | Kaiku"
+    },
+    {
+      "id": "product-aosom-920-100v70gg",
+      "slug": "led-computer-desk-with-power-outlets-and-shelves-carbon-fibre-grey",
+      "before": "LED Computer Desk, with Power Outlets and Shelves - Carbon Fibre Grey",
+      "after": "LED Computer Desk with Power Outlets, Carbon Fibre Grey | Kaiku"
+    },
+    {
+      "id": "product-aosom-920-100v70rb",
+      "slug": "led-computer-desk-with-power-outlets-and-shelves-rustic-brown",
+      "before": "LED Computer Desk, with Power Outlets and Shelves - Rustic Brown",
+      "after": "LED Computer Desk with Power Outlets, Rustic Brown | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-240",
+      "slug": "modern-crystal-ceiling-light-square-crystal-chandelier-for-living-room-dining-room-hall-5-",
+      "before": "Modern Crystal Ceiling Light Square Crystal Chandelier | Kaiku",
+      "after": "Square Crystal Chandelier, Five-Light, Silver | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-300",
+      "slug": "crystal-chandeliers-with-crystal-pendants-8-light-ceiling-light-for-living-room-bedroom-di",
+      "before": "Crystal Chandeliers with Crystal Pendants, Silver | Kaiku",
+      "after": "Eight-Light Crystal Pendant Chandelier, Silver | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-562v00gd",
+      "slug": "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-3000k",
+      "before": "Spiral LED Wall Lamp, Set of 2, Gold | Kaiku",
+      "after": "Spiral LED Wall Lights, Set of 2, Gold | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-565v00gd",
+      "slug": "led-wall-lamp-2-pack-9w-modern-indoor-geometric-mesh-wall-light-colour-temperature-adjusta",
+      "before": "Geometric Mesh LED Wall Lamp, Set of 2, Gold | Kaiku",
+      "after": "Geometric Mesh LED Wall Lights, Set of 2, Gold | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-573v00bk",
+      "slug": "crystal-ceiling-light-semi-flush-mount-modern-crystal-chandelier-ceiling-light-e14-base-3-",
+      "before": "Crystal Ceiling Light | Kaiku",
+      "after": "Three-Light Crystal Semi-Flush Ceiling Light | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-596v00og",
+      "slug": "tiffany-style-ceiling-light-vintage-chandelier-with-3-e27-sockets-semi-flush-mount-for-liv",
+      "before": "Tiffany Style Ceiling Light | Kaiku",
+      "after": "Tiffany Style Semi-Flush Ceiling Light, Three-Light | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-633v00sr",
+      "slug": "pendant-light-with-3-colour-temperatures-silver-tone",
+      "before": "Pendant Light with 3 Colour Temperatures - Silver Tone",
+      "after": "Pendant Light with Three Colour Temperatures, Silver | Kaiku"
+    },
+    {
+      "id": "product-aosom-b31-634v00bk",
+      "slug": "led-ceiling-light-modern-dimmable-ceiling-light-with-wall-switch-remote-control-flush-moun",
+      "before": "LED Ceiling Light, Black | Kaiku",
+      "after": "Dimmable LED Flush Ceiling Light with Remote, Black | Kaiku"
+    }
+  ]
+}

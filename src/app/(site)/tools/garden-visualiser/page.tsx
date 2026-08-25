@@ -11,7 +11,7 @@ import {
 } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 // The visualiser's server action makes two sequential OpenAI calls (image
 // generation, then hotspot detection) that can take 30-40s combined —

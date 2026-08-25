@@ -20,6 +20,20 @@
  * Published documents only, and existing values are overwritten — these fields
  * are derived, not editorial. An editor who wants to override one should change
  * the document's own text, which is the thing the site reads anyway.
+ *
+ * **Do not re-run this to refresh rooms or materials without reading this first.**
+ * It writes `colourTags` and `primaryColour` from the product's *text*, and both
+ * have since been corrected from the *photographs* by
+ * `scripts/derive-image-colours.ts` — which dropped Oak from the black Grafton
+ * console, Oak from the grey-washed Bentley and Black from the plain oak Broadway
+ * chest. No amount of reading a title establishes any of that; the title is
+ * exactly what got them wrong. Re-running this would silently put all three back,
+ * and the only visible sign would be a shopper filtering Oak and being shown a
+ * black steel console.
+ *
+ * If you need to refresh the other facets, either narrow the `set` below to the
+ * fields you actually want, or re-run `derive-image-colours.ts` straight
+ * afterwards to restore the colours.
  */
 import { createClient } from "@sanity/client";
 

@@ -17,6 +17,8 @@ export interface PublicOrderLineItem {
 
 export interface PublicOrderStatus {
   id: string;
+  /** The readable "KH-1042" reference. Null only for orders predating it. */
+  orderNumber: string | null;
   createdAt: string;
   stage: string;
   workflow: string;
@@ -30,10 +32,16 @@ export interface PublicOrderStatus {
 }
 
 /**
- * Public order status, keyed by the order's UUID alone — no login required,
- * since most Kaiku orders are guest checkouts. The UUID has enough entropy
- * to serve as a bearer token (the same pattern Shopify's order-status pages
- * use), but the query below is still deliberately narrow: only stage/
+ * Public order status, keyed by the order's UUID alone — no login required.
+ * Checkout now requires an account, so the owner can always reach this from
+ * /account/orders, but the link is also emailed and gets forwarded, opened on
+ * a phone that is not signed in, and pasted to whoever is waiting in for the
+ * delivery. The UUID has enough entropy to serve as a bearer token (the same
+ * pattern Shopify's order-status pages use) — which is also why the *readable*
+ * order number is never the key here: "KH-1042" is guessable, and the page it
+ * unlocks is somebody's address and delivery date.
+ *
+ * The query below is still deliberately narrow: only stage/
  * tracking/line-item-description fields are selected, and only
  * `stage_change` events are returned. Trade cost, margin, internal notes,
  * and the customer's own admin-facing edit history never reach this action,
@@ -48,7 +56,7 @@ export async function getPublicOrderStatus(
   const { data: order, error } = await admin
     .from("orders")
     .select(
-      "id, created_at, stage, workflow, tracking_carrier, tracking_number, tracking_url, promised_delivery_date, actual_delivery_date, line_items",
+      "id, order_number, created_at, stage, workflow, tracking_carrier, tracking_number, tracking_url, promised_delivery_date, actual_delivery_date, line_items",
     )
     .eq("id", orderId)
     .single();
@@ -63,6 +71,7 @@ export async function getPublicOrderStatus(
 
   return {
     id: order.id,
+    orderNumber: order.order_number ?? null,
     createdAt: order.created_at,
     stage: order.stage,
     workflow: order.workflow,

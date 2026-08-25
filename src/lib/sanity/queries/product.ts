@@ -7,6 +7,7 @@ import {
   FAQ_ENTRY_PROJECTION,
   PRODUCT_OPTION_PROJECTION,
   PRODUCT_SPEC_PROJECTION,
+  SEO_PROJECTION,
 } from "@/lib/sanity/queries/fragments";
 import type {
   SanityProduct,
@@ -59,7 +60,13 @@ const PRODUCT_PROJECTION = /* groq */ `{
   sku,
   gtin,
   mpn,
-  "supplier": supplier->{ name, contactName, email, phone, defaultLeadTimeDays },
+  // Name only. The supplier document also holds a trade contact name, email and
+  // phone, and this projection used to pull all of them — which shipped them
+  // into the product page's own HTML, where "contactName" was readable in the
+  // page source of every public product page. Nothing on the storefront reads
+  // them; delivery.ts needs the name and nothing else. Supplier contacts are
+  // fetched server-side, in admin, by src/server/suppliers/contacts.ts.
+  "supplier": supplier->{ name },
   dimensions,
   weight,
   deliveryLeadTime,
@@ -72,7 +79,8 @@ const PRODUCT_PROJECTION = /* groq */ `{
   "relatedSlugs": relatedProducts[]->slug.current,
   rating,
   reviewCount,
-  "faqs": faqs[] ${FAQ_ENTRY_PROJECTION}
+  "faqs": faqs[] ${FAQ_ENTRY_PROJECTION},
+  "seo": seo ${SEO_PROJECTION}
 }`;
 
 interface RawGalleryImage {
@@ -184,6 +192,17 @@ function normalizeProduct<T extends RawProduct | null>(
     raw.gallery.slice(1).find((img) => !img.isStudioShot) ?? raw.gallery[1];
   return {
     ...raw,
+    /* `name` is deliberately left exactly as Sanity has it, brand suffix included.
+     *
+     * Stripping it here would fix a real defect — the <h1> reads "13.6m Warm White
+     * Decorative LED String Lights | Kaiku", the Reviews panel builds a sentence
+     * around the same string, and the Product structured data hands it to Google as
+     * the product's name. It is also forbidden: "Do not change product names, or
+     * strip the `| Kaiku` suffix" is a standing constraint in
+     * docs/master-brief.md, restated more than once.
+     *
+     * So it stays, and the decision is Damien's. `productDisplayName()` exists and
+     * is tested; if he wants the page cleaned up, it goes here, on this line. */
     gallery,
     // An empty Video object — opened in Studio, never filled — must not read as
     // "this product has a video", or the gallery grows a black slide.
@@ -574,7 +593,24 @@ export async function searchProducts(
   return normalizeProducts(raw);
 }
 
-const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[_type == "product"])`;
+/**
+ * The number of products a shopper can actually reach.
+ *
+ * This was `count(*[_type == "product"])` — every product document, with no filter
+ * at all. It is rendered as "All Collections — N" on the department hubs, so it is a
+ * claim made to a customer, and it counted things they cannot get to: a product with
+ * no category has no URL and appears in no listing, and the count would include
+ * every unpublished draft the moment the client that runs it ever carried a token.
+ * With 102 never-published drafts sitting in the dataset, that is not a hypothetical
+ * off-by-one.
+ *
+ * Now the same predicate every listing uses, so the number and the pages agree.
+ */
+const TOTAL_PRODUCT_COUNT_QUERY = /* groq */ `count(*[
+  _type == "product"
+  && !(_id in path("drafts.**"))
+  && defined(category->slug.current)
+])`;
 
 export async function getTotalProductCount(): Promise<number> {
   return sanityFetch<number>(TOTAL_PRODUCT_COUNT_QUERY, {}, 0);
@@ -611,7 +647,10 @@ export interface MerchantFeedProduct {
   summary: string;
   price: number;
   currency: string;
+  /** The original, uncropped URL. Kept as the fallback. */
   image: string | null;
+  /** A square 1:1 render honouring the hero's crop — what the feed should send. */
+  feedImage: string | null;
   brand: string | null;
   gtin: string | null;
   mpn: string | null;
@@ -619,10 +658,14 @@ export interface MerchantFeedProduct {
   stockStatus: string;
   /** Same string the product page renders; parsed into handling days. */
   deliveryLeadTime: string | null;
+  /** Needed to apply the same delivery rule the storefront applies — a
+   * made-to-order supplier's real lead time beats the price band. See
+   * src/lib/catalog/delivery.ts. */
+  supplierName: string | null;
 }
 
 const MERCHANT_FEED_QUERY = /* groq */ `
-*[_type == "product" && defined(category->slug.current)] {
+*[_type == "product" && !(_id in path("drafts.**")) && defined(category->slug.current)] {
   "slug": slug.current,
   "category": category->slug.current,
   "categoryName": category->title,
@@ -631,19 +674,85 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   summary,
   price,
   currency,
+  // The asset ref plus hotspot/crop, not the plain URL: the feed image is built
+  // with urlForImage so the hero's stored crop is honoured. See buildFeedImage.
+  "heroImage": gallery[0]{ "assetRef": asset._ref, hotspot, crop },
   "image": gallery[0].asset->url,
   "brand": brand->name,
   gtin,
   mpn,
   sku,
   stockStatus,
-  deliveryLeadTime
+  deliveryLeadTime,
+  "supplierName": supplier->name
 }`;
 
+/**
+ * The square image a Shopping listing should show.
+ *
+ * Google renders a Shopping tile square. Send it a landscape photograph and it pads
+ * the image with white bars, which is why competitors' listings for the same product
+ * appear with a band of white above and below and the product small in the middle.
+ * Kaiku's hero photographs are already square, so nothing is letterboxed — but
+ * measured across all 120 published heroes the *product* filled only 82% of its frame
+ * on average and as little as 49%, so half of some tiles was empty white.
+ *
+ * `scripts/tighten-hero-crops.ts` stores a square crop on each hero that reclaims
+ * that margin. This is the half that spends it: without building the URL through
+ * `urlForImage`, the feed keeps sending `asset->url` and the crop has no effect on
+ * the one surface it was computed for.
+ *
+ * 1200px because Merchant Center's recommended minimum for furniture is 800 and the
+ * originals are large enough to give more without upscaling.
+ */
+const FEED_IMAGE_SIZE = 1200;
+
+function buildFeedImage(hero: RawFeedHeroImage | null): string | null {
+  if (!hero?.assetRef) return null;
+  try {
+    return (
+      urlForImage({
+        asset: { _ref: hero.assetRef, _type: "reference" },
+        hotspot: hero.hotspot,
+        crop: hero.crop,
+      })
+        .width(FEED_IMAGE_SIZE)
+        .height(FEED_IMAGE_SIZE)
+        .fit("crop")
+        .auto("format")
+        .url() || null
+    );
+  } catch {
+    // A malformed ref must not take the whole feed down — the caller falls back to
+    // the plain asset URL, which is what was sent before this existed.
+    return null;
+  }
+}
+
+interface RawFeedHeroImage {
+  assetRef?: string | null;
+  hotspot?: Record<string, unknown> | null;
+  crop?: Record<string, unknown> | null;
+}
+
 /** Full, uncapped product list for the Google Merchant Center feed — unlike
- * page generation, a merchant feed genuinely needs every product. */
+ * page generation, a merchant feed genuinely needs every product.
+ *
+ * The drafts filter in the query above is defence in depth rather than a live fix:
+ * `sanityClient` carries no token, so drafts are not returned to it today. But an
+ * untokened client is the only thing preventing an unpublished, half-priced,
+ * half-written product from being advertised in Google Shopping, and that is too
+ * much to rest on a setting in a different file. */
 export async function getMerchantFeedProducts(): Promise<
   MerchantFeedProduct[]
 > {
-  return sanityFetch<MerchantFeedProduct[]>(MERCHANT_FEED_QUERY, {}, []);
+  const raw = await sanityFetch<
+    (Omit<MerchantFeedProduct, "feedImage"> & {
+      heroImage?: RawFeedHeroImage | null;
+    })[]
+  >(MERCHANT_FEED_QUERY, {}, []);
+  return raw.map(({ heroImage, ...product }) => ({
+    ...product,
+    feedImage: buildFeedImage(heroImage ?? null),
+  }));
 }

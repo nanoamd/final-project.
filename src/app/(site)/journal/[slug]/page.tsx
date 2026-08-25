@@ -5,7 +5,7 @@ import { ArticleDetail } from "@/features/storefront/components/content/article-
 import { getPost, getPosts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const posts = await getPosts({ limit: 200 });
@@ -24,6 +24,7 @@ export async function generateMetadata({
     description: post?.excerpt ?? "Stories and ideas from Kaiku.",
     path: `/journal/${slug}`,
     image: post?.coverImage ?? undefined,
+    seo: post?.seo,
   });
 }
 
@@ -45,6 +46,7 @@ export default async function JournalArticlePage({
       author={post.author}
       publishedAt={post.publishedAt}
       body={post.body}
+      relatedProducts={post.relatedProducts}
     />
   );
 }

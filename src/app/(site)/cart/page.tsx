@@ -8,6 +8,7 @@ import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { useCart } from "@/hooks/use-cart";
+import { trackBeginCheckout } from "@/lib/analytics/events";
 import { formatPriceExact } from "@/lib/format";
 import { createCheckoutSession } from "@/server/actions/checkout";
 
@@ -19,6 +20,17 @@ export default function CartPage() {
   async function handleCheckout() {
     setError(null);
     setCheckingOut(true);
+    // Reported before the redirect, because once Stripe has the visitor this page is
+    // gone and nothing else on our side sees the attempt.
+    trackBeginCheckout(
+      items.map((item) => ({
+        slug: item.slug,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        category: item.category,
+      })),
+    );
     try {
       await createCheckoutSession(
         items.map((item) => ({
@@ -166,7 +178,7 @@ export default function CartPage() {
             </span>
           </div>
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Shipping calculated at checkout.
+            Tax included. Free UK delivery.
           </p>
           {error ? (
             <p className="text-brass mt-4 text-[13px]">{error}</p>

@@ -122,6 +122,49 @@ export function button(href: string, label: string): string {
   )}</a></td></tr></table>`;
 }
 
+/**
+ * A full-width image.
+ *
+ * Four things are load-bearing and none of them are decoration:
+ *
+ * - **`src` must be an absolute URL.** An email has no origin to resolve a
+ *   relative path against, so `/images/hero.jpg` renders as a broken icon
+ *   everywhere. Sanity's CDN URLs are absolute and already public.
+ * - **A `width` attribute as well as the style.** Outlook's Word engine ignores
+ *   `max-width`, so without the attribute a 2000px photo blows the layout to
+ *   2000px wide and the whole email scrolls sideways.
+ * - **`alt` text that says something.** Gmail, Outlook and Apple Mail all block
+ *   remote images by default until the reader chooses to load them, so for a
+ *   good share of recipients the alt text *is* the image. Empty alt on a
+ *   meaningful image means they see nothing.
+ * - **`display:block` and `border:0`.** Removes the stray baseline gap under
+ *   the image, and stops older Outlook drawing a blue border when it is wrapped
+ *   in a link.
+ *
+ * `width` is the intended display width in pixels, capped at the 600px content
+ * column. Supply an image at roughly twice that for sharpness on retina.
+ */
+export function image({
+  src,
+  alt,
+  width = 600,
+  href,
+}: {
+  src: string;
+  alt: string;
+  width?: number;
+  href?: string | null;
+}): string {
+  const capped = Math.min(Math.max(Math.round(width), 1), 600);
+  const img =
+    `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" width="${capped}" ` +
+    `style="display:block;width:100%;max-width:${capped}px;height:auto;border:0;outline:none;text-decoration:none;" />`;
+  const wrapped = href
+    ? `<a href="${escapeHtml(href)}" style="text-decoration:none;">${img}</a>`
+    : img;
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:0 0 18px;"><tr><td align="center">${wrapped}</td></tr></table>`;
+}
+
 export interface EmailRow {
   /** Left-hand cell. Pre-escaped HTML. */
   label: string;

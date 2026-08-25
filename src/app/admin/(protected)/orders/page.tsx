@@ -4,121 +4,175 @@ import { formatPriceExact } from "@/lib/format";
 import { listAllOrdersForAdmin } from "@/server/actions/orders";
 import { stageLabel } from "@/server/hq/workflows";
 
+/**
+ * The order blotter.
+ *
+ * Was a card per order — six lines of detail each, three orders visible at once,
+ * and no way to compare them. A card is right when you have one thing to read
+ * and wrong when you have a book of them: the question this page answers is
+ * "what is the state of the book", which needs rows, aligned columns and a
+ * screen that holds thirty of them.
+ *
+ * Line items, addresses and options moved to the order page, which is where you
+ * go once you have found the order. This page's job is finding it.
+ */
 export default async function AdminOrdersPage() {
   const orders = await listAllOrdersForAdmin();
 
+  const totalValue = orders.reduce((sum, order) => sum + order.amountTotal, 0);
+
   return (
-    <div>
-      <div className="flex items-baseline justify-between gap-4">
-        <h1 className="font-display text-2xl">Orders</h1>
-        <Link
-          href="/admin"
-          className="text-sm text-neutral-500 transition-colors hover:text-neutral-900"
-        >
-          ← Dashboard
-        </Link>
+    <section className="hq-panel">
+      <div className="hq-panel-head">
+        <span>Orders</span>
+        <span className="hq-num" style={{ color: "var(--hq-faint)" }}>
+          {orders.length} · {formatPriceExact(totalValue / 100)}
+        </span>
       </div>
 
       {orders.length === 0 ? (
-        <p className="mt-8 text-sm text-neutral-500">
-          No orders yet — paid orders will show up here as soon as they come
-          through.
+        <p
+          className="px-2.5 py-4 text-[12px]"
+          style={{ color: "var(--hq-dim)" }}
+        >
+          No orders yet. Paid orders appear here the moment the Stripe webhook
+          records them.
         </p>
       ) : (
-        <ul className="mt-8 flex flex-col gap-4">
-          {orders.map((order) => (
-            <li
-              key={order.id}
-              className="relative rounded-xl border border-neutral-200 bg-white p-6"
-            >
-              <Link
-                href={`/admin/orders/${order.id}`}
-                className="absolute inset-0"
-                aria-label="View order"
-              />
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="font-display text-lg">
-                  {formatPriceExact(order.amountTotal / 100)}
-                </p>
-                <p className="text-sm text-neutral-500">
-                  {new Date(order.createdAt).toLocaleString("en-GB")}
-                </p>
-              </div>
-              <p className="mt-1 text-sm text-neutral-500">
-                {order.email || "(no email)"}
-                {order.phone ? ` · ${order.phone}` : ""}
-              </p>
-              <p className="mt-1 flex items-center gap-2 text-xs tracking-[0.08em] uppercase">
-                <span className="text-neutral-400">{order.status}</span>
-                <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-neutral-600 normal-case">
-                  {stageLabel(order.stage)}
-                </span>
-                {order.flagged ? (
-                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-amber-800 normal-case">
-                    ⚑ Flagged
-                  </span>
-                ) : null}
-              </p>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-[12px]">
+            <thead>
+              <tr style={{ borderBottom: "1px solid var(--hq-line)" }}>
+                <Th>Ref</Th>
+                <Th>Placed</Th>
+                <Th>Customer</Th>
+                <Th align="right">Total</Th>
+                <Th>Stage</Th>
+                <Th align="right">Items</Th>
+                <Th>Supplier</Th>
+                <Th />
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => {
+                const itemCount = order.lineItems.reduce(
+                  (sum, item) => sum + (item.quantity ?? 1),
+                  0,
+                );
+                const suppliers = [
+                  ...new Set(
+                    order.lineItems
+                      .map((item) => item.supplier)
+                      .filter((name): name is string => Boolean(name)),
+                  ),
+                ];
 
-              {order.lineItems.length > 0 ? (
-                <ul className="mt-4 flex flex-col gap-2 border-t border-neutral-100 pt-4">
-                  {order.lineItems.map((item, index) => (
-                    <li key={index} className="text-sm">
-                      <p className="text-neutral-900">
-                        {item.quantity ? `${item.quantity} × ` : ""}
-                        {item.description ?? "Item"}
-                      </p>
-                      <p className="text-neutral-500">
-                        {item.sku ? `SKU ${item.sku}` : "SKU unknown"}
-                        {item.supplier ? ` · Supplier: ${item.supplier}` : ""}
-                        {item.slug ? (
-                          <>
-                            {" · "}
-                            <Link
-                              href={`/shop/${item.category}/${item.slug}`}
-                              className="underline underline-offset-2"
-                              target="_blank"
-                            >
-                              View product
-                            </Link>
-                          </>
-                        ) : null}
-                      </p>
-                      {item.selectedOptions ? (
-                        <p className="text-neutral-500">
-                          {Object.entries(item.selectedOptions)
-                            .map(([label, value]) => `${label}: ${value}`)
-                            .join(" · ")}
-                        </p>
+                return (
+                  <tr key={order.id} className="hq-row hq-row-hover">
+                    <Td>
+                      <Link
+                        href={`/admin/orders/${order.id}`}
+                        className="hq-num"
+                        style={{ color: "var(--hq-accent)" }}
+                      >
+                        {order.orderNumber ?? order.id.slice(0, 8)}
+                      </Link>
+                      {order.flagged ? (
+                        <span
+                          title="Flagged"
+                          className="ml-1.5"
+                          style={{ color: "var(--hq-warn)" }}
+                        >
+                          ⚑
+                        </span>
                       ) : null}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-
-              {order.shippingAddress ? (
-                <div className="mt-4 border-t border-neutral-100 pt-4">
-                  <p className="text-xs tracking-[0.08em] text-neutral-400 uppercase">
-                    Delivery address
-                  </p>
-                  <p className="mt-1 text-sm text-neutral-700">
-                    {order.shippingAddress.name}
-                    <br />
-                    {[
-                      order.shippingAddress.address.line1,
-                      order.shippingAddress.address.line2,
-                      order.shippingAddress.address.city,
-                      order.shippingAddress.address.postal_code,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                </div>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+                    </Td>
+                    <Td dim mono>
+                      {new Date(order.createdAt).toLocaleString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                        timeZone: "Europe/London",
+                      })}
+                    </Td>
+                    <Td dim>
+                      <span className="block max-w-[220px] truncate">
+                        {order.email || "(no email)"}
+                      </span>
+                    </Td>
+                    <Td align="right" mono>
+                      {formatPriceExact(order.amountTotal / 100)}
+                    </Td>
+                    <Td dim>{stageLabel(order.stage)}</Td>
+                    <Td align="right" mono dim>
+                      {itemCount}
+                    </Td>
+                    <Td dim>
+                      <span className="block max-w-[180px] truncate">
+                        {suppliers.length ? suppliers.join(", ") : "—"}
+                      </span>
+                    </Td>
+                    <Td align="right">
+                      <Link
+                        href={`/admin/orders/${order.id}`}
+                        style={{ color: "var(--hq-faint)" }}
+                        aria-label={`Open order ${order.orderNumber ?? order.id}`}
+                      >
+                        →
+                      </Link>
+                    </Td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )}
-    </div>
+    </section>
+  );
+}
+
+function Th({
+  children,
+  align = "left",
+}: {
+  children?: React.ReactNode;
+  align?: "left" | "right";
+}) {
+  return (
+    <th
+      scope="col"
+      className="hq-label px-2.5 py-1.5"
+      style={{ textAlign: align }}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Td({
+  children,
+  align = "left",
+  dim,
+  mono,
+}: {
+  children?: React.ReactNode;
+  align?: "left" | "right";
+  dim?: boolean;
+  mono?: boolean;
+}) {
+  return (
+    <td
+      className={`px-2.5 py-1.5 align-top ${mono ? "hq-num" : ""}`}
+      style={{
+        textAlign: align,
+        color: dim ? "var(--hq-dim)" : "var(--hq-text)",
+      }}
+    >
+      {children}
+    </td>
   );
 }

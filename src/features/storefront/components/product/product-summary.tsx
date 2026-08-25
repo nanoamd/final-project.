@@ -22,11 +22,9 @@ import { AppLink } from "@/components/ui/app-link";
 import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { useSavedProducts } from "@/hooks/use-saved-products";
-import {
-  describeValues,
-  descriptiveOptions,
-  selectableOptions,
-} from "@/lib/catalog/product-options";
+import { trackAddToCart } from "@/lib/analytics/events";
+import { leadTimeLine } from "@/lib/catalog/delivery";
+import { selectableOptions } from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -73,11 +71,10 @@ export function ProductSummary({
   const saved = isSaved(product.slug);
   const image = displayImage ?? product.image;
 
-  // Options the shopper actually chooses between, and options that merely
-  // describe the piece. A colour list nobody has photographed per value is the
-  // second kind — see src/lib/catalog/product-options.ts.
+  // Only the options the shopper actually chooses between. A colour list with no
+  // photograph per value is a description of the one product, not a choice, and is
+  // not rendered — see src/lib/catalog/product-options.ts.
   const choosable = selectableOptions(product.options, product.gallery);
-  const described = descriptiveOptions(product.options, product.gallery);
 
   function handleAddToBasket() {
     // Only real choices go on the basket line. A descriptive colour list written
@@ -100,6 +97,12 @@ export function ProductSummary({
       price: product.price,
       image,
       selectedOptions,
+    });
+    trackAddToCart({
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      category: product.category,
     });
     setAdded(true);
     window.setTimeout(() => setAdded(false), 2000);
@@ -251,21 +254,21 @@ export function ProductSummary({
           </div>
         ))}
 
-        {/* Colours the piece *has*, not colours to choose between. Stated rather
-            than offered: the Neatham table lists Black, Brass and Gold because it
-            is a black top on brass-gold legs, and a row of buttons there invites
-            an order for a gold table that does not exist. See
-            src/lib/catalog/product-options.ts. */}
-        {described.map((option) => (
-          <div key={option.label}>
-            <p className="text-muted mb-2 text-[11px] font-semibold tracking-[0.14em] uppercase">
-              {option.label}
-            </p>
-            <p className="text-graphite text-[13px]">
-              {describeValues(option.values)}
-            </p>
-          </div>
-        ))}
+        {/* A colour option nobody has photographed per value is not shown at all.
+            Damien on the Neatham table: "There are no colours for the neatham
+            table, it comes in one colour only." Its option list reads Black,
+            Brass, Gold because that is what the one table is made of — a black top
+            on brass-gold legs — and there is no second version to pick.
+
+            Restating those three as a line of text was the first attempt and it
+            was still wrong: the customer has not asked what the table is made of,
+            and a COLOUR heading on a product with one colour reads as a choice
+            however it is worded. The photographs already say what it looks like.
+
+            The colours still reach the filters through `colourTags`, so the table
+            is findable under Black and under Gold — that is where a colour belongs
+            when it is a fact about the product rather than a decision for the
+            shopper. See src/lib/catalog/product-options.ts. */}
 
         <div className="border-line border-t pt-6">
           {product.compareAtPrice && product.compareAtPrice > product.price ? (
@@ -283,7 +286,7 @@ export function ProductSummary({
             </p>
           )}
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Shipping calculated at checkout.
+            Tax included. Free UK delivery.
           </p>
           <div className="text-graphite mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
             <span className="flex items-center gap-2">
@@ -294,11 +297,11 @@ export function ProductSummary({
               />
               {product.stockStatus}
             </span>
-            {product.deliveryLeadTime ? (
-              <span className="text-muted">
-                Delivered in {product.deliveryLeadTime}
-              </span>
-            ) : null}
+            {/* deliveryWindow, not the raw field — so the buy-box, the
+                delivery panel below, the comparison table and the
+                confirmation email all state the same window for the same
+                product. See src/lib/catalog/delivery.ts. */}
+            <span className="text-muted">{leadTimeLine(product)}</span>
           </div>
           {product.stockStatus === "In Stock" &&
           typeof product.stockQuantity === "number" &&

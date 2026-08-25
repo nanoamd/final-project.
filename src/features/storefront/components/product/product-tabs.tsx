@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
+import { ProductArtPanel } from "@/components/shared/product-artwork";
 import {
   availabilityLine,
   DOORSTEP_DELIVERY_NOTE,
@@ -56,7 +57,7 @@ function bandFeatures(
     title: "Free UK delivery",
     // leadTimeLine, not a second copy of the same template — the band and the
     // delivery panel below it must not be able to word this differently.
-    copy: leadTimeLine(product) ?? "Included in the price",
+    copy: leadTimeLine(product),
   });
 
   features.push({
@@ -151,17 +152,64 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
                 <DescriptionPanel product={product} />
               ) : null}
               {tab.id === "specifications" ? (
-                <SpecsPanel product={product} />
+                <WithSideArt product={product}>
+                  <SpecsPanel product={product} />
+                </WithSideArt>
               ) : null}
               {tab.id === "delivery" ? (
-                <DeliveryPanel product={product} />
+                <WithSideArt product={product}>
+                  <DeliveryPanel product={product} />
+                </WithSideArt>
               ) : null}
-              {tab.id === "faqs" ? <FaqsPanel product={product} /> : null}
-              {tab.id === "reviews" ? <ReviewsPanel product={product} /> : null}
+              {tab.id === "faqs" ? (
+                <WithSideArt product={product}>
+                  <FaqsPanel product={product} />
+                </WithSideArt>
+              ) : null}
+              {tab.id === "reviews" ? (
+                <WithSideArt product={product}>
+                  <ReviewsPanel product={product} />
+                </WithSideArt>
+              ) : null}
             </div>
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Puts the decorative artwork beside a panel that does not fill its width.
+ *
+ * The brief: *"Some product pages contain large unused empty areas beside
+ * descriptions. This space must not remain empty."* This is where that space was.
+ * Specifications, Delivery, FAQs and Reviews are all capped at `max-w-3xl` for
+ * readability — correct, and it leaves roughly 400px of bare off-white to the right
+ * of them on a desktop, worst of all on Reviews, where a new product has two lines
+ * of copy in a band the height of a screen.
+ *
+ * A four-column grid rather than the description's five: the text keeps the width it
+ * already had (the 3-of-4 column is wider than `max-w-3xl`, so the cap still
+ * decides), and the artwork takes the column that was empty. It is `lg:` only —
+ * there is nothing to fill on a phone — and `self-start`, so a short panel does not
+ * stretch it into a tall smear.
+ */
+function WithSideArt({
+  product,
+  children,
+}: {
+  product: SanityProduct;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="grid gap-10 lg:grid-cols-4 lg:gap-16">
+      <div className="lg:col-span-3">{children}</div>
+      <ProductArtPanel
+        product={product}
+        label={product.categoryName}
+        className="aspect-[5/7] self-start lg:sticky lg:top-24"
+      />
     </div>
   );
 }
@@ -174,20 +222,16 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
     // does not need the same width as the copy.
     <div className="grid gap-10 lg:grid-cols-5 lg:gap-16">
       <div className="lg:col-span-3">
-        {/* The panel used to open with a fixed heading, "Designed for wellness.
-            Built for life.", on every product in the catalogue. The description
-            now brings its own section headings, so the summary leads instead —
-            and it is about this product. */}
-        <p className="text-ink max-w-prose text-[17px] leading-relaxed">
-          {product.summary}
-        </p>
+        {/* product.summary is not repeated here — ProductSummary already shows it
+            in the buy-box, above the fold and beside the price, so a shopper has
+            already read it before they ever open this tab. This panel used to
+            lead with it again, which put the same one or two sentences on the
+            page twice; the description's own opening line does that job now. */}
         {product.description?.length ? (
-          <div className="mt-8">
-            <PortableText
-              value={product.description}
-              components={productDescriptionComponents}
-            />
-          </div>
+          <PortableText
+            value={product.description}
+            components={productDescriptionComponents}
+          />
         ) : null}
 
         <div className="border-line mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-8 sm:grid-cols-4">
@@ -210,21 +254,61 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
       </div>
 
       {product.image ? (
-        // self-start stops this from stretching to match the text column's
-        // height in the grid above — without it, a long description makes this a
-        // very tall, narrow box, and object-cover ends up zooming into a tiny,
-        // near-unrecognisable slice of the photo. sticky keeps the photo in view
-        // while a long description scrolls past it.
-        <div className="border-line relative aspect-[4/3] self-start overflow-hidden rounded-2xl border lg:sticky lg:top-24 lg:col-span-2">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 40vw"
-            className="object-cover"
+        /* The travelling column.
+         *
+         * self-start stops it from stretching to match the text column's height in
+         * the grid — without it, a long description makes this a very tall, narrow
+         * box, and object-cover ends up zooming into a tiny, near-unrecognisable
+         * slice of the photo. sticky keeps it in view while a long description
+         * scrolls past. **That behaviour is unchanged and must stay** — Damien
+         * singled it out. The sticky/self-start pair has only moved from the photo
+         * itself to the wrapper around it, so the photo and the artwork travel
+         * together as one column rather than the artwork sitting still while the
+         * photo slides over it.
+         *
+         * The artwork is here because the Description tab is the one the page opens
+         * on, and the brief's wording was "empty areas beside descriptions". It was
+         * on the other four tabs only, so on a first visit it was invisible.
+         */
+        <div className="relative lg:col-span-2">
+          {/* The photograph travels; the artwork does not.
+           *
+           * The column deliberately does *not* take `self-start` any more, so it
+           * stretches to the description's height and the sticky photo has room to
+           * travel — that behaviour is the thing Damien singled out as worth keeping.
+           * What changed is that the artwork is no longer inside the sticky wrapper:
+           * it sits still in the page while the photograph slides down across it,
+           * which is only possible because the artwork now has no surface of its own.
+           * `z-10` and the photo's own border are what put it on top. */}
+          <div className="border-line relative z-10 aspect-[4/3] overflow-hidden rounded-2xl border lg:sticky lg:top-24">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover"
+            />
+          </div>
+          {/* Square, matching the photo's width: a square crop of the 400×560 canvas
+              keeps the middle 70%, costing only the repeating edges (the lowest wave,
+              the last paving course). Scaled-to-fit was tried first and left the
+              drawing floating in margins, which read as a broken image. */}
+          <ProductArtPanel
+            product={product}
+            label={product.categoryName}
+            className="mt-6 aspect-square"
           />
         </div>
-      ) : null}
+      ) : (
+        // No photograph, so this column was two fifths of nothing. The artwork is
+        // the honest filler: it is decoration and looks like decoration, where a
+        // stretched or repeated product shot would look like a mistake.
+        <ProductArtPanel
+          product={product}
+          label={product.categoryName}
+          className="aspect-[5/7] self-start lg:sticky lg:top-24 lg:col-span-2"
+        />
+      )}
     </div>
   );
 }
@@ -286,12 +370,10 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
               so the one thing every buyer wants to know was the one thing the
               panel did not say. */}
           <dl className="mt-3 space-y-1.5 text-[14px] leading-relaxed">
-            {leadTime ? (
-              <div>
-                <dt className="sr-only">Lead time</dt>
-                <dd className="text-ink font-medium">{leadTime}</dd>
-              </div>
-            ) : null}
+            <div>
+              <dt className="sr-only">Lead time</dt>
+              <dd className="text-ink font-medium">{leadTime}</dd>
+            </div>
             <div>
               <dt className="sr-only">Availability</dt>
               <dd className="text-graphite">{availabilityLine(product)}</dd>

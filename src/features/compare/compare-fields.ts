@@ -1,3 +1,4 @@
+import { deliveryWindow } from "@/lib/catalog/delivery";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
@@ -155,7 +156,10 @@ export function buildCompareRows(products: SanityProduct[]): CompareRow[] {
   );
   push(
     "Delivery",
-    products.map((p) => p.deliveryLeadTime ?? null),
+    // deliveryWindow, not the raw field — the comparison table sits beside the
+    // product pages it compares, so a different window here would be the most
+    // visible inconsistency on the site. See src/lib/catalog/delivery.ts.
+    products.map((p) => deliveryWindow(p)),
   );
   push(
     "Availability",

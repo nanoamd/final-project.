@@ -4,7 +4,10 @@ import "server-only";
 
 import crypto from "node:crypto";
 
+import { siteUrl } from "@/config/site";
 import { env } from "@/env";
+import { buildQuoteReceivedEmail } from "@/server/emails/form-acknowledgements";
+import { resolveFormEmail } from "@/server/emails/resolve-email";
 import { sendEmail } from "@/server/integrations/resend";
 import { getSanityWriteClient } from "@/server/sanity/write-client";
 
@@ -332,21 +335,32 @@ export async function submitQuoteRequest(
     });
   }
 
+  // Through the resolver so a Studio template can replace it, and through the
+  // shared layout either way. A quote enquiry is the highest-value thing this
+  // site collects; its acknowledgement should not be the plainest email Kaiku
+  // sends, which is what a bare Georgia `<div>` made it.
+  const { built } = await resolveFormEmail({
+    templateKey: "quote-received",
+    variables: {
+      customerName: payload.name,
+      reference: payload.reference,
+      shopUrl: `${siteUrl}/shop`,
+      projectTypes: payload.projectTypes.join(", ") || null,
+    },
+    fallback: () =>
+      buildQuoteReceivedEmail({
+        customerName: payload.name,
+        reference: payload.reference,
+        siteUrl,
+        projectTypes: payload.projectTypes,
+      }),
+  });
+
   await sendEmail({
     to: payload.email,
-    subject: `Your quote request — ${payload.reference}`,
-    html: `
-      <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
-        <p style="font-size: 16px; line-height: 1.6;">Thank you, ${escapeHtml(payload.name)}.</p>
-        <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a;">
-          We have your request and we'll read it properly rather than send you a
-          brochure. If anything is missing we'll ask before pricing it.
-        </p>
-        <p style="font-size: 15px; line-height: 1.6; color: #4a4a4a;">
-          Your reference is <strong>${payload.reference}</strong>.
-        </p>
-      </div>
-    `,
+    subject: built.subject,
+    html: built.html,
+    text: built.text,
   });
 
   return { ok: true, reference: payload.reference };

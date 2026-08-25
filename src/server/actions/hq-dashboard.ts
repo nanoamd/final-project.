@@ -6,12 +6,13 @@ import { getAuthorizedAdmin } from "@/server/auth/admin";
 import { stageLabel } from "@/server/hq/workflows";
 import { createAdminClient } from "@/server/supabase/admin";
 
-export interface DashboardNeedsAction {
-  orderId: string;
-  label: string;
-  detail: string;
-}
-
+/**
+ * The "needs action" list used to be computed here, with two rules
+ * (unacknowledged, flagged). It now lives in `hq/attention.ts`, which covers
+ * both of those and six more, and is pure and tested. Two implementations of
+ * "what needs doing" would drift, and the one on screen would not be the one
+ * anybody trusted.
+ */
 export interface DashboardPulseItem {
   title: string;
   createdAt: string;
@@ -22,7 +23,6 @@ export interface DashboardData {
   revenueThisMonth: number;
   ordersThisMonth: number;
   aov: number;
-  needsAction: DashboardNeedsAction[];
   pulse: DashboardPulseItem[];
   pipeline: { stage: string; label: string; count: number }[];
 }
@@ -31,7 +31,6 @@ const EMPTY: DashboardData = {
   revenueThisMonth: 0,
   ordersThisMonth: 0,
   aov: 0,
-  needsAction: [],
   pulse: [],
   pipeline: [],
 };
@@ -60,30 +59,10 @@ export async function getDashboardData(): Promise<DashboardData> {
 
   const { data: allOrders } = await admin
     .from("orders")
-    .select("id, email, created_at, stage, flagged")
+    .select("id, created_at, stage")
     .eq("status", "paid")
     .order("created_at", { ascending: false })
     .limit(200);
-
-  const needsAction: DashboardNeedsAction[] = [];
-  const dayMs = 24 * 60 * 60 * 1000;
-  for (const order of allOrders ?? []) {
-    const ageMs = Date.now() - new Date(order.created_at).getTime();
-    if ((order.stage === "paid" || order.stage === "review") && ageMs > dayMs) {
-      needsAction.push({
-        orderId: order.id,
-        label: "Unacknowledged order",
-        detail: `${order.email || "Guest"} — placed ${Math.floor(ageMs / dayMs)}d ago`,
-      });
-    }
-    if (order.flagged) {
-      needsAction.push({
-        orderId: order.id,
-        label: "Flagged for attention",
-        detail: order.email || "Guest",
-      });
-    }
-  }
 
   const pipeline: { stage: string; label: string; count: number }[] = [];
   const stageCounts = new Map<string, number>();
@@ -105,7 +84,6 @@ export async function getDashboardData(): Promise<DashboardData> {
     revenueThisMonth,
     ordersThisMonth,
     aov,
-    needsAction: needsAction.slice(0, 10),
     pulse: (events ?? []).map((e) => ({
       title: e.title,
       createdAt: e.created_at,
