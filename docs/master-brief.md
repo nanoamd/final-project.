@@ -1319,25 +1319,29 @@ consistency".
       `HIL-23674`, `KA-HILL-20696`, and bare supplier codes like `24456`.
       The format extends your own best one rather than replacing it:
 
-          KK-CT-ABBERLEY-BRN-001
-                                                                                                                                                                                                                 │  │        │   └── sequence, breaks ties
-                                                                                                                                                                                                                 │  │        └────── colour, omitted when there isn't one
-                                                                                                                                                                                                                 │  └─────────────── the range name
-                                                                                                                                                                                                                 └────────────────── category
+```text
+KK-CT-ABBERLEY-BRN-001
+ │  │     │        │   └── sequence, breaks ties
+ │  │     │        └────── colour, omitted when there isn't one
+ │  │     └─────────────── the range name
+ │  └───────────────────── category
+ └──────────────────────── the Kaiku prefix
+```
 
-  `src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
-  products now conform**; a code already matching is never rewritten, so
-  re-running is a clean no-op. Every change logged to a new `skuAssignment`
-  document. Drafts are being assigned in the background as this is written.
-  - Verifying the applied codes against the format — rather than trusting the
-    script's own success output — caught three that failed it (`KK-LT-M-001`):
-    titles like "13.6m Warm White…" reduce to a bare "m" once digits are
-    stripped, which identifies nothing _and_ would have made the script rewrite
-    those same three products on every future run. Fixed, and a test now asserts
-    every code the module builds passes its own validity check.
-  - Confirmed **zero genuine duplicate codes** — the 11 apparent collisions are
-    draft/published pairs of the same document, which is how Sanity represents
-    an edited product.
+`src/lib/catalog/sku.ts` + `scripts/assign-skus.ts`. **All 235 published
+products now conform**; a code already matching is never rewritten, so
+re-running is a clean no-op. Every change logged to a new `skuAssignment`
+document. Drafts are being assigned in the background as this is written.
+
+- Verifying the applied codes against the format — rather than trusting the
+  script's own success output — caught three that failed it (`KK-LT-M-001`):
+  titles like "13.6m Warm White…" reduce to a bare "m" once digits are
+  stripped, which identifies nothing _and_ would have made the script rewrite
+  those same three products on every future run. Fixed, and a test now asserts
+  every code the module builds passes its own validity check.
+- Confirmed **zero genuine duplicate codes** — the 11 apparent collisions are
+  draft/published pairs of the same document, which is how Sanity represents
+  an edited product.
 
 ### P1 — found, evidenced, deliberately NOT auto-fixed
 
@@ -2152,33 +2156,18 @@ Two process faults of mine, worth recording because they caused this:
       change log stored the previous copy as _plain text_, which reads fine and
       cannot restore: it loses the blocks, headings and keys. The log now
       records the previous copy for reference and history is the restore path.
-- [x] **Sampled every category before applying again** — instead of picking
-      two products by hand, the fixed writer was run over one product from each
-      of the 33 categories and its output fed through `context-check` and
-      `wording-check`. **Only 4 of 33 came back clean.** That found six more
-      faults, three in the writer and three in the detectors:
-
-      - **"The The Rutland Collection Rectangular Dining table"** — the copy
-                                                        prefixes "The" to a name that already begins with it. Ten Furniture
-                                                        drafts read that way.
-                                                      - **An outdoor sauna was told about "sightlines across the room"** —
-                                                        `familyFor` sends it to the wellness writing family, and place was
-                                                        being taken from family instead of siting. Siting now decides.
-                                                      - **An indoor sauna was offered "Poolside areas"** — the wellness
-                                                        settings list holds both indoor and outdoor entries. It is now filtered
-                                                        by siting.
-                                                      - "Allow clearance rather than fitting it wall to wall" on a garden
-                                                        product — a room idiom. Now "boundary to boundary" outdoors.
-                                                      - Detector: "cushions and throws" is not indoor language when they are
-                                                        weatherproof.
-                                                      - Detector: a black barbecue was reported as claiming to be brass, copper
-                                                        and terracotta, because bulleted pairing items and glossary lines
-                                                        ("Walnut — Darker and richer…") arrive at the checker stripped of the
-                                                        "Pair it with:" heading above them.
-
-                                                      After the fixes, **32 of 33 categories are clean**. The remaining one is a
-                                                      pairing colour on a single bedside table.
-
+- [x] **Sampled every category before applying again.** Instead of picking two
+      products by hand, the fixed writer was run over one product from each of
+      the 33 categories and its output fed through `context-check` and
+      `wording-check`. Only 4 of 33 came back clean; after the fixes, 32 of 33
+      were. It found three faults in the writer — "The The Rutland Collection"
+      doubling an article the name already had, an outdoor sauna told about
+      "sightlines across the room" because place came from family rather than
+      siting, and an indoor sauna offered "Poolside areas" from an unfiltered
+      settings list — and three false positives in the detectors, the worst
+      being a black barbecue reported as claiming to be brass, copper and
+      terracotta because bulleted pairing items reach the checker stripped of
+      the "Pair it with:" heading above them.
 - [ ] **Show Damien the sampled pages before applying again.** The dry run is
       ready; nothing is written until he has read some.
 
