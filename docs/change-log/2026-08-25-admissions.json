@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-25T19:28:29.245Z",
-  "applied": false,
-  "products": 1164,
-  "sentences": 2807,
+  "generatedAt": "2026-08-25T21:02:42.361Z",
+  "applied": true,
+  "products": 1135,
+  "sentences": 2789,
   "changes": [
     {
       "id": "drafts.hill-decor-16210",
@@ -3887,18 +3887,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "drafts.premier-housewares-1411435",
-      "title": "Zircon Small Ceramic Planter | Kaiku",
-      "published": false,
-      "removed": [
-        "The specifics regarding drainage holes and whether a saucer or liner is included are not listed.",
-        "For further details, please refer to the supplied instruction manual or contact customer support.",
-        "The indoor or outdoor suitability of this planter is not specified.",
-        "To determine the internal size and suitable pots that might fit inside, additional specifications are not provided."
-      ],
-      "emptiedHeadings": ["Drainage and Planting"]
-    },
-    {
       "id": "drafts.premier-housewares-1411580",
       "title": "Brice Large Pink Glass Vase | Kaiku",
       "published": false,
@@ -4699,34 +4687,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "drafts.premier-housewares-2405941",
-      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": [
-        "However, exact load limits per seat or table are not specified for safety reasons."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-2405945",
-      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": [
-        "The weight capacity for this dining set is not specified on the supplier page."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-2405947",
-      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
-      "published": false,
-      "removed": [
-        "The weight capacity for this dining set is suitable for everyday use; however, the specific load limits are not listed.",
-        "Load Capacity: Not specified"
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "drafts.premier-housewares-2405953",
       "title": "Maka Natural Croco Rattan Stool | Kaiku",
       "published": false,
@@ -5301,43 +5261,6 @@
         "For further information, please consult the supplied instruction manual or customer support."
       ],
       "emptiedHeadings": ["Bulb Requirements"]
-    },
-    {
-      "id": "drafts.premier-housewares-2502389",
-      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": [
-        "It’s important to note that the specifications do not indicate if a bulb is included; please check the supplied instruction manual or contact customer support for assistance."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-2502390",
-      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": [
-        "The specification does not mention whether a bulb is included, so please refer to the instruction manual or customer support for clarification.",
-        "The specifics of whether the Wyra pendant light is hard-wired or plug-in are not stated."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-2502391",
-      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
-      "published": false,
-      "removed": [
-        "The specification regarding whether a bulb is included is not listed, so please check the supplied instruction manual or contact customer support for clarification."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-2502410",
-      "title": "Stockholm Shiny Brass Tapered Floor Lamp | Kaiku",
-      "published": false,
-      "removed": [
-        "Inside the box, you will find all necessary components to put the lamp together, though specific tools are not listed."
-      ],
-      "emptiedHeadings": []
     },
     {
       "id": "drafts.premier-housewares-2502417",
@@ -6761,29 +6684,6 @@
         "Please consult the provided instruction manual or contact customer support for further information."
       ],
       "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.premier-housewares-5506189",
-      "title": "Yuri White And Gold Spotted Planter | Kaiku",
-      "published": false,
-      "removed": [
-        "The specifications regarding drainage holes in the Yuri White And Gold Spotted Planter are not listed.",
-        "The indoor and outdoor suitability of this planter is not specified, and there are no stated frost resistance qualities.",
-        "Information regarding the internal dimensions and whether another pot fits inside is not listed."
-      ],
-      "emptiedHeadings": ["Indoor and Outdoor Use"]
-    },
-    {
-      "id": "drafts.premier-housewares-5506190",
-      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
-      "published": false,
-      "removed": [
-        "The specifications regarding drainage holes are not listed.",
-        "Please refer to the supplied instruction manual or contact customer support for more information.",
-        "The suitability of this planter for indoor or outdoor use and its frost resistance are not listed.",
-        "Refer to the supplied instruction manual or reach out to customer support for clarity."
-      ],
-      "emptiedHeadings": ["Drainage and Planting", "Indoor and Outdoor Use"]
     },
     {
       "id": "drafts.premier-housewares-5506191",
@@ -8954,17 +8854,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "drafts.product-aosom-842-337v00sr",
-      "title": "Portable Smokeless Wood-Burning Fire Pit, Silver | Kaiku",
-      "published": false,
-      "removed": [
-        "Please note that the specifications regarding the inclusion of a gas bottle, regulator, and hose are not listed.",
-        "For further details, refer to the supplied instruction manual or contact customer support.",
-        "Instructions for specific clearance distances are not listed; please refer to the supplied instruction manual for guidance."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "drafts.product-aosom-842-345v70cg",
       "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey | Kaiku",
       "published": false,
@@ -9003,15 +8892,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "drafts.product-aosom-842-389v70sr",
-      "title": "11kW Adjustable Gas Patio Heater | Kaiku",
-      "published": false,
-      "removed": [
-        "To confirm any safety certifications or compliance marks, please refer to the supplied instruction manual."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "drafts.product-aosom-842-390v70bk",
       "title": "11kW Freestanding Gas Patio Heater, Black | Kaiku",
       "published": false,
@@ -9041,29 +8921,11 @@
       "emptiedHeadings": ["Safety Features and Compliance"]
     },
     {
-      "id": "drafts.product-aosom-844-633v00bk",
-      "title": "Banana Leaf Metal Privacy Screen with Stand, Black | Kaiku",
-      "published": false,
-      "removed": [
-        "An electrician is not necessary for assembly as no electrical work is involved, but it is advisable to refer to the supplied instruction manual for guidance."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "drafts.product-aosom-844-743v00bk",
       "title": "Leaf Metal Privacy Screen, Black | Kaiku",
       "published": false,
       "removed": [
         "For further cleaning guidance, please refer to the supplied instruction manual or contact customer support."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.product-aosom-844-743v00gn",
-      "title": "Leaf Metal Privacy Screen, Green | Kaiku",
-      "published": false,
-      "removed": [
-        "While specific cleaning instructions are not listed, it is advisable to periodically wipe down the steel surface with a damp cloth to remove dirt and maintain its appearance."
       ],
       "emptiedHeadings": []
     },
@@ -9092,15 +8954,6 @@
       "removed": [
         "The exact water capacity of the reservoir is not specified; however, it operates efficiently with regular water top-ups for consistent flow.",
         "Refer to the supplied instruction manual for detailed cleaning guidance and troubleshooting tips."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.product-aosom-845-127v00gy",
-      "title": "Raised Wooden Planter with Climbing Trellis, Grey | Kaiku",
-      "published": false,
-      "removed": [
-        "While specific care instructions are not provided, it is recommended to regularly check for any signs of wear or water damage, especially during the wet season."
       ],
       "emptiedHeadings": []
     },
@@ -9249,17 +9102,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "drafts.product-aosom-84c-441v00lg",
-      "title": "Metal Pergola with Sliding Canopy and Curtains, Grey | Kaiku",
-      "published": false,
-      "removed": [
-        "The pergola requires assembly, but the precise number of people required is not specified.",
-        "Basic hand tools will be needed, though the specific tools required are not listed.",
-        "However, exact details on drainage mechanisms are not mentioned, and it is recommended not to use the pergola during extreme weather conditions."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "drafts.product-aosom-84c-568v00bg",
       "title": "Metal Pergola with Retractable Roof and Roller Shade, Beige | Kaiku",
       "published": false,
@@ -9345,15 +9187,6 @@
         "Always refer to the supplied instruction manual for care guidance."
       ],
       "emptiedHeadings": ["Care & Maintenance"]
-    },
-    {
-      "id": "drafts.product-aosom-b31-563v00gd",
-      "title": "Starry LED Wall Lights, Set of 2, Gold | Kaiku",
-      "published": false,
-      "removed": [
-        "The product specifications do not list whether a bulb is included, so please refer to the supplied instruction manual or contact customer support for further details."
-      ],
-      "emptiedHeadings": ["Bulb Requirements"]
     },
     {
       "id": "drafts.product-aw-acshop-01",
@@ -9969,25 +9802,6 @@
         "Pump and Power Supply",
         "Weather Resistance and Winter Care"
       ]
-    },
-    {
-      "id": "drafts.product-di-di-pershore-ct-oak",
-      "title": "Pershore Rectangular Aged Oak Coffee Table | Kaiku",
-      "published": false,
-      "removed": [
-        "If you wish to return an unwanted item, please contact us within14 days of delivery.",
-        "If your item arrives damaged, incorrect or faulty, contact us as soon as possible with your order number and clear photographs of the item and packaging."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "drafts.product-di-di-witley-ct-oak",
-      "title": "Witley Coffee Table | Kaiku",
-      "published": false,
-      "removed": [
-        "If you requireroom-of-choice delivery, assembly services or any specialist delivery arrangements, please contact us before placing your order."
-      ],
-      "emptiedHeadings": []
     },
     {
       "id": "drafts.product-import-100-led-battery-micro-lights-silver-wire-10m",
@@ -11464,6 +11278,18 @@
       "emptiedHeadings": []
     },
     {
+      "id": "premier-housewares-1411435",
+      "title": "Zircon Small Ceramic Planter | Kaiku",
+      "published": true,
+      "removed": [
+        "The specifics regarding drainage holes and whether a saucer or liner is included are not listed.",
+        "For further details, please refer to the supplied instruction manual or contact customer support.",
+        "The indoor or outdoor suitability of this planter is not specified.",
+        "To determine the internal size and suitable pots that might fit inside, additional specifications are not provided."
+      ],
+      "emptiedHeadings": ["Drainage and Planting"]
+    },
+    {
       "id": "premier-housewares-1601843",
       "title": "Canyon White Lotion Dispenser - 500ml | Kaiku",
       "published": true,
@@ -11477,6 +11303,71 @@
       "removed": [
         "The specific hanging method for this clock is not stated.",
         "The glass type is not specified."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2405941",
+      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": [
+        "However, exact load limits per seat or table are not specified for safety reasons."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2405945",
+      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": [
+        "The weight capacity for this dining set is not specified on the supplier page."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2405947",
+      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
+      "published": true,
+      "removed": [
+        "The weight capacity for this dining set is suitable for everyday use; however, the specific load limits are not listed.",
+        "Load Capacity: Not specified"
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2502389",
+      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": [
+        "It’s important to note that the specifications do not indicate if a bulb is included; please check the supplied instruction manual or contact customer support for assistance."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2502390",
+      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": [
+        "The specification does not mention whether a bulb is included, so please refer to the instruction manual or customer support for clarification.",
+        "The specifics of whether the Wyra pendant light is hard-wired or plug-in are not stated."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2502391",
+      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
+      "published": true,
+      "removed": [
+        "The specification regarding whether a bulb is included is not listed, so please check the supplied instruction manual or contact customer support for clarification."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "premier-housewares-2502410",
+      "title": "Stockholm Shiny Brass Tapered Floor Lamp | Kaiku",
+      "published": true,
+      "removed": [
+        "Inside the box, you will find all necessary components to put the lamp together, though specific tools are not listed."
       ],
       "emptiedHeadings": []
     },
@@ -11539,6 +11430,29 @@
       ]
     },
     {
+      "id": "premier-housewares-5506189",
+      "title": "Yuri White And Gold Spotted Planter | Kaiku",
+      "published": true,
+      "removed": [
+        "The specifications regarding drainage holes in the Yuri White And Gold Spotted Planter are not listed.",
+        "The indoor and outdoor suitability of this planter is not specified, and there are no stated frost resistance qualities.",
+        "Information regarding the internal dimensions and whether another pot fits inside is not listed."
+      ],
+      "emptiedHeadings": ["Indoor and Outdoor Use"]
+    },
+    {
+      "id": "premier-housewares-5506190",
+      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
+      "published": true,
+      "removed": [
+        "The specifications regarding drainage holes are not listed.",
+        "Please refer to the supplied instruction manual or contact customer support for more information.",
+        "The suitability of this planter for indoor or outdoor use and its frost resistance are not listed.",
+        "Refer to the supplied instruction manual or reach out to customer support for clarity."
+      ],
+      "emptiedHeadings": ["Drainage and Planting", "Indoor and Outdoor Use"]
+    },
+    {
       "id": "premier-housewares-5511721",
       "title": "Abira Black Marble and Brass 5 Bulb Floor Lamp | Kaiku",
       "published": true,
@@ -11594,6 +11508,64 @@
         "Please refer to the supplied instruction manual for details regarding bulb requirements and compatibility."
       ],
       "emptiedHeadings": ["Bulb Requirements"]
+    },
+    {
+      "id": "product-aosom-842-337v00sr",
+      "title": "Portable Smokeless Wood-Burning Fire Pit, Silver | Kaiku",
+      "published": true,
+      "removed": [
+        "Please note that the specifications regarding the inclusion of a gas bottle, regulator, and hose are not listed.",
+        "For further details, refer to the supplied instruction manual or contact customer support.",
+        "Instructions for specific clearance distances are not listed; please refer to the supplied instruction manual for guidance."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "product-aosom-842-389v70sr",
+      "title": "11kW Adjustable Gas Patio Heater | Kaiku",
+      "published": true,
+      "removed": [
+        "To confirm any safety certifications or compliance marks, please refer to the supplied instruction manual."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "product-aosom-844-633v00bk",
+      "title": "Banana Leaf Metal Privacy Screen with Stand, Black | Kaiku",
+      "published": true,
+      "removed": [
+        "An electrician is not necessary for assembly as no electrical work is involved, but it is advisable to refer to the supplied instruction manual for guidance."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "product-aosom-844-743v00gn",
+      "title": "Leaf Metal Privacy Screen, Green | Kaiku",
+      "published": true,
+      "removed": [
+        "While specific cleaning instructions are not listed, it is advisable to periodically wipe down the steel surface with a damp cloth to remove dirt and maintain its appearance."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "product-aosom-845-127v00gy",
+      "title": "Raised Wooden Planter with Climbing Trellis, Grey | Kaiku",
+      "published": true,
+      "removed": [
+        "While specific care instructions are not provided, it is recommended to regularly check for any signs of wear or water damage, especially during the wet season."
+      ],
+      "emptiedHeadings": []
+    },
+    {
+      "id": "product-aosom-84c-441v00lg",
+      "title": "Metal Pergola with Sliding Canopy and Curtains, Grey | Kaiku",
+      "published": true,
+      "removed": [
+        "The pergola requires assembly, but the precise number of people required is not specified.",
+        "Basic hand tools will be needed, though the specific tools required are not listed.",
+        "However, exact details on drainage mechanisms are not mentioned, and it is recommended not to use the pergola during extreme weather conditions."
+      ],
+      "emptiedHeadings": []
     },
     {
       "id": "product-aosom-84c-470v02cg",
@@ -11815,6 +11787,15 @@
       "emptiedHeadings": []
     },
     {
+      "id": "product-aosom-b31-563v00gd",
+      "title": "Starry LED Wall Lights, Set of 2, Gold | Kaiku",
+      "published": true,
+      "removed": [
+        "The product specifications do not list whether a bulb is included, so please refer to the supplied instruction manual or contact customer support for further details."
+      ],
+      "emptiedHeadings": ["Bulb Requirements"]
+    },
+    {
       "id": "product-aosom-b31-565v00gd",
       "title": "Geometric Mesh LED Wall Lights, Set of 2, Gold | Kaiku",
       "published": true,
@@ -11866,85 +11847,6 @@
       "emptiedHeadings": []
     },
     {
-      "id": "product-aw-acshop-01",
-      "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-02",
-      "title": "Reclaimed Teak Console Table with 3 Drawers | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-07",
-      "title": "Reclaimed Teak Dining Table 180cm | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-08",
-      "title": "Reclaimed Teak Six Shelf Display Unit with Castors | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-11",
-      "title": "Small Reclaimed Teak Coffee Table | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-13",
-      "title": "Small Recycled Teak TV Stand with 2 Drawers | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-14",
-      "title": "Round Reclaimed Teak Bedside Table with Drawer | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-17",
-      "title": "Tall Reclaimed Teak Chest of 5 Drawers | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-acshop-18",
-      "title": "Large Reclaimed Wood TV Stand with 2 Drawers & Open Shelving | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-bts-02",
-      "title": "Natural Wooden Beer Barrel Storage Stool | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-csalt-01",
-      "title": "Himalayan Salt BBQ Cooking Plate | 30 x 20 x 5cm | Kaiku",
-      "published": true,
-      "removed": [
-        "If your order arrives damaged or incorrect, please contact us as soon as possible."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "product-aw-csalt-04",
       "title": "Himalayan Salt Cooking Plate - Square - 20x20x5cm | Kaiku",
       "published": true,
@@ -11952,63 +11854,11 @@
       "emptiedHeadings": ["Specifications"]
     },
     {
-      "id": "product-aw-eo-03",
-      "title": "Eucalyptus Essential Oil 10ml | Ancient Wisdom | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or incorrect, please contact us as soon as possible."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-aw-eo-76",
-      "title": "Sweet Birch Essential Oil 10ml | Ancient Wisdom | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or incorrect, please contact us as soon as possible."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "product-aw-preo-76",
       "title": "Sweet Birch Essential Oil 50ml | Ancient Wisdom | Kaiku",
       "published": true,
-      "removed": [
-        "If your order arrives damaged or incorrect, please contact us as soon as possible."
-      ],
+      "removed": [],
       "emptiedHeadings": ["FAQs"]
-    },
-    {
-      "id": "product-aw-pss-03",
-      "title": "Set of 3 Gamal Wood Plant Stands | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or develops a manufacturing fault upon delivery, please contact us within 48 hours with photographs so we can resolve the issue promptly."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-aw-rds-146",
-      "title": "Large Brown Wooden Storage Tub | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-aw-rds-149",
-      "title": "Natural Folding Wooden A-Frame Shelf – Brown | Kaiku",
-      "published": true,
-      "removed": [
-        "Please inspect your order upon delivery and contact us promptly if your item arrives damaged or incorrect."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-aw-rds-151",
-      "title": "Brown Wooden Storage Crates (Set of 3) | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
     },
     {
       "id": "product-aw-ssm-08",
@@ -12016,33 +11866,6 @@
       "published": true,
       "removed": [],
       "emptiedHeadings": ["Frequently Asked Questions"]
-    },
-    {
-      "id": "product-aw-tds-03",
-      "title": "Natural Teak Corner Shelf Unit – 4 Tier Display Stand 135cm | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or develops a manufacturing fault upon delivery, please contact us within 48 hours with photographs so we can resolve the issue promptly."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-aw-tds-04",
-      "title": "Natural Teak Corner Shelf Unit – 3 Tier Display Stand 90cm | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or faulty, please contact us within 48 hours of delivery with photographs so we can resolve the issue quickly."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-aw-tds-05",
-      "title": "Natural Teak Log Shelf Display – 3 Tier 100cm | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or develops a manufacturing fault upon delivery, please contact us within 48 hours with photographs so we can resolve the issue promptly."
-      ],
-      "emptiedHeadings": []
     },
     {
       "id": "product-aw-waterf-01",
@@ -12068,53 +11891,11 @@
       "emptiedHeadings": ["Specifications"]
     },
     {
-      "id": "product-di-di-bentley-ct-oak",
-      "title": "Bentley Coffee Table in Oak | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
-    },
-    {
-      "id": "product-di-di-crofton-ct-wh",
-      "title": "Crofton White Marble Coffee Table | Kaiku",
-      "published": true,
-      "removed": [
-        "If your item arrives damaged or develops a fault during delivery, contact us promptly with photographs so we can resolve the issue as quickly as possible."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-di-di-pershore-ct-oak",
-      "title": "Pershore Rectangular Aged Oak Coffee Table | Kaiku",
-      "published": true,
-      "removed": [
-        "If you wish to return an unwanted item, please contact us within 14 days of delivery.",
-        "If your item arrives damaged, incorrect or faulty, contact us as soon as possible with your order number and clear photographs of the item and packaging."
-      ],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-di-di-witley-ct-oak",
-      "title": "Witley Coffee Table | Kaiku",
-      "published": true,
-      "removed": [
-        "If you require room-of-choice delivery, assembly services or any specialist delivery arrangements, please contact us before placing your order."
-      ],
-      "emptiedHeadings": []
-    },
-    {
       "id": "product-import-4-person-outdoor-infrared-sauna-saunaplunge-90561a20",
       "title": "SaunaPlunge™ Yorkshire Cabin 4-Person Outdoor Infrared Sauna | Kaiku",
       "published": true,
       "removed": [],
       "emptiedHeadings": ["The Yorkshire Cabin™ by SaunaPlunge"]
-    },
-    {
-      "id": "product-import-abberley-1-drawer-black-console-table",
-      "title": "Abberley One Drawer Black Console Table | Kaiku",
-      "published": true,
-      "removed": [],
-      "emptiedHeadings": ["Delivery & Returns"]
     },
     {
       "id": "product-import-adjustable-tractor-seat",
@@ -12150,15 +11931,6 @@
       "title": "Antia Stem Table Lamp With Linen Shade | Kaiku",
       "published": true,
       "removed": ["Assembly: Not specified Hill Interiors"],
-      "emptiedHeadings": []
-    },
-    {
-      "id": "product-import-antique-gold-hare-table-lamp-with-green-velvet-shade",
-      "title": "Antique Gold Hare Table Lamp With Green Velvet Shade | Kaiku",
-      "published": true,
-      "removed": [
-        "Please inspect the product after delivery and contact customer support if any damage occurs during transit."
-      ],
       "emptiedHeadings": []
     },
     {
@@ -12239,15 +12011,6 @@
       "published": true,
       "removed": [],
       "emptiedHeadings": ["Specifications", "Dimensions"]
-    },
-    {
-      "id": "product-import-mickleton-cream-chenille-armchair",
-      "title": "Mickleton Cream Chenille Armchair | Kaiku",
-      "published": true,
-      "removed": [
-        "Please inspect your order upon delivery and contact our team promptly if there are any issues so we can resolve them quickly."
-      ],
-      "emptiedHeadings": ["Delivery & Returns"]
     },
     {
       "id": "product-import-siena-brown-round-ribbed-planter",
