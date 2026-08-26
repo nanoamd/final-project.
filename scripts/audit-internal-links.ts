@@ -117,8 +117,10 @@ async function main() {
   console.log(
     `\n  ${noExtras} of ${products.length} products sit in exactly one category\n` +
       `  ${noEditorial} of ${products.length} are referenced by no post or buying guide\n` +
-      `  ${alone.length} are the only product in their category, so the related-products\n` +
-      `    carousel on their page renders nothing and links nowhere`,
+      `  ${alone.length} are the only product in their category — note that\n` +
+      `    getRelatedProducts() falls through to the same room and then to a\n` +
+      `    price band, so their carousel is NOT empty; this counts the tier-2\n` +
+      `    miss only, and was verified against the live page`,
   );
   for (const p of alone.slice(0, 10))
     console.log(`      ${p.category} — ${p.title.slice(0, 50)}`);

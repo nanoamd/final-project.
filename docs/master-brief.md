@@ -16,6 +16,73 @@ Status key:
 
 ---
 
+## Traffic audit (26 August)
+
+Damien: _"check why half of our pages aren't indexed too. Spend today whilst
+I'm away from my computer improving anything which is blocking traffic"_.
+
+### The technical side is clean, and that is the finding
+
+`scripts/audit-indexability.ts` fetched all 404 sitemap URLs: **404 of 404 are a
+clean, self-canonical 200.** No noindex, no redirects, no 404s, no missing
+canonical, nothing pointing elsewhere. robots.txt is correct and reaches the
+sitemap. Product pages carry complete structured data — Product, Offer, Brand,
+BreadcrumbList, MerchantReturnPolicy, shipping — so rich results are available.
+
+**Nothing in the code is keeping pages out of the index.** What is left is crawl
+budget on a young domain, which is answered by links and content.
+
+### Fixed today
+
+- [x] **16 stocked categories had no inbound internal link** — Wall Clocks (20
+      products), Mirrors (17), Vases (16) among them. Reachable from the
+      navigation, so crawlable, but collecting no link equity from anywhere.
+      `relatedCategories` and the block that renders it already existed; 30 of
+      46 were populated and these 16 were missed. Filled from each category's
+      own department, stocked targets only.
+      A second pass fixed reciprocity, which the first pass exposed: linking
+      out is not being linked to, and six still had nothing pointing at them
+      once every list was full. **16 → 0.**
+
+### Two false alarms I raised and then disproved
+
+Recorded because both looked serious and both cost time.
+
+- **"Product pages have no structured data."** Wrong. I tested a product URL I
+  had invented rather than one from the sitemap. Real pages have the full set.
+- **"Every non-existent product URL is a soft 404."** The status is 200, which
+  looks wrong, but Next 16's `notFound()` injects
+  `<meta name="robots" content="noindex">` by design, and both the live product
+  and category not-found pages carry it. Verified against a local production
+  build as well as the live site. Not a blocker.
+
+Also corrected `audit-internal-links.ts`, which claimed the seven
+lone-in-category products render an empty related-products row. They do not —
+`getRelatedProducts()` falls through to the same room and then to a price band.
+The live page for one of them carries 19 internal links including four related
+products. The audit was reporting its own model, not the page.
+
+### Known, not fixed
+
+- [ ] **49 category pages render dynamically.** `/shop/[category]` awaits
+      `searchParams`, which opts the route out of static rendering, so
+      `revalidate = 3600` and `generateStaticParams` on it do nothing —
+      confirmed by the build (`ƒ /shop/[category]`) and by two consecutive
+      live requests both returning `x-vercel-cache: MISS`. Product pages are
+      fine (`x-nextjs-prerender: 1`, second request `HIT`).
+      Making them static means moving the filter reading to the client, and the
+      URL-driven server filtering is a deliberate design. A speed and cost win,
+      not an indexing one, so it is written down rather than rushed.
+- [ ] **279 of 335 products sit in exactly one category.** One extra genuine
+      reference doubles their inbound links. The previous cross-listing passes
+      were hand-curated per product from each product's own copy, and a blanket
+      rule here would put a pergola in Bathroom Mirrors.
+- [ ] **262 of 335 products are referenced by no post or buying guide**, and
+      the site has **one** published post. This is the actual gap. Editorial
+      links are the kind Google weighs most, and the four existing tools —
+      sauna calculator, cold plunge planner, material selector, visualiser —
+      are the sort of page that earns links, unlike a product page.
+
 ## The plan out of the plateau (25 August)
 
 Damien: _"we are losing motivation and currently at a plateau… we've made zero
