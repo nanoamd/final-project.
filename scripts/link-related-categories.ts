@@ -1,184 +1,231 @@
 /**
- * Gives every stocked category somewhere to send a shopper next.
+ * Gives every stocked category some inbound internal links.
  *
- * The internal-link audit found **10 stocked categories with no inbound link from
- * any other category** — office-storage with 15 products, bedside-tables with 11,
- * lighting, outdoor-saunas. They are reachable from the navigation, so a person can
- * find them, but no page on the site points at them, so they accumulate nothing from
- * within the site and a crawler has one route in rather than several. That is the
- * likeliest reason 44 URLs sit in Search Console as "Discovered – currently not
- * indexed".
+ * `scripts/audit-internal-links.ts` reports 16 stocked categories that no other
+ * category points at. They are reachable from the navigation, so a crawler can
+ * find them, but nothing on the site passes them any link equity — and 20
+ * products' worth of Wall Clocks sitting behind a nav-only link is a large part
+ * of the answer to "why are half our pages not indexed".
  *
- * Links run both ways here on purpose. Setting `relatedCategories` on A pointing at B
- * gives B an inbound link, and the audit counts exactly that. So the pairs below are
- * chosen to be reciprocal where it makes sense — bathroom mirrors and bedroom mirrors
- * each pointing at the other — because a one-directional link only helps one of them.
+ * The `relatedCategories` field and the block that renders it both already
+ * exist. 30 of 46 stocked categories have it filled in; these are the 16 that
+ * were missed.
  *
- * **Every target has to be a category a shopper would actually want next**, and every
- * target has to hold products. The rendering already filters unstocked ones out, but
- * writing them would be storing a link that does nothing, and the empty categories
- * are the ones most likely to change.
+ * Related categories are taken from the same department, because that is a real
+ * relationship rather than an invented one — a shopper looking at Mirrors
+ * plausibly wants other Decor. **Only stocked categories are ever linked to**,
+ * so this can never point a shopper or a crawler at an empty page.
+ *
+ * Touches category documents only. No product is read or written.
  *
  *   pnpm tsx --env-file=.env.local scripts/link-related-categories.ts
  *   pnpm tsx --env-file=.env.local scripts/link-related-categories.ts --apply
  */
+import { mkdirSync, writeFileSync } from "node:fs";
+
 import { createClient } from "@sanity/client";
 
 const apply = process.argv.includes("--apply");
-
-const token = process.env.SANITY_API_WRITE_TOKEN;
-if (!token) {
-  console.error("SANITY_API_WRITE_TOKEN is not set — aborting.");
-  process.exit(1);
-}
+/** Two to four, per the field's own description. Four where there are four. */
+const WANTED = 4;
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "huh1e45n",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-01-01",
-  token,
+  apiVersion: "2025-01-01",
+  token: process.env.SANITY_API_WRITE_TOKEN,
   useCdn: false,
 });
 
-/**
- * Where each category sends people, and why it is defensible.
- *
- * The test applied to every line: would somebody browsing the first category be
- * pleased to be shown the second? Room adjacency is the strongest signal — a person
- * buying a bedside table is furnishing a bedroom — followed by the same object in a
- * different room, then the same room in a different object.
- */
-const LINKS: Record<string, string[]> = {
-  // Office. Nobody furnishes one thing in a home office; they furnish the corner.
-  "office-storage": ["desks", "office-shelving", "living-room-storage"],
-  "office-shelving": ["office-storage", "desks", "shelving"],
-  "office-lighting": ["desks", "office-storage", "lighting"],
-  desks: ["office-storage", "office-shelving", "office-lighting"],
+interface Row {
+  _id: string;
+  slug: string;
+  name: string;
+  departments: string[];
+  related: number;
+  live: number;
+}
 
-  // Bedroom. A bedside table is bought while furnishing a bedroom, not in isolation.
-  "bedside-tables": ["bedroom-storage", "bedroom-lighting", "bedroom-mirrors"],
-  "bedroom-storage": [
-    "bedside-tables",
-    "bedroom-mirrors",
-    "living-room-storage",
-  ],
-  "bedroom-lighting": ["bedside-tables", "lighting", "bedroom-storage"],
-  "bedroom-mirrors": ["bedroom-storage", "bathroom-mirrors", "bedside-tables"],
-
-  // Bathroom. Small range, so the links have to reach outside it to be useful.
-  "bathroom-mirrors": [
-    "bedroom-mirrors",
-    "bathroom-storage",
-    "bathroom-accessories",
-  ],
-  "bathroom-storage": ["bathroom-mirrors", "shelving", "living-room-storage"],
-
-  // Kitchen.
-  "kitchen-storage": ["kitchen-shelving", "shelving", "living-room-storage"],
-  "kitchen-shelving": ["kitchen-storage", "shelving", "office-shelving"],
-
-  // Lighting. The generic category is the hub, so it should reach every room's.
-  lighting: ["living-room-lighting", "bedroom-lighting", "office-lighting"],
-  "living-room-lighting": ["lighting", "side-tables", "bedroom-lighting"],
-
-  // Wellness. The highest-value range on the site and the most obviously connected —
-  // a sauna buyer is the most likely cold-plunge buyer there is.
-  "outdoor-saunas": ["indoor-saunas", "cold-plunges", "wellness-accessories"],
-  "indoor-saunas": ["outdoor-saunas", "cold-plunges", "wellness-accessories"],
-  "cold-plunges": ["outdoor-saunas", "indoor-saunas", "wellness-accessories"],
-  "wellness-accessories": ["outdoor-saunas", "cold-plunges", "indoor-saunas"],
-
-  // Outdoor.
-  "garden-furniture": ["planters", "outdoor-storage", "outdoor-kitchens"],
-  planters: ["garden-furniture", "outdoor-storage", "garden-lighting"],
-  "outdoor-storage": ["garden-furniture", "planters", "kitchen-storage"],
-  "outdoor-kitchens": ["garden-furniture", "outdoor-storage", "fire-pits"],
-
-  // Living room, filling the gaps the content script did not cover.
-  "tv-units": ["living-room-storage", "console-tables", "shelving"],
-};
+const QUERY = /* groq */ `*[_type == "category" && !(_id in path("drafts.**"))]{
+  _id, "slug": slug.current, "name": title,
+  "departments": array::compact([
+    department->slug.current,
+    ...additionalDepartments[]->slug.current
+  ]),
+  "related": count(relatedCategories),
+  "live": count(*[_type == "product" && references(^._id)
+    && !(_id in path("drafts.**")) && defined(price)])
+}`;
 
 async function main() {
-  const categories = await client.fetch<
-    {
-      id: string;
-      slug: string;
-      title: string;
-      products: number;
-      related: number;
-    }[]
-  >(
-    `*[_type == "category" && !(_id in path("drafts.**")) && defined(slug.current)]{
-      "id": _id, "slug": slug.current, title,
-      "products": count(*[_type == "product" && !(_id in path("drafts.**")) && references(^._id)]),
-      "related": count(relatedCategories)
-    }`,
-  );
-  const bySlug = new Map(categories.map((c) => [c.slug, c]));
+  const rows: Row[] = await client.fetch(QUERY);
+  const stocked = rows.filter((row) => row.live > 0);
+  const needing = stocked.filter((row) => !row.related);
 
-  console.log(`\n${apply ? "APPLYING" : "DRY RUN"}\n`);
+  const changes: { row: Row; picks: Row[] }[] = [];
+  const unfixable: Row[] = [];
 
-  let written = 0;
-  let skipped = 0;
-  for (const [slug, targets] of Object.entries(LINKS)) {
-    const category = bySlug.get(slug);
-    if (!category) {
-      console.log(`  !  ${slug} — no such category`);
-      continue;
-    }
-    if (category.related > 0) {
-      skipped += 1;
-      continue;
-    }
-
-    // Unstocked targets are dropped, not written. A stored link to an empty page is
-    // a link that renders as nothing and helps nothing.
-    const resolved = targets
-      .map((target) => bySlug.get(target))
+  for (const row of needing) {
+    // Same department first, biggest first — a link into a well-stocked
+    // category is worth more to a shopper than one into a category of two.
+    const siblings = stocked
       .filter(
-        (target): target is NonNullable<typeof target> =>
-          Boolean(target) && target!.products > 0,
-      );
-    const dropped = targets.filter(
-      (t) => !bySlug.get(t) || (bySlug.get(t)?.products ?? 0) === 0,
-    );
+        (other) =>
+          other._id !== row._id &&
+          other.departments.some((d) => row.departments.includes(d)),
+      )
+      .sort((a, b) => b.live - a.live);
 
-    if (!resolved.length) {
-      console.log(`  ?  ${slug} — every target is empty, nothing to link`);
+    if (siblings.length < 2) {
+      // A department with no stocked siblings cannot be linked honestly. Say so
+      // rather than reaching across to an unrelated department to fill a quota.
+      unfixable.push(row);
       continue;
     }
+    changes.push({ row, picks: siblings.slice(0, WANTED) });
+  }
 
-    console.log(
-      `  →  ${slug.padEnd(22)} → ${resolved.map((r) => r.slug).join(", ")}` +
-        (dropped.length
-          ? `   (dropped, unstocked: ${dropped.join(", ")})`
-          : ""),
+  console.log(`\n${apply ? "APPLYING" : "DRY RUN"} — related category links\n`);
+  console.log(`Stocked categories:          ${stocked.length}`);
+  console.log(
+    `  already linked:            ${stocked.length - needing.length}`,
+  );
+  console.log(`  to link now:               ${changes.length}`);
+  if (unfixable.length)
+    console.log(`  no stocked sibling:        ${unfixable.length}`);
+
+  // Second pass: linking out is not the same as being linked to. A category
+  // that lists four siblings still collects nothing if none of them lists it
+  // back, which left six categories with no inbound link after the first pass.
+  // Reciprocity is what actually moves equity.
+  const willHaveOutbound = new Map<string, string[]>();
+  for (const row of stocked)
+    willHaveOutbound.set(row._id, row.related ? ["existing"] : []);
+  for (const { row, picks } of changes)
+    willHaveOutbound.set(
+      row._id,
+      picks.map((p) => p._id),
     );
 
-    if (!apply) continue;
+  const linkedTo = new Set<string>();
+  for (const { picks } of changes) for (const p of picks) linkedTo.add(p._id);
+  // Categories whose existing links we have not read still count as pointing
+  // somewhere, so fetch what they point at before deciding who is orphaned.
+  const existingLinks: { _id: string; refs: string[] }[] = await client.fetch(
+    `*[_type == "category" && !(_id in path("drafts.**")) && count(relatedCategories) > 0]{
+       _id, "refs": relatedCategories[]._ref }`,
+  );
+  for (const entry of existingLinks)
+    for (const ref of entry.refs ?? []) linkedTo.add(ref);
 
+  const orphans = stocked.filter((row) => !linkedTo.has(row._id));
+  const reciprocal: { host: Row; add: Row }[] = [];
+  for (const orphan of orphans) {
+    // Add the orphan to the biggest stocked sibling that does not already list
+    // it, so the inbound link comes from the strongest page available.
+    const host = stocked
+      .filter(
+        (other) =>
+          other._id !== orphan._id &&
+          other.departments.some((d) => orphan.departments.includes(d)),
+      )
+      .sort((a, b) => b.live - a.live)[0];
+    if (host) reciprocal.push({ host, add: orphan });
+  }
+
+  if (reciprocal.length) {
+    console.log(`\nReciprocal links to add: ${reciprocal.length}`);
+    for (const { host, add } of reciprocal)
+      console.log(`  ${host.name} will also link to ${add.name}`);
+  }
+
+  console.log(`\n──── what each will link to ────`);
+  for (const { row, picks } of changes)
+    console.log(
+      `  ${row.name} (${row.live}) → ${picks.map((p) => `${p.name} (${p.live})`).join(", ")}`,
+    );
+
+  if (unfixable.length) {
+    console.log(`\n──── cannot be linked from their own department ────`);
+    for (const row of unfixable)
+      console.log(
+        `  ${row.name} — department [${row.departments.join(", ") || "none"}] has no other stocked category`,
+      );
+  }
+
+  mkdirSync("docs/change-log", { recursive: true });
+  const stamp = new Date().toISOString();
+  writeFileSync(
+    `docs/change-log/${stamp.slice(0, 10)}-related-categories.json`,
+    JSON.stringify(
+      {
+        generatedAt: stamp,
+        applied: apply,
+        changes: changes.map((c) => ({
+          slug: c.row.slug,
+          name: c.row.name,
+          links: c.picks.map((p) => p.slug),
+        })),
+        unfixable: unfixable.map((r) => r.slug),
+      },
+      null,
+      2,
+    ),
+  );
+
+  if (!apply) {
+    console.log(`\nNothing written. Re-run with --apply.`);
+    return;
+  }
+
+  let done = 0;
+  for (const { row, picks } of changes) {
     await client
-      .patch(category.id)
+      .patch(row._id)
       .set({
-        relatedCategories: resolved.map((target) => ({
+        relatedCategories: picks.map((pick) => ({
           _type: "reference",
-          _ref: target.id,
-          _key: `rel-${target.slug}`,
+          _ref: pick._id,
+          // Sanity refuses to edit an array whose items have no _key, which is
+          // the "Missing keys" warning already showing on some documents.
+          _key: `rel-${pick.slug}`.slice(0, 40),
         })),
       })
       .commit();
-    written += 1;
+    done += 1;
   }
+  console.log(`\nLinked ${done} categories.`);
 
-  console.log(
-    `\n${skipped} already had related categories and were left alone.` +
-      (apply
-        ? `\nLinked ${written} categories.\n`
-        : "\nDry run — nothing written.\n"),
-  );
+  let added = 0;
+  for (const { host, add } of reciprocal) {
+    const current: { _ref: string }[] =
+      (await client.fetch(`*[_id == $id][0].relatedCategories[]{_ref}`, {
+        id: host._id,
+      })) ?? [];
+    if (current.some((item) => item?._ref === add._id)) continue;
+    await client
+      .patch(host._id)
+      .setIfMissing({ relatedCategories: [] })
+      .append("relatedCategories", [
+        {
+          _type: "reference",
+          _ref: add._id,
+          _key: `rel-${add.slug}`.slice(0, 40),
+        },
+      ])
+      .commit();
+    added += 1;
+  }
+  if (added) console.log(`Added ${added} reciprocal links.`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+const isDirectRun =
+  process.argv[1] !== undefined &&
+  import.meta.url === `file://${process.argv[1]}`;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
