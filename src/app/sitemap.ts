@@ -20,8 +20,24 @@ const STATIC_ROUTES: {
   { path: "/shop", changeFrequency: "daily", tracks: true },
   { path: "/learn", changeFrequency: "weekly", tracks: true },
   { path: "/journal", changeFrequency: "weekly", tracks: true },
+  // Every tool, not just two of them. The sitemap listed /tools and the
+  // visualiser and nothing else, so five working calculators were left to be
+  // found by crawling alone — and a tool nobody finds ranks for nothing, which
+  // was the point of building them.
   { path: "/tools", changeFrequency: "monthly" },
   { path: "/tools/garden-visualiser", changeFrequency: "monthly" },
+  { path: "/tools/dining-set-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/mirror-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/pendant-light-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/planter-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/patio-heater-size-calculator", changeFrequency: "monthly" },
+  {
+    path: "/tools/garden-furniture-material-selector",
+    changeFrequency: "monthly",
+  },
+  { path: "/tools/sauna-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/cold-plunge-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/contrast-therapy-planner", changeFrequency: "monthly" },
   { path: "/about", changeFrequency: "monthly" },
   { path: "/contact", changeFrequency: "monthly" },
   { path: "/faq", changeFrequency: "monthly" },

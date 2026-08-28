@@ -7,40 +7,97 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
   title: "Tools",
-  description: "Free tools to help you plan your space.",
+  description:
+    "Ten free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, planter volume, patio heat output, sauna capacity.",
   path: "/tools",
 });
 
-const TOOLS = [
+/**
+ * Grouped, because there are ten now and a flat list of ten reads as a dump.
+ *
+ * Ordered within each group by how often the question gets asked rather than by
+ * when the tool was built.
+ */
+const GROUPS = [
   {
-    href: "/tools/garden-visualiser",
-    title: "AI Design Studio",
-    description:
-      "Upload a photo of your own space and see it redesigned with real products from Kaiku.",
+    heading: "Sizing and fit",
+    tools: [
+      {
+        href: "/tools/dining-set-size-calculator",
+        title: "Will the dining set fit?",
+        description:
+          "Enter your patio or room and get the largest table that fits with room to get out of a chair — and what it will really seat.",
+      },
+      {
+        href: "/tools/mirror-size-calculator",
+        title: "What size mirror above a console table?",
+        description:
+          "The mirror width that looks deliberate over a console, sideboard or mantel, and how high to hang it.",
+      },
+      {
+        href: "/tools/pendant-light-size-calculator",
+        title: "What size pendant light, and how high?",
+        description:
+          "Diameter and drop height, worked from your table or your room — they are different questions with different answers.",
+      },
+      {
+        href: "/tools/planter-size-calculator",
+        title: "How much compost does my planter need?",
+        description:
+          "Litres for a planter of any size, and a check that you are not over-potting the plant.",
+      },
+    ],
   },
   {
-    href: "/tools/sauna-size-calculator",
-    title: "Sauna Size & Capacity Calculator",
-    description:
-      "Tell us how many people will use it and we'll match you against our real in-stock saunas.",
+    heading: "Outdoor living",
+    tools: [
+      {
+        href: "/tools/patio-heater-size-calculator",
+        title: "What size patio heater or fire pit?",
+        description:
+          "kW and BTU converted both ways, and the output your seating area actually needs once wind is accounted for.",
+      },
+      {
+        href: "/tools/garden-furniture-material-selector",
+        title: "Which garden furniture material?",
+        description:
+          "Teak, aluminium, rattan or steel — what survives a British winter uncovered, and what needs oiling.",
+      },
+    ],
   },
   {
-    href: "/tools/cold-plunge-size-calculator",
-    title: "Cold Plunge Size & Capacity Calculator",
-    description:
-      "Tell us how many people will use it and we'll match you against our real in-stock cold plunges.",
+    heading: "Sauna and cold plunge",
+    tools: [
+      {
+        href: "/tools/sauna-size-calculator",
+        title: "What size sauna do I need?",
+        description:
+          "Matched against real in-stock saunas, using each one's own stated capacity.",
+      },
+      {
+        href: "/tools/cold-plunge-size-calculator",
+        title: "What size cold plunge do I need?",
+        description:
+          "Sized by fit rather than headcount, with the water volume that decides your running cost.",
+      },
+      {
+        href: "/tools/contrast-therapy-planner",
+        title: "Sauna and cold plunge protocol builder",
+        description:
+          "How long, how cold, how many rounds and in what order, built around what you want from it.",
+      },
+    ],
   },
   {
-    href: "/tools/garden-furniture-material-selector",
-    title: "Garden Furniture Material & Weather Resilience Selector",
-    description:
-      "Answer three questions about where it'll live and how much upkeep you want, and we'll match you to the right material.",
-  },
-  {
-    href: "/tools/contrast-therapy-planner",
-    title: "Contrast Therapy Protocol Builder",
-    description:
-      "Answer three questions about your goal, experience and time available, and we'll build you a real hot/cold session plan.",
+    heading: "Design",
+    tools: [
+      {
+        href: "/tools/garden-visualiser",
+        title: "AI Design Studio",
+        description:
+          "Upload a photo of your own space and see it redesigned with real products from Kaiku.",
+      },
+    ],
   },
 ] as const;
 
@@ -53,21 +110,35 @@ export default function ToolsPage() {
           Free planning tools
         </h1>
         <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
-          A few things to help you picture the finished space before you buy.
+          Ten calculators for the questions that come before a purchase — what
+          size, how high, will it fit, how much will it hold. All of them work
+          from measurements you can go and take, and none of them need an email
+          address.
         </p>
 
-        <div className="mt-12 flex flex-col gap-4">
-          {TOOLS.map((tool) => (
-            <AppLink
-              key={tool.href}
-              href={tool.href}
-              className="border-line hover:border-ink rounded-xl border p-6 transition-colors"
-            >
-              <p className="text-ink font-display text-xl">{tool.title}</p>
-              <p className="text-muted mt-2 text-[14px] leading-relaxed">
-                {tool.description}
-              </p>
-            </AppLink>
+        <div className="mt-14 flex flex-col gap-12">
+          {GROUPS.map((group) => (
+            <section key={group.heading}>
+              <h2 className="text-muted text-[12px] font-medium tracking-[0.16em] uppercase">
+                {group.heading}
+              </h2>
+              <div className="mt-4 flex flex-col gap-4">
+                {group.tools.map((tool) => (
+                  <AppLink
+                    key={tool.href}
+                    href={tool.href}
+                    className="border-line hover:border-ink rounded-xl border p-6 transition-colors"
+                  >
+                    <p className="text-ink font-display text-xl">
+                      {tool.title}
+                    </p>
+                    <p className="text-muted mt-2 text-[14px] leading-relaxed">
+                      {tool.description}
+                    </p>
+                  </AppLink>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </div>
