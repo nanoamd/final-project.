@@ -101,19 +101,40 @@ something worse.
       step. `scripts/fix-delivery-destinations.ts` replaces that one paragraph
       and leaves the rest of the page alone; it refuses to run if the
       paragraph has since been edited by hand. **Needs the write token.**
-- [x] **The banner now carries the geography, positively.** "Free UK delivery
-      on every order — and 10% off your first." The fact belongs in the first
-      line a visitor reads rather than at the address step, and "free" does the
-      same work as "only" without the door closing. The offer stays in front
-      because the offer is what the banner is for.
-- [ ] **"The UK's best collection of home products" was advised against**, and
-      the reasoning is on the record so it does not get re-litigated from
-      scratch: it is an objective superlative with nothing to substantiate it
-      (CAP Code 3.33/3.38, and the ASA rules on these); "best" is discount
-      register and works against a premium brand; and it would displace a
-      concrete first-order offer with a boast, at the point in the shop's life
-      when signups matter most. Damien's call — one line in shop-all.tsx if he
-      wants it.
+- [x] **The banner is now the positioning claim, with its evidence attached.**
+      "The UK's most helpful home store — 12 free tools and 14 buying guides,
+      and free UK delivery." Damien: _"we can say the uks most
+      helpful/informative home improvement store because we are"_, and on the
+      substance he is right — twelve tools and fourteen guides is rare for a
+      shop this size and is the one thing a competitor cannot copy in a
+      weekend.
+      Two edits to his wording. **"Home improvement" is not what this is**: in
+      the UK that means B&Q and Wickes, and borrowing the DIY category word
+      sets the wrong expectation and picks a fight the shop is not in. And the
+      **numbers travel with the claim** — a bare superlative is taken on faith,
+      "12 free tools and 14 buying guides" can be checked, which is both more
+      persuasive and how a superlative stays the right side of the CAP Code.
+      ("The UK's best collection of home products" was advised against and
+      dropped: unsubstantiable, and "best" is discount register against a
+      premium brand.)
+- [x] **The 10% welcome offer is withdrawn.** Damien: _"the first order
+      discounts dont work when most products are at 20% margin, i dont want to
+      do this just yet unless theres a minimum spend for it"_. On a 20-point
+      margin a 10% order discount is half the gross. It was never enforceable
+      either: there is no coupon table and `allow_promotion_codes` is not set
+      on the Stripe session, so there has never been a field at checkout to
+      type a code into. Removed from the banner **and** from the newsletter
+      welcome email, which was promising it to every new subscriber; that email
+      now offers the tools and the guides instead, which cost no margin and are
+      the better reason to trust the shop before spending in it.
+      **To bring it back with a minimum spend needs three things**, not one: a
+      promotion code in the Stripe dashboard carrying a minimum order value,
+      `allow_promotion_codes: true` in `src/server/actions/checkout.ts`, and
+      the code passed to the welcome email. The parameter is still there
+      waiting.
+- [ ] **The "10% off your second order for creating an account" idea is still
+      unbuilt**, and Damien's margin objection applies to it just as it does to
+      the first-order one. Worth deciding on before anyone builds it.
 
 ## Horizontal rails fought you at the end (29 August)
 

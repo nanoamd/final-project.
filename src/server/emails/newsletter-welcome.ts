@@ -23,17 +23,22 @@ export interface NewsletterWelcomeData {
   /** Canonical site origin, no trailing slash. */
   siteUrl: string;
   /**
-   * A real, working discount code — or `null`.
+   * A real, working discount code — or `null`, which is now the normal case.
    *
-   * The site's promo banner promises "10% OFF your first order" for joining the
-   * list, and there is no discount engine in this codebase: no coupon table, no
-   * `allow_promotion_codes` on the Stripe Checkout session, nothing to validate
-   * a code against. Rather than print a code that would be rejected at
-   * checkout, the copy below stays honest and routes the customer to email.
+   * **The 10% welcome offer has been withdrawn.** Damien: *"the first order
+   * discounts dont work when most products are at 20% margin, i dont want to
+   * do this just yet unless theres a minimum spend for it"*. On a 20-point
+   * margin a 10% order discount is half the gross, and it was never
+   * enforceable in the first place — there is no coupon table here and
+   * `allow_promotion_codes` is not set on the Stripe Checkout session, so
+   * there is no field at checkout to type a code into.
    *
-   * To switch it on, the owner creates a promotion code in the Stripe dashboard
-   * and enables promotion codes on the checkout session — then this argument
-   * carries the code. See docs/email-setup.md, "The 10% off promise".
+   * The parameter stays because the offer may come back with a minimum spend
+   * attached. Bringing it back needs three things, not one: a promotion code
+   * in the Stripe dashboard with a minimum order value on it,
+   * `allow_promotion_codes: true` on the session in
+   * `src/server/actions/checkout.ts`, and the code passed in here. Until all
+   * three exist, passing a code would print something checkout rejects.
    */
   discountCode?: string | null;
 }
@@ -50,26 +55,34 @@ export function buildNewsletterWelcomeEmail(
   const code = data.discountCode?.trim() || null;
   const subject = "You're on the list";
 
+  // With no offer to make, the welcome gives the subscriber the thing that is
+  // actually worth having and costs no margin: the tools and the guides. Both
+  // are free, both are already written, and both are the reason to trust the
+  // shop before spending anything in it.
+  const offerHeading = code ? "Your discount" : "Where to start";
+  const toolsUrl = absoluteUrl(data.siteUrl, "/tools");
+  const learnUrl = absoluteUrl(data.siteUrl, "/learn");
+
   const offerCopyHtml = code
-    ? `Enter <strong style="color:#1b1b1d;">${escapeHtml(code)}</strong> at checkout to take 10% off your first order.`
-    : `We promised 10% off your first order for joining, and we will honour it. There is no code to enter at checkout yet, so email <a href="mailto:${siteConfig.email}" style="color:#c65a2c;">${siteConfig.email}</a> before you order and we will arrange it with you directly.`;
+    ? `Enter <strong style="color:#1b1b1d;">${escapeHtml(code)}</strong> at checkout to take your discount.`
+    : `Before you buy anything, use the part of the shop that is free: <a href="${toolsUrl}" style="color:#c65a2c;">twelve sizing tools</a> that work out what fits, and <a href="${learnUrl}" style="color:#c65a2c;">fourteen buying guides</a> that answer the question behind the purchase. They are the reason most of what we sell gets bought once rather than returned.`;
 
   const offerCopyText = code
-    ? `Enter ${code} at checkout to take 10% off your first order.`
-    : `We promised 10% off your first order for joining, and we will honour it. There is no code to enter at checkout yet, so email ${siteConfig.email} before you order and we will arrange it with you directly.`;
+    ? `Enter ${code} at checkout to take your discount.`
+    : `Before you buy anything, use the part of the shop that is free: twelve sizing tools that work out what fits (${toolsUrl}), and fourteen buying guides that answer the question behind the purchase (${learnUrl}).`;
 
   const html = renderEmail({
     title: subject,
     preheader: code
-      ? `Your 10% off code: ${code}`
-      : "About your 10% off, and what to expect from us",
+      ? `Your discount code: ${code}`
+      : "Twelve free tools, fourteen guides, and what to expect from us",
     content: [
       eyebrow("Newsletter"),
       heading("You're on the list."),
       paragraph(
         "Thank you for joining. A few emails a month, no more: new pieces as they land, and writing on home and garden that is worth the time it takes to read.",
       ),
-      subheading("Your 10% off"),
+      subheading(offerHeading),
       paragraph(offerCopyHtml),
       spacer(4),
       button(shopUrl, "Browse the range"),
@@ -88,7 +101,7 @@ export function buildNewsletterWelcomeEmail(
   const text = renderText([
     "You're on the list.",
     "Thank you for joining. A few emails a month, no more: new pieces as they land, and writing on home and garden that is worth the time it takes to read.",
-    `YOUR 10% OFF\n${offerCopyText}`,
+    `${offerHeading.toUpperCase()}\n${offerCopyText}`,
     `Browse the range: ${shopUrl}`,
     `Questions are welcome. We answer by email only — write to ${siteConfig.email} and it reaches us directly.`,
     `You are receiving this because you signed up at ${siteConfig.url.replace(

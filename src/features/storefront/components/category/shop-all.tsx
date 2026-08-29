@@ -118,23 +118,38 @@ export async function ShopAll({
 
   return (
     <div className="bg-canvas text-ink min-h-screen">
-      {/* Two facts, offer first.
+      {/* The claim, with its evidence attached.
        *
-       * Damien asked whether the banner should read "the UK's best collection
-       * of home products : uk shipping only". Half of that is right and half
-       * is worth arguing with, so this is the half that is right.
+       * Damien: *"we can say the uks most helpful/informative home
+       * improvement store because we are"* — and on the substance he is
+       * right. Twelve free tools and fourteen buying guides is genuinely rare
+       * for a shop this size, and it is the one thing here a competitor
+       * cannot copy in a weekend.
        *
-       * The geography belongs here — checkout accepts GB addresses and
-       * nothing else, and until now a visitor could shop the whole site and
-       * find that out at the last step. Saying "UK delivery" in the first
-       * line they read prevents that. Saying it as "free" rather than "only"
-       * keeps it an invitation rather than a door closing.
+       * Two edits to what he wrote. **"Home improvement" is not what this
+       * is**: in the UK that phrase means B&Q and Wickes — timber, paint,
+       * power tools. Kaiku sells furniture, lighting, decor, garden and
+       * sauna. Borrowing the DIY category word would set the wrong
+       * expectation at the door and put the shop in a fight it is not in.
+       * And **the numbers travel with the claim**, because a bare superlative
+       * is something a stranger has to take on faith, while "12 free tools
+       * and 14 buying guides" is something they can go and check — which is
+       * both more persuasive and the way to keep a superlative on the right
+       * side of the CAP Code.
        *
-       * The offer stays in front of it because the offer is what the banner
-       * is for. A first-order discount is a concrete reason to give an email
-       * address; a superlative is not. */}
+       * The 10% is gone. Damien: *"the first order discounts dont work when
+       * most products are at 20% margin"*. On a 20-point margin a 10% order
+       * discount is half the gross, and it was never enforceable anyway —
+       * `allow_promotion_codes` is not set on the Stripe session, so there is
+       * no field to type a code into.
+       *
+       * The tail is desktop-only so the banner stays one line on a phone. */}
       <PromoBanner>
-        Free UK delivery on every order — and 10% off your first.
+        The UK&rsquo;s most helpful home store
+        <span className="hidden sm:inline">
+          {" "}
+          — 12 free tools and 14 buying guides, and free UK delivery
+        </span>
       </PromoBanner>
 
       {/* No "/all" suffix any more. The room and category routes themselves now
