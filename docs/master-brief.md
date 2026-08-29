@@ -84,6 +84,37 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## The banner, and a promise we could not keep (29 August)
+
+Damien: _"can we make the banner at the top say 'the uks best collection of
+home products : uk shipping only' or something along the lines of that? is
+that a bad idea?"_
+
+Half of it was right, and looking into the half that was right turned up
+something worse.
+
+- [x] **The Delivery page promised international shipping.** It read "We
+      deliver across the UK, **and further afield wherever our suppliers are
+      able to fulfil an order**", while `checkout.ts` sets
+      `allowed_countries: ["GB"]`. A customer outside the UK could read that
+      page, browse the catalogue, fill a basket and be refused at the address
+      step. `scripts/fix-delivery-destinations.ts` replaces that one paragraph
+      and leaves the rest of the page alone; it refuses to run if the
+      paragraph has since been edited by hand. **Needs the write token.**
+- [x] **The banner now carries the geography, positively.** "Free UK delivery
+      on every order — and 10% off your first." The fact belongs in the first
+      line a visitor reads rather than at the address step, and "free" does the
+      same work as "only" without the door closing. The offer stays in front
+      because the offer is what the banner is for.
+- [ ] **"The UK's best collection of home products" was advised against**, and
+      the reasoning is on the record so it does not get re-litigated from
+      scratch: it is an objective superlative with nothing to substantiate it
+      (CAP Code 3.33/3.38, and the ASA rules on these); "best" is discount
+      register and works against a premium brand; and it would displace a
+      concrete first-order offer with a boast, at the point in the shop's life
+      when signups matter most. Damien's call — one line in shop-all.tsx if he
+      wants it.
+
 ## Horizontal rails fought you at the end (29 August)
 
 Damien: _"scroll bars bug out when you scroll all the way then try scroll
