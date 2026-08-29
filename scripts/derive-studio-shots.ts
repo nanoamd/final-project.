@@ -64,14 +64,33 @@ const reorder = process.argv.includes("--reorder");
  * Reviewed with scripts/preview-gallery-reorder.ts, which renders every hero this
  * script wants to change so cases like it are seen before anything is written.
  *
- *   --skip slug-one,slug-two
+ * **These four joined the list on 29 August, past the filename check.**
+ * `isDimensionDiagram` catches a diagram from its *original filename*
+ * ("…-Dims.jpg", "…-measure.jpg"), and two of the 46 hero-changing products
+ * from that run carry a real dimensioned drawing under an opaque supplier
+ * hash (`7d888fe9…jpg`, `6c4c52c0…jpg`) with nothing in the name to catch. A
+ * third proposes the blank back of a chest of drawers — no handles, no drawer
+ * fronts, plain black — which measures as a near-perfect white sweep for the
+ * same reason an open drawer does. A fourth proposes the back of a canvas: the
+ * wooden frame and the picture hook, not the painting. All four confirmed by
+ * fetching the actual images rather than trusting the percentage.
+ *
+ *   --skip slug-one,slug-two    (added to, not replacing, the list below)
  */
-const skip = new Set(
-  (() => {
+const skip = new Set([
+  // Confirmed by eye against the actual asset, not just the measurement — see
+  // the comment above. Undo one of these only by removing it here, and only
+  // after looking at the image it would promote.
+  "serene-three-drawer-bedside-table",
+  "computer-desk-with-sliding-keyboard-tray-storage-drawer-shelf-home-office-workstation-grey",
+  "sarter-black-mango-wood-chest-of-4-drawers",
+  "galaxy-silver-and-grey-hand-painted-canvas",
+  "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-3000k",
+  ...(() => {
     const i = process.argv.indexOf("--skip");
     return i > -1 ? (process.argv[i + 1] ?? "").split(",").filter(Boolean) : [];
   })(),
-);
+]);
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (apply && !token) {

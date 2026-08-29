@@ -16,6 +16,74 @@ Status key:
 
 ---
 
+## Product images and categories, audited rather than assumed (29 August)
+
+Damien, on the shelving grid showing a living-room lifestyle photo as the main
+card image on two products: _"need products need to have the living room shot
+as he second image and the white one as the main. any other images need this
+fixed too, theres a few, also alot of products in the wrong categories"_.
+
+### Images: the tool already existed, it had just never been reviewed and run
+
+- [x] **`derive-studio-shots.ts` confirms the two products Damien saw and finds
+      147 more.** It measures each image's border for white, plain-sweep
+      content versus a photographed setting, from the thumbnail Sanity already
+      stores — no downloads. **149 products** need their gallery reordered so
+      a catalogue shot leads; **1,996 images** need `isStudioShot` set so the
+      card-hover swap has something to show. 470 products already lead
+      correctly. Dry run only — **needs the write token**.
+- [x] **Reviewed by eye before trusting the percentage — 4 more products
+      excluded on top of the one the script's author had already found and
+      documented.** The border measurement cannot tell a real product shot
+      from a dimensioned technical drawing or a blank detail crop; both
+      photograph as a plain white sweep. Fetched the actual proposed hero for
+      each of the 46 products whose lead image would change, and four were
+      wrong: two dimensioned drawings under an opaque supplier filename
+      (`isDimensionDiagram` catches this from the _filename_, and these two
+      have none of the tell-tale words), the blank back of a chest of drawers
+      with no handles or drawer fronts, and the back of a canvas — its wooden
+      frame and hanging hook, not the painting. All five known exceptions
+      (including Serene Three Drawer Bedside Table) are now hard-coded into
+      the script itself, not just typed on a command line to be forgotten:
+
+  ```
+  pnpm tsx --env-file=.env.local scripts/derive-studio-shots.ts --apply --reorder
+  ```
+
+  flags 1,996 images and reorders 149 galleries, skipping the five confirmed
+  wrong. `preview-gallery-reorder.ts` (already existed, unused) renders a
+  before/after contact sheet of every hero that would change, for anyone who
+  wants to look again before running it.
+
+### Categories: mostly not what it looked like, and that is worth saying plainly
+
+A keyword scan checked every live product's title against the category it
+sits in — does a product called "Vase" sit in Vases, does "Bookcase" sit
+somewhere shelving-shaped — and surfaced 21 candidates.
+
+- [x] **19 of the 21 were false alarms**, and the shape of the mistake is the
+      same one made earlier this session moving six Premier Housewares pieces
+      out of Garden Furniture before checking each one's own copy: a desk with
+      a "storage shelf" feature is still a desk; a rattan sofa set that
+      includes a fire pit table is still garden furniture; a garden lamp post
+      with a planter base is still lighting. Generalising from a title keyword
+      to a category verdict is wrong more often than it is right.
+- [x] **Two were real, and both needed a second category, not a different
+      one.** Four Reclaimed Collection pieces (two console tables, a bedside
+      table, a dining table) had no second category at all, where 16 of the
+      collection's 20 products already do — "The Reclaimed Collection" is a
+      materials-led page, not the functional category a search for "console
+      table" lands on. And the Cebu side table's own summary says it "fits
+      seamlessly into any bedroom or living space" while it is filed only
+      under Bedside Tables. `scripts/add-missing-cross-listings.ts` adds the
+      missing reference for all five — nothing moves, nothing is renamed.
+      Dry run clean; **needs the write token**.
+- [x] **The Darnell "vase" products in Planters are correctly categorised.**
+      Both are named "Vase" and both describe themselves, in their own copy,
+      as having "a planting capacity" of litres — they are planters wearing
+      the wrong word in their title. The standing constraint against renaming
+      products means that word stays; the category, which is right, stays too.
+
 ## Traffic audit (26 August)
 
 Damien: _"check why half of our pages aren't indexed too. Spend today whilst
