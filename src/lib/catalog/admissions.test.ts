@@ -61,6 +61,49 @@ describe("isAdmission", () => {
     ])
       expect(isAdmission(sentence)).toBe(false);
   });
+
+  /**
+   * Both shapes came off one live page — the Mize over-door mirror, whose
+   * whole description was "The specific hanging method isn't detailed, and
+   * suitable fixings for your wall type should be sourced separately."
+   */
+  it("catches an admission written as a contraction", () => {
+    expect(
+      isAdmission(
+        "The specific hanging method isn't detailed, and suitable fixings for your wall type should be sourced separately.",
+      ),
+    ).toBe(true);
+    expect(isAdmission("The bulb wattage wasn't specified by the maker.")).toBe(
+      true,
+    );
+    expect(isAdmission("The listing doesn't mention the frame material.")).toBe(
+      true,
+    );
+  });
+
+  it("catches the verb form as well as the participle", () => {
+    expect(isAdmission("The manufacturer does not state the bulb type.")).toBe(
+      true,
+    );
+    expect(isAdmission("The supplier did not specify the finish.")).toBe(true);
+  });
+
+  /**
+   * The line the widened pattern must not cross. "Does not include a bulb" is
+   * a fact about what arrives in the box; deleting it would take away
+   * something the shopper needs to know before buying.
+   */
+  it("leaves factual negatives about the product alone", () => {
+    for (const sentence of [
+      "The lamp does not include a bulb.",
+      "This piece does not require assembly.",
+      "The set does not come with cushions.",
+      "Teak does not need oiling.",
+      "It is not suitable for outdoor use.",
+    ]) {
+      expect(isAdmission(sentence)).toBe(false);
+    }
+  });
 });
 
 describe("isAdmission — guesses made from an absence", () => {

@@ -45,9 +45,28 @@ export interface Block {
  * "not listed" is the one the existing quality scorer missed — it knew "not
  * specified", "not stated" and "not provided", which is why this page scored
  * as publishable while opening with an apology.
+ *
+ * Two shapes were still getting through, both found on a live page. Damien on
+ * the Mize over-door mirror, whose entire description was one paragraph
+ * reading "The specific hanging method isn't detailed, and suitable fixings
+ * for your wall type should be sourced separately": *"tf that isnt a
+ * description"*.
+ *
+ *   - **Contractions.** The pattern required the literal word "not", so "isn't
+ *     detailed" and "wasn't specified" read as clean copy. An apostrophe is
+ *     not a word character, so `n't` needs matching without a leading
+ *     word boundary.
+ *   - **Verb forms.** "does not state", "does not mention", "did not specify"
+ *     — the same admission with the verb in the infinitive rather than the
+ *     participle.
+ *
+ * The verb list deliberately excludes "include", "come with" and "require".
+ * "The lamp does not include a bulb" is a fact about what is in the box, not
+ * an admission that we failed to find out, and stripping it would delete
+ * something a shopper needs.
  */
 const ADMITS_A_GAP =
-  /\b(?:not (?:listed|specified|stated|provided|available|detailed|mentioned|disclosed|given|confirmed|known)|no information|not been (?:listed|provided|specified)|unspecified|remains? unclear|unclear from|we do not (?:know|have)|is unknown|are unknown|(?:no|none) (?:[a-z-]+ ){0,4}(?:are|is|were|was) (?:mentioned|specified|stated|listed|given))\b/i;
+  /(?:\bnot|n't)\s+(?:listed|specified|stated|provided|available|detailed|mentioned|disclosed|given|confirmed|known)\b|\b(?:no information|not been (?:listed|provided|specified)|unspecified|remains? unclear|unclear from|we do not (?:know|have)|is unknown|are unknown|(?:no|none) (?:[a-z-]+ ){0,4}(?:are|is|were|was) (?:mentioned|specified|stated|listed|given))\b|\b(?:does|do|did|is|are|was|were|has|have|had)(?:\s+not|n't)\s+(?:state|specify|list|mention|detail|disclose|confirm|indicate)\b/i;
 
 /**
  * Sentences that reason from an absence of information.

@@ -84,6 +84,99 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## Stock not appearing, and what the ISR change cost (29 August)
+
+Damien: _"im uploading new planters and i cant see them on the site, find all
+products which are published but not visible"_.
+
+Every published product is complete — 497 of them, all with a price, a slug, a
+category and images. Nothing is hidden by bad data. The pages were stale:
+
+| category    | in Sanity | live |
+| ----------- | --------- | ---- |
+| planters    | 36        | 18   |
+| lighting    | 101       | 49   |
+| vases       | 17        | 16   |
+| wall clocks | 20        | 20   |
+| mirrors     | 21        | 21   |
+
+The two that match are the two nobody had edited. **This is a consequence of
+the ISR pass**: those routes went from a one-hour fallback to a
+twenty-four-hour one, so a missed publish webhook now hides new stock for a
+day instead of an hour.
+
+- [x] **The revalidate route had real gaps.** A product publish cleared
+      `/shop`, `/shop/<category>` and the product's own page — but never
+      `/shop/<category>/all`, `/shop/all` or the room pages, which list the
+      same products and are prerendered too. And a product cross-listed through
+      `additionalCategories` only ever cleared its **primary** category, so it
+      never appeared in the other one at all. All now cleared, with
+      `categorySlugs` and `roomSlug` added to the documented webhook
+      projection; the handler treats both as optional so an existing webhook
+      keeps working.
+- [x] **Timers split by how often the page actually changes.** Listings
+      (category, room, `/shop/all`) at **15 minutes**; product pages at **6
+      hours**; guides, tools and legal stay at a day. This is affordable for a
+      reason worth remembering — the Vercel bill came from those routes being
+      _dynamic_, one invocation per request cached never. Prerendered, sixty
+      listing pages regenerating four times an hour is a few thousand
+      regenerations a day.
+
+### Blocked on you
+
+- [ ] **Check the Sanity publish webhook exists.** Project → API → Webhooks,
+      pointed at `https://www.kaikuhome.com/api/revalidate?secret=<SANITY_REVALIDATE_SECRET>`,
+      method POST, with the projection in `src/app/api/revalidate/route.ts`.
+      The endpoint is live and answers 401 without the secret, so it is
+      deployed and configured — but nothing here can prove the webhook is
+      firing. Without it, new stock waits 15 minutes instead of appearing at
+      once.
+- [ ] **No `SANITY_API_WRITE_TOKEN` in this environment.** The container was
+      reprovisioned and `.env.local` went with it, so the three data scripts
+      below are written, dry-run and verified but **not applied**.
+
+## Catalogue faults found on live pages (29 August)
+
+Damien, on the Mize over-door mirror, whose entire description read "The
+specific hanging method isn't detailed…": _"tf that isnt a description"_. And
+on the dark shop index: _"this chair isnt outdoor furniture"_.
+
+- [x] **`isAdmission` missed two shapes.** It required the literal word "not",
+      so "isn't detailed" and "wasn't specified" read as clean copy, and it
+      knew the participle "not stated" but not the verb "does not state". Both
+      widened, with tests — including the line it must not cross: "does not
+      include a bulb" is a fact about what is in the box, not an admission.
+- [x] **186 specs printed the supplier's composition breakdown.** "Materials:
+      Glass 63%, Iron 5%, Paper 9%, Plastic 23%" on the mirror; five wire
+      baskets declaring "Iron 100%". Damien objected to this in the prose
+      months ago — that pass cleaned the copy and left the spec table alone.
+      `formatMaterialSpec` now renders the names, largest share first, at both
+      places the specs appear. Applied at render, so it also catches whatever
+      the next feed import brings. `scripts/clean-spec-percentages.ts` will
+      clean the stored data too, when there is a token.
+- [ ] **13 descriptions are a single detail section, not a description.** Mize
+      (37 words, "Hanging and Fixings"), Batu baskets ("Materials and
+      Construction"), two pendant lights ("Bulb Requirements", 20 and 28
+      words). They need writing, not patching — the Studio button exists for
+      exactly this.
+- [x] **Six indoor pieces filed as garden furniture.** Every Premier
+      Housewares range imported with a default category landed in
+      `garden-furniture`: a rattan wall shelf, two sets of Batu side tables,
+      the Cebu chrome-and-cane dining chair Damien spotted, and two Trento
+      tables in an antique gold finish. `scripts/recategorise-indoor-pieces.ts`
+      moves them by exact title; dry-run clean, needs a token to apply. The
+      Manado and Opus ranges stay — those are genuinely outdoor.
+- [x] **New & Noteworthy showed four near-identical lamps.** Damien: _"we need
+      a better range of products here, some cheap, some expensive 1 of each
+      type… you can make the scroll bar longer too"_. The rail was one
+      supplier ordered cheapest-first, and a supplier's products cluster by
+      type and price, so the cheapest five were five of one thing.
+      `selectRailProducts` takes one product per category — the median-priced
+      one, so it represents the range rather than its extremes — sorts by
+      price, and thins evenly while always keeping the cheapest and the
+      dearest. Premier Housewares leads, D.I. Designs fills. Result: 18
+      products, **18 distinct categories, £29 to £1,270**.
+
 ## Product photography — cropping and weight (29 August)
 
 Damien, with a screenshot of the Manado rattan bench shown as a strip of its own

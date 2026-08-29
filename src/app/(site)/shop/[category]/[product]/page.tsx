@@ -7,17 +7,14 @@ import { getProduct, getProductParams } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /**
- * A day, not an hour.
+ * Six hours.
  *
- * A Sanity publish already revalidates this path on demand through
- * /api/revalidate, so the timer is not what makes an edit appear — it is only
- * the fallback for a page nobody has told us changed. At an hour, a crawler
- * walking the catalogue regenerates every page it touches every hour, and each
- * regeneration is a function invocation, several Sanity queries and an ISR
- * write. At a day it is a twenty-fourth of that, and an edit still shows
- * immediately.
+ * Longer than the listings because there are 1,600 of these and only sixty of
+ * those, and shorter than a day because this is the page that carries the
+ * price. A publish still revalidates it immediately through /api/revalidate;
+ * this is what catches a change the webhook missed.
  */
-export const revalidate = 86400;
+export const revalidate = 21600;
 
 export async function generateStaticParams() {
   return getProductParams();

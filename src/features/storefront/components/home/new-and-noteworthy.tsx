@@ -1,6 +1,6 @@
-import Image from "next/image";
-
 import { AppLink } from "@/components/ui/app-link";
+import { ProductCardImage } from "@/features/storefront/components/category/product-card-image";
+import { selectRailProducts } from "@/lib/catalog/product-rail";
 import { formatPrice } from "@/lib/format";
 import { getProductsBySupplier } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -31,19 +31,40 @@ import type { SanityProduct } from "@/types/sanity-content";
  * itself.
  */
 /**
- * The supplier whose range fills this rail. An exact name, matched against the
- * supplier document — a `match` on a wildcard would quietly pick up a second
- * supplier with a similar name later and change what the homepage shows.
+ * The suppliers this rail draws on, in order of preference.
+ *
+ * Exact names, matched against the supplier document — a `match` on a wildcard
+ * would quietly pick up a second supplier with a similar name later and change
+ * what the homepage shows.
+ *
+ * Premier Housewares leads because Damien asked for it and because it is the
+ * broadest range in the shop: 84 live products across roughly twenty
+ * categories, which is what makes "one of each type" possible at all. D.I.
+ * Designs follows so the rail still fills if the first range thins out.
  */
-const FURNITURE_SUPPLIER = "D.I. Designs";
+const RAIL_SUPPLIERS = ["Premier Housewares", "D.I. Designs"];
+
+/**
+ * Eighteen, up from twelve.
+ *
+ * Damien: *"you can make the scroll bar longer too"*. At roughly a fifth of
+ * the viewport per card this is three and a half screens of swiping on
+ * desktop, and the selection below has enough distinct categories to fill it
+ * without repeating a type.
+ */
+const RAIL_SIZE = 18;
 
 export async function NewAndNoteworthy() {
-  // Twelve is about three screens of swiping on a phone and two rows' worth of
-  // choice on desktop — enough to feel like a range, short enough that the last
-  // card is reachable.
-  const products = (await getProductsBySupplier(FURNITURE_SUPPLIER, 12)).filter(
-    (p) => p.slug,
-  );
+  // A wide pool rather than the first N: the selection below needs to see the
+  // whole range to pick one of each type, and taking twelve up front is what
+  // produced a rail of four near-identical lamps.
+  const pool = (
+    await Promise.all(
+      RAIL_SUPPLIERS.map((supplier) => getProductsBySupplier(supplier, 200)),
+    )
+  ).flat();
+
+  const products = selectRailProducts(pool, RAIL_SIZE);
 
   // Nothing to show is not a section. An empty rail with a heading over it reads
   // as broken, where absence reads as nothing at all.
@@ -101,24 +122,15 @@ function ProductCard({ product }: { product: SanityProduct }) {
       className="group block"
     >
       <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-lg border">
+        {/* Same treatment as the shop grid, so a card behaves identically
+            wherever it appears: the whole product rather than a crop of its
+            middle, and the lifestyle shot only downloaded on hover. */}
         {primary ? (
-          <Image
+          <ProductCardImage
             src={primary}
+            hoverSrc={lifestyle}
             alt={product.name}
-            fill
             sizes="(max-width: 640px) 46vw, (max-width: 1024px) 31vw, 19vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          />
-        ) : null}
-        {/* The lifestyle shot on hover, where one exists. Same behaviour as the
-            shop grid, so a card behaves identically wherever it appears. */}
-        {lifestyle ? (
-          <Image
-            src={lifestyle}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 46vw, (max-width: 1024px) 31vw, 19vw"
-            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         ) : null}
         {/* A word, not a sticker. Discount-style badges are the single loudest

@@ -1,0 +1,1317 @@
+{
+  "applied": false,
+  "changes": [
+    {
+      "_id": "premier-housewares-0507069",
+      "title": "Emery Matt Black Wire Tall Basket | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-0507070",
+      "title": "Emery Matt Black Wire Basket | Kaiku",
+      "label": "Material",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-0507595",
+      "title": "Vertex Copper Plated Basket | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-0507596",
+      "title": "Vertex Rectangular Basket | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-0507597",
+      "title": "Vertex Square Basket | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-0507598",
+      "title": "Vertex Hexagonal Basket | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-1101380",
+      "title": "Mize Black Plastic Frame Over Door Mirror | Kaiku",
+      "label": "Materials",
+      "from": "Glass 63%, Iron 5%, Paper 9%, Plastic 23%",
+      "to": "Glass, Plastic, Paper, Iron"
+    },
+    {
+      "_id": "premier-housewares-1104822",
+      "title": "Aleki Extra Large Bamboo Chopping and Serving Board | Kaiku",
+      "label": "Main Material",
+      "from": "Bamboo 95%",
+      "to": "Bamboo"
+    },
+    {
+      "_id": "premier-housewares-1104822",
+      "title": "Aleki Extra Large Bamboo Chopping and Serving Board | Kaiku",
+      "label": "Handle Material",
+      "from": "Aluminium 5%",
+      "to": "Aluminium"
+    },
+    {
+      "_id": "premier-housewares-1104823",
+      "title": "Aleki Large Bamboo Chopping and Serving Board | Kaiku",
+      "label": "Material",
+      "from": "Bamboo 95%, Aluminium 5%",
+      "to": "Bamboo, Aluminium"
+    },
+    {
+      "_id": "premier-housewares-1411435",
+      "title": "Zircon Small Ceramic Planter | Kaiku",
+      "label": "Materials",
+      "from": "Glaze 8%, Clay 92%",
+      "to": "Clay, Glaze"
+    },
+    {
+      "_id": "premier-housewares-1411436",
+      "title": "Zircon Large Planter | Kaiku",
+      "label": "Materials",
+      "from": "Ceramic 100%",
+      "to": "Ceramic"
+    },
+    {
+      "_id": "premier-housewares-1601839",
+      "title": "Canyon Grey 300ml Lotion Dispenser | Kaiku",
+      "label": "Materials",
+      "from": "Acrylonitrile Butadiene Styrene 8%, Bamboo 16%, Bamboo Fiber 38%, Corn Starch 31%, Mineral Powder 7%",
+      "to": "Bamboo Fiber, Corn Starch, Bamboo, Acrylonitrile Butadiene Styrene, Mineral Powder"
+    },
+    {
+      "_id": "premier-housewares-1601841",
+      "title": "Canyon 300 ml Black Lotion Dispenser | Kaiku",
+      "label": "Materials",
+      "from": "Acrylonitrile Butadiene Styrene 8%, Bamboo 16%, Bamboo Fiber 38%, Corn Starch 30%, Mineral Powder 7%",
+      "to": "Bamboo Fiber, Corn Starch, Bamboo, Acrylonitrile Butadiene Styrene, Mineral Powder"
+    },
+    {
+      "_id": "premier-housewares-1601842",
+      "title": "Canyon Grey Lotion Dispenser - 500ml | Kaiku",
+      "label": "Materials",
+      "from": "Acrylonitrile Butadiene Styrene 6%, Bamboo 19%, Bamboo Fiber 37%, Corn Starch 30%, Mineral Powder 7%",
+      "to": "Bamboo Fiber, Corn Starch, Bamboo, Mineral Powder, Acrylonitrile Butadiene Styrene"
+    },
+    {
+      "_id": "premier-housewares-1601843",
+      "title": "Canyon White Lotion Dispenser - 500ml | Kaiku",
+      "label": "Materials",
+      "from": "Acrylonitrile Butadiene Styrene 6%, Bamboo 19%, Bamboo Fiber 37%, Corn Starch 30%, Mineral Powder 7%",
+      "to": "Bamboo Fiber, Corn Starch, Bamboo, Mineral Powder, Acrylonitrile Butadiene Styrene"
+    },
+    {
+      "_id": "premier-housewares-2405942",
+      "title": "Weston Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "label": "Materials",
+      "from": "Polyurethane 0%, Glass 0%, Polyester 0%, Iron 0%",
+      "to": "Polyurethane, Glass, Polyester, Iron"
+    },
+    {
+      "_id": "premier-housewares-2405944",
+      "title": "Westford Rectangle Dining Table with 6 Chairs Set | Kaiku",
+      "label": "Materials",
+      "from": "MDF 0%, Microfibre, Iron 0%, Glass 0%, Polyurethane 0%, Polyester 0%",
+      "to": "MDF, Iron, Glass, Polyurethane, Polyester, Microfibre"
+    },
+    {
+      "_id": "premier-housewares-2405945",
+      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
+      "label": "Materials",
+      "from": "Iron 40%, MDF 30%, Polyurethane 20%, Micro Fiber 10%",
+      "to": "Iron, MDF, Polyurethane, Micro Fiber"
+    },
+    {
+      "_id": "premier-housewares-2405946",
+      "title": "Wimslow BlackTempered Glass Dining Table with 6 Chairs | Kaiku",
+      "label": "Materials",
+      "from": "Polyester 0%, Iron 0%, Glass 0%",
+      "to": "Polyester, Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-2405947",
+      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
+      "label": "Materials",
+      "from": "Glass 0%, Metal 0%, Other Man-Made Material 0%",
+      "to": "Glass, Metal, Other Man-Made Material"
+    },
+    {
+      "_id": "premier-housewares-2502389",
+      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-2502390",
+      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-2502391",
+      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-2502410",
+      "title": "Stockholm Shiny Brass Tapered Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 50%, Plastic 5%, Polycotton 30%, Rubberwood 15%",
+      "to": "Iron, Polycotton, Rubberwood, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5100311",
+      "title": "Thread and Loom 6 Piece Dusty Turquoise Towel Set | Kaiku",
+      "label": "Material",
+      "from": "100% Cotton",
+      "to": "Cotton"
+    },
+    {
+      "_id": "premier-housewares-5100312",
+      "title": "Thread and Loom 6 Piece Navy Blue Towel Set | Kaiku",
+      "label": "Materials",
+      "from": "Cotton 100%",
+      "to": "Cotton"
+    },
+    {
+      "_id": "premier-housewares-5100313",
+      "title": "Thread and Loom 6 Piece Peach Pink Towel Set | Kaiku",
+      "label": "Material",
+      "from": "Cotton 100%",
+      "to": "Cotton"
+    },
+    {
+      "_id": "premier-housewares-5100314",
+      "title": "Thread and Loom 6 Piece Mustard Towel Set | Kaiku",
+      "label": "Materials",
+      "from": "Cotton 100%",
+      "to": "Cotton"
+    },
+    {
+      "_id": "premier-housewares-5100316",
+      "title": "Thread and Loom 6 Piece Lilac Towel Set | Kaiku",
+      "label": "Materials",
+      "from": "Cotton 100%",
+      "to": "Cotton"
+    },
+    {
+      "_id": "premier-housewares-5503962",
+      "title": "Terni Gold Finish Wall Mirror | Kaiku",
+      "label": "Materials",
+      "from": "Glass 30%, MDF 30%, Polyurethane 40%",
+      "to": "Polyurethane, Glass, MDF"
+    },
+    {
+      "_id": "premier-housewares-5504052",
+      "title": "Dimaro Antique Grey Wall Mirror | Kaiku",
+      "label": "Materials",
+      "from": "MDF 50%, Elm Veneer 10%, Glass 40%",
+      "to": "MDF, Glass, Elm Veneer"
+    },
+    {
+      "_id": "premier-housewares-5505800",
+      "title": "Darnell Large Chevron Planter | Kaiku",
+      "label": "Materials",
+      "from": "Beech Wood 20%, Fiberglass 20%, Magnesia 35%, Inorganic Resin 25%",
+      "to": "Magnesia, Inorganic Resin, Beech Wood, Fiberglass"
+    },
+    {
+      "_id": "premier-housewares-5505802",
+      "title": "Darnell Large Black And White Finish Planter | Kaiku",
+      "label": "Materials",
+      "from": "Fiberglass 20%, Inorganic Resin 25%, Magnesia 35%, Beech wood 20%",
+      "to": "Magnesia, Inorganic Resin, Fiberglass, Beech wood"
+    },
+    {
+      "_id": "premier-housewares-5506072",
+      "title": "Honna Small White Silver Ceramic Planter | Kaiku",
+      "label": "Materials",
+      "from": "Plating 10%, Stoneware 90%",
+      "to": "Stoneware, Plating"
+    },
+    {
+      "_id": "premier-housewares-5506189",
+      "title": "Yuri White And Gold Spotted Planter | Kaiku",
+      "label": "Materials",
+      "from": "Stoneware 100%",
+      "to": "Stoneware"
+    },
+    {
+      "_id": "premier-housewares-5506190",
+      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
+      "label": "Material",
+      "from": "Stoneware 100%",
+      "to": "Stoneware"
+    },
+    {
+      "_id": "premier-housewares-5506395",
+      "title": "Deomali Black Finish Large Bottle Vase | Kaiku",
+      "label": "Materials",
+      "from": "Aluminium 100%",
+      "to": "Aluminium"
+    },
+    {
+      "_id": "premier-housewares-5506420",
+      "title": "Darnell Natural And Black Planter With Angular Legs | Kaiku",
+      "label": "Materials",
+      "from": "Fiberglass 20%, Beech Wood 20%, Inorganic Resin 25%, Magnesia 35%",
+      "to": "Magnesia, Inorganic Resin, Fiberglass, Beech Wood"
+    },
+    {
+      "_id": "premier-housewares-5506421",
+      "title": "Darnell Natural And Black Tapered Planter | Kaiku",
+      "label": "Materials",
+      "from": "Fiberglass 20%, Inorganic Resin 25%, Beech Wood 20%, Magnesia 35%",
+      "to": "Magnesia, Inorganic Resin, Fiberglass, Beech Wood"
+    },
+    {
+      "_id": "premier-housewares-5506425",
+      "title": "Darnell Round Brown Planter With Angular Legs | Kaiku",
+      "label": "Materials",
+      "from": "Inorganic Resin 25%, Beech Wood 20%, Fiberglass 20%, Magnesia 35%",
+      "to": "Magnesia, Inorganic Resin, Beech Wood, Fiberglass"
+    },
+    {
+      "_id": "premier-housewares-5506533",
+      "title": "Cayden Small Smoked Black And Silver Vase | Kaiku",
+      "label": "Materials",
+      "from": "Glass 100%",
+      "to": "Glass"
+    },
+    {
+      "_id": "premier-housewares-5506560",
+      "title": "Arlo Large Engraved Natural And Black Wooden Planter | Kaiku",
+      "label": "Materials",
+      "from": "100% Paulownia",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506561",
+      "title": "Arlo Small Engraved Natural And Black Planter | Kaiku",
+      "label": "Materials",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506562",
+      "title": "Arlo Small Natural Wooden Planter | Kaiku",
+      "label": "Materials",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506563",
+      "title": "Arlo Small Wooden Black Ombre Planter | Kaiku",
+      "label": "Materials",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506564",
+      "title": "Arlo Large Natural Wooden Planter | Kaiku",
+      "label": "Materials",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506565",
+      "title": "Arlo Large Wooden Black Ombre Planter | Kaiku",
+      "label": "Materials",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506575",
+      "title": "Arlo Large Brown And Natural Wooden Planter | Kaiku",
+      "label": "Material",
+      "from": "Paulownia 100%",
+      "to": "Paulownia"
+    },
+    {
+      "_id": "premier-housewares-5506673",
+      "title": "Tundra Black And White Earthenware Planter | Kaiku",
+      "label": "Materials",
+      "from": "Earthenware 98%, Paint 2%",
+      "to": "Earthenware, Paint"
+    },
+    {
+      "_id": "premier-housewares-5506889",
+      "title": "Sanai White Cotton Mache Large Planter | Kaiku",
+      "label": "Material",
+      "from": "Cotton Mache 90%, Organic Binder 10%",
+      "to": "Cotton Mache, Organic Binder"
+    },
+    {
+      "_id": "premier-housewares-5506890",
+      "title": "Sanai Black Cotton Mache Large Planter | Kaiku",
+      "label": "Material",
+      "from": "Cotton Mache 100%",
+      "to": "Cotton Mache"
+    },
+    {
+      "_id": "premier-housewares-5509127",
+      "title": "Sabia Green And Gold Three Tiered Plant Stand | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5509128",
+      "title": "Sabia Green And Gold Two Tiered Plant Stand | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5509209",
+      "title": "Quackpot Duck Feet Small Plant Stand | Kaiku",
+      "label": "Materials",
+      "from": "Aluminium 100%",
+      "to": "Aluminium"
+    },
+    {
+      "_id": "premier-housewares-5509210",
+      "title": "Quackpot Duck Feet Large Plant Stand | Kaiku",
+      "label": "Material",
+      "from": "Aluminium 100%",
+      "to": "Aluminium"
+    },
+    {
+      "_id": "premier-housewares-5511039",
+      "title": "Hampstead Black Finish Large Pendant Light With Hints of Gold | Kaiku",
+      "label": "Materials",
+      "from": "Iron 70%, Plastic 30%",
+      "to": "Iron, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511057",
+      "title": "Ulyana Floor Lamp With Linen Shade | Kaiku",
+      "label": "Materials",
+      "from": "Glass 15%, Iron 50%, Crystal 15%, Linen 20%",
+      "to": "Iron, Linen, Glass, Crystal"
+    },
+    {
+      "_id": "premier-housewares-5511152",
+      "title": "Antler Nickel Finish and Black 4 Shade Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Aluminium, Fabric Shade 100%",
+      "to": "Fabric Shade, Aluminium"
+    },
+    {
+      "_id": "premier-housewares-5511254",
+      "title": "Venice Nickel Plated Tapered Chandelier | Kaiku",
+      "label": "Material",
+      "from": "Wiring 5%, Stainless Steel 95%",
+      "to": "Stainless Steel, Wiring"
+    },
+    {
+      "_id": "premier-housewares-5511263",
+      "title": "Lustra Small Nickel Painted Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Iron 50%, Glass 50%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511320",
+      "title": "Macey Large Faceted Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Steel 5%, Aluminium 55%, Cotton 20%, Iron 20%",
+      "to": "Aluminium, Cotton, Iron, Steel"
+    },
+    {
+      "_id": "premier-housewares-5511368",
+      "title": "Abira Bronze Finish 7 Light Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Glass 40%, Iron 60%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511371",
+      "title": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 60%, Glass 40%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511372",
+      "title": "Abira Silver Finish Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 75%, Glass 25%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511388",
+      "title": "Hubert Nickel Finish Arc Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Marble 20%, Linen 20%, Steel 60%",
+      "to": "Steel, Marble, Linen"
+    },
+    {
+      "_id": "premier-housewares-5511398",
+      "title": "Skye Nickel Finish Rectangular Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Cotton 0%, Stainless Steel 0%",
+      "to": "Cotton, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5511427",
+      "title": "Salasco Black Finish 3 Tiered Glass Chandelier | Kaiku",
+      "label": "Material",
+      "from": "Iron 0%, Glass 0%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511483",
+      "title": "Alexis 8 Light Nickel Finish Statement Pendant Light | Kaiku",
+      "label": "Material",
+      "from": "Iron 90%, Glass 10%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511506",
+      "title": "Edith White Marble and Brushed Gold Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 40%, Marble 60%",
+      "to": "Marble, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511570",
+      "title": "Newton Brass Finish Floor Lamp | Kaiku",
+      "label": "Material",
+      "from": "Iron 95%, Plastic 5%",
+      "to": "Iron, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511582",
+      "title": "Karli 3 Tier Glass Statement Pendant Light | Kaiku",
+      "label": "Material",
+      "from": "Glass 40%, Iron 60%",
+      "to": "Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511592",
+      "title": "Karter Chrome Finish Floor Lamp With Three Lights | Kaiku",
+      "label": "Material",
+      "from": "100% Iron",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5511596",
+      "title": "Karter Chrome Finish And White Glass Shade Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Glass 50%, Iron 50%",
+      "to": "Glass, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511598",
+      "title": "Trieste Large Angular Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Aluminium 70%, Iron 15%, PVC 15%",
+      "to": "Aluminium, Iron, PVC"
+    },
+    {
+      "_id": "premier-housewares-5511615",
+      "title": "Trieste Large Floor Lamp | Kaiku",
+      "label": "Material",
+      "from": "Iron 40%, Glass 60%",
+      "to": "Glass, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511616",
+      "title": "Trieste Champagne Glass Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5511631",
+      "title": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "label": "Materials",
+      "from": "Metal (0%), Stone (0%)",
+      "to": "Metal (), Stone ()"
+    },
+    {
+      "_id": "premier-housewares-5511633",
+      "title": "Abira Brass Finish Three Bulb Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Metal 70%, Glass 30%",
+      "to": "Metal, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511640",
+      "title": "Abira Black Finish 16 Arm Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Glass 60%, Iron 40%",
+      "to": "Glass, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511646",
+      "title": "Orbo Gold and Frosted Glass Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Glass 10%, Stainless Steel 90%",
+      "to": "Stainless Steel, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511649",
+      "title": "Enola Large Ribbed Smoked Glass Table Lamp | Kaiku",
+      "label": "Material",
+      "from": "Iron 10%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5511661",
+      "title": "Babylon Large 8 Light Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Metal 0%, Glass 0%",
+      "to": "Metal, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511666",
+      "title": "Babylon 6 Bulb Crystal Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Glass 50%, Metal 50%",
+      "to": "Glass, Metal"
+    },
+    {
+      "_id": "premier-housewares-5511667",
+      "title": "Babylon Six Bulb Black Crystal Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Glass 50%, Metal 50%",
+      "to": "Glass, Metal"
+    },
+    {
+      "_id": "premier-housewares-5511673",
+      "title": "Babylon Six Bulb Chrome Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Glass 70%, Metal 30%",
+      "to": "Glass, Metal"
+    },
+    {
+      "_id": "premier-housewares-5511674",
+      "title": "Babylon Eight Bulb Chrome Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Metal 30%, Glass 70%",
+      "to": "Glass, Metal"
+    },
+    {
+      "_id": "premier-housewares-5511675",
+      "title": "Babylon Four Bulb Antique Gold Chandelier | Kaiku",
+      "label": "Materials",
+      "from": "Glass 50%, Metal 50%",
+      "to": "Glass, Metal"
+    },
+    {
+      "_id": "premier-housewares-5511678",
+      "title": "Newton White Marble and Gold Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Plastic 5%, Iron 60%, Marble 35%",
+      "to": "Iron, Marble, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511682",
+      "title": "Newton Gold Finish Metal Shade Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Plastic 5%, Iron 60%, Marble 35%",
+      "to": "Iron, Marble, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511721",
+      "title": "Abira Black Marble and Brass 5 Bulb Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 30%, Marble 40%, Glass 30%",
+      "to": "Marble, Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511722",
+      "title": "Abira White Marble and Brass Finish 5 Bulb Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 30%, Marble 40%, Glass 30%",
+      "to": "Marble, Iron, Glass"
+    },
+    {
+      "_id": "premier-housewares-5511723",
+      "title": "Abira Black Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Glass 30%, Marble 40%, Iron 30%",
+      "to": "Marble, Glass, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511726",
+      "title": "Yara Matt Black 12 Bulb Statement Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Iron 100%",
+      "to": "Iron"
+    },
+    {
+      "_id": "premier-housewares-5511733",
+      "title": "Hutchinson Clear Crystal Table Lamp with Black Metal | Kaiku",
+      "label": "Materials",
+      "from": "Glass (65%), Iron (25%), Other (10%)",
+      "to": "Glass (), Iron (), Other ()"
+    },
+    {
+      "_id": "premier-housewares-5511734",
+      "title": "Hutchinson Clear Crystal Floor Lamp with Black Metal | Kaiku",
+      "label": "Materials",
+      "from": "Glass 65%, Iron 25%, Other 10%",
+      "to": "Glass, Iron, Other"
+    },
+    {
+      "_id": "premier-housewares-5511735",
+      "title": "Hutchinson Clear Crystal Table Lamp with Gold Metal | Kaiku",
+      "label": "Materials",
+      "from": "Iron 25%, Glass 65%, Other 10%",
+      "to": "Glass, Iron, Other"
+    },
+    {
+      "_id": "premier-housewares-5511736",
+      "title": "Hutchinson Clear Crystal Floor Lamp with Gold Metal | Kaiku",
+      "label": "Materials",
+      "from": "Glass 65%, Iron 25%, Other 10%",
+      "to": "Glass, Iron, Other"
+    },
+    {
+      "_id": "premier-housewares-5511738",
+      "title": "Hubert Satin Nickel Finish Metal Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 50%, Linen 15%, Marble 25%, Other 10%",
+      "to": "Iron, Marble, Linen, Other"
+    },
+    {
+      "_id": "premier-housewares-5511739",
+      "title": "Hanah Black Snake Leather Effect Table Lamp with Chrome Base | Kaiku",
+      "label": "Materials",
+      "from": "Iron 15%, Leather 50%, Linen 25%, Other 10%",
+      "to": "Leather, Linen, Iron, Other"
+    },
+    {
+      "_id": "premier-housewares-5511740",
+      "title": "Hanah Black Snake Leather Effect Floor Lamp with Chrome Base and Black Shade | Kaiku",
+      "label": "Materials",
+      "from": "Iron 15%, Leather 50%, Linen 25%, Other 10%",
+      "to": "Leather, Linen, Iron, Other"
+    },
+    {
+      "_id": "premier-housewares-5511751",
+      "title": "Murdoch Brushed Brass Floor Lamp with Black Marble Base | Kaiku",
+      "label": "Materials",
+      "from": "Iron 70%, Plastic 5%, Marble 25%",
+      "to": "Iron, Marble, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511753",
+      "title": "Atkins Nickel Finish Floor Lamp with White Shade | Kaiku",
+      "label": "Material",
+      "from": "Iron 70%, TC fabric 20%, Plastic 10%",
+      "to": "Iron, TC fabric, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511758",
+      "title": "Equipoise Black and Brass Finish Floor Lamp with Marble Base | Kaiku",
+      "label": "Materials",
+      "from": "70% Iron, 10% Plastic, 20% Marble",
+      "to": "Iron, Marble, Plastic"
+    },
+    {
+      "_id": "premier-housewares-5511823",
+      "title": "Carta Black and White Stripe Papier Mache Table Lamp | Kaiku",
+      "label": "Material",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511824",
+      "title": "Carta Black And White Papier Mache Table Lamp with Geometric Lines | Kaiku",
+      "label": "Materials",
+      "from": "50% Iron, 50% Paper Mache",
+      "to": "Iron, Paper Mache"
+    },
+    {
+      "_id": "premier-housewares-5511825",
+      "title": "Carta Black and White Curved Stripe Papier Mache Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511868",
+      "title": "Carta Brown and White Stripe Papier Mache Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511869",
+      "title": "Carta Black and White Stripe Papier Mache Domed Floor Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 50%, Paper Mache 50%",
+      "to": "Iron, Paper Mache"
+    },
+    {
+      "_id": "premier-housewares-5511870",
+      "title": "Carta Black and White Stripe Papier Mache Domed Pendant Light | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 90%, Iron 10%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511871",
+      "title": "Carta Black and White Polka Dot Papier Mache Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511872",
+      "title": "Carta Taupe Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Iron 50%,Paper Mache 50%",
+      "to": "Iron, Paper Mache"
+    },
+    {
+      "_id": "premier-housewares-5511873",
+      "title": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5511874",
+      "title": "Carta Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "label": "Materials",
+      "from": "Paper Mache 50%, Iron 50%",
+      "to": "Paper Mache, Iron"
+    },
+    {
+      "_id": "premier-housewares-5515084",
+      "title": "Batu Set Of 2 Natural Rattan Baskets | Kaiku",
+      "label": "Materials",
+      "from": "Rattan with 80%, Iron 20%",
+      "to": "Rattan with, Iron"
+    },
+    {
+      "_id": "premier-housewares-5521147",
+      "title": "Astratto Natural Textured Canvas Wall Art | Kaiku",
+      "label": "Material Composition",
+      "from": "Pine 30%, Canvas 40%, Polystyrene (PS) 30%",
+      "to": "Canvas, Pine, Polystyrene (PS)"
+    },
+    {
+      "_id": "premier-housewares-5527096",
+      "title": "Kendari Black Leather and Teak Wood Chair | Kaiku",
+      "label": "Materials",
+      "from": "Teak Wood 70%, Leather 30%",
+      "to": "Teak Wood, Leather"
+    },
+    {
+      "_id": "premier-housewares-5527150",
+      "title": "Hazel Natural Oak Wood and Grey Fur Dining Chair | Kaiku",
+      "label": "Materials",
+      "from": "Oak Wood 50%, Foam 20%, Real Fur 30%",
+      "to": "Oak Wood, Real Fur, Foam"
+    },
+    {
+      "_id": "premier-housewares-5527329",
+      "title": "Tamzin Blue Velvet Curved Back Dining Chair | Kaiku",
+      "label": "Materials",
+      "from": "Iron 30%, Plywood 10%, Foam 30%, Polyester 30%",
+      "to": "Iron, Foam, Polyester, Plywood"
+    },
+    {
+      "_id": "premier-housewares-5527343",
+      "title": "Tamzin Dark Grey Leather Effect Curved Dining Chair | Kaiku",
+      "label": "Materials",
+      "from": "Polyester 30%, Plywood 10%, Iron 30%, Foam 30%",
+      "to": "Polyester, Iron, Foam, Plywood"
+    },
+    {
+      "_id": "premier-housewares-5527514",
+      "title": "Kempton Grey Shagreen Effect and Walnut Veneer Media Unit | Kaiku",
+      "label": "Material Blend",
+      "from": "Iron 5%, Resin with shagreen effect 10%, Walnut Veneer 15%, MDF 70%",
+      "to": "MDF, Walnut Veneer, Resin with shagreen effect, Iron"
+    },
+    {
+      "_id": "premier-housewares-5527521",
+      "title": "Milan Grey Wash Recycled Elm Wood 4 Door Sideboard | Kaiku",
+      "label": "Materials",
+      "from": "Iron 10%, New Elm 30%, Recycled Elm 60%",
+      "to": "Recycled Elm, New Elm, Iron"
+    },
+    {
+      "_id": "premier-housewares-5527540",
+      "title": "Sagor Mango Wood Console Table with Drawers | Kaiku",
+      "label": "Materials",
+      "from": "Brass 10%, Iron 25%, MDF 20%, Mango Wood 35%, Glass 10%",
+      "to": "Mango Wood, Iron, MDF, Brass, Glass"
+    },
+    {
+      "_id": "premier-housewares-5527815",
+      "title": "Deskey Grey Shagreen Effect Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Composite Leather 10%, MDF 40%, Poplar Wood 10%, Stainless Steel 40%",
+      "to": "MDF, Stainless Steel, Composite Leather, Poplar Wood"
+    },
+    {
+      "_id": "premier-housewares-5527850",
+      "title": "Kerala Natural Recycled Wood Dining Table With Cross Base | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 0%, Sal wood 0%, Glass 0%",
+      "to": "Stainless Steel, Sal wood, Glass"
+    },
+    {
+      "_id": "premier-housewares-5527873",
+      "title": "Ulmus Black Elm Wood Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Stainless steel 60%, Elm Wood 40%",
+      "to": "Stainless steel, Elm Wood"
+    },
+    {
+      "_id": "premier-housewares-5527875",
+      "title": "Ulmus Black Elm Wood Sideboard | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 20%, Elm Wood 80%",
+      "to": "Elm Wood, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527876",
+      "title": "Ulmus Black Elm Wood Coffee Table | Kaiku",
+      "label": "Materials",
+      "from": "60% Elm Wood, 40% Stainless Steel",
+      "to": "Elm Wood, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527877",
+      "title": "Ulmus Black Elm Wood Console Table | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 45%, Elm Wood 55%",
+      "to": "Elm Wood, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527896",
+      "title": "Surina 3 Seat Stone Fabric Sofa | Kaiku",
+      "label": "Materials",
+      "from": "Pinewood 20%, Plywood 20%, Foam 20%, Polyester 40%",
+      "to": "Polyester, Pinewood, Plywood, Foam"
+    },
+    {
+      "_id": "premier-housewares-5527919",
+      "title": "Lena Oak Veneer Coffee Table with Brushed Gold Legs | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 20%, Oak Veneer 80%",
+      "to": "Oak Veneer, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527920",
+      "title": "Lena Oak Veneer Round Side Table with Brushed Gold Legs | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 20%, Oak Veneer 80%",
+      "to": "Oak Veneer, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527921",
+      "title": "Lena Oak Veneer Rectangular Side Table with Brushed Gold Legs | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 20%, Oak Veneer 80%",
+      "to": "Oak Veneer, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5527934",
+      "title": "Luxor Grey Wash Recycled Pine Wood 4 Door Sideboard | Kaiku",
+      "label": "Material",
+      "from": "Iron 70%, Recycled South Pine 30%",
+      "to": "Iron, Recycled South Pine"
+    },
+    {
+      "_id": "premier-housewares-5527935",
+      "title": "Luxor Grey Wash Recycled Pine Wood Console Table with Drawers | Kaiku",
+      "label": "Materials",
+      "from": "Iron 70%, Recycled South Pine 30%",
+      "to": "Iron, Recycled South Pine"
+    },
+    {
+      "_id": "premier-housewares-5528011",
+      "title": "Trento Round Rattan and Antique Gold Finish Side Table | Kaiku",
+      "label": "Materials",
+      "from": "MDF 10%, Iron 70%, Rattan 20%",
+      "to": "Iron, Rattan, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528012",
+      "title": "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
+      "label": "Materials",
+      "from": "Iron 70%, Rattan 20%, MDF 10%",
+      "to": "Iron, Rattan, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528056",
+      "title": "Batu Large Black Rattan Wall Shelf | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 90%, Iron 10%",
+      "to": "Rattan, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528057",
+      "title": "Batu Set Of 2 Natural Rattan Side Tables | Kaiku",
+      "label": "Materials",
+      "from": "Metal 20%, Rattan 80%",
+      "to": "Rattan, Metal"
+    },
+    {
+      "_id": "premier-housewares-5528058",
+      "title": "Batu Set Of 2 Black Rattan Side Tables | Kaiku",
+      "label": "Materials",
+      "from": "Metal 20%, Rattan 80%",
+      "to": "Rattan, Metal"
+    },
+    {
+      "_id": "premier-housewares-5528071",
+      "title": "Jakara Natural Finish Carved Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Plywood 40%, Oak Veneer 40%, Iron 20%",
+      "to": "Plywood, Oak Veneer, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528072",
+      "title": "Jakara Black Finish Carved Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Iron 20%, Plywood 40%, Oak Veneer 40%",
+      "to": "Plywood, Oak Veneer, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528140",
+      "title": "Ralph Three Seat Mink Velvet Sofa | Kaiku",
+      "label": "Materials",
+      "from": "Elastic Webbings 3%, Polyester 35%, Larch Wood 25%, Plywood 25%, Foam 12%",
+      "to": "Polyester, Larch Wood, Plywood, Foam, Elastic Webbings"
+    },
+    {
+      "_id": "premier-housewares-5528142",
+      "title": "Ralph Three Seat Mink Velvet Right Chaise Sofa | Kaiku",
+      "label": "Materials",
+      "from": "Larch Wood 25%, Plywood 25%, Foam 12%, Elastic Webbings 3%, Polyester 35%",
+      "to": "Polyester, Larch Wood, Plywood, Foam, Elastic Webbings"
+    },
+    {
+      "_id": "premier-housewares-5528268",
+      "title": "Boho Black and White Two Drawer Console Table | Kaiku",
+      "label": "Materials",
+      "from": "Metal 20%, Wood 80%",
+      "to": "Wood, Metal"
+    },
+    {
+      "_id": "premier-housewares-5528432",
+      "title": "Moda Black Faux Marble Rectangular Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Artificial Marble 20%, Stainless Steel 80%",
+      "to": "Stainless Steel, Artificial Marble"
+    },
+    {
+      "_id": "premier-housewares-5528448",
+      "title": "Simla Acacia Wood Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Acacia Wood 60%, MDF 20%, Stainless Steel 20%",
+      "to": "Acacia Wood, MDF, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5528461",
+      "title": "Surati Sheesham And Acacia Wood Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Acacia Wood 50%, MDF 20%, Sheesham wood 30%",
+      "to": "Acacia Wood, Sheesham wood, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528469",
+      "title": "Sarter Black Mango Wood Chest of 4 Drawers | Kaiku",
+      "label": "Materials",
+      "from": "Wood 100%",
+      "to": "Wood"
+    },
+    {
+      "_id": "premier-housewares-5528481",
+      "title": "Boho Two Drawer Bedside Table in Mango Wood | Kaiku",
+      "label": "Materials",
+      "from": "Mango Wood 70%, Iron 20%, MDF 10%",
+      "to": "Mango Wood, Iron, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528535",
+      "title": "Arti Mango Wood and Brass Effect Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "Iron 30%, Mango Wood 70%",
+      "to": "Mango Wood, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528545",
+      "title": "Opus Grey Woven Rope Chair with Cushioned Seat | Kaiku",
+      "label": "Materials",
+      "from": "Rope 10%, Wood 40%, Steel 30%, Fabric 20%",
+      "to": "Wood, Steel, Fabric, Rope"
+    },
+    {
+      "_id": "premier-housewares-5528547",
+      "title": "Opus Grey Woven Rope Three Seater Sofa with Cushions | Kaiku",
+      "label": "Materials",
+      "from": "Wood 40%, Rope 10%, Steel 30%, Fabric 20%",
+      "to": "Wood, Steel, Fabric, Rope"
+    },
+    {
+      "_id": "premier-housewares-5528548",
+      "title": "Opus Woven Rope Chaise Longue with Cushions | Kaiku",
+      "label": "Materials",
+      "from": "Fabric 20%, Steel 30%, Rope 10%, Wood 40%",
+      "to": "Wood, Steel, Fabric, Rope"
+    },
+    {
+      "_id": "premier-housewares-5528549",
+      "title": "Opus Linen Fabric and Woven Rope 3 Seat Sofa | Kaiku",
+      "label": "Material Composition",
+      "from": "Fabric 20%, Wood 40%, Rope 10%, Steel 30%",
+      "to": "Wood, Steel, Fabric, Rope"
+    },
+    {
+      "_id": "premier-housewares-5528550",
+      "title": "Opus Rope Woven Longue Bench with Cushions | Kaiku",
+      "label": "Materials",
+      "from": "Steel 30%, Wood 40%, Rope 10%, Fabric 20%",
+      "to": "Wood, Steel, Fabric, Rope"
+    },
+    {
+      "_id": "premier-housewares-5528605",
+      "title": "Cebu Elm Wood and Rattan Dining Chair | Kaiku",
+      "label": "Materials",
+      "from": "Beech wood 30%, Rattan wood 30%, Iron 40%",
+      "to": "Iron, Beech wood, Rattan wood"
+    },
+    {
+      "_id": "premier-housewares-5528621",
+      "title": "Grenoble Oak Veneer 2 Drawer Desk | Kaiku",
+      "label": "Materials",
+      "from": "Steel 70%, MDF 30%",
+      "to": "Steel, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528622",
+      "title": "Grenoble Brushed Brass Multi Tier Shelving Unit | Kaiku",
+      "label": "Materials",
+      "from": "Steel 50%, MDF 50%",
+      "to": "Steel, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528626",
+      "title": "Manado Natural Rattan Sofa with Cushions | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 55%, Iron 45%",
+      "to": "Rattan, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528627",
+      "title": "Manado Natural Rattan Long Bench with Cushion | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 75%, Fabric 10%, Foam 15%",
+      "to": "Rattan, Foam, Fabric"
+    },
+    {
+      "_id": "premier-housewares-5528628",
+      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "label": "Material Composition",
+      "from": "Rattan 75%, Fabric 10%, Foam 15%",
+      "to": "Rattan, Foam, Fabric"
+    },
+    {
+      "_id": "premier-housewares-5528633",
+      "title": "Java Natural Rattan Scalloped Accent Chair | Kaiku",
+      "label": "Materials",
+      "from": "Metal Legs 40%, Rattan 60%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528637",
+      "title": "Java Natural Rattan Flared Back Chair | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 60%, Metal Legs 40%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528638",
+      "title": "Java Black Rattan Round Back Accent Chair | Kaiku",
+      "label": "Material",
+      "from": "Rattan 60%, Metal Legs 40%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528639",
+      "title": "Java Natural Rattan Peacock Accent Chair | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 60%, Metal Legs 40%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528640",
+      "title": "Java Black Rattan Peacock Accent Chair | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 60%, Metal Legs 40%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528641",
+      "title": "Java Natural Rattan Round Chair | Kaiku",
+      "label": "Materials",
+      "from": "Metal Legs 40%, Rattan 60%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528642",
+      "title": "Java Black Rattan Round Chair | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 60%, Metal Legs 40%",
+      "to": "Rattan, Metal Legs"
+    },
+    {
+      "_id": "premier-housewares-5528644",
+      "title": "Java White Natural Rattan Curved Chair | Kaiku",
+      "label": "Materials",
+      "from": "Rattan 100%",
+      "to": "Rattan"
+    },
+    {
+      "_id": "premier-housewares-5528694",
+      "title": "Lyon Rattan and Oak Wood 2 Door Wardrobe | Kaiku",
+      "label": "Materials",
+      "from": "40% plywood, 40% oak wood, 20% rattan",
+      "to": "plywood, oak wood, rattan"
+    },
+    {
+      "_id": "premier-housewares-5528695",
+      "title": "Lyon Rattan and Oak Wood 4 Door Sideboard | Kaiku",
+      "label": "Material",
+      "from": "MDF 20%, Rattan 10%, Oak Wood 70%",
+      "to": "Oak Wood, MDF, Rattan"
+    },
+    {
+      "_id": "premier-housewares-5528698",
+      "title": "Parkside Oak Wood Round Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "100% Oak Wood",
+      "to": "Oak Wood"
+    },
+    {
+      "_id": "premier-housewares-5528699",
+      "title": "Parkside Dark Oak Wood Round Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Oak Wood 100%",
+      "to": "Oak Wood"
+    },
+    {
+      "_id": "premier-housewares-5528707",
+      "title": "Parkside Grey Fabric Super Kingsize Bed | Kaiku",
+      "label": "Material",
+      "from": "Oak Wood 60%, Steel 5%, Polyester 35%",
+      "to": "Oak Wood, Polyester, Steel"
+    },
+    {
+      "_id": "premier-housewares-5528753",
+      "title": "Siena Black and Natural Oak Wood Three Door Sideboard | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 10%, Oak Wood 90%",
+      "to": "Oak Wood, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5528776",
+      "title": "Sabrina Three Seat Grey Velvet Sofa | Kaiku",
+      "label": "Materials",
+      "from": "Polyester 15%, Thread 1%, Iron 4%, Foam 30%, Pine 25%, Plywood 25%",
+      "to": "Foam, Pine, Plywood, Polyester, Iron, Thread"
+    },
+    {
+      "_id": "premier-housewares-5528781",
+      "title": "Siena Three Seat Midnight Velvet Sofa | Kaiku",
+      "label": "Materials",
+      "from": "Polyester 15%, Iron 4%, Foam 30%, Pine 25%, Thread 1%, Plywood 25%",
+      "to": "Foam, Pine, Plywood, Polyester, Iron, Thread"
+    },
+    {
+      "_id": "premier-housewares-5528860",
+      "title": "Imperia 2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
+      "label": "Materials",
+      "from": "Ceramic 80%, Iron 20%",
+      "to": "Ceramic, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528865",
+      "title": "Imperia Ceramic Marble Effect Round Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Iron 30%, Ceramic 70%",
+      "to": "Ceramic, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528866",
+      "title": "Imperia Ceramic Marble Effect Rectangular Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 30%, Ceramic 70%",
+      "to": "Ceramic, Stainless Steel"
+    },
+    {
+      "_id": "premier-housewares-5528939",
+      "title": "Naro Mango Wood and Gold Tip Legs Side Table | Kaiku",
+      "label": "Materials",
+      "from": "Brass Inlay 5%, Iron 5%, Mango 90%",
+      "to": "Mango, Brass Inlay, Iron"
+    },
+    {
+      "_id": "premier-housewares-5528940",
+      "title": "Naro Mango Wood and Gold Finish Console Table | Kaiku",
+      "label": "Materials",
+      "from": "Brass Inlay 2%, Iron 3%, Mango Wood 95%",
+      "to": "Mango Wood, Iron, Brass Inlay"
+    },
+    {
+      "_id": "premier-housewares-5528966",
+      "title": "Spezia Grey Marble Top Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "3% Steel, 5% Marble, 92% MDF",
+      "to": "MDF, Marble, Steel"
+    },
+    {
+      "_id": "premier-housewares-5528970",
+      "title": "Saronno Grey Marble Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "MDF 4%, Marble 96%",
+      "to": "Marble, MDF"
+    },
+    {
+      "_id": "premier-housewares-5528975",
+      "title": "Saronno Grey Marble Top Media Unit | Kaiku",
+      "label": "Materials",
+      "from": "MDF 92%, Marble 5%, Steel 3%",
+      "to": "MDF, Marble, Steel"
+    },
+    {
+      "_id": "premier-housewares-5528991",
+      "title": "Hampstead Acacia Wood and Silver Legs Dining Table | Kaiku",
+      "label": "Materials",
+      "from": "Stainless Steel 40%, Acacia Wood 60%",
+      "to": "Acacia Wood, Stainless Steel"
+    }
+  ],
+  "unresolved": [
+    "Cheston White Antique Finish Wall Clock | Kaiku :: Material: 100%"
+  ]
+}

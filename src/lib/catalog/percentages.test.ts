@@ -4,6 +4,7 @@ import {
   type Block,
   cleanSentence,
   dominantMaterial,
+  formatMaterialSpec,
   hasPercentages,
   stripPercentages,
   stripPercentagesFromBlocks,
@@ -169,5 +170,42 @@ describe("dominantMaterial", () => {
   it("returns null rather than guess at a long component name", () => {
     expect(dominantMaterial("gold electroplating hardware leg 95%")).toBeNull();
     expect(dominantMaterial("")).toBeNull();
+  });
+});
+
+describe("formatMaterialSpec", () => {
+  it("keeps the names and drops the numbers, largest share first", () => {
+    // The value live on the Mize over-door mirror when Damien flagged it.
+    expect(
+      formatMaterialSpec("Glass 63%, Iron 5%, Paper 9%, Plastic 23%"),
+    ).toBe("Glass, Plastic, Paper, Iron");
+  });
+
+  it("reduces a single-material breakdown to the material", () => {
+    expect(formatMaterialSpec("Iron 100%")).toBe("Iron");
+    expect(formatMaterialSpec("100% Cotton")).toBe("Cotton");
+  });
+
+  /**
+   * Eight products arrived with every figure at 0%, which is a broken feed
+   * rather than a composition. The names are still true, so they are kept in
+   * the order the supplier gave them.
+   */
+  it("keeps the order when every share reads 0%", () => {
+    expect(
+      formatMaterialSpec("Polyurethane 0%, Glass 0%, Polyester 0%, Iron 0%"),
+    ).toBe("Polyurethane, Glass, Polyester, Iron");
+  });
+
+  it("leaves a spec that is not a composition alone", () => {
+    // The guard that keeps this from mangling unrelated spec rows.
+    expect(formatMaterialSpec("Weight: 15 kg")).toBeNull();
+    expect(formatMaterialSpec("60%")).toBeNull();
+    expect(formatMaterialSpec("Solid Oak")).toBeNull();
+    expect(formatMaterialSpec("H124 x D3 x W34 cm")).toBeNull();
+  });
+
+  it("returns null rather than an identical string", () => {
+    expect(formatMaterialSpec("Cotton")).toBeNull();
   });
 });

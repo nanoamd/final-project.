@@ -210,3 +210,56 @@ export function dominantMaterial(value: string): string | null {
   }
   return cleaned.split(/\s+/).length <= 3 ? cleaned : null;
 }
+
+/**
+ * A Materials spec with the supplier's composition percentages taken out.
+ *
+ * Damien, on a description: *"90% 10% what is the need in saying that, you
+ * have weird descriptions"*. That pass cleaned the prose and left the spec
+ * table alone, so the Mize over-door mirror still shows
+ *
+ *   Materials: Glass 63%, Iron 5%, Paper 9%, Plastic 23%
+ *
+ * on the live page, and five wire baskets declare "Iron 100%". It is the
+ * supplier's manufacturing breakdown, printed at a shopper deciding whether a
+ * mirror suits their hallway.
+ *
+ * Returns the names, largest share first — "Glass, Plastic, Paper, Iron". The
+ * names rather than only the dominant material, because this is a spec row
+ * labelled *Materials* and completeness is what a spec is for; `dominantMaterial`
+ * stays for prose, where "a glass mirror" is the right register.
+ *
+ * Returns `null` for anything that is not a composition breakdown, so the
+ * caller can fall back to the value as written. That guard is what keeps a
+ * legitimate "Humidity: 60%" or "Weight: 15 kg" untouched: a part has to carry
+ * both a percentage and a name before this will rewrite it.
+ */
+export function formatMaterialSpec(value: string): string | null {
+  if (!hasPercentages(value)) return null;
+
+  const parsed = value
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const share = /(\d+(?:\.\d+)?)\s*%/.exec(part);
+      const name = part.replace(/\d+(?:\.\d+)?\s*%/g, "").trim();
+      return { name, share: share ? Number(share[1]) : -1 };
+    })
+    .filter((entry) => entry.name.length > 1 && /[a-z]/i.test(entry.name));
+
+  // Nothing name-like survived — "Material: 100%" is one real example, and a
+  // blank spec would be worse than the nonsense it replaced.
+  if (!parsed.length) return null;
+
+  // Stable: an unlabelled component keeps its position rather than being
+  // shuffled to the front by its -1 share.
+  const ordered = parsed
+    .map((entry, index) => ({ ...entry, index }))
+    .sort((a, b) =>
+      b.share === a.share ? a.index - b.index : b.share - a.share,
+    );
+
+  const cleaned = [...new Set(ordered.map((entry) => entry.name))].join(", ");
+  return cleaned === value.trim() ? null : cleaned;
+}

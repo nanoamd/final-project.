@@ -20,6 +20,7 @@ import {
   isLargeFurniture,
   leadTimeLine,
 } from "@/lib/catalog/delivery";
+import { formatMaterialSpec } from "@/lib/catalog/percentages";
 import { productDescriptionComponents } from "@/lib/sanity/product-description-components";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -49,7 +50,11 @@ function bandFeatures(
     features.push({
       icon: Gem,
       title: "Materials",
-      copy: material.value,
+      // The supplier's composition breakdown is not a selling point. See
+      // formatMaterialSpec — "Glass 63%, Iron 5%, Paper 9%, Plastic 23%" reads
+      // as "Glass, Plastic, Paper, Iron", and anything that is not a
+      // breakdown is left exactly as written.
+      copy: formatMaterialSpec(material.value) ?? material.value,
     });
 
   features.push({
@@ -327,7 +332,9 @@ function SpecsPanel({ product }: { product: SanityProduct }) {
           className="border-line flex justify-between gap-6 border-b py-4 text-[14px]"
         >
           <dt className="text-muted">{spec.label}</dt>
-          <dd className="text-ink text-right">{spec.value}</dd>
+          <dd className="text-ink text-right">
+            {formatMaterialSpec(spec.value) ?? spec.value}
+          </dd>
         </div>
       ))}
     </dl>
