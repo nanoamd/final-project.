@@ -84,6 +84,62 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## Descriptions, and the rail (29 August)
+
+- [x] **31 thin descriptions written.** Damien: _"tf that isnt a
+      description"_, then _"yes do them for unpublished products too"_. Four
+      products had no description at all; the other 27 carried a single section
+      — "Bulb Requirements", "Materials and Construction", "Hanging and
+      Fixings", "Assembly and Delivery Access" — a footnote promoted to the
+      whole page. A shopper opening the Description tab on a £689 pendant and
+      reading only which bulb cap it takes has been told nothing.
+      5,554 words, written individually from each product's own dimensions,
+      materials and fittings. Not generated: the template writer was deleted in
+      February for producing the same description 1,600 times, and a solar lamp
+      post and a crystal chandelier have nothing structurally in common.
+      Checked against the repo's own gates before shipping — no admissions, no
+      supplier percentages, no renamed products.
+      `scripts/write-thin-descriptions.ts`, applied as **one transaction**:
+      Damien, _"dont make the sanity list constantly refresh"_ — thirty-one
+      separate patches is thirty-one real-time events and a Studio list that
+      reshuffles while he is uploading.
+- [x] **The recategorisation was cut from six products to two.** The first pass
+      moved every Premier Housewares piece in `garden-furniture` that looked
+      indoor. Checking each product's own copy rather than reasoning about the
+      range showed four of those were wrong: the Batu side tables are sold as
+      "perfect for any outdoor space… designed to withstand regular outdoor
+      use", and both Trento tables name a garden or patio. Generalising from
+      one product in a range to the rest of it is the exact mistake that keeps
+      coming up. What survives is the wall shelf (its own copy says "any home")
+      and the Cebu chair — whose supplier copy does claim outdoor use, and is
+      overselling a chrome cantilever frame with a cane seat.
+- [x] **The rail, twice.** _"poor selection of products for that scroll
+      bar, use some fancy lighting pieces etc. must be our best products with
+      some cheaper products inbetween each one"_. Taking each category's
+      **median** had filled it with the unremarkable middle of the shop — a
+      chopping board, a soap dispenser. It now alternates a hero (the dearest
+      piece in a category) with something genuinely cheap.
+      Two corrections along the way: ranking hero categories by price put the
+      four dearest things at the front and pushed **Lighting to the last card**
+      of a 24-card scroll, so heroes are ranked by how deep the range is
+      instead — a category with a hundred products is a range, one with three
+      is a shelf. And value picks are chosen on price rather than from the
+      shallow end of that same ranking, which had been putting a £989 shelving
+      unit in a slot meant to be the breather. Result: leads with the £789
+      Babylon pendant, then a £23 basket, then the £2,389 marble dining table.
+      23 products, 23 distinct categories, £23–£2,389.
+
+### Still blocked on the write token
+
+`.env.local` went with the reprovisioned container, so three scripts are
+written, dry-run and verified but **not applied**: the 31 descriptions, the two
+recategorisations, and the stored spec percentages. Every one is safe to run
+and each reports what it would change first.
+
+Unpublished products are invisible from here for the same reason — drafts need
+a token to read, so a token-less scan sees 497 published and 0 drafts. The same
+scripts will pick drafts up when run with one.
+
 ## Stock not appearing, and what the ISR change cost (29 August)
 
 Damien: _"im uploading new planters and i cant see them on the site, find all

@@ -1,25 +1,41 @@
 /**
  * Choosing what goes in the New & Noteworthy rail.
  *
- * Damien, on a rail showing a bedside table and then four gesso table lamps
- * between £205 and £290: *"we need a better range of products here, some
- * cheap, some expensive 1 of each type"*.
+ * Two rounds of Damien's feedback, and the second corrected the first.
  *
- * The rail was one supplier's range ordered cheapest first, which is exactly
- * how you get four of the same lamp: a supplier's products cluster by type and
- * by price, so the first five cheapest are usually five of one thing. Sorting
- * harder does not fix it — the fix is to stop the same category appearing
- * twice, and then to keep both ends of the price range.
+ * It began as one supplier's range ordered cheapest-first, which showed a
+ * bedside table and then four near-identical gesso lamps between £205 and
+ * £290: *"we need a better range of products here, some cheap, some expensive
+ * 1 of each type"*. Taking one product per category fixed the repetition, but
+ * taking the *median* of each category filled the rail with the unremarkable
+ * middle of the shop — a chopping board, a soap dispenser: *"poor selection of
+ * products for that scroll bar, use some fancy lighting pieces etc. must be
+ * our best products with some cheaper products inbetween each one"*.
  *
- * Two passes:
+ * So the rail is not a price ramp and not an average. It alternates:
  *
- *   1. **One per category.** The category is the closest thing the catalogue
- *      has to "type". Within a category the middle-priced product is taken
- *      rather than the cheapest or the dearest, so the rail shows what the
- *      range actually looks like instead of its extremes.
- *   2. **Keep the spread.** Sorted by price, then thinned evenly if there are
- *      more categories than slots — always keeping the first and last, so the
- *      cheapest thing in the shop and the dearest both survive the trim.
+ *   - a **hero** — the dearest piece in a category, which is where the
+ *     statement lighting and the large furniture live;
+ *   - then something **affordable** from a different category, so nobody
+ *     scrolling is looking at four four-figure prices in a row.
+ *
+ * Which categories get to be heroes is decided by **how deep the range is**,
+ * not by what its dearest piece costs. Ranking on price alone put the four
+ * most expensive things in the shop at the front and pushed Lighting — the
+ * largest category by some distance, and the one Damien named — to the very
+ * last card of a twenty-four card scroll, where nobody would see it. Depth is
+ * the better signal for a rail that is meant to say "here is what we sell":
+ * a category with a hundred products is a range, and a category with three is
+ * a shelf.
+ *
+ * The **value** picks are then chosen on price, not on depth. Taking them from
+ * the shallow end of the same depth ranking looked reasonable and was not: a
+ * category with three products is not a cheap category, and the rail ended up
+ * putting a £989 shelving unit in a slot that was supposed to be the breather
+ * between two expensive pieces. They are drawn from whatever is left, cheapest
+ * first, which is what actually makes them cheap.
+ *
+ * No category appears twice in the rail.
  */
 
 export interface RailCandidate {
@@ -28,27 +44,8 @@ export interface RailCandidate {
   price?: number | null;
 }
 
-/** The median-priced item, which is the one that represents its category. */
-function representative<T extends RailCandidate>(group: T[]): T {
-  const sorted = [...group].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-  return sorted[Math.floor((sorted.length - 1) / 2)]!;
-}
-
-/**
- * Thins a sorted list to `size`, keeping the first and last.
- *
- * Taking the first `size` would hand back the cheap end of the shop, which is
- * the thing being fixed.
- */
-function evenSample<T>(items: T[], size: number): T[] {
-  if (items.length <= size) return items;
-  if (size <= 1) return items.slice(0, size);
-  const step = (items.length - 1) / (size - 1);
-  return Array.from(
-    { length: size },
-    (_, index) => items[Math.round(index * step)]!,
-  );
-}
+const byPriceAsc = (a: RailCandidate, b: RailCandidate) =>
+  (a.price ?? 0) - (b.price ?? 0);
 
 export function selectRailProducts<T extends RailCandidate>(
   products: T[],
@@ -65,8 +62,46 @@ export function selectRailProducts<T extends RailCandidate>(
     byCategory.set(key, [...(byCategory.get(key) ?? []), product]);
   }
 
-  const oneEach = [...byCategory.values()].map(representative);
-  oneEach.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+  // Deepest ranges first, and where two are the same depth the one with the
+  // better piece at the top of it wins.
+  const ranked = [...byCategory.values()]
+    .map((group) => [...group].sort(byPriceAsc))
+    .sort(
+      (a, b) =>
+        b.length - a.length || (b.at(-1)!.price ?? 0) - (a.at(-1)!.price ?? 0),
+    );
 
-  return evenSample(oneEach, size);
+  // Half the rail is heroes, taken from the deepest ranges — but never more
+  // than half the categories, or a short catalogue would be all heroes and
+  // there would be nothing cheap to put between them.
+  const heroCount = Math.min(Math.ceil(size / 2), Math.ceil(ranked.length / 2));
+  const heroes = ranked.slice(0, heroCount).map((group) => group.at(-1)!);
+
+  // The rest is whatever is left over, cheapest first.
+  const value = ranked
+    .slice(heroCount)
+    .map((group) => group[0]!)
+    .sort(byPriceAsc);
+
+  const chosen: T[] = [];
+  for (let index = 0; index < heroes.length + value.length; index += 1) {
+    if (chosen.length >= size) break;
+    const next = index % 2 === 0 ? heroes[index / 2] : value[(index - 1) / 2];
+    // One side runs out before the other on a short catalogue; keep taking
+    // from whichever still has something rather than stopping early.
+    if (next) chosen.push(next);
+    else {
+      const rest = [
+        ...heroes.slice(Math.ceil(index / 2)),
+        ...value.slice(index / 2),
+      ];
+      for (const item of rest) {
+        if (chosen.length >= size) break;
+        if (!chosen.includes(item)) chosen.push(item);
+      }
+      break;
+    }
+  }
+
+  return chosen;
 }

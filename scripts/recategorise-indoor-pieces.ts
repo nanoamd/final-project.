@@ -6,19 +6,10 @@
  * dining chair with a cane seat, sitting in the Garden Furniture grid between
  * two woven-rope garden sofas.
  *
- * It is not one product. Every Premier Housewares range imported with a
- * default category landed in `garden-furniture`, and six of them are indoor
- * pieces by any reading:
- *
- *   - A rattan **wall shelf**, which is not garden furniture in any sense.
- *   - Two sets of Batu rattan **side tables** — the same Batu range whose own
- *     copy says "add a touch of nature to any indoor space".
- *   - The Cebu **dining chair**: chrome cantilever frame, cane back and seat.
- *   - Two Trento tables in rattan and an **antique gold finish**, which is an
- *     indoor decorative finish and not something anyone leaves in the rain.
- *
- * The Manado and Opus ranges stay where they are: woven rope and outdoor
- * rattan on metal frames, sold as garden furniture, and correctly filed.
+ * Premier Housewares ranges imported with a default category all landed in
+ * `garden-furniture`. Two of them do not belong there — see the note on MOVES
+ * for which, and for the four that were nearly moved with them and should not
+ * have been.
  *
  * Only the primary `category` reference moves. Nothing is renamed, no price is
  * touched, and nothing is hidden from the navigation.
@@ -40,37 +31,42 @@ const client = createClient({
   useCdn: false,
 });
 
-/** Exact titles, so this can never catch a product it was not meant to. */
+/**
+ * Exact titles, so this can never catch a product it was not meant to.
+ *
+ * **This list was six and is two.** The first pass moved every Premier
+ * Housewares piece filed under `garden-furniture` that looked indoor to me —
+ * the Batu side tables and both Trento tables among them. Checking each
+ * product's own copy rather than reasoning about the range showed that was
+ * wrong: the Batu side tables are described as "perfect for any outdoor
+ * space… designed to withstand regular outdoor use", and both Trento tables
+ * name a garden or patio. Whatever they look like, they are sold as garden
+ * furniture and they are filed correctly. Generalising from one product in a
+ * range to the rest of it is the exact mistake that has come up before, and
+ * this is it happening again.
+ *
+ * What is left is the two that survive their own copy:
+ *
+ *   - The **wall shelf**, whose copy says "an eco-friendly addition to any
+ *     home" and never mentions outdoors. A wall shelf is not garden furniture.
+ *   - The **Cebu dining chair**, which is the one Damien looked at and called
+ *     out. Its supplier copy does claim an "outdoor dining space", and that
+ *     claim is overselling: it is a chrome-plated cantilever frame with a
+ *     natural cane back and seat. Chrome rusts and cane rots. Damien owns the
+ *     shop, has seen the piece, and said plainly that it is not outdoor
+ *     furniture; the physics agrees with him and the supplier's marketing does
+ *     not.
+ */
 const MOVES: { title: string; to: string; why: string }[] = [
   {
     title: "Cebu Elm Wood and Rattan Dining Chair | Kaiku",
     to: "kitchen-furniture",
-    why: "Chrome cantilever dining chair with a cane back and seat — indoor.",
+    why: "Chrome cantilever frame with a cane back and seat — indoor, whatever the supplier copy claims.",
   },
   {
     title: "Batu Large Black Rattan Wall Shelf | Kaiku",
     to: "shelving",
-    why: "A wall shelf is not garden furniture.",
-  },
-  {
-    title: "Batu Set Of 2 Black Rattan Side Tables | Kaiku",
-    to: "side-tables",
-    why: "Indoor rattan side tables; the range's own copy says indoor.",
-  },
-  {
-    title: "Batu Set Of 2 Natural Rattan Side Tables | Kaiku",
-    to: "side-tables",
-    why: "Indoor rattan side tables; the range's own copy says indoor.",
-  },
-  {
-    title: "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
-    to: "coffee-tables",
-    why: "Antique gold finish is an indoor decorative finish.",
-  },
-  {
-    title: "Trento Round Rattan and Antique Gold Finish Side Table | Kaiku",
-    to: "side-tables",
-    why: "Antique gold finish is an indoor decorative finish.",
+    why: "A wall shelf is not garden furniture, and its own copy says 'any home'.",
   },
 ];
 

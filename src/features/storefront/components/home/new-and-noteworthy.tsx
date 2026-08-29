@@ -45,14 +45,18 @@ import type { SanityProduct } from "@/types/sanity-content";
 const RAIL_SUPPLIERS = ["Premier Housewares", "D.I. Designs"];
 
 /**
- * Eighteen, up from twelve.
+ * Twenty-four, up from twelve.
  *
- * Damien: *"you can make the scroll bar longer too"*. At roughly a fifth of
- * the viewport per card this is three and a half screens of swiping on
- * desktop, and the selection below has enough distinct categories to fill it
- * without repeating a type.
+ * Damien: *"you can make the scroll bar longer too"*, and then *"must be our
+ * best products with some cheaper products inbetween each one"*.
+ *
+ * The length is doing real work rather than padding. The rail alternates a
+ * hero with something affordable, so half the slots are heroes — and at
+ * eighteen slots that was only nine, which ranked the statement lighting out
+ * of the rail entirely even though Damien had named it. Twenty-four slots
+ * means twelve heroes, and the £689 sixteen-arm pendant makes the cut.
  */
-const RAIL_SIZE = 18;
+const RAIL_SIZE = 24;
 
 export async function NewAndNoteworthy() {
   // A wide pool rather than the first N: the selection below needs to see the
