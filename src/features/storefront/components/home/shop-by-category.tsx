@@ -3,6 +3,8 @@ import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
 import { getCategories } from "@/lib/sanity/queries";
+import { railScroller } from "@/lib/ui/rail";
+import { cn } from "@/lib/utils";
 import type { CategoryTile } from "@/types/sanity-content";
 
 const DEFAULT_TILES: CategoryTile[] = [
@@ -112,26 +114,24 @@ export async function ShopByCategory({
 
       {/* The rail breaks the page's padding on purpose: it starts at the same
           left edge as the heading but runs to the screen edge, so a partially
-          visible tile shows there is more without needing an arrow. The gutter is
-          applied twice — as padding, so the first tile lines up with the heading,
-          and as scroll-padding, because snap-start aligns to the scroll container's
-          snap area rather than to its padding box. Without the second, every tile
-          after the first snapped flush to the screen edge and the rail looked
-          misaligned with the text above it.
+          visible tile shows there is more without needing an arrow. The gutter
+          is the container's own padding, which is what lines the first tile up
+          with the heading above it.
 
-          Scroll hygiene matches the shop nav — hidden scrollbar in both engines,
-          overscroll contained so a flick cannot trigger the browser's back
-          gesture, snap points so it settles on a tile rather than mid-tile, and
-          touch-pan-x so vertical page scrolling still works from inside the rail. */}
+          Scroll behaviour is shared with every other rail — see railScroller,
+          which also carries the note on why these no longer snap. */}
       <div className="mx-auto max-w-[1440px] pb-10 lg:pb-16">
         <ul
           data-lenis-prevent
-          className="flex touch-pan-x snap-x snap-proximity scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-4 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden"
+          className={cn(
+            railScroller,
+            "gap-3 px-6 pb-2 sm:gap-4 sm:px-8 lg:px-12",
+          )}
         >
           {list.map((tile) => (
             <li
               key={tile.categorySlug}
-              className="w-[44%] shrink-0 snap-start sm:w-[30%] lg:w-[19%]"
+              className="w-[44%] shrink-0 sm:w-[30%] lg:w-[19%]"
             >
               <AppLink
                 href={`/shop/${tile.categorySlug}`}

@@ -84,6 +84,31 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## Horizontal rails fought you at the end (29 August)
+
+Damien: _"scroll bars bug out when you scroll all the way then try scroll
+back, been doing this for a while, scrolling must be smoother"_.
+
+- [x] **Scroll snapping was eating a quarter of every backward flick.** All
+      five rails combined `scroll-snap-align: start` on each card with
+      `scroll-padding-left` on the container. A card's snap position is its
+      offset minus that padding, and for the last cards that position sits
+      beyond `scrollWidth - clientWidth` — unreachable. Out of reachable snap
+      points, the browser falls back to the nearest one behind you and pulls.
+      The category nav was worse again: `snap-mandatory`, so it could not rest
+      between points at all.
+      Measured in a browser at the end of the homepage rail: a 350px backward
+      flick moved **263px** with the old snap and **350px** without it. Roughly
+      a quarter of the gesture was being taken back, every time, which is what
+      "bugs out when you try to scroll back" feels like.
+      Snap is removed rather than repaired. It earns its place when one card
+      fills the viewport and the gesture means "next card"; these cards are a
+      fifth to a quarter of the width with twenty-odd of them, and the gesture
+      means "keep going". `src/lib/ui/rail.ts` now carries the one shared
+      class string and the reasoning, so all five rails behave identically.
+      `overscroll-x-contain`, `touch-pan-x` and `data-lenis-prevent` are kept —
+      see that file for what each is holding up.
+
 ## Descriptions, and the rail (29 August)
 
 - [x] **31 thin descriptions written.** Damien: _"tf that isnt a

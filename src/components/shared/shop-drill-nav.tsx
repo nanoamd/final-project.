@@ -299,7 +299,7 @@ function DrillBar({
             starts inside the row. */}
       <div
         className={cn(
-          "relative mx-auto flex max-w-[1440px] touch-pan-x snap-x snap-mandatory [scrollbar-width:none] items-center gap-7 overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden",
+          "relative mx-auto flex max-w-[1440px] touch-pan-x [scrollbar-width:none] items-center gap-7 overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden",
           dense ? "h-10 gap-2.5" : "h-11",
         )}
       >
@@ -346,7 +346,7 @@ function DrillItem({
   return (
     <div
       ref={ref}
-      className="group flex shrink-0 snap-start items-center gap-1"
+      className="group flex shrink-0 items-center gap-1"
       onMouseEnter={onMouseEnter}
     >
       <AppLink

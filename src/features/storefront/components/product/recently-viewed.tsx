@@ -42,12 +42,12 @@ export function RecentlyViewed({ product }: { product: SanityProduct }) {
         <h2 className="text-ink font-display mb-8 text-3xl tracking-tight">
           Recently viewed
         </h2>
-        <div className="-mx-6 flex snap-x [scrollbar-width:none] gap-5 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0">
+        <div className="-mx-6 flex touch-pan-x [scrollbar-width:none] gap-5 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:px-0">
           {others.slice(0, 4).map((item) => (
             <AppLink
               key={item.slug}
               href={`/shop/${item.category}/${item.slug}`}
-              className="group w-[70%] shrink-0 snap-start sm:w-[calc((100%-3.75rem)/4)]"
+              className="group w-[70%] shrink-0 sm:w-[calc((100%-3.75rem)/4)]"
             >
               {item.image ? (
                 <div className="border-line bg-paper relative aspect-[4/5] overflow-hidden rounded-xl border">

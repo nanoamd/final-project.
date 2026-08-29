@@ -3,6 +3,8 @@ import { ProductCardImage } from "@/features/storefront/components/category/prod
 import { selectRailProducts } from "@/lib/catalog/product-rail";
 import { formatPrice } from "@/lib/format";
 import { getProductsBySupplier } from "@/lib/sanity/queries";
+import { railScroller } from "@/lib/ui/rail";
+import { cn } from "@/lib/utils";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
@@ -98,12 +100,15 @@ export async function NewAndNoteworthy() {
       <div className="mx-auto max-w-[1440px] pb-12 lg:pb-16">
         <ul
           data-lenis-prevent
-          className="flex touch-pan-x snap-x snap-proximity scroll-px-6 [scrollbar-width:none] gap-3 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:scroll-px-8 sm:gap-5 sm:px-8 lg:scroll-px-12 lg:px-12 [&::-webkit-scrollbar]:hidden"
+          className={cn(
+            railScroller,
+            "gap-3 px-6 pb-2 sm:gap-5 sm:px-8 lg:px-12",
+          )}
         >
           {products.map((product) => (
             <li
               key={product.slug}
-              className="w-[46%] shrink-0 snap-start sm:w-[31%] lg:w-[23%] xl:w-[19%]"
+              className="w-[46%] shrink-0 sm:w-[31%] lg:w-[23%] xl:w-[19%]"
             >
               <ProductCard product={product} />
             </li>
