@@ -123,7 +123,7 @@ export default async function ComparePage({
                                 alt={product.name}
                                 fill
                                 sizes="(max-width: 640px) 40vw, 20vw"
-                                className="object-cover"
+                                className="object-contain"
                               />
                             ) : null}
                           </span>

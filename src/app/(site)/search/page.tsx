@@ -70,16 +70,16 @@ export default async function SearchPage({
                       }
                       alt={product.name}
                       fill
-                      sizes="(max-width: 640px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-contain transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                     {(product.hoverImageSquare ?? product.hoverImage) ? (
                       <Image
                         src={(product.hoverImageSquare ?? product.hoverImage)!}
                         alt={product.name}
                         fill
-                        sizes="(max-width: 640px) 50vw, 25vw"
-                        className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="absolute inset-0 object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                       />
                     ) : null}
                   </div>

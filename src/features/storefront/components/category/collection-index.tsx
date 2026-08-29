@@ -413,7 +413,7 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
       <p className="text-brass mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
         Kaiku&rsquo;s Product of the Week
       </p>
-      <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-lg">
+      <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-lg bg-white">
         <Image
           src={
             product.cardImageWide ??
@@ -424,7 +424,7 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
           alt=""
           fill
           sizes="248px"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+          className="object-contain transition-transform duration-700 group-hover:scale-[1.05]"
         />
         {(product.hoverImageWide ?? product.hoverImage) ? (
           <Image
@@ -432,7 +432,7 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
             alt=""
             fill
             sizes="248px"
-            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute inset-0 object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         ) : null}
       </div>
@@ -483,14 +483,14 @@ function ProductTile({ product }: { product: SanityProduct }) {
       href={`/shop/${product.category}/${product.slug}`}
       className="group hover:border-brass/40 relative block overflow-hidden rounded-xl border border-white/8 transition-colors"
     >
-      <div className="relative aspect-[4/5]">
+      <div className="relative aspect-[4/5] bg-white">
         {(product.cardImage ?? product.image) ? (
           <Image
             src={product.cardImage ?? product.image!}
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            className="object-contain transition-transform duration-700 group-hover:scale-[1.05]"
           />
         ) : (
           <div className="from-basalt-card to-basalt absolute inset-0 bg-gradient-to-br" />
@@ -505,7 +505,7 @@ function ProductTile({ product }: { product: SanityProduct }) {
             alt={product.name}
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"
-            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute inset-0 object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         ) : null}
         <div className="from-basalt/90 absolute inset-0 bg-gradient-to-t to-transparent" />

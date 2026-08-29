@@ -221,7 +221,7 @@ export function ProductGallery({
                         alt=""
                         fill
                         sizes="80px"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     ) : (
                       <span className="bg-basalt absolute inset-0" />
@@ -239,7 +239,7 @@ export function ProductGallery({
                     alt=""
                     fill
                     sizes="80px"
-                    className="object-cover"
+                    className="object-contain"
                   />
                 )}
               </button>

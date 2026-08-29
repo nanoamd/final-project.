@@ -1,5 +1,4 @@
 import { PortableText } from "@portabletext/react";
-import Image from "next/image";
 
 import { FilterBar } from "@/components/shared/filter-bar";
 import { AppLink } from "@/components/ui/app-link";
@@ -16,6 +15,8 @@ import type {
   SanityProduct,
   SanityProductGalleryImage,
 } from "@/types/sanity-content";
+
+import { ProductCardImage } from "./product-card-image";
 
 /**
  * A product as the grid and the filters need it, and no more.
@@ -344,11 +345,6 @@ function ShopAllTile({
    * appear — do not only show default images". A card answering a Black filter
    * with the white variant's photo is the shop appearing not to know its own
    * stock, at the exact moment a shopper is deciding whether to trust it.
-   *
-   * The gallery's plain URL rather than a hotspot crop: the variant entries do
-   * not carry the asset reference the crop builder needs, and these are
-   * catalogue shots on white, which `object-cover` handles at square without
-   * losing the product.
    */
   const variant = query ? variantImageForQuery(product, query) : null;
   const base =
@@ -365,24 +361,21 @@ function ShopAllTile({
     >
       <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-lg border">
         {base ? (
-          <Image
+          <ProductCardImage
             src={base}
+            /* No hover swap while a variant photo is showing: the point of the
+               variant is that the card answers the filter, and swapping to a
+               different finish on hover would undo exactly that. */
+            hoverSrc={
+              variant ? null : (product.hoverImageSquare ?? product.hoverImage)
+            }
             alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          />
-        ) : null}
-        {/* No hover swap while a variant photo is showing: the point of the
-            variant is that the card answers the filter, and swapping to a
-            different finish on hover would undo exactly that. */}
-        {!variant && (product.hoverImageSquare ?? product.hoverImage) ? (
-          <Image
-            src={(product.hoverImageSquare ?? product.hoverImage)!}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
-            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            /* Three columns on mobile, three at sm, five at lg, six at xl
+               inside a 1480px container. This said 50vw below 640px, which is
+               a two-column grid's figure — so every phone fetched an image
+               half again as wide as the tile it went into, at 44KB instead of
+               18KB, forty times over on a category page. */
+            sizes="(max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 250px"
           />
         ) : null}
       </div>

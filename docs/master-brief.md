@@ -84,6 +84,45 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## Product photography — cropping and weight (29 August)
+
+Damien, with a screenshot of the Manado rattan bench shown as a strip of its own
+middle: _"fix these images and any images like it, there too zoomed in"_, then
+_"alot of the premium housewares product images are too zoomed in, focus on
+these"_, then _"optimize images to save money too"_.
+
+- [x] **`object-cover` was cropping 32 live products.** 351 of 383 product
+      photographs are square and unaffected; the other 32 run from **2.45:1 down
+      to 0.47:1**, and a square tile with `object-cover` throws away everything
+      outside the middle square. The worst: Imperia coffee table **59% cropped**
+      (1198×489), Sabrina sofa 58% (1280×541), Hampstead dining table 57%
+      (500×217), Lyon wardrobe 53% (563×1199).
+      **23 of the 32 are Premier Housewares**, exactly as Damien said —
+      27% of that supplier's 84 live products, against 0% for Aosom, AW Dropship
+      and Hill Interiors.
+      Fixed with `object-contain` on every product photograph: the card sits on
+      `--color-paper`, which is pure white, and these are catalogue shots on
+      white, so a contained photo letterboxes white-on-white and only the whole
+      product shows. Applied to the shop grid, search, compare, cart, saved,
+      related products, recently viewed, related content, the gallery
+      thumbnails, the lightbox strip and the Description tab's travelling
+      column. Category and room hero art keeps `object-cover` — cropping is the
+      art direction there. The dark `/shop` index gets `bg-white` behind its
+      product tiles, matching the pattern its own `InlineProductTile` already
+      used.
+- [x] **Two image-weight faults, worth about 79% of a category page's image
+      transfer.**
+      The grid declared `sizes="(max-width: 640px) 50vw…"` while rendering
+      **three** columns on mobile, so every phone fetched an image half again as
+      wide as the tile it went into — 44KB at w=640 where 18KB at w=384 would
+      do, forty times over on a category page.
+      And every tile carried a second `<Image>` for the hover swap at
+      `opacity-0`, which the browser downloads whether or not anyone hovers, and
+      which no touch device can ever trigger. `ProductCardImage` mounts it on
+      `mouseenter` instead.
+      Together: **1,725KB → 360KB** of images per mobile category page, and 40
+      requests down to 20.
+
 ## Vercel cost — the second pass (29 August)
 
 Damien, after a £120 week: _"make sure without mistakes that the most were

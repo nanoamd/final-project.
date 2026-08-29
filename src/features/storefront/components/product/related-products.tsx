@@ -63,7 +63,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
                     alt={product.name}
                     fill
                     sizes="(max-width: 640px) 70vw, 22vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    className="object-contain transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                   {product.hoverImage ? (
                     <Image
@@ -71,7 +71,7 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
                       alt={product.name}
                       fill
                       sizes="(max-width: 640px) 70vw, 22vw"
-                      className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      className="absolute inset-0 object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     />
                   ) : null}
                 </div>

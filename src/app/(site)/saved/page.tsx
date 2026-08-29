@@ -65,7 +65,7 @@ export default function SavedPage() {
                   alt={item.name}
                   fill
                   sizes="96px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               ) : null}
             </div>

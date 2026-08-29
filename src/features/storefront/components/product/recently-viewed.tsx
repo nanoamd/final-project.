@@ -56,7 +56,7 @@ export function RecentlyViewed({ product }: { product: SanityProduct }) {
                     alt={item.name}
                     fill
                     sizes="(max-width: 640px) 70vw, 22vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    className="object-contain transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 </div>
               ) : (

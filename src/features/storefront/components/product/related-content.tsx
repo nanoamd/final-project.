@@ -144,7 +144,7 @@ function ContentColumn({
                     alt=""
                     fill
                     sizes="80px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    className="object-contain transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 ) : null}
               </div>

@@ -280,13 +280,13 @@ function DescriptionPanel({ product }: { product: SanityProduct }) {
            * it sits still in the page while the photograph slides down across it,
            * which is only possible because the artwork now has no surface of its own.
            * `z-10` and the photo's own border are what put it on top. */}
-          <div className="border-line relative z-10 aspect-[4/3] overflow-hidden rounded-2xl border lg:sticky lg:top-24">
+          <div className="border-line bg-paper relative z-10 aspect-[4/3] overflow-hidden rounded-2xl border lg:sticky lg:top-24">
             <Image
               src={product.image}
               alt={product.name}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
           {/* Square, matching the photo's width: a square crop of the 400×560 canvas

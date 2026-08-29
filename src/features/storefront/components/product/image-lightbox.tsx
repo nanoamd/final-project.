@@ -320,7 +320,7 @@ export function ImageLightbox({
                 alt=""
                 fill
                 sizes="60px"
-                className="object-cover"
+                className="bg-white object-contain"
               />
             </button>
           ))}
