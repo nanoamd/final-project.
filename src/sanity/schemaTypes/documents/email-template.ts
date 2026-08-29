@@ -30,7 +30,7 @@ import { EMAIL_KIND_OPTIONS } from "@/lib/emails/catalogue";
 /** Variables the renderer substitutes, per email kind. Documented in the UI so
  *  the editor does not have to guess what is available. */
 const VARIABLE_HELP =
-  "Insert live order details with double braces: {{customerName}}, {{orderNumber}}, {{orderTotal}}, {{customerNote}}, {{orderStatusUrl}}, {{trackingUrl}}, {{trackingNumber}}, {{carrier}}, {{leadTime}}, {{shopUrl}}, {{unsubscribeUrl}}. {{customerNote}} is the per-order note you type on the order itself in /admin/orders — put it where you want your own words about that specific order to appear, and it disappears cleanly on orders where you did not write one. Anything unrecognised is left alone rather than blanked, so a stray brace never eats your copy.";
+  "Insert live order details with double braces: {{customerName}}, {{orderNumber}}, {{orderTotal}}, {{customerNote}}, {{orderStatusUrl}}, {{trackingUrl}}, {{trackingNumber}}, {{carrier}}, {{leadTime}}, {{shopUrl}}, {{unsubscribeUrl}}. {{customerNote}} is the per-order note you type on the order itself in /admin/orders — put it where you want your own words about that specific order to appear, and it disappears cleanly on orders where you did not write one. On the Second order offer email specifically, {{code}}, {{minimum}} and {{percentOff}} are also available (the customer's personal discount code, the £ minimum spend as text, and the percentage off). Anything unrecognised is left alone rather than blanked, so a stray brace never eats your copy.";
 
 export const emailTemplate = defineType({
   name: "emailTemplate",

@@ -84,6 +84,71 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## The banner nobody could see, and the second-order discount built properly (29 August)
+
+Damien: _"i cant see the banner yet"_ — then, separately, _"the second order
+discount is fine, as long as its on orders over £100, i dont want to do this
+just yet unless theres a minimum spend for it"_ and _"we can say the uks most
+helpful/informative home improvement store because we are"_.
+
+### Why the banner was invisible
+
+Two real faults, not one.
+
+- [x] **The homepage never rendered a banner at all.** It only existed inside
+      `ShopAll`, which powers every `/shop/*` page — so the one page most first
+      visitors land on had nothing. `SiteBanner` (new,
+      `features/storefront/components/shared/site-banner.tsx`) now renders on
+      both the homepage and every shop page from the same one string, so the
+      two surfaces cannot say different things again.
+- [x] **Dismissal was one flag, not one per message.** `PromoBanner` stored a
+      single `kaiku-promo-banner-dismissed` key, so anyone who had ever clicked
+      the X — which after weeks of looking at this shop is everyone who works
+      on it — stayed permanently blind to every future banner, including the
+      new claim. The dismissal is now keyed to an `id` prop that changes with
+      the message (`most-helpful-2026-08`), so a new message gets one chance
+      to be seen and an old dismissal cannot suppress it.
+
+### The second-order discount, built end to end
+
+The brief has always asked for "10% off your second order for creating an
+account." It was unbuilt for the same reason the first-order one failed:
+nobody had put a floor under it. Damien's is £100.
+
+- [x] **`lib/commerce/second-order-offer.ts`** — the pure policy, tested. On a
+      20% margin a £100 order carries £20 of gross and gives away £10; the same
+      10% on a £40 order gives away £4 against £8. The floor protects the cash,
+      not the percentage, which is why £100 rather than a lower number makes
+      the arithmetic survive. `shouldOfferSecondOrderDiscount` fires once, on a
+      signed-in customer's first paid order (their first, because checkout
+      requires sign-in now — "created an account" is no longer a separate
+      moment from "bought something").
+- [x] **`server/stripe/second-order-offer.ts`** — one shared coupon (10%,
+      created once, idempotent against a race) and one personal promotion code
+      per customer, carrying the £100 minimum via Stripe's per-code
+      `restrictions.minimum_amount` (a `Coupon` has no minimum-spend field at
+      all — only a `PromotionCode` does). The code is deterministic from the
+      order number, which makes a Stripe webhook retry harmless for free: the
+      second attempt fails Stripe's own uniqueness check and no duplicate email
+      goes out, without either side tracking "have I already done this."
+- [x] **`allow_promotion_codes: true`** added to the Checkout Session in
+      `server/actions/checkout.ts`. This is the field that was missing for the
+      _first_-order promise too — there had never been anywhere at checkout to
+      type a code into.
+- [x] **The email is a proper Studio-customisable template**, not a one-off:
+      registered in `lib/emails/catalogue.ts` as `second-order-offer`, resolved
+      through the same template-or-fallback path every other transactional
+      email uses (`resolveSecondOrderOfferEmail`), and previewable and
+      test-sendable from `/admin/emails` with sample data. `{{code}}`,
+      `{{minimum}}` and `{{percentOff}}` are documented in the Sanity field
+      help so an editor customising it knows they exist. It arrives as a
+      separate, later email rather than folded into the order confirmation —
+      the confirmation is the receipt a worried customer rereads over a
+      delivery delay, and a discount pitch has no business competing with that.
+- [x] **The claim now stands on its own**, without the discount holding it up:
+      "The UK's most helpful home store — 12 free tools and 14 buying guides,
+      and free UK delivery," live on both the homepage and the shop.
+
 ## The banner, and a promise we could not keep (29 August)
 
 Damien: _"can we make the banner at the top say 'the uks best collection of
@@ -132,9 +197,8 @@ something worse.
       `allow_promotion_codes: true` in `src/server/actions/checkout.ts`, and
       the code passed to the welcome email. The parameter is still there
       waiting.
-- [ ] **The "10% off your second order for creating an account" idea is still
-      unbuilt**, and Damien's margin objection applies to it just as it does to
-      the first-order one. Worth deciding on before anyone builds it.
+- [x] **The "10% off your second order for creating an account" idea is now
+      built**, with the floor Damien put under it. See the section below.
 
 ## Horizontal rails fought you at the end (29 August)
 

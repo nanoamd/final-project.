@@ -172,6 +172,12 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     // Needed to actually fulfil an order via a trade supplier's order form
     // (delivery/installation booking requires calling the customer).
     phone_number_collection: { enabled: true },
+    // Lets a returning customer redeem the second-order code Stripe emails
+    // them after their first order (see server/stripe/second-order-offer.ts).
+    // Without this the field to type a code into does not exist at all —
+    // which is why the original 10% first-order promise could never actually
+    // be honoured at checkout.
+    allow_promotion_codes: true,
     shipping_options: [
       {
         shipping_rate_data: {

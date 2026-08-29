@@ -19,6 +19,7 @@ import { ShopByCategory } from "@/features/storefront/components/home/shop-by-ca
 import { SupplierStandards } from "@/features/storefront/components/home/supplier-standards";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { WhyKaiku } from "@/features/storefront/components/home/why-kaiku";
+import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
 import { getHomepage } from "@/lib/sanity/queries/homepage";
 import { getFlagshipProduct, getProduct } from "@/lib/sanity/queries/product";
 
@@ -54,6 +55,13 @@ export async function HomePage() {
   // and none of them is a navigation destination.
   return (
     <div className="bg-basalt">
+      {/* The claim goes above the hero, on the homepage as well as the shop.
+       *
+       * It was only on the shop pages, which is why Damien could not find it:
+       * the one page most first visitors land on had no banner at all. If the
+       * line is worth saying it is worth saying here first. Shared with
+       * shop-all.tsx via SiteBanner so the two surfaces cannot drift apart. */}
+      <SiteBanner />
       <Hero
         content={{
           eyebrow: homepage?.heroEyebrow,

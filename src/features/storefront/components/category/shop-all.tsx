@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
-import { PromoBanner } from "@/components/shared/promo-banner";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
+import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
 import { EMPTY_QUERY } from "@/lib/catalog/shop-query";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import {
@@ -137,20 +137,17 @@ export async function ShopAll({
        * both more persuasive and the way to keep a superlative on the right
        * side of the CAP Code.
        *
-       * The 10% is gone. Damien: *"the first order discounts dont work when
-       * most products are at 20% margin"*. On a 20-point margin a 10% order
-       * discount is half the gross, and it was never enforceable anyway —
-       * `allow_promotion_codes` is not set on the Stripe session, so there is
-       * no field to type a code into.
+       * No first-order discount. Damien: *"the first order discounts dont
+       * work when most products are at 20% margin"*. On a 20-point margin a
+       * 10% order discount is half the gross. The second order gets one
+       * instead, on the strength of a floor Damien put under it: *"the second
+       * order discount is fine, as long as its on orders over £100"* — see
+       * `lib/commerce/second-order-offer.ts`, sent by email after the first
+       * order rather than shown here.
        *
-       * The tail is desktop-only so the banner stays one line on a phone. */}
-      <PromoBanner>
-        The UK&rsquo;s most helpful home store
-        <span className="hidden sm:inline">
-          {" "}
-          — 12 free tools and 14 buying guides, and free UK delivery
-        </span>
-      </PromoBanner>
+       * The text is shared with home-page.tsx through SiteBanner, so the two
+       * surfaces cannot say different things — see that component for why. */}
+      <SiteBanner />
 
       {/* No "/all" suffix any more. The room and category routes themselves now
           render this page, so the clean URL is the shopping URL — appending /all

@@ -130,6 +130,28 @@ export async function resolveConfirmationEmail(
 }
 
 /**
+ * The second-order offer, sent after a customer's first paid order — see
+ * `server/stripe/second-order-offer.ts` for why this triggers on order count
+ * rather than account creation, and `server/emails/second-order-offer.ts` for
+ * the built-in copy.
+ *
+ * Routed through the same generic resolver as a form acknowledgement: no
+ * `OrderEmailData` is needed, only the flat variables a Studio template
+ * would use ({{customerName}}, {{code}}, {{minimum}}, {{percentOff}},
+ * {{shopUrl}}).
+ */
+export async function resolveSecondOrderOfferEmail(
+  variables: EmailVariables,
+  fallback: () => BuiltEmail,
+): Promise<ResolvedEmail> {
+  return resolveFormEmail({
+    templateKey: "second-order-offer",
+    variables,
+    fallback,
+  });
+}
+
+/**
  * A form acknowledgement — newsletter, quote, contact. There is no order behind
  * it, so the variables are whatever the form collected.
  */

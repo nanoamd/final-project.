@@ -44,6 +44,12 @@ export const EMAIL_KINDS: readonly EmailKind[] = [
     trigger: "payment",
   },
   {
+    key: "second-order-offer",
+    label: "Second order offer",
+    when: "After a customer's first paid order — a thank-you carrying a 10% code for their next order, £100 minimum.",
+    trigger: "payment",
+  },
+  {
     key: "order-in-production",
     label: "Order in production",
     when: 'When you move an order to "In production".',

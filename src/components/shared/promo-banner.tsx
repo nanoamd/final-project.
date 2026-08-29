@@ -3,24 +3,41 @@
 import { X } from "lucide-react";
 import * as React from "react";
 
-const STORAGE_KEY = "kaiku-promo-banner-dismissed";
-
 function subscribe(callback: () => void) {
   window.addEventListener("storage", callback);
   return () => window.removeEventListener("storage", callback);
-}
-
-function getSnapshot() {
-  return window.localStorage.getItem(STORAGE_KEY) === "1";
 }
 
 function getServerSnapshot() {
   return false;
 }
 
-/** Dismissible top banner — persists dismissal in localStorage so it stays
- * closed on future visits once a customer closes it. */
-export function PromoBanner({ children }: { children: React.ReactNode }) {
+/**
+ * Dismissible top banner. The dismissal persists, so a customer who closes it
+ * does not meet it again.
+ *
+ * **Keyed to the message, not to the banner.** Damien changed the banner copy
+ * and then: *"i cant see the banner yet"*. The dismissal was one flag —
+ * `kaiku-promo-banner-dismissed` — so anyone who had ever clicked the X, which
+ * after months of looking at your own shop is everyone who works on it, was
+ * permanently blind to every future message. A new message is a new thing to
+ * say, and it should get one chance to be seen. Change `id` when the copy
+ * changes and it comes back for everybody; leave it alone and a dismissal
+ * sticks.
+ */
+export function PromoBanner({
+  id,
+  children,
+}: {
+  /** Bump this whenever the message changes. */
+  id: string;
+  children: React.ReactNode;
+}) {
+  const storageKey = `kaiku-promo-banner-dismissed:${id}`;
+  const getSnapshot = React.useCallback(
+    () => window.localStorage.getItem(storageKey) === "1",
+    [storageKey],
+  );
   const previouslyDismissed = React.useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -38,7 +55,7 @@ export function PromoBanner({ children }: { children: React.ReactNode }) {
       <button
         type="button"
         onClick={() => {
-          window.localStorage.setItem(STORAGE_KEY, "1");
+          window.localStorage.setItem(storageKey, "1");
           setJustDismissed(true);
         }}
         aria-label="Dismiss"

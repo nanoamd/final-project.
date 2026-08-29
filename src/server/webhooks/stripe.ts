@@ -4,13 +4,26 @@ import type Stripe from "stripe";
 
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
+import {
+  formatMinimum,
+  SECOND_ORDER_MINIMUM_PENCE,
+  shouldOfferSecondOrderDiscount,
+} from "@/lib/commerce/second-order-offer";
 import { getProductsBySlugs } from "@/lib/sanity/queries";
-import type { OrderEmailData } from "@/server/emails/format";
+import { absoluteUrl, type OrderEmailData } from "@/server/emails/format";
 import { buildOrderAlertEmail } from "@/server/emails/order-alert";
-import { resolveConfirmationEmail } from "@/server/emails/resolve-email";
+import {
+  resolveConfirmationEmail,
+  resolveSecondOrderOfferEmail,
+} from "@/server/emails/resolve-email";
+import {
+  buildSecondOrderOfferEmail,
+  type SecondOrderOfferData,
+} from "@/server/emails/second-order-offer";
 import { sendBuiltEmail } from "@/server/emails/transport";
 import { assignWorkflow } from "@/server/hq/workflows";
 import { getStripe } from "@/server/stripe/client";
+import { issueSecondOrderCode } from "@/server/stripe/second-order-offer";
 import { createAdminClient } from "@/server/supabase/admin";
 
 /**
@@ -41,6 +54,10 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
       // charge that already succeeded and the shop would look broken over a
       // payment that worked.
       await sendOrderEmails(session, orderId, orderNumber, lineItems);
+      // After the confirmation, not instead of it — see
+      // maybeSendSecondOrderOffer for why this is deliberately a second,
+      // later-feeling email rather than folded into the receipt.
+      await maybeSendSecondOrderOffer(session, orderId, orderNumber);
       break;
     }
     case "checkout.session.expired": {
@@ -322,6 +339,92 @@ async function sendOrderEmails(
   } catch (error) {
     console.error(
       `[stripe] failed to send order emails for session ${session.id}`,
+      error,
+    );
+  }
+}
+
+/**
+ * Sends the second-order offer, exactly once, after a customer's first order.
+ *
+ * The brief: *"Prompt customers to create an account to receive 10% off
+ * their second order... Position it as: Join the Kaiku community."* Damien
+ * later put a floor under it: *"the second order discount is fine, as long
+ * as its on orders over £100"* — see `lib/commerce/second-order-offer.ts` for
+ * why that floor is what makes the arithmetic survive a 20% margin.
+ *
+ * Guarded on the **count of this user's paid orders**, not on account
+ * creation, because sign-in is required to check out at all now — every
+ * order already has an account behind it, so "created an account" is no
+ * longer a distinct moment to reward. The count includes the order this very
+ * webhook call just wrote, so `=== 1` means "this is their first ever".
+ *
+ * Fail-soft in the same way as `sendOrderEmails`, and for the same reason: a
+ * Stripe or Resend failure here must never make this webhook answer non-2xx,
+ * or a charge that already succeeded gets retried.
+ */
+async function maybeSendSecondOrderOffer(
+  session: Stripe.Checkout.Session,
+  orderId: string,
+  orderNumber: string | null,
+): Promise<void> {
+  try {
+    const userId = session.client_reference_id || null;
+    const email = session.customer_details?.email;
+    if (!userId || !email) return;
+
+    const admin = createAdminClient();
+    const { count, error } = await admin
+      .from("orders")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("status", "paid");
+    if (error) {
+      console.error(
+        `[stripe] could not count orders for user ${userId}:`,
+        error,
+      );
+      return;
+    }
+
+    if (
+      !shouldOfferSecondOrderDiscount({
+        userId,
+        ordersByThisUser: count ?? 0,
+      })
+    ) {
+      return;
+    }
+
+    const offer = await issueSecondOrderCode(orderNumber);
+    if (!offer) return;
+
+    const customerName = session.customer_details?.name ?? null;
+    const data: SecondOrderOfferData = {
+      customerName,
+      code: offer.code,
+      minimumPence: SECOND_ORDER_MINIMUM_PENCE,
+      percentOff: offer.percentOff,
+      siteUrl: siteConfig.url,
+    };
+
+    // Through the resolver, exactly like the order confirmation above, so a
+    // template written in Studio wins over the built-in copy and falls back
+    // to it automatically otherwise.
+    const { built } = await resolveSecondOrderOfferEmail(
+      {
+        customerName: customerName ?? "there",
+        code: offer.code,
+        minimum: formatMinimum(SECOND_ORDER_MINIMUM_PENCE),
+        percentOff: String(offer.percentOff),
+        shopUrl: absoluteUrl(siteConfig.url, "/shop"),
+      },
+      () => buildSecondOrderOfferEmail(data),
+    );
+    await sendBuiltEmail(email, built);
+  } catch (error) {
+    console.error(
+      `[stripe] failed to send the second-order offer for session ${session.id} (order ${orderId})`,
       error,
     );
   }

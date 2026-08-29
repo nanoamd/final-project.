@@ -88,9 +88,10 @@ describe("email catalogue", () => {
     }
   });
 
-  it("covers the eleven emails the site actually sends", () => {
+  it("covers the twelve emails the site actually sends", () => {
     expect(EMAIL_KINDS.map((kind) => kind.key)).toEqual([
       "order-confirmation",
+      "second-order-offer",
       "order-in-production",
       "order-dispatched",
       "order-delivered",

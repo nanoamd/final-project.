@@ -3,6 +3,11 @@
 import "server-only";
 
 import { siteUrl } from "@/config/site";
+import {
+  formatMinimum,
+  SECOND_ORDER_MINIMUM_PENCE,
+  SECOND_ORDER_PERCENT_OFF,
+} from "@/lib/commerce/second-order-offer";
 import { EMAIL_KINDS, type EmailKind } from "@/lib/emails/catalogue";
 import { getAuthorizedAdmin } from "@/server/auth/admin";
 import {
@@ -13,9 +18,11 @@ import { buildNewsletterWelcomeEmail } from "@/server/emails/newsletter-welcome"
 import {
   resolveConfirmationEmail,
   resolveFormEmail,
+  resolveSecondOrderOfferEmail,
   resolveStageEmail,
 } from "@/server/emails/resolve-email";
 import { SAMPLE_CONTEXT, SAMPLE_ORDER } from "@/server/emails/sample-order";
+import { buildSecondOrderOfferEmail } from "@/server/emails/second-order-offer";
 import {
   describeEmailConfig,
   sendEmailWithOutcome,
@@ -59,12 +66,38 @@ const SAMPLE_CONTACT = {
     "Hello — we are looking at the two-seater sauna for a garden in Buckinghamshire. Is the door reversible, and can it be delivered through a side gate about 900mm wide?",
 };
 
+/** Sample data for the second-order offer, matching SAMPLE_ORDER's customer. */
+const SAMPLE_SECOND_ORDER_OFFER = {
+  customerName: SAMPLE_ORDER.customerName,
+  code: "THANKYOUKH1042",
+  minimumPence: SECOND_ORDER_MINIMUM_PENCE,
+  percentOff: SECOND_ORDER_PERCENT_OFF,
+  siteUrl,
+};
+
 /** Resolves one catalogue entry into a preview, or `null` if it cannot send. */
 async function previewFor(kind: EmailKind): Promise<EmailPreview | null> {
   const base = { key: kind.key, label: kind.label, when: kind.when };
 
-  if (kind.trigger === "payment") {
+  // Two emails share trigger: "payment" now, so the trigger alone cannot pick
+  // the builder — see resolve-email.ts for why each still goes through its
+  // own resolver rather than one shared branch.
+  if (kind.key === "order-confirmation") {
     const { built, source } = await resolveConfirmationEmail(SAMPLE_ORDER);
+    return { ...base, ...built, source };
+  }
+
+  if (kind.key === "second-order-offer") {
+    const { built, source } = await resolveSecondOrderOfferEmail(
+      {
+        customerName: SAMPLE_SECOND_ORDER_OFFER.customerName ?? "there",
+        code: SAMPLE_SECOND_ORDER_OFFER.code,
+        minimum: formatMinimum(SAMPLE_SECOND_ORDER_OFFER.minimumPence),
+        percentOff: String(SAMPLE_SECOND_ORDER_OFFER.percentOff),
+        shopUrl: `${siteUrl}/shop`,
+      },
+      () => buildSecondOrderOfferEmail(SAMPLE_SECOND_ORDER_OFFER),
+    );
     return { ...base, ...built, source };
   }
 
