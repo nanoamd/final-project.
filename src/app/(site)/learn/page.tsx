@@ -4,7 +4,18 @@ import { ArticleList } from "@/features/storefront/components/content/article-li
 import { getBuyingGuides } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const revalidate = 3600;
+/**
+ * A day, not an hour.
+ *
+ * A Sanity publish already revalidates this path on demand through
+ * /api/revalidate, so the timer is not what makes an edit appear — it is only
+ * the fallback for a page nobody has told us changed. At an hour, a crawler
+ * walking the catalogue regenerates every page it touches every hour, and each
+ * regeneration is a function invocation, several Sanity queries and an ISR
+ * write. At a day it is a twenty-fourth of that, and an edit still shows
+ * immediately.
+ */
+export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
   title: "Buying Guides",
