@@ -13,7 +13,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 /**
- * Grouped, because there are ten now and a flat list of ten reads as a dump.
+ * Grouped, because there are twelve now and a flat list of twelve reads as a dump.
  *
  * Ordered within each group by how often the question gets asked rather than by
  * when the tool was built.
@@ -45,6 +45,18 @@ const GROUPS = [
         title: "How much compost does my planter need?",
         description:
           "Litres for a planter of any size, and a check that you are not over-potting the plant.",
+      },
+      {
+        href: "/tools/wall-clock-size-calculator",
+        title: "What size wall clock, and how high?",
+        description:
+          "Diameter from the furniture below, the run of bare wall, or the gap above your kitchen cabinets — and where the centre of the face goes.",
+      },
+      {
+        href: "/tools/vase-size-calculator",
+        title: "What size vase for your flowers?",
+        description:
+          "Stem length to buy for a vase you own, or the vase for stems you have, plus how many it takes to look full.",
       },
     ],
   },

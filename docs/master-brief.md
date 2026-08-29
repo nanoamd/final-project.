@@ -79,9 +79,10 @@ products. The audit was reporting its own model, not the page.
       rule here would put a pergola in Bathroom Mirrors.
 - [ ] **262 of 335 products are referenced by no post or buying guide**, and
       the site has **one** published post. This is the actual gap. Editorial
-      links are the kind Google weighs most, and the four existing tools —
-      sauna calculator, cold plunge planner, material selector, visualiser —
-      are the sort of page that earns links, unlike a product page.
+      links are the kind Google weighs most, and the existing tools — twelve of
+      them now — are the sort of page that earns links, unlike a product page.
+      The five guides rewritten on 29 August link 40 products between them, each
+      one named in a table that measures it against the guide's own rule.
 
 ## The plan out of the plateau (25 August)
 
@@ -927,8 +928,38 @@ before. If a deploy still errors, the log will now name the variable.
   advice stays true as long as the range does, and each guide links to the pieces it
   names. Held to the same banned-phrase list as the product copy — the script refuses
   to write if a guide trips it.
-  Still to write: garden furniture, outdoor kitchen, cold plunge, home wellness.
-  Pergolas deliberately untouched.
+  Still to write: outdoor kitchen, cold plunge, home wellness. Pergolas
+  deliberately untouched.
+- [x] **Five guides rewritten to the format Damien asked for (29 August).** He
+      linked a competitor's table lamp guide — _"the buying guides i dont like… here
+      is example of one i do"_. What that guide does and ours did not: it answers in
+      numbers in the first sentence, repeats them as a reference table in the first
+      screen, gives the advice as numbered rules rather than headed essays, goes room
+      by room, then checks its own products against its own rules by name, and closes
+      with a short version and an FAQ. Ours were five good essays in the wrong shape,
+      and none of the numbers were reachable without reading.
+      Rewritten on that pattern: wall clock size (1,308 words), how many lights a room
+      needs (1,406), planter size (1,381), vase size (1,218), garden furniture in
+      winter (1,491) — against the competitor's 1,002. Each carries two tables, an
+      embedded calculator, five FAQs emitted as FAQPage schema, and eight products
+      measured against its own rules.
+      **The audit tables are computed from live catalogue dimensions at write time**,
+      and every product named in one is linked below it. Where the data cannot support
+      a judgement the row is dropped rather than hedged: the tall trellis planters
+      record their whole height, not their planting depth, so a first pass had one
+      holding 119 litres of compost and a plant stand holding 55. The rule now refuses
+      any vessel taller than 1.6× its opening and says in the guide why they are
+      absent.
+- [x] **Calculators embedded in the guides (29 August).** Damien: _"the tools
+      should also be in the buying guides so you can calculate it on the same page"_.
+      A `guideTool` block in the rich-text schema, rendered by
+      `article-portable-text.tsx`, places a live calculator directly under the
+      reference table it computes. Lazily loaded, so the eight calculators cost
+      nothing on the product pages that share the renderer.
+      Two new tools were needed to cover all five guides — **wall clock size and
+      height** and **vase size and stems** — both pure modules with tests
+      (`src/lib/tools/`), both with full `/tools` pages, both in the sitemap.
+      Twelve tools now.
 - [ ] **Comparison pages** — indoor vs outdoor sauna, wood vs aluminium garden
       furniture, cold plunge vs traditional recovery, coffee table materials.
 

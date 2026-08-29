@@ -7,11 +7,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
-import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type {
   SanityAuthor,
   SanityRelatedProductRef,
 } from "@/types/sanity-content";
+
+import { articlePortableTextComponents } from "./article-portable-text";
 
 /** Shared detail view for a /journal/[slug] post or /learn/[slug] buying guide. */
 export function ArticleDetail({
@@ -24,6 +25,7 @@ export function ArticleDetail({
   body,
   relatedCategory,
   relatedProducts,
+  faqs,
 }: {
   eyebrowLabel: string;
   backHref: string;
@@ -34,6 +36,7 @@ export function ArticleDetail({
   body: PortableTextBlock[];
   relatedCategory?: { slug: string; name: string } | null;
   relatedProducts?: SanityRelatedProductRef[];
+  faqs?: { question: string; answer: string }[];
 }) {
   // A reference is only useful if it resolves to a URL, and the URL needs the
   // category segment. Anything missing one is dropped rather than linked to a path
@@ -82,7 +85,10 @@ export function ArticleDetail({
 
       <Container className="py-14">
         <div className="mx-auto max-w-2xl">
-          <PortableText value={body} components={portableTextComponents} />
+          <PortableText
+            value={body}
+            components={articlePortableTextComponents}
+          />
 
           {relatedCategory ? (
             <div className="border-line mt-10 border-t pt-10">
@@ -97,8 +103,47 @@ export function ArticleDetail({
         </div>
       </Container>
 
+      {faqs?.length ? <ArticleFaqs faqs={faqs} /> : null}
+
       {products.length ? <ArticleProducts products={products} /> : null}
     </article>
+  );
+}
+
+/**
+ * The questions the guide gets asked, answered in full sentences.
+ *
+ * These are the same pairs emitted as FAQPage schema by the page above, so the
+ * text a reader sees and the text Google quotes are the one thing. Rendering
+ * them as headings rather than an accordion keeps them in the HTML for both.
+ */
+function ArticleFaqs({
+  faqs,
+}: {
+  faqs: { question: string; answer: string }[];
+}) {
+  return (
+    <section className="border-line border-t">
+      <Container className="py-14">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="text-ink font-display text-2xl tracking-tight">
+            Common questions
+          </h2>
+          <dl className="mt-8 space-y-8">
+            {faqs.map((faq) => (
+              <div key={faq.question}>
+                <dt className="font-display text-ink text-[17px] leading-snug">
+                  {faq.question}
+                </dt>
+                <dd className="text-muted mt-2 text-[15px] leading-relaxed">
+                  {faq.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Container>
+    </section>
   );
 }
 

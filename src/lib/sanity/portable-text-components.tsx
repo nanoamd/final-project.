@@ -85,6 +85,65 @@ export const portableTextComponents: PortableTextComponents = {
     ),
   },
   types: {
+    /**
+     * A reference table.
+     *
+     * Wrapped in its own horizontally scrollable container rather than left to
+     * the page: a five-column table of measurements is wider than a phone, and
+     * a body that scrolls sideways is worse than a table that does.
+     */
+    guideTable: ({ value }) => {
+      const headers: string[] = Array.isArray(value?.headers)
+        ? value.headers
+        : [];
+      const rows: { cells?: string[] }[] = Array.isArray(value?.rows)
+        ? value.rows
+        : [];
+      if (!headers.length || !rows.length) return null;
+      return (
+        <figure className="my-8">
+          {value?.caption ? (
+            <figcaption className="text-muted mb-3 text-[13px]">
+              {value.caption}
+            </figcaption>
+          ) : null}
+          <div className="border-line overflow-x-auto rounded-xl border">
+            <table className="w-full border-collapse text-left text-[14px]">
+              <thead>
+                <tr className="border-line border-b">
+                  {headers.map((header) => (
+                    <th
+                      key={header}
+                      scope="col"
+                      className="text-ink px-4 py-3 font-medium whitespace-nowrap"
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, index) => (
+                  <tr
+                    key={(row.cells ?? []).join("|") || index}
+                    className="border-line text-graphite border-b last:border-b-0"
+                  >
+                    {(row.cells ?? []).map((cell, cellIndex) => (
+                      <td
+                        key={`${cell}-${cellIndex}`}
+                        className={`px-4 py-3 ${cellIndex === 0 ? "text-ink font-medium" : ""}`}
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </figure>
+      );
+    },
     image: ({ value }) => {
       const url: string | undefined = value?.asset?.url;
       if (!url) return null;

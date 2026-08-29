@@ -30,6 +30,8 @@ const STATIC_ROUTES: {
   { path: "/tools/mirror-size-calculator", changeFrequency: "monthly" },
   { path: "/tools/pendant-light-size-calculator", changeFrequency: "monthly" },
   { path: "/tools/planter-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/wall-clock-size-calculator", changeFrequency: "monthly" },
+  { path: "/tools/vase-size-calculator", changeFrequency: "monthly" },
   { path: "/tools/patio-heater-size-calculator", changeFrequency: "monthly" },
   {
     path: "/tools/garden-furniture-material-selector",

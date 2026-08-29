@@ -11,6 +11,10 @@ export const richText = defineType({
   type: "array",
   of: [
     defineArrayMember({ type: "block" }),
+    // A reference table. Buying guides lead with numbers, and numbers in a
+    // table are usable in a way the same numbers in a paragraph are not.
+    defineArrayMember({ type: "guideTable" }),
+    defineArrayMember({ type: "guideTool" }),
     defineArrayMember({
       type: "image",
       options: { hotspot: true },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { FaqJsonLd } from "@/components/shared/json-ld";
 import { ArticleDetail } from "@/features/storefront/components/content/article-detail";
 import { getBuyingGuide, getBuyingGuides } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -48,17 +49,28 @@ export default async function BuyingGuidePage({
   const guide = await getBuyingGuide(slug);
   if (!guide) notFound();
 
+  // Only real, answered pairs reach the schema. An FAQPage carrying a blank
+  // answer is a structured-data error, and Google reports it as one.
+  const faqs = (guide.faqs ?? []).filter(
+    (faq): faq is { question: string; answer: string } =>
+      Boolean(faq?.question?.trim() && faq?.answer?.trim()),
+  );
+
   return (
-    <ArticleDetail
-      eyebrowLabel="Buying Guides"
-      backHref="/learn"
-      title={guide.title}
-      coverImage={guide.coverImage}
-      author={guide.author}
-      publishedAt={guide.publishedAt}
-      body={guide.body}
-      relatedCategory={guide.relatedCategory}
-      relatedProducts={guide.relatedProducts}
-    />
+    <>
+      {faqs.length ? <FaqJsonLd faqs={faqs} /> : null}
+      <ArticleDetail
+        eyebrowLabel="Buying Guides"
+        backHref="/learn"
+        title={guide.title}
+        coverImage={guide.coverImage}
+        author={guide.author}
+        publishedAt={guide.publishedAt}
+        body={guide.body}
+        relatedCategory={guide.relatedCategory}
+        relatedProducts={guide.relatedProducts}
+        faqs={faqs}
+      />
+    </>
   );
 }

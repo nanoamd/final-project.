@@ -18,6 +18,7 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   publishedAt,
   "relatedCategory": relatedCategory->{"slug": slug.current, "name": title},
   "relatedProducts": relatedProducts[]-> ${ARTICLE_PRODUCT_PROJECTION},
+  "faqs": faqs[]{ question, answer },
   "seo": seo ${SEO_PROJECTION}
 }`;
 

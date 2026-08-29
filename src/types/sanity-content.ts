@@ -323,6 +323,8 @@ export interface SanityBuyingGuide {
   publishedAt: string;
   relatedCategory?: SanityRelatedCategoryRef | null;
   relatedProducts?: SanityRelatedProductRef[];
+  /** Rendered at the foot of the guide and emitted as FAQPage schema. */
+  faqs?: { question?: string | null; answer?: string | null }[] | null;
   seo?: SanitySeo | null;
 }
 

@@ -27,6 +27,14 @@ export const buyingGuide = defineType({
     }),
     defineField({ name: "body", type: "richText" }),
     defineField({
+      name: "faqs",
+      title: "Frequently asked questions",
+      type: "array",
+      of: [{ type: "faqEntry" }],
+      description:
+        "Rendered at the foot of the guide and emitted as FAQPage schema, which is what makes a guide eligible for the expandable result in Google. Answer in two or three sentences — a one-line answer wins nothing and a paragraph gets truncated.",
+    }),
+    defineField({
       name: "author",
       type: "reference",
       to: [{ type: "author" }],
