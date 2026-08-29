@@ -1,20 +1,10 @@
-import { PortableText } from "@portabletext/react";
-import Image from "next/image";
+import { Suspense } from "react";
 
-import { FilterBar } from "@/components/shared/filter-bar";
 import { PromoBanner } from "@/components/shared/promo-banner";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
-import {
-  applyShopQuery,
-  describeQuery,
-  parseShopQuery,
-  type ShopQuery,
-  variantImageForQuery,
-} from "@/lib/catalog/shop-query";
-import { formatPrice } from "@/lib/format";
+import { EMPTY_QUERY } from "@/lib/catalog/shop-query";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
-import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import {
   getAllProducts,
   getCategories,
@@ -22,7 +12,10 @@ import {
   getProductsByCategory,
   getProductsByDepartment,
 } from "@/lib/sanity/queries";
-import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
+import type { SanityCategory } from "@/types/sanity-content";
+
+import { ShopResults, toShopTile } from "./shop-results";
+import { ShopResultsClient } from "./shop-results-client";
 
 /**
  * Shop All — the white shopping page, and now the default destination for every
@@ -40,22 +33,9 @@ import type { SanityCategory, SanityProduct } from "@/types/sanity-content";
 export async function ShopAll({
   roomSlug,
   categorySlug,
-  styleTag,
-  searchParams,
 }: {
   roomSlug?: string;
   categorySlug?: string;
-  /** From `?style=` — the drill-nav's third tier links to it, and before this
-   *  page owned the category route the filter was applied by CollectionIndex.
-   *  Without it here, tapping a style tag returned the unfiltered category and
-   *  looked like the filter did nothing. */
-  styleTag?: string;
-  /**
-   * The raw query string, for the filters. Passed down rather than read here so
-   * this stays one server component with no client bundle — see
-   * src/lib/catalog/shop-query.ts for why the filters are URL-driven at all.
-   */
-  searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const [rooms, categories, products] = await Promise.all([
     getDepartments(),
@@ -105,51 +85,36 @@ export async function ShopAll({
    * belongs to this room, and otherwise under whichever of its categories does —
    * a teak bench whose primary category is Garden Furniture appears under Garden
    * Furniture here, not under a heading from a different room.
+   *
+   * Only the slug and name travel to the results component, which fills each
+   * group from `products` itself; sending the built groups would serialise every
+   * product on the page twice.
    */
-  const grouped =
+  const groupCategories =
     room && !categorySlug
       ? categories
           .filter((c) => categoryInRoom(c, room.slug) && !c.excludeFromRoomGrid)
-          .map((c) => ({
-            category: c,
-            products: products.filter(
-              (p) =>
-                p.category === c.slug ||
-                (p.additionalCategorySlugs ?? []).includes(c.slug),
-            ),
-          }))
-          .filter((group) => group.products.length > 0)
+          .map((c) => ({ slug: c.slug, name: c.name }))
       : [];
 
-  // Anything the grouping missed keeps its place rather than vanishing — a product
-  // whose category is not attached to this room would otherwise be counted in the
-  // header and then rendered nowhere.
-  const groupedSlugs = new Set(
-    grouped.flatMap((g) => g.products.map((p) => p.slug)),
-  );
-  const ungrouped = grouped.length
-    ? products.filter((p) => !groupedSlugs.has(p.slug))
-    : [];
-
-  /**
-   * The filters.
-   *
-   * `products` stays the unfiltered set on purpose — the facet counts are
-   * computed from it, so ticking Black does not make every other swatch read as
-   * unavailable. `visible` is what actually renders.
-   *
-   * The path is rebuilt rather than read from a hook because this is a server
-   * component: `usePathname` would force the whole page into a client bundle for
-   * the sake of a string we already know.
-   */
-  const query = parseShopQuery(searchParams ?? {});
   const pathname = categorySlug
     ? `/shop/${categorySlug}`
     : roomSlug
       ? `/shop/room/${roomSlug}`
       : "/shop/all";
-  const visible = applyShopQuery(products, query);
-  const filterDescription = describeQuery(query);
+
+  const resultsProps = {
+    // Trimmed before it crosses to the client — see toShopTile.
+    products: products.map(toShopTile),
+    title: category?.name ?? room?.name ?? "All Products",
+    category,
+    roomName: room?.name ?? null,
+    categorySlug,
+    pathname,
+    groupCategories,
+    stockedSiblings,
+    siblingRoom: siblingRoom ?? null,
+  };
 
   return (
     <div className="bg-canvas text-ink min-h-screen">
@@ -163,163 +128,27 @@ export async function ShopAll({
       <ShopDrillNav rooms={rooms} categories={categories} theme="light" />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <h1 className="font-display text-3xl leading-tight tracking-tight sm:text-4xl">
-            {category?.name ?? room?.name ?? "All Products"}
-          </h1>
-          <p className="text-muted shrink-0 text-[13px]">
-            {filterDescription
-              ? `${visible.length} of ${products.length} products`
-              : `${products.length} ${products.length === 1 ? "product" : "products"}`}
-          </p>
-        </div>
-
-        {/* The category's own introduction, above the grid.
-            Two or three paragraphs written for someone deciding what to buy. A
-            grid with a heading over it ranks for nothing, because there is no text
-            on the page for a query to match — this is the text it ranks on. Absent
-            on a category nobody has written yet, so the page is unchanged there. */}
-        {category?.intro?.length ? (
-          <div className="mb-9 max-w-[68ch]">
-            <PortableText
-              value={category.intro}
-              components={portableTextComponents}
-            />
-          </div>
-        ) : null}
-
-        {/* Only where there is enough to filter. On a category of three products
-            a filter bar is furniture for its own sake, and it pushes the products
-            themselves below the fold on a phone. */}
-        {products.length >= 6 ? (
-          <FilterBar products={products} query={query} pathname={pathname} />
-        ) : null}
-
-        {/* An applied filter has to be visible and removable. The count alone
-            does not tell a shopper why they are seeing eleven products instead
-            of forty. */}
-        {styleTag && categorySlug ? (
-          <div className="-mt-4 mb-8 flex items-center gap-2">
-            <span className="text-muted text-[12px] tracking-[0.12em] uppercase">
-              Filtered by
-            </span>
-            <AppLink
-              href={`/shop/${categorySlug}`}
-              className="border-ink/25 text-ink hover:border-ink flex items-center gap-2 rounded-none border px-3 py-1.5 text-[12px] font-medium transition-colors"
-            >
-              {styleTag}
-              <span aria-hidden className="text-muted">
-                ×
-              </span>
-            </AppLink>
-          </div>
-        ) : null}
-
-        {visible.length ? (
-          grouped.length && !filterDescription ? (
-            <div className="flex flex-col gap-12">
-              {grouped.map((group) => (
-                <section key={group.category.slug}>
-                  {/* The heading links to the category's own page, so a shopper who
-                      recognises the group they want can narrow to it in one tap
-                      rather than scrolling the rest of the room. */}
-                  <div className="border-line mb-5 flex items-end justify-between gap-4 border-b pb-3">
-                    <h2 className="font-display text-xl tracking-tight sm:text-2xl">
-                      <AppLink
-                        href={`/shop/${group.category.slug}`}
-                        className="hover:text-brass transition-colors"
-                      >
-                        {group.category.name}
-                      </AppLink>
-                    </h2>
-                    <p className="text-muted shrink-0 text-[12px]">
-                      {group.products.length}
-                    </p>
-                  </div>
-                  <ProductGrid products={group.products} />
-                </section>
-              ))}
-              {ungrouped.length ? (
-                <section>
-                  <div className="border-line mb-5 border-b pb-3">
-                    <h2 className="font-display text-xl tracking-tight sm:text-2xl">
-                      More in {room?.name}
-                    </h2>
-                  </div>
-                  <ProductGrid products={ungrouped} />
-                </section>
-              ) : null}
-            </div>
-          ) : (
-            // Grouping is dropped once a filter is on: a filtered set spread
-            // across category headings reads as several small empty shelves
-            // rather than one answer to what was asked for.
-            <ProductGrid products={visible} query={query} />
-          )
-        ) : filterDescription ? (
-          <NoFilterMatches
-            pathname={pathname}
-            description={filterDescription}
-          />
-        ) : (
-          /* An empty catalogue must still offer somewhere to go. 21 of 36
-             categories currently hold no products, and on mobile a category
-             tile now links straight here — so without these onward links this
-             page is where an interested visitor stops, having tapped exactly
-             the thing they wanted. The sibling list is filtered to stocked
-             categories only, so it can never point at another empty page. */
-          <div className="border-line flex flex-col items-center rounded-xl border border-dashed px-6 py-16 text-center">
-            <p className="font-display text-2xl">
-              {category?.name ?? room?.name ?? "This catalogue"} — coming soon
-            </p>
-            <p className="text-muted mt-3 max-w-sm text-[14px] leading-relaxed">
-              We’re curating this range now. In the meantime, here’s what we do
-              have.
-            </p>
-
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <AppLink
-                href="/shop/all"
-                className="bg-ink text-canvas hover:bg-ink/90 flex h-11 items-center rounded-md px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-              >
-                All Products
-              </AppLink>
-              {siblingRoom ? (
-                <AppLink
-                  href={`/shop/room/${siblingRoom.slug}`}
-                  className="border-line text-ink hover:border-ink/50 flex h-11 items-center rounded-md border px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-                >
-                  All {siblingRoom.name}
-                </AppLink>
-              ) : null}
-            </div>
-
-            {stockedSiblings.length ? (
-              <div className="mt-8 w-full max-w-md">
-                <p className="text-muted text-[11px] font-medium tracking-[0.16em] uppercase">
-                  In stock nearby
-                </p>
-                <div className="mt-3 flex flex-wrap justify-center gap-2">
-                  {stockedSiblings.map((c) => (
-                    <AppLink
-                      key={c.slug}
-                      href={`/shop/${c.slug}`}
-                      className="border-line text-ink hover:border-ink/50 rounded-full border px-3.5 py-2 text-[13px] transition-colors"
-                    >
-                      {c.name}{" "}
-                      <span className="text-muted">({c.productCount})</span>
-                    </AppLink>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        )}
+        {/*
+         * The grid, the filter bar and the counts — everything that depends on
+         * the query string.
+         *
+         * Behind a Suspense boundary so this route stays prerendered. The
+         * fallback is the same component rendered on the server with no
+         * filters, so the static HTML a crawler receives is the full unfiltered
+         * grid, and the client takes over on hydration to apply whatever is in
+         * the URL. See shop-results-client.tsx for why this matters.
+         */}
+        <Suspense
+          fallback={<ShopResults {...resultsProps} query={EMPTY_QUERY} />}
+        >
+          <ShopResultsClient {...resultsProps} />
+        </Suspense>
 
         {/* Everything below the grid: how to choose, the questions people ask, and
             where to go next. Below rather than above because someone who arrived
             here wants the products first — but it is in the same document, which is
-            all a crawler cares about. */}
+            all a crawler cares about. Outside the boundary, so the buying guidance
+            and its FAQ schema are in the static HTML unconditionally. */}
         <CategoryContent category={category} />
       </div>
     </div>
@@ -409,136 +238,6 @@ function CategoryContent({ category }: { category?: SanityCategory | null }) {
           </div>
         </section>
       ) : null}
-    </div>
-  );
-}
-
-/**
- * The product grid.
- *
- * Three across on mobile rather than two, with tighter gutters. Two columns of
- * large tiles meant roughly four products per screen; three fits about nine, so
- * the catalogue can be scanned by scrolling instead of paged through. Every width
- * from sm up keeps the gutters and column counts it already had.
- */
-function ProductGrid({
-  products,
-  query,
-}: {
-  products: SanityProduct[];
-  /** Only so a filtered colour can pick its own photograph. Optional because
-   *  the room-page groups render before any filter is applied. */
-  query?: ShopQuery;
-}) {
-  return (
-    <div className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-5 xl:grid-cols-6">
-      {products.map((product) => (
-        <ShopAllTile key={product.slug} product={product} query={query} />
-      ))}
-    </div>
-  );
-}
-
-function ShopAllTile({
-  product,
-  query,
-}: {
-  product: SanityProduct;
-  query?: ShopQuery;
-}) {
-  /**
-   * When a colour is filtered, show that colour's photograph.
-   *
-   * The brief: "when users select black furniture, the black version should
-   * appear — do not only show default images". A card answering a Black filter
-   * with the white variant's photo is the shop appearing not to know its own
-   * stock, at the exact moment a shopper is deciding whether to trust it.
-   *
-   * The gallery's plain URL rather than a hotspot crop: the variant entries do
-   * not carry the asset reference the crop builder needs, and these are
-   * catalogue shots on white, which `object-cover` handles at square without
-   * losing the product.
-   */
-  const variant = query ? variantImageForQuery(product, query) : null;
-  const base =
-    variant ??
-    product.cardImageSquare ??
-    product.cardImage ??
-    product.image ??
-    null;
-
-  return (
-    <AppLink
-      href={`/shop/${product.category}/${product.slug}`}
-      className="group block"
-    >
-      <div className="border-line bg-paper relative aspect-square overflow-hidden rounded-lg border">
-        {base ? (
-          <Image
-            src={base}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          />
-        ) : null}
-        {/* No hover swap while a variant photo is showing: the point of the
-            variant is that the card answers the filter, and swapping to a
-            different finish on hover would undo exactly that. */}
-        {!variant && (product.hoverImageSquare ?? product.hoverImage) ? (
-          <Image
-            src={(product.hoverImageSquare ?? product.hoverImage)!}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 18vw"
-            className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          />
-        ) : null}
-      </div>
-      {/* Clamped to two lines on mobile only. At three columns a tile is
-          ~100px wide, and these titles carry size and supplier detail
-          ("… | 30 x 20 x 5cm | Kaiku"), so an unclamped name ran to five or
-          six lines and pushed the next row of images off the screen — which
-          would have undone the point of the denser grid. Full title still
-          shows from sm up, and on the product page itself. */}
-      <p className="text-ink group-hover:text-brass mt-2 line-clamp-2 text-[12px] leading-snug font-medium transition-colors sm:mt-3 sm:line-clamp-none sm:text-[14px]">
-        {product.name}
-      </p>
-      <p className="text-muted mt-1 text-[11px] sm:text-[13px]">
-        From {formatPrice(product.price)}
-      </p>
-    </AppLink>
-  );
-}
-
-/**
- * What a filtered grid says when nothing matches.
- *
- * Distinct from the empty-category state on purpose: this category *has*
- * products, the combination just excludes them all. Telling someone "coming
- * soon" here would be a lie, and offering them "browse all products" throws away
- * the narrowing they have done. Clearing the filters is the one useful action.
- */
-function NoFilterMatches({
-  pathname,
-  description,
-}: {
-  pathname: string;
-  description: string;
-}) {
-  return (
-    <div className="border-line flex flex-col items-center rounded-none border border-dashed px-6 py-16 text-center">
-      <p className="font-display text-2xl">Nothing matches that combination</p>
-      <p className="text-muted mt-3 max-w-md text-[14px] leading-relaxed">
-        No piece here is {description}. Loosen one of the filters and there will
-        be — everything in this category is still a tap away.
-      </p>
-      <AppLink
-        href={pathname}
-        className="bg-ink text-canvas hover:bg-ink/90 mt-7 flex h-11 items-center rounded-none px-5 text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors"
-      >
-        Clear the filters
-      </AppLink>
     </div>
   );
 }

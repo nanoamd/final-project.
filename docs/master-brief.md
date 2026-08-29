@@ -84,6 +84,56 @@ products. The audit was reporting its own model, not the page.
       The five guides rewritten on 29 August link 40 products between them, each
       one named in a table that measures it against the guide's own rule.
 
+## Vercel cost — the second pass (29 August)
+
+Damien, after a £120 week: _"make sure without mistakes that the most were
+paying for vercel is £10 a week"_.
+
+The first ISR pass (`revalidate` 3600 → 86400 on the content routes) could not
+touch the biggest driver, and the reason is worth writing down: **`await
+searchParams` in a page makes the whole route dynamic**, which silently turns
+`generateStaticParams` and `revalidate` into dead code. `/shop/[category]`,
+`/shop/room/[room]` and `/shop/all` all did it. Live headers proved it —
+`x-vercel-cache: MISS` with no `x-nextjs-prerender` on every one of the 49
+category pages and 11 room pages, on every request, forever, while the product
+and guide pages returned PRERENDER.
+
+- [x] **The shop routes prerender again.** The filters moved out of the server
+      render into a client component reading `useSearchParams` under a Suspense
+      boundary, which is Next's own documented answer for this case. The static
+      HTML carries the full unfiltered grid — what a crawler should see anyway —
+      and the filters apply on hydration. Verified identical to the live page on
+      every SEO-relevant fact: same `h1`, same 20 product tiles, same count
+      text, same 40 images, same canonical, same title. 49 category pages and 11
+      room pages went from `ƒ` to `●`.
+- [x] **The client payload is trimmed to what the grid reads.** The first cut of
+      that change passed whole `SanityProduct` documents to the client, which
+      took the Lighting page from 315KB to 2MB gzipped — trading a function cost
+      for a transfer cost and a slow phone. `toShopTile` sends 18 fields instead
+      of ~50, dropping the rich-text description, spec table, FAQs, SEO block
+      and downloads. Lighting is now 83KB gzipped; a category page costs about
+      4KB gzipped more than it did as a dynamic page.
+- [x] **The admin bar no longer calls home for anonymous visitors.** It fetched
+      `/api/admin-bar` — `force-dynamic`, `no-store`, plus a Supabase round trip
+      — on every page view by every visitor and every crawler that runs
+      JavaScript, to discover each time that the visitor is not Damien. It now
+      checks for a Supabase auth cookie first, the same short-circuit the proxy
+      got.
+- [x] **`/search` and `/compare` are disallowed in robots.txt.** The last two
+      routes that genuinely cannot prerender. Neither is in the sitemap, and
+      Google's own guidance is not to index internal search results.
+
+Remaining dynamic routes are `/search`, `/compare` and `/tools/garden-visualiser`
+— all user-initiated, none crawlable.
+
+### Blocked on you
+
+- [ ] **Set a hard spend cap in Vercel.** Dashboard → Settings → Billing →
+      Spend Management: set the amount and enable the action that pauses the
+      project when it is hit. Code changes reduce what the site _costs_; only
+      that setting makes an upper bound _true_. Nothing in this repository can
+      set it, and without it "£10 a week" is a forecast rather than a limit.
+
 ## The plan out of the plateau (25 August)
 
 Damien: _"we are losing motivation and currently at a plateau… we've made zero

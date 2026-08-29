@@ -37,11 +37,9 @@ export async function generateMetadata(): Promise<Metadata> {
  * sell" took several steps and had no address you could link to or share. Same
  * dense grid as the per-room page — ShopAll with no roomSlug lists everything.
  */
-export default async function AllProductsPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  return <ShopAll searchParams={params} />;
+export default async function AllProductsPage() {
+  // `searchParams` is deliberately not read here — see the note on
+  // /shop/[category]. The filters come from the URL on the client so this
+  // route can stay prerendered.
+  return <ShopAll />;
 }

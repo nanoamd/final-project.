@@ -8,12 +8,12 @@ import {
   describeQuery,
   facetCounts,
   isEmptyQuery,
+  type ShopFacetable,
   type ShopQuery,
   SORT_OPTIONS,
   sortHref,
   toggleFacetHref,
 } from "@/lib/catalog/shop-query";
-import type { SanityProduct } from "@/types/sanity-content";
 
 /**
  * The shopping filters, as a tab on the edge of the screen that opens a sidebar.
@@ -51,7 +51,7 @@ export function FilterBar({
   pathname,
 }: {
   /** The unfiltered set for this page — what the facet counts are computed from. */
-  products: SanityProduct[];
+  products: ShopFacetable[];
   query: ShopQuery;
   pathname: string;
 }) {
@@ -217,7 +217,7 @@ function ColourSwatches({
   query,
   pathname,
 }: {
-  products: SanityProduct[];
+  products: ShopFacetable[];
   query: ShopQuery;
   pathname: string;
 }) {
@@ -285,7 +285,7 @@ function ChipFacet({
   label: string;
   facetKey: FacetKey;
   tags: readonly string[];
-  products: SanityProduct[];
+  products: ShopFacetable[];
   query: ShopQuery;
   pathname: string;
 }) {

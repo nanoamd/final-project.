@@ -60,6 +60,22 @@ export function AdminBar() {
 
   React.useEffect(() => {
     let cancelled = false;
+
+    // Nobody without a session can be an admin, so nobody without a session
+    // needs to ask.
+    //
+    // This fired on every page view by every visitor and every crawler that
+    // runs JavaScript — an uncacheable, force-dynamic function invocation plus
+    // a Supabase round trip, to discover for the ten-thousandth time that an
+    // anonymous visitor is not Damien. The cookie already says so. Supabase
+    // names it `sb-<project-ref>-auth-token` and chunks long ones with a
+    // numeric suffix, so the prefix is what to look for.
+    const signedIn = document.cookie.split(";").some((cookie) => {
+      const name = cookie.split("=")[0]?.trim() ?? "";
+      return name.startsWith("sb-") && name.includes("auth-token");
+    });
+    if (!signedIn) return;
+
     // `no-store` so a signed-out visitor can never be served a cached copy of
     // somebody's admin bar, and vice versa.
     fetch("/api/admin-bar", { cache: "no-store" })

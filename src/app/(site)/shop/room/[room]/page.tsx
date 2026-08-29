@@ -51,12 +51,11 @@ export async function generateMetadata({
 
 export default async function RoomPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ room: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { room } = await params;
   // White shopping page, for the same reason as the category route.
-  return <ShopAll roomSlug={room} searchParams={await searchParams} />;
+  // `searchParams` is deliberately not read — see the note on /shop/[category].
+  return <ShopAll roomSlug={room} />;
 }

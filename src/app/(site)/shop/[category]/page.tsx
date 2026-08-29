@@ -64,15 +64,14 @@ export async function generateMetadata({
  */
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { category } = await params;
-  const search = await searchParams;
-  const style = typeof search.style === "string" ? search.style : undefined;
-  return (
-    <ShopAll categorySlug={category} styleTag={style} searchParams={search} />
-  );
+  // `searchParams` is deliberately not read here. Awaiting it makes the route
+  // dynamic, which made `generateStaticParams` and the `revalidate` above dead
+  // code and turned every view of every category page into an uncached
+  // serverless invocation. The filters are read from the URL on the client
+  // instead — see shop-results-client.tsx.
+  return <ShopAll categorySlug={category} />;
 }

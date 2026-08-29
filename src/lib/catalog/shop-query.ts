@@ -21,7 +21,7 @@ import type { SanityProduct } from "@/types/sanity-content";
 
 /** Which facets a product carries, by facet key. */
 function productFacetValues(
-  product: SanityProduct,
+  product: ShopFacetable,
   key: FacetKey,
 ): readonly string[] {
   switch (key) {
@@ -46,6 +46,28 @@ export const SORT_OPTIONS = [
 ] as const;
 
 export type SortKey = (typeof SORT_OPTIONS)[number]["key"];
+
+/**
+ * The part of a product the filters and the grid actually read.
+ *
+ * Declared so the shop pages can hand the client a trimmed product rather than
+ * the whole document. `SanityProduct` carries the full rich-text description,
+ * the spec table, the FAQs, the SEO block and the downloads — none of which a
+ * tile or a facet count touches. Sending the whole thing pushed the Lighting
+ * page's payload to 2MB.
+ */
+export type ShopFacetable = Pick<
+  SanityProduct,
+  | "price"
+  | "stockStatus"
+  | "colourTags"
+  | "materialTags"
+  | "styleTags"
+  | "roomTags"
+  | "useTags"
+  | "gallery"
+  | "name"
+>;
 
 export interface ShopQuery {
   /** Selected values per facet. Absent keys mean no constraint. */
@@ -132,10 +154,10 @@ export function isEmptyQuery(query: ShopQuery): boolean {
  * oak piece, not everything black plus everything oak. Getting that pair the
  * wrong way round is the most common way a filter feels broken.
  */
-export function applyShopQuery(
-  products: SanityProduct[],
+export function applyShopQuery<T extends ShopFacetable>(
+  products: T[],
   query: ShopQuery,
-): SanityProduct[] {
+): T[] {
   const filtered = products.filter((product) => {
     for (const [key, chosen] of Object.entries(query.facets)) {
       if (!chosen?.length) continue;
@@ -174,7 +196,7 @@ export function applyShopQuery(
  * it is missing.
  */
 export function facetCounts(
-  products: SanityProduct[],
+  products: ShopFacetable[],
   query: ShopQuery,
   key: FacetKey,
 ): Map<string, number> {
@@ -278,7 +300,7 @@ export function describeQuery(query: ShopQuery): string | null {
  * one photo, or a variant nobody has photographed separately.
  */
 export function variantImageForQuery(
-  product: SanityProduct,
+  product: Pick<SanityProduct, "gallery">,
   query: ShopQuery,
 ): string | null {
   const wanted = query.facets.colour;
