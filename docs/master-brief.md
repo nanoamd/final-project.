@@ -16,6 +16,73 @@ Status key:
 
 ---
 
+## Search Console: two separate reports, and what each one actually means (29 August)
+
+Damien sent three Search Console screenshots: a validation failure on Product
+snippets missing `aggregateRating` and `review`, and the Page indexing report
+showing 195 pages not indexed. _"lots of pages not indexed too fix it"_.
+
+These are two different reports measuring different things, and treating them
+as one problem is the way to waste effort on the wrong one.
+
+### The Product snippet warning: correct as it stands, and there is no honest fix
+
+- [x] **Confirmed: zero of 619 live products have a real rating or review**,
+      including the three named in the screenshot. `ProductJsonLd` already
+      only emits `aggregateRating` when both `rating` and `reviewCount` are
+      genuinely set — it is not a bug, it is the code refusing to print
+      something untrue.
+- [-] **Not fixing this by adding numbers.** Checked against Google's current
+  guidance rather than assumed: `aggregateRating` is a _recommended_
+  field, not required — the Product page is already eligible for rich
+  results because `offers` (price, currency, availability) is present.
+  Google's own documentation states plainly that markup for a rating with
+  no visible reviews on the page **can trigger a manual action for
+  spammy structured data** — worse than the warning it would silence. This
+  resolves itself the day real customer reviews exist and not before.
+  Recommend **not** pressing "Validate Fix" again on this one until then.
+
+### The indexing report: re-verified clean at 704/704, which relocates where the real 172 are
+
+- [x] **`audit-indexability.ts` re-run against the live sitemap, four days after
+      the last check and after this session's category/prerendering changes:
+      704 of 704 URLs are still a clean, self-canonical 200.** Zero redirects,
+      zero 404s, zero noindex, zero canonical-elsewhere, on every URL we are
+      currently asking Google to crawl. The 23 pages GSC attributes to
+      "Website" sources (12 redirect, 6 alternate-canonical, 2 noindex, 2
+      `404`, 1 duplicate) are old URLs from before this catalogue's several
+      renames and retirements — `next.config.ts`'s 14 retired/renamed/
+      recategorised redirects are exactly what is meant to catch Google
+      finding one of those — not faults on anything live today.
+- [x] **The real number is 172 — "Discovered" (122) and "Crawled — currently
+      not indexed" (50) — and it is Google choosing not to spend crawl budget
+      on a young domain**, exactly as the 26 August traffic audit already
+      concluded before this report existed. Not a bug to patch; answered by
+      links, content and time. This session's other work is that answer:
+      five buying guides now linking 40 products, five cross-listings closing
+      orphan-category gaps, two recategorisations, and 149 product galleries
+      about to lead with a real photograph instead of a lifestyle shot once
+      the write token lands. Once those are live, request indexing through
+      URL Inspection on the highest-value pages rather than before — a
+      request against a still-thin page spends the quota for nothing.
+- [x] **Found while checking for the concrete cause Google's own docs name for
+      "Crawled — currently not indexed" — duplicate content.** A hash
+      comparison of every live description against every other found exactly
+      one exact match, and it is a real, serious data bug: the **Capri
+      Collection Outdoor Dining Chair** (£225, garden furniture) carries the
+      **Contour Collection 2 Drawer 2 Door Sideboard**'s summary, description
+      _and dimensions_ word-for-word and number-for-number. The live page for
+      an outdoor chair currently tells a shopper it is "designed for
+      interiors" with "two drawers and two cupboard doors". How it happened
+      is not recoverable; what survives independent of the corruption is only
+      `materialTags` (Fabric, Metal) — no dimensions exist for this chair
+      anywhere in Sanity any more.
+      `fix-capri-chair-content.ts` clears the wrong `dimensions` rather than
+      leave a false number in place, and writes a short, honest description
+      from what does survive — naming no measurement, because there is not
+      one to name, and saying so on the page rather than guessing. Dry run
+      verified; **needs the write token**.
+
 ## Product images and categories, audited rather than assumed (29 August)
 
 Damien, on the shelving grid showing a living-room lifestyle photo as the main
