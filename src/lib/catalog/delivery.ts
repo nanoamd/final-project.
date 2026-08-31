@@ -109,8 +109,8 @@ function hasConfirmedLeadTime(supplierName?: string | null): boolean {
 }
 
 /**
- * The delivery window to state for this product — one answer, used by every
- * surface that mentions delivery, so the product page, the cart, the
+ * The delivery window to state for this product — one answer, meant for
+ * every surface that mentions delivery, so the product page, the cart, the
  * Merchant feed, the comparison table and the confirmation email cannot
  * disagree with each other.
  *
@@ -119,11 +119,28 @@ function hasConfirmedLeadTime(supplierName?: string | null): boolean {
  * still has a price, so it still has an honest window to state — which is the
  * point, since "Delivery: not specified" on a £300 table is precisely the
  * kind of gap that costs a sale.
+ *
+ * Takes primitives rather than a `SanityProduct` so callers that only have a
+ * few raw fields — the description generator, the wording auditor — can
+ * reach the same one answer without constructing a fake product object.
+ * `deliveryWindow` below is this with a `SanityProduct` unpacked into it.
  */
+export function resolveDeliveryWindow(input: {
+  price: number | null | undefined;
+  supplierName?: string | null;
+  deliveryLeadTime?: string | null;
+}): string {
+  const recorded = input.deliveryLeadTime?.trim();
+  if (recorded && hasConfirmedLeadTime(input.supplierName)) return recorded;
+  return standardWindowForPrice(input.price ?? 0);
+}
+
 export function deliveryWindow(product: SanityProduct): string {
-  const recorded = product.deliveryLeadTime?.trim();
-  if (recorded && hasConfirmedLeadTime(product.supplier?.name)) return recorded;
-  return standardWindowForPrice(product.price ?? 0);
+  return resolveDeliveryWindow({
+    price: product.price,
+    supplierName: product.supplier?.name,
+    deliveryLeadTime: product.deliveryLeadTime,
+  });
 }
 
 /** "Delivered in 3–4 weeks" — always answers, per `deliveryWindow`. */

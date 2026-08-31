@@ -128,6 +128,8 @@ async function main() {
       features: (facts as { features?: string[] }).features ?? [],
       supplierCopy: (facts as { supplierCopy?: string }).supplierCopy ?? null,
       deliveryLeadTime: doc.deliveryLeadTime ?? null,
+      price: doc.price ?? null,
+      supplierName: doc.supplier ?? null,
       materialDisputed: DISPUTED.has(doc._id),
     });
 

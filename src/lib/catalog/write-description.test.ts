@@ -17,7 +17,11 @@ const pergola: ProductFacts = {
   weight: { value: 27.5, unit: "kg" },
   material: "steel",
   colour: "dark grey",
-  deliveryLeadTime: "3-4 weeks",
+  price: 899,
+  // Not a confirmed lead time — no supplier here — so this recorded value is
+  // exactly the kind of stale import default that must NOT reach the model
+  // verbatim; the price band below is what factSheet should state instead.
+  deliveryLeadTime: "7-14 days",
 };
 
 const section = (heading: string, ...paragraphs: string[]) => ({
@@ -32,7 +36,11 @@ describe("factSheet", () => {
     expect(sheet).toContain("height 220cm");
     expect(sheet).toContain("27.5kg");
     expect(sheet).toContain("steel");
-    expect(sheet).toContain("3-4 weeks");
+    // The price band (£899 is above £120), not the raw "7-14 days" —
+    // no supplier here means the recorded value isn't a confirmed
+    // commitment, so it must never reach the model as-is.
+    expect(sheet).toContain("3–4 weeks");
+    expect(sheet).not.toContain("7-14 days");
   });
 
   it("omits what we do not hold rather than saying it is missing", () => {

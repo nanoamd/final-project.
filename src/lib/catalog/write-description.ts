@@ -32,6 +32,7 @@
 
 import { isAdmission } from "./admissions";
 import { contextFaults, sitingFor } from "./context-check";
+import { resolveDeliveryWindow } from "./delivery";
 import { AI_PHRASES, ARTEFACTS } from "./quality";
 import { wordingFaults } from "./wording-check";
 
@@ -49,10 +50,29 @@ export interface ProductFacts {
   material?: string | null;
   colour?: string | null;
   deliveryLeadTime?: string | null;
+  /** Needed to resolve the delivery line — see `resolveDeliveryWindow`. A
+   * recorded lead time is only trusted for suppliers with a genuine
+   * supplier-confirmed lead time (SaunaPlunge); everyone else gets Kaiku's
+   * price-based standard window, the same one the product page's buy-box
+   * shows. Without `price` here, the model was told the raw, often-generic
+   * imported `deliveryLeadTime` verbatim — which is how a £900 sofa ended up
+   * with "dispatched within 7–14 days" in its own description. */
+  price?: number | null;
+  supplierName?: string | null;
   /** Labelled specifications, from the supplier's own page. */
   specs?: { label?: string | null; value?: string | null }[] | null;
   /** Discrete facts the supplier publishes as a feature list. */
   features?: string[] | null;
+}
+
+/** The one delivery answer — price band, unless this supplier's lead time
+ * is a genuine confirmed commitment. See `resolveDeliveryWindow`. */
+function resolvedDeliveryWindow(facts: ProductFacts): string {
+  return resolveDeliveryWindow({
+    price: facts.price,
+    supplierName: facts.supplierName,
+    deliveryLeadTime: facts.deliveryLeadTime,
+  });
 }
 
 /** One heading and the prose beneath it. */
@@ -86,8 +106,7 @@ export function factSheet(facts: ProductFacts): string {
     lines.push(`Weight: ${facts.weight.value}${facts.weight.unit ?? "kg"}`);
   if (facts.material) lines.push(`Material: ${facts.material}`);
   if (facts.colour) lines.push(`Colour: ${facts.colour}`);
-  if (facts.deliveryLeadTime)
-    lines.push(`Dispatch lead time: ${facts.deliveryLeadTime}`);
+  lines.push(`Dispatch lead time: ${resolvedDeliveryWindow(facts)}`);
 
   const specs = (facts.specs ?? []).filter((s) => s?.label && s?.value);
   if (specs.length)
@@ -231,7 +250,7 @@ export function checkWritten(
     dimensions: facts.dimensions,
     weight: facts.weight,
     colour: facts.colour,
-    deliveryLeadTime: facts.deliveryLeadTime,
+    deliveryLeadTime: resolvedDeliveryWindow(facts),
     extra: Object.fromEntries(
       (facts.specs ?? [])
         .filter((s) => s?.label && s?.value)

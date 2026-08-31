@@ -28,6 +28,8 @@
  *    a fault.
  */
 
+import { resolveDeliveryWindow } from "./delivery";
+
 export type Family =
   | "vessel"
   | "candle"
@@ -96,6 +98,14 @@ export interface DescribeInput {
   /** Labelled specifications harvested from the supplier's own page. */
   extra?: Record<string, string>;
   deliveryLeadTime?: string | null;
+  /** Needed to resolve the delivery line honestly — see
+   * `resolveDeliveryWindow`. A recorded lead time is only trusted for
+   * suppliers with a genuine confirmed commitment; everyone else gets
+   * Kaiku's price-based standard window, the same the product page's
+   * buy-box shows. Without this, an expensive item carrying a generic
+   * imported `deliveryLeadTime` would state it verbatim regardless of price. */
+  price?: number | null;
+  supplierName?: string | null;
   /** Set when the name and the supplier disagree; suppresses material claims. */
   materialDisputed?: boolean;
   /** Discrete facts the supplier publishes as a feature list. */
@@ -376,17 +386,19 @@ export function describeProduct(input: DescribeInput): Section[] {
     });
   }
 
-  // --- Delivery, only where the lead time is real ------------------------
-  if (input.deliveryLeadTime) {
-    sections.push({
-      heading: "Delivery",
-      paragraphs: [
-        // The stored lead time is not altered — a standing constraint — but a
-        // trailing space in the field must not become "2-4 weeks , with".
-        `Dispatched within ${input.deliveryLeadTime.trim()}, with free UK delivery.`,
-      ],
-    });
-  }
+  // --- Delivery — always, per resolveDeliveryWindow's own "never returns
+  // null" rule: a product with a price has an honest window to state, even
+  // with no supplier-quoted lead time recorded. -------------------------
+  sections.push({
+    heading: "Delivery",
+    paragraphs: [
+      `Dispatched within ${resolveDeliveryWindow({
+        price: input.price,
+        supplierName: input.supplierName,
+        deliveryLeadTime: input.deliveryLeadTime,
+      })}, with free UK delivery.`,
+    ],
+  });
 
   return sections;
 }

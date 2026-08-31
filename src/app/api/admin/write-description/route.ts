@@ -32,9 +32,10 @@ export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const PRODUCT_QUERY = /* groq */ `*[_id == $id][0]{
-  title, summary, dimensions, weight, deliveryLeadTime, specs,
+  title, summary, dimensions, weight, deliveryLeadTime, price, specs,
   "category": category->title,
-  "colour": primaryColour
+  "colour": primaryColour,
+  "supplierName": supplier->name
 }`;
 
 async function write(prompt: string): Promise<WrittenSection[]> {

@@ -16,6 +16,54 @@ Status key:
 
 ---
 
+## Why expensive products were showing "7 day" delivery (31 August)
+
+Damien: _"the shipping times rule according to price i made doesnt exist
+anymore either, why? loads of expensive products with 7 day delivery for
+some reason why?"_
+
+- [x] **The rule itself was never deleted.** `src/lib/catalog/delivery.ts`
+      still has it exactly as specified — under £50 → 7–14 days, £50–120 →
+      2–3 weeks, above £120 → 3–4 weeks — and it's what the buy-box and the
+      Google Merchant feed both correctly show.
+- [x] **Root cause found: a second, separate path that bypasses the rule
+      entirely.** The "Write description" button (`/api/admin/write-description`,
+      the one actually used, not the one-off script) fed the model the raw
+      `deliveryLeadTime` field verbatim — no price, no override — so it wrote
+      "Dispatched within 7–14 days" into the description of anything whose
+      `deliveryLeadTime` happened to hold that value, regardless of price.
+      Confirmed live: dozens of Premier Housewares products at £560–£1150
+      (sofas, dining sets, beds) all carry the literal string `"7–14 days"`
+      in that field — almost certainly an import-time default, not a real
+      per-product supplier commitment — and the generated description said
+      exactly that, contradicting the correct band the same page's buy-box
+      shows a few inches away.
+- [x] **Fixed at the source, not by touching the field.** Nothing in
+      `deliveryLeadTime` itself was changed — that field stays exactly what
+      it was, per the standing rule on lead times. Instead:
+  - `delivery.ts` — the price-band logic extracted into
+    `resolveDeliveryWindow()`, taking plain `price`/`supplierName`/
+    `deliveryLeadTime` rather than a full product object, so any caller
+    can reach the one correct answer without faking a `SanityProduct`.
+  - `write-description.ts` + its API route — now fetch `price` and
+    `supplier->name`, and both the prompt (`factSheet`) and the QA
+    checker (`checkWritten`) use the resolved window instead of the raw
+    field. A test that had encoded the _old_, wrong expectation (echo
+    the raw field verbatim) was updated to assert the fix instead.
+  - `describe.ts` (the one-off `rewrite-descriptions.ts` script) — same
+    fix, same reasoning.
+  - Verified: `pnpm vitest run src/lib/catalog` — 315 tests pass.
+- [!] **Not yet done: existing descriptions that already have the wrong
+  sentence baked in.** The fix stops it happening on every future
+  generation; it does not retroactively fix a description that already
+  says "Dispatched within 7–14 days" on an £800 sofa. That needs an
+  audit pass (which products, how many) and then either regenerating
+  the Delivery section or rewriting just that sentence — real work, not
+  started yet, queued behind the weights/dimensions audit you also
+  asked for in the same message.
+
+---
+
 ## A real audit, published products only, and what it actually found (31 August)
 
 Damien, after seeing the &#39; literally rendered on a live draft's Short
