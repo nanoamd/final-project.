@@ -308,11 +308,14 @@ export function SiteHeader({
 }
 
 const dark = {
-  header: "bg-basalt/85 border-b border-white/10",
+  // Damien, on a screenshot of the header: "i want this grey" — bg-graphite
+  // rather than bg-basalt, so the header reads as a distinct grey bar over
+  // the near-black page instead of blending into it.
+  header: "bg-graphite/85 border-b border-white/10",
   navLink: "text-canvas/65 hover:text-canvas",
   navActive: "text-canvas",
   icon: "text-canvas/80 hover:text-canvas hover:bg-white/10",
-  subBar: "border-white/10 bg-basalt/60",
+  subBar: "border-white/10 bg-graphite/60",
   subLink: "text-canvas/50 hover:text-canvas",
 };
 

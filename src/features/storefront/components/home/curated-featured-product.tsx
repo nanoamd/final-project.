@@ -19,6 +19,7 @@ export async function CuratedFeaturedProduct() {
     <FeaturedProductSection
       product={{ ...product, image: product.image }}
       eyebrow="Featured"
+      theme="dark"
     />
   );
 }

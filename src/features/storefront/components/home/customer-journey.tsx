@@ -13,7 +13,7 @@ const STEPS = [
  */
 export function CustomerJourney() {
   return (
-    <section className="bg-basalt">
+    <section className="bg-canvas">
       <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
         <p className="text-brass mb-6 text-center text-[11px] font-medium tracking-[0.24em] uppercase sm:mb-12">
           How It Works
@@ -23,7 +23,7 @@ export function CustomerJourney() {
           {STEPS.map((step) => (
             <div key={step.n} className="text-center">
               <p className="text-brass font-display text-xl">{step.n}</p>
-              <p className="text-canvas mt-1 text-[12px] font-medium tracking-[0.08em] uppercase">
+              <p className="text-ink mt-1 text-[12px] font-medium tracking-[0.08em] uppercase">
                 {step.label}
               </p>
             </div>
@@ -39,13 +39,13 @@ export function CustomerJourney() {
               {i > 0 ? (
                 <span
                   aria-hidden
-                  className="absolute top-3 right-1/2 h-px w-full bg-white/15"
+                  className="border-line absolute top-3 right-1/2 h-px w-full"
                 />
               ) : null}
-              <span className="border-brass text-brass bg-basalt relative z-10 flex size-7 items-center justify-center rounded-full border text-[11px] font-medium">
+              <span className="border-brass text-brass bg-canvas relative z-10 flex size-7 items-center justify-center rounded-full border text-[11px] font-medium">
                 {i + 1}
               </span>
-              <p className="text-canvas mt-3 text-[12px] font-medium tracking-[0.1em] uppercase">
+              <p className="text-ink mt-3 text-[12px] font-medium tracking-[0.1em] uppercase">
                 {step.label}
               </p>
             </div>

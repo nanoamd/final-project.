@@ -17,28 +17,28 @@ const CATEGORIES = [
  */
 export function HomeCategories() {
   return (
-    <section className="bg-canvas">
+    <section className="bg-basalt">
       <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
         <div className="mx-auto mb-6 max-w-xl text-center sm:mb-14">
-          <p className="text-muted mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
+          <p className="text-canvas/50 mb-4 text-[11px] font-medium tracking-[0.24em] uppercase">
             Where We&rsquo;re Going
           </p>
-          <h2 className="text-ink font-display text-2xl leading-[1.05] tracking-tight sm:text-4xl">
+          <h2 className="text-canvas font-display text-2xl leading-[1.05] tracking-tight sm:text-4xl">
             A home improved, one room at a time
           </h2>
-          <p className="text-muted mt-4 text-[15px] leading-relaxed sm:text-base">
+          <p className="text-canvas/60 mt-4 text-[15px] leading-relaxed sm:text-base">
             We started outdoors because it&rsquo;s where we know the most. It
             won&rsquo;t be where we stop.
           </p>
         </div>
 
-        <div className="border-line grid grid-cols-3 border-t border-l lg:grid-cols-5">
+        <div className="grid grid-cols-3 border-t border-l border-white/10 lg:grid-cols-5">
           {CATEGORIES.map((category) => (
             <div
               key={category}
-              className="border-line flex min-h-[64px] items-center justify-center border-r border-b px-2 py-4 text-center sm:min-h-[112px] sm:px-4 sm:py-6"
+              className="flex min-h-[64px] items-center justify-center border-r border-b border-white/10 px-2 py-4 text-center sm:min-h-[112px] sm:px-4 sm:py-6"
             >
-              <span className="text-ink font-display text-[13px] tracking-tight sm:text-lg">
+              <span className="text-canvas font-display text-[13px] tracking-tight sm:text-lg">
                 {category}
               </span>
             </div>
