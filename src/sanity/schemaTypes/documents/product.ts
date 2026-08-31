@@ -7,6 +7,7 @@ import {
   ROOM_TAGS,
   USE_TAGS,
 } from "@/lib/catalog/facets";
+import { CostPriceInput } from "@/sanity/components/cost-price-input";
 import { MarginDisplay } from "@/sanity/components/margin-display";
 
 export const product = defineType({
@@ -124,8 +125,9 @@ export const product = defineType({
       title: "Cost price",
       type: "number",
       group: "commerce",
+      components: { input: CostPriceInput },
       description:
-        "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Premier Housewares invoice 20% on top of their trade list price: if you're copying a number straight off their price list, add 20% before typing it in here, or leave it as their list price and use the button below to add it for you. Not shown on the storefront — internal only.",
+        "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Premier Housewares invoice 20% on top of their trade list price: type their list price in here, then use the +20% VAT button beside the box rather than doing the sum by hand.",
     }),
     defineField({
       name: "costPriceVatCorrected",

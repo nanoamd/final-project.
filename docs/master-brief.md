@@ -16,6 +16,39 @@ Status key:
 
 ---
 
+## The VAT button moved onto the cost price field itself (31 August)
+
+Damien, after the "Add supplier VAT" button landed in the document action
+bar: _"i want the button to be next too the cost price box right enxt to
+it"_. Also asked, separately, for cost prices to be pulled directly from
+Premier Housewares' site for accuracy — checked first and declined: their
+site returns an empty price to anyone not logged in (`"price": ""`, a
+"Sign in" prompt, confirmed by fetching the real product page), and
+automating a login with a real password to scrape 401 pages is the same
+category of thing as the standing refusal to defeat a supplier's bot
+protection, even though this is a login wall rather than a CAPTCHA.
+Damien's own fallback — publish as normal, correct the VAT afterwards —
+is what the button below is for.
+
+- [x] **`CostPriceInput`** (`src/sanity/components/cost-price-input.tsx`)
+      replaces the plain number field for `costPrice` with the same field
+      plus a "+20% VAT" button beside it, wired via the field's
+      `components.input`. One click multiplies the value by 1.2 and sets
+      `costPriceVatCorrected` in the same patch — an ordinary pending edit,
+      undoable, nothing committed until Damien publishes, exactly like
+      every other field. The document-action version
+      (`add-supplier-vat.tsx`) is removed; this replaces it rather than
+      sitting alongside it.
+      **Not visually verified live** — this sandbox's browser can't reach
+      Sanity's API (confirmed: `ERR_CONNECTION_RESET` on
+      `huh1e45n.api.sanity.io` from Playwright specifically, while every
+      Node-side script this session talks to the same host fine), so
+      Studio never finishes booting far enough here to screenshot. Checked
+      instead against the exact installed Sanity version (6.5.0) —
+      `PatchEvent`, `set`, `useFormValue` all exist and match the
+      documented API — and it type-checks and lints clean. Worth a look in
+      a real browser once deployed.
+
 ## Premier Housewares cost prices were missing 20% VAT (31 August) — LIVE
 
 Damien, on a screenshot of a Premier Housewares order summary showing 20%
