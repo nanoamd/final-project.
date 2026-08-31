@@ -97,7 +97,11 @@ async function main() {
     const small = price < SMALL_THRESHOLD;
     const floor = small ? SMALL_FLOOR : LARGE_FLOOR;
 
-    if (currentMargin >= floor) continue;
+    // A tiny epsilon so a product already exactly at its floor (margin
+    // computed as 19.999...% by floating point, not really under 20%)
+    // isn't "raised" to the exact price it already has — a real case on
+    // the first run: two products at £447 → £447, a pointless audit entry.
+    if (currentMargin >= floor - 1e-9) continue;
 
     let newPrice: number;
     if (small) {

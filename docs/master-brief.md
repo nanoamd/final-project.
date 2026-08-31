@@ -16,6 +16,35 @@ Status key:
 
 ---
 
+## A tiered margin floor for Premier Housewares — LIVE (31 August)
+
+Damien, after the first margin fix landed: _"for premier housewares
+products the margin should be higher than 17%. for smaller cheaper
+products we can just add a few pounds to the retail price but larger
+products should be above 20%"_ — then, on the exact figure: _"4 pound but
+if it needs more then add more, we need to ensure we can be
+profitable"_.
+
+- [x] **`raise-premier-housewares-tiered-margins.ts`** — under £50, raises
+      to the higher of a flat £4 bump or the minimum clearing 17%; £50 and
+      over, raises to the minimum clearing 20%. Reads the already
+      VAT-corrected cost price; only ever touches `price`.
+- [x] **Applied and verified live.** 194 of 416 products raised, all in
+      the £50+ tier — every product under £50 was already sitting at 17%+
+      from the first pass, so the £4 rule had no candidates yet. Confirmed
+      directly: Saronno Grey Marble Dining Table now reads `price: 2459,
+    costPrice: 1966.46` (20.0%, was 17.7%); 194 `priceAdjustment`
+      documents exist with `source ==
+    "scripts/raise-premier-housewares-tiered-margins.ts"`.
+- [x] **A floating-point edge case, caught and fixed the same pass.** Two
+      products sitting exactly at 20% computed as 19.999...% and got
+      "raised" to the price they already had — harmless (correctly
+      recorded `previousPrice == newPrice`) but a pointless audit entry.
+      Added a small epsilon to the floor comparison; a clean re-run
+      afterwards caught one more genuinely new product (published mid-run,
+      Damien was actively working through drafts at the same time) and
+      found nothing else outstanding.
+
 ## The VAT button was crashing the whole Studio (31 August)
 
 Damien, on a screenshot of Sanity's own "The structure tool crashed" error
@@ -26,7 +55,7 @@ page: _"it crashes everytime i do it"_.
       that field's own bound path — `costPrice` — and every patch passed
       through it gets prefixed with that path as it bubbles up to the
       document. The first version passed `set(true,
-    ["costPriceVatCorrected"])` through that same `onChange`, which does
+  ["costPriceVatCorrected"])` through that same `onChange`, which does
       not make it absolute: it patched `costPrice.costPriceVatCorrected`, a
       sub-path on a plain number, and Sanity's patch engine had nothing
       sensible to do with that — thrown exception, document pane crashes,
