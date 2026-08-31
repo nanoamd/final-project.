@@ -20,6 +20,12 @@ export const skuAssignment = defineType({
       name: "product",
       type: "reference",
       to: [{ type: "product" }],
+      // Weak: a strong reference from this audit trail once blocked Damien
+      // from publishing a draft it had touched, because Sanity won't delete
+      // a document something still strongly references, and publishing a
+      // draft deletes it as part of that same transaction. A log should
+      // never be able to hold the thing it's logging hostage.
+      weak: true,
       validation: (rule) => rule.required(),
     }),
     // Denormalised so the log still reads if the product is later renamed or

@@ -141,7 +141,10 @@ async function main() {
 
     await client.create({
       _type: "priceAdjustment",
-      product: { _type: "reference", _ref: row._id },
+      // Weak: a strong reference from this audit trail can block Sanity
+      // from deleting a draft it points at, which is exactly what
+      // publishing a draft does. See sku-assignment.ts's schema comment.
+      product: { _type: "reference", _ref: row._id, _weak: true },
       productTitle: row.title,
       sku: row.sku,
       supplierSku: row.supplierSku,

@@ -142,7 +142,12 @@ async function main() {
     await client.patch(row._id).set({ sku }).commit();
     await client.create({
       _type: "skuAssignment",
-      product: { _type: "reference", _ref: row._id },
+      // Weak, deliberately: a strong reference here once blocked Damien
+      // from publishing a draft this had touched — Sanity refuses to delete
+      // a document something still strongly references, and publish deletes
+      // drafts.X as part of the same transaction. An audit trail should
+      // never be able to hold the thing it's auditing hostage.
+      product: { _type: "reference", _ref: row._id, _weak: true },
       productTitle: row.title,
       previousSku: row.sku ?? null,
       newSku: sku,

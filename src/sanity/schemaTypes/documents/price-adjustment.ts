@@ -26,6 +26,11 @@ export const priceAdjustment = defineType({
       name: "product",
       type: "reference",
       to: [{ type: "product" }],
+      // Weak, for the same reason skuAssignment's product reference is: a
+      // strong reference from an audit log can block Sanity from deleting
+      // the draft it points at, which is exactly what publishing a draft
+      // does as part of its own transaction. See sku-assignment.ts.
+      weak: true,
       validation: (rule) => rule.required(),
     }),
     // Denormalised so the log still reads if the product is later renamed,
