@@ -22,13 +22,19 @@
  * same ×1.2 would double-count the VAT. One script, one pass, no ambiguity
  * about what has already happened to a given product:
  *
- *   - `costPrice` — always corrected, on all 401, straightforwardly true
- *     for what it claims to be (the actual trade cost, VAT included). This
- *     is the same narrow departure from Damien's standing "never touch cost
+ *   - `costPrice` — corrected once per product, straightforwardly true for
+ *     what it claims to be (the actual trade cost, VAT included). This is
+ *     the same narrow departure from Damien's standing "never touch cost
  *     price" rule already agreed for this specific, confirmed case: that
  *     rule exists to stop cost being used as a margin lever, and this is
  *     the opposite — the stored number is factually wrong, and "cost price
- *     must remain truthful" is exactly what this corrects.
+ *     must remain truthful" is exactly what this corrects. **Guarded by
+ *     `costPriceVatCorrected`** — a product already flagged is skipped
+ *     entirely, so re-running this on the whole supplier (safe and correct
+ *     the first time) can never multiply an already-corrected cost by 1.2 a
+ *     second time. Caught exactly this near-miss dry-running a second pass
+ *     after "add drafts too" was asked for: without the flag, every already-
+ *     fixed published product would have been re-taxed.
  *   - `price` — only raised where the corrected cost pushes true margin
  *     below 17%, and only up to the minimum that clears 17% — never padded
  *     towards the 39% ceiling of the band Damien gave. A product already
@@ -82,15 +88,23 @@ interface Row {
 }
 
 async function main() {
+  // Drafts included on purpose — Damien: "they should also be done for
+  // unpublished products". A product waiting to be published still has a
+  // real supplier cost, and if it sits as a draft for a week the wrong
+  // number would otherwise go live the moment it's published.
+  //
+  // costPriceVatCorrected != true excludes anything this script (or the
+  // "Add supplier VAT" Studio button) has already fixed — see the note on
+  // the flag above. Without it, a second run re-taxes an already-true cost.
   const rows = await client.fetch<Row[]>(
-    `*[_type == "product" && !(_id in path("drafts.**")) && supplier->name == $supplier]{
+    `*[_type == "product" && supplier->name == $supplier && costPriceVatCorrected != true]{
       _id, title, sku, supplierSku, price, costPrice, compareAtPrice
     }`,
     { supplier: SUPPLIER },
   );
 
   console.log(
-    `\n${rows.length} ${SUPPLIER} products. ${apply ? "APPLYING" : "DRY RUN"}\n`,
+    `\n${rows.length} ${SUPPLIER} products not yet VAT-corrected. ${apply ? "APPLYING" : "DRY RUN"}\n`,
   );
 
   const results: {
@@ -159,7 +173,9 @@ async function main() {
 
     if (!apply) continue;
 
-    const patch = client.patch(row._id).set({ costPrice: trueCost });
+    const patch = client
+      .patch(row._id)
+      .set({ costPrice: trueCost, costPriceVatCorrected: true });
     if (raised) patch.set({ price: newPrice });
     if (staleCompareAt) patch.unset(["compareAtPrice"]);
     await patch.commit();

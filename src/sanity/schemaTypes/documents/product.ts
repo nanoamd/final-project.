@@ -125,7 +125,16 @@ export const product = defineType({
       type: "number",
       group: "commerce",
       description:
-        "Trade unit cost from the supplier. Not shown on the storefront — internal only.",
+        "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Premier Housewares invoice 20% on top of their trade list price: if you're copying a number straight off their price list, add 20% before typing it in here, or leave it as their list price and use the button below to add it for you. Not shown on the storefront — internal only.",
+    }),
+    defineField({
+      name: "costPriceVatCorrected",
+      title: "Cost price already includes supplier VAT",
+      type: "boolean",
+      group: "commerce",
+      hidden: true,
+      description:
+        "Set automatically by scripts/fix-premier-housewares-margins.ts once costPrice has had the supplier's VAT added. Stops a future run of that script adding the 20% a second time.",
     }),
     defineField({
       name: "shippingCost",
