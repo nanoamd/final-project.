@@ -16,6 +16,88 @@ Status key:
 
 ---
 
+## The six "not built" Kaiku HQ pages (31 August)
+
+Damien, with a screenshot of the admin sidebar's "Not built" list: _"build
+these and improve published product descriptions. we are so close to the
+next stage."_
+
+- [x] **Returns** (`/admin/returns`) — the queue behind the RLS comment on
+      the `returns` table itself, "a return's status is Kaiku's to set":
+      open/resolved tabs, and a status-move action (requested → approved →
+      awaiting item → received → refunded/replaced/rejected) that logs an
+      `order_events` row on every move. The storefront's own return-request
+      flow (`server/actions/returns.ts`) already wrote to this table and gave
+      an automatic accept/review/decline — nothing previously let anyone see
+      the queue or move a return past that first read.
+- [x] **Customers** (`/admin/customers` + `/[email]`) — list sorted by LTV,
+      detail page with orders and open tickets. Computed in application code
+      from `orders`/`tickets`/`subscribers` rather than the `v_customers` SQL
+      view the design doc names, because that view does not exist yet and
+      adding one means a migration only you can run in the Supabase
+      dashboard — not something to block this page on. GDPR export/erase and
+      the Emails tab are real work, not done here; noted below.
+- [x] **Suppliers** (`/admin/suppliers` + `/[id]`) — merges Sanity's
+      `supplier` documents (identity: name, contact, lead time) with
+      Supabase's `suppliers` table (operational: order method, terms,
+      dispatch SLA) by name, per docs/kaiku-hq-design.md §2.3. Products tab
+      is every Sanity product referencing the supplier with live margin,
+      sorted worst-first; Price history tab reads `supplier_price_events`. A
+      supplier with no Supabase row yet shows an "incomplete profile" prompt
+      with a one-click create, rather than being hidden. Orders and Emails
+      tabs need data the order snapshot and email log don't carry yet
+      (per-line supplier confirmation, a `supplier_id` on `email_log`) — not
+      built, not faked.
+- [x] **Tasks** (`/admin/tasks`) — Today/Upcoming/Done, a quick-add bar that
+      parses a trailing day name ("call Mercia about pallet damage friday")
+      into a due date, complete/reopen/snooze actions. A completed
+      order-linked task writes to that order's timeline.
+- [x] **Analytics** (`/admin/analytics`) — entirely `v_orders_flat`,
+      `v_daily_revenue`, `abandoned_checkouts`, exactly as the design doc
+      specified ("zero new infrastructure"). Period selector, revenue/GP/
+      margin/orders/AOV with deltas vs the prior period, products and
+      categories by revenue and by GP, abandoned-checkout recovery
+      scoreboard, new-vs-returning customers. One honest link to GA4 for
+      sessions/bounce/sources rather than a half-rebuilt clone, per the
+      design doc's own call.
+- [x] **SEO** (`/admin/seo`) — the Search Console band renders its connect
+      instructions rather than fake zeros (no service account exists yet);
+      the nightly-crawler band needs a `site_issues` table and a Vercel cron,
+      neither built this pass. What's real: every product's description
+      length, meta description, and image alt text, computed live against
+      Sanity — the same three gaps the description half of this request is
+      about, so this page doubles as that work's checklist.
+- [x] **Nav updated** — all six moved out of the sidebar's "Not built"
+      section into the real nav, with `g`-then-key shortcuts.
+- [-] **Product descriptions — not touched this pass.** This session's
+  sandbox came up as a fresh container with no `.env.local` and no
+  Sanity token — every script that reads or writes live product copy
+  needs `SANITY_API_WRITE_TOKEN`, which was not present. Building the six
+  pages needed no live data (verified with `tsc`, `eslint` and a full
+  `next build` instead, the same discipline as the cost-price-input
+  crash fix), but writing real descriptions does — I won't fabricate
+  product facts to fill the gap. Paste a Sanity write token in and I'll
+  pick this straight back up; per the standing rule on pasted secrets,
+  rotate it once I've used it.
+- [x] **Answered a live question about `/admin/products`, mid-build:**
+      Damien asked whether a screenshot of the readiness screen — Published
+      726, median Specificity 9.6, Unwritten drafts 13 — was accurate. Read
+      `src/lib/catalog/quality.ts`, `src/server/actions/product-quality.ts`
+      and the 20 August audit (`docs/catalogue-quality-audit.md`) rather
+      than guess: the tool and its numbers are internally consistent with
+      the code (tier counts are catalogue-wide, 43+691+898=1632=`All`;
+      medians are published-only, matching the "MEDIAN, PUBLISHED" label).
+      The one figure worth double-checking against reality rather than just
+      arithmetic: median Specificity was **1.5** on 20 August and this
+      screenshot shows **9.6** — a huge jump, plausible only because
+      published count nearly tripled (237 → 726) in the same window, so a
+      wave of newer, fact-denser Premier Housewares products could move the
+      median that far without anything old being rewritten. I said this
+      plainly rather than just confirming the screenshot — same reason: no
+      live Sanity access this session to check it against a fresh query.
+
+---
+
 ## A tiered margin floor for Premier Housewares — LIVE (31 August)
 
 Damien, after the first margin fix landed: _"for premier housewares
@@ -33,9 +115,9 @@ profitable"_.
       the £50+ tier — every product under £50 was already sitting at 17%+
       from the first pass, so the £4 rule had no candidates yet. Confirmed
       directly: Saronno Grey Marble Dining Table now reads `price: 2459,
-    costPrice: 1966.46` (20.0%, was 17.7%); 194 `priceAdjustment`
+  costPrice: 1966.46` (20.0%, was 17.7%); 194 `priceAdjustment`
       documents exist with `source ==
-    "scripts/raise-premier-housewares-tiered-margins.ts"`.
+  "scripts/raise-premier-housewares-tiered-margins.ts"`.
 - [x] **A floating-point edge case, caught and fixed the same pass.** Two
       products sitting exactly at 20% computed as 19.999...% and got
       "raised" to the price they already had — harmless (correctly
@@ -55,7 +137,7 @@ page: _"it crashes everytime i do it"_.
       that field's own bound path — `costPrice` — and every patch passed
       through it gets prefixed with that path as it bubbles up to the
       document. The first version passed `set(true,
-  ["costPriceVatCorrected"])` through that same `onChange`, which does
+["costPriceVatCorrected"])` through that same `onChange`, which does
       not make it absolute: it patched `costPrice.costPriceVatCorrected`, a
       sub-path on a plain number, and Sanity's patch engine had nothing
       sensible to do with that — thrown exception, document pane crashes,

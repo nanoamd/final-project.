@@ -37,28 +37,29 @@ const NAV_ITEMS: {
     | "/admin/inbox"
     | "/admin/newsletter"
     | "/admin/emails"
-    | "/admin/import";
+    | "/admin/import"
+    | "/admin/returns"
+    | "/admin/customers"
+    | "/admin/suppliers"
+    | "/admin/tasks"
+    | "/admin/analytics"
+    | "/admin/seo";
   /** Second key after `g`. */
   key: string;
 }[] = [
   { label: "Dashboard", href: "/admin", key: "d" },
   { label: "Orders", href: "/admin/orders", key: "o" },
+  { label: "Returns", href: "/admin/returns", key: "u" },
   { label: "Products", href: "/admin/products", key: "r" },
+  { label: "Customers", href: "/admin/customers", key: "c" },
+  { label: "Suppliers", href: "/admin/suppliers", key: "s" },
   { label: "Inbox", href: "/admin/inbox", key: "i" },
+  { label: "Tasks", href: "/admin/tasks", key: "t" },
+  { label: "Analytics", href: "/admin/analytics", key: "a" },
+  { label: "SEO", href: "/admin/seo", key: "q" },
   { label: "Emails", href: "/admin/emails", key: "e" },
   { label: "Newsletter", href: "/admin/newsletter", key: "n" },
   { label: "Import product", href: "/admin/import", key: "p" },
-];
-
-// Named so the shell shows the intended shape of Kaiku HQ (per
-// docs/kaiku-hq-design.md §4.1) without pretending unbuilt pages work.
-const UPCOMING_NAV_ITEMS = [
-  "Returns",
-  "Customers",
-  "Suppliers",
-  "Tasks",
-  "Analytics",
-  "SEO",
 ];
 
 const PALETTE_COMMANDS: PaletteCommand[] = [
@@ -205,22 +206,6 @@ export default async function AdminProtectedLayout({
               </Link>
             ))}
           </nav>
-
-          <div
-            className="mt-2 pt-2"
-            style={{ borderTop: "1px solid var(--hq-line-soft)" }}
-          >
-            <p className="hq-label px-3 pb-1">Not built</p>
-            {UPCOMING_NAV_ITEMS.map((label) => (
-              <div
-                key={label}
-                className="px-3 py-1 text-[12px]"
-                style={{ color: "var(--hq-faint)" }}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
 
           <div
             className="mt-auto flex flex-col gap-1 p-3"
