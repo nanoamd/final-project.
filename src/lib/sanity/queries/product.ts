@@ -236,12 +236,30 @@ function normalizeProducts(raw: RawProduct[]): SanityProduct[] {
 const PRODUCT_BY_SLUG_QUERY = /* groq */ `
 *[_type == "product" && slug.current == $slug][0] ${PRODUCT_PROJECTION}`;
 
+/**
+ * Damien: *"i also want alot of products o be organised nicely and be sat
+ * next to an appropriate product on the grid, it should look more
+ * organised"*. The grid was ordered `_createdAt desc` — the date each
+ * product happened to be added to Sanity, which has nothing to do with what
+ * it is. A lamp and its own colour variants could land anywhere in the row
+ * depending on which batch import touched them.
+ *
+ * There is no curated "display order" field on the product to sort by (the
+ * `sort=featured` option in `shop-query.ts` has always just meant "whatever
+ * order the query returned" — see the comment there). Short of building and
+ * maintaining that by hand across 667 products, `title asc` is the ordering
+ * the data already supports that reliably groups the right things: most
+ * product lines share a name across their finish/colour variants — Abira,
+ * Babylon, Carta, Hutchinson, Newton, Revive, Stockholm, Wyra — so
+ * alphabetical order sits every variant of the same piece next to each
+ * other, which is exactly "an appropriate product" beside it.
+ */
 const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
 *[_type == "product"
   && (category->slug.current == $categorySlug
       || $categorySlug in additionalCategories[]->slug.current)
   && (!defined($styleTag) || count(styleTags[lower(@) == lower($styleTag)]) > 0)]
-  | order(_createdAt desc)
+  | order(title asc)
   [$start...$end]
   ${PRODUCT_PROJECTION}`;
 

@@ -179,8 +179,10 @@ export function applyShopQuery<T extends ShopFacetable>(
       return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     case "featured":
     default:
-      // The order the query returned, which is Studio's display order. Not a
-      // no-op worth removing: it is the one sort that is editorially controlled.
+      // The order the query returned — `title asc` for a category grid, so
+      // finish/colour variants of the same piece already sit together. Not a
+      // no-op worth removing: this is where that ordering is preserved rather
+      // than being overwritten by a client-side re-sort.
       return filtered;
   }
 }
