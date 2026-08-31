@@ -1,0 +1,570 @@
+{
+  "countVisible": 732,
+  "note": "Published only — no write token this session, drafts invisible.",
+  "tierCounts": {
+    "GOLD": 22,
+    "SILVER": 609,
+    "REVIEW": 101
+  },
+  "medians": {
+    "accuracy": 10,
+    "usefulness": 10,
+    "humanQuality": 9.6,
+    "brandFit": 9.7,
+    "specificity": 9.7,
+    "seo": 10,
+    "commercial": 8,
+    "returnRisk": 9,
+    "readability": 10,
+    "aiRisk": 9.3
+  },
+  "artefactHits": {
+    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": [
+      {
+        "title": "Silver Heart Skeleton Wall Clock | Kaiku",
+        "slug": "silver-heart-skeleton-wall-clock"
+      },
+      {
+        "title": "Cayden Small Smoked Black And Silver Vase | Kaiku",
+        "slug": "cayden-small-smoked-black-and-silver-vase"
+      },
+      {
+        "title": "Lean-To Steel Pergola with Sliding Canopy, Dark Grey | Kaiku",
+        "slug": "lean-to-steel-pergola-with-moving-fabric-canopy-dark-grey"
+      },
+      {
+        "title": "5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey | Kaiku",
+        "slug": "outsunny-five-piece-aluminium-garden-sofa-set-with-glass-top-table-grey"
+      },
+      {
+        "title": "Rhombus Metal Privacy Screen with Stand, Black | Kaiku",
+        "slug": "rhombus-metal-privacy-screen-with-stand-black-or-kaiku"
+      },
+      {
+        "title": "Large Reclaimed Wood TV Stand with 2 Drawers & Open Shelving | Kaiku",
+        "slug": "large-reclaimed-wood-tv-stand-2-drawers"
+      },
+      {
+        "title": "Natural Teak Corner Shelf Unit – 3 Tier Display Stand 90cm | Kaiku",
+        "slug": "natural-teak-corner-shelf-unit-3-tier-90cm"
+      },
+      {
+        "title": "13.6m Warm White Decorative LED String Lights | Kaiku",
+        "slug": "13-6m-warm-white-decorative-led-string-lights"
+      }
+    ],
+    "Raw template syntax is visible in the copy.": [
+      {
+        "title": "Round Ceramic Lattice Hurricane Lantern | Kaiku",
+        "slug": "round-ceramic-lattice-hurricane-lantern"
+      },
+      {
+        "title": "Marble Effect Ellipse Large Vase | Kaiku",
+        "slug": "marble-effect-ellipse-large-vase"
+      },
+      {
+        "title": "Rothay Wall Clock | Kaiku",
+        "slug": "rothay-wall-clock"
+      },
+      {
+        "title": "Large Hammered Silver Astral Vase | Kaiku",
+        "slug": "large-hammered-silver-astral-vase"
+      },
+      {
+        "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue (30.5x22.5x2.3cm) | Kaiku",
+        "slug": "soft-squiggly-mirror-chunky-frame-royal-blue-30-5x22-5x2-3cm"
+      },
+      {
+        "title": "Delphine Collection Sliding Glass Dresser Top | Kaiku",
+        "slug": "delphine-collection-sliding-glass-dresser-top"
+      }
+    ],
+    "Publishes an internal value threshold. That rule is ours, not the customer's.": [
+      {
+        "title": "Celina Mirrored Wall Clock | Kaiku",
+        "slug": "celina-mirrored-wall-clock"
+      },
+      {
+        "title": "Himalayan Salt Cooking Plate - Square - 20x20x5cm | Kaiku",
+        "slug": "himalayan-salt-cooking-plate-square-20x20x5cm"
+      }
+    ],
+    "Markdown markup left in the text.": [
+      {
+        "title": "Williston Square Large Wooden Wall Clock | Kaiku",
+        "slug": "williston-square-large-wooden-wall-clock"
+      },
+      {
+        "title": "Yara Matt Black 12 Bulb Statement Pendant Light | Kaiku",
+        "slug": "yara-matt-black-12-bulb-statement-pendant-light"
+      },
+      {
+        "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+        "slug": "reclaimed-teak-sideboard-console-table-6-drawers"
+      },
+      {
+        "title": "Reclaimed Teak Console Table with 3 Drawers | Kaiku",
+        "slug": "reclaimed-teak-console-table-3-drawers"
+      },
+      {
+        "title": "Reclaimed Teak Dining Table 180cm | Kaiku",
+        "slug": "reclaimed-teak-dining-table-180cm"
+      },
+      {
+        "title": "Reclaimed Teak Six Shelf Display Unit with Castors | Kaiku",
+        "slug": "reclaimed-teak-six-shelf-display-unit-castors"
+      },
+      {
+        "title": "Small Reclaimed Teak Coffee Table | Kaiku",
+        "slug": "small-reclaimed-teak-coffee-table"
+      },
+      {
+        "title": "Small Recycled Teak TV Stand with 2 Drawers | Kaiku",
+        "slug": "small-recycled-teak-tv-stand-2-drawers"
+      }
+    ],
+    "The copy admits it does not know something instead of finding it out.": [
+      {
+        "title": "Thread and Loom 6 Piece Lilac Towel Set | Kaiku",
+        "slug": "thread-and-loom-6-piece-lilac-towel-set"
+      }
+    ],
+    "An HTML entity or tag is showing as literal text.": [
+      {
+        "title": "Rattan Solar Floor Lantern, Grey | Kaiku",
+        "slug": "rattan-solar-floor-lamp-tall-outdoor-garden-lantern-pathway-light-and-decorative-lighting-with"
+      },
+      {
+        "title": "Bedside Table - Classic - Recycled Wood | Kaiku",
+        "slug": "classic-recycled-wood-bedside-table"
+      }
+    ],
+    "Doubled spacing inside a sentence.": [
+      {
+        "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+        "slug": "reclaimed-teak-sideboard-console-table-6-drawers"
+      },
+      {
+        "title": "Reclaimed Teak Console Table with 3 Drawers | Kaiku",
+        "slug": "reclaimed-teak-console-table-3-drawers"
+      },
+      {
+        "title": "Reclaimed Teak Six Shelf Display Unit with Castors | Kaiku",
+        "slug": "reclaimed-teak-six-shelf-display-unit-castors"
+      },
+      {
+        "title": "Small Reclaimed Teak Coffee Table | Kaiku",
+        "slug": "small-reclaimed-teak-coffee-table"
+      },
+      {
+        "title": "Small Recycled Teak TV Stand with 2 Drawers | Kaiku",
+        "slug": "small-recycled-teak-tv-stand-2-drawers"
+      },
+      {
+        "title": "Round Reclaimed Teak Bedside Table with Drawer | Kaiku",
+        "slug": "round-reclaimed-teak-bedside-table-drawer"
+      },
+      {
+        "title": "Tall Reclaimed Teak Chest of 5 Drawers | Kaiku",
+        "slug": "tall-reclaimed-teak-chest-5-drawers"
+      },
+      {
+        "title": "Natural Wooden Beer Barrel Storage Stool | Kaiku",
+        "slug": "natural-wooden-beer-barrel-storage-stool"
+      }
+    ],
+    "Chatbot phrasing left in the copy.": [
+      {
+        "title": "Large Rustic Metal Hanging Bell | Kaiku",
+        "slug": "large-rustic-metal-hanging-bell"
+      }
+    ]
+  },
+  "sku": {
+    "canonical": 235,
+    "nonCanonical": 63,
+    "missing": 434,
+    "formatsSeen": {
+      "AAA-999-999A99AA": [
+        "AOS-831-804V70CW",
+        "AOS-836-068V02BK",
+        "AOS-836-410V00GY"
+      ],
+      "AAA-999-999AA": ["AOS-836-046WT", "AOS-836-263GY", "AOS-836-296CG"],
+      "AAA-999-999": ["AOS-842-135", "AOS-860-025", "AOS-860-053"],
+      "AAA-99A-999A99AA": [
+        "AOS-84C-441V00LG",
+        "AOS-84C-470V02CG",
+        "AOS-84C-470V02KK"
+      ],
+      "AAA-999-999A99": ["AOS-860-146V70"],
+      "AAA-A99-999": ["AOS-B30-005", "AOS-B30-006", "AOS-B31-087"],
+      "AAA-A99-999A99AA": [
+        "AOS-B30-068V00BK",
+        "AOS-B31-562V00GD",
+        "AOS-B31-562V00SR"
+      ],
+      "AAA-A99-A999": ["AOS-B30-P003", "AOS-B30-P011"],
+      "AA-AAAAAA-99": ["AW-WaterF-08"]
+    }
+  },
+  "worst30": [
+    {
+      "title": "Large Conical Ceramic Lattice Hurricane Lantern | Kaiku",
+      "slug": "large-conical-ceramic-lattice-hurricane-lantern",
+      "overall": 6.2,
+      "tier": "REVIEW",
+      "findings": [
+        "1157 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "13 filler phrases: effortlessly, seamlessly, perfect for, whether you, designed to enhance…",
+        "1157 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What can I do if my lantern arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Round Ceramic Lattice Hurricane Lantern | Kaiku",
+      "slug": "round-ceramic-lattice-hurricane-lantern",
+      "overall": 6.2,
+      "tier": "REVIEW",
+      "findings": [
+        "1116 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1116 words carrying 0 facts — length standing in for substance.",
+        "Raw template syntax is visible in the copy."
+      ]
+    },
+    {
+      "title": "Antique Etched foxed Wall Art Mirror | Kaiku",
+      "slug": "antique-etched-foxed-wall-art-mirror",
+      "overall": 6.2,
+      "tier": "REVIEW",
+      "findings": [
+        "905 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "12 filler phrases: effortlessly, seamlessly, timeless elegance, perfect for, whether you…",
+        "905 words carrying 0 facts — length standing in for substance.",
+        "2 FAQs answer nothing (e.g. \"What are the dimensions of the Antique Etched Foxed Wall Art\")."
+      ]
+    },
+    {
+      "title": "Garda Grey Glazed Chive Vase | Kaiku",
+      "slug": "garda-grey-glazed-chive-vase",
+      "overall": 6.2,
+      "tier": "REVIEW",
+      "findings": [
+        "1001 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "13 filler phrases: elevate your, effortlessly, seamlessly, whether you, adds a touch of…",
+        "1001 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if the vase arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Rhea Large Lighthouse Tealight Holder | Kaiku",
+      "slug": "rhea-large-lighthouse-tealight-holder",
+      "overall": 6.2,
+      "tier": "REVIEW",
+      "findings": [
+        "1147 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "13 filler phrases: effortlessly, seamlessly, perfect for, whether you, designed to enhance…",
+        "1147 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my tealight holder arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Downton Large Antique White Vase | Kaiku",
+      "slug": "downton-large-antique-white-vase",
+      "overall": 6.3,
+      "tier": "REVIEW",
+      "findings": [
+        "1218 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "12 filler phrases: effortlessly, seamlessly, timeless elegance, perfect for, whether you…",
+        "1218 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my vase arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Roza Panelled Wall Clock | Kaiku",
+      "slug": "roza-panelled-wall-clock",
+      "overall": 6.3,
+      "tier": "REVIEW",
+      "findings": [
+        "986 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "11 filler phrases: effortlessly, seamlessly, timeless elegance, perfect for, whether you…",
+        "986 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my Roza Clock arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Garda Emerald Glazed Liv Vase | Kaiku",
+      "slug": "garda-emerald-glazed-liv-vase",
+      "overall": 6.3,
+      "tier": "REVIEW",
+      "findings": [
+        "Only 1 concrete fact across 1146 words.",
+        "12 filler phrases: elevate your, effortlessly, seamlessly, whether you, adds a touch of…",
+        "1146 words carrying 1 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my vase arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Blue Agapanthus Plant In Pot | Kaiku",
+      "slug": "blue-agapanthus-plant-in-pot",
+      "overall": 6.3,
+      "tier": "REVIEW",
+      "findings": [
+        "1017 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: elevate your, elevate any, effortlessly, seamlessly, perfect for…",
+        "1017 words carrying 0 facts — length standing in for substance.",
+        "No dimensions recorded — the single most common pre-purchase question.",
+        "No dimensions — the most common cause of “not what I expected”."
+      ]
+    },
+    {
+      "title": "Large Grey Stone Effect Hurricane Lantern | Kaiku",
+      "slug": "large-grey-stone-effect-hurricane-lantern",
+      "overall": 6.3,
+      "tier": "REVIEW",
+      "findings": [
+        "1398 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "13 filler phrases: elevate your, effortlessly, seamlessly, timeless elegance, perfect for…",
+        "1398 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"Can I return a damaged item?\")."
+      ]
+    },
+    {
+      "title": "Glass Candle Holder | Kaiku",
+      "slug": "glass-candle-holder",
+      "overall": 6.4,
+      "tier": "REVIEW",
+      "findings": [
+        "1034 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "15 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1034 words carrying 0 facts — length standing in for substance."
+      ]
+    },
+    {
+      "title": "Tristan Mirror And Wood 4X6 Frame | Kaiku",
+      "slug": "tristan-mirror-and-wood-4x6-frame",
+      "overall": 6.4,
+      "tier": "REVIEW",
+      "findings": [
+        "910 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: effortlessly, seamlessly, perfect for, whether you, designed to enhance…",
+        "910 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my mirror arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Rothay Wall Clock | Kaiku",
+      "slug": "rothay-wall-clock",
+      "overall": 6.4,
+      "tier": "REVIEW",
+      "findings": [
+        "1079 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1079 words carrying 0 facts — length standing in for substance.",
+        "Raw template syntax is visible in the copy."
+      ]
+    },
+    {
+      "title": "Large Hammered Silver Astral Vase | Kaiku",
+      "slug": "large-hammered-silver-astral-vase",
+      "overall": 6.4,
+      "tier": "REVIEW",
+      "findings": [
+        "1351 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1351 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my vase arrives damaged?\").",
+        "Raw template syntax is visible in the copy."
+      ]
+    },
+    {
+      "title": "Garda Grey Glazed Gisela Vase | Kaiku",
+      "slug": "garda-grey-glazed-gisela-vase",
+      "overall": 6.4,
+      "tier": "REVIEW",
+      "findings": [
+        "1048 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "11 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1048 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my vase arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Set Of Three Wooden Lanterns With Archway Design | Kaiku",
+      "slug": "set-of-three-wooden-lanterns-with-archway-design",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "1228 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "14 filler phrases: elevate your, effortlessly, seamlessly, timeless elegance, transform your…",
+        "1228 words carrying 0 facts — length standing in for substance."
+      ]
+    },
+    {
+      "title": "Silver Heart Skeleton Wall Clock | Kaiku",
+      "slug": "silver-heart-skeleton-wall-clock",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "1023 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: elevate any, effortlessly, seamlessly, whether you, designed to enhance…",
+        "1023 words carrying 0 facts — length standing in for substance.",
+        "Quotes “the supplier” rather than stating the fact as Kaiku's own."
+      ]
+    },
+    {
+      "title": "Garda Glazed Gisela Vase | Kaiku",
+      "slug": "garda-glazed-gisela-vase",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "1101 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "12 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1101 words carrying 0 facts — length standing in for substance."
+      ]
+    },
+    {
+      "title": "Luxe Collection Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
+      "slug": "luxe-collection-natural-glow-s-2-ivory-led-dinner-candles",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "1035 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "12 filler phrases: elevate your, effortlessly, seamlessly, transform your, perfect for…",
+        "1035 words carrying 0 facts — length standing in for substance."
+      ]
+    },
+    {
+      "title": "Roco Wall Clock | Kaiku",
+      "slug": "roco-wall-clock",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "999 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "999 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my clock arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Williston Square Large Wooden Wall Clock | Kaiku",
+      "slug": "williston-square-large-wooden-wall-clock",
+      "overall": 6.5,
+      "tier": "REVIEW",
+      "findings": [
+        "1226 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: effortlessly, seamlessly, perfect for, whether you, statement piece…",
+        "1226 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if the clock arrives damaged?\").",
+        "Markdown markup left in the text."
+      ]
+    },
+    {
+      "title": "Marble Effect Pudding Vase | Kaiku",
+      "slug": "marble-effect-pudding-vase",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "1022 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: seamlessly, transform your, whether you, adds a touch of, touch of sophistication…",
+        "1022 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"Is there a risk of the vase breaking during delivery?\")."
+      ]
+    },
+    {
+      "title": "Bronze Skeleton Wall Clock | Kaiku",
+      "slug": "bronze-skeleton-wall-clock",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "1075 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: seamlessly, perfect for, whether you, designed to enhance, adds a touch of…",
+        "1075 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What happens if the clock arrives damaged or faulty?\")."
+      ]
+    },
+    {
+      "title": "Williston Grey Square Wall Clock | Kaiku",
+      "slug": "williston-grey-square-wall-clock",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "964 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: effortlessly, seamlessly, timeless elegance, perfect for, whether you…",
+        "964 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What to do if the clock is faulty upon delivery?\")."
+      ]
+    },
+    {
+      "title": "Garda Grey Glazed Juniper Vase | Kaiku",
+      "slug": "garda-grey-glazed-juniper-vase",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "1113 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: elevate your, effortlessly, seamlessly, beautifully crafted, perfect for…",
+        "1113 words carrying 0 facts — length standing in for substance.",
+        "Only 1 image — one angle invites a surprise."
+      ]
+    },
+    {
+      "title": "Silvra Hand Painted Canvas In Frame | Kaiku",
+      "slug": "silvra-hand-painted-canvas-in-frame",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "974 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: seamlessly, transform your, perfect for, statement piece, versatile addition…",
+        "974 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my canvas arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Multi Shelf Industrial Shelf Unit | Kaiku",
+      "slug": "multi-shelf-industrial-shelf-unit",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "934 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: effortlessly, seamlessly, transform your, perfect for, whether you…",
+        "934 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if my unit arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Light Up Bookcase | Kaiku",
+      "slug": "shop-display-light-up-bookcase",
+      "overall": 6.6,
+      "tier": "REVIEW",
+      "findings": [
+        "1018 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "9 filler phrases: seamlessly, perfect for, whether you, statement piece, must-have…",
+        "1018 words carrying 0 facts — length standing in for substance.",
+        "1 FAQ answer nothing (e.g. \"What if the bookcase arrives damaged?\")."
+      ]
+    },
+    {
+      "title": "Aged Stone Tall Ceramic Vase | Kaiku",
+      "slug": "aged-stone-tall-ceramic-vase",
+      "overall": 6.7,
+      "tier": "REVIEW",
+      "findings": [
+        "959 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "10 filler phrases: elevate your, seamlessly, timeless elegance, perfect for, designed to enhance…",
+        "959 words carrying 0 facts — length standing in for substance."
+      ]
+    },
+    {
+      "title": "Large Frosted Eucalyptus Candle Wreath | Kaiku",
+      "slug": "large-frosted-eucalyptus-candle-wreath",
+      "overall": 6.7,
+      "tier": "REVIEW",
+      "findings": [
+        "1055 words and not one measurement, material weight or capacity. A buyer learns nothing they could act on.",
+        "11 filler phrases: elevate your, effortlessly, seamlessly, perfect for, whether you…",
+        "1055 words carrying 0 facts — length standing in for substance."
+      ]
+    }
+  ]
+}

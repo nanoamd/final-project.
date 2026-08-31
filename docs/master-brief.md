@@ -16,6 +16,57 @@ Status key:
 
 ---
 
+## A real audit, published products only, and what it actually found (31 August)
+
+Damien, after seeing the &#39; literally rendered on a live draft's Short
+summary field: _"wow, audit all product descriptions, also make an sku for
+every single product and make it consistently formatted through all
+products."_
+
+- [x] **Ran the live scoring engine against every published product**, via
+      Sanity's public read API — no write token this session, so drafts are
+      invisible and not counted anywhere below, but this is a real query
+      against real data, not the readiness screen's cached numbers repeated
+      back. `scripts/audit-published-catalogue-readonly.ts`, output saved to
+      `docs/change-log/2026-08-31-published-catalogue-audit-readonly.json`.
+  - 732 published products. 22 GOLD, 609 SILVER, **101 REVIEW**.
+  - The dominant REVIEW-tier failure is one specific, fixable pattern: a
+    900–1400 word essay carrying zero measurements, materials or capacities
+    — length standing in for substance. Vases, wall clocks and lanterns
+    dominate this list (Garda Grey Glazed Chive Vase, Rothay Wall Clock,
+    Round Ceramic Lattice Hurricane Lantern, and ~25 more just like them).
+  - **The &#39; bug is real and not isolated.** Two published products
+    currently show a literal HTML entity in customer-facing copy (Rattan
+    Solar Floor Lantern, Grey; Bedside Table - Classic - Recycled Wood).
+    Six more have raw template syntax (`{`, `}`, `paragraphs:[`) visible on
+    the live page, eight leave markdown markup (`**`, list `*`) unrendered,
+    and eight have doubled spacing. All of these are mechanical corruption,
+    not content problems — no rewriting needed, just stripping the garbage.
+- [x] **SKU: counted honestly rather than assumed.** Of 732 published
+      products — **434 have no SKU at all**, 63 carry old formats (mostly
+      bare Aosom codes like `AOS-836-046WT`), and 235 already match the
+      canonical `KK-CT-ABBERLEY-BRN-001` format from `src/lib/catalog/sku.ts`.
+  - [x] **A script to fix this already exists and is ready to run:**
+        `scripts/assign-skus.ts`. It generates the canonical code from title +
+        category + colour, never rewrites a code that already conforms
+        (idempotent), assigns sequence numbers across the whole catalogue so
+        two products reducing to the same stem never collide, and logs every
+        change to a `skuAssignment` document. It just needs
+        `SANITY_API_WRITE_TOKEN` to run — this session has none.
+- [!] **Blocked on a Sanity write token to go further.** Reading published
+  copy needs no token; writing anything — new SKUs, stripped artefacts,
+  rewritten REVIEW-tier descriptions — does, and drafts (which the "434
+  missing SKU" and "101 REVIEW" counts don't even include yet) are
+  invisible without one. Paste one in and, in order: run
+  `assign-skus.ts --apply` (mechanical, safe, already built), strip the
+  literal artefacts (mechanical, no new copy needed), then start on the
+  REVIEW-tier rewrites (real writing work, the same standard as
+  `write-thin-descriptions.ts` — no invented facts, nothing sent
+  elsewhere, nothing admitting a gap). Per the standing rule on pasted
+  secrets: once used, rotate it.
+
+---
+
 ## The six "not built" Kaiku HQ pages (31 August)
 
 Damien, with a screenshot of the admin sidebar's "Not built" list: _"build
@@ -115,9 +166,9 @@ profitable"_.
       the £50+ tier — every product under £50 was already sitting at 17%+
       from the first pass, so the £4 rule had no candidates yet. Confirmed
       directly: Saronno Grey Marble Dining Table now reads `price: 2459,
-  costPrice: 1966.46` (20.0%, was 17.7%); 194 `priceAdjustment`
+costPrice: 1966.46` (20.0%, was 17.7%); 194 `priceAdjustment`
       documents exist with `source ==
-  "scripts/raise-premier-housewares-tiered-margins.ts"`.
+"scripts/raise-premier-housewares-tiered-margins.ts"`.
 - [x] **A floating-point edge case, caught and fixed the same pass.** Two
       products sitting exactly at 20% computed as 19.999...% and got
       "raised" to the price they already had — harmless (correctly
