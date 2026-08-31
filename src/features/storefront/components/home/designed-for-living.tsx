@@ -38,14 +38,14 @@ export function DesignedForLiving({
   ).split("\n");
 
   return (
-    <section className="bg-basalt border-b border-white/10">
+    <section className="bg-canvas border-line border-b">
       <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 lg:px-12 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
           <div>
             <p className="text-brass mb-4 text-[12px] font-medium tracking-[0.24em] uppercase">
               Designed for how you live
             </p>
-            <h2 className="text-canvas font-display text-4xl leading-[1.03] tracking-tight sm:text-[2.85rem]">
+            <h2 className="text-ink font-display text-4xl leading-[1.03] tracking-tight sm:text-[2.85rem]">
               {headlineLines.map((line, i) => (
                 <span key={i}>
                   {line}
@@ -53,7 +53,7 @@ export function DesignedForLiving({
                 </span>
               ))}
             </h2>
-            <p className="text-canvas/60 mt-5 text-[15px] leading-relaxed">
+            <p className="text-muted mt-5 text-[15px] leading-relaxed">
               Built to last a lifetime.
             </p>
             <AppLink
@@ -68,7 +68,7 @@ export function DesignedForLiving({
             {list.map((card) => (
               <div
                 key={card.title}
-                className="relative aspect-square overflow-hidden rounded-lg border border-white/8 sm:aspect-[4/5] sm:rounded-xl"
+                className="border-line relative aspect-square overflow-hidden rounded-lg border sm:aspect-[4/5] sm:rounded-xl"
               >
                 {card.image ? (
                   <Image

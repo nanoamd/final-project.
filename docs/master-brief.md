@@ -16,6 +16,40 @@ Status key:
 
 ---
 
+## The banner that could disappear, and three section colours swapped (31 August)
+
+Damien: _"i also dont want that banner to dissapear which it does, also
+sometimes the top shop banner changes colour, i like it grey. idk why it
+changes colour but should be kept grey"_ — then, separately, on three
+homepage screenshots: _"i also want to swap the background colours for these,
+the sauna should have a white background and categories should be black, the
+last image should be white too"_.
+
+- [x] **The top banner can no longer be dismissed.** `PromoBanner` closed
+      itself into `localStorage` on the X click and never came back for that
+      visitor — the same "everyone who works on the shop is permanently blind
+      to it" problem fixed once already for the copy itself (see 29 August,
+      "invisible banner"). It just quietly reintroduced itself with a new
+      cause. The X button and all dismissal state are removed; the banner is
+      now unconditional. **No code path changed its colour** — `bg-brass`
+      (the burnt-orange accent) was the only value it has ever had, in every
+      commit back to the file's creation — so whatever Damien saw was not
+      this component choosing a different colour on its own. It now renders
+      a fixed `bg-stone` (the design system's "soft grey" token) so there is
+      one colour, permanently, regardless of cause.
+- [x] **Three homepage sections had their background swapped**, code only,
+      no Sanity write involved: the flagship/curated product spotlight
+      (the sauna in the screenshot) from the near-black ground to the light
+      `bg-canvas` panel; **Shop by Category** from `bg-canvas` back to the
+      near-black ground (this reverses a deliberate choice made earlier in
+      the project — the code comment argued white "reads as a shop rather
+      than a mood film" for the first commercial section on the page — noted
+      in case it matters later, but Damien's instruction is explicit and
+      current); and **Designed for how you live** ("Timeless pieces.
+      Beautiful spaces.") from near-black to `bg-canvas`. Verified with a
+      Playwright screenshot of the running dev server, not just by reading
+      the classNames.
+
 ## Search Console: two separate reports, and what each one actually means (29 August)
 
 Damien sent three Search Console screenshots: a validation failure on Product

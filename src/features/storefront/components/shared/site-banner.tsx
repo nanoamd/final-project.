@@ -9,14 +9,10 @@ import { PromoBanner } from "@/components/shared/promo-banner";
  * has been burned by before (see the email catalogue's own history). This
  * exists so there is one string to change, not two to remember to change
  * together.
- *
- * The `id` passed to `PromoBanner` must change whenever the text below does,
- * or a dismissal from the previous message hides this one too — see
- * `promo-banner.tsx` for why.
  */
 export function SiteBanner() {
   return (
-    <PromoBanner id="most-helpful-2026-08">
+    <PromoBanner>
       The UK&rsquo;s most helpful home store
       <span className="hidden sm:inline">
         {" "}

@@ -36,22 +36,20 @@ const DEFAULT_TILES: CategoryTile[] = [
 ];
 
 /**
- * Shop by Category — a horizontally scrolling rail of photographic tiles on a
- * white panel.
+ * Shop by Category — a horizontally scrolling rail of photographic tiles on
+ * the near-black ground.
  *
- * Two deliberate departures from what this was.
+ * It was a grid before this: three columns on mobile, six on desktop. A grid has
+ * to fit, so every tile shrank to fit the row — on a phone that meant thumbnails
+ * with a two-line clamped label, and adding a category made every tile smaller
+ * again. A rail sizes tiles for legibility and lets the row run off the edge,
+ * which is also how every shopping app people already use behaves. It scrolls on
+ * desktop too, so the range can grow past six without redesigning the section.
  *
- * It was a grid: three columns on mobile, six on desktop. A grid has to fit, so
- * every tile shrank to fit the row — on a phone that meant thumbnails with a
- * two-line clamped label, and adding a category made every tile smaller again. A
- * rail sizes tiles for legibility and lets the row run off the edge, which is also
- * how every shopping app people already use behaves. It scrolls on desktop too, so
- * the range can grow past six without redesigning the section.
- *
- * And it was on the near-black ground. Dark is right for the hero and for editorial
- * bands, but this is the first commercial act on the page — the moment someone picks
- * where to shop — and white reads as a shop rather than a mood film. It also sets up
- * the New & Noteworthy rail directly beneath it as one clean panel.
+ * It briefly sat on a white panel — the reasoning being that the first
+ * commercial act on the page should read as a shop rather than a mood film —
+ * but Damien wanted it back on black to match the hero and the rest of the
+ * dark bands either side of it.
  */
 export async function ShopByCategory({
   eyebrow,
@@ -89,7 +87,7 @@ export async function ShopByCategory({
   ];
 
   return (
-    <section className="bg-canvas text-ink border-line border-y">
+    <section className="bg-basalt text-canvas border-y border-white/10">
       <div className="mx-auto max-w-[1440px] px-6 pt-10 pb-4 sm:px-8 lg:px-12 lg:pt-16">
         <div className="mb-6 flex items-end justify-between gap-6">
           <div>
@@ -105,7 +103,7 @@ export async function ShopByCategory({
           </div>
           <AppLink
             href="/shop"
-            className="text-muted hover:text-ink flex shrink-0 items-center gap-2 text-[11px] font-medium tracking-[0.16em] uppercase transition-colors"
+            className="text-canvas/60 hover:text-canvas flex shrink-0 items-center gap-2 text-[11px] font-medium tracking-[0.16em] uppercase transition-colors"
           >
             View All <span aria-hidden>→</span>
           </AppLink>
@@ -137,7 +135,7 @@ export async function ShopByCategory({
                 href={`/shop/${tile.categorySlug}`}
                 className="group block"
               >
-                <div className="border-line bg-paper relative aspect-[4/5] overflow-hidden rounded-lg border">
+                <div className="bg-basalt-card relative aspect-[4/5] overflow-hidden rounded-lg border border-white/10">
                   {tile.image ? (
                     <Image
                       src={tile.image}
@@ -147,7 +145,7 @@ export async function ShopByCategory({
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   ) : (
-                    <div className="bg-paper absolute inset-0 flex items-center justify-center">
+                    <div className="bg-basalt-card absolute inset-0 flex items-center justify-center">
                       <Flame
                         className="text-brass/50 size-7"
                         strokeWidth={1.2}
@@ -160,7 +158,7 @@ export async function ShopByCategory({
                     there is no gradient scrim to read against, and a caption
                     under a photograph is the editorial convention this is
                     reaching for. */}
-                <p className="text-ink group-hover:text-brass mt-3 text-[13px] leading-snug font-medium transition-colors sm:text-[15px]">
+                <p className="text-canvas group-hover:text-brass mt-3 text-[13px] leading-snug font-medium transition-colors sm:text-[15px]">
                   {tile.categoryName}
                 </p>
               </AppLink>
