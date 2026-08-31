@@ -134,7 +134,7 @@ async function main() {
 
   console.log("\nMEDIAN SCORE PER DIMENSION (published):");
   for (const d of DIMENSIONS)
-    console.log(`  ${d.padEnd(14)} ${medians[d].toFixed(1)}`);
+    console.log(`  ${d.padEnd(14)} ${medians[d]!.toFixed(1)}`);
 
   console.log(
     "\nARTEFACTS FOUND LIVE (HTML entities, markdown left in, etc.):",
