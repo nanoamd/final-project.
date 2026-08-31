@@ -1,4 +1,4 @@
-import { ChevronDown, LayoutGrid, type LucideIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -8,7 +8,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { CategoryAccordion } from "@/features/storefront/components/category/category-accordion";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { formatPrice } from "@/lib/format";
-import { resolveIcon } from "@/lib/icons";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import {
   getCategories,
@@ -17,7 +16,6 @@ import {
   getHomepage,
   getProduct,
   getProductsByCategory,
-  getTotalProductCount,
 } from "@/lib/sanity/queries";
 import type {
   SanityCategory,
@@ -42,13 +40,11 @@ export async function CollectionIndex({
   roomSlug?: string;
   styleTag?: string;
 }) {
-  const [allCategories, totalProducts, departments, homepage] =
-    await Promise.all([
-      getCategories(),
-      getTotalProductCount(),
-      roomSlug ? getDepartments() : Promise.resolve([]),
-      getHomepage(),
-    ]);
+  const [allCategories, departments, homepage] = await Promise.all([
+    getCategories(),
+    roomSlug ? getDepartments() : Promise.resolve([]),
+    getHomepage(),
+  ]);
   const productOfTheWeek = homepage?.curatedFeaturedProductSlug
     ? await getProduct(homepage.curatedFeaturedProductSlug)
     : null;
@@ -79,13 +75,7 @@ export async function CollectionIndex({
 
       <div className="mx-auto max-w-[1440px] px-6 pb-16 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[248px_1fr] lg:gap-12">
-          <Sidebar
-            categories={categories}
-            totalProducts={totalProducts}
-            activeSlug={active?.slug}
-            allHref={allHref}
-            productOfTheWeek={productOfTheWeek}
-          />
+          <Sidebar productOfTheWeek={productOfTheWeek} />
 
           <div>
             <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
@@ -290,94 +280,26 @@ function CollectionHero({
   );
 }
 
+/**
+ * Damien: the category list here "doesnt need to be there and can be
+ * replaced with this" (the Design Studio card) — removed rather than
+ * replaced, since `GardenStudioCard` already sat right below it. The
+ * category browsing it did is still reachable via the room's tile grid
+ * above (`CategoryAccordion`) and the header's own category nav.
+ */
 function Sidebar({
-  categories,
-  totalProducts,
-  activeSlug,
-  allHref,
   productOfTheWeek,
 }: {
-  categories: SanityCategory[];
-  totalProducts: number;
-  activeSlug?: string;
-  allHref: string;
   productOfTheWeek?: SanityProduct | null;
 }) {
-  const allActive = !activeSlug;
   return (
     <aside className="hidden flex-col gap-8 py-8 lg:flex">
-      <div>
-        <p className="text-canvas/45 mb-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
-          Browse Categories
-        </p>
-        <ul className="flex flex-col">
-          <SidebarLink
-            href={allHref}
-            icon={LayoutGrid}
-            label="All Collections"
-            count={totalProducts}
-            active={allActive}
-          />
-          {categories.map((category) => (
-            <SidebarLink
-              key={category.slug}
-              href={`/shop/${category.slug}`}
-              icon={resolveIcon(category.iconName)}
-              label={category.name}
-              count={category.productCount}
-              active={category.slug === activeSlug}
-            />
-          ))}
-        </ul>
-      </div>
-
       {productOfTheWeek?.image ? (
         <ProductOfTheWeekCard product={productOfTheWeek} />
       ) : null}
 
       <GardenStudioCard />
     </aside>
-  );
-}
-
-function SidebarLink({
-  href,
-  icon: Icon,
-  label,
-  count,
-  active,
-}: {
-  href: string;
-  icon: LucideIcon;
-  label: string;
-  count?: number;
-  active?: boolean;
-}) {
-  return (
-    <li>
-      <AppLink
-        href={href}
-        className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] transition-colors ${
-          active
-            ? "bg-brass/10 text-brass"
-            : "text-canvas/70 hover:text-canvas hover:bg-white/5"
-        }`}
-      >
-        <Icon
-          className={`size-[18px] shrink-0 ${active ? "text-brass" : "text-canvas/45 group-hover:text-canvas/70"}`}
-          strokeWidth={1.5}
-          aria-hidden
-        />
-        <span className="flex-1">{label}</span>
-        {typeof count === "number" ? (
-          <span
-            className={`text-[12px] tabular-nums ${active ? "text-brass/80" : "text-canvas/35"}`}
-          >
-            {count}
-          </span>
-        ) : null}
-      </AppLink>
-    </li>
   );
 }
 
