@@ -16,6 +16,44 @@ Status key:
 
 ---
 
+## Premier Housewares cost prices were missing 20% VAT (31 August)
+
+Damien, on a screenshot of a Premier Housewares order summary showing 20%
+tax added on top of the trade subtotal: _"i think ive messed up my prices
+for premier housewares products, i forgot about tax, i have hundreds of
+products listed from them"_.
+
+- [x] **Confirmed and quantified against live data before touching anything.**
+      Kaiku is not VAT-registered (`siteConfig.vatRegistered === false`), so
+      the 20% Premier Housewares charges is not reclaimable — it is a real
+      cost that was never in the stored `costPrice` for any of their 401
+      products. Assumed margin across the range (cost with no VAT): £40,061.
+      True margin (cost + 20%): £21,064. **Seven products are currently sold
+      at an outright loss** once the real cost is used (worst: Java Natural
+      Rattan Round Chair, -7.2%; Ulmus Grey Elm Wood 4 Tier Bookshelf, -3.6%).
+- [x] **`fix-premier-housewares-vat-costs.ts`** — corrects `costPrice` on all
+      401 Premier Housewares products to include the 20% VAT actually
+      charged. Only ever touches `costPrice`, never `price`. This is a
+      deliberate, narrow departure from the standing rule behind
+      `audit-and-fix-margins.ts` — Damien's own words there: _"I would not
+      tell Claude to alter the cost price... tell it to adjust the retail
+      selling price when necessary"_ — because that rule exists to stop cost
+      price being used as a lever to manufacture a target margin. This is
+      the opposite case: the stored number is factually wrong for what it
+      claims to be, and "cost price must remain truthful" is exactly what
+      this corrects. Confirmed explicitly with Damien before writing it.
+      Dry run clean across all 401. **Needs the write token.**
+- [x] **`premier-housewares-margin-review.ts`** — read-only, no write
+      involved. Lists only the products below the 20% margin floor (the
+      same "caution" threshold Studio's own margin display already uses,
+      not a new number) once the true cost is used: **193 of 401** — the
+      loss-making and the too-thin-to-be-worth-selling, not the whole
+      range, per Damien: _"only add it to the list if its a loss or not
+      making enough money to be worth selling"_. Written to
+      `docs/change-log/2026-08-31-premier-housewares-margin-review.csv` for
+      Damien to decide retail prices from — no repricing proposal made or
+      applied; that is explicitly his call.
+
 ## Categorisation, re-audited against live data (31 August)
 
 Damien: _"we also need to sort out the cross categorising of products
