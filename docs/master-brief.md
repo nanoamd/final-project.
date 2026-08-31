@@ -16,6 +16,67 @@ Status key:
 
 ---
 
+## Categorisation, re-audited against live data (31 August)
+
+Damien: _"we also need to sort out the cross categorising of products
+because alot of products are in the wrong places and alot of products
+should be in multiple categories but alot of categories feel empty when i
+know they shouldnt be"_.
+
+The honest headline: **most of this is already fixed and live.** Checking
+every claim against the current Sanity data (not against what a script
+says it would do) before writing anything new turned up more already-done
+work than new work.
+
+- [x] **The "empty categories" problem is largely solved already.**
+      `fill-empty-categories.ts` — written and applied in an earlier
+      session — filled Bedroom Mirrors, Bedroom/Living Room/Office Lighting,
+      Office/Kitchen Storage, and Kitchen/Office Shelving from real stock
+      already in the catalogue (a table lamp genuinely is a bedroom, living
+      room and office light). Re-ran it dry against live data: every one of
+      those eight now reports "already holds N, left alone" — confirmed
+      live, not just committed. **Three categories are still genuinely
+      empty because there is no matching product in the catalogue at all** —
+      Bathroom Lighting, Rugs, Towel Rails — checked by searching every
+      live title and summary for "rug", "towel rail" and "bathroom light"
+      and finding nothing real. That is a buying gap, not a tagging one; no
+      amount of cross-listing invents stock that doesn't exist.
+- [x] **Caught a false alarm before it became a regression.** A fresh
+      keyword scan flagged Tristan Mirror And Wood 4X6/5X7 Frame as
+      wrongly filed under Wall Art instead of Mirrors. Checking history
+      first rather than acting on the scan: they were moved from Mirrors to
+      Wall Art deliberately, verified live, because they are photo frames
+      with a mirrored border, not mirrors — the generic AI-written summary
+      ("this beautiful mirror adds depth and light...") oversells the trim
+      as the product's function, which is exactly the kind of templated
+      copy Damien has flagged before. Left alone.
+- [x] **`cross-list-planters-and-kitchen-lighting.ts` — 8 real, new
+      additions**, each evidenced by the product's own title or summary,
+      found only after confirming they were not already covered by an
+      earlier pass (several near-identical candidates — the three sofa beds
+      into Beds, three reclaimed-teak coffee tables into Coffee Tables —
+      turned out to be live already): - Lenno Large Gold Pendant Light and Wyra Black Finish Frame Pendant
+      Light → **Kitchen Lighting**. `fill-empty-categories.ts` refused this
+      category outright on the grounds that "there are no pendants... in
+      the catalogue" — no longer true, and both summaries name a kitchen
+      specifically rather than reciting the generic every-room list. - Three-Head Solar Lamp Post, Solar Lamp Post Light, and the Four-Tier
+      Rustic Pot Fountain (all "**with Planter**" in their own titles) →
+      **Planters**. - Two Rattan Solar Floor Lanterns and the 1.77m Solar Bollard Lantern
+      (lanterns by name) → **Candles & Lanterns**.
+      Additive only, dry run clean. **Needs the write token.**
+- [-] **Not touching outdoor rattan coffee/side tables or garden sofa sets
+  into the indoor Coffee Tables/Side Tables/Sofas categories.** A keyword
+  scan raised these (Mataram, Depok, Trento rattan tables; the Rowan,
+  Opus and several rattan/aluminium garden sofa sets), and they are
+  real matches on the noun, but cross-listing an outdoor rattan table
+  into the indoor grid a shopper browsing Coffee Tables expects is a
+  judgement call about the shopping experience, not a fact I can check
+  against the product's own copy. Flagging for you rather than guessing.
+- [x] **The category grid itself was re-ordered the same day** (see below,
+      the banner entry's neighbour) — `title asc` instead of upload order, so
+      cross-listed products land next to the right neighbours once they're
+      live rather than scattered by when they were imported.
+
 ## The banner that could disappear, and three section colours swapped (31 August)
 
 Damien: _"i also dont want that banner to dissapear which it does, also
