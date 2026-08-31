@@ -1,0 +1,10 @@
+{
+  "applied": true,
+  "note": "Two runs: first got 603 of 1084 before a transient 502 from the network, idempotent re-run finished the rest. Verified live afterwards: 0 of 1630 products missing a SKU, 1630 of 1630 canonical.",
+  "finalRunTotals": {
+    "assigned": 766,
+    "rewritten": 144,
+    "alreadyCanonical": 720
+  },
+  "verifiedLive": { "missingSku": 0, "totalProducts": 1630 }
+}

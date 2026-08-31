@@ -53,17 +53,49 @@ products."_
         two products reducing to the same stem never collide, and logs every
         change to a `skuAssignment` document. It just needs
         `SANITY_API_WRITE_TOKEN` to run — this session has none.
-- [!] **Blocked on a Sanity write token to go further.** Reading published
-  copy needs no token; writing anything — new SKUs, stripped artefacts,
-  rewritten REVIEW-tier descriptions — does, and drafts (which the "434
-  missing SKU" and "101 REVIEW" counts don't even include yet) are
-  invisible without one. Paste one in and, in order: run
-  `assign-skus.ts --apply` (mechanical, safe, already built), strip the
-  literal artefacts (mechanical, no new copy needed), then start on the
-  REVIEW-tier rewrites (real writing work, the same standard as
-  `write-thin-descriptions.ts` — no invented facts, nothing sent
-  elsewhere, nothing admitting a gap). Per the standing rule on pasted
-  secrets: once used, rotate it.
+- [x] **Unblocked and applied, same day.** Damien confirmed he'd already
+      pasted a write token earlier in this conversation — it just hadn't
+      carried into this fresh container. Wired it back in (`.env.local`,
+      gitignored, never committed) and ran all three in order.
+
+---
+
+## SKUs and artefacts, applied and verified live (31 August)
+
+- [x] **`assign-skus.ts --apply` — every product in the catalogue now has a
+      canonical SKU.** Two runs: the first got 603 of 1084 changes done
+      before a transient 502 from the network; the script is idempotent
+      (never rewrites an already-canonical code), so re-running it picked up
+      exactly where it left off rather than risking a double-apply. Verified
+      live afterwards with a fresh count, not the script's own printout:
+      **0 of 1630 products missing a SKU.** 766 assigned fresh, 144
+      rewritten from an old format, 720 already canonical.
+- [x] **`fix-html-entity-artefacts.ts --apply`** — 14 products fixed
+      (decoded HTML entities, collapsed doubled spacing), including the
+      exact `&#39;` Damien spotted live on the Rattan Solar Floor Lantern.
+      Spot-checked directly against Sanity afterwards: clean.
+- [x] **`fix-content-artefacts.ts --apply`** — 25 products fixed (leaked
+      JSON scaffolding, "the supplier does not specify" hedging, the
+      internal £50 delivery-tier rule leaking into two FAQs, one stray
+      "Certainly!"). Re-queried all 25 directly against Sanity after
+      applying, not trusting the script's own log — **24 confirmed clean and
+      durable.**
+- [!] **One exception, found by that same re-check, not by trusting the
+  log.** "13.6m Warm White Decorative LED String Lights" had its
+  description _and_ summary entirely rewritten by something else —
+  Damien editing it, or an AI tool regenerating it — in the few minutes
+  after this fix landed. My fix was correctly applied to the copy that
+  existed at the time; the new copy that replaced it afterwards
+  re-leaks "Hill Interiors" in a fresh sentence this fix never touched.
+  Not a failed fix — a new instance of the same problem, in content
+  generated after the fact. Left alone rather than fight a live edit in
+  progress. Needs a follow-up pass once that product's copy has settled
+  — worth checking whether whatever regenerated it is something you're
+  running deliberately, since if so the same leak may recur on other
+  products it touches.
+- [ ] **REVIEW-tier rewrites (101+ products, essays with zero facts) —
+      not started.** Real writing work, one product at a time, same
+      standard as `write-thin-descriptions.ts`. Next up.
 
 ---
 

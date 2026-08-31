@@ -1,0 +1,6 @@
+{
+  "applied": true,
+  "productsTouched": 25,
+  "fieldsTouched": 25,
+  "verifiedLive": "Re-queried all 25 products directly against Sanity after applying — 24 confirmed clean and durable. One exception: '13.6m Warm White Decorative LED String Lights' had its description AND summary entirely rewritten by something else (Damien editing, or an AI tool) in the minutes after this fix landed — the new copy re-leaks 'Hill Interiors' in a fresh sentence my fix never touched. Not a failure of this fix; a new instance of the same problem in content generated afterwards. Left alone rather than fought with a live edit in progress — needs a follow-up pass once that product's copy has settled."
+}
