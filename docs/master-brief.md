@@ -16,6 +16,38 @@ Status key:
 
 ---
 
+## The VAT button was crashing the whole Studio (31 August)
+
+Damien, on a screenshot of Sanity's own "The structure tool crashed" error
+page: _"it crashes everytime i do it"_.
+
+- [x] **Root cause: `CostPriceInput` patched a sibling field through the
+      wrong channel.** `props.onChange` on a field-level input is scoped to
+      that field's own bound path — `costPrice` — and every patch passed
+      through it gets prefixed with that path as it bubbles up to the
+      document. The first version passed `set(true,
+    ["costPriceVatCorrected"])` through that same `onChange`, which does
+      not make it absolute: it patched `costPrice.costPriceVatCorrected`, a
+      sub-path on a plain number, and Sanity's patch engine had nothing
+      sensible to do with that — thrown exception, document pane crashes,
+      takes the whole Structure tool down with it since the pane is its
+      child. This is exactly what a browser console would have caught in
+      five seconds; the sandbox's inability to reach Sanity's API from a
+      real browser (see the earlier entry on the button's own build) meant
+      it shipped without that check.
+- [x] **Fixed: two separate writes.** The cost price value itself still
+      goes through `onChange` (safe — it's this field's own path). The
+      sibling flag now goes through a direct client patch instead
+      (`useClient` + `.patch(id).set(...)`), which needs its own path
+      resolution rather than borrowing the field's. Confirmed this doesn't
+      change how it behaves for Damien: Sanity is already continuously
+      autosaving the draft as he types, so a second field committing by a
+      slightly different route is invisible in practice — only the
+      plumbing changed, not the button's behaviour.
+      **Still not visually verified live**, same sandbox limitation as
+      before. Type-checks and lints clean against the actual installed
+      Sanity API.
+
 ## The VAT backfill wrongly flagged 17 brand-new drafts (31 August)
 
 Damien: _"youve done it again i cant add vat because it thinks its already

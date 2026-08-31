@@ -1,6 +1,12 @@
 import { Button, Flex } from "@sanity/ui";
 import { useCallback } from "react";
-import { type NumberInputProps, PatchEvent, set, useFormValue } from "sanity";
+import {
+  type NumberInputProps,
+  PatchEvent,
+  set,
+  useClient,
+  useFormValue,
+} from "sanity";
 
 const VAT_RATE = 0.2;
 
@@ -15,23 +21,39 @@ const VAT_RATE = 0.2;
  * where that 20% belongs — on the field itself, one click, no trip to their
  * checkout to read a tax line.
  *
- * `costPriceVatCorrected` is set in the same patch as the new cost price,
- * so a click here is one undoable, reviewable pending edit like any other
- * field change — nothing commits until Damien publishes — and the flag
- * means a later batch run of `fix-premier-housewares-margins.ts` can never
- * multiply this cost by 1.2 a second time.
+ * **Two different writes, on purpose, after the first version of this
+ * crashed the whole Studio.** `props.onChange` is scoped to the field it
+ * belongs to — this input's own bound path, `costPrice` — and any patch
+ * passed through it is prefixed with that path as it bubbles up. The first
+ * version tried to also set the sibling `costPriceVatCorrected` flag
+ * through that same channel with an explicit path, which doesn't escape the
+ * prefixing: it patched `costPrice.costPriceVatCorrected`, a sub-path on a
+ * plain number, and the engine had no way to apply that. Damien: *"it
+ * crashes everytime i do it"*. The flag is a genuine sibling field, so it
+ * gets its own client patch instead — still lands on the same draft Sanity
+ * is already continuously autosaving as you type, so nothing about how
+ * this behaves for Damien actually changes; only the plumbing does.
  */
 export function CostPriceInput(props: NumberInputProps) {
   const { onChange, value } = props;
   const alreadyCorrected = useFormValue(["costPriceVatCorrected"]) === true;
+  const documentId = useFormValue(["_id"]) as string | undefined;
+  const client = useClient({ apiVersion: "2025-01-01" });
 
   const addVat = useCallback(() => {
-    if (typeof value !== "number") return;
+    if (typeof value !== "number" || !documentId) return;
     const corrected = +(value * (1 + VAT_RATE)).toFixed(2);
-    onChange(
-      PatchEvent.from([set(corrected), set(true, ["costPriceVatCorrected"])]),
-    );
-  }, [value, onChange]);
+    onChange(PatchEvent.from(set(corrected)));
+    client
+      .patch(documentId)
+      .set({ costPriceVatCorrected: true })
+      .commit({ visibility: "async" })
+      .catch(() => {
+        // The number itself already updated via onChange either way; the
+        // flag is bookkeeping for a future batch script, not something
+        // Damien needs a dialog for if this one write is ever flaky.
+      });
+  }, [value, documentId, onChange, client]);
 
   return (
     <Flex align="center" gap={2}>
