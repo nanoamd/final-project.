@@ -1,13 +1,19 @@
 /**
- * One-time backfill: marks every Premier Housewares product already
- * corrected by `fix-premier-housewares-margins.ts` (applied 31 August,
- * before `costPriceVatCorrected` existed) as corrected, so the guard added
- * to that script afterwards actually takes effect.
+ * One-time backfill, already run: marked every Premier Housewares product
+ * already corrected by `fix-premier-housewares-margins.ts` (applied
+ * 31 August, before `costPriceVatCorrected` existed) as corrected, so the
+ * guard added to that script afterwards actually takes effect.
  *
- * **Sets `costPriceVatCorrected` only — never touches `costPrice` or
- * `price`.** Deliberately separate from the main script so there is no way
- * for this run to also reapply the ×1.2. Safe to re-run: skips anything
- * already flagged.
+ * **Do not re-run this.** Its whole premise — "a Premier Housewares product
+ * with a cost price already went through the fix" — is only true for
+ * products that existed before it ran. Damien was creating new draft
+ * products at the same time (typing a fresh, un-corrected supplier price
+ * straight in), and this flagged 17 of them as done before he ever added
+ * VAT: *"youve done it again i cant add vat because it thinks its already
+ * been added"*. Fixed by `unflag-premature-vat-drafts.ts`, which undoes
+ * exactly those 17. Kept here as the record of what ran and why, not as a
+ * tool to run again — a second run would make the same mistake on whatever
+ * new drafts exist by then.
  *
  *   pnpm tsx --env-file=.env.local scripts/backfill-premier-housewares-vat-flag.ts
  *   pnpm tsx --env-file=.env.local scripts/backfill-premier-housewares-vat-flag.ts --apply

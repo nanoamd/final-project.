@@ -16,6 +16,49 @@ Status key:
 
 ---
 
+## The VAT backfill wrongly flagged 17 brand-new drafts (31 August)
+
+Damien: _"youve done it again i cant add vat because it thinks its already
+been added"_ — on a screenshot of a brand-new draft, Allegra Brown Glass
+Bathroom Tumbler, never published, `price` still empty. The "+20% VAT"
+button was permanently disabled before he'd ever touched it.
+
+Traced two candidates properly before concluding anything, rather than
+trusting either side blindly:
+
+- [x] **Honna Small White Silver Ceramic Planter — a false alarm, not a
+      bug.** Damien flagged this one too, on the same "the number looks too
+      low" instinct. Pulled the document's actual state from Sanity's
+      history API as it stood before any script touched it today: cost
+      price £11.10. £11.10 × 1.2 = £13.32, exactly the live value — correct.
+      My own change-log file had been silently overwritten by a later
+      dry-run's preview numbers (same file path, same date, different run)
+      and was lying to me; the live data was fine. Worth recording since it
+      means not every "this looks wrong" is — the eye alone isn't reliable
+      evidence either way, only the data is.
+- [x] **The Allegra Tumbler — a real bug, confirmed the same way.** It is a
+      draft created 18 August, still unpublished, with no prior transaction
+      history — there was no "before" for the flag to be describing.
+      `backfill-premier-housewares-vat-flag.ts`'s premise ("a Premier
+      Housewares product with a cost price already went through the fix")
+      only holds for products that existed before it ran; Damien was
+      creating new drafts at the same moment, typing fresh un-corrected
+      supplier prices in as he went, and the backfill flagged 17 of them as
+      done purely because a cost price was present — never checking whether
+      it had actually been multiplied. This is also what the mystery "418
+      flagged, not 401" from earlier today actually was; at the time it was
+      wrongly explained away as "transient drafts that resolved themselves."
+- [x] **`unflag-premature-vat-drafts.ts`** — the exact 17 IDs, found by
+      cross-referencing the full draft list against which ones had no
+      published counterpart and a cost price with no corroborating history.
+      Unsets `costPriceVatCorrected` only; the cost price numbers Damien
+      typed are untouched, his to correct with the button now that it works
+      again. Applied and verified live: the Allegra Tumbler's flag now
+      reads `null`.
+      `backfill-premier-housewares-vat-flag.ts` is marked **do not re-run**
+      — its premise breaks the same way a second time on whatever new
+      drafts exist by then.
+
 ## The VAT button moved onto the cost price field itself (31 August)
 
 Damien, after the "Add supplier VAT" button landed in the document action
