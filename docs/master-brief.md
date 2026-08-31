@@ -16,12 +16,18 @@ Status key:
 
 ---
 
-## Premier Housewares cost prices were missing 20% VAT (31 August)
+## Premier Housewares cost prices were missing 20% VAT (31 August) — LIVE
 
 Damien, on a screenshot of a Premier Housewares order summary showing 20%
 tax added on top of the trade subtotal: _"i think ive messed up my prices
 for premier housewares products, i forgot about tax, i have hundreds of
 products listed from them"_.
+
+**Applied for real on 31 August, once Damien provided a write token.**
+Verified against live Sanity, not just the script's own printout: Java
+Natural Rattan Round Chair now reads `price: 128, costPrice: 106.12` (was
+`99 / 88.43`); 162 `priceAdjustment` documents exist with
+`source == "scripts/fix-premier-housewares-margins.ts"`.
 
 - [x] **Confirmed and quantified against live data before touching anything.**
       Kaiku is not VAT-registered (`siteConfig.vatRegistered === false`), so
@@ -110,7 +116,16 @@ work than new work.
       Rustic Pot Fountain (all "**with Planter**" in their own titles) →
       **Planters**. - Two Rattan Solar Floor Lanterns and the 1.77m Solar Bollard Lantern
       (lanterns by name) → **Candles & Lanterns**.
-      Additive only, dry run clean. **Needs the write token.**
+      Additive only. **Applied live 31 August** once Damien provided a
+      write token — verified: Lenno Large Gold Pendant Light's
+      `additionalCategories` now includes `kitchen-lighting`.
+- [x] **`add-missing-cross-listings.ts` and `recategorise-indoor-pieces.ts`
+      also applied the same day**, both from 29 August and both sitting
+      dry-run-only until now: the four Reclaimed Collection pieces plus the
+      Cebu side table got their second category; the Cebu dining chair and
+      the Batu wall shelf moved out of Garden Furniture into Kitchen
+      Furniture and Shelving. Verified live — Cebu Elm Wood and Rattan
+      Dining Chair's `category` now reads `kitchen-furniture`.
 - [-] **Not touching outdoor rattan coffee/side tables or garden sofa sets
   into the indoor Coffee Tables/Side Tables/Sofas categories.** A keyword
   scan raised these (Mataram, Depok, Trento rattan tables; the Rowan,

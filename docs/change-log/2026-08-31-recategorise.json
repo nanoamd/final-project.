@@ -1,0 +1,19 @@
+{
+  "applied": true,
+  "results": [
+    {
+      "title": "Cebu Elm Wood and Rattan Dining Chair | Kaiku",
+      "to": "kitchen-furniture",
+      "why": "Chrome cantilever frame with a cane back and seat — indoor, whatever the supplier copy claims.",
+      "from": "garden-furniture",
+      "status": "move"
+    },
+    {
+      "title": "Batu Large Black Rattan Wall Shelf | Kaiku",
+      "to": "shelving",
+      "why": "A wall shelf is not garden furniture, and its own copy says 'any home'.",
+      "from": "garden-furniture",
+      "status": "move"
+    }
+  ]
+}
