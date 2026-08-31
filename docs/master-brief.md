@@ -31,28 +31,37 @@ products listed from them"_.
       True margin (cost + 20%): £21,064. **Seven products are currently sold
       at an outright loss** once the real cost is used (worst: Java Natural
       Rattan Round Chair, -7.2%; Ulmus Grey Elm Wood 4 Tier Bookshelf, -3.6%).
-- [x] **`fix-premier-housewares-vat-costs.ts`** — corrects `costPrice` on all
+- [x] **`fix-premier-housewares-margins.ts`** — corrects `costPrice` on all
       401 Premier Housewares products to include the 20% VAT actually
-      charged. Only ever touches `costPrice`, never `price`. This is a
-      deliberate, narrow departure from the standing rule behind
-      `audit-and-fix-margins.ts` — Damien's own words there: _"I would not
-      tell Claude to alter the cost price... tell it to adjust the retail
-      selling price when necessary"_ — because that rule exists to stop cost
-      price being used as a lever to manufacture a target margin. This is
-      the opposite case: the stored number is factually wrong for what it
-      claims to be, and "cost price must remain truthful" is exactly what
-      this corrects. Confirmed explicitly with Damien before writing it.
-      Dry run clean across all 401. **Needs the write token.**
-- [x] **`premier-housewares-margin-review.ts`** — read-only, no write
-      involved. Lists only the products below the 20% margin floor (the
-      same "caution" threshold Studio's own margin display already uses,
-      not a new number) once the true cost is used: **193 of 401** — the
-      loss-making and the too-thin-to-be-worth-selling, not the whole
-      range, per Damien: _"only add it to the list if its a loss or not
-      making enough money to be worth selling"_. Written to
-      `docs/change-log/2026-08-31-premier-housewares-margin-review.csv` for
-      Damien to decide retail prices from — no repricing proposal made or
-      applied; that is explicitly his call.
+      charged. Touching `costPrice` at all is a deliberate, narrow departure
+      from the standing rule behind `audit-and-fix-margins.ts` — Damien's own
+      words there: _"I would not tell Claude to alter the cost price... tell
+      it to adjust the retail selling price when necessary"_ — because that
+      rule exists to stop cost price being used as a lever to manufacture a
+      target margin. This is the opposite case: the stored number is
+      factually wrong for what it claims to be, and "cost price must remain
+      truthful" is exactly what this corrects. Confirmed explicitly with
+      Damien before writing it. Dry run clean across all 401.
+      **Needs the write token.**
+- [x] **Damien, on the review list: "fix all these products to ensure we
+      have a 17-39% margin on these products then rewrite the list."** The
+      same script also raises `price` — but only on the 162 of 193 that
+      actually need it, and only to the minimum that clears the 17% floor of
+      the band he gave, never padded towards the 39% ceiling. Every raise
+      gets a `priceAdjustment` document (previous/new price, previous/new
+      margin, the corrected cost, why) — mandatory per Damien's own standing
+      rule for `audit-and-fix-margins.ts`, reused rather than reinvented.
+      Both fields are set in one commit per product on purpose: cost
+      correction and price raise run as two separate scripts would risk one
+      reading the other's already-corrected number and double-counting the
+      VAT if they ever ran out of order or twice.
+- [x] **`premier-housewares-margin-review.ts` rewritten**, as asked, rather
+      than left showing the old numbers: same 193 rows as the first version,
+      now with the price and margin each one becomes alongside what it was.
+      Confirmed by running the fix's own arithmetic, not a second opinion
+      that could quietly drift from it: **all 193 land inside 17–39%, zero
+      left outside the band.** Rewritten in place at
+      `docs/change-log/2026-08-31-premier-housewares-margin-review.csv`.
 
 ## Categorisation, re-audited against live data (31 August)
 

@@ -1,0 +1,4017 @@
+{
+  "applied": false,
+  "vatRate": 0.2,
+  "marginFloor": 0.17,
+  "results": [
+    {
+      "title": "Emery Matt Black Wire Tall Basket | Kaiku",
+      "costBefore": 15,
+      "costAfter": 18,
+      "priceBefore": 30,
+      "priceAfter": 30,
+      "marginBefore": 40,
+      "marginAfter": 40,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Emery Matt Black Wire Basket | Kaiku",
+      "costBefore": 15.44,
+      "costAfter": 18.53,
+      "priceBefore": 39,
+      "priceAfter": 39,
+      "marginBefore": 52.5,
+      "marginAfter": 52.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vertex Copper Plated Basket | Kaiku",
+      "costBefore": 20.66,
+      "costAfter": 24.79,
+      "priceBefore": 35,
+      "priceAfter": 35,
+      "marginBefore": 29.2,
+      "marginAfter": 29.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vertex Rectangular Basket | Kaiku",
+      "costBefore": 13.03,
+      "costAfter": 15.64,
+      "priceBefore": 26,
+      "priceAfter": 26,
+      "marginBefore": 39.8,
+      "marginAfter": 39.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vertex Square Basket | Kaiku",
+      "costBefore": 13.19,
+      "costAfter": 15.83,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 31.2,
+      "marginAfter": 31.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vertex Hexagonal Basket | Kaiku",
+      "costBefore": 16.22,
+      "costAfter": 19.46,
+      "priceBefore": 28,
+      "priceAfter": 28,
+      "marginBefore": 30.5,
+      "marginAfter": 30.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carlotta Purple Mirrored Glass Wall Mirror | Kaiku",
+      "costBefore": 166.75,
+      "costAfter": 200.1,
+      "priceBefore": 249,
+      "priceAfter": 249,
+      "marginBefore": 19.6,
+      "marginAfter": 19.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Mize Black Plastic Frame Over Door Mirror | Kaiku",
+      "costBefore": 30.94,
+      "costAfter": 37.13,
+      "priceBefore": 64,
+      "priceAfter": 64,
+      "marginBefore": 42,
+      "marginAfter": 42,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Wardell Illuminated Wall Mirror | Kaiku",
+      "costBefore": 111.19,
+      "costAfter": 133.43,
+      "priceBefore": 179,
+      "priceAfter": 179,
+      "marginBefore": 25.5,
+      "marginAfter": 25.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Blossom Wall Mirror | Kaiku",
+      "costBefore": 77.04,
+      "costAfter": 92.45,
+      "priceBefore": 109,
+      "priceAfter": 112,
+      "marginBefore": 15.2,
+      "marginAfter": 17.5,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Aleki Extra Large Bamboo Chopping and Serving Board | Kaiku",
+      "costBefore": 13.23,
+      "costAfter": 15.88,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 45.2,
+      "marginAfter": 45.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Aleki Large Bamboo Chopping and Serving Board | Kaiku",
+      "costBefore": 11.75,
+      "costAfter": 14.1,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 51.4,
+      "marginAfter": 51.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 1100ml | Kaiku",
+      "costBefore": 9.51,
+      "costAfter": 11.41,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 39.9,
+      "marginAfter": 39.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 800ml | Kaiku",
+      "costBefore": 9.18,
+      "costAfter": 11.02,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 42,
+      "marginAfter": 42,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 550ml | Kaiku",
+      "costBefore": 8.9,
+      "costAfter": 10.68,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 43.8,
+      "marginAfter": 43.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 250ml | Kaiku",
+      "costBefore": 8.68,
+      "costAfter": 10.42,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 45.2,
+      "marginAfter": 45.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Set of Five Ribbed Round Glass Jars with Acacia Wood Lids | Kaiku",
+      "costBefore": 23.13,
+      "costAfter": 27.76,
+      "priceBefore": 39,
+      "priceAfter": 39,
+      "marginBefore": 28.8,
+      "marginAfter": 28.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Freska Set of Five Ribbed Round Clear Glass Jars with Acacia Wood Lids | Kaiku",
+      "costBefore": 19.61,
+      "costAfter": 23.53,
+      "priceBefore": 31,
+      "priceAfter": 31,
+      "marginBefore": 24.1,
+      "marginAfter": 24.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Zircon Small Ceramic Planter | Kaiku",
+      "costBefore": 13.73,
+      "costAfter": 16.48,
+      "priceBefore": 26,
+      "priceAfter": 26,
+      "marginBefore": 36.6,
+      "marginAfter": 36.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Zircon Large Planter | Kaiku",
+      "costBefore": 16.93,
+      "costAfter": 20.32,
+      "priceBefore": 31,
+      "priceAfter": 31,
+      "marginBefore": 34.5,
+      "marginAfter": 34.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Avento Set Of Three Gold Finish Planters | Kaiku",
+      "costBefore": 39.7,
+      "costAfter": 47.64,
+      "priceBefore": 56,
+      "priceAfter": 58,
+      "marginBefore": 14.9,
+      "marginAfter": 17.9,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Avento Set Of Three Black Finish Planters | Kaiku",
+      "costBefore": 39.7,
+      "costAfter": 47.64,
+      "priceBefore": 63,
+      "priceAfter": 63,
+      "marginBefore": 24.4,
+      "marginAfter": 24.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Asher Two Tier Black Plant Stand | Kaiku",
+      "costBefore": 35.64,
+      "costAfter": 42.77,
+      "priceBefore": 59,
+      "priceAfter": 59,
+      "marginBefore": 27.5,
+      "marginAfter": 27.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Asher Two Tier Grey Plant Stand | Kaiku",
+      "costBefore": 35.14,
+      "costAfter": 42.17,
+      "priceBefore": 55,
+      "priceAfter": 55,
+      "marginBefore": 23.3,
+      "marginAfter": 23.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Grey Tumbler | Kaiku",
+      "costBefore": 8.57,
+      "costAfter": 10.28,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 45.9,
+      "marginAfter": 45.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon White Tumbler | Kaiku",
+      "costBefore": 8.57,
+      "costAfter": 10.28,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 45.9,
+      "marginAfter": 45.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Black Tumbler | Kaiku",
+      "costBefore": 8.57,
+      "costAfter": 10.28,
+      "priceBefore": 19,
+      "priceAfter": 19,
+      "marginBefore": 45.9,
+      "marginAfter": 45.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Grey Toothbrush Holder | Kaiku",
+      "costBefore": 9.29,
+      "costAfter": 11.15,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 46.9,
+      "marginAfter": 46.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon White Toothbrush Holder | Kaiku",
+      "costBefore": 9.29,
+      "costAfter": 11.15,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 46.9,
+      "marginAfter": 46.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Black Toothbrush Holder | Kaiku",
+      "costBefore": 9.29,
+      "costAfter": 11.15,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 46.9,
+      "marginAfter": 46.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Grey 300ml Lotion Dispenser | Kaiku",
+      "costBefore": 10.61,
+      "costAfter": 12.73,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 44.7,
+      "marginAfter": 44.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon White 300ml Lotion Dispenser | Kaiku",
+      "costBefore": 10.61,
+      "costAfter": 12.73,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 44.7,
+      "marginAfter": 44.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon 300 ml Black Lotion Dispenser | Kaiku",
+      "costBefore": 10.61,
+      "costAfter": 12.73,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 44.7,
+      "marginAfter": 44.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Grey Lotion Dispenser - 500ml | Kaiku",
+      "costBefore": 11.6,
+      "costAfter": 13.92,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 52,
+      "marginAfter": 52,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon White Lotion Dispenser - 500ml | Kaiku",
+      "costBefore": 11.6,
+      "costAfter": 13.92,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 39.5,
+      "marginAfter": 39.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Black Lotion Dispenser - 500ml | Kaiku",
+      "costBefore": 11.6,
+      "costAfter": 13.92,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 52,
+      "marginAfter": 52,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Grey Soap Dish | Kaiku",
+      "costBefore": 8.9,
+      "costAfter": 10.68,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 49.1,
+      "marginAfter": 49.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon White Soap Dish | Kaiku",
+      "costBefore": 8.9,
+      "costAfter": 10.68,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 49.1,
+      "marginAfter": 49.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Canyon Black Soap Dish | Kaiku",
+      "costBefore": 8.9,
+      "costAfter": 10.68,
+      "priceBefore": 21,
+      "priceAfter": 21,
+      "marginBefore": 49.1,
+      "marginAfter": 49.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Destini Classical Black Wall Clock | Kaiku",
+      "costBefore": 23.74,
+      "costAfter": 28.49,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 41.9,
+      "marginAfter": 41.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Verdian Multi Coloured Circles DIY Wall Clock | Kaiku",
+      "costBefore": 27.51,
+      "costAfter": 33.01,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 32.6,
+      "marginAfter": 32.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Verdian Red Heart DIY Wall Clock | Kaiku",
+      "costBefore": 19.28,
+      "costAfter": 23.14,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 46.2,
+      "marginAfter": 46.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Tortora Red Glass and Black Numbers Wall Clock | Kaiku",
+      "costBefore": 11.98,
+      "costAfter": 14.38,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 66.6,
+      "marginAfter": 66.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Romero Blue Cutlery Metal Wall Clock | Kaiku",
+      "costBefore": 18.73,
+      "costAfter": 22.48,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 47.7,
+      "marginAfter": 47.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Romero Hot Pink Cutlery Metal Wall Clock | Kaiku",
+      "costBefore": 18.73,
+      "costAfter": 22.48,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 47.7,
+      "marginAfter": 47.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Maddox Cream Metal White Face Wall Clock | Kaiku",
+      "costBefore": 13.72,
+      "costAfter": 16.46,
+      "priceBefore": 36,
+      "priceAfter": 36,
+      "marginBefore": 54.3,
+      "marginAfter": 54.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Cheston White Antique Finish Wall Clock | Kaiku",
+      "costBefore": 23.46,
+      "costAfter": 28.15,
+      "priceBefore": 39,
+      "priceAfter": 39,
+      "marginBefore": 27.8,
+      "marginAfter": 27.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vitus Black and Gold Metal Wall Clock | Kaiku",
+      "costBefore": 52.84,
+      "costAfter": 63.41,
+      "priceBefore": 72.84,
+      "priceAfter": 77,
+      "marginBefore": 12.9,
+      "marginAfter": 17.6,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Baillie Rose Gold and Mirror Wall Clock | Kaiku",
+      "costBefore": 27.33,
+      "costAfter": 32.8,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 23.7,
+      "marginAfter": 23.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Yaxi Wall Clock | Kaiku",
+      "costBefore": 85.4,
+      "costAfter": 102.48,
+      "priceBefore": 109,
+      "priceAfter": 124,
+      "marginBefore": 6,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Elko Oval Wall Clock with Dark Grey Finish | Kaiku",
+      "costBefore": 16.86,
+      "costAfter": 20.23,
+      "priceBefore": 39,
+      "priceAfter": 39,
+      "marginBefore": 48.1,
+      "marginAfter": 48.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Elko Pink Finish Embossed Effect Wall Clock | Kaiku",
+      "costBefore": 9.23,
+      "costAfter": 11.08,
+      "priceBefore": 32,
+      "priceAfter": 32,
+      "marginBefore": 65.4,
+      "marginAfter": 65.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Beauly Metal Wall Clock with Gold Finish | Kaiku",
+      "costBefore": 32.33,
+      "costAfter": 38.8,
+      "priceBefore": 63,
+      "priceAfter": 63,
+      "marginBefore": 38.4,
+      "marginAfter": 38.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vitus Large Wall Clock | Kaiku",
+      "costBefore": 42.84,
+      "costAfter": 51.41,
+      "priceBefore": 68,
+      "priceAfter": 68,
+      "marginBefore": 24.4,
+      "marginAfter": 24.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vitus Gold Finish Wall Clock | Kaiku",
+      "costBefore": 29.03,
+      "costAfter": 34.84,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 28.9,
+      "marginAfter": 28.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vitus Large Wooden Wall Clock | Kaiku",
+      "costBefore": 30.13,
+      "costAfter": 36.16,
+      "priceBefore": 59,
+      "priceAfter": 59,
+      "marginBefore": 38.7,
+      "marginAfter": 38.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Gala Black Glass Vanity Mirror with Drawers | Kaiku",
+      "costBefore": 71.54,
+      "costAfter": 85.85,
+      "priceBefore": 105,
+      "priceAfter": 105,
+      "marginBefore": 18.2,
+      "marginAfter": 18.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Vermont White Wash Round Dining Table with 4 Chairs Set | Kaiku",
+      "costBefore": 491.07,
+      "costAfter": 589.28,
+      "priceBefore": 598,
+      "priceAfter": 710,
+      "marginBefore": 1.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Westbury Oak Wood Veneer Media Unit | Kaiku",
+      "costBefore": 89.19,
+      "costAfter": 107.03,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 23,
+      "marginAfter": 23,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Black Garden Chair | Kaiku",
+      "costBefore": 53.67,
+      "costAfter": 64.4,
+      "priceBefore": 76,
+      "priceAfter": 78,
+      "marginBefore": 15.3,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Urban White Floor Standing Mirror | Kaiku",
+      "costBefore": 56.64,
+      "costAfter": 67.97,
+      "priceBefore": 86,
+      "priceAfter": 86,
+      "marginBefore": 21,
+      "marginAfter": 21,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Selby Natural Tropical Hevea Wood Square Plant Stand | Kaiku",
+      "costBefore": 39.98,
+      "costAfter": 47.98,
+      "priceBefore": 67,
+      "priceAfter": 67,
+      "marginBefore": 28.4,
+      "marginAfter": 28.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lyon Grey Oak Wood And Rattan Cross Back Dining Chair | Kaiku",
+      "costBefore": 116.69,
+      "costAfter": 140.03,
+      "priceBefore": 179,
+      "priceAfter": 179,
+      "marginBefore": 21.8,
+      "marginAfter": 21.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lyon Black Oak Wood and Rattan Dining Chair | Kaiku",
+      "costBefore": 106.79,
+      "costAfter": 128.15,
+      "priceBefore": 179,
+      "priceAfter": 179,
+      "marginBefore": 28.4,
+      "marginAfter": 28.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Grey Wash Natural Rattan Chair | Kaiku",
+      "costBefore": 85.07,
+      "costAfter": 102.08,
+      "priceBefore": 129,
+      "priceAfter": 129,
+      "marginBefore": 20.9,
+      "marginAfter": 20.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Black Natural Rattan Chair With Iron Legs | Kaiku",
+      "costBefore": 85.07,
+      "costAfter": 102.08,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 26.6,
+      "marginAfter": 26.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom White Washed Natural Rattan Chair | Kaiku",
+      "costBefore": 85.07,
+      "costAfter": 102.08,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 26.6,
+      "marginAfter": 26.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Black Natural Rattan And Iron Black Chair | Kaiku",
+      "costBefore": 75.34,
+      "costAfter": 90.41,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 35,
+      "marginAfter": 35,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Natural Rattan And Black Iron Chair | Kaiku",
+      "costBefore": 75.34,
+      "costAfter": 90.41,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 35,
+      "marginAfter": 35,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Curved Black Natural Rattan Chair | Kaiku",
+      "costBefore": 104.47,
+      "costAfter": 125.36,
+      "priceBefore": 159,
+      "priceAfter": 159,
+      "marginBefore": 21.2,
+      "marginAfter": 21.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Maka Grey Natural Rattan Stool | Kaiku",
+      "costBefore": 65.17,
+      "costAfter": 78.2,
+      "priceBefore": 97,
+      "priceAfter": 97,
+      "marginBefore": 19.4,
+      "marginAfter": 19.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Rowan Two Seater Natural And Silver Woven Bamboo Small Sofa | Kaiku",
+      "costBefore": 183.2,
+      "costAfter": 219.84,
+      "priceBefore": 269,
+      "priceAfter": 269,
+      "marginBefore": 18.3,
+      "marginAfter": 18.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Rowan Two Seater Natural And Black Woven Bamboo Small Sofa | Kaiku",
+      "costBefore": 194.2,
+      "costAfter": 233.04,
+      "priceBefore": 340,
+      "priceAfter": 340,
+      "marginBefore": 31.5,
+      "marginAfter": 31.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hayton Black Velvet Sofa Bed | Kaiku",
+      "costBefore": 364.51,
+      "costAfter": 437.41,
+      "priceBefore": 564,
+      "priceAfter": 564,
+      "marginBefore": 22.4,
+      "marginAfter": 22.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hatton Grey Velvet Sofa Bed | Kaiku",
+      "costBefore": 449.91,
+      "costAfter": 539.89,
+      "priceBefore": 599,
+      "priceAfter": 651,
+      "marginBefore": 9.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hannah Grey Velvet Ottoman Bed Double | Kaiku",
+      "costBefore": 331.65,
+      "costAfter": 397.98,
+      "priceBefore": 631,
+      "priceAfter": 631,
+      "marginBefore": 36.9,
+      "marginAfter": 36.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hannah Mink Velvet Ottoman Double Bed | Kaiku",
+      "costBefore": 365.14,
+      "costAfter": 438.17,
+      "priceBefore": 595,
+      "priceAfter": 595,
+      "marginBefore": 26.4,
+      "marginAfter": 26.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hannah Beige Ottoman Double Bed | Kaiku",
+      "costBefore": 364.65,
+      "costAfter": 437.58,
+      "priceBefore": 599,
+      "priceAfter": 599,
+      "marginBefore": 26.9,
+      "marginAfter": 26.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hannah Grey Ottoman King Bed | Kaiku",
+      "costBefore": 386.65,
+      "costAfter": 463.98,
+      "priceBefore": 619,
+      "priceAfter": 619,
+      "marginBefore": 25,
+      "marginAfter": 25,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hannah Mink Velvet Ottoman King Bed | Kaiku",
+      "costBefore": 410.85,
+      "costAfter": 493.02,
+      "priceBefore": 640,
+      "priceAfter": 640,
+      "marginBefore": 23,
+      "marginAfter": 23,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Josephine Mink King Bed | Kaiku",
+      "costBefore": 309.65,
+      "costAfter": 371.58,
+      "priceBefore": 589,
+      "priceAfter": 589,
+      "marginBefore": 36.9,
+      "marginAfter": 36.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hansa Three Seat Black Velvet Sofa | Kaiku",
+      "costBefore": 621.63,
+      "costAfter": 745.96,
+      "priceBefore": 935,
+      "priceAfter": 935,
+      "marginBefore": 20.2,
+      "marginAfter": 20.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Helia 3 Seat Olive Velvet Sofa | Kaiku",
+      "costBefore": 768.84,
+      "costAfter": 922.61,
+      "priceBefore": 968,
+      "priceAfter": 1112,
+      "marginBefore": 4.7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Helia 3 Seat Blue Velvet Sofa | Kaiku",
+      "costBefore": 768.84,
+      "costAfter": 922.61,
+      "priceBefore": 968,
+      "priceAfter": 1112,
+      "marginBefore": 4.7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "costBefore": 561.44,
+      "costAfter": 673.73,
+      "priceBefore": 761,
+      "priceAfter": 812,
+      "marginBefore": 11.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Weston Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "costBefore": 578.22,
+      "costAfter": 693.86,
+      "priceBefore": 778,
+      "priceAfter": 836,
+      "marginBefore": 10.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Westford Rectangle Dining Table with 6 Chairs Set | Kaiku",
+      "costBefore": 572.44,
+      "costAfter": 686.93,
+      "priceBefore": 772,
+      "priceAfter": 828,
+      "marginBefore": 11,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Westford Dining Table with 6 Chairs Set | Kaiku",
+      "costBefore": 572.44,
+      "costAfter": 686.93,
+      "priceBefore": 772,
+      "priceAfter": 828,
+      "marginBefore": 11,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Wimslow BlackTempered Glass Dining Table with 6 Chairs | Kaiku",
+      "costBefore": 495.44,
+      "costAfter": 594.53,
+      "priceBefore": 695,
+      "priceAfter": 717,
+      "marginBefore": 14.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
+      "costBefore": 445.94,
+      "costAfter": 535.13,
+      "priceBefore": 745,
+      "priceAfter": 745,
+      "marginBefore": 28.2,
+      "marginAfter": 28.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Maka Natural Croco Rattan Stool | Kaiku",
+      "costBefore": 41.58,
+      "costAfter": 49.9,
+      "priceBefore": 78,
+      "priceAfter": 78,
+      "marginBefore": 36,
+      "marginAfter": 36,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Goa Brown Rattan Hanging Chair | Kaiku",
+      "costBefore": 209.18,
+      "costAfter": 251.02,
+      "priceBefore": 299,
+      "priceAfter": 303,
+      "marginBefore": 16,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Bradbury Natural Oak Veneer Desk wth 1 Drawer | Kaiku",
+      "costBefore": 83.47,
+      "costAfter": 100.16,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 32.8,
+      "marginAfter": 32.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Bradbury Light Oak Veneer Desk with 1 Drawer | Kaiku",
+      "costBefore": 83.47,
+      "costAfter": 100.16,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 32.8,
+      "marginAfter": 32.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Bradbury Dark Oak Effect Open Wardrobe | Kaiku",
+      "costBefore": 112.9,
+      "costAfter": 135.48,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 35.2,
+      "marginAfter": 35.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Bradbury Natural Oak Effect Open Wardrobe | Kaiku",
+      "costBefore": 112.9,
+      "costAfter": 135.48,
+      "priceBefore": 199,
+      "priceAfter": 199,
+      "marginBefore": 31.9,
+      "marginAfter": 31.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Rowan Natural And Black Woven Bamboo Chair And Stool Set | Kaiku",
+      "costBefore": 133.19,
+      "costAfter": 159.83,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 23.5,
+      "marginAfter": 23.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Laxton Light Oak Effect Desk | Kaiku",
+      "costBefore": 47.84,
+      "costAfter": 57.41,
+      "priceBefore": 147,
+      "priceAfter": 147,
+      "marginBefore": 60.9,
+      "marginAfter": 60.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Laxton Light Oak Effect Desk With Shelves | Kaiku",
+      "costBefore": 64.34,
+      "costAfter": 77.21,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 44.5,
+      "marginAfter": 44.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Laxton 3 Tier Light Oak Effect Shelving Unit | Kaiku",
+      "costBefore": 64.34,
+      "costAfter": 77.21,
+      "priceBefore": 164,
+      "priceAfter": 164,
+      "marginBefore": 52.9,
+      "marginAfter": 52.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Laxton 5 Tier Light Oak Effect Shelving Unit | Kaiku",
+      "costBefore": 89.42,
+      "costAfter": 107.3,
+      "priceBefore": 169,
+      "priceAfter": 169,
+      "marginBefore": 36.5,
+      "marginAfter": 36.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Sherman Black Finish and Natural Rattan One Drawer Bedside Table | Kaiku",
+      "costBefore": 52.63,
+      "costAfter": 63.16,
+      "priceBefore": 152,
+      "priceAfter": 152,
+      "marginBefore": 58.4,
+      "marginAfter": 58.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hatton Green Velvet Sofa Bed | Kaiku",
+      "costBefore": 416.15,
+      "costAfter": 499.38,
+      "priceBefore": 629,
+      "priceAfter": 629,
+      "marginBefore": 20.6,
+      "marginAfter": 20.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Veneto Midnight Velvet Curved Dining Chair | Kaiku",
+      "costBefore": 111.19,
+      "costAfter": 133.43,
+      "priceBefore": 199,
+      "priceAfter": 199,
+      "marginBefore": 32.9,
+      "marginAfter": 32.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lombok Rustic Chevron and Black Frame Media Unit | Kaiku",
+      "costBefore": 323.24,
+      "costAfter": 387.89,
+      "priceBefore": 523,
+      "priceAfter": 523,
+      "marginBefore": 25.8,
+      "marginAfter": 25.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Heritage Large Black Two Tier Wooden Bookshelf | Kaiku",
+      "costBefore": 156.19,
+      "costAfter": 187.43,
+      "priceBefore": 289,
+      "priceAfter": 289,
+      "marginBefore": 35.1,
+      "marginAfter": 35.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arles Water Hyacinth Wall Shelf | Kaiku",
+      "costBefore": 94.69,
+      "costAfter": 113.63,
+      "priceBefore": 184,
+      "priceAfter": 184,
+      "marginBefore": 38.2,
+      "marginAfter": 38.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arles 3 Tier Water Hyacinth Storage Caddy | Kaiku",
+      "costBefore": 77.43,
+      "costAfter": 92.92,
+      "priceBefore": 109,
+      "priceAfter": 112,
+      "marginBefore": 14.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Laila Large White Round Dining Table | Kaiku",
+      "costBefore": 206.29,
+      "costAfter": 247.55,
+      "priceBefore": 306.29,
+      "priceAfter": 306.29,
+      "marginBefore": 19.2,
+      "marginAfter": 19.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hasna Three Seat Grey Velvet Sofa | Kaiku",
+      "costBefore": 608.59,
+      "costAfter": 730.31,
+      "priceBefore": 989,
+      "priceAfter": 989,
+      "marginBefore": 26.2,
+      "marginAfter": 26.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hasna Three Seat Black Velvet Sofa | Kaiku",
+      "costBefore": 608.59,
+      "costAfter": 730.31,
+      "priceBefore": 989,
+      "priceAfter": 989,
+      "marginBefore": 26.2,
+      "marginAfter": 26.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Mataram Natural Rattan Table | Kaiku",
+      "costBefore": 159.38,
+      "costAfter": 191.26,
+      "priceBefore": 239,
+      "priceAfter": 239,
+      "marginBefore": 20,
+      "marginAfter": 20,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Mataram Natural Rattan Rectangular Coffee Table | Kaiku",
+      "costBefore": 183.2,
+      "costAfter": 219.84,
+      "priceBefore": 278,
+      "priceAfter": 278,
+      "marginBefore": 20.9,
+      "marginAfter": 20.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Small Rattan Planter with Metal Stand | Kaiku",
+      "costBefore": 40.1,
+      "costAfter": 48.12,
+      "priceBefore": 74,
+      "priceAfter": 74,
+      "marginBefore": 35,
+      "marginAfter": 35,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Large Rattan Planter with Metal Stand | Kaiku",
+      "costBefore": 52.63,
+      "costAfter": 63.16,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 29,
+      "marginAfter": 29,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Rattan Coffee Table With Cross Metal Base | Kaiku",
+      "costBefore": 63.63,
+      "costAfter": 76.36,
+      "priceBefore": 97,
+      "priceAfter": 97,
+      "marginBefore": 21.3,
+      "marginAfter": 21.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Rattan Side Table With Metal Legs | Kaiku",
+      "costBefore": 52.13,
+      "costAfter": 62.56,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 29.7,
+      "marginAfter": 29.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Rattan Round Coffee Table With Cross Metal Legs | Kaiku",
+      "costBefore": 57.63,
+      "costAfter": 69.16,
+      "priceBefore": 93,
+      "priceAfter": 93,
+      "marginBefore": 25.6,
+      "marginAfter": 25.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Rattan and Metal Square Side Table | Kaiku",
+      "costBefore": 40.64,
+      "costAfter": 48.77,
+      "priceBefore": 83,
+      "priceAfter": 83,
+      "marginBefore": 41.2,
+      "marginAfter": 41.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Depok Rattan And Metal Coffee Table | Kaiku",
+      "costBefore": 60.44,
+      "costAfter": 72.53,
+      "priceBefore": 109,
+      "priceAfter": 109,
+      "marginBefore": 33.5,
+      "marginAfter": 33.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Black Natural Rattan Dining Chair | Kaiku",
+      "costBefore": 120.68,
+      "costAfter": 144.82,
+      "priceBefore": 178,
+      "priceAfter": 178,
+      "marginBefore": 18.6,
+      "marginAfter": 18.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Natural Rattan Dining Chair | Kaiku",
+      "costBefore": 101.9,
+      "costAfter": 122.28,
+      "priceBefore": 173,
+      "priceAfter": 173,
+      "marginBefore": 29.3,
+      "marginAfter": 29.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lagom Black Natural Rattan Chair | Kaiku",
+      "costBefore": 89.19,
+      "costAfter": 107.03,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 28.2,
+      "marginAfter": 28.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Avento Set Of Two Round Black Plant Stands | Kaiku",
+      "costBefore": 79.68,
+      "costAfter": 95.62,
+      "priceBefore": 119,
+      "priceAfter": 119,
+      "marginBefore": 19.6,
+      "marginAfter": 19.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Miami Black Rattan 3 Piece Patio Set (Seat) | Kaiku",
+      "costBefore": 155.12,
+      "costAfter": 186.14,
+      "priceBefore": 239,
+      "priceAfter": 239,
+      "marginBefore": 22.1,
+      "marginAfter": 22.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Miami Dual Tone Rattan 3 Piece Patio Set | Kaiku",
+      "costBefore": 155.12,
+      "costAfter": 186.14,
+      "priceBefore": 239,
+      "priceAfter": 239,
+      "marginBefore": 22.1,
+      "marginAfter": 22.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Addison Warm White Metal Fluted Glass Door Media Unit | Kaiku",
+      "costBefore": 194.19,
+      "costAfter": 233.03,
+      "priceBefore": 398,
+      "priceAfter": 398,
+      "marginBefore": 41.4,
+      "marginAfter": 41.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Maxwell Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
+      "costBefore": 161.69,
+      "costAfter": 194.03,
+      "priceBefore": 228,
+      "priceAfter": 234,
+      "marginBefore": 14.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Maxwell Stone Chenille Curved Swivel Dining Chair | Kaiku",
+      "costBefore": 161.69,
+      "costAfter": 194.03,
+      "priceBefore": 239,
+      "priceAfter": 239,
+      "marginBefore": 18.8,
+      "marginAfter": 18.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Goa Natural Rattan Effect Chair | Kaiku",
+      "costBefore": 240.79,
+      "costAfter": 288.95,
+      "priceBefore": 299,
+      "priceAfter": 349,
+      "marginBefore": 3.4,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Goa Black Rattan Effect Double Hanging Chair | Kaiku",
+      "costBefore": 387.18,
+      "costAfter": 464.62,
+      "priceBefore": 487,
+      "priceAfter": 560,
+      "marginBefore": 4.6,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Goa Natural Rattan Effect Hanging Chair | Kaiku",
+      "costBefore": 269.39,
+      "costAfter": 323.27,
+      "priceBefore": 369,
+      "priceAfter": 390,
+      "marginBefore": 12.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Goa White Rattan Effect Hanging Chair with Grey Cushions | Kaiku",
+      "costBefore": 214.39,
+      "costAfter": 257.27,
+      "priceBefore": 314,
+      "priceAfter": 314,
+      "marginBefore": 18.1,
+      "marginAfter": 18.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
+      "costBefore": 370.15,
+      "costAfter": 444.18,
+      "priceBefore": 489,
+      "priceAfter": 536,
+      "marginBefore": 9.2,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Leyna Chrome Base Floor Lamp | Kaiku",
+      "costBefore": 168.62,
+      "costAfter": 202.34,
+      "priceBefore": 238,
+      "priceAfter": 244,
+      "marginBefore": 15,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Large Leni Black And Gold Pendant Light | Kaiku",
+      "costBefore": 34.11,
+      "costAfter": 40.93,
+      "priceBefore": 64,
+      "priceAfter": 64,
+      "marginBefore": 36,
+      "marginAfter": 36,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lenno Large Gold Pendant Light | Kaiku",
+      "costBefore": 45.54,
+      "costAfter": 54.65,
+      "priceBefore": 73,
+      "priceAfter": 73,
+      "marginBefore": 25.1,
+      "marginAfter": 25.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lenno Large White Pendant Light | Kaiku",
+      "costBefore": 45.34,
+      "costAfter": 54.41,
+      "priceBefore": 78,
+      "priceAfter": 78,
+      "marginBefore": 30.2,
+      "marginAfter": 30.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Revive Chrome Finish Floor Lamp | Kaiku",
+      "costBefore": 107.4,
+      "costAfter": 128.88,
+      "priceBefore": 159,
+      "priceAfter": 159,
+      "marginBefore": 18.9,
+      "marginAfter": 18.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Revive Gold Finish Metal Floor Lamp | Kaiku",
+      "costBefore": 84.74,
+      "costAfter": 101.69,
+      "priceBefore": 124,
+      "priceAfter": 124,
+      "marginBefore": 18,
+      "marginAfter": 18,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Revive Chrome Finish 2 Light Floor Lamp | Kaiku",
+      "costBefore": 98.38,
+      "costAfter": 118.06,
+      "priceBefore": 167,
+      "priceAfter": 167,
+      "marginBefore": 29.3,
+      "marginAfter": 29.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Revive Two Light Gold Finish Floor Lamp | Kaiku",
+      "costBefore": 100.91,
+      "costAfter": 121.09,
+      "priceBefore": 167,
+      "priceAfter": 167,
+      "marginBefore": 27.5,
+      "marginAfter": 27.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Revive Gold Finish Metal Floor Lamp with White Marble Base | Kaiku",
+      "costBefore": 73.03,
+      "costAfter": 87.64,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 36.9,
+      "marginAfter": 36.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Wyra Champagne Gold Frame Pendant light | Kaiku",
+      "costBefore": 32.94,
+      "costAfter": 39.53,
+      "priceBefore": 62,
+      "priceAfter": 62,
+      "marginBefore": 36.2,
+      "marginAfter": 36.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Wyra Chrome Gold Frame Pendant light | Kaiku",
+      "costBefore": 32.94,
+      "costAfter": 39.53,
+      "priceBefore": 62,
+      "priceAfter": 62,
+      "marginBefore": 36.2,
+      "marginAfter": 36.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Wyra Black Finish Frame Pendant light | Kaiku",
+      "costBefore": 32.11,
+      "costAfter": 38.53,
+      "priceBefore": 62,
+      "priceAfter": 62,
+      "marginBefore": 37.9,
+      "marginAfter": 37.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Stockholm Shiny Brass Tapered Floor Lamp | Kaiku",
+      "costBefore": 54.09,
+      "costAfter": 64.91,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 27.1,
+      "marginAfter": 27.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Stockholm Chrome Finish Tapered Floor Lamp | Kaiku",
+      "costBefore": 54.09,
+      "costAfter": 64.91,
+      "priceBefore": 84,
+      "priceAfter": 84,
+      "marginBefore": 22.7,
+      "marginAfter": 22.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Stockholm Shiny Brass Adjustable Floor Lamp | Kaiku",
+      "costBefore": 37.89,
+      "costAfter": 45.47,
+      "priceBefore": 67,
+      "priceAfter": 67,
+      "marginBefore": 32.1,
+      "marginAfter": 32.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Stockholm Chrome Adjustable Floor Lamp | Kaiku",
+      "costBefore": 37.89,
+      "costAfter": 45.47,
+      "priceBefore": 73,
+      "priceAfter": 73,
+      "marginBefore": 37.7,
+      "marginAfter": 37.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Framed Labrador Wall Art | Kaiku",
+      "costBefore": 42.23,
+      "costAfter": 50.68,
+      "priceBefore": 64,
+      "priceAfter": 64,
+      "marginBefore": 20.8,
+      "marginAfter": 20.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Abstract Blue 2 Framed Wall Art | Kaiku",
+      "costBefore": 49.44,
+      "costAfter": 59.33,
+      "priceBefore": 88,
+      "priceAfter": 88,
+      "marginBefore": 32.6,
+      "marginAfter": 32.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Fiori Mixed Succulents In Wood Wall Planter | Kaiku",
+      "costBefore": 60.93,
+      "costAfter": 73.12,
+      "priceBefore": 94,
+      "priceAfter": 94,
+      "marginBefore": 22.2,
+      "marginAfter": 22.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Warm Sand Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 43.2,
+      "marginAfter": 43.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Poppy Seed Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 43.2,
+      "marginAfter": 43.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Dusty Turquoise Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 35.3,
+      "marginAfter": 35.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Navy Blue Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 35.3,
+      "marginAfter": 35.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Peach Pink Towel Set | Kaiku",
+      "costBefore": 24.7,
+      "costAfter": 29.64,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 39.5,
+      "marginAfter": 39.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Mustard Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 35.3,
+      "marginAfter": 35.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Thread and Loom 6 Piece Lilac Towel Set | Kaiku",
+      "costBefore": 23.2,
+      "costAfter": 27.84,
+      "priceBefore": 43,
+      "priceAfter": 43,
+      "marginBefore": 35.3,
+      "marginAfter": 35.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hampstead White Media Unit with Oak Wood Top | Kaiku",
+      "costBefore": 422.06,
+      "costAfter": 506.47,
+      "priceBefore": 549,
+      "priceAfter": 611,
+      "marginBefore": 7.7,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hampstead White and Oak Wood Coffee Table with Drawers | Kaiku",
+      "costBefore": 352.28,
+      "costAfter": 422.74,
+      "priceBefore": 448,
+      "priceAfter": 510,
+      "marginBefore": 5.6,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kensington Townhouse Grey Wash and Antique Black Media Unit | Kaiku",
+      "costBefore": 793.92,
+      "costAfter": 952.7,
+      "priceBefore": 990,
+      "priceAfter": 1148,
+      "marginBefore": 3.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kensington Townhouse Grey Wash and Antique Black Sideboard | Kaiku",
+      "costBefore": 1029.71,
+      "costAfter": 1235.65,
+      "priceBefore": 1322,
+      "priceAfter": 1489,
+      "marginBefore": 6.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Chiswick Oak Wood Side Table | Kaiku",
+      "costBefore": 289.2,
+      "costAfter": 347.04,
+      "priceBefore": 364,
+      "priceAfter": 419,
+      "marginBefore": 4.7,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulmus Grey Elm Wood 4 Tier Bookshelf | Kaiku",
+      "costBefore": 629.18,
+      "costAfter": 755.02,
+      "priceBefore": 729,
+      "priceAfter": 910,
+      "marginBefore": -3.6,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Rania 3 Seat Black Dimity Fabric Sofa | Kaiku",
+      "costBefore": 759.77,
+      "costAfter": 911.72,
+      "priceBefore": 1019,
+      "priceAfter": 1099,
+      "marginBefore": 10.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lyon Grey Finish Oak Wood Dining Table | Kaiku",
+      "costBefore": 833.07,
+      "costAfter": 999.68,
+      "priceBefore": 989,
+      "priceAfter": 1205,
+      "marginBefore": -1.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lyon Beige Linen Dining Chair | Kaiku",
+      "costBefore": 178.8,
+      "costAfter": 214.56,
+      "priceBefore": 258,
+      "priceAfter": 259,
+      "marginBefore": 16.8,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lyon Washed Grey Oak Wood Large Bookcase With Ladder | Kaiku",
+      "costBefore": 2987.1,
+      "costAfter": 3584.52,
+      "priceBefore": 4489,
+      "priceAfter": 4489,
+      "marginBefore": 20.1,
+      "marginAfter": 20.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lyon Whitewash Dining Table | Kaiku",
+      "costBefore": 930.73,
+      "costAfter": 1116.88,
+      "priceBefore": 1089,
+      "priceAfter": 1346,
+      "marginBefore": -2.6,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lyon Linen Dining Chair with Oak Wood Whitewash Finish | Kaiku",
+      "costBefore": 213.34,
+      "costAfter": 256.01,
+      "priceBefore": 297,
+      "priceAfter": 309,
+      "marginBefore": 13.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Loire White Double Bed | Kaiku",
+      "costBefore": 710.71,
+      "costAfter": 852.85,
+      "priceBefore": 989,
+      "priceAfter": 1028,
+      "marginBefore": 13.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Loire White Kingsize Bed | Kaiku",
+      "costBefore": 748.77,
+      "costAfter": 898.52,
+      "priceBefore": 987,
+      "priceAfter": 1083,
+      "marginBefore": 9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Loire White Super Kingsize Bed | Kaiku",
+      "costBefore": 824.89,
+      "costAfter": 989.87,
+      "priceBefore": 1080,
+      "priceAfter": 1193,
+      "marginBefore": 8.3,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Loire Plant Stand | Kaiku",
+      "costBefore": 163.89,
+      "costAfter": 196.67,
+      "priceBefore": 223,
+      "priceAfter": 237,
+      "marginBefore": 11.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Opus 3 Seat Rope Woven Sofa with Grey Cushions | Kaiku",
+      "costBefore": 533.94,
+      "costAfter": 640.73,
+      "priceBefore": 689,
+      "priceAfter": 772,
+      "marginBefore": 7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Opus Woven Rope Armchair | Kaiku",
+      "costBefore": 203.49,
+      "costAfter": 244.19,
+      "priceBefore": 289,
+      "priceAfter": 295,
+      "marginBefore": 15.5,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand | Kaiku",
+      "costBefore": 134.53,
+      "costAfter": 161.44,
+      "priceBefore": 189,
+      "priceAfter": 195,
+      "marginBefore": 14.6,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Nandri Slatted Teak Wood Bench | Kaiku",
+      "costBefore": 127.69,
+      "costAfter": 153.23,
+      "priceBefore": 189,
+      "priceAfter": 189,
+      "marginBefore": 18.9,
+      "marginAfter": 18.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Midas Recycled Elm Wood 4 Door Sideboard | Kaiku",
+      "costBefore": 1143.39,
+      "costAfter": 1372.07,
+      "priceBefore": 1643,
+      "priceAfter": 1654,
+      "marginBefore": 16.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kyra Grey Wash Elm Wood Wardrobe | Kaiku",
+      "costBefore": 934.41,
+      "costAfter": 1121.29,
+      "priceBefore": 1167,
+      "priceAfter": 1351,
+      "marginBefore": 3.9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Boho Mango Wood with Bone Inlay Console Table | Kaiku",
+      "costBefore": 349.69,
+      "costAfter": 419.63,
+      "priceBefore": 529,
+      "priceAfter": 529,
+      "marginBefore": 20.7,
+      "marginAfter": 20.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Boho Patterned Mango Wood 2 Door Sideboard with Drawers | Kaiku",
+      "costBefore": 698.63,
+      "costAfter": 838.36,
+      "priceBefore": 963,
+      "priceAfter": 1011,
+      "marginBefore": 12.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Salvar Natural Oak and Elm Wood Chest of 5 Drawers | Kaiku",
+      "costBefore": 662.09,
+      "costAfter": 794.51,
+      "priceBefore": 869,
+      "priceAfter": 958,
+      "marginBefore": 8.6,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lovina Wood And Natural Rattan Lounge Chair | Kaiku",
+      "costBefore": 284.19,
+      "costAfter": 341.03,
+      "priceBefore": 359,
+      "priceAfter": 411,
+      "marginBefore": 5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lovina White Rattan Effect Dining Chair | Kaiku",
+      "costBefore": 133.19,
+      "costAfter": 159.83,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 23.5,
+      "marginAfter": 23.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jacen Silver Metal Frame Round Wall Mirror | Kaiku",
+      "costBefore": 118.39,
+      "costAfter": 142.07,
+      "priceBefore": 149,
+      "priceAfter": 172,
+      "marginBefore": 4.7,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Meissa Gold Finish Pendant Wall Mirror | Kaiku",
+      "costBefore": 60.54,
+      "costAfter": 72.65,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 18.4,
+      "marginAfter": 18.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Ginnette Wall Mirror | Kaiku",
+      "costBefore": 123.89,
+      "costAfter": 148.67,
+      "priceBefore": 189,
+      "priceAfter": 189,
+      "marginBefore": 21.3,
+      "marginAfter": 21.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Gavri Wall Mirror | Kaiku",
+      "costBefore": 112.89,
+      "costAfter": 135.47,
+      "priceBefore": 178,
+      "priceAfter": 178,
+      "marginBefore": 23.9,
+      "marginAfter": 23.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Ruta Wall Mirror | Kaiku",
+      "costBefore": 168.89,
+      "costAfter": 202.67,
+      "priceBefore": 209,
+      "priceAfter": 245,
+      "marginBefore": 3,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Riva Wall Mirror | Kaiku",
+      "costBefore": 157.89,
+      "costAfter": 189.47,
+      "priceBefore": 209,
+      "priceAfter": 229,
+      "marginBefore": 9.3,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Leonov Small Nickel Finish Wall Mirror | Kaiku",
+      "costBefore": 129.39,
+      "costAfter": 155.27,
+      "priceBefore": 198,
+      "priceAfter": 198,
+      "marginBefore": 21.6,
+      "marginAfter": 21.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Riza 3D Hexagonal Wall Mirror | Kaiku",
+      "costBefore": 251.12,
+      "costAfter": 301.34,
+      "priceBefore": 309,
+      "priceAfter": 364,
+      "marginBefore": 2.5,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Riza Square And Tiled Design Wall Mirror | Kaiku",
+      "costBefore": 87.1,
+      "costAfter": 104.52,
+      "priceBefore": 127,
+      "priceAfter": 127,
+      "marginBefore": 17.7,
+      "marginAfter": 17.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Riza Arched Antique Wall Mirror | Kaiku",
+      "costBefore": 296.4,
+      "costAfter": 355.68,
+      "priceBefore": 346,
+      "priceAfter": 429,
+      "marginBefore": -2.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Trento Double Ring Design Wall Mirror | Kaiku",
+      "costBefore": 139.9,
+      "costAfter": 167.88,
+      "priceBefore": 189,
+      "priceAfter": 203,
+      "marginBefore": 11.2,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kensington Townhouse Rectangular Mirror | Kaiku",
+      "costBefore": 289.8,
+      "costAfter": 347.76,
+      "priceBefore": 369,
+      "priceAfter": 419,
+      "marginBefore": 5.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Templar Nickel And Bronze Finish Wall Mirror | Kaiku",
+      "costBefore": 99.2,
+      "costAfter": 119.04,
+      "priceBefore": 139,
+      "priceAfter": 144,
+      "marginBefore": 14.4,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Almora Acacia Wood Wall Mirror | Kaiku",
+      "costBefore": 299.42,
+      "costAfter": 359.3,
+      "priceBefore": 387,
+      "priceAfter": 433,
+      "marginBefore": 7.2,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Avelino Silver Frame Wall Mirror | Kaiku",
+      "costBefore": 157.4,
+      "costAfter": 188.88,
+      "priceBefore": 199,
+      "priceAfter": 228,
+      "marginBefore": 5.1,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Avelino Illuminated LED Silver Round Mirror | Kaiku",
+      "costBefore": 139.9,
+      "costAfter": 167.88,
+      "priceBefore": 199,
+      "priceAfter": 203,
+      "marginBefore": 15.6,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Avelino Illuminated LED Gold Oval Mirror | Kaiku",
+      "costBefore": 186.27,
+      "costAfter": 223.52,
+      "priceBefore": 240,
+      "priceAfter": 270,
+      "marginBefore": 6.9,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Avelino Illuminated LED Silver Oval Mirror | Kaiku",
+      "costBefore": 139.9,
+      "costAfter": 167.88,
+      "priceBefore": 220,
+      "priceAfter": 220,
+      "marginBefore": 23.7,
+      "marginAfter": 23.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Relic Petrified Wood Tile Small Round Mirror | Kaiku",
+      "costBefore": 162.9,
+      "costAfter": 195.48,
+      "priceBefore": 198,
+      "priceAfter": 236,
+      "marginBefore": 1.3,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Trento Small Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
+      "costBefore": 79.13,
+      "costAfter": 94.96,
+      "priceBefore": 109,
+      "priceAfter": 115,
+      "marginBefore": 12.9,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Terni Gold Finish Wall Mirror | Kaiku",
+      "costBefore": 132.2,
+      "costAfter": 158.64,
+      "priceBefore": 192,
+      "priceAfter": 192,
+      "marginBefore": 17.4,
+      "marginAfter": 17.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Leonov Medium Gold Finish Wall Mirror | Kaiku",
+      "costBefore": 162.9,
+      "costAfter": 195.48,
+      "priceBefore": 219,
+      "priceAfter": 236,
+      "marginBefore": 10.7,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Silva Large Oak Effect Silver Wall Mirror | Kaiku",
+      "costBefore": 223.4,
+      "costAfter": 268.08,
+      "priceBefore": 279,
+      "priceAfter": 323,
+      "marginBefore": 3.9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Jensen Rectangular Silver Wall Mirror | Kaiku",
+      "costBefore": 157.89,
+      "costAfter": 189.47,
+      "priceBefore": 199,
+      "priceAfter": 229,
+      "marginBefore": 4.8,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Josie Silver Round Wall Mirror | Kaiku",
+      "costBefore": 168.89,
+      "costAfter": 202.67,
+      "priceBefore": 214,
+      "priceAfter": 245,
+      "marginBefore": 5.3,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Dimaro Antique Grey Wall Mirror | Kaiku",
+      "costBefore": 194.8,
+      "costAfter": 233.76,
+      "priceBefore": 244,
+      "priceAfter": 282,
+      "marginBefore": 4.2,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Small Black Geometric Planter with Legs | Kaiku",
+      "costBefore": 64.29,
+      "costAfter": 77.15,
+      "priceBefore": 84,
+      "priceAfter": 93,
+      "marginBefore": 8.2,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Small Greyt Faceted Planter | Kaiku",
+      "costBefore": 46.36,
+      "costAfter": 55.63,
+      "priceBefore": 66,
+      "priceAfter": 68,
+      "marginBefore": 15.7,
+      "marginAfter": 18.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Small White Finish Rounded Planter | Kaiku",
+      "costBefore": 35.03,
+      "costAfter": 42.04,
+      "priceBefore": 55,
+      "priceAfter": 55,
+      "marginBefore": 23.6,
+      "marginAfter": 23.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Medium Grey Speckled Planter | Kaiku",
+      "costBefore": 41.14,
+      "costAfter": 49.37,
+      "priceBefore": 65,
+      "priceAfter": 65,
+      "marginBefore": 24,
+      "marginAfter": 24,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Large Grey Speckled Planter | Kaiku",
+      "costBefore": 52.63,
+      "costAfter": 63.16,
+      "priceBefore": 74,
+      "priceAfter": 77,
+      "marginBefore": 14.6,
+      "marginAfter": 18,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Small White Planter | Kaiku",
+      "costBefore": 52.41,
+      "costAfter": 62.89,
+      "priceBefore": 78,
+      "priceAfter": 78,
+      "marginBefore": 19.4,
+      "marginAfter": 19.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Large Black Finish Planter | Kaiku",
+      "costBefore": 87.6,
+      "costAfter": 105.12,
+      "priceBefore": 109,
+      "priceAfter": 127,
+      "marginBefore": 3.6,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell White And Black Small Planter | Kaiku",
+      "costBefore": 38.94,
+      "costAfter": 46.73,
+      "priceBefore": 53,
+      "priceAfter": 57,
+      "marginBefore": 11.8,
+      "marginAfter": 18,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell White And Black Large Planter | Kaiku",
+      "costBefore": 81,
+      "costAfter": 97.2,
+      "priceBefore": 119,
+      "priceAfter": 119,
+      "marginBefore": 18.3,
+      "marginAfter": 18.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Small Chevron Planter | Kaiku",
+      "costBefore": 33.16,
+      "costAfter": 39.79,
+      "priceBefore": 56,
+      "priceAfter": 56,
+      "marginBefore": 28.9,
+      "marginAfter": 28.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Large Chevron Planter | Kaiku",
+      "costBefore": 47.74,
+      "costAfter": 57.29,
+      "priceBefore": 67.74,
+      "priceAfter": 70,
+      "marginBefore": 15.4,
+      "marginAfter": 18.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Large Black And White Finish Planter | Kaiku",
+      "costBefore": 48.01,
+      "costAfter": 57.61,
+      "priceBefore": 67,
+      "priceAfter": 70,
+      "marginBefore": 14,
+      "marginAfter": 17.7,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Honna Small White Silver Ceramic Planter | Kaiku",
+      "costBefore": 11.1,
+      "costAfter": 13.32,
+      "priceBefore": 24,
+      "priceAfter": 24,
+      "marginBefore": 44.5,
+      "marginAfter": 44.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Yuri White And Gold Spotted Planter | Kaiku",
+      "costBefore": 16.93,
+      "costAfter": 20.32,
+      "priceBefore": 31,
+      "priceAfter": 31,
+      "marginBefore": 34.5,
+      "marginAfter": 34.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Yuri Small Terracotta Gold Spotted Planter | Kaiku",
+      "costBefore": 12.92,
+      "costAfter": 15.5,
+      "priceBefore": 26,
+      "priceAfter": 26,
+      "marginBefore": 40.4,
+      "marginAfter": 40.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Yana Small Cream Textured Ceramic Planter | Kaiku",
+      "costBefore": 11.14,
+      "costAfter": 13.37,
+      "priceBefore": 23,
+      "priceAfter": 23,
+      "marginBefore": 41.9,
+      "marginAfter": 41.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Yana Large Cream Textured Ceramic Planter | Kaiku",
+      "costBefore": 15.01,
+      "costAfter": 18.01,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 37.9,
+      "marginAfter": 37.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hira Medium Blue Ribbed Glass Bottle | Kaiku",
+      "costBefore": 37.83,
+      "costAfter": 45.4,
+      "priceBefore": 57,
+      "priceAfter": 57,
+      "marginBefore": 20.4,
+      "marginAfter": 20.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hania Small Glass Vase with Abstract Pattern | Kaiku",
+      "costBefore": 39.54,
+      "costAfter": 47.45,
+      "priceBefore": 59,
+      "priceAfter": 59,
+      "marginBefore": 19.6,
+      "marginAfter": 19.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hania Large Glass Vase with Abstract Pattern | Kaiku",
+      "costBefore": 36.13,
+      "costAfter": 43.36,
+      "priceBefore": 56,
+      "priceAfter": 56,
+      "marginBefore": 22.6,
+      "marginAfter": 22.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Herbie Green and Gold Large Glass Vase | Kaiku",
+      "costBefore": 52.13,
+      "costAfter": 62.56,
+      "priceBefore": 79,
+      "priceAfter": 79,
+      "marginBefore": 20.8,
+      "marginAfter": 20.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Deomali Black Finish Large Bottle Vase | Kaiku",
+      "costBefore": 33.45,
+      "costAfter": 40.14,
+      "priceBefore": 53,
+      "priceAfter": 53,
+      "marginBefore": 24.3,
+      "marginAfter": 24.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Round Natural And Black Vase | Kaiku",
+      "costBefore": 40.04,
+      "costAfter": 48.05,
+      "priceBefore": 63,
+      "priceAfter": 63,
+      "marginBefore": 23.7,
+      "marginAfter": 23.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Natural And Black Planter With Angular Legs | Kaiku",
+      "costBefore": 43.34,
+      "costAfter": 52.01,
+      "priceBefore": 66,
+      "priceAfter": 66,
+      "marginBefore": 21.2,
+      "marginAfter": 21.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Natural And Black Tapered Planter | Kaiku",
+      "costBefore": 47.74,
+      "costAfter": 57.29,
+      "priceBefore": 67,
+      "priceAfter": 70,
+      "marginBefore": 14.5,
+      "marginAfter": 18.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Brown Textured Planter | Kaiku",
+      "costBefore": 39.43,
+      "costAfter": 47.32,
+      "priceBefore": 69,
+      "priceAfter": 69,
+      "marginBefore": 31.4,
+      "marginAfter": 31.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Round Brown Vase | Kaiku",
+      "costBefore": 40.04,
+      "costAfter": 48.05,
+      "priceBefore": 62,
+      "priceAfter": 62,
+      "marginBefore": 22.5,
+      "marginAfter": 22.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Brown Planter With Angular Legs | Kaiku",
+      "costBefore": 43.34,
+      "costAfter": 52.01,
+      "priceBefore": 67,
+      "priceAfter": 67,
+      "marginBefore": 22.4,
+      "marginAfter": 22.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Round Brown Planter With Angular Legs | Kaiku",
+      "costBefore": 47.74,
+      "costAfter": 57.29,
+      "priceBefore": 67,
+      "priceAfter": 70,
+      "marginBefore": 14.5,
+      "marginAfter": 18.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Darnell Small Natural Face Planter | Kaiku",
+      "costBefore": 31.24,
+      "costAfter": 37.49,
+      "priceBefore": 47,
+      "priceAfter": 47,
+      "marginBefore": 20.2,
+      "marginAfter": 20.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Small Rustic Face Planter | Kaiku",
+      "costBefore": 31.24,
+      "costAfter": 37.49,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 23.5,
+      "marginAfter": 23.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Darnell Large Rustic Face Planter | Kaiku",
+      "costBefore": 37.23,
+      "costAfter": 44.68,
+      "priceBefore": 67,
+      "priceAfter": 67,
+      "marginBefore": 33.3,
+      "marginAfter": 33.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Cruzar Large Silver Lantern | Kaiku",
+      "costBefore": 100.91,
+      "costAfter": 121.09,
+      "priceBefore": 160,
+      "priceAfter": 160,
+      "marginBefore": 24.3,
+      "marginAfter": 24.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jada Large Planter | Kaiku",
+      "costBefore": 13.73,
+      "costAfter": 16.48,
+      "priceBefore": 26,
+      "priceAfter": 26,
+      "marginBefore": 36.6,
+      "marginAfter": 36.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jada Large Abstract Planter | Kaiku",
+      "costBefore": 16.53,
+      "costAfter": 19.84,
+      "priceBefore": 28,
+      "priceAfter": 28,
+      "marginBefore": 29.1,
+      "marginAfter": 29.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jada Large Striped Planter | Kaiku",
+      "costBefore": 18.24,
+      "costAfter": 21.89,
+      "priceBefore": 29,
+      "priceAfter": 29,
+      "marginBefore": 24.5,
+      "marginAfter": 24.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jada Small Striped Planter | Kaiku",
+      "costBefore": 10.88,
+      "costAfter": 13.06,
+      "priceBefore": 24,
+      "priceAfter": 24,
+      "marginBefore": 45.6,
+      "marginAfter": 45.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Cayden Small Smoked Black And Silver Vase | Kaiku",
+      "costBefore": 24.93,
+      "costAfter": 29.92,
+      "priceBefore": 36,
+      "priceAfter": 37,
+      "marginBefore": 16.9,
+      "marginAfter": 19.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Arlo Large Engraved Natural And Black Wooden Planter | Kaiku",
+      "costBefore": 46.14,
+      "costAfter": 55.37,
+      "priceBefore": 64,
+      "priceAfter": 67,
+      "marginBefore": 13.5,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Arlo Small Engraved Natural And Black Planter | Kaiku",
+      "costBefore": 28,
+      "costAfter": 33.6,
+      "priceBefore": 40,
+      "priceAfter": 41,
+      "marginBefore": 16,
+      "marginAfter": 18,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Arlo Small Natural Wooden Planter | Kaiku",
+      "costBefore": 19.41,
+      "costAfter": 23.29,
+      "priceBefore": 39,
+      "priceAfter": 39,
+      "marginBefore": 40.3,
+      "marginAfter": 40.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arlo Small Wooden Black Ombre Planter | Kaiku",
+      "costBefore": 22.1,
+      "costAfter": 26.52,
+      "priceBefore": 42,
+      "priceAfter": 42,
+      "marginBefore": 36.9,
+      "marginAfter": 36.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arlo Large Natural Wooden Planter | Kaiku",
+      "costBefore": 25.8,
+      "costAfter": 30.96,
+      "priceBefore": 49,
+      "priceAfter": 49,
+      "marginBefore": 36.8,
+      "marginAfter": 36.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arlo Large Wooden Black Ombre Planter | Kaiku",
+      "costBefore": 30.53,
+      "costAfter": 36.64,
+      "priceBefore": 59,
+      "priceAfter": 59,
+      "marginBefore": 37.9,
+      "marginAfter": 37.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arlo Large Brown And Natural Wooden Planter | Kaiku",
+      "costBefore": 53.3,
+      "costAfter": 63.96,
+      "priceBefore": 78,
+      "priceAfter": 78,
+      "marginBefore": 18,
+      "marginAfter": 18,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Tundra Black And White Earthenware Planter | Kaiku",
+      "costBefore": 32.33,
+      "costAfter": 38.8,
+      "priceBefore": 48,
+      "priceAfter": 48,
+      "marginBefore": 19.2,
+      "marginAfter": 19.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Sanai White Cotton Mache Large Planter | Kaiku",
+      "costBefore": 107.4,
+      "costAfter": 128.88,
+      "priceBefore": 139,
+      "priceAfter": 156,
+      "marginBefore": 7.3,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Sanai Black Cotton Mache Large Planter | Kaiku",
+      "costBefore": 112.9,
+      "costAfter": 135.48,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 35.2,
+      "marginAfter": 35.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Sabia Green And Gold Three Tiered Plant Stand | Kaiku",
+      "costBefore": 101.9,
+      "costAfter": 122.28,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 17.9,
+      "marginAfter": 17.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Sabia Green And Gold Two Tiered Plant Stand | Kaiku",
+      "costBefore": 58.4,
+      "costAfter": 70.08,
+      "priceBefore": 81,
+      "priceAfter": 85,
+      "marginBefore": 13.5,
+      "marginAfter": 17.6,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Quackpot Duck Feet Small Plant Stand | Kaiku",
+      "costBefore": 24.7,
+      "costAfter": 29.64,
+      "priceBefore": 44,
+      "priceAfter": 44,
+      "marginBefore": 32.6,
+      "marginAfter": 32.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Quackpot Duck Feet Large Plant Stand | Kaiku",
+      "costBefore": 33.01,
+      "costAfter": 39.61,
+      "priceBefore": 67,
+      "priceAfter": 67,
+      "marginBefore": 40.9,
+      "marginAfter": 40.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hampstead Black Finish Large Pendant Light With Hints of Gold | Kaiku",
+      "costBefore": 237.59,
+      "costAfter": 285.11,
+      "priceBefore": 337,
+      "priceAfter": 344,
+      "marginBefore": 15.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulyana Floor Lamp With Linen Shade | Kaiku",
+      "costBefore": 118.4,
+      "costAfter": 142.08,
+      "priceBefore": 189,
+      "priceAfter": 189,
+      "marginBefore": 24.8,
+      "marginAfter": 24.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Antler Nickel Finish and Black 4 Shade Chandelier | Kaiku",
+      "costBefore": 203,
+      "costAfter": 243.6,
+      "priceBefore": 297,
+      "priceAfter": 297,
+      "marginBefore": 18,
+      "marginAfter": 18,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Venice Nickel Plated Tapered Chandelier | Kaiku",
+      "costBefore": 267.2,
+      "costAfter": 320.64,
+      "priceBefore": 347,
+      "priceAfter": 387,
+      "marginBefore": 7.6,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lustra Small Nickel Painted Chandelier | Kaiku",
+      "costBefore": 534.05,
+      "costAfter": 640.86,
+      "priceBefore": 644,
+      "priceAfter": 773,
+      "marginBefore": 0.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Macey Large Faceted Floor Lamp | Kaiku",
+      "costBefore": 212.85,
+      "costAfter": 255.42,
+      "priceBefore": 289,
+      "priceAfter": 308,
+      "marginBefore": 11.6,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Bronze Finish 7 Light Statement Pendant Light | Kaiku",
+      "costBefore": 187.1,
+      "costAfter": 224.52,
+      "priceBefore": 243,
+      "priceAfter": 271,
+      "marginBefore": 7.6,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "costBefore": 194.69,
+      "costAfter": 233.63,
+      "priceBefore": 264,
+      "priceAfter": 282,
+      "marginBefore": 11.5,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Silver Finish Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "costBefore": 102.56,
+      "costAfter": 123.07,
+      "priceBefore": 178,
+      "priceAfter": 178,
+      "marginBefore": 30.9,
+      "marginAfter": 30.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hubert Nickel Finish Arc Floor Lamp | Kaiku",
+      "costBefore": 189.19,
+      "costAfter": 227.03,
+      "priceBefore": 249,
+      "priceAfter": 274,
+      "marginBefore": 8.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Skye Nickel Finish Rectangular Floor Lamp | Kaiku",
+      "costBefore": 306.96,
+      "costAfter": 368.35,
+      "priceBefore": 431,
+      "priceAfter": 444,
+      "marginBefore": 14.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Salasco Black Finish 3 Tiered Glass Chandelier | Kaiku",
+      "costBefore": 340.84,
+      "costAfter": 409.01,
+      "priceBefore": 440,
+      "priceAfter": 493,
+      "marginBefore": 7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Alexis 8 Light Nickel Finish Statement Pendant Light | Kaiku",
+      "costBefore": 311.64,
+      "costAfter": 373.97,
+      "priceBefore": 398,
+      "priceAfter": 451,
+      "marginBefore": 6,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Edith White Marble and Brushed Gold Table Lamp | Kaiku",
+      "costBefore": 115.76,
+      "costAfter": 138.91,
+      "priceBefore": 176,
+      "priceAfter": 176,
+      "marginBefore": 21.1,
+      "marginAfter": 21.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Newton Brass Finish Floor Lamp | Kaiku",
+      "costBefore": 119.89,
+      "costAfter": 143.87,
+      "priceBefore": 199,
+      "priceAfter": 199,
+      "marginBefore": 27.7,
+      "marginAfter": 27.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Karli 3 Tier Glass Statement Pendant Light | Kaiku",
+      "costBefore": 595.92,
+      "costAfter": 715.1,
+      "priceBefore": 789,
+      "priceAfter": 862,
+      "marginBefore": 9.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Karter Chrome Finish Floor Lamp With Three Lights | Kaiku",
+      "costBefore": 138.21,
+      "costAfter": 165.85,
+      "priceBefore": 197,
+      "priceAfter": 200,
+      "marginBefore": 15.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Karter Chrome Finish And White Glass Shade Floor Lamp | Kaiku",
+      "costBefore": 138.98,
+      "costAfter": 166.78,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 20.2,
+      "marginAfter": 20.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Trieste Large Angular Pendant Light | Kaiku",
+      "costBefore": 171.65,
+      "costAfter": 205.98,
+      "priceBefore": 239,
+      "priceAfter": 249,
+      "marginBefore": 13.8,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Trieste Large Floor Lamp | Kaiku",
+      "costBefore": 213.74,
+      "costAfter": 256.49,
+      "priceBefore": 299,
+      "priceAfter": 310,
+      "marginBefore": 14.2,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Trieste Champagne Glass Floor Lamp | Kaiku",
+      "costBefore": 156.54,
+      "costAfter": 187.85,
+      "priceBefore": 211,
+      "priceAfter": 227,
+      "marginBefore": 11,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "costBefore": 158.28,
+      "costAfter": 189.94,
+      "priceBefore": 238,
+      "priceAfter": 238,
+      "marginBefore": 20.2,
+      "marginAfter": 20.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Abira Brass Finish Three Bulb Floor Lamp | Kaiku",
+      "costBefore": 230.73,
+      "costAfter": 276.88,
+      "priceBefore": 293,
+      "priceAfter": 334,
+      "marginBefore": 5.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Black Finish 16 Arm Statement Pendant Light | Kaiku",
+      "costBefore": 540.65,
+      "costAfter": 648.78,
+      "priceBefore": 689,
+      "priceAfter": 782,
+      "marginBefore": 5.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Orko Brass And Black 16 Bulb Statement Pendant Light | Kaiku",
+      "costBefore": 420.74,
+      "costAfter": 504.89,
+      "priceBefore": 599,
+      "priceAfter": 609,
+      "marginBefore": 15.7,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Orbo Gold and Frosted Glass Statement Pendant Light | Kaiku",
+      "costBefore": 142.77,
+      "costAfter": 171.32,
+      "priceBefore": 222,
+      "priceAfter": 222,
+      "marginBefore": 22.8,
+      "marginAfter": 22.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Enola Large Ribbed Smoked Glass Table Lamp | Kaiku",
+      "costBefore": 51.31,
+      "costAfter": 61.57,
+      "priceBefore": 78,
+      "priceAfter": 78,
+      "marginBefore": 21.1,
+      "marginAfter": 21.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Babylon Large 8 Light Pendant Light | Kaiku",
+      "costBefore": 605.44,
+      "costAfter": 726.53,
+      "priceBefore": 789,
+      "priceAfter": 876,
+      "marginBefore": 7.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Babylon 6 Bulb Crystal Chandelier | Kaiku",
+      "costBefore": 268.07,
+      "costAfter": 321.68,
+      "priceBefore": 378,
+      "priceAfter": 388,
+      "marginBefore": 14.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Babylon Six Bulb Black Crystal Chandelier | Kaiku",
+      "costBefore": 270.49,
+      "costAfter": 324.59,
+      "priceBefore": 370,
+      "priceAfter": 392,
+      "marginBefore": 12.3,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Babylon Six Bulb Chrome Chandelier | Kaiku",
+      "costBefore": 288.09,
+      "costAfter": 345.71,
+      "priceBefore": 409,
+      "priceAfter": 417,
+      "marginBefore": 15.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Babylon Eight Bulb Chrome Chandelier | Kaiku",
+      "costBefore": 207.39,
+      "costAfter": 248.87,
+      "priceBefore": 311,
+      "priceAfter": 311,
+      "marginBefore": 20,
+      "marginAfter": 20,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Babylon Four Bulb Antique Gold Chandelier | Kaiku",
+      "costBefore": 205.8,
+      "costAfter": 246.96,
+      "priceBefore": 299,
+      "priceAfter": 299,
+      "marginBefore": 17.4,
+      "marginAfter": 17.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Newton White Marble and Gold Floor Lamp | Kaiku",
+      "costBefore": 95.69,
+      "costAfter": 114.83,
+      "priceBefore": 145,
+      "priceAfter": 145,
+      "marginBefore": 20.8,
+      "marginAfter": 20.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Newton Gold Finish Metal Shade Floor Lamp | Kaiku",
+      "costBefore": 177.7,
+      "costAfter": 213.24,
+      "priceBefore": 249,
+      "priceAfter": 257,
+      "marginBefore": 14.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Black Marble and Brass 5 Bulb Floor Lamp | Kaiku",
+      "costBefore": 258.45,
+      "costAfter": 310.14,
+      "priceBefore": 379,
+      "priceAfter": 379,
+      "marginBefore": 18.2,
+      "marginAfter": 18.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Abira White Marble and Brass Finish 5 Bulb Floor Lamp | Kaiku",
+      "costBefore": 258.45,
+      "costAfter": 310.14,
+      "priceBefore": 328,
+      "priceAfter": 374,
+      "marginBefore": 5.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Abira Black Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "costBefore": 258.45,
+      "costAfter": 310.14,
+      "priceBefore": 329,
+      "priceAfter": 374,
+      "marginBefore": 5.7,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Yara Matt Black 12 Bulb Statement Pendant Light | Kaiku",
+      "costBefore": 465.29,
+      "costAfter": 558.35,
+      "priceBefore": 665,
+      "priceAfter": 673,
+      "marginBefore": 16,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hutchinson Clear Crystal Table Lamp with Black Metal | Kaiku",
+      "costBefore": 104.98,
+      "costAfter": 125.98,
+      "priceBefore": 164,
+      "priceAfter": 164,
+      "marginBefore": 23.2,
+      "marginAfter": 23.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hutchinson Clear Crystal Floor Lamp with Black Metal | Kaiku",
+      "costBefore": 177.7,
+      "costAfter": 213.24,
+      "priceBefore": 249,
+      "priceAfter": 257,
+      "marginBefore": 14.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hutchinson Clear Crystal Table Lamp with Gold Metal | Kaiku",
+      "costBefore": 104.98,
+      "costAfter": 125.98,
+      "priceBefore": 149,
+      "priceAfter": 152,
+      "marginBefore": 15.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hutchinson Clear Crystal Floor Lamp with Gold Metal | Kaiku",
+      "costBefore": 185.4,
+      "costAfter": 222.48,
+      "priceBefore": 239,
+      "priceAfter": 269,
+      "marginBefore": 6.9,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hubert Satin Nickel Finish Metal Floor Lamp | Kaiku",
+      "costBefore": 211.8,
+      "costAfter": 254.16,
+      "priceBefore": 269,
+      "priceAfter": 307,
+      "marginBefore": 5.5,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hanah Black Snake Leather Effect Table Lamp with Chrome Base | Kaiku",
+      "costBefore": 96.89,
+      "costAfter": 116.27,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 22,
+      "marginAfter": 22,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hanah Black Snake Leather Effect Floor Lamp with Chrome Base and Black Shade | Kaiku",
+      "costBefore": 142.99,
+      "costAfter": 171.59,
+      "priceBefore": 199,
+      "priceAfter": 207,
+      "marginBefore": 13.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Murdoch Brushed Brass Floor Lamp with Black Marble Base | Kaiku",
+      "costBefore": 171.55,
+      "costAfter": 205.86,
+      "priceBefore": 229,
+      "priceAfter": 249,
+      "marginBefore": 10.1,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Atkins Nickel Finish Floor Lamp with White Shade | Kaiku",
+      "costBefore": 159,
+      "costAfter": 190.8,
+      "priceBefore": 199,
+      "priceAfter": 230,
+      "marginBefore": 4.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Equipoise Black and Brass Finish Floor Lamp with Marble Base | Kaiku",
+      "costBefore": 163.4,
+      "costAfter": 196.08,
+      "priceBefore": 199,
+      "priceAfter": 237,
+      "marginBefore": 1.5,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Carta Black and White Stripe Papier Mache Table Lamp | Kaiku",
+      "costBefore": 61.54,
+      "costAfter": 73.85,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 17,
+      "marginAfter": 17,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Black And White Papier Mache Table Lamp with Geometric Lines | Kaiku",
+      "costBefore": 91.29,
+      "costAfter": 109.55,
+      "priceBefore": 129,
+      "priceAfter": 132,
+      "marginBefore": 15.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Carta Black and White Curved Stripe Papier Mache Table Lamp | Kaiku",
+      "costBefore": 91.29,
+      "costAfter": 109.55,
+      "priceBefore": 139,
+      "priceAfter": 139,
+      "marginBefore": 21.2,
+      "marginAfter": 21.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Brown and White Stripe Papier Mache Table Lamp | Kaiku",
+      "costBefore": 61.54,
+      "costAfter": 73.85,
+      "priceBefore": 91,
+      "priceAfter": 91,
+      "marginBefore": 18.8,
+      "marginAfter": 18.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Black and White Stripe Papier Mache Domed Floor Lamp | Kaiku",
+      "costBefore": 218.53,
+      "costAfter": 262.24,
+      "priceBefore": 298,
+      "priceAfter": 316,
+      "marginBefore": 12,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Carta Black and White Stripe Papier Mache Domed Pendant Light | Kaiku",
+      "costBefore": 132.69,
+      "costAfter": 159.23,
+      "priceBefore": 197,
+      "priceAfter": 197,
+      "marginBefore": 19.2,
+      "marginAfter": 19.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Black and White Polka Dot Papier Mache Table Lamp | Kaiku",
+      "costBefore": 84.68,
+      "costAfter": 101.62,
+      "priceBefore": 109,
+      "priceAfter": 123,
+      "marginBefore": 6.8,
+      "marginAfter": 17.4,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Carta Taupe Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "costBefore": 57.63,
+      "costAfter": 69.16,
+      "priceBefore": 89,
+      "priceAfter": 89,
+      "marginBefore": 22.3,
+      "marginAfter": 22.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "costBefore": 83.58,
+      "costAfter": 100.3,
+      "priceBefore": 129,
+      "priceAfter": 129,
+      "marginBefore": 22.2,
+      "marginAfter": 22.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Carta Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "costBefore": 85.78,
+      "costAfter": 102.94,
+      "priceBefore": 119,
+      "priceAfter": 125,
+      "marginBefore": 13.5,
+      "marginAfter": 17.6,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Batu Set Of 2 Natural Rattan Baskets | Kaiku",
+      "costBefore": 52.41,
+      "costAfter": 62.89,
+      "priceBefore": 79,
+      "priceAfter": 79,
+      "marginBefore": 20.4,
+      "marginAfter": 20.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Astratto Natural Textured Canvas Wall Art | Kaiku",
+      "costBefore": 81,
+      "costAfter": 97.2,
+      "priceBefore": 109,
+      "priceAfter": 118,
+      "marginBefore": 10.8,
+      "marginAfter": 17.6,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kendari Black Leather and Teak Wood Chair | Kaiku",
+      "costBefore": 194.69,
+      "costAfter": 233.63,
+      "priceBefore": 294,
+      "priceAfter": 294,
+      "marginBefore": 20.5,
+      "marginAfter": 20.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Hazel Natural Oak Wood and Grey Fur Dining Chair | Kaiku",
+      "costBefore": 298,
+      "costAfter": 357.6,
+      "priceBefore": 399,
+      "priceAfter": 431,
+      "marginBefore": 10.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Tamzin Blue Velvet Curved Back Dining Chair | Kaiku",
+      "costBefore": 92,
+      "costAfter": 110.4,
+      "priceBefore": 129,
+      "priceAfter": 134,
+      "marginBefore": 14.4,
+      "marginAfter": 17.6,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Tamzin Dark Grey Leather Effect Curved Dining Chair | Kaiku",
+      "costBefore": 97.99,
+      "costAfter": 117.59,
+      "priceBefore": 198,
+      "priceAfter": 198,
+      "marginBefore": 40.6,
+      "marginAfter": 40.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Kempton Grey Shagreen Effect and Walnut Veneer Media Unit | Kaiku",
+      "costBefore": 827.97,
+      "costAfter": 993.56,
+      "priceBefore": 1190,
+      "priceAfter": 1198,
+      "marginBefore": 16.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Milan Grey Wash Recycled Elm Wood 4 Door Sideboard | Kaiku",
+      "costBefore": 1147.63,
+      "costAfter": 1377.16,
+      "priceBefore": 1590,
+      "priceAfter": 1660,
+      "marginBefore": 13.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Sagor Mango Wood Console Table with Drawers | Kaiku",
+      "costBefore": 461.29,
+      "costAfter": 553.55,
+      "priceBefore": 661.29,
+      "priceAfter": 667,
+      "marginBefore": 16.3,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Deskey Grey Shagreen Effect Media Unit | Kaiku",
+      "costBefore": 960.41,
+      "costAfter": 1152.49,
+      "priceBefore": 1260,
+      "priceAfter": 1389,
+      "marginBefore": 8.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kerala Recycled Natural Wood Console Table with Curved Legs | Kaiku",
+      "costBefore": 484.44,
+      "costAfter": 581.33,
+      "priceBefore": 684,
+      "priceAfter": 701,
+      "marginBefore": 15,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Kerala Natural Recycled Wood Dining Table With Cross Base | Kaiku",
+      "costBefore": 1099.28,
+      "costAfter": 1319.14,
+      "priceBefore": 1499,
+      "priceAfter": 1590,
+      "marginBefore": 12,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulmus Black Elm Wood Dining Table | Kaiku",
+      "costBefore": 856.22,
+      "costAfter": 1027.46,
+      "priceBefore": 1100,
+      "priceAfter": 1238,
+      "marginBefore": 6.6,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulmus Black Elm Wood Sideboard | Kaiku",
+      "costBefore": 1321.21,
+      "costAfter": 1585.45,
+      "priceBefore": 1621,
+      "priceAfter": 1911,
+      "marginBefore": 2.2,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulmus Black Elm Wood Coffee Table | Kaiku",
+      "costBefore": 573.78,
+      "costAfter": 688.54,
+      "priceBefore": 749,
+      "priceAfter": 830,
+      "marginBefore": 8.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ulmus Black Elm Wood Console Table | Kaiku",
+      "costBefore": 637.94,
+      "costAfter": 765.53,
+      "priceBefore": 798,
+      "priceAfter": 923,
+      "marginBefore": 4.1,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Corso Black Bedside Table with Rattan Drawer | Kaiku",
+      "costBefore": 160.93,
+      "costAfter": 193.12,
+      "priceBefore": 289,
+      "priceAfter": 289,
+      "marginBefore": 33.2,
+      "marginAfter": 33.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Surina 3 Seat Stone Fabric Sofa | Kaiku",
+      "costBefore": 935.03,
+      "costAfter": 1122.04,
+      "priceBefore": 1290,
+      "priceAfter": 1352,
+      "marginBefore": 13,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lena Oak Veneer Coffee Table with Brushed Gold Legs | Kaiku",
+      "costBefore": 355.69,
+      "costAfter": 426.83,
+      "priceBefore": 469,
+      "priceAfter": 515,
+      "marginBefore": 9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lena Oak Veneer Round Side Table with Brushed Gold Legs | Kaiku",
+      "costBefore": 300.64,
+      "costAfter": 360.77,
+      "priceBefore": 400,
+      "priceAfter": 435,
+      "marginBefore": 9.8,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Lena Oak Veneer Rectangular Side Table with Brushed Gold Legs | Kaiku",
+      "costBefore": 289.2,
+      "costAfter": 347.04,
+      "priceBefore": 389,
+      "priceAfter": 419,
+      "marginBefore": 10.8,
+      "marginAfter": 17.2,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Luxor Grey Wash Recycled Pine Wood 4 Door Sideboard | Kaiku",
+      "costBefore": 1045,
+      "costAfter": 1254,
+      "priceBefore": 1395,
+      "priceAfter": 1511,
+      "marginBefore": 10.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Luxor Grey Wash Recycled Pine Wood Console Table with Drawers | Kaiku",
+      "costBefore": 438.61,
+      "costAfter": 526.33,
+      "priceBefore": 588,
+      "priceAfter": 635,
+      "marginBefore": 10.5,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Trento Round Rattan and Antique Gold Finish Side Table | Kaiku",
+      "costBefore": 172.69,
+      "costAfter": 207.23,
+      "priceBefore": 301,
+      "priceAfter": 301,
+      "marginBefore": 31.2,
+      "marginAfter": 31.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
+      "costBefore": 336.5,
+      "costAfter": 403.8,
+      "priceBefore": 529,
+      "priceAfter": 529,
+      "marginBefore": 23.7,
+      "marginAfter": 23.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Batu Large Black Rattan Wall Shelf | Kaiku",
+      "costBefore": 59.84,
+      "costAfter": 71.81,
+      "priceBefore": 149,
+      "priceAfter": 149,
+      "marginBefore": 51.8,
+      "marginAfter": 51.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Batu Set Of 2 Natural Rattan Side Tables | Kaiku",
+      "costBefore": 150.69,
+      "costAfter": 180.83,
+      "priceBefore": 229,
+      "priceAfter": 229,
+      "marginBefore": 21,
+      "marginAfter": 21,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Batu Set Of 2 Black Rattan Side Tables | Kaiku",
+      "costBefore": 150.69,
+      "costAfter": 180.83,
+      "priceBefore": 231,
+      "priceAfter": 231,
+      "marginBefore": 21.7,
+      "marginAfter": 21.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Jakara Natural Finish Carved Media Unit | Kaiku",
+      "costBefore": 755.59,
+      "costAfter": 906.71,
+      "priceBefore": 998,
+      "priceAfter": 1093,
+      "marginBefore": 9.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Jakara Black Finish Carved Media Unit | Kaiku",
+      "costBefore": 755.59,
+      "costAfter": 906.71,
+      "priceBefore": 996,
+      "priceAfter": 1093,
+      "marginBefore": 9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Ralph Three Seat Mink Velvet Sofa | Kaiku",
+      "costBefore": 770.82,
+      "costAfter": 924.98,
+      "priceBefore": 1170,
+      "priceAfter": 1170,
+      "marginBefore": 20.9,
+      "marginAfter": 20.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Ralph Three Seat Mink Velvet Right Chaise Sofa | Kaiku",
+      "costBefore": 1132.5,
+      "costAfter": 1359,
+      "priceBefore": 1632,
+      "priceAfter": 1638,
+      "marginBefore": 16.7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Boho Black and White Two Drawer Console Table | Kaiku",
+      "costBefore": 261.97,
+      "costAfter": 314.36,
+      "priceBefore": 423,
+      "priceAfter": 423,
+      "marginBefore": 25.7,
+      "marginAfter": 25.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Moda Black Faux Marble Rectangular Dining Table | Kaiku",
+      "costBefore": 860.01,
+      "costAfter": 1032.01,
+      "priceBefore": 1109,
+      "priceAfter": 1244,
+      "marginBefore": 6.9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Simla Acacia Wood Media Unit | Kaiku",
+      "costBefore": 465.16,
+      "costAfter": 558.19,
+      "priceBefore": 675,
+      "priceAfter": 675,
+      "marginBefore": 17.3,
+      "marginAfter": 17.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Surati Sheesham And Acacia Wood Media Unit | Kaiku",
+      "costBefore": 503.79,
+      "costAfter": 604.55,
+      "priceBefore": 799,
+      "priceAfter": 799,
+      "marginBefore": 24.3,
+      "marginAfter": 24.3,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Sarter Black Mango Wood Chest of 4 Drawers | Kaiku",
+      "costBefore": 530.15,
+      "costAfter": 636.18,
+      "priceBefore": 749,
+      "priceAfter": 767,
+      "marginBefore": 15.1,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Boho Two Drawer Bedside Table in Mango Wood | Kaiku",
+      "costBefore": 187.6,
+      "costAfter": 225.12,
+      "priceBefore": 297,
+      "priceAfter": 297,
+      "marginBefore": 24.2,
+      "marginAfter": 24.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Arti Mango Wood and Brass Effect Media Unit | Kaiku",
+      "costBefore": 289.19,
+      "costAfter": 347.03,
+      "priceBefore": 589,
+      "priceAfter": 589,
+      "marginBefore": 41.1,
+      "marginAfter": 41.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Opus Grey Woven Rope Chair with Cushioned Seat | Kaiku",
+      "costBefore": 233.25,
+      "costAfter": 279.9,
+      "priceBefore": 389,
+      "priceAfter": 389,
+      "marginBefore": 28,
+      "marginAfter": 28,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Opus Grey Woven Rope Three Seater Sofa with Cushions | Kaiku",
+      "costBefore": 570.35,
+      "costAfter": 684.42,
+      "priceBefore": 770,
+      "priceAfter": 825,
+      "marginBefore": 11.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Opus Woven Rope Chaise Longue with Cushions | Kaiku",
+      "costBefore": 602.96,
+      "costAfter": 723.55,
+      "priceBefore": 899,
+      "priceAfter": 899,
+      "marginBefore": 19.5,
+      "marginAfter": 19.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Opus Linen Fabric and Woven Rope 3 Seat Sofa | Kaiku",
+      "costBefore": 619.24,
+      "costAfter": 743.09,
+      "priceBefore": 819.24,
+      "priceAfter": 896,
+      "marginBefore": 9.3,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Opus Rope Woven Longue Bench with Cushions | Kaiku",
+      "costBefore": 544.44,
+      "costAfter": 653.33,
+      "priceBefore": 744,
+      "priceAfter": 788,
+      "marginBefore": 12.2,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Cebu Elm Wood and Rattan Dining Chair | Kaiku",
+      "costBefore": 133.19,
+      "costAfter": 159.83,
+      "priceBefore": 233,
+      "priceAfter": 233,
+      "marginBefore": 31.4,
+      "marginAfter": 31.4,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Cebu Black Side Table with Rattan Drawer | Kaiku",
+      "costBefore": 105.19,
+      "costAfter": 126.23,
+      "priceBefore": 209,
+      "priceAfter": 209,
+      "marginBefore": 39.6,
+      "marginAfter": 39.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Grenoble Oak Veneer 2 Drawer Desk | Kaiku",
+      "costBefore": 470.69,
+      "costAfter": 564.83,
+      "priceBefore": 620,
+      "priceAfter": 681,
+      "marginBefore": 8.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Grenoble Brushed Brass Multi Tier Shelving Unit | Kaiku",
+      "costBefore": 832.59,
+      "costAfter": 999.11,
+      "priceBefore": 989,
+      "priceAfter": 1204,
+      "marginBefore": -1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Manado Natural Rattan Sofa with Cushions | Kaiku",
+      "costBefore": 381.1,
+      "costAfter": 457.32,
+      "priceBefore": 520,
+      "priceAfter": 551,
+      "marginBefore": 12.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Manado Natural Rattan Long Bench with Cushion | Kaiku",
+      "costBefore": 370.59,
+      "costAfter": 444.71,
+      "priceBefore": 659,
+      "priceAfter": 659,
+      "marginBefore": 32.5,
+      "marginAfter": 32.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "costBefore": 102.72,
+      "costAfter": 123.26,
+      "priceBefore": 229,
+      "priceAfter": 229,
+      "marginBefore": 46.2,
+      "marginAfter": 46.2,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java Natural Rattan Scalloped Accent Chair | Kaiku",
+      "costBefore": 122.13,
+      "costAfter": 146.56,
+      "priceBefore": 219,
+      "priceAfter": 219,
+      "marginBefore": 33.1,
+      "marginAfter": 33.1,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java Natural Rattan Flared Back Chair | Kaiku",
+      "costBefore": 83.62,
+      "costAfter": 100.34,
+      "priceBefore": 189,
+      "priceAfter": 189,
+      "marginBefore": 46.9,
+      "marginAfter": 46.9,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java Black Rattan Round Back Accent Chair | Kaiku",
+      "costBefore": 87.97,
+      "costAfter": 105.56,
+      "priceBefore": 167,
+      "priceAfter": 167,
+      "marginBefore": 36.8,
+      "marginAfter": 36.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java Natural Rattan Peacock Accent Chair | Kaiku",
+      "costBefore": 91.68,
+      "costAfter": 110.02,
+      "priceBefore": 179,
+      "priceAfter": 179,
+      "marginBefore": 38.5,
+      "marginAfter": 38.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java Black Rattan Peacock Accent Chair | Kaiku",
+      "costBefore": 91.68,
+      "costAfter": 110.02,
+      "priceBefore": 109,
+      "priceAfter": 133,
+      "marginBefore": -0.9,
+      "marginAfter": 17.3,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Java Natural Rattan Round Chair | Kaiku",
+      "costBefore": 88.43,
+      "costAfter": 106.12,
+      "priceBefore": 99,
+      "priceAfter": 128,
+      "marginBefore": -7.2,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Java Black Rattan Round Chair | Kaiku",
+      "costBefore": 84.43,
+      "costAfter": 101.32,
+      "priceBefore": 129,
+      "priceAfter": 129,
+      "marginBefore": 21.5,
+      "marginAfter": 21.5,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Java White Natural Rattan Curved Chair | Kaiku",
+      "costBefore": 233.25,
+      "costAfter": 279.9,
+      "priceBefore": 393,
+      "priceAfter": 393,
+      "marginBefore": 28.8,
+      "marginAfter": 28.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lyon Rattan and Oak Wood 2 Door Wardrobe | Kaiku",
+      "costBefore": 996.49,
+      "costAfter": 1195.79,
+      "priceBefore": 1469,
+      "priceAfter": 1469,
+      "marginBefore": 18.6,
+      "marginAfter": 18.6,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Lyon Rattan and Oak Wood 4 Door Sideboard | Kaiku",
+      "costBefore": 814.55,
+      "costAfter": 977.46,
+      "priceBefore": 1019,
+      "priceAfter": 1178,
+      "marginBefore": 4.1,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Parkside Oak Wood Round Dining Table | Kaiku",
+      "costBefore": 659.68,
+      "costAfter": 791.62,
+      "priceBefore": 859,
+      "priceAfter": 954,
+      "marginBefore": 7.8,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Parkside Dark Oak Wood Round Dining Table | Kaiku",
+      "costBefore": 673.51,
+      "costAfter": 808.21,
+      "priceBefore": 893,
+      "priceAfter": 974,
+      "marginBefore": 9.5,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Parkside Grey Fabric Super Kingsize Bed | Kaiku",
+      "costBefore": 806.85,
+      "costAfter": 968.22,
+      "priceBefore": 1270,
+      "priceAfter": 1270,
+      "marginBefore": 23.8,
+      "marginAfter": 23.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Siena Black and Natural Oak Wood Three Door Sideboard | Kaiku",
+      "costBefore": 1014,
+      "costAfter": 1216.8,
+      "priceBefore": 1460,
+      "priceAfter": 1467,
+      "marginBefore": 16.7,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Sabrina Three Seat Grey Velvet Sofa | Kaiku",
+      "costBefore": 870.79,
+      "costAfter": 1044.95,
+      "priceBefore": 1170,
+      "priceAfter": 1259,
+      "marginBefore": 10.7,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Siena Three Seat Midnight Velvet Sofa | Kaiku",
+      "costBefore": 878.84,
+      "costAfter": 1054.61,
+      "priceBefore": 1190,
+      "priceAfter": 1271,
+      "marginBefore": 11.4,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Imperia 2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
+      "costBefore": 571.98,
+      "costAfter": 686.38,
+      "priceBefore": 797,
+      "priceAfter": 827,
+      "marginBefore": 13.9,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Imperia Ceramic Marble Effect Round Dining Table | Kaiku",
+      "costBefore": 384.94,
+      "costAfter": 461.93,
+      "priceBefore": 499,
+      "priceAfter": 557,
+      "marginBefore": 7.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Imperia Ceramic Marble Effect Rectangular Dining Table | Kaiku",
+      "costBefore": 516.94,
+      "costAfter": 620.33,
+      "priceBefore": 713,
+      "priceAfter": 748,
+      "marginBefore": 13,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Naro Mango Wood and Gold Tip Legs Side Table | Kaiku",
+      "costBefore": 134.62,
+      "costAfter": 161.54,
+      "priceBefore": 244,
+      "priceAfter": 244,
+      "marginBefore": 33.8,
+      "marginAfter": 33.8,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Naro Mango Wood and Gold Finish Console Table | Kaiku",
+      "costBefore": 269.39,
+      "costAfter": 323.27,
+      "priceBefore": 369,
+      "priceAfter": 390,
+      "marginBefore": 12.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Naro Mango Wood And Gold Finishing Coffee Table | Kaiku",
+      "costBefore": 309.32,
+      "costAfter": 371.18,
+      "priceBefore": 409,
+      "priceAfter": 448,
+      "marginBefore": 9.2,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Spezia Grey Marble Top Media Unit | Kaiku",
+      "costBefore": 1023.02,
+      "costAfter": 1227.62,
+      "priceBefore": 1469,
+      "priceAfter": 1480,
+      "marginBefore": 16.4,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Saronno Grey Marble Dining Table | Kaiku",
+      "costBefore": 1638.72,
+      "costAfter": 1966.46,
+      "priceBefore": 2389,
+      "priceAfter": 2389,
+      "marginBefore": 17.7,
+      "marginAfter": 17.7,
+      "status": "cost fixed only"
+    },
+    {
+      "title": "Saronno Grey Marble Top Media Unit | Kaiku",
+      "costBefore": 1060.29,
+      "costAfter": 1272.35,
+      "priceBefore": 1489,
+      "priceAfter": 1533,
+      "marginBefore": 14.6,
+      "marginAfter": 17,
+      "status": "cost + price fixed"
+    },
+    {
+      "title": "Hampstead Acacia Wood and Silver Legs Dining Table | Kaiku",
+      "costBefore": 477.34,
+      "costAfter": 572.81,
+      "priceBefore": 689,
+      "priceAfter": 691,
+      "marginBefore": 16.9,
+      "marginAfter": 17.1,
+      "status": "cost + price fixed"
+    }
+  ]
+}
