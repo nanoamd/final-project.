@@ -33,12 +33,12 @@ export const portableTextComponents: PortableTextComponents = {
       </h2>
     ),
     h2: ({ children }) => (
-      <h2 className="text-ink font-display mt-10 mb-4 text-2xl tracking-tight first:mt-0">
+      <h2 className="text-ink font-display mt-10 mb-4 text-2xl font-bold tracking-tight first:mt-0">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-ink font-display mt-8 mb-3 text-xl tracking-tight first:mt-0">
+      <h3 className="text-ink font-display mt-8 mb-3 text-xl font-semibold tracking-tight first:mt-0">
         {children}
       </h3>
     ),
