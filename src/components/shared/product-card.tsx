@@ -1,3 +1,8 @@
+// DEAD CODE — only imported by the also-dead category-browser.tsx (see the
+// note on category-page.tsx). Never renders a real product photo — it
+// always shows the decorative PlaceholderImage illustration regardless of
+// whether `product.image` exists, which is the exact bug Damien flagged.
+// Safe to delete; left in place pending a human deletion decision.
 import { AppLink } from "@/components/ui/app-link";
 import { Badge } from "@/components/ui/badge";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";

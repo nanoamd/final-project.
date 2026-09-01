@@ -1,3 +1,9 @@
+// DEAD CODE — not exported from src/features/storefront/index.ts (removed
+// 1 September) and not imported by any route under src/app. Early-development
+// mock-data UI (see data/catalog.ts) that was never wired to the real
+// Sanity-driven storefront. This is what a placeholder-illustration category
+// tile Damien flagged traced back to. Left in place because file deletion
+// needs a human decision in this environment — safe to delete outright.
 import { notFound } from "next/navigation";
 
 import { PageIntro } from "@/components/shared/page-intro";

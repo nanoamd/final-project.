@@ -1,3 +1,8 @@
+// DEAD CODE — not imported anywhere (see the note on category-page.tsx).
+// Always shows the decorative PlaceholderImage illustration regardless of
+// whether `category.image` exists — the exact bug Damien flagged for a
+// category tile. Safe to delete; left in place pending a human deletion
+// decision.
 import { AppLink } from "@/components/ui/app-link";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { cn } from "@/lib/utils";
