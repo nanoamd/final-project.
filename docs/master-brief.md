@@ -16,6 +16,58 @@ Status key:
 
 ---
 
+## A four-figure Sanity/Vercel bill from bot traffic, and the fix (1 September)
+
+Damien: _"EMERGENCY: SANITY IS TRYING TO CHARGE ME £1500"_ — a real bank charge
+attempt, not a warning.
+
+- [x] **Root cause found and confirmed against two independent sources.**
+      Sanity's own usage dashboard showed 2593% of the API CDN request quota
+      (25.9M vs 1M included) and 3739% of bandwidth (3.7TB vs 100GB) in one
+      day. Cloudflare's firewall traffic dashboard, checked separately,
+      showed 1.1M of 1.1M allowed requests in 24h from a single automated
+      client (one JA4 TLS fingerprint, AS "Facebook, Inc."), repeatedly
+      hitting random invented paths like `/7ba622c6bf704055/view` — not a
+      route that exists anywhere in this codebase. A scraping bot generating
+      a fresh random path per request specifically to defeat caching.
+- [x] **Sanity's billing team reduced the charge by 75%** after being shown
+      the Cloudflare evidence — from £1500 to roughly £264–272, split across
+      two months, following a support ticket citing the traffic data as
+      proof this was automated abuse, not legitimate usage, already fixed at
+      the source.
+- [x] **Fixed at the root, not just reported.** Two layers:
+  1. **Vercel Firewall → Bot Protection**, published (was showing
+     "Inactive" with an unpublished pending change sitting in "Review
+     Changes" — Damien published it).
+  2. **`src/proxy.ts`** — every request now runs through an allowlist check
+     before the Supabase session refresh or any page render/Sanity query:
+     anything whose top-level path segment isn't a route this site
+     actually has gets a 404 immediately, no rendering, no data fetch. This
+     matters specifically because a bot generating a _different_ random
+     path on every request defeats any per-path cache — the only defence
+     that works regardless of how many distinct junk paths get invented is
+     rejecting the shape of the request before it's ever looked up.
+     - [-] **First attempt broke the dev server** — this Next.js version
+       (16.2.9) renamed `middleware.ts` to `proxy.ts`, and a `proxy.ts`
+       already existed (Supabase session refresh). Writing a separate
+       `middleware.ts` created a same-purpose file conflict Next.js refuses
+       to start with. Caught immediately via a hanging local curl test
+       (never trust "should work," verify), fixed by merging the allowlist
+       logic into the existing `proxy.ts` instead, then re-verified live:
+       real routes 200, `/7ba622c6bf704055/view` and `/wp-admin` 404,
+       `/api/revalidate` still reachable (503 for its own unrelated reason
+       — no secret configured in this dev sandbox).
+- [x] **This was a real, structural gap, not an isolated bug** — worth
+      remembering going forward: any dynamic route with `generateStaticParams`
+      and `dynamicParams: true` (the correct setting for new content to
+      appear without a redeploy) is open to this exact cost pattern unless
+      something rejects obviously-invalid paths before the route tries to
+      resolve them. The proxy-layer allowlist is now that backstop for every
+      current and future dynamic route on this site, not just the one that
+      got hit.
+
+---
+
 ## The comprehensive audit, and the first real rewrite batch (1 September)
 
 Damien: _"continue the description audit then make a report of everything
@@ -127,7 +179,7 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
       thin-not-zero-facts version of the same fault** (1-2 scattered facts
       across 1,100+ words, so they slipped past the earlier "exactly zero"
       audit query but still failed the same way). `scripts/write-review-
-    tier-descriptions-batch5.ts`. Applied and verified live.
+  tier-descriptions-batch5.ts`. Applied and verified live.
 - [x] **Published REVIEW tier: 101 → 4.** The 4 remaining are exactly the
       ones that are genuinely not fixable by writing a better description:
       the three flagged data-integrity conflicts (Delphine Dresser Top,
