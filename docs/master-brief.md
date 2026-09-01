@@ -16,6 +16,69 @@ Status key:
 
 ---
 
+## Two defects Damien found live that my own scans had missed (1 September)
+
+Both were found by him opening real pages, not by any scan of mine. That is
+the finding worth recording.
+
+- [x] **Raw supplier decimals in the Specifications tab** — 63 published
+      Premier Housewares products showed `w120.000000 x d40.000000 x
+    h47.000000`. These live in `specs[].value` **strings**, a field every
+      earlier decimal-dump pass ignored (those covered `dimensions`,
+      `weight` and `description`). Fixed exactly, not by rounding:
+      `dimensions` on the same documents already stored the clean integers,
+      proving the zeros were feed padding. `scripts/fix-specs-raw-decimals.ts`.
+      Verified live, fresh non-CDN query: 0 remaining.
+- [x] **"The specification does not list…" still on 28 published products** —
+      the gap-admission pattern I reported closed earlier the same day. The
+      earlier regex matched `does not mention|specify|indicate|include
+    information` and **missed `does not list|state|detail|confirm`**, which
+      is the wording most of the catalogue actually used.
+      `scripts/fix-hedge-phrases-batch1.ts`: sections that were 100% hedge
+      dropped, hedge clauses sitting next to a real fact trimmed with the fact
+      kept.
+- [~] **A wider re-scan then found 177 products hedging** across
+  `description` + `summary` + `faqs` combined — mostly in FAQ answers
+  ("The specifications do not state whether fixings are included").
+  28 fixed, the rest outstanding. **Lesson, again: the pattern was never
+  the problem, my regex was.** Any future claim of "0 remaining" has to
+  name the exact regex and the exact fields it ran over.
+
+### Catalogue description quality, measured properly
+
+Counting all heading styles (`h1` **and** `h2` — 227 blocks across 42
+descriptions are styled `h1`, so an h2-only count under-reports badly):
+
+| Tier                          | Count |
+| ----------------------------- | ----- |
+| OK (4+ headings, 140+ words)  | 594   |
+| THIN (≤3 headings or <140 wd) | 198   |
+| BARE (≤2 headings)            | 109   |
+| No headings at all            | 5     |
+
+Worst concentrations: Hill Interiors (121 of 139 thin or bare), D.I. Designs
+(all 54), AW Dropship (39 of 56).
+
+### The reference standard, written down
+
+Damien: _"use the product published ages ago the first products as reference.
+these are real kaiku products. the rest is generic"_ — the 8 SaunaPlunge
+products. What they actually do, measured rather than assumed:
+
+- **4–6 sections, 130–240 words.** Not long. The bar is density, not length.
+- **Every fact gets its consequence.** Not "thermo-treated spruce" but
+  "thermo-treated spruce — timber that's heat-treated rather than chemically
+  treated to resist moisture and movement outdoors".
+- **Headings are specific**: "Assembly, Power and Site Requirements", never
+  "Features" or "Specifications".
+- **Answers the buying question** — siting, base, power, who fits it, care.
+- **Plain and human**, contractions and all: "we'd recommend having your
+  outdoor electrical supply checked", "if you'd rather have it fitted for
+  you". Damien: _"not too smart it looks ai. humanize it keep that same raw
+  feel from the originals"_ — so no polished parallel prose, no marketing
+  symmetry.
+- **No superlatives, no hedging, no supplier voice.**
+
 ## A wider audit: pricing, lead times, images, and a bigger voice problem (1 September)
 
 Damien: _"we need to properly audit the products and relay it back to me in a
