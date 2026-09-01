@@ -29,6 +29,16 @@
  *   - `data-lenis-prevent` is set by the rails themselves. Lenis owns the
  *     wheel on this site and calls preventDefault, which would swallow a
  *     horizontal trackpad gesture entirely.
+ *
+ * This class list is shared, but the attribute above is not — every caller
+ * has to set `data-lenis-prevent` on its own element. Half the site's
+ * hand-rolled horizontal rows (the category sub-bar, the shop drill-nav, the
+ * product gallery thumbnails, the tabs row) went without it for a while:
+ * without the attribute a wheel/trackpad gesture that starts on the row
+ * drives Lenis's vertical page-scroll instead of the row's own native
+ * horizontal scroll, so trying to scroll the row just makes the page lurch
+ * up and down. If you add a new horizontal row anywhere, set the attribute
+ * even if you don't use `railScroller` itself.
  */
 export const railScroller =
   "flex touch-pan-x overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";

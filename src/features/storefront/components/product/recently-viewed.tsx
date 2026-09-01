@@ -42,7 +42,10 @@ export function RecentlyViewed({ product }: { product: SanityProduct }) {
         <h2 className="text-ink font-display mb-8 text-3xl tracking-tight">
           Recently viewed
         </h2>
-        <div className="-mx-6 flex touch-pan-x [scrollbar-width:none] gap-5 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:px-0">
+        <div
+          data-lenis-prevent
+          className="-mx-6 flex touch-pan-x [scrollbar-width:none] gap-5 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        >
           {others.slice(0, 4).map((item) => (
             <AppLink
               key={item.slug}

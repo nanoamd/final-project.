@@ -16,6 +16,63 @@ Status key:
 
 ---
 
+## Two real bugs from Damien's own screenshots: home address exposed, and the category bar actually broken (1 September)
+
+- [x] **Home address was in the meta description on dozens of unrelated
+      pages.** Damien: _"i also dont want my name and address visible like
+      this"_ — with Google search results for Journal, Tools, Bedroom
+      Mirrors, Lighting, kitchen-lighting and the homepage all showing "Kaiku
+      is a trading name of Damien McCormack. Trading address: 16 Isis Way,
+      Bourne End..." as the snippet. Root cause: `site-footer.tsx` printed
+      that statutory disclosure as literal text in the global footer, so it
+      was in every page's raw HTML for Google to scrape into a snippet
+      site-wide — not just where a shopper would look for it.
+  - Removed it from the global footer. UK law requires a sole trader's name,
+    geographic address and contact details to be "easily, directly and
+    permanently accessible" — a persistent footer link satisfies that, the
+    text does not need to be reprinted on every page. Moved the same
+    disclosure (sourced from `companyDetails`/`tradingAddressLine()`, not
+    retyped) onto `/terms` and `/contact`, both already linked from the
+    footer. Verified live: `Isis Way` no longer appears on `/` or
+    `/shop/pergolas`, still appears on `/terms` and `/contact`.
+  - Deliberately left the address in `OrganizationJsonLd` (`json-ld.tsx`)
+    alone — that's a different, legitimate use (Merchant Centre and
+    Google's trust signals reading structured data, not a visible search
+    snippet) and removing it would hurt the Merchant Centre push.
+  - **Outstanding, not something code can fix**: Google's cache of the
+    already-indexed pages will take time to drop the old snippet on its own.
+    If Damien wants specific results scrubbed sooner, that's Google Search
+    Console's "Remove outdated content" tool — his account, not something
+    this session has access to.
+  - Also fixed the footer's copyright line, which had "Premium home
+    improvement, curated." hardcoded separately from `siteConfig.tagline` —
+    missed by the positioning change below until this pass. Now reads the
+    same tagline as everywhere else.
+- [x] **The category bar Damien reported ("the scroll bar up down always
+      bugs out here") was a real, reproduced bug — the webkit-scrollbar fix
+      from the previous entry was real but not the actual complaint.**
+      Reproduced live with a headless browser: a horizontal wheel/trackpad
+      gesture over the bar moved `window.scrollY`, not the bar's own
+      `scrollLeft` — the page lurching up and down instead of the bar
+      scrolling, exactly as reported. Root cause: Lenis (the app-wide
+      smooth-scroll library) intercepts wheel input everywhere except on
+      elements marked `data-lenis-prevent`, and `shop-drill-nav.tsx` (the
+      component actually rendering on `/shop` and category pages — not
+      `site-header.tsx`'s copy, which only renders on bare `/shop` and
+      product pages) never had it.
+  - Added `data-lenis-prevent` to `shop-drill-nav.tsx`, `site-header.tsx`'s
+    sub-bar, and four more rails with the same gap that hadn't been reported
+    yet: `product-gallery.tsx`'s mobile thumbnail strip, `product-tabs.tsx`,
+    `recently-viewed.tsx`, `related-products.tsx`, and
+    `collection-index.tsx`'s mobile category pills. Added the matching
+    `[&::-webkit-scrollbar]:hidden` to the ones missing that too. Verified
+    live afterward: a horizontal wheel gesture now moves the row's
+    `scrollLeft`, not the page's `scrollY`.
+  - Documented the attribute requirement in `lib/ui/rail.ts` so a new
+    hand-rolled horizontal row doesn't quietly reintroduce this.
+
+---
+
 ## Draft artefact cleanup, a header bug fix, and a positioning change (1 September)
 
 - [x] **Draft artefact cleanup: last 34 draft products, 49 fixes, applied and
@@ -79,7 +136,7 @@ incomplete tasks."_
       remained (27 published, 34 draft), more than the pre-emergency count
       because the emergency interrupted the cleanup mid-pass.
 - [x] **8 published markdown/template-syntax fixes.** `scripts/fix-markdown-
-  artefacts-batch2.ts` — six mechanical strips (literal `*`/`- **bold**`
+artefacts-batch2.ts` — six mechanical strips (literal `*`/`- **bold**`
       markdown in FAQ dimension answers and a bed-frame's feature list, a
       stray `*` standing in for a multiplication sign). One real rewrite:
       "Soft Squiggly Mirror" had raw generator scaffolding

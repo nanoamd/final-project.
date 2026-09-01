@@ -296,8 +296,20 @@ function DrillBar({
           - snap points so a flick settles with an item aligned to the edge rather
             than mid-word, which is what made the row feel unfinished.
           - `touch-pan-x` keeps vertical page scrolling working when a finger
-            starts inside the row. */}
+            starts inside the row.
+          - `data-lenis-prevent` was missing here, which is a different bug
+            from the ones above: Lenis (the app-wide smooth-scroll library,
+            see smooth-scroll.tsx) intercepts every wheel/trackpad gesture on
+            the page and calls preventDefault so it can drive scroll itself —
+            except on elements carrying this attribute, which it explicitly
+            skips. Without it, a trackpad swipe that started on this row never
+            reached the row's own native horizontal scroll at all; it drove
+            Lenis's vertical page-scroll instead, so trying to scroll the
+            category bar just made the whole page lurch up and down. Same
+            fix already applied to the other rails (shared as railScroller in
+            lib/ui/rail.ts) — this was the one that never got it. */}
       <div
+        data-lenis-prevent
         className={cn(
           "relative mx-auto flex max-w-[1440px] touch-pan-x [scrollbar-width:none] items-center gap-7 overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden",
           dense ? "h-10 gap-2.5" : "h-11",

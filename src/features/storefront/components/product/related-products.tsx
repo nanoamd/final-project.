@@ -48,7 +48,8 @@ export function RelatedProducts({ products }: { products: SanityProduct[] }) {
 
         <div
           ref={scroller}
-          className="-mx-6 flex touch-pan-x [scrollbar-width:none] gap-5 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:px-0"
+          data-lenis-prevent
+          className="-mx-6 flex touch-pan-x [scrollbar-width:none] gap-5 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
         >
           {products.map((product) => (
             <AppLink

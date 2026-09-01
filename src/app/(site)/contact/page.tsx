@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { companyDetails, tradingAddressLine } from "@/config/site";
 import { ContactForm } from "@/features/storefront/components/content/contact-form";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import { getPageBySlug, getSiteSettings } from "@/lib/sanity/queries";
@@ -71,6 +72,20 @@ export default async function ContactPage() {
               ) : null}
             </dl>
           ) : null}
+
+          {/* The statutory trading disclosure — see the same note on
+              /terms. Lives here and on /terms, not the global footer, so
+              it stays "easily, directly and permanently accessible" via
+              this page's footer link without being reprinted on every
+              page on the site. */}
+          <p className="text-muted/80 mt-8 border-t pt-6 text-[13px] leading-relaxed">
+            {companyDetails.tradingName} is a trading name of{" "}
+            {companyDetails.traderName}. Trading address: {tradingAddressLine()}
+            .
+            {companyDetails.vatRegistered
+              ? ""
+              : " Not VAT registered, so no VAT is charged on these prices."}
+          </p>
         </div>
 
         <ContactForm />

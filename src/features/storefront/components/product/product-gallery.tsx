@@ -191,7 +191,10 @@ export function ProductGallery({
             <ChevronLeft className="size-4" strokeWidth={1.8} />
           </button>
 
-          <div className="flex flex-1 gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap">
+          <div
+            data-lenis-prevent
+            className="flex flex-1 gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap max-sm:[&::-webkit-scrollbar]:hidden"
+          >
             {slides.map((slide, index) => (
               <button
                 key={slide.kind === "video" ? slide.video.url : slide.url}

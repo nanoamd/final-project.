@@ -107,7 +107,10 @@ export async function CollectionIndex({
                 {/* The category sidebar (sibling links) is lg:flex-only, so
                     without this a phone viewing one category has no way to
                     switch to another except backing out to the header nav. */}
-                <div className="-mx-6 mt-6 flex [scrollbar-width:none] gap-2 overflow-x-auto px-6 pb-1 sm:-mx-8 sm:px-8 lg:hidden">
+                <div
+                  data-lenis-prevent
+                  className="-mx-6 mt-6 flex [scrollbar-width:none] gap-2 overflow-x-auto px-6 pb-1 sm:-mx-8 sm:px-8 lg:hidden [&::-webkit-scrollbar]:hidden"
+                >
                   <MobileCategoryPill
                     href={allHref}
                     label="All"

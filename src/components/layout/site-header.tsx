@@ -275,8 +275,18 @@ export function SiteHeader({
                 matching `::-webkit-scrollbar` rule, Chrome/Edge/Safari render a
                 grey scrollbar across the bottom of the bar that appears and
                 disappears as you interact with it — the bar visibly jumping.
-                Same fix already applied in shop-drill-nav.tsx. */}
-            <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden">
+                Same fix already applied in shop-drill-nav.tsx.
+                Also missing `data-lenis-prevent`: without it, Lenis (the
+                app-wide smooth-scroll library) intercepts a trackpad/wheel
+                gesture that starts on this row and drives its own vertical
+                page-scroll instead of the row's native horizontal scroll —
+                so trying to scroll the bar just made the page lurch up and
+                down. See the longer note on the same fix in
+                shop-drill-nav.tsx. */}
+            <div
+              data-lenis-prevent
+              className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden"
+            >
               {roomLinks.map((item) => {
                 const active = item.href === activeRoom;
                 return (
