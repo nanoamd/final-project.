@@ -1,6 +1,6 @@
 {
-  "apply": false,
-  "queued": 0,
+  "apply": true,
+  "queued": 15,
   "results": [
     {
       "id": "product-import-axis-putty-grey-chair",
