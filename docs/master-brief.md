@@ -24,10 +24,12 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
 
 - [x] **A true comprehensive audit, drafts included** — the earlier one
       (31 August) had no write token and could only see 732 published
-      products. `scripts/audit-full-catalogue.ts` sees the whole thing: 1630
-      products (755 published, 875 drafts). Live counts as of the
-      supplier-name-leak fix below: **GOLD 103, SILVER 682, REVIEW 844**
-      overall; **published-only: GOLD 78, SILVER 630, REVIEW 69.**
+      products. `scripts/audit-full-catalogue.ts` sees the whole thing.
+      Live counts as of the third rewrite batch: **1629 products (780
+      published, 849 drafts, both moving independently of this work — looks
+      like something else is actively publishing drafts in parallel); GOLD
+      112, SILVER 693, REVIEW 824** overall; **published-only: GOLD 87,
+      SILVER 644, REVIEW 49.**
 - [x] **SKU and yesterday's artefact fixes, confirmed durable catalogue-wide**
       — 0 missing SKUs, 0 non-canonical, out of all 1630. The html-entity and
       doubled-spacing fix is clean across the whole catalogue bar one new
@@ -95,10 +97,22 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
         collapsed each to the single span that already held the correct
         merged text. Re-verified: 0 leaks, 0 duplicated fragments, across
         the whole published catalogue.
-- [ ] **191 more zero-fact products, same fix, not started.** Real
+- [x] **Third batch written and verified: 20 more published products.**
+      `scripts/write-review-tier-descriptions-batch3.ts` — same standard.
+      Applied and verified live: zero-fact fixable backlog **191 → 171**;
+      published REVIEW now **49** (catalogue totals also shifted
+      independently between snapshots — see the audit note above — so this
+      isn't a like-for-like delta with the last count, but the drop is
+      real and verified).
+  - [-] **Flagged, not dropped:** "Kyra French Grey Chair" — its
+    `primaryColour` field says Green, but the title and every sentence of
+    the existing copy say French Grey. Dimensions and weight aren't in
+    question, so it stayed in the batch; the new description doesn't
+    repeat either colour claim. Worth you checking which field is wrong.
+- [ ] **171 more zero-fact products, same fix, not started.** Real
       per-product writing, same standard — genuinely the bulk of what
       still stands between here and "minimal things needing review."
-- [ ] **65 remaining artefact instances, drafts included** — 31 "quotes the
+- [ ] **65 remaining artefact instances, drafts included** — 30 "quotes the
       supplier", 22 "admits it doesn't know", 8 markdown, 1 HTML entity, 1
       internal-threshold leak, 1 raw template syntax. Mostly on drafts (an
       active generation process — Damien's own workflow or a tool — keeps

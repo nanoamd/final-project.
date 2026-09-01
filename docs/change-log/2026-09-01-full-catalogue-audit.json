@@ -1,21 +1,21 @@
 {
   "total": 1629,
-  "publishedCount": 777,
-  "draftCount": 852,
+  "publishedCount": 780,
+  "draftCount": 849,
   "tierCounts": {
-    "GOLD": 103,
-    "SILVER": 682,
-    "REVIEW": 844
+    "GOLD": 112,
+    "SILVER": 693,
+    "REVIEW": 824
   },
   "publishedTierCounts": {
-    "GOLD": 78,
-    "SILVER": 630,
-    "REVIEW": 69
+    "GOLD": 87,
+    "SILVER": 644,
+    "REVIEW": 49
   },
   "medians": {
     "accuracy": 10,
     "usefulness": 10,
-    "humanQuality": 9.7,
+    "humanQuality": 9.8,
     "brandFit": 9.8,
     "specificity": 10,
     "seo": 10,
@@ -29,7 +29,7 @@
     "nonCanonical": 0
   },
   "artefactHits": {
-    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 31,
+    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 30,
     "The copy admits it does not know something instead of finding it out.": 22,
     "An HTML entity or tag is showing as literal text.": 1,
     "Markdown markup left in the text.": 8,
@@ -4836,60 +4836,6 @@
       "price": 49
     },
     {
-      "id": "hill-decor-19417",
-      "title": "Aged Stone Ceramic Vase | Kaiku",
-      "slug": "aged-stone-ceramic-vase",
-      "published": true,
-      "overall": 7,
-      "words": 1119,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 30,
-        "length": 29,
-        "unit": "cm",
-        "width": 29
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 63
-    },
-    {
-      "id": "hill-decor-19418",
-      "title": "Aged Stone Tall Ceramic Vase | Kaiku",
-      "slug": "aged-stone-tall-ceramic-vase",
-      "published": true,
-      "overall": 6.7,
-      "words": 959,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 45,
-        "length": 28,
-        "unit": "cm",
-        "width": 28
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7.5
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 78
-    },
-    {
       "id": "hill-decor-19428",
       "title": "Large Conical Ceramic Lattice Hurricane Lantern | Kaiku",
       "slug": "large-conical-ceramic-lattice-hurricane-lantern",
@@ -4944,33 +4890,6 @@
       "price": 21
     },
     {
-      "id": "hill-decor-19501",
-      "title": "Downton Large Antique White Vase | Kaiku",
-      "slug": "downton-large-antique-white-vase",
-      "published": true,
-      "overall": 6.3,
-      "words": 1218,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 41,
-        "length": 39,
-        "unit": "cm",
-        "width": 39
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7.95
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 89
-    },
-    {
       "id": "hill-decor-20782",
       "title": "Garda Glazed Gisela Vase | Kaiku",
       "slug": "garda-glazed-gisela-vase",
@@ -4996,33 +4915,6 @@
       "category": "Vases",
       "supplier": "Hill Interiors",
       "price": 49
-    },
-    {
-      "id": "hill-decor-20806",
-      "title": "Square Decorative Hanging Collage Mirror In Silver | Kaiku",
-      "slug": "square-decorative-hanging-collage-mirror-in-silver",
-      "published": true,
-      "overall": 7.5,
-      "words": 1468,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 145,
-        "length": 2,
-        "unit": "cm",
-        "width": 14
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 1.86
-      },
-      "specs": null,
-      "category": "Mirrors",
-      "supplier": "Hill Interiors",
-      "price": 59
     },
     {
       "id": "hill-decor-20836",
@@ -5077,33 +4969,6 @@
       "category": "Wall Art",
       "supplier": "Hill Interiors",
       "price": 25
-    },
-    {
-      "id": "hill-decor-20854",
-      "title": "Antique Etched foxed Wall Art Mirror | Kaiku",
-      "slug": "antique-etched-foxed-wall-art-mirror",
-      "published": true,
-      "overall": 6.2,
-      "words": 905,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 92,
-        "length": 3,
-        "unit": "cm",
-        "width": 62
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 5.8
-      },
-      "specs": null,
-      "category": "Mirrors",
-      "supplier": "Hill Interiors",
-      "price": 99
     },
     {
       "id": "hill-decor-21186",
@@ -5430,33 +5295,6 @@
       "price": 39
     },
     {
-      "id": "hill-decor-21629",
-      "title": "Ashmount Large Wall Clock | Kaiku",
-      "slug": "ashmount-large-wall-clock",
-      "published": true,
-      "overall": 7.4,
-      "words": 1159,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 5,
-        "unit": "cm",
-        "width": 80
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.08
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 59
-    },
-    {
       "id": "hill-decor-21631",
       "title": "Ashmount Wall Clock | Kaiku",
       "slug": "ashmount-wall-clock",
@@ -5482,60 +5320,6 @@
       "category": "Wall Clocks",
       "supplier": "Hill Interiors",
       "price": 45
-    },
-    {
-      "id": "hill-decor-21632",
-      "title": "Brandon Large Wall Clock | Kaiku",
-      "slug": "brandon-large-wall-clock",
-      "published": true,
-      "overall": 7.2,
-      "words": 1057,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 5,
-        "unit": "cm",
-        "width": 80
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.08
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 59
-    },
-    {
-      "id": "hill-decor-21633",
-      "title": "Karlsson Large Wall Clock | Kaiku",
-      "slug": "karlsson-large-wall-clock",
-      "published": true,
-      "overall": 7.5,
-      "words": 1239,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 5,
-        "unit": "cm",
-        "width": 80
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.08
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 69
     },
     {
       "id": "hill-decor-21637",
@@ -5590,87 +5374,6 @@
       "category": "Wall Art",
       "supplier": "Hill Interiors",
       "price": 19
-    },
-    {
-      "id": "hill-decor-21643",
-      "title": "Williston Square Wooden Wall Clock | Kaiku",
-      "slug": "williston-square-wooden-wall-clock",
-      "published": true,
-      "overall": 7.9,
-      "words": 1243,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 60,
-        "length": 5,
-        "unit": "cm",
-        "width": 60
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.64
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 89
-    },
-    {
-      "id": "hill-decor-21644",
-      "title": "Williston Square Large Wooden Wall Clock | Kaiku",
-      "slug": "williston-square-large-wooden-wall-clock",
-      "published": true,
-      "overall": 6.8,
-      "words": 1188,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 90,
-        "length": 5,
-        "unit": "cm",
-        "width": 90
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7.59
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 83
-    },
-    {
-      "id": "hill-decor-21647",
-      "title": "Williston Grey Square Wall Clock | Kaiku",
-      "slug": "williston-grey-square-wall-clock",
-      "published": true,
-      "overall": 6.6,
-      "words": 964,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 60,
-        "length": 5,
-        "unit": "cm",
-        "width": 60
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.64
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 81
     },
     {
       "id": "hill-decor-21706",
@@ -5754,33 +5457,6 @@
       "price": 39
     },
     {
-      "id": "hill-decor-21775",
-      "title": "Garda Grey Glazed Tiber Vase | Kaiku",
-      "slug": "garda-grey-glazed-tiber-vase",
-      "published": true,
-      "overall": 7.5,
-      "words": 886,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 28,
-        "length": 29,
-        "unit": "cm",
-        "width": 29
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 63
-    },
-    {
       "id": "hill-decor-24479",
       "title": "Sona Large Hurricane Lantern With Lid | Kaiku",
       "slug": "sona-large-hurricane-lantern-with-lid",
@@ -5835,102 +5511,6 @@
       "price": 29
     },
     {
-      "id": "hill-decor-24505",
-      "title": "Mistora Hand Painted Canvas In Frame | Kaiku",
-      "slug": "mistora-hand-painted-canvas-in-frame",
-      "published": true,
-      "overall": 7.6,
-      "words": 1071,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 3,
-        "unit": "cm",
-        "width": 80
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 2.6
-      },
-      "specs": null,
-      "category": "Wall Art",
-      "supplier": "Hill Interiors",
-      "price": 55
-    },
-    {
-      "id": "hill-decor-24506",
-      "title": "Silvra Hand Painted Canvas In Frame | Kaiku",
-      "slug": "silvra-hand-painted-canvas-in-frame",
-      "published": true,
-      "overall": 6.6,
-      "words": 974,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 3,
-        "unit": "cm",
-        "width": 80
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 2.6
-      },
-      "specs": null,
-      "category": "Wall Art",
-      "supplier": "Hill Interiors",
-      "price": 57
-    },
-    {
-      "id": "premier-housewares-1411647",
-      "title": "Avento Set Of Three Gold Finish Planters | Kaiku",
-      "slug": "avento-set-of-three-gold-finish-planters",
-      "published": true,
-      "overall": 8,
-      "words": 32,
-      "hasDims": true,
-      "hasWeight": false,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 34,
-        "length": 22,
-        "unit": "cm",
-        "width": 22
-      },
-      "weight": null,
-      "specs": [
-        {
-          "_key": "spec-0",
-          "_type": "productSpec",
-          "label": "Dimensions",
-          "value": "H34 x D22 x W22 cm"
-        },
-        {
-          "_key": "spec-1",
-          "_type": "productSpec",
-          "label": "Materials",
-          "value": "Iron"
-        },
-        {
-          "_key": "spec-2",
-          "_type": "productSpec",
-          "label": "Colour",
-          "value": "Gold finish"
-        }
-      ],
-      "category": "Planters",
-      "supplier": "Premier Housewares",
-      "price": 60
-    },
-    {
       "id": "premier-housewares-1601855",
       "title": "Canyon White Soap Dish | Kaiku",
       "slug": "canyon-white-soap-dish",
@@ -5971,54 +5551,6 @@
       "category": "Accessories",
       "supplier": "Premier Housewares",
       "price": 21
-    },
-    {
-      "id": "premier-housewares-2405640",
-      "title": "Maka Grey Natural Rattan Stool | Kaiku",
-      "slug": "maka-grey-natural-rattan-stool",
-      "published": true,
-      "overall": 8.3,
-      "words": 62,
-      "hasDims": true,
-      "hasWeight": false,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 45,
-        "length": 40,
-        "unit": "cm",
-        "width": 40
-      },
-      "weight": null,
-      "specs": [
-        {
-          "_key": "spec-0",
-          "_type": "productSpec",
-          "label": "Materials",
-          "value": "Rattan"
-        },
-        {
-          "_key": "spec-1",
-          "_type": "productSpec",
-          "label": "Dimensions",
-          "value": "40 × 40 × 45 cm"
-        },
-        {
-          "_key": "spec-2",
-          "_type": "productSpec",
-          "label": "Weight",
-          "value": "2.72 kg"
-        },
-        {
-          "_key": "spec-3",
-          "_type": "productSpec",
-          "label": "Capacity",
-          "value": "150 kg"
-        }
-      ],
-      "category": "Garden Furniture",
-      "supplier": "Premier Housewares",
-      "price": 98
     },
     {
       "id": "premier-housewares-5506195",
@@ -6453,33 +5985,6 @@
       "price": 19
     },
     {
-      "id": "product-import-contour-collection-pet-feeder-table",
-      "title": "Contour Collection Pet Feeder Table | Kaiku",
-      "slug": "contour-collection-pet-feeder-table",
-      "published": true,
-      "overall": 7.9,
-      "words": 1410,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 33,
-        "length": 28,
-        "unit": "cm",
-        "width": 60
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 6.5
-      },
-      "specs": null,
-      "category": "Storage",
-      "supplier": "Hill Interiors",
-      "price": 97
-    },
-    {
       "id": "product-import-decorative-hanging-black-mirror",
       "title": "Decorative Hanging Black Mirror | Kaiku",
       "slug": "decorative-hanging-black-mirror",
@@ -6565,58 +6070,6 @@
       "price": 469
     },
     {
-      "id": "product-import-echo-putty-grey-chair",
-      "title": "Echo Putty Grey Chair | Kaiku",
-      "slug": "echo-putty-grey-chair",
-      "published": true,
-      "overall": 7.1,
-      "words": 982,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 77,
-        "length": 50,
-        "unit": "cm",
-        "width": 55
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 5.5
-      },
-      "specs": [
-        {
-          "_key": "spec-0",
-          "_type": "productSpec",
-          "label": "Colour",
-          "value": "Putty Grey"
-        },
-        {
-          "_key": "spec-1",
-          "_type": "productSpec",
-          "label": "Material",
-          "value": "Weather-resistant fabric"
-        },
-        {
-          "_key": "spec-2",
-          "_type": "productSpec",
-          "label": "Design",
-          "value": "Modern ergonomic design"
-        },
-        {
-          "_key": "spec-3",
-          "_type": "productSpec",
-          "label": "Assembly",
-          "value": "Some assembly required"
-        }
-      ],
-      "category": "Garden Furniture",
-      "supplier": "Hill Interiors",
-      "price": 61
-    },
-    {
       "id": "product-import-etched-collection-tall-pot-with-handle",
       "title": "Etched Collection Tall Pot With Handle | Kaiku",
       "slug": "etched-collection-tall-pot-with-handle",
@@ -6642,33 +6095,6 @@
       "category": "Planters",
       "supplier": "Hill Interiors",
       "price": 19
-    },
-    {
-      "id": "product-import-kyra-french-grey-chair",
-      "title": "Kyra French Grey Chair | Kaiku",
-      "slug": "kyra-french-grey-chair",
-      "published": true,
-      "overall": 7.6,
-      "words": 1023,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 80,
-        "length": 46,
-        "unit": "cm",
-        "width": 43
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 4.6
-      },
-      "specs": null,
-      "category": "Garden Furniture",
-      "supplier": "Hill Interiors",
-      "price": 59
     },
     {
       "id": "product-import-large-grey-stone-effect-hurricane-lantern",
@@ -6723,33 +6149,6 @@
       "category": "Christmas Decorations",
       "supplier": "Hill Interiors",
       "price": 19
-    },
-    {
-      "id": "product-import-nahla-large-mirror-with-dimpled-frame",
-      "title": "Nahla Large Mirror With Dimpled Frame | Kaiku",
-      "slug": "nahla-large-mirror-with-dimpled-frame",
-      "published": true,
-      "overall": 7.2,
-      "words": 1559,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 82,
-        "length": 3,
-        "unit": "cm",
-        "width": 86
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 8
-      },
-      "specs": null,
-      "category": "Mirrors",
-      "supplier": "Hill Interiors",
-      "price": 99
     },
     {
       "id": "product-import-provence-collection-outdoor-bistro-table",
