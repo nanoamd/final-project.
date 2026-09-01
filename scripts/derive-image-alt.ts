@@ -21,6 +21,8 @@
  * Write it:
  *   pnpm tsx --env-file=.env.local scripts/derive-image-alt.ts --apply
  */
+import { mkdirSync, writeFileSync } from "node:fs";
+
 import { createClient } from "@sanity/client";
 
 import { buildGalleryAlts } from "./lib/image-alt";
@@ -104,6 +106,26 @@ async function main() {
 
   console.log(
     `\n${patches.length} images to describe; ${alreadyDescribed} already have alt text an editor wrote`,
+  );
+
+  // Mandatory audit trail for any data correction: every image this run
+  // wrote (or would write) alt text for, one entry per image, so the exact
+  // before/after is checkable later without re-deriving it.
+  mkdirSync("docs/change-log", { recursive: true });
+  writeFileSync(
+    `docs/change-log/${new Date().toISOString().slice(0, 10)}-image-alt-fill.json`,
+    JSON.stringify(
+      {
+        generatedAt: new Date().toISOString(),
+        source: "scripts/derive-image-alt.ts",
+        applied: apply,
+        written: patches.length,
+        alreadyDescribed,
+        changes: patches,
+      },
+      null,
+      2,
+    ),
   );
 
   if (!apply) {

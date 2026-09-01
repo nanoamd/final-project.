@@ -1,0 +1,240 @@
+{
+  "generatedAt": "2026-09-01T16:31:37.910Z",
+  "source": "scripts/fix-aosom-missing-lead-times.ts",
+  "applied": true,
+  "rule": "Category-level default applied only when Aosom's OTHER (already-set) products in that category are unanimous (n>=2) or agree on one promise for >=75% of them (n>=3), grouping by parsed day-span so differently-worded but equal promises count together.",
+  "written": [
+    {
+      "id": "product-aosom-842-460v70bk",
+      "title": "11.7kW Propane Gas Fire Pit Table, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-389v70sr",
+      "title": "11kW Adjustable Gas Patio Heater | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-390v70bk",
+      "title": "11kW Freestanding Gas Patio Heater, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-253",
+      "title": "40,000 BTU Gas Fire Pit Table 71cm, Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-253v00cg",
+      "title": "40,000 BTU Gas Fire Pit Table, Dark Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-346v70gy",
+      "title": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-252v01sr",
+      "title": "50,000 BTU Gas Fire Pit Table 81cm, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-252v01gy",
+      "title": "50,000 BTU Gas Fire Pit Table 81cm, Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-346v70cg",
+      "title": "50,000 BTU Gas Fire Pit Table with Cover, Dark Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-345v70cg",
+      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-345v70gy",
+      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-070",
+      "title": "Ceiling-Mounted Infrared Halogen Patio Heater | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-063",
+      "title": "Hanging Electric Patio Heater, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-415v70bk",
+      "title": "Parasol-Mounted Electric Patio Heater | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-337v00sr",
+      "title": "Portable Smokeless Wood-Burning Fire Pit, Silver | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-303v70bk",
+      "title": "Rattan-Style Propane Gas Fire Pit Table, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-303v70gy",
+      "title": "Rattan-Style Propane Gas Fire Pit Table, Grey | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-260v70",
+      "title": "Square Propane Gas Fire Pit Table, Black | Kaiku",
+      "category": "Fire Pits & Heating",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 3 other Aosom products in \"Fire Pits & Heating\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-84b-656",
+      "title": "6-Piece Aluminium Sectional Garden Sofa Set, Grey | Kaiku",
+      "category": "Garden Furniture",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 9 other Aosom products in \"Garden Furniture\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-83a-218v00nd",
+      "title": "6-Seater Garden Dining Set with Stackable Chairs | Kaiku",
+      "category": "Garden Furniture",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 9 other Aosom products in \"Garden Furniture\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-84b-815v70",
+      "title": "L-Shaped 8-Seater Aluminium Garden Dining Set with Bench, Grey | Kaiku",
+      "category": "Garden Furniture",
+      "newLeadTime": "3-4 weeks",
+      "evidence": "all 9 other Aosom products in \"Garden Furniture\" use \"3-4 weeks\""
+    },
+    {
+      "id": "product-aosom-842-109",
+      "title": "1.8m Victorian Three-Head Solar Lamp Post, Black | Kaiku",
+      "category": "Garden Lighting",
+      "newLeadTime": "7–14 days",
+      "evidence": "8 of 9 (89%) other Aosom products in \"Garden Lighting\" use this promise, most commonly written \"7–14 days\""
+    },
+    {
+      "id": "product-aosom-867-154v00gy",
+      "title": "Rattan Solar Floor Lantern, Grey | Kaiku",
+      "category": "Garden Lighting",
+      "newLeadTime": "7–14 days",
+      "evidence": "8 of 9 (89%) other Aosom products in \"Garden Lighting\" use this promise, most commonly written \"7–14 days\""
+    },
+    {
+      "id": "product-aosom-b31-001",
+      "title": "K9 Crystal Droplet Chandelier, Three-Light | Kaiku",
+      "category": "Lighting",
+      "newLeadTime": "7–14 days",
+      "evidence": "10 of 13 (77%) other Aosom products in \"Lighting\" use this promise, most commonly written \"7–14 days\""
+    },
+    {
+      "id": "product-aosom-b31-633v00sr",
+      "title": "Pendant Light with Three Colour Temperatures, Silver | Kaiku",
+      "category": "Lighting",
+      "newLeadTime": "7–14 days",
+      "evidence": "10 of 13 (77%) other Aosom products in \"Lighting\" use this promise, most commonly written \"7–14 days\""
+    }
+  ],
+  "blocked": [
+    {
+      "category": "Beds",
+      "products": [
+        "3ft Single Pine Storage Bed with Drawers, Grey | Kaiku",
+        "4ft6 Double Bed Frame with Underbed Storage, Black | Kaiku",
+        "5ft King Bed Frame with Hydraulic Storage and LED Lighting, Grey | Kaiku",
+        "King Size Gas-Lift Ottoman Bed with Tufted Headboard | Kaiku",
+        "Metal High Sleeper Bunk Bed with Desk | Kaiku"
+      ],
+      "reason": "the 2 other Aosom products in \"Beds\" split 1/1 across different promises — no dominant value (top share 50%, below the 75% bar)."
+    },
+    {
+      "category": "Outdoor Kitchens",
+      "products": [
+        "4+1 Burner Gas Barbecue with Side Table, Black | Kaiku",
+        "Five-Burner Steel Gas Barbecue with Thermometer, Black | Kaiku"
+      ],
+      "reason": "no other Aosom product in \"Outdoor Kitchens\" has a lead time set at all (0 other, 2 missing) — nothing to base a default on."
+    },
+    {
+      "category": "Pergolas",
+      "products": [
+        "3 x 3m Double-Roof Garden Gazebo with Netting | Kaiku",
+        "Metal Pergola with Retractable Roof and Drainage, Grey | Kaiku",
+        "Metal Pergola with Sliding Canopy and Curtains, Grey | Kaiku",
+        "Pop-Up Double-Roof Gazebo with Netting and Carry Bag | Kaiku",
+        "Steel Pergola with Retractable Canopy, Khaki | Kaiku",
+        "Two-Tier Patio Gazebo with Netting and Curtains, Beige | Kaiku"
+      ],
+      "reason": "only 1 other Aosom product(s) in \"Pergolas\" have a lead time set — one data point is not a pattern."
+    },
+    {
+      "category": "Planters",
+      "products": ["Raised Wooden Planter with Climbing Trellis, Grey | Kaiku"],
+      "reason": "only 1 other Aosom product(s) in \"Planters\" have a lead time set — one data point is not a pattern."
+    },
+    {
+      "category": "Privacy Screens",
+      "products": [
+        "Bamboo Metal Privacy Screen with Stand, Black | Kaiku",
+        "Grid Metal Privacy Screen, Black | Kaiku",
+        "Leaf Metal Privacy Screen, Black | Kaiku",
+        "Leaf Metal Privacy Screen, Green | Kaiku",
+        "Metal Privacy Screen and Climbing Trellis, Black | Kaiku",
+        "Triangle Metal Privacy Screen with Stand, Black | Kaiku",
+        "Twisted Line Metal Privacy Screen, Black | Kaiku",
+        "Willow Branch Metal Privacy Screen with Stand, Black | Kaiku"
+      ],
+      "reason": "the 2 other Aosom products in \"Privacy Screens\" split 1/1 across different promises — no dominant value (top share 50%, below the 75% bar)."
+    },
+    {
+      "category": "Water Features",
+      "products": ["Garden Water Feature with LED Lights, Dark Grey | Kaiku"],
+      "reason": "the 3 other Aosom products in \"Water Features\" split 2/1 across different promises — no dominant value (top share 67%, below the 75% bar)."
+    }
+  ]
+}
