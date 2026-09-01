@@ -368,7 +368,7 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
 
   return (
     <div className="max-w-3xl">
-      <div className="grid gap-8 sm:grid-cols-3">
+      <div className="divide-line grid gap-8 sm:grid-cols-3 sm:divide-x">
         <div>
           <h3 className={panelHeading}>Delivery</h3>
           {/* Lead time and availability first, as facts, before any free text.
