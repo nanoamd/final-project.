@@ -1,0 +1,54 @@
+{
+  "apply": true,
+  "queued": 8,
+  "results": [
+    {
+      "id": "product-import-2-person-outdoor-infrared-sauna-saunaplunge-9b8264b5",
+      "title": "SaunaPlunge™ Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-4-person-indoor-infrared-sauna-saunaplunge-25f636e4",
+      "title": "SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-bronte-2-person-cabin-sauna-saunaplunge-0875b2a6",
+      "title": "SaunaPlunge™ Bronte 2-Person Outdoor Cabin Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-bronte-6-person-cabin-sauna-saunaplunge-cae97287",
+      "title": "SaunaPlunge™ Bronte 6-Person Outdoor Cabin Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-ice-bath-with-chiller-saunaplunge-7c314725",
+      "title": "SaunaPlunge™ Peak Plunge Ice Bath with Chiller | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-pennine-barrel-6-person-sauna-saunaplunge-0c76326a",
+      "title": "SaunaPlunge™ Pennine Barrel 6-Person Outdoor Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-the-dales-glow-indoor-infrared-sauna-by-saunaplunge-2-person-9bf29917",
+      "title": "SaunaPlunge™  Dales Glow 2 Person Indoor Infrared Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    },
+    {
+      "id": "product-import-4-person-outdoor-infrared-sauna-saunaplunge-90561a20",
+      "title": "SaunaPlunge™ Yorkshire Cabin 4-Person Outdoor Infrared Sauna | Kaiku",
+      "found": true,
+      "titleMatches": true
+    }
+  ]
+}

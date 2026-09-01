@@ -253,9 +253,29 @@ export const ARTEFACTS: {
   {
     dimension: "usefulness",
     severity: "major",
-    pattern: /\bnot specified\b|\bnot stated\b|\bnot provided\b|\bN\/A\b/i,
+    // "not specified/stated/provided" was the original set. Extended after
+    // "The specifications for the Sanai White Cotton Mache Large Planter do
+    // not mention whether it has drainage holes" was found live and
+    // published — a paraphrase that says exactly the same thing without
+    // tripping the original wording. If Kaiku claims to be the most
+    // helpful home store, a section whose entire content is "we don't know"
+    // is the one thing it can never say.
+    pattern:
+      /\bnot specified\b|\bnot stated\b|\bnot provided\b|\bN\/A\b|\bdo(?:es)? not (?:mention|specify|indicate|include information)\b|\bare?\s+silent on\b|\b(?:un|not )clear whether\b|\bno information (?:is )?(?:given|provided|available)\b|\btherefore,? please consider\b/i,
     message:
       "The copy admits it does not know something instead of finding it out.",
+  },
+  {
+    dimension: "humanQuality",
+    severity: "major",
+    // "Dimensions: w45.000000 x d45.000000 x h45.000000" / "Cart weight:
+    // 8.000000 kg" — a raw, unrounded spec dump pasted into the description
+    // body, duplicating (and formatted worse than) the product's own clean
+    // `specs` field. Six decimal places is the tell of a spreadsheet import
+    // column landing in prose untouched.
+    pattern: /\b\d+\.\d{4,}\s*(?:cm|mm|kg|g|in|inches)?\b/i,
+    message:
+      "A raw, unrounded number (spreadsheet-import residue) is showing in the copy.",
   },
   {
     dimension: "brandFit",

@@ -163,9 +163,19 @@ export function SiteHeader({
         <div className="mx-auto flex h-18 max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-8 lg:px-12">
           <AppLink
             href="/"
-            className="text-brass font-display text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase"
+            className="text-brass font-display relative text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase"
           >
             {brandName}
+            {/* Decorative-only duplicate of the wordmark for the periodic
+                shine sweep (see .logo-shine in globals.css) — aria-hidden so
+                a screen reader hears the brand name once, from the real link
+                text above. */}
+            <span
+              aria-hidden
+              className="logo-shine pointer-events-none absolute inset-0"
+            >
+              {brandName}
+            </span>
           </AppLink>
 
           <nav className="hidden items-center gap-8 lg:flex">
