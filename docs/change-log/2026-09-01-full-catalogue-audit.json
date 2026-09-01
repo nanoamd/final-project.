@@ -1,22 +1,22 @@
 {
   "total": 1629,
-  "publishedCount": 785,
-  "draftCount": 844,
+  "publishedCount": 809,
+  "draftCount": 820,
   "tierCounts": {
-    "GOLD": 125,
-    "SILVER": 725,
-    "REVIEW": 779
+    "GOLD": 137,
+    "SILVER": 735,
+    "REVIEW": 757
   },
   "publishedTierCounts": {
-    "GOLD": 101,
-    "SILVER": 680,
-    "REVIEW": 4
+    "GOLD": 115,
+    "SILVER": 691,
+    "REVIEW": 3
   },
   "medians": {
     "accuracy": 10,
     "usefulness": 10,
     "humanQuality": 9.9,
-    "brandFit": 9.9,
+    "brandFit": 10,
     "specificity": 10,
     "seo": 10,
     "commercial": 8,
@@ -29,12 +29,11 @@
     "nonCanonical": 0
   },
   "artefactHits": {
-    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 30,
+    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 11,
     "The copy admits it does not know something instead of finding it out.": 22,
     "An HTML entity or tag is showing as literal text.": 1,
-    "Markdown markup left in the text.": 8,
-    "Publishes an internal value threshold. That rule is ours, not the customer's.": 1,
-    "Raw template syntax is visible in the copy.": 1
+    "Markdown markup left in the text.": 1,
+    "Publishes an internal value threshold. That rule is ours, not the customer's.": 1
   },
   "fixable": [
     {

@@ -16,6 +16,46 @@ Status key:
 
 ---
 
+## Post-emergency artefact cleanup: published catalogue effectively clean (1 September)
+
+Resumed the description-audit work once the Sanity/Vercel bot-traffic incident
+was contained, per _"lets forget about this for a bit and ensure vercel and
+sanity are optimized for this to never happen again then move onto the next
+incomplete tasks."_
+
+- [x] **Re-audited the whole catalogue post-fix** — 61 artefact instances
+      remained (27 published, 34 draft), more than the pre-emergency count
+      because the emergency interrupted the cleanup mid-pass.
+- [x] **8 published markdown/template-syntax fixes.** `scripts/fix-markdown-
+    artefacts-batch2.ts` — six mechanical strips (literal `*`/`- **bold**`
+      markdown in FAQ dimension answers and a bed-frame's feature list, a
+      stray `*` standing in for a multiplication sign). One real rewrite:
+      "Soft Squiggly Mirror" had raw generator scaffolding
+      (`bullets':['...']},{`) mixed with actual garbled, nonsensical
+      fragments — past what a surgical strip could honestly fix. Rewritten
+      from its own real `dimensions`/`weight` (30.5 × 22.5 × 2.3cm, 0.58kg)
+      instead.
+- [x] **19 published products, 46 "quotes the supplier" instances fixed.**
+      `scripts/fix-supplier-hedge-published.ts` — every sentence read before
+      rewriting; the fact stays, only the "the supplier says so" framing is
+      removed. Zero misses on a fresh live query afterward.
+  - Built with the multi-span lesson from the supplier-name-leak repair
+    applied from the start this time: every block replacement collapses to
+    a single span from the block's full text, never touches `children[0]`
+    alone and leaves the rest — so this one didn't need a second repair
+    pass.
+- [x] **Published REVIEW tier: 4 → 3.** Confirmed live, not from a script's
+      own printout: **GOLD 115, SILVER 691, REVIEW 3** (published only).
+      Remaining published artefacts: **zero** — every one of the 27 found
+      this pass, and the earlier "quotes the supplier" backlog, is now
+      either fixed or was never on a published document.
+- [ ] **What's left is entirely on drafts now**: 129 zero-fact rewrites, and
+      ~36 remaining artefact instances (11 "quotes the supplier", 22 "admits
+      a gap", 1 HTML entity, 1 markdown, 1 internal-threshold leak). Same
+      real-facts standard applies whenever this continues.
+
+---
+
 ## A four-figure Sanity/Vercel bill from bot traffic, and the fix (1 September)
 
 Damien: _"EMERGENCY: SANITY IS TRYING TO CHARGE ME £1500"_ — a real bank charge
@@ -179,7 +219,7 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
       thin-not-zero-facts version of the same fault** (1-2 scattered facts
       across 1,100+ words, so they slipped past the earlier "exactly zero"
       audit query but still failed the same way). `scripts/write-review-
-  tier-descriptions-batch5.ts`. Applied and verified live.
+tier-descriptions-batch5.ts`. Applied and verified live.
 - [x] **Published REVIEW tier: 101 → 4.** The 4 remaining are exactly the
       ones that are genuinely not fixable by writing a better description:
       the three flagged data-integrity conflicts (Delphine Dresser Top,

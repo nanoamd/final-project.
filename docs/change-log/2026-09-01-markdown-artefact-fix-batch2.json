@@ -1,0 +1,46 @@
+{
+  "apply": false,
+  "queued": 0,
+  "changes": [
+    {
+      "id": "premier-housewares-5511726",
+      "title": "Yara Matt Black 12 Bulb Statement Pendant Light",
+      "note": "\"* 12\" -> \"× 12\""
+    },
+    {
+      "id": "product-aosom-83d-185v03cg",
+      "title": "5ft King Bed Frame with Hydraulic Storage and LED Lighting, Grey",
+      "note": "stripped ** markdown from 3 feature lines"
+    },
+    {
+      "id": "product-aw-acshop-14",
+      "title": "Round Reclaimed Teak Bedside Table with Drawer",
+      "note": "FAQ dimensions answer de-markdowned"
+    },
+    {
+      "id": "product-aw-acshop-17",
+      "title": "Tall Reclaimed Teak Chest of 5 Drawers",
+      "note": "FAQ dimensions answer de-markdowned"
+    },
+    {
+      "id": "product-aw-bts-02",
+      "title": "Natural Wooden Beer Barrel Storage Stool",
+      "note": "FAQ dimensions answer de-markdowned"
+    },
+    {
+      "id": "product-aw-rds-146",
+      "title": "Large Brown Wooden Storage Tub",
+      "note": "FAQ dimensions answer de-markdowned"
+    },
+    {
+      "id": "product-aw-rds-151",
+      "title": "Brown Wooden Storage Crates (Set of 3)",
+      "note": "FAQ dimensions answer de-markdowned"
+    },
+    {
+      "id": "product-aw-ssm-05",
+      "title": "Soft Squiggly Mirror",
+      "note": "full rewrite — corrupted generator output replaced with real-facts description"
+    }
+  ]
+}
