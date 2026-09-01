@@ -1,15 +1,15 @@
 {
-  "total": 1630,
-  "publishedCount": 765,
-  "draftCount": 865,
+  "total": 1629,
+  "publishedCount": 777,
+  "draftCount": 852,
   "tierCounts": {
-    "GOLD": 80,
-    "SILVER": 705,
-    "REVIEW": 845
+    "GOLD": 103,
+    "SILVER": 682,
+    "REVIEW": 844
   },
   "publishedTierCounts": {
-    "GOLD": 50,
-    "SILVER": 646,
+    "GOLD": 78,
+    "SILVER": 630,
     "REVIEW": 69
   },
   "medians": {
@@ -22,7 +22,7 @@
     "commercial": 8,
     "returnRisk": 9,
     "readability": 10,
-    "aiRisk": 9.6
+    "aiRisk": 10
   },
   "sku": {
     "missing": 0,

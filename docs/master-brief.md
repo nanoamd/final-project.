@@ -25,9 +25,9 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
 - [x] **A true comprehensive audit, drafts included** — the earlier one
       (31 August) had no write token and could only see 732 published
       products. `scripts/audit-full-catalogue.ts` sees the whole thing: 1630
-      products (755 published, 875 drafts). Live counts as of the second
-      rewrite batch: **GOLD 80, SILVER 705, REVIEW 845** overall;
-      **published-only: GOLD 50, SILVER 646, REVIEW 69.**
+      products (755 published, 875 drafts). Live counts as of the
+      supplier-name-leak fix below: **GOLD 103, SILVER 682, REVIEW 844**
+      overall; **published-only: GOLD 78, SILVER 630, REVIEW 69.**
 - [x] **SKU and yesterday's artefact fixes, confirmed durable catalogue-wide**
       — 0 missing SKUs, 0 non-canonical, out of all 1630. The html-entity and
       doubled-spacing fix is clean across the whole catalogue bar one new
@@ -63,6 +63,38 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
     document (80cm diameter, 75cm height, 12kg). Two disagreeing sources
     of truth on one product is a data question for you, not something to
     pick a winner on by guessing.
+- [x] **Found and fixed a bigger, previously-unquantified bug while chasing
+      the "quotes the supplier" artefact: the supplier's actual name was
+      leaking into 41 published products' customer-facing copy** — not the
+      "the supplier says..." hedge (that's a separate, already-tracked
+      artefact), the literal words "Hill Interiors" or "D.I. Designs"
+      appended as a stray trailing token to nearly every paragraph, FAQ
+      answer and spec line. Looks like an import-time bug that tagged every
+      block with its source attribution and never stripped it before
+      publish. Worst instance: "Aegina Table Lamp" carried a whole cross-sell
+      section recommending other Hill Interiors ranges with a live link to
+      **hill-interiors.com** — sending a customer straight to the dropship
+      supplier's own retail site. `scripts/fix-supplier-name-leak.ts` —
+      mechanical strip for the ~254 straightforward cases (dry-run checked
+      against a hard verification pass that refuses to apply while any
+      field still names the supplier), hand-written replacements for the 4
+      where the name was grammatically load-bearing rather than just
+      appended. Applied, then verified against a fresh Sanity query: 0 of
+      41 products still name a supplier anywhere in their public copy.
+  - [x] **The first apply of that fix corrupted 35 of the 41 products** —
+        found by re-reading the live data afterward rather than trusting
+        the script's own success output, exactly the discipline this
+        project has run on all along. The bug: a Portable Text block with
+        more than one text span got its first span replaced with the full
+        corrected sentence but kept its other, unmodified spans appended
+        after it — duplicating half the sentence with the supplier's name
+        still on the end. `scripts/repair-supplier-leak-corruption.ts`
+        found every block this touched (only ones where a later span still
+        named the supplier — genuine untouched multi-span blocks, like a
+        spec sheet's "Diameter:" label next to its value, never did) and
+        collapsed each to the single span that already held the correct
+        merged text. Re-verified: 0 leaks, 0 duplicated fragments, across
+        the whole published catalogue.
 - [ ] **191 more zero-fact products, same fix, not started.** Real
       per-product writing, same standard — genuinely the bulk of what
       still stands between here and "minimal things needing review."
