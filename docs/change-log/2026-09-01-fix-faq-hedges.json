@@ -1,0 +1,4497 @@
+{
+  "apply": true,
+  "queued": 280,
+  "trimmed": 124,
+  "deleted": 245,
+  "products": [
+    {
+      "id": "hill-decor-20854",
+      "title": "Antique Etched foxed Wall Art Mirror | Kaiku",
+      "slug": "antique-etched-foxed-wall-art-mirror",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How heavy is the mirror?",
+          "before": "Weight details are not available, but it is designed to be securely mounted on your wall."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21501",
+      "title": "Marble Effect Pudding Vase | Kaiku",
+      "slug": "marble-effect-pudding-vase",
+      "faqsBefore": 13,
+      "faqsAfter": 13,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is there a risk of the vase breaking during delivery?",
+          "before": "We take great care in packaging the vase to prevent breakage during transit. However, if there are any issues, please contact support.",
+          "after": "We take great care in packaging the vase to prevent breakage during transit."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21615",
+      "title": "Roco Wall Clock | Kaiku",
+      "slug": "roco-wall-clock",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty on this clock?",
+          "before": "While specific warranty details aren't listed, we offer customer support for any concerns you may have."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21623",
+      "title": "White Skeleton Wall Clock | Kaiku",
+      "slug": "white-skeleton-wall-clock",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty for the clock?",
+          "before": "Please contact customer support for warranty details."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21625",
+      "title": "Rothay Large Wall Clock | Kaiku",
+      "slug": "rothay-large-wall-clock",
+      "faqsBefore": 13,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What type of batteries does the clock require?",
+          "before": "Details regarding battery specifications have not been provided for the Rothay Large Wall Clock."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21631",
+      "title": "Ashmount Wall Clock | Kaiku",
+      "slug": "ashmount-wall-clock",
+      "faqsBefore": 12,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What should I do if my Ashmount Wall Clock stops working?",
+          "before": "Check the battery first, as replacing it may restore functionality. If the issue persists, contact customer support for assistance.",
+          "after": "Check the battery first, as replacing it may restore functionality."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-0507597",
+      "title": "Vertex Square Basket | Kaiku",
+      "slug": "vertex-square-basket",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the basket be used for food storage?",
+          "before": "Specifications do not state that the basket is food safe, so it is recommended for decorative use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-0507598",
+      "title": "Vertex Hexagonal Basket | Kaiku",
+      "slug": "vertex-hexagonal-basket",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this basket hold water?",
+          "before": "The specifications do not state that the basket is watertight."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the basket suitable for food storage?",
+          "before": "The specifications do not confirm that the basket is food safe."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1101473",
+      "title": "Blossom Wall Mirror | Kaiku",
+      "slug": "blossom-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are the fixings supplied with the Blossom Wall Mirror?",
+          "before": "The specifications do not state whether fixings are included. We recommend sourcing suitable fixings separately based on your wall type.",
+          "after": "We recommend sourcing suitable fixings separately based on your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1102244",
+      "title": "Cassini Tri Fold White LED Table Mirror | Kaiku",
+      "slug": "cassini-tri-fold-white-led-table-mirror",
+      "faqsBefore": 9,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the mirror come with a bulb?",
+          "before": "The specifications do not state whether a bulb is included or the type of bulb required."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I use a dimmable bulb with this mirror?",
+          "before": "The specifications do not state whether the mirror is compatible with dimmable bulbs."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1102245",
+      "title": "Cassini Tri Fold Black LED Table Mirror | Kaiku",
+      "slug": "cassini-tri-fold-black-led-table-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the mirror arrives damaged?",
+          "before": "Please contact customer support to report any damage or faults upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1104822",
+      "title": "Aleki Extra Large Bamboo Chopping and Serving Board | Kaiku",
+      "slug": "aleki-extra-large-bamboo-chopping-and-serving-board",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I return the board if it is damaged?",
+          "before": "Yes, please contact support for any damages or faults. You have a 14-day window for returns.",
+          "after": "You have a 14-day window for returns."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1210017",
+      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 800ml | Kaiku",
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-800ml",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is the jar dishwasher safe?",
+          "before": "The specification does not state whether the jar is dishwasher safe. It is recommended to wash with warm soapy water.",
+          "after": "It is recommended to wash with warm soapy water."
+        },
+        {
+          "action": "DELETE",
+          "question": "What should I do if the jar arrives damaged?",
+          "before": "If the jar arrives damaged, please contact customer support for assistance within the return period."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411436",
+      "title": "Zircon Large Planter | Kaiku",
+      "slug": "zircon-large-planter",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How should I store the planter during winter?",
+          "before": "Since specific information regarding frost resistance is not available, it’s advisable to store indoors during extreme weather."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411604",
+      "title": "Lentigo Set Of Two White Planters | Kaiku",
+      "slug": "lentigo-set-of-two-white-planters",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can the planters be left outside in frost?",
+          "before": "The specifications do not confirm the outdoor suitability or frost resistance of these planters. We recommend checking the instruction manual.",
+          "after": "We recommend checking the instruction manual."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411647",
+      "title": "Avento Set Of Three Gold Finish Planters | Kaiku",
+      "slug": "avento-set-of-three-gold-finish-planters",
+      "faqsBefore": 6,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What size plants can these planters accommodate?",
+          "before": "The size of plants that can fit is not detailed in the specifications."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if my planters arrive damaged?",
+          "before": "If your planters arrive damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411648",
+      "title": "Avento Set Of Three Black Finish Planters | Kaiku",
+      "slug": "avento-set-of-three-black-finish-planters",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the product arrives damaged?",
+          "before": "Please contact customer support if the item arrives damaged or faulty so we can assist you."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411658",
+      "title": "Asher Two Tier Black Plant Stand | Kaiku",
+      "slug": "asher-two-tier-black-plant-stand",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included?",
+          "before": "No saucer or liner is specified as included with the plant stand."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1411661",
+      "title": "Alden Black Floor Standing Planter | Kaiku",
+      "slug": "alden-black-floor-standing-planter",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How can I contact customer support?",
+          "before": "Customer support can be contacted through the Kaiku website for any inquiries regarding the product."
+        },
+        {
+          "action": "DELETE",
+          "question": "What should I do if the planter arrives damaged?",
+          "before": "If the planter arrives damaged, please contact customer support within the 14-day return window."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1600571",
+      "title": "Cassini Chrome Large Swivel Mirror | Kaiku",
+      "slug": "cassini-chrome-large-swivel-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can I hang this mirror both portrait and landscape?",
+          "before": "The hanging method is not detailed, so please verify suitability with the supplied instructions."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does the mirror use a battery?",
+          "before": "No information about a battery requirement is available; it does not appear to be battery-operated."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-1601843",
+      "title": "Canyon White Lotion Dispenser - 500ml | Kaiku",
+      "slug": "canyon-white-lotion-dispenser-500ml",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my dispenser arrives damaged?",
+          "before": "Contact customer support for assistance with any damages or faults upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200480",
+      "title": "Verdian Multi Coloured Circles DIY Wall Clock | Kaiku",
+      "slug": "verdian-multi-coloured-circles-diy-wall-clock",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What fixings are needed to hang this clock?",
+          "before": "The specification does not state if fixings are supplied. You should source fixings suitable for your wall type separately.",
+          "after": "You should source fixings suitable for your wall type separately."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200627",
+      "title": "Verdian Red Heart DIY Wall Clock | Kaiku",
+      "slug": "verdian-red-heart-diy-wall-clock",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the fixings supplied with the clock?",
+          "before": "The specification does not list specific fixings; suitable fixings for your wall type should be sourced separately."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200662",
+      "title": "Tortora Red Glass and Black Numbers Wall Clock | Kaiku",
+      "slug": "tortora-red-glass-and-black-numbers-wall-clock",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the clock require a battery?",
+          "before": "The specifications regarding battery requirements are not mentioned in the product details."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200667",
+      "title": "Romero Blue Cutlery Metal Wall Clock | Kaiku",
+      "slug": "romero-33cm-dia-blue-cutlery-metal-wall-clock",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What happens if the clock arrives damaged?",
+          "before": "Please contact customer support if your clock arrives with any damage or faults."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200671",
+      "title": "Romero Hot Pink Cutlery Metal Wall Clock | Kaiku",
+      "slug": "romero-33cm-dia-hot-pink-cutlery-metal-wall-clock",
+      "faqsBefore": 13,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings included for mounting the clock?",
+          "before": "The specifications do not list fixings or mounting hardware. It is advised to source them according to your wall type.",
+          "after": "It is advised to source them according to your wall type."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can the clock be hung portrait or landscape?",
+          "before": "The specifications regarding hanging orientation are not detailed. However, it is likely intended for standard wall hanging.",
+          "after": "However, it is likely intended for standard wall hanging."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the glass real glass?",
+          "before": "The specifications do not state whether the glass is real or safety glass."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200861",
+      "title": "Maddox Cream Metal White Face Wall Clock | Kaiku",
+      "slug": "maddox-cream-metal-white-face-wall-clock",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the clock glass real glass?",
+          "before": "The specification does not state if the glass is real; please contact customer support for detailed information."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2200970",
+      "title": "Vitus Black and Gold Metal Wall Clock | Kaiku",
+      "slug": "vitus-80cm-dia-black-and-gold-metal-wall-clock",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is this wall clock suitable for outdoor use?",
+          "before": "The specifications do not state that the clock is suitable for outdoor use; it is recommended for indoor placement."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201054",
+      "title": "Yaxi Wall Clock | Kaiku",
+      "slug": "yaxi-91cm-dia-wall-clock",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings included with the Yaxi Wall Clock?",
+          "before": "The specification does not list any included fixings for the Yaxi Wall Clock. Customers should source appropriate fixings suited to their wall type.",
+          "after": "Customers should source appropriate fixings suited to their wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201064",
+      "title": "Elko Oval Wall Clock with Dark Grey Finish | Kaiku",
+      "slug": "elko-oval-wall-clock-with-dark-grey-finish",
+      "faqsBefore": 13,
+      "faqsAfter": 13,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings supplied for hanging the clock?",
+          "before": "The specification does not state if fixings are included. Customers should source suitable fixings based on their wall type.",
+          "after": "Customers should source suitable fixings based on their wall type."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can the clock be hung portrait and landscape?",
+          "before": "The specification does not state the method of hanging. Check the instruction manual for guidance.",
+          "after": "Check the instruction manual for guidance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201095",
+      "title": "Elko Pink Finish Embossed Effect Wall Clock | Kaiku",
+      "slug": "elko-16cm-dia-pink-finish-embossed-effect-wall-clock",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings supplied with the clock?",
+          "before": "The specification does not list fixings as included. It is recommended to acquire suitable fixings based on your wall type.",
+          "after": "It is recommended to acquire suitable fixings based on your wall type."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the clock suitable for outdoor use?",
+          "before": "The specification does not state suitability for outdoor use; it is advisable to use the clock indoors only."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can I return the clock if it’s damaged?",
+          "before": "Yes, you can return it within 14 days if it arrives damaged. Please contact customer support in this case.",
+          "after": "Yes, you can return it within 14 days if it arrives damaged."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201105",
+      "title": "Beauly Metal Wall Clock with Gold Finish | Kaiku",
+      "slug": "beauly-60cm-dia-metal-wall-clock-with-gold-finish",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is the clock suitable for outdoor use?",
+          "before": "The specification does not state suitability for outdoor use. It is recommended for indoor settings.",
+          "after": "It is recommended for indoor settings."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201113",
+      "title": "Vitus Large Wall Clock | Kaiku",
+      "slug": "vitus-60cm-dia-large-wall-clock",
+      "faqsBefore": 10,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings included for hanging the clock?",
+          "before": "The specification does not state if fixings are included. Please source appropriate fixings suited to your wall type.",
+          "after": "Please source appropriate fixings suited to your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2201120",
+      "title": "Vitus Gold Finish Wall Clock | Kaiku",
+      "slug": "vitus-56cm-dia-gold-finish-wall-clock",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are fixings supplied for hanging?",
+          "before": "Fixings suited to the customer's wall type should be sourced separately, as the specification does not state if any are included."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2401608",
+      "title": "Gala Black Glass Vanity Mirror with Drawers | Kaiku",
+      "slug": "gala-black-glass-vanity-mirror-with-drawers",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does it require a battery or mains supply?",
+          "before": "The specifications do not state if the mirror requires a battery or mains supply."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2404883",
+      "title": "Selby Natural Tropical Hevea Wood Square Plant Stand | Kaiku",
+      "slug": "selby-natural-tropical-hevea-wood-square-plant-stand",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does this plant stand have drainage holes?",
+          "before": "The specifications do not list whether drainage holes are present or if a saucer or liner is included with this plant stand."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the plant stand?",
+          "before": "The specifications do not state if a saucer or liner comes included with the plant stand."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2405282",
+      "title": "Lagom Black Natural Rattan Chair With Iron Legs | Kaiku",
+      "slug": "lagom-black-natural-rattan-chair-with-iron-legs",
+      "faqsBefore": 12,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are assembly instructions included?",
+          "before": "The specification does not list whether assembly instructions are included; please contact customer support for details."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty on this chair?",
+          "before": "Please contact customer support to inquire about warranty information."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if the chair arrives damaged?",
+          "before": "If you receive a damaged chair, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2405287",
+      "title": "Lagom Curved Black Natural Rattan Chair | Kaiku",
+      "slug": "lagom-curved-black-natural-rattan-chair",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are fixings and instructions supplied?",
+          "before": "The specification does not list whether fixings and instructions are included."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2405831",
+      "title": "Hayton Black Velvet Sofa Bed | Kaiku",
+      "slug": "hayton-black-velvet-sofa-bed",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the weight capacity of the sofa bed?",
+          "before": "The sofa bed can accommodate up to 360 kg, but specific capacities are not detailed.",
+          "after": "The sofa bed can accommodate up to 360 kg."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2405871",
+      "title": "Josephine Mink King Bed | Kaiku",
+      "slug": "josephine-mink-king-bed",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How should I inspect the product upon delivery?",
+          "before": "Inspect the bed for any damages immediately upon arrival and contact customer support if needed."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2405947",
+      "title": "Wimslow Smoked Glass Dining Table with 6 Chairs Set | Kaiku",
+      "slug": "wimslow-smoked-glass-dining-table-with-6-chairs-set",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my item arrives damaged?",
+          "before": "Contact customer support for assistance if your item arrives damaged."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406046",
+      "title": "Goa Brown Rattan Hanging Chair | Kaiku",
+      "slug": "goa-brown-rattan-hanging-chair",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How much assembly is involved and are tools supplied?",
+          "before": "This product requires assembly and ships in 4 cartons. Specific tools and instructions for assembly are not detailed in the specifications.",
+          "after": "This product requires assembly and ships in 4 cartons."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can I leave it outdoors all year?",
+          "before": "The chair is weather resistant, but it's best to store the cushion dry when not in use. The specification does not confirm if the chair can be left outside year-round.",
+          "after": "The chair is weather resistant, but it's best to store the cushion dry when not in use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406148",
+      "title": "Bradbury Natural Oak Effect Open Wardrobe | Kaiku",
+      "slug": "bradbury-natural-oak-effect-open-wardrobe",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What items are included in the box when it arrives?",
+          "before": "The specific contents of the box are not detailed. For complete information, refer to the instruction manual."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406213",
+      "title": "Rowan Natural And Black Woven Bamboo Chair And Stool Set | Kaiku",
+      "slug": "rowan-natural-and-black-woven-bamboo-chair-and-stool-set",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I leave it out in the rain?",
+          "before": "The specifications do not confirm whether the set is weather resistant. It is advisable to store cushions dry when not in use.",
+          "after": "It is advisable to store cushions dry when not in use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406570",
+      "title": "Veneto Midnight Velvet Curved Dining Chair | Kaiku",
+      "slug": "veneto-midnight-velvet-curved-dining-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What do I do if the chair arrives damaged?",
+          "before": "If the chair arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406731",
+      "title": "Mataram Natural Rattan Rectangular Coffee Table | Kaiku",
+      "slug": "mataram-natural-rattan-rectangular-coffee-table",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the item arrives damaged?",
+          "before": "Please contact customer support to address any damage or faults upon delivery."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406738",
+      "title": "Depok Large Rattan Planter with Metal Stand | Kaiku",
+      "slug": "depok-large-rattan-planter-with-metal-stand",
+      "faqsBefore": 10,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this planter be left outside in frost?",
+          "before": "The specifications regarding frost resistance are not mentioned. It is advisable to check the instruction manual or contact customer support."
+        },
+        {
+          "action": "DELETE",
+          "question": "What to do if the planter arrives damaged?",
+          "before": "If the planter arrives damaged, please contact customer support immediately for assistance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if I lose the instruction manual?",
+          "before": "If you lose the instruction manual, you can contact customer support for assistance and guidance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406740",
+      "title": "Depok Rattan Side Table With Metal Legs | Kaiku",
+      "slug": "depok-rattan-side-table-with-metal-legs",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the Depok Rattan Side Table be left outdoors all year round?",
+          "before": "The specifications do not detail whether the table is weather-resistant or suitable for outdoor use all year. For more information, please contact customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406741",
+      "title": "Depok Rattan Round Coffee Table With Cross Metal Legs | Kaiku",
+      "slug": "depok-rattan-round-coffee-table-with-cross-metal-legs",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I leave this table outside during bad weather?",
+          "before": "The weather resistance of the coffee table is not specifically stated. It is advisable to check the instruction manual or contact customer support for recommendations.",
+          "after": "The weather resistance of the coffee table is not specifically stated."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406745",
+      "title": "Depok Rattan and Metal Square Side Table | Kaiku",
+      "slug": "depok-rattan-and-metal-square-side-table",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How do I clean the weave and wash the cushion covers?",
+          "before": "To clean the weave, dust with a dry and soft cloth. The specification does not state if cushion covers can be washed.",
+          "after": "To clean the weave, dust with a dry and soft cloth."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2406746",
+      "title": "Depok Rattan And Metal Coffee Table | Kaiku",
+      "slug": "depok-rattan-and-metal-coffee-table",
+      "faqsBefore": 5,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my item arrives damaged?",
+          "before": "If your Depok Rattan and Metal Coffee Table arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2407101",
+      "title": "Maxwell Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
+      "slug": "maxwell-textured-beige-fabric-curved-swivel-dining-chair",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How can I contact support for issues with the chair?",
+          "before": "You can contact customer support through our website for any issues related to the chair."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2450047",
+      "title": "Goa White Rattan Effect Hanging Chair | Kaiku",
+      "slug": "goa-white-rattan-effect-hanging-chair",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty included with this product?",
+          "before": "Contact customer support for warranty details on this product."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2450049",
+      "title": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
+      "slug": "goa-black-rattan-effect-double-hanging-chair-with-grey-cushions",
+      "faqsBefore": 6,
+      "faqsAfter": 3,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How much assembly is involved?",
+          "before": "Assembly is required, but the specifications do not detail if tools are supplied."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I leave the chair outdoors all year?",
+          "before": "The specification does not list explicit weather resistance, so conditions should be checked before leaving it outside."
+        },
+        {
+          "action": "DELETE",
+          "question": "What are the weight limits for the seats?",
+          "before": "The exact weight limits are not detailed in the specifications."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502222",
+      "title": "Morano 8 Bulb Champagne Glass Chandelier | Kaiku",
+      "slug": "morano-8-bulb-champagne-glass-chandelier",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What is the drop or cable length of this chandelier?",
+          "before": "The dimensions of the chandelier are 71 cm in height and 71 cm in diameter, but specific drop or cable length adjustments are not mentioned."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502223",
+      "title": "Morano 8 Bulb Red Crystal Glass Chandelier | Kaiku",
+      "slug": "morano-8-bulb-red-crystal-glass-chandelier",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What is the drop or cable length?",
+          "before": "The specific drop or cable length is not mentioned; please consider your ceiling height for appropriate placement."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502319",
+      "title": "Lenno Large Gold Pendant Light | Kaiku",
+      "slug": "lenno-large-gold-pendant-light",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How can I contact customer support?",
+          "before": "Please visit the Kaiku website for contact information regarding customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502320",
+      "title": "Lenno Large White Pendant Light | Kaiku",
+      "slug": "lenno-large-white-pendant-light",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the lamp arrives damaged?",
+          "before": "Please contact customer support if the lamp arrives damaged or with faults."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502346",
+      "title": "Revive Chrome Finish 2 Light Floor Lamp | Kaiku",
+      "slug": "revive-chrome-finish-2-light-floor-lamp",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can the Revive lamp be used in a bathroom or outdoors?",
+          "before": "The Revive Floor Lamp is intended for indoor use only. Specifications regarding damp area safety are not available.",
+          "after": "The Revive Floor Lamp is intended for indoor use only."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502352",
+      "title": "Revive Chrome Finish Metal Floor Lamp | Kaiku",
+      "slug": "revive-chrome-finish-metal-floor-lamp",
+      "faqsBefore": 6,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does the lamp require hard-wiring or can it be plugged in?",
+          "before": "The specifications do not indicate whether the lamp is hard-wired or plugs into a socket. Consult the instruction manual or customer support for clarification.",
+          "after": "Consult the instruction manual or customer support for clarification."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can this lamp be used in a bathroom or outside?",
+          "before": "The specifications do not confirm suitability for bathroom or outdoor use. For safety information, consult the instruction manual or reach out to customer support.",
+          "after": "For safety information, consult the instruction manual or reach out to customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502411",
+      "title": "Stockholm Chrome Finish Tapered Floor Lamp | Kaiku",
+      "slug": "stockholm-chrome-finish-tapered-floor-lamp",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Do I need an electrician to install it?",
+          "before": "No specific installation details are given; you may consult an electrician if unsure."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502417",
+      "title": "Stockholm Shiny Brass Adjustable Floor Lamp | Kaiku",
+      "slug": "stockholm-shiny-brass-adjustable-floor-lamp",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this lamp be used safely in a bathroom or outdoors?",
+          "before": "The specifications do not state an IP rating for damp or outdoor use, so it is recommended for indoor use only."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502428",
+      "title": "Hexum Black Crystal Glass Table Lamp | Kaiku",
+      "slug": "hexum-black-crystal-glass-table-lamp",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my lamp arrives damaged?",
+          "before": "If your lamp arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502429",
+      "title": "Heidy Green Glass Table Lamp With White Shade | Kaiku",
+      "slug": "heidy-green-glass-table-lamp-with-white-shade",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What happens if I receive a damaged lamp?",
+          "before": "Please contact customer support to report any damage or faults upon receiving the lamp."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2502473",
+      "title": "Sellis Clear Glass and Black Metal Table Lamp | Kaiku",
+      "slug": "sellis-clear-glass-and-black-metal-table-lamp",
+      "faqsBefore": 6,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the returns policy?",
+          "before": "You can return the lamp within 14 days if it is in unused, original packaging. Please contact customer support for any damage or faults.",
+          "after": "You can return the lamp within 14 days if it is in unused, original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2800643",
+      "title": "Circle Design Natural Frame Wall Art | Kaiku",
+      "slug": "circle-design-natural-frame-wall-art",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does it require a battery?",
+          "before": "The specifications do not state that a battery is required."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2800741",
+      "title": "City Framed London Wall Art | Kaiku",
+      "slug": "city-framed-london-wall-art",
+      "faqsBefore": 12,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings supplied for hanging?",
+          "before": "The specification does not list any supplied fixings. You will need to source appropriate fixings based on your wall type.",
+          "after": "You will need to source appropriate fixings based on your wall type."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can this wall art be hung in both portrait and landscape orientations?",
+          "before": "The specifications do not indicate whether it can be hung in both orientations."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the glass real glass?",
+          "before": "The specification states it is made with glass, but does not specify if it is real glass."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can I return this wall art if it's damaged?",
+          "before": "Yes, you may return it within 14 days if it is unused and in its original packaging. For damages, contact customer support.",
+          "after": "Yes, you may return it within 14 days if it is unused and in its original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-2907097",
+      "title": "Fiori Mixed Succulents In Wood Wall Planter | Kaiku",
+      "slug": "fiori-mixed-succulents-in-wood-wall-planter",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the planter have drainage holes?",
+          "before": "The specifications do not state whether drainage holes are included in the Fiori Mixed Succulents In Wood Wall Planter."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if my product arrives damaged?",
+          "before": "Please contact customer support for assistance if your product arrives damaged or with faults."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5100313",
+      "title": "Thread and Loom 6 Piece Peach Pink Towel Set | Kaiku",
+      "slug": "thread-and-loom-6-piece-peach-pink-towel-set",
+      "faqsBefore": 5,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the towels arrive damaged?",
+          "before": "Please contact customer support for any damaged or faulty items."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5100316",
+      "title": "Thread and Loom 6 Piece Lilac Towel Set | Kaiku",
+      "slug": "thread-and-loom-6-piece-lilac-towel-set",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if I receive a damaged item?",
+          "before": "If the item is damaged, please contact support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5501173",
+      "title": "Kensington Townhouse Brown And White Hair on Leather Side Table | Kaiku",
+      "slug": "kensington-townhouse-brown-and-white-hair-on-leather-side-table",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What happens if my item arrives damaged?",
+          "before": "If your item is damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5501271",
+      "title": "Ulmus Grey Elm Wood 4 Tier Bookshelf | Kaiku",
+      "slug": "ulmus-grey-elm-wood-4-tier-bookshelf",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the bookshelf arrives damaged?",
+          "before": "Please contact customer support for assistance with any damage or faults."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5501639",
+      "title": "Lyon Beige Linen Dining Chair | Kaiku",
+      "slug": "lyon-beige-linen-dining-chair",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty on the chair?",
+          "before": "Please contact customer support for details regarding warranty information."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5501646",
+      "title": "Lyon Natural Oak Wood Round Dining Table | Kaiku",
+      "slug": "lyon-natural-oak-wood-round-dining-table",
+      "faqsBefore": 12,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are fixings and instructions provided for assembly?",
+          "before": "The specifications do not list whether fixings or instructions are included."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the table suitable for outdoor use?",
+          "before": "The specifications do not mention outdoor suitability, so it is recommended for indoor use only."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5502319",
+      "title": "Opus Woven Rope Footstool | Kaiku",
+      "slug": "opus-woven-rope-footstool",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What pieces are included with the footstool?",
+          "before": "The specification does not list further included pieces or components with the Opus Woven Rope Footstool."
+        },
+        {
+          "action": "DELETE",
+          "question": "Are cushions included with the footstool?",
+          "before": "The specification does not state whether cushions are included with the Opus Woven Rope Footstool."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can the footstool be left outdoors all year?",
+          "before": "The specification does not state whether the footstool can be left outdoors all year round. It is advisable to store it dry.",
+          "after": "It is advisable to store it dry."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5502329",
+      "title": "Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand | Kaiku",
+      "slug": "hoffmann-black-mirrored-glass-and-nickel-finish-plant-stand",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does this plant stand have drainage holes?",
+          "before": "The specifications do not state whether drainage holes are included in this plant stand."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5502354",
+      "title": "Marwar Mango Wood and Leather Media Unit | Kaiku",
+      "slug": "marwar-mango-wood-and-leather-media-unit",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How should I handle delivery of the media unit?",
+          "before": "Inspect the package upon delivery and contact customer support if there are any issues."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5502357",
+      "title": "Marwar Mango Wood Sideboard | Kaiku",
+      "slug": "marwar-mango-wood-sideboard",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the weight limit of the sideboard?",
+          "before": "The weight capacity is not specifically listed. Please contact customer support for more information.",
+          "after": "The weight capacity is not specifically listed."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5502851",
+      "title": "Lovina Wood And Natural Rattan Lounge Chair | Kaiku",
+      "slug": "lovina-wood-and-natural-rattan-lounge-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What is the weight limit for the chair?",
+          "before": "Weight capacity information for this chair is not available; refer to customer support for any inquiries."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503056",
+      "title": "Meissa Gold Finish Pendant Wall Mirror | Kaiku",
+      "slug": "meissa-gold-finish-pendant-wall-mirror",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does it come with fixings for hanging?",
+          "before": "The specification does not list whether fixings are supplied, so it is advisable to source appropriate fixings suited to your wall type separately."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503091",
+      "title": "Gavri Wall Mirror | Kaiku",
+      "slug": "gavri-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings supplied with the Gavri Wall Mirror?",
+          "before": "The specification does not state whether fixings are included. It is advisable to source appropriate fixings suited to your wall type.",
+          "after": "It is advisable to source appropriate fixings suited to your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503133",
+      "title": "Ruta Wall Mirror | Kaiku",
+      "slug": "ruta-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are fixings supplied with the mirror?",
+          "before": "The specification does not state whether fixings are included; it is recommended to source the appropriate fixings suited to your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503146",
+      "title": "Relic Rectangular Wall Mirror | Kaiku",
+      "slug": "relic-rectangular-wall-mirror",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does this mirror use a battery or mains supply?",
+          "before": "The specifications do not mention whether the mirror requires a battery or mains supply."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503172",
+      "title": "Descartes Square Window Pane Wall Mirror | Kaiku",
+      "slug": "descartes-square-window-pane-wall-mirror",
+      "faqsBefore": 9,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are the fixings supplied with the mirror?",
+          "before": "The specifications do not list if fixings are included. Please source suitable fixings for your wall type separately.",
+          "after": "Please source suitable fixings for your wall type separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does this mirror require a battery or a power source?",
+          "before": "There is no information available regarding battery or power requirements."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if my mirror arrives damaged?",
+          "before": "If your mirror arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503184",
+      "title": "Leonov Small Nickel Finish Wall Mirror | Kaiku",
+      "slug": "leonov-small-nickel-finish-wall-mirror",
+      "faqsBefore": 7,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are fixings supplied with the mirror?",
+          "before": "The specification does not list whether fixings are included; it is advised to source appropriate fixings based on your wall type."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does this mirror need a battery?",
+          "before": "The specification does not state if a battery is required, as it is simply a wall mirror."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503234",
+      "title": "Riza Square And Tiled Design Wall Mirror | Kaiku",
+      "slug": "riza-square-and-tiled-design-wall-mirror",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are the fixings included for hanging?",
+          "before": "The specification does not list whether fixings are included. It is advisable to source appropriate fixings suited to your wall type.",
+          "after": "It is advisable to source appropriate fixings suited to your wall type."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does the mirror require any batteries?",
+          "before": "The specification does not state if batteries are required or used."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503272",
+      "title": "Trento Double Ring Design Wall Mirror | Kaiku",
+      "slug": "trento-double-ring-design-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the mirror be hung in a portrait or landscape orientation?",
+          "before": "The specific hanging orientation is not detailed. Refer to the instruction manual for guidance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503277",
+      "title": "Kensington Townhouse Rectangular Mirror | Kaiku",
+      "slug": "kensington-townhouse-rectangular-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does this mirror require a battery or a power source?",
+          "before": "There is no information regarding battery or mains supply requirements for this mirror."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503300",
+      "title": "Almora Acacia Wood Wall Mirror | Kaiku",
+      "slug": "almora-acacia-wood-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are the fixings included with the mirror?",
+          "before": "The specification does not state if fixings are included. Please source appropriate fixings for your wall type.",
+          "after": "Please source appropriate fixings for your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503336",
+      "title": "Cristi Silver Finish Wall Mirror | Kaiku",
+      "slug": "cristi-silver-finish-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the fixings for hanging supplied with the mirror?",
+          "before": "The specification does not list the included fixings for hanging, so we recommend sourcing appropriate fixings separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I hang the Cristi mirror in portrait or landscape orientation?",
+          "before": "The specification does not indicate whether the mirror can be hung in portrait or landscape orientation."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503350",
+      "title": "Remo Dual Lined Wall Mirror | Kaiku",
+      "slug": "remo-dual-lined-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the fixings supplied with the mirror?",
+          "before": "The specification does not mention whether fixings are included, so please source suitable fixings for your wall type."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I hang the mirror portrait and landscape?",
+          "before": "The specification does not state the hanging method, so consult the instruction manual or customer support for guidance."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does the mirror use real glass?",
+          "before": "The specification does not specify glass type explicitly, but the clarity and aesthetic imply real glass is used."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503354",
+      "title": "Avelino Silver Frame Wall Mirror | Kaiku",
+      "slug": "avelino-silver-frame-wall-mirror",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the Avelino mirror require a battery?",
+          "before": "The product page does not state that the mirror requires a battery."
+        },
+        {
+          "action": "DELETE",
+          "question": "What should I do if the mirror arrives damaged?",
+          "before": "If the mirror has any damage upon arrival, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503357",
+      "title": "Avelino Illuminated LED Gold Oval Mirror | Kaiku",
+      "slug": "avelino-illuminated-led-gold-oval-mirror",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the mirror dimmable?",
+          "before": "The specifications do not state whether the mirror is dimmable."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503358",
+      "title": "Avelino Illuminated LED Silver Oval Mirror | Kaiku",
+      "slug": "avelino-illuminated-led-silver-oval-mirror",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the return policy for the mirror?",
+          "before": "You can return the Avelino Illuminated LED Silver Oval Mirror within 14 days if it is unused and in its original packaging. Contact support for any damage or faults.",
+          "after": "You can return the Avelino Illuminated LED Silver Oval Mirror within 14 days if it is unused and in its original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503394",
+      "title": "Trento Small Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
+      "slug": "trento-small-square-black-metal-frame-round-insert-wall-mirror",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the mirror require any batteries or electrical supply?",
+          "before": "The specifications do not state a need for batteries or an electrical supply."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503956",
+      "title": "Descartes Black Frame Wall Mirror | Kaiku",
+      "slug": "descartes-black-frame-wall-mirror",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the mirror require a battery or a socket?",
+          "before": "There is no information provided regarding battery or mains supply needs."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503962",
+      "title": "Terni Gold Finish Wall Mirror | Kaiku",
+      "slug": "terni-gold-finish-wall-mirror",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can I hang this mirror both portrait and landscape?",
+          "before": "The specification does not confirm if it can be hung in both orientations."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503975",
+      "title": "Palu Rectangular Black Wall Mirror with Shell Inlay | Kaiku",
+      "slug": "palu-rectangular-black-wall-mirror-with-shell-inlay",
+      "faqsBefore": 9,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Do the fixings come with the mirror?",
+          "before": "The specifications do not state whether fixings are included. It is advisable to obtain fixings suited to your wall type separately.",
+          "after": "It is advisable to obtain fixings suited to your wall type separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can this mirror be hung portrait or landscape?",
+          "before": "The specifications do not indicate whether it can be hung in either orientation."
+        },
+        {
+          "action": "DELETE",
+          "question": "What type of glass does this mirror use?",
+          "before": "The specifications do not indicate the type of glass used."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5503991",
+      "title": "Silva Large Oak Effect Silver Wall Mirror | Kaiku",
+      "slug": "silva-large-oak-effect-silver-wall-mirror",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the fixings supplied with the mirror?",
+          "before": "The specifications do not state whether fixings are included; it is advisable to source fixings appropriate for your wall type separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does the mirror require a battery or power supply?",
+          "before": "There is no information regarding a battery or power supply; the mirror likely does not require any."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5504031",
+      "title": "Jensen Rectangular Silver Wall Mirror | Kaiku",
+      "slug": "jensen-rectangular-silver-wall-mirror",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the screws and wall plugs supplied?",
+          "before": "The specification does not list the inclusion of screws or wall plugs; suitable fixings for your wall type should be sourced separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does the mirror require a battery?",
+          "before": "The specification does not list any battery requirements."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5504052",
+      "title": "Dimaro Antique Grey Wall Mirror | Kaiku",
+      "slug": "dimaro-antique-grey-wall-mirror",
+      "faqsBefore": 6,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are the fixings for hanging supplied with the mirror?",
+          "before": "The specification does not list any fixings supplied. Suitable fixings for your wall type should be sourced separately.",
+          "after": "Suitable fixings for your wall type should be sourced separately."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505128",
+      "title": "Kensington Townhouse Nickel Finish Large Floorstanding Candle Holder | Kaiku",
+      "slug": "kensington-townhouse-nickel-finish-large-floorstanding-candle-holder",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What fragrance notes does it have?",
+          "before": "Fragrance notes are not mentioned. Please contact customer support for specific queries regarding scents."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505783",
+      "title": "Darnell Large Black Geometric Planter with Legs | Kaiku",
+      "slug": "darnell-large-black-geometric-planter-with-legs",
+      "faqsBefore": 12,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the planter have drainage holes?",
+          "before": "The product specification does not state whether the planter has drainage holes."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the planter?",
+          "before": "The specification does not mention whether a saucer or liner is included."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505784",
+      "title": "Darnell Small Greyt Faceted Planter | Kaiku",
+      "slug": "darnell-small-greyt-faceted-planter",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this planter be left outside in frost?",
+          "before": "The planner is suitable for outdoor use, but the frost resistance is not mentioned."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505788",
+      "title": "Darnell Small White Finish Rounded Planter | Kaiku",
+      "slug": "darnell-small-white-finish-rounded-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the planter?",
+          "before": "The specifications do not state whether a saucer or liner is included."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is return shipping free?",
+          "before": "Standard return processes apply; please contact customer support for detailed return instructions."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505789",
+      "title": "Darnell Medium Grey Speckled Planter | Kaiku",
+      "slug": "darnell-medium-grey-speckled-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the planter be left outside in frost?",
+          "before": "The specifications do not state if the planter is frost-resistant, so care may be needed during colder months."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505790",
+      "title": "Darnell Large Grey Speckled Planter | Kaiku",
+      "slug": "darnell-large-grey-speckled-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the Darnell Large Grey Speckled Planter have drainage holes?",
+          "before": "The product specifications do not state whether drainage holes are included."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can the planter be left outside in frost?",
+          "before": "The specifications do not confirm whether it is advisable to leave the planter outside during frost."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505796",
+      "title": "Darnell Large Black Finish Planter | Kaiku",
+      "slug": "darnell-large-black-finish-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What care is required for seasonal changes?",
+          "before": "The specifications do not detail specific seasonal care, so it is recommended to consult the instruction manual or customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505797",
+      "title": "Darnell White And Black Small Planter | Kaiku",
+      "slug": "darnell-white-and-black-small-planter",
+      "faqsBefore": 13,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the planter have drainage holes?",
+          "before": "The specification regarding drainage holes has not been provided, so it is unclear if this planter has drainage holes."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with this planter?",
+          "before": "No saucer or liner is mentioned as included with the Darnell planter."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can this planter be left outside during frost?",
+          "before": "The specification does not confirm frost resistance, so it is advisable to consult the supplied instruction manual or contact customer support for guidance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What is the warranty policy for the Darnell planter?",
+          "before": "For warranty information, please contact customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505800",
+      "title": "Darnell Large Chevron Planter | Kaiku",
+      "slug": "darnell-large-chevron-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is this planter suitable for indoor use?",
+          "before": "Yes, the planter can be used indoors, though specifics about outdoor suitability are not mentioned."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505802",
+      "title": "Darnell Large Black And White Finish Planter | Kaiku",
+      "slug": "darnell-large-black-and-white-finish-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the Darnell planter have drainage holes?",
+          "before": "The specifications do not state whether drainage holes are included."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is there a saucer or liner included with the planter?",
+          "before": "At this time, it is not mentioned if a saucer or liner is included."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5505803",
+      "title": "Darnell Large Face Planter | Kaiku",
+      "slug": "darnell-large-face-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can the planter be left outside in frost?",
+          "before": "The specifications do not state whether the planter can withstand frost. It is advisable to bring it indoors during freezing conditions.",
+          "after": "It is advisable to bring it indoors during freezing conditions."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506183",
+      "title": "Kiso Black Large Stoneware Planter | Kaiku",
+      "slug": "kiso-black-large-stoneware-planter",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the Kiso Black Large Stoneware Planter have drainage holes?",
+          "before": "The specifications for the Kiso Black Large Stoneware Planter do not mention drainage holes or whether a saucer or liner is included."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I leave this planter outside in frost?",
+          "before": "The specifications do not state whether the planter can withstand frost. For more information, refer to the supplied instruction manual or contact customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506186",
+      "title": "Yuri Ceramic Planter | Kaiku",
+      "slug": "yuri-ceramic-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How heavy will the planter be once filled?",
+          "before": "The empty weight is unspecified; however, the filled weight will be significantly higher and depend on the soil and plant you choose."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can the planter be used for outdoor plants?",
+          "before": "The suitability for outdoor planting is not specifically mentioned; refer to the manual for guidance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506187",
+      "title": "Yuri Large Ceramic Planter | Kaiku",
+      "slug": "yuri-large-ceramic-planter",
+      "faqsBefore": 12,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the planter have drainage holes?",
+          "before": "The specifications do not indicate whether the Yuri Large Ceramic Planter has drainage holes."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the planter?",
+          "before": "The specifications do not state if a saucer or liner is included with the Yuri Large Ceramic Planter."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can the planter be left outside if it freezes?",
+          "before": "The specifications do not indicate if the Yuri Large Ceramic Planter is suitable for outdoor use or if it can withstand frost."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is the planter suitable for indoor or outdoor use?",
+          "before": "The specifications do not state if the planter is designed for indoor or outdoor use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506189",
+      "title": "Yuri White And Gold Spotted Planter | Kaiku",
+      "slug": "yuri-white-and-gold-spotted-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the planter arrives damaged?",
+          "before": "If the planter arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506191",
+      "title": "Yuri Large Terracotta Gold Spotted Planter | Kaiku",
+      "slug": "yuri-large-terracotta-gold-spotted-planter",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the Yuri planter safe for food plants?",
+          "before": "The specifications do not mention food safety, so it's recommended to use it for decorative purposes only or consult support."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can the planter be used for herbs or vegetables?",
+          "before": "While the specs do not specify food safety, using it for decorative houseplants is advisable. For edibles, check support for safe use.",
+          "after": "For edibles, check support for safe use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506194",
+      "title": "Yana Small Cream Textured Ceramic Planter | Kaiku",
+      "slug": "yana-small-cream-textured-ceramic-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this planter be used outdoors?",
+          "before": "Information regarding outdoor suitability is not available. Please contact customer support for more information."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506195",
+      "title": "Yana Large Cream Textured Ceramic Planter | Kaiku",
+      "slug": "yana-large-cream-textured-ceramic-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Where can I use the Yana planter?",
+          "before": "The Yana Large Cream Textured Ceramic Planter is suitable for a variety of indoor settings. However, specific outdoor suitability is not detailed in the specifications.",
+          "after": "The Yana Large Cream Textured Ceramic Planter is suitable for a variety of indoor settings."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506418",
+      "title": "Darnell Natural And Black Planter | Kaiku",
+      "slug": "darnell-natural-and-black-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the planter?",
+          "before": "Details regarding a saucer or liner are not mentioned in the product specifications."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506423",
+      "title": "Darnell Round Brown Vase | Kaiku",
+      "slug": "darnell-round-brown-vase",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a saucer or liner included with the vase?",
+          "before": "Information on whether a saucer or liner is included is not available."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506425",
+      "title": "Darnell Round Brown Planter With Angular Legs | Kaiku",
+      "slug": "darnell-round-brown-planter-with-angular-legs",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the internal diameter of the planter?",
+          "before": "The planter has a capacity of 40 litres, but no specific internal diameter or depth is stated. Please contact customer support for further assistance.",
+          "after": "The planter has a capacity of 40 litres, but no specific internal diameter or depth is stated."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506427",
+      "title": "Darnell Large Natural Face Planter | Kaiku",
+      "slug": "darnell-large-natural-face-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my planter arrives damaged?",
+          "before": "If your planter arrives damaged or defective, please contact customer support to report the issue."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506428",
+      "title": "Darnell Small Rustic Face Planter | Kaiku",
+      "slug": "darnell-small-rustic-face-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my planter arrives damaged?",
+          "before": "If your Darnell Small Rustic Face Planter arrives damaged, please contact customer support immediately."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506429",
+      "title": "Darnell Large Rustic Face Planter | Kaiku",
+      "slug": "darnell-large-rustic-face-planter",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can this planter be left outside during frost?",
+          "before": "The specifications do not state frost resistance. It’s advisable to check further with customer support if you intend to use it outdoors.",
+          "after": "It’s advisable to check further with customer support if you intend to use it outdoors."
+        },
+        {
+          "action": "DELETE",
+          "question": "Is this planter suitable for indoor use?",
+          "before": "While the planter is designed for versatility, specific indoor suitability is not mentioned in the specification."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506432",
+      "title": "Cruzar Large Silver Lantern | Kaiku",
+      "slug": "cruzar-large-silver-lantern",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the lantern real flame or battery powered?",
+          "before": "The specification does not state if the lantern is battery powered or uses a real flame."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506450",
+      "title": "Jada Large Planter | Kaiku",
+      "slug": "jada-large-planter",
+      "faqsBefore": 12,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the Jada Large Planter have drainage holes?",
+          "before": "The specifications do not state whether drainage holes are included, nor is a saucer or liner mentioned."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can the planter be used outdoors in frost?",
+          "before": "The specifications do not confirm the planter's suitability for indoor or outdoor use, nor do they address frost resistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506454",
+      "title": "Jada Large Abstract Planter | Kaiku",
+      "slug": "jada-large-abstract-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the internal size of the planter?",
+          "before": "Internal sizing specifications are not available. It is advisable to verify if your chosen pot fits within the planter.",
+          "after": "It is advisable to verify if your chosen pot fits within the planter."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506458",
+      "title": "Jada Large Striped Planter | Kaiku",
+      "slug": "jada-large-striped-planter",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I leave the planter outside in frost?",
+          "before": "The specifications regarding frost resistance are not available. It is advisable to refer to the supplied information or consult customer support.",
+          "after": "It is advisable to refer to the supplied information or consult customer support."
+        },
+        {
+          "action": "TRIM",
+          "question": "Is the planter safe for use with food items?",
+          "before": "The specifications do not state that the planter is food safe. It is primarily designed for decorative plant use.",
+          "after": "It is primarily designed for decorative plant use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506459",
+      "title": "Jada Small Striped Planter | Kaiku",
+      "slug": "jada-small-striped-planter",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Where can I place the planter?",
+          "before": "You can place it in various settings, but specifications for indoor or outdoor use are not available."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506533",
+      "title": "Cayden Small Smoked Black And Silver Vase | Kaiku",
+      "slug": "cayden-small-smoked-black-and-silver-vase",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the vase watertight?",
+          "before": "The specification does not state whether it is watertight, so it is best used as a decorative item only."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506561",
+      "title": "Arlo Small Engraved Natural And Black Planter | Kaiku",
+      "slug": "arlo-small-engraved-natural-and-black-planter",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my planter arrives damaged?",
+          "before": "If your planter arrives damaged or faulty, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506673",
+      "title": "Tundra Black And White Earthenware Planter | Kaiku",
+      "slug": "tundra-black-and-white-earthenware-planter",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the planter arrives damaged?",
+          "before": "If the planter arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506889",
+      "title": "Sanai White Cotton Mache Large Planter | Kaiku",
+      "slug": "sanai-white-cotton-mache-large-planter",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the shipping method for the planter?",
+          "before": "The planter will be shipped with care to ensure it arrives undamaged. If you notice any issues upon delivery, you can contact customer support.",
+          "after": "The planter will be shipped with care to ensure it arrives undamaged."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5506890",
+      "title": "Sanai Black Cotton Mache Large Planter | Kaiku",
+      "slug": "sanai-black-cotton-mache-large-planter",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can the planter be left outdoors in frost?",
+          "before": "The suitability of this planter for outdoor use in frost has not been specified. It’s advisable to consult customer support to confirm.",
+          "after": "It’s advisable to consult customer support to confirm."
+        },
+        {
+          "action": "DELETE",
+          "question": "How can I contact customer support for more information?",
+          "before": "You can reach out to customer support through our website for any specific questions or assistance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if my planter arrives damaged?",
+          "before": "If your planter is damaged upon delivery, please contact customer support as soon as possible to resolve the issue."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5509209",
+      "title": "Quackpot Duck Feet Small Plant Stand | Kaiku",
+      "slug": "quackpot-duck-feet-small-plant-stand",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the return policy?",
+          "before": "You can return this item within 14 days in unused condition and in original packaging. For damages or faults, contact support.",
+          "after": "You can return this item within 14 days in unused condition and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511263",
+      "title": "Lustra Small Nickel Painted Chandelier | Kaiku",
+      "slug": "lustra-small-nickel-painted-chandelier",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is this chandelier safe for use in a bathroom or outdoors?",
+          "before": "The chandelier is intended for indoor use only; specific ratings for damp locations are not mentioned."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511346",
+      "title": "Chloe Crystal Glass Table Lamp | Kaiku",
+      "slug": "chloe-crystal-glass-table-lamp",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is this lamp suitable for dimmer switches?",
+          "before": "The specifications do not state whether the lamp is compatible with dimmers."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511371",
+      "title": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "slug": "abira-gold-finish-adjustable-8-arm-statement-pendant-light",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this pendant light be dimmed?",
+          "before": "The specifications do not state whether it is dimmable."
+        },
+        {
+          "action": "DELETE",
+          "question": "Do I need an electrician to install this light?",
+          "before": "The specifications do not state whether it is hard-wired or plug-in; it is advised to consult a qualified electrician for mains-wired fittings."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511372",
+      "title": "Abira Silver Finish Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "slug": "abira-silver-finish-adjustable-5-arm-statement-pendant-light",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is this light suitable for outdoor or bathroom use?",
+          "before": "The safety and usage restrictions do not state compatibility for bathrooms or outdoor environments."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511388",
+      "title": "Hubert Nickel Finish Arc Floor Lamp | Kaiku",
+      "slug": "hubert-nickel-finish-arc-floor-lamp",
+      "faqsBefore": 8,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the lamp arrives damaged?",
+          "before": "For any damage, please contact customer support promptly for assistance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if I receive the wrong item?",
+          "before": "Please contact customer support if you receive an incorrect item."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511398",
+      "title": "Skye Nickel Finish Rectangular Floor Lamp | Kaiku",
+      "slug": "skye-nickel-finish-rectangular-floor-lamp",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the lamp be dimmed?",
+          "before": "The specification does not state whether the lamp is dimmable."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511399",
+      "title": "Skye Gold Finish And Twisted Base Floor Lamp | Kaiku",
+      "slug": "skye-gold-finish-and-twisted-base-floor-lamp",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can I dim the light with this lamp?",
+          "before": "The specifications do not mention dimmable compatibility."
+        },
+        {
+          "action": "TRIM",
+          "question": "What is included in the box upon delivery?",
+          "before": "The lamp arrives with all components for assembly. However, specific tools or fixings are not mentioned in the specification.",
+          "after": "The lamp arrives with all components for assembly."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511592",
+      "title": "Karter Chrome Finish Floor Lamp With Three Lights | Kaiku",
+      "slug": "karter-chrome-finish-floor-lamp-with-three-lights",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can I use dimmable bulbs with this lamp?",
+          "before": "The specification does not state whether dimmable bulbs are compatible."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511616",
+      "title": "Trieste Champagne Glass Floor Lamp | Kaiku",
+      "slug": "trieste-champagne-glass-floor-lamp",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the lamp arrives damaged?",
+          "before": "If the lamp arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511631",
+      "title": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "slug": "palu-natural-white-and-amber-shell-large-pendant-shade",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the pendant shade dimmable?",
+          "before": "Dimmable compatibility is not mentioned in the specifications."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511641",
+      "title": "Orko Brass And Black 16 Bulb Statement Pendant Light | Kaiku",
+      "slug": "orko-brass-and-black-16-bulb-statement-pendant-light",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my pendant light arrives damaged?",
+          "before": "Please contact customer support if your light is damaged upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511649",
+      "title": "Enola Large Ribbed Smoked Glass Table Lamp | Kaiku",
+      "slug": "enola-large-ribbed-smoked-glass-table-lamp",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my lamp arrives damaged?",
+          "before": "If your lamp arrives damaged or faulty, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511673",
+      "title": "Babylon Six Bulb Chrome Chandelier | Kaiku",
+      "slug": "babylon-six-bulb-chrome-chandelier",
+      "faqsBefore": 12,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a bulb included with the chandelier?",
+          "before": "The specification does not list whether a bulb is included."
+        },
+        {
+          "action": "DELETE",
+          "question": "What type of bulb fits this chandelier?",
+          "before": "The specification does not list the bulb cap type."
+        },
+        {
+          "action": "DELETE",
+          "question": "What is the maximum wattage for the bulbs?",
+          "before": "The specification does not list the maximum wattage for the bulbs."
+        },
+        {
+          "action": "DELETE",
+          "question": "Does this chandelier need to be hard-wired or can it plug in?",
+          "before": "The specification does not state if it is hard-wired or plug-in."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511674",
+      "title": "Babylon Eight Bulb Chrome Chandelier | Kaiku",
+      "slug": "babylon-eight-bulb-chrome-chandelier",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the return policy for this chandelier?",
+          "before": "You can return the chandelier within 14 days of purchase in unused, original packaging and in a resaleable condition. Contact customer support for any damages or faults.",
+          "after": "You can return the chandelier within 14 days of purchase in unused, original packaging and in a resaleable condition."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511675",
+      "title": "Babylon Four Bulb Antique Gold Chandelier | Kaiku",
+      "slug": "babylon-four-bulb-antique-gold-chandelier",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What happens if the chandelier arrives damaged?",
+          "before": "If the chandelier is damaged upon arrival, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511678",
+      "title": "Newton White Marble and Gold Floor Lamp | Kaiku",
+      "slug": "newton-white-marble-and-gold-floor-lamp",
+      "faqsBefore": 13,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the lamp dimmable?",
+          "before": "The specification does not state whether the lamp is compatible with dimmable bulbs."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511724",
+      "title": "Abira White Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "slug": "abira-white-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the height of the lamp be adjusted?",
+          "before": "The specification does not state if the height is adjustable."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511740",
+      "title": "Hanah Black Snake Leather Effect Floor Lamp with Chrome Base and Black Shade | Kaiku",
+      "slug": "hanah-black-snake-leather-effect-floor-lamp-with-chrome-base-and-black-shade",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this lamp be dimmed?",
+          "before": "The specification does not state whether the lamp is dimmable."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511823",
+      "title": "Carta Black and White Stripe Papier Mache Table Lamp | Kaiku",
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp",
+      "faqsBefore": 12,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is a bulb included with this lamp?",
+          "before": "Whether a bulb is included has not been specified. You will need to purchase a compatible bulb separately.",
+          "after": "You will need to purchase a compatible bulb separately."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I use a dimmable bulb with this lamp?",
+          "before": "The specifications do not state whether the lamp is compatible with dimmable bulbs."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if the lamp arrives damaged?",
+          "before": "If the lamp arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511826",
+      "title": "Carta Black and White Stripe Papier Mache Table Lamp with Dome Shade | Kaiku",
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp-with-dome-shade",
+      "faqsBefore": 9,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How is the lamp powered?",
+          "before": "The specifications do not state whether the lamp is hard-wired or uses a plug."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if my lamp arrives damaged?",
+          "before": "Please contact customer support immediately if your lamp arrives damaged."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511827",
+      "title": "Carta White Papier Mache Table Lamp | Kaiku",
+      "slug": "carta-white-papier-mache-table-lamp",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a bulb included with the lamp?",
+          "before": "The specification does not confirm if a bulb is included, so please consider this when making your purchase."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511872",
+      "title": "Carta Taupe Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "slug": "carta-taupe-etched-linear-design-papier-mache-domed-table-lamp",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this lamp be used in a bathroom or outdoors?",
+          "before": "The lamp is designed for indoor use only, and safety ratings for damp locations have not been specified."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511873",
+      "title": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "slug": "carta-oatmeal-etched-linear-design-papier-mache-domed-table-lamp",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the lamp dimmable?",
+          "before": "Dimmable compatibility is not mentioned in the specifications."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5511874",
+      "title": "Carta Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "slug": "carta-black-etched-linear-design-papier-mache-table-lamp",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What type of bulb fits this lamp?",
+          "before": "The lamp's specifications do not state the bulb cap type or maximum wattage allowed. Refer to the instruction manual or contact customer support for details."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5521106",
+      "title": "Astratto Abstract Wall Art | Kaiku",
+      "slug": "astratto-abstract-wall-art",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the artwork require a battery or power supply?",
+          "before": "The specifications do not state whether the artwork requires a battery or power supply."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5521147",
+      "title": "Astratto Natural Textured Canvas Wall Art | Kaiku",
+      "slug": "astratto-natural-textured-canvas-wall-art",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are fixings included with the wall art?",
+          "before": "The specification does not detail whether fixings are included. Ensure you source appropriate fixings for your wall type.",
+          "after": "Ensure you source appropriate fixings for your wall type."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5527096",
+      "title": "Kendari Black Leather and Teak Wood Chair | Kaiku",
+      "slug": "kendari-black-leather-and-teak-wood-chair",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if I receive a damaged chair?",
+          "before": "You can contact customer support if you receive a damaged item upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5527343",
+      "title": "Tamzin Dark Grey Leather Effect Curved Dining Chair | Kaiku",
+      "slug": "tamzin-dark-grey-leather-effect-curved-dining-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my chair arrives damaged?",
+          "before": "If your chair arrives damaged, contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5527540",
+      "title": "Sagor Mango Wood Console Table with Drawers | Kaiku",
+      "slug": "sagor-mango-wood-console-table-with-drawers",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How can I contact customer service for support?",
+          "before": "You can contact customer support via our website for any queries."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5527838",
+      "title": "Kerala Recycled Natural Wood Console Table with Curved Legs | Kaiku",
+      "slug": "kerala-recycled-natural-wood-console-table-with-curved-legs",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my product arrives damaged?",
+          "before": "If you experience any damage, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5527850",
+      "title": "Kerala Natural Recycled Wood Dining Table With Cross Base | Kaiku",
+      "slug": "kerala-natural-recycled-wood-dining-table-with-cross-base",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the table arrives damaged?",
+          "before": "Please inspect upon delivery and contact customer support if you find any damage."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528012",
+      "title": "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
+      "slug": "trento-round-rattan-and-antique-gold-finish-coffee-table",
+      "faqsBefore": 11,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the table come with a cover?",
+          "before": "The specification does not confirm whether a cover is included with this coffee table."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can I leave the coffee table outside all year?",
+          "before": "The specification does not confirm whether the table can be left outdoors all year."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528056",
+      "title": "Batu Large Black Rattan Wall Shelf | Kaiku",
+      "slug": "batu-large-black-rattan-wall-shelf",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What are the delivery terms?",
+          "before": "Delivery lead times are typically 7–14 days. Please contact customer support for specifics.",
+          "after": "Delivery lead times are typically 7–14 days."
+        },
+        {
+          "action": "TRIM",
+          "question": "What is the returns policy?",
+          "before": "You may return unused items within 14 days. Contact customer support for details.",
+          "after": "You may return unused items within 14 days."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528057",
+      "title": "Batu Set Of 2 Natural Rattan Side Tables | Kaiku",
+      "slug": "batu-set-of-2-natural-rattan-side-tables",
+      "faqsBefore": 4,
+      "faqsAfter": 3,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are cushions included with the side tables?",
+          "before": "Cushions are not mentioned, for specifics please reference the instruction manual or contact customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528058",
+      "title": "Batu Set Of 2 Black Rattan Side Tables | Kaiku",
+      "slug": "batu-set-of-2-black-rattan-side-tables",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What assembly is required for this set?",
+          "before": "The Batu Set requires assembly, but the specifications do not detail how many people are needed for assembly."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528545",
+      "title": "Opus Grey Woven Rope Chair with Cushioned Seat | Kaiku",
+      "slug": "opus-grey-woven-rope-chair-with-cushioned-seat",
+      "faqsBefore": 7,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are cushions included with this chair?",
+          "before": "The specifications do not state whether cushions are included with the chair."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can the chair be left outside all year?",
+          "before": "Specifications regarding weather resistance are not detailed, so it is advised to store it in a sheltered location."
+        },
+        {
+          "action": "DELETE",
+          "question": "What are the weight limits for the chair?",
+          "before": "The specification does not list weight limits for the chair."
+        },
+        {
+          "action": "TRIM",
+          "question": "What is the return policy?",
+          "before": "You can return the chair within 14 days if unused and in original packaging. Contact customer support for any issues.",
+          "after": "You can return the chair within 14 days if unused and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528547",
+      "title": "Opus Grey Woven Rope Three Seater Sofa with Cushions | Kaiku",
+      "slug": "opus-grey-woven-rope-three-seater-sofa-with-cushions",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the sofa be left outside year-round?",
+          "before": "The specifications do not confirm whether the sofa is weatherproof, so it is advisable to avoid leaving it exposed to harsh weather."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528548",
+      "title": "Opus Woven Rope Chaise Longue with Cushions | Kaiku",
+      "slug": "opus-woven-rope-chaise-longue-with-cushions",
+      "faqsBefore": 6,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How much assembly is involved?",
+          "before": "The chaise longue requires assembly and is shipped in one box. Specific tools and instructions are not mentioned on the product page.",
+          "after": "The chaise longue requires assembly and is shipped in one box."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528549",
+      "title": "Opus Linen Fabric and Woven Rope 3 Seat Sofa | Kaiku",
+      "slug": "opus-linen-fabric-and-woven-rope-3-seat-sofa",
+      "faqsBefore": 7,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What is included in the set?",
+          "before": "The specification does not list the exact contents included in the delivery."
+        },
+        {
+          "action": "DELETE",
+          "question": "Are cushions and covers provided?",
+          "before": "The sofa features plush cushions, but information regarding the inclusion of covers is not available."
+        },
+        {
+          "action": "DELETE",
+          "question": "What are the weight limits for the seats?",
+          "before": "The specification does not state the weight capacity for the seats."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528550",
+      "title": "Opus Rope Woven Longue Bench with Cushions | Kaiku",
+      "slug": "opus-rope-woven-longue-bench-with-cushions",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Are cushions included with the bench?",
+          "before": "The specifics regarding cushions are included in the product name. For further inquiries regarding cushions, please contact customer support.",
+          "after": "The specifics regarding cushions are included in the product name."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528605",
+      "title": "Cebu Elm Wood and Rattan Dining Chair | Kaiku",
+      "slug": "cebu-elm-wood-and-rattan-dining-chair",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I leave this chair outside all year?",
+          "before": "Information regarding weather resistance is not available. It is advisable to cover or store the chair in dry conditions when not in use.",
+          "after": "It is advisable to cover or store the chair in dry conditions when not in use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528621",
+      "title": "Grenoble Oak Veneer 2 Drawer Desk | Kaiku",
+      "slug": "grenoble-oak-veneer-2-drawer-desk",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the return policy for this desk?",
+          "before": "You can return the desk within 14 days if it is unused and in original packaging. Contact customer support for issues or damages.",
+          "after": "You can return the desk within 14 days if it is unused and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528624",
+      "title": "Manado Black Natural Rattan And Teak Chair | Kaiku",
+      "slug": "manado-black-natural-rattan-and-teak-chair",
+      "faqsBefore": 7,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Do the cushions come with it?",
+          "before": "The product page does not specify whether cushions are included with the chair. Please review the provided instruction manual or reach out to customer support for clarification.",
+          "after": "Please review the provided instruction manual or reach out to customer support for clarification."
+        },
+        {
+          "action": "TRIM",
+          "question": "What is involved in assembly?",
+          "before": "Assembly is required for the Manado chair. The product page does not specify if tools and instructions are provided, so it's best to verify during unboxing or contact customer support.",
+          "after": "Assembly is required for the Manado chair."
+        },
+        {
+          "action": "DELETE",
+          "question": "Can this chair be left outdoors all year?",
+          "before": "The product page does not mention specific weather resistance or outdoor suitability, so it is advisable to store the chair indoors or cover it when not in use."
+        },
+        {
+          "action": "DELETE",
+          "question": "What is the weight capacity of the chair?",
+          "before": "The product page does not list the weight capacity of the chair. Please contact customer support for more information."
+        },
+        {
+          "action": "TRIM",
+          "question": "What are the returns terms?",
+          "before": "You have 14 days to return the Manado chair if it is unused and in its original packaging. Please contact customer support for assistance with any damages or faults.",
+          "after": "You have 14 days to return the Manado chair if it is unused and in its original packaging."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528625",
+      "title": "Manado Relax Natural Rattan Chair | Kaiku",
+      "slug": "manado-relax-natural-rattan-chair",
+      "faqsBefore": 6,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is the chair suitable for outdoor use?",
+          "before": "The page does not provide details regarding weather resistance or outdoor suitability. It's recommended to contact customer support for this information.",
+          "after": "The page does not provide details regarding weather resistance or outdoor suitability."
+        },
+        {
+          "action": "TRIM",
+          "question": "How should I clean the chair?",
+          "before": "The product specifications do not detail cleaning procedures. Care should be taken due to the natural material.",
+          "after": "Care should be taken due to the natural material."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528626",
+      "title": "Manado Natural Rattan Sofa with Cushions | Kaiku",
+      "slug": "manado-natural-rattan-sofa-with-cushions",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I clean the weave and wash the cushion covers?",
+          "before": "Cleaning instructions are not detailed, but wiping with a damp cloth is recommended. Refer to instructions or contact support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528628",
+      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "slug": "manado-natural-rattan-bean-shaped-bench-with-cream-cushion",
+      "faqsBefore": 6,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this bench be left outdoors all year?",
+          "before": "Details on weather resistance are not mentioned, so it's advisable to store the cushion dry when not in use."
+        },
+        {
+          "action": "DELETE",
+          "question": "How do I clean the bench and cushion?",
+          "before": "Specific cleaning instructions for the weave and cushion covers have not been provided."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528633",
+      "title": "Java Natural Rattan Scalloped Accent Chair | Kaiku",
+      "slug": "java-natural-rattan-scalloped-accent-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the chair arrives damaged?",
+          "before": "If the chair arrives damaged or faulty, please contact customer support."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528639",
+      "title": "Java Natural Rattan Peacock Accent Chair | Kaiku",
+      "slug": "java-natural-rattan-peacock-accent-chair",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the chair arrives damaged?",
+          "before": "Please contact customer support for assistance with any damage."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528642",
+      "title": "Java Black Rattan Round Chair | Kaiku",
+      "slug": "java-black-rattan-round-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if the chair arrives damaged?",
+          "before": "Contact customer support immediately to report any damage upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5528698",
+      "title": "Parkside Oak Wood Round Dining Table | Kaiku",
+      "slug": "parkside-oak-wood-round-dining-table",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my table arrives damaged?",
+          "before": "Inspect the product upon delivery, and if there is any damage, contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529157",
+      "title": "Nashik Three Drawer Acacia Side Table | Kaiku",
+      "slug": "nashik-three-drawer-acacia-side-table",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What if I receive a damaged item?",
+          "before": "Inspect your table upon delivery. If there are any issues, contact customer support for assistance.",
+          "after": "Inspect your table upon delivery."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529158",
+      "title": "Nashik Large Acacia Sideboard | Kaiku",
+      "slug": "nashik-large-acacia-sideboard",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if there's damage upon delivery?",
+          "before": "If you find any damage upon delivery, please contact customer support immediately for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529598",
+      "title": "Kerala Natural Recycled Wood Sideboard | Kaiku",
+      "slug": "kerala-natural-recycled-wood-sideboard",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if I receive a damaged item?",
+          "before": "If you receive a damaged item, please contact customer support to resolve the issue."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529672",
+      "title": "Java Natural Rattan Bar Chair | Kaiku",
+      "slug": "java-natural-rattan-bar-chair",
+      "faqsBefore": 10,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How do I ensure safe delivery of my chair?",
+          "before": "Your Java Natural Rattan Bar Chair will be carefully packaged. Please inspect it upon arrival and contact customer support if you notice any damage.",
+          "after": "Your Java Natural Rattan Bar Chair will be carefully packaged."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529698",
+      "title": "Cebu White Wash Elm Wood Dining Chair | Kaiku",
+      "slug": "cebu-white-wash-elm-wood-dining-chair",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What pieces are included with the Cebu White Wash Elm Wood Dining Chair?",
+          "before": "The specifications do not detail the exact contents of the set."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529699",
+      "title": "Cebu Grey Wash Elm Wood Dining Chair | Kaiku",
+      "slug": "cebu-grey-wash-elm-wood-dining-chair",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can the chair be left outside in rainy weather?",
+          "before": "The specifications do not confirm weather resistance, so it is advised to store cushions dry when not in use."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529743",
+      "title": "Ordona Cream Linen 3 Seater Curved Sofa | Kaiku",
+      "slug": "ordona-cream-linen-3-seater-curved-sofa",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are instructions or fixings included for assembly?",
+          "before": "The sofa arrives fully assembled, and the specifications do not list any fixings or instructions."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529801",
+      "title": "Torcino Mango Wood Carved Design Marble Top Three Door Sideboard | Kaiku",
+      "slug": "torcino-mango-wood-carved-design-marble-top-three-door-sideboard",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if my sideboard arrives damaged?",
+          "before": "Inspect your item on arrival and contact customer support if you notice any damage."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529836",
+      "title": "Palermo Round Cream Marble Top Large Coffee Table | Kaiku",
+      "slug": "palermo-round-cream-marble-top-large-coffee-table",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if the table arrives damaged?",
+          "before": "If the table arrives damaged, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529838",
+      "title": "Palermo Round White Marble Top Large Coffee Table | Kaiku",
+      "slug": "palermo-round-white-marble-top-large-coffee-table",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I contact customer support if my item is damaged?",
+          "before": "Please reach out to customer support for assistance with damaged or faulty items."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529906",
+      "title": "Torello Boucle Fabric and Mango Wood Dining Chair | Kaiku",
+      "slug": "torello-boucle-fabric-and-mango-wood-dining-chair",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if I receive a damaged or faulty chair?",
+          "before": "If you receive a damaged or faulty chair, please contact customer support for assistance."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529926",
+      "title": "Waris Cream Marble Top and Black Mango Wood Console Table | Kaiku",
+      "slug": "waris-cream-marble-top-and-black-mango-wood-console-table",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What if my console table arrives damaged?",
+          "before": "Please contact customer support for assistance if you notice any damages upon arrival."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5529996",
+      "title": "Dorsino Ivory Wood Veneer Two Drawer Bedside Table | Kaiku",
+      "slug": "dorsino-ivory-wood-veneer-two-drawer-bedside-table",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I contact support if there is an issue with my order?",
+          "before": "You can contact Kaiku customer support for any issues or concerns related to your order."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5530011",
+      "title": "Babel Round Travertine and Mango Wood Side Table | Kaiku",
+      "slug": "babel-round-travertine-and-mango-wood-side-table",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Who do I contact if my side table arrives damaged?",
+          "before": "Please contact customer support for assistance regarding damaged or faulty items."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5535003",
+      "title": "Allegra Champagne Finish Toothbrush Holder | Kaiku",
+      "slug": "allegra-champagne-finish-toothbrush-holder",
+      "faqsBefore": 8,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the toothbrush holder watertight?",
+          "before": "The specifications do not state that the holder is watertight."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5535030",
+      "title": "Allegra Brown Glass Toothbrush Holder | Kaiku",
+      "slug": "allegra-brown-glass-toothbrush-holder",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the toothbrush holder watertight?",
+          "before": "The specifications do not state that it is watertight."
+        }
+      ]
+    },
+    {
+      "id": "premier-housewares-5535032",
+      "title": "Allegra Brown Glass Bathroom Jar | Kaiku",
+      "slug": "allegra-brown-glass-bathroom-jar",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this jar hold liquids?",
+          "before": "The jar is intended for decorative storage only and is not confirmed to hold liquids."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-83a-218v00nd",
+      "title": "6-Seater Garden Dining Set with Stackable Chairs | Kaiku",
+      "slug": "outsunny-6-seater-garden-dining-set-with-stackable-chairs-aluminium-frame-rectangular-plas",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How should I store this set during winter?",
+          "before": "The specification does not list exact winter storage guidance, consider storing in a dry place."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-842-346v70gy",
+      "title": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey | Kaiku",
+      "slug": "outsunny-71cm-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "faqsBefore": 11,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can this fire pit be used on a balcony or under a canopy?",
+          "before": "For safety, it should be used outdoors on a firm, level non-combustible surface, clear of walls and canopies. Refer to the instruction manual for detailed guidelines.",
+          "after": "For safety, it should be used outdoors on a firm, level non-combustible surface, clear of walls and canopies."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-844-743v00gn",
+      "title": "Leaf Metal Privacy Screen, Green | Kaiku",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-green-leaf",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I clean the privacy screen?",
+          "before": "While specific cleaning instructions aren't listed, it is recommended to wipe it down with a damp cloth."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-844-830v00mx",
+      "title": "Garden Water Feature with LED Lights, Dark Grey | Kaiku",
+      "slug": "garden-water-feature-with-led-lights-dark-grey",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I clean the pump and basin?",
+          "before": "Regular cleaning is needed to prevent algae buildup; refer to the instruction manual for detailed guidance."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-846-136v70bk",
+      "title": "Five-Burner Steel Gas Barbecue with Thermometer, Black | Kaiku",
+      "slug": "outsunny-five-burner-steel-gas-grill-with-thermometer-black",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What safety features does this grill have?",
+          "before": "Safety hardware and compliance features are not specifically listed; refer to the supplied instruction manual for details."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84c-128",
+      "title": "3 x 3m Double-Roof Garden Gazebo with Netting | Kaiku",
+      "slug": "3-m-x-3-m-garden-gazebo-double-roof-outdoor-gazebo-canopy-shelter-with-netting-solid-steel",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What should I do if I receive a damaged item?",
+          "before": "Please contact customer support for assistance with any damages."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84c-269bg",
+      "title": "Two-Tier Patio Gazebo with Netting and Curtains, Beige | Kaiku",
+      "slug": "m-patio-gazebo-canopy-garden-pavilion-tent-shelter-with-2-tier-water-repellent-roof-mosqui",
+      "faqsBefore": 9,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What are the delivery terms for this gazebo?",
+          "before": "Delivery will be carefully packaged and can take 7-14 days. Please inspect on arrival and contact customer support if there are any issues.",
+          "after": "Delivery will be carefully packaged and can take 7-14 days."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84c-470v02kk",
+      "title": "Steel Pergola with Retractable Canopy, Khaki | Kaiku",
+      "slug": "steel-pergola-with-retractable-canopy-khaki",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How many people are needed to assemble this pergola?",
+          "before": "The product specifications do not list the number of people required for assembly."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84j-037v00bk",
+      "title": "Metal Privacy Screen and Climbing Trellis, Black | Kaiku",
+      "slug": "decorative-privacy-fence-screen-metal-outdoor-privacy-screen-climbing-plant-trellis-with-s",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is the privacy screen watertight or food safe?",
+          "before": "The specification does not state that the privacy screen is watertight or food safe."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84j-042v00bk",
+      "title": "Rhombus Metal Privacy Screen with Stand, Black | Kaiku",
+      "slug": "rhombus-metal-privacy-screen-with-stand-black-or-kaiku",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What are the returns terms?",
+          "before": "You can return the privacy screen within 14 days if unused and in original packaging. Contact customer support for assistance.",
+          "after": "You can return the privacy screen within 14 days if unused and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84j-250v70mx",
+      "title": "Five-Tier Cascading Fountain with LED Lights, Rustic Brown | Kaiku",
+      "slug": "5-tier-outdoor-fountain-cascading-waterfall-feature-with-led-lights-adjustable-flow-rustic",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How should I clean the pump and basin?",
+          "before": "Refer to the instruction manual for specific cleaning and maintenance guidance."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-84j-257v70mx",
+      "title": "Five-Tier Freestanding Waterfall Fountain | Kaiku",
+      "slug": "5-tier-outdoor-waterfall-fountain-freestanding-self-contained-cascading-water-feature-gard",
+      "faqsBefore": 9,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How do I clean the pump and basin?",
+          "before": "Regular cleaning of the pump and basin is recommended; refer to the instruction manual for specific care guidelines."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-860-053",
+      "title": "5-Seater Aluminium Garden Sofa Set, Grey | Kaiku",
+      "slug": "outsunny-5-seater-aluminium-garden-furniture-set-garden-sofa-set-with-thick-cushions-for-p",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is a cover included with the set?",
+          "before": "The specifications do not state whether a cover is included."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-860-146v70",
+      "title": "6-Piece Rattan Corner Sofa Set with Glass-Top Table, Grey | Kaiku",
+      "slug": "outsunny-6-pieces-outdoor-pe-rattan-wicker-corner-sofa-set-with-10cm-thick-padded-cushions",
+      "faqsBefore": 11,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What do I do if my sofa set arrives damaged?",
+          "before": "Please contact customer support for assistance regarding any damages."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-867-154v00bn",
+      "title": "Rattan Solar Floor Lantern, Brown | Kaiku",
+      "slug": "rattan-solar-floor-lamp-tall-outdoor-garden-lantern-pathway-light-decorative-lighting-with",
+      "faqsBefore": 13,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Does the lamp have a timer function?",
+          "before": "No specific timer is mentioned, but it automatically turns on at dusk and off at dawn."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-b31-562v00gd",
+      "title": "Spiral LED Wall Lights, Set of 2, Gold | Kaiku",
+      "slug": "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-3000k",
+      "faqsBefore": 7,
+      "faqsAfter": 6,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Are the lamps dimmable?",
+          "before": "Dimmability is not mentioned in the specifications. Refer to the instruction manual or customer support for more details."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-b31-565v00gd",
+      "title": "Geometric Mesh LED Wall Lights, Set of 2, Gold | Kaiku",
+      "slug": "led-wall-lamp-2-pack-9w-modern-indoor-geometric-mesh-wall-light-colour-temperature-adjusta",
+      "faqsBefore": 8,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Is the wall lamp dimmable?",
+          "before": "Dimmable compatibility has not been stated. Refer to the instruction manual for more information.",
+          "after": "Dimmable compatibility has not been stated."
+        }
+      ]
+    },
+    {
+      "id": "product-aosom-b31-573v00bk",
+      "title": "Three-Light Crystal Semi-Flush Ceiling Light | Kaiku",
+      "slug": "crystal-ceiling-light-semi-flush-mount-modern-crystal-chandelier-ceiling-light-e14-base-3-",
+      "faqsBefore": 10,
+      "faqsAfter": 10,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How do I clean the shade or finish?",
+          "before": "Gently dust the shade and frame with a soft, dry cloth. Refer to the supplied instruction manual for more detailed cleaning instructions.",
+          "after": "Gently dust the shade and frame with a soft, dry cloth."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-03",
+      "title": "Tabletop Water Feature - - Golden Buddha & Pouring Pots | Kaiku",
+      "slug": "tabletop-water-feature-30cm-golden-buddha-pouring-pots",
+      "faqsBefore": 5,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can it be left outside, or does it need to come in?",
+          "before": "The suitability for outdoor use is not mentioned on the product page. It is recommended to check the instruction manual or contact customer support for guidance."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-10",
+      "title": "Tabletop Water Feature - - Golden Buddha & Pots | Kaiku",
+      "slug": "tabletop-water-feature-21-5cm-golden-buddha-pots",
+      "faqsBefore": 7,
+      "faqsAfter": 7,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How is the water feature powered?",
+          "before": "The specifications do not detail how the water feature is powered. We recommend checking the instruction manual or contacting customer support for clarification.",
+          "after": "We recommend checking the instruction manual or contacting customer support for clarification."
+        },
+        {
+          "action": "TRIM",
+          "question": "Can the water feature be left outside during winter?",
+          "before": "The specifications do not confirm whether the feature is frost-resistant or suitable for outdoor winter conditions. We suggest checking the instruction manual or customer support for advice.",
+          "after": "We suggest checking the instruction manual or customer support for advice."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-11",
+      "title": "Tabletop Water Feature - - Elephants & Palm Tree | Kaiku",
+      "slug": "tabletop-water-feature-25cm-elephants-palm-tree",
+      "faqsBefore": 6,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this water feature be left outside during winter?",
+          "before": "The documentation does not specify whether the feature is frost-resistant or whether it can be left outside during winter months."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-13",
+      "title": "Tabletop Water Feature - - Dragons, Crystal Ball & Water Wheel | Kaiku",
+      "slug": "tabletop-water-feature-35cm-dragons-crystal-ball-water-wheel",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How do I clean the pump and basin?",
+          "before": "Regular cleaning is recommended, with specific instructions provided in the manual. For further cleaning advice, please contact customer support.",
+          "after": "Regular cleaning is recommended, with specific instructions provided in the manual."
+        },
+        {
+          "action": "TRIM",
+          "question": "What are the returns terms?",
+          "before": "You can return the product within 14 days as long as it is unused, in its original packaging, and in a resalable condition. For any damage or faults, contact customer support.",
+          "after": "You can return the product within 14 days as long as it is unused, in its original packaging, and in a resalable condition."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-15",
+      "title": "Tabletop Water Feature - - Natural Rocks Formation | Kaiku",
+      "slug": "tabletop-water-feature-35cm-natural-rocks-formation",
+      "faqsBefore": 5,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can it be left outside in winter?",
+          "before": "Frost resistance information is not available. It is advised to check the instruction manual or contact customer support for winter care guidance."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-18",
+      "title": "Tabletop Water Feature - Water Pot & Crystal Ball | Kaiku",
+      "slug": "tabletop-water-feature-15x13x20cm-water-pot-crystal-ball",
+      "faqsBefore": 5,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Can this water feature be left outside during winter?",
+          "before": "The product specifications do not mention frost resistance or winter care. It is best to contact customer support for advice."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-20",
+      "title": "Buddha Hand & Head Tabletop Water Feature | Kaiku",
+      "slug": "buddha-hand-head-tabletop-water-feature-20x25x35cm",
+      "faqsBefore": 3,
+      "faqsAfter": 2,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How much water does it hold and how often does it need topping up?",
+          "before": "The reservoir capacity and top-up frequency are not detailed. Customers are encouraged to refer to the instruction manual or contact customer support for water maintenance guidance."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-22",
+      "title": "Grand Water Feature - Colour Changing Crystal Ball in Greek Urn in Basket | Kaiku",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-greek-urn-in-basket",
+      "faqsBefore": 4,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the return policy for this water feature?",
+          "before": "The item can be returned within 14 days if unused and in original packaging. Contact support for any issues related to damage or faults.",
+          "after": "The item can be returned within 14 days if unused and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-23",
+      "title": "Pebble Wall Tabletop Water Feature with Crystal Ball | Kaiku",
+      "slug": "pebble-wall-tabletop-water-feature-with-crystal-ball-19x19x28cm",
+      "faqsBefore": 4,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How much water does the feature hold?",
+          "before": "The product page does not specify the water capacity. For details on running it, check the instruction manual.",
+          "after": "For details on running it, check the instruction manual."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-25",
+      "title": "Elephants in Love Tabletop Water Feature with Crystal Ball, Light & Watermill | Kaiku",
+      "slug": "elephants-in-love-tabletop-water-feature-with-crystal-ball-light-watermill-30x20x35cm",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How much water does it hold and how often does it need topping up?",
+          "before": "The specific water capacity is not mentioned. Regular monitoring of water levels is advisable to determine when a top-up is required.",
+          "after": "Regular monitoring of water levels is advisable to determine when a top-up is required."
+        },
+        {
+          "action": "TRIM",
+          "question": "How do I clean the pump and basin?",
+          "before": "Regular cleaning of the pump and basin is recommended to maintain functionality. Refer to the instruction manual for detailed maintenance instructions.",
+          "after": "Regular cleaning of the pump and basin is recommended to maintain functionality."
+        },
+        {
+          "action": "TRIM",
+          "question": "What is the return policy for this product?",
+          "before": "You can return the water feature within 14 days of purchase if it is unused and in original packaging. For assistance with damaged or defective items, please contact customer support.",
+          "after": "You can return the water feature within 14 days of purchase if it is unused and in original packaging."
+        }
+      ]
+    },
+    {
+      "id": "product-di-di-abberley-ct-br",
+      "title": "Abberley Coffee Table in Brown | Kaiku",
+      "slug": "abberley-coffee-table-brown",
+      "faqsBefore": 11,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How will my order be delivered? ",
+          "before": "Furniture is delivered to your doorstep using a specialist furniture courier. Depending on the size of the item, it may arrive boxed or on a pallet. If you require room-of-choice delivery or another specialist service, please contact us before placing your order.",
+          "after": "Furniture is delivered to your doorstep using a specialist furniture courier. Depending on the size of the item, it may arrive boxed or on a pallet."
+        }
+      ]
+    },
+    {
+      "id": "product-import-13-6m-44ft-6in-plug-in-led-warm-white-christmas-string-light",
+      "title": "13.6m Warm White Decorative LED String Lights | Kaiku",
+      "slug": "13-6m-warm-white-decorative-led-string-lights",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-4-person-outdoor-infrared-sauna-saunaplunge-90561a20",
+      "title": "SaunaPlunge™ Yorkshire Cabin 4-Person Outdoor Infrared Sauna | Kaiku",
+      "slug": "saunaplunge-yorkshire-cabin-4-person-outdoor-infrared-sauna",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "How do I maintain the sauna?  ",
+          "before": "To keep your sauna in excellent condition:  Wipe down the interior after use. Allow the sauna to ventilate between sessions. Clean benches and surfaces with a soft cloth and mild cleaner. Periodically inspect the exterior timber and apply any recommended treatment if required.  Proper maintenance will help maximise the lifespan and appearance of your sauna.",
+          "after": "To keep your sauna in excellent condition:  Wipe down the interior after use. Allow the sauna to ventilate between sessions. Clean benches and surfaces with a soft cloth and mild cleaner. Periodically inspect the exterior timber and apply any recommended treatment if required. Proper maintenance will help maximise the lifespan and appearance of your sauna."
+        }
+      ]
+    },
+    {
+      "id": "product-import-alto-putty-grey-table",
+      "title": "Alto Putty Grey Outdoor Table | Kaiku",
+      "slug": "alto-putty-grey-outdoor-table",
+      "faqsBefore": 13,
+      "faqsAfter": 13,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-alto-shelf-unit-with-glass-shelves",
+      "title": "Alto Shelf Unit With Glass Shelves | Kaiku",
+      "slug": "alto-shelf-unit-with-glass-shelves",
+      "faqsBefore": 6,
+      "faqsAfter": 4,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What are the weight limits for the shelf unit?",
+          "before": "The weight capacity has not been provided. Refer to the instruction manual for guidance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What cleaning instructions are there for the shelf unit?",
+          "before": "Care and maintenance instructions are not available. Refer to the instruction manual for details."
+        }
+      ]
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-glass-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Glass Top | Kaiku",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-glass-top",
+      "faqsBefore": 5,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "What is the returns policy for the Amalfi Collection Outdoor Bistro Table With Glass Top?",
+          "before": "You can return the table within 14 days of delivery in unused, original packaging. Contact support for damage or faults.",
+          "after": "You can return the table within 14 days of delivery in unused, original packaging."
+        },
+        {
+          "action": "TRIM",
+          "question": "How will my table be delivered?",
+          "before": "The Amalfi Collection Outdoor Bistro Table With Glass Top will be carefully packaged for delivery. Inspect it upon arrival and contact customer support if you find any issues.",
+          "after": "The Amalfi Collection Outdoor Bistro Table With Glass Top will be carefully packaged for delivery."
+        }
+      ]
+    },
+    {
+      "id": "product-import-belluno-urn-table-lamp-with-linen-shade",
+      "title": "Belluno Urn Table Lamp With Linen Shade | Kaiku",
+      "slug": "belluno-urn-table-lamp-with-linen-shade",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "Is there a warranty on the lamp?",
+          "before": "Warranty details may vary; please review the product specifications or contact customer support for precise information."
+        }
+      ]
+    },
+    {
+      "id": "product-import-black-cannon-floor-lamp-with-hessian-shade",
+      "title": "Black Cannon Floor Lamp With Hessian Shade | Kaiku",
+      "slug": "black-cannon-floor-lamp-with-hessian-shade",
+      "faqsBefore": 10,
+      "faqsAfter": 9,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What size is the lamp?",
+          "before": "Specific measurements are not available at the moment, but it typically stands between 140 cm and 180 cm tall."
+        }
+      ]
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-sofa",
+      "title": "Bloom Collection Outdoor Sofa | Kaiku",
+      "slug": "bloom-collection-outdoor-sofa",
+      "faqsBefore": 18,
+      "faqsAfter": 18,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-bronte-6-person-cabin-sauna-saunaplunge-cae97287",
+      "title": "SaunaPlunge™ Bronte 6-Person Outdoor Cabin Sauna | Kaiku",
+      "slug": "saunaplunge-bronte-6-person-outdoor-cabin-sauna",
+      "faqsBefore": 12,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Can I return it if I change my mind?",
+          "before": "Because of its size and specialist nature, a return has to be authorised before collection can be arranged — please contact us rather than sending it back. If it arrives damaged or develops a manufacturing fault, tell us as soon as you can and we will sort it out. Your statutory rights under UK consumer law are unaffected either way.",
+          "after": "If it arrives damaged or develops a manufacturing fault, tell us as soon as you can and we will sort it out. Your statutory rights under UK consumer law are unaffected either way."
+        }
+      ]
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-foot-stool",
+      "title": "Capri Collection Outdoor Foot Stool | Kaiku",
+      "slug": "capri-collection-outdoor-foot-stool",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-contour-collection-3-drawer-console",
+      "title": "Contour Collection 3 Drawer Console | Kaiku",
+      "slug": "contour-collection-3-drawer-console",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-contour-collection-pet-feeder-table",
+      "title": "Contour Collection Pet Feeder Table | Kaiku",
+      "slug": "contour-collection-pet-feeder-table",
+      "faqsBefore": 14,
+      "faqsAfter": 12,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "How can I contact customer support?",
+          "before": "You can reach our customer service team through our website's contact page for any queries or support needed."
+        },
+        {
+          "action": "DELETE",
+          "question": "What is the return policy for damaged items?",
+          "before": "If your item arrives damaged, please contact us immediately for assistance with your return."
+        }
+      ]
+    },
+    {
+      "id": "product-import-decorative-hanging-black-mirror",
+      "title": "Decorative Hanging Black Mirror | Kaiku",
+      "slug": "decorative-hanging-black-mirror",
+      "faqsBefore": 10,
+      "faqsAfter": 8,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What are the dimensions of the Decorative Hanging Black Mirror?",
+          "before": "Exact dimensions are not available, but it is designed to fit various spaces elegantly."
+        },
+        {
+          "action": "DELETE",
+          "question": "What if the mirror arrives damaged?",
+          "before": "Please contact customer support immediately for assistance with any damages."
+        }
+      ]
+    },
+    {
+      "id": "product-import-echo-french-grey-chair",
+      "title": "Echo French Grey Chair | Kaiku",
+      "slug": "echo-french-grey-chair",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does the Echo require a cushion?",
+          "before": "No cushion is specified as part of the product. The chair is designed as a moulded outdoor dining chair.",
+          "after": "The chair is designed as a moulded outdoor dining chair."
+        },
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-etched-collection-tall-pot-with-handle",
+      "title": "Etched Collection Tall Pot With Handle | Kaiku",
+      "slug": "etched-collection-tall-pot-with-handle",
+      "faqsBefore": 12,
+      "faqsAfter": 11,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What size is the Etched Collection Tall Pot With Handle?",
+          "before": "The exact dimensions aren't provided, but it's designed to accommodate a variety of plant sizes with its tall structure."
+        }
+      ]
+    },
+    {
+      "id": "product-import-oura-round-coffee-table",
+      "title": "Oura Round Coffee Table | Kaiku",
+      "slug": "oura-round-coffee-table",
+      "faqsBefore": 7,
+      "faqsAfter": 5,
+      "changes": [
+        {
+          "action": "DELETE",
+          "question": "What materials is the Oura Round Coffee Table made from?",
+          "before": "Specific materials are not detailed, but the table is designed for durability and a sleek appearance."
+        },
+        {
+          "action": "DELETE",
+          "question": "What are the dimensions of the Oura Round Coffee Table?",
+          "before": "Dimensions are currently unspecified but designed to fit comfortably in a variety of settings."
+        }
+      ]
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-4-seater-dining-set",
+      "title": "Provence Collection Outdoor 4 Seater Dining Set | Kaiku",
+      "slug": "provence-collection-outdoor-4-seater-dining-set",
+      "faqsBefore": 19,
+      "faqsAfter": 19,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-dining-chair",
+      "title": "Provence Collection Outdoor Dining Chair | Kaiku",
+      "slug": "provence-collection-outdoor-dining-chair",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-reed-collection-2-drawer-2-door-console",
+      "title": "Reed Collection 2 Drawer 2 Door Console | Kaiku",
+      "slug": "reed-collection-2-drawer-2-door-console",
+      "faqsBefore": 14,
+      "faqsAfter": 14,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-reed-collection-3-drawer-bedside-table",
+      "title": "Reed Collection 3 Drawer Bedside Table | Kaiku",
+      "slug": "reed-collection-3-drawer-bedside-table",
+      "faqsBefore": 14,
+      "faqsAfter": 14,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-romanby-stone-round-coffee-table",
+      "title": "Romanby Stone Round Coffee Table | Kaiku",
+      "slug": "romanby-stone-round-coffee-table",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-saltaire-collection-3-shelf-unit",
+      "title": "Saltaire Collection 3-Shelf Unit | Kaiku",
+      "slug": "saltaire-collection-3-shelf-unit",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-seraphia-table-lamp-with-edged-linen-shade",
+      "title": "Seraphia Table Lamp with Edged Linen Shade | Kaiku",
+      "slug": "seraphia-table-lamp-edged-linen-shade",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-seville-collection-lebes-planter",
+      "title": "Seville Collection Lebes Planter | Kaiku",
+      "slug": "seville-collection-lebes-planter",
+      "faqsBefore": 14,
+      "faqsAfter": 14,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-siena-brown-round-ribbed-planter",
+      "title": "Siena Brown Round Ribbed Planter | Kaiku",
+      "slug": "siena-brown-round-ribbed-planter",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-small-blue-flora-planter-pot",
+      "title": "Small Blue Flora Planter Pot | Kaiku",
+      "slug": "small-blue-flora-planter-pot",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-solara-orb-pendant-ceiling-light",
+      "title": "Solara Orb Pendant Ceiling Light | Kaiku",
+      "slug": "solara-orb-pendant-ceiling-light",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-solenne-table-lamp-with-edged-linen-shade",
+      "title": "Solenne Table Lamp with Edged Linen Shade | Kaiku",
+      "slug": "solenne-table-lamp-edged-linen-shade",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-sorelle-two-seater-sofa-with-cushions",
+      "title": "Sorelle Two Seater Sofa with Cushions | Kaiku",
+      "slug": "sorelle-two-seater-sofa-with-cushions",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-square-decorative-hanging-collage-mirror-in-black",
+      "title": "Square Decorative Hanging Collage Mirror in Black | Kaiku",
+      "slug": "square-decorative-hanging-collage-mirror-black",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-tarn-collection-large-pot-with-handles",
+      "title": "Tarn Large Pot with Handles | Kaiku",
+      "slug": "tarn-large-pot-with-handles",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-teos-table-lamp",
+      "title": "Teos Table Lamp | Kaiku",
+      "slug": "teos-table-lamp",
+      "faqsBefore": 18,
+      "faqsAfter": 18,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-camden-collection-half-moon-3-tier-table",
+      "title": "Camden Half Moon 3 Tier Table | Kaiku",
+      "slug": "camden-half-moon-3-tier-table",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-camden-collection-one-drawer-side-table",
+      "title": "Camden One Drawer Side Table | Kaiku",
+      "slug": "camden-one-drawer-side-table",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-camden-collection-round-side-table",
+      "title": "Camden Round Side Table | Kaiku",
+      "slug": "camden-round-side-table",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-rutland-collection-rectangular-bench",
+      "title": "Rutland Rectangular Bench | Kaiku",
+      "slug": "rutland-rectangular-bench",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-rutland-collection-side-table",
+      "title": "Rutland Side Table | Kaiku",
+      "slug": "rutland-side-table",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-serene-collection-one-drawer-side-table",
+      "title": "Serene One Drawer Side Table | Kaiku",
+      "slug": "serene-one-drawer-side-table",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-serene-collection-three-drawer-bedside-table",
+      "title": "Serene Three Drawer Bedside Table | Kaiku",
+      "slug": "serene-three-drawer-bedside-table",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-coffee-table",
+      "title": "Serene Rattan Coffee Table | Kaiku",
+      "slug": "serene-rattan-coffee-table",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-side-table",
+      "title": "Serene Rattan Side Table | Kaiku",
+      "slug": "serene-rattan-side-table",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-twill-weave-ceramic-table-lamp-with-linen-shade",
+      "title": "Twill Weave Ceramic Table Lamp with Linen Shade | Kaiku",
+      "slug": "twill-weave-ceramic-table-lamp-linen-shade",
+      "faqsBefore": 17,
+      "faqsAfter": 17,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-uthina-table-lamp",
+      "title": "Uthina Table Lamp | Kaiku",
+      "slug": "uthina-table-lamp",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-vellis-wingback-armchair",
+      "title": "Vellis Blue Wingback Armchair | Kaiku",
+      "slug": "vellis-blue-wingback-armchair",
+      "faqsBefore": 15,
+      "faqsAfter": 15,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-veyla-ceramic-table-lamp-with-linen-shade",
+      "title": "Veyla Ceramic Table Lamp with Linen Shade | Kaiku",
+      "slug": "veyla-ceramic-table-lamp-linen-shade",
+      "faqsBefore": 16,
+      "faqsAfter": 16,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": " No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-white-beaded-ceramic-lamp-with-linen-shade",
+      "title": "White Beaded Ceramic Table Lamp with Linen Shade | Kaiku",
+      "slug": "white-beaded-ceramic-lamp-linen-shade",
+      "faqsBefore": 18,
+      "faqsAfter": 18,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty?",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-white-ceramic-pot-lamp-with-linen-shade",
+      "title": "White Ceramic Pot Table Lamp with Linen Shade | Kaiku",
+      "slug": "white-ceramic-pot-table-lamp-linen-shade",
+      "faqsBefore": 18,
+      "faqsAfter": 18,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does this product have a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "product-import-zephra-chair",
+      "title": "Zephra White Armchair | Kaiku",
+      "slug": "zephra-white-armchair",
+      "faqsBefore": 14,
+      "faqsAfter": 14,
+      "changes": [
+        {
+          "action": "TRIM",
+          "question": "Does the Zephra Armchair come with a separate manufacturer warranty? ",
+          "before": "No separate manufacturer warranty is specified for this product. Your statutory consumer rights remain unaffected.",
+          "after": "Your statutory consumer rights remain unaffected."
+        }
+      ]
+    }
+  ]
+}

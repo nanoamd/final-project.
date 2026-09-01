@@ -1,4 +1,9 @@
 /**
+ * SUPERSEDED by scripts/fix-faq-hedges.ts, which does this across every
+ * product and every field using the repo's own `isAdmission` detector rather
+ * than a hand-listed set of 28. Kept because it is the record of what was
+ * changed on those 28 products.
+ *
  * 28 published products still admitted a gap ("the specification does not
  * list/state/specify...") — a pattern flagged and supposedly closed out
  * earlier this session, but that earlier regex only matched "does not

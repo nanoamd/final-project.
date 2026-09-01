@@ -1,0 +1,148 @@
+{
+  "generatedAt": "2026-09-01T23:17:08.476Z",
+  "productsScanned": 906,
+  "summary": {
+    "hedge": {
+      "occurrences": 17,
+      "products": 11
+    }
+  },
+  "hits": [
+    {
+      "id": "premier-housewares-2406731",
+      "slug": "mataram-natural-rattan-rectangular-coffee-table",
+      "supplier": "Premier Housewares",
+      "check": "hedge",
+      "field": "summary",
+      "excerpt": "While specific assembly details and additional items like cushions and covers are not listed, this coffee table is ready to enhance your garden decor."
+    },
+    {
+      "id": "premier-housewares-5502321",
+      "slug": "opus-grey-woven-rope-and-stone-round-coffee-table",
+      "supplier": "Premier Housewares",
+      "check": "hedge",
+      "field": "description[1]",
+      "excerpt": "The specifications do not list the exact contents of the set."
+    },
+    {
+      "id": "premier-housewares-5503975",
+      "slug": "palu-rectangular-black-wall-mirror-with-shell-inlay",
+      "supplier": "Premier Housewares",
+      "check": "hedge",
+      "field": "description[1]",
+      "excerpt": "The specifications do not state the hanging method or if fixings are included with this mirror."
+    },
+    {
+      "id": "premier-housewares-5506183",
+      "slug": "kiso-black-large-stoneware-planter",
+      "supplier": "Premier Housewares",
+      "check": "hedge",
+      "field": "description[1]",
+      "excerpt": "The specifications for the Kiso Black Large Stoneware Planter do not mention whether it has drainage holes, nor whether a saucer or liner is included."
+    },
+    {
+      "id": "premier-housewares-5528057",
+      "slug": "batu-set-of-2-natural-rattan-side-tables",
+      "supplier": "Premier Housewares",
+      "check": "hedge",
+      "field": "summary",
+      "excerpt": "While specific details about cushions and weather resistance are not listed, they are ideal for sheltered outdoor areas and add a chic touch to your garden deco…"
+    },
+    {
+      "id": "product-aosom-b30-068v00bk",
+      "slug": "garden-solar-lamp-post-light-waterproof-led-solar-light-post-with-planter-black",
+      "supplier": "Aosom",
+      "check": "hedge",
+      "field": "summary",
+      "excerpt": "Enjoy hassle-free installation, as no electrical contracting is required, and benefit from the automatic dusk-to-dawn functionality that adds convenience to you…"
+    },
+    {
+      "id": "product-aw-waterf-22",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-greek-urn-in-basket",
+      "supplier": "AW Dropship",
+      "check": "hedge",
+      "field": "description[5]",
+      "excerpt": "Unfortunately, the page does not disclose the overall dimensions, weight, or materials of the product."
+    },
+    {
+      "id": "product-import-alto-shelf-unit-with-glass-shelves",
+      "slug": "alto-shelf-unit-with-glass-shelves",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[0](Material)",
+      "excerpt": "Glass (exact specifications not provided)"
+    },
+    {
+      "id": "product-import-alto-shelf-unit-with-glass-shelves",
+      "slug": "alto-shelf-unit-with-glass-shelves",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[1](Finish)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-alto-shelf-unit-with-glass-shelves",
+      "slug": "alto-shelf-unit-with-glass-shelves",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[3](Weight capacity)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[0](Assembly)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[1](Cushions included)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[2](Materials)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[3](Weight capacity)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "check": "hedge",
+      "field": "specs[4](Dimensions)",
+      "excerpt": "Not specified"
+    },
+    {
+      "id": "product-import-hampton-brown-console-table",
+      "slug": "hampton-brown-shagreen-console-table",
+      "supplier": "D.I. Designs",
+      "check": "hedge",
+      "field": "specs[5](Packed size)",
+      "excerpt": "Please contact our team for more details."
+    },
+    {
+      "id": "product-import-himbleton-green-sofa",
+      "slug": "himbleton-green-3-seater-sofa",
+      "supplier": "D.I. Designs",
+      "check": "hedge",
+      "field": "specs[6](Packed size)",
+      "excerpt": "Please contact our team for more details."
+    }
+  ]
+}

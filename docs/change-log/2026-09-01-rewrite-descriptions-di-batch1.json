@@ -1,0 +1,111 @@
+{
+  "apply": true,
+  "queued": 15,
+  "results": [
+    {
+      "id": "product-di-di-abberley-ct-br",
+      "title": "Abberley Coffee Table in Brown | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 212
+    },
+    {
+      "id": "product-di-di-bentley-ct-oak",
+      "title": "Bentley Coffee Table in Oak | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 167
+    },
+    {
+      "id": "product-di-di-crofton-ct-wh",
+      "title": "Crofton White Marble Coffee Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 141
+    },
+    {
+      "id": "product-di-di-elmley-ct-iv",
+      "title": "Elmley Coffee Table in Ivory | Kaiku",
+      "found": true,
+      "sections": 4,
+      "words": 174
+    },
+    {
+      "id": "product-di-di-overbury-ct",
+      "title": "Overbury Coffee Table in Chocolate Brown | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 136
+    },
+    {
+      "id": "product-di-di-pershore-ct-oak",
+      "title": "Pershore Rectangular Aged Oak Coffee Table | Kaiku",
+      "found": true,
+      "sections": 4,
+      "words": 168
+    },
+    {
+      "id": "product-di-di-witley-ct-oak",
+      "title": "Witley Coffee Table | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 177
+    },
+    {
+      "id": "product-import-abberley-1-drawer-black-console-table",
+      "title": "Abberley One Drawer Black Console Table | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 155
+    },
+    {
+      "id": "product-import-abberley-2-drawer-white-bedside-table",
+      "title": "Abberley White Bedside Table | Luxury 2 Drawer Bedside Table | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 148
+    },
+    {
+      "id": "product-import-abberley-black-sideboard",
+      "title": "Abberley Black Oak Sideboard | Luxury 4 Door Sideboard | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 144
+    },
+    {
+      "id": "product-import-abberley-white-chest-of-drawers",
+      "title": "Abberley White Chest of Drawers | Luxury 3 Drawer Chest | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 141
+    },
+    {
+      "id": "product-import-abberley-white-desk",
+      "title": "Abberley White Desk | Luxury Oak Home Office Desk | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 146
+    },
+    {
+      "id": "product-import-abberley-white-end-table",
+      "title": "Abberley White End Table | Luxury Oak Side Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 155
+    },
+    {
+      "id": "product-import-alton-white-chest-of-drawers",
+      "title": "Alton White Chest of Drawers | Luxury 3 Drawer Birch Chest | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 151
+    },
+    {
+      "id": "product-import-alton-white-console-table",
+      "title": "Alton White Console Table | Luxury 3 Drawer Birch Console Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 125
+    }
+  ]
+}

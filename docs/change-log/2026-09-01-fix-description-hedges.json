@@ -1,0 +1,395 @@
+{
+  "apply": true,
+  "queued": 38,
+  "skipped": [
+    "premier-housewares-5502321",
+    "premier-housewares-5503975",
+    "premier-housewares-5506183",
+    "product-aw-waterf-22"
+  ],
+  "products": [
+    {
+      "id": "premier-housewares-1102244",
+      "title": "Cassini Tri Fold White LED Table Mirror | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 23,
+      "removed": [
+        "The specifications do not state whether a bulb is included or the type of bulb required.",
+        "(heading) Bulb Requirements"
+      ]
+    },
+    {
+      "id": "premier-housewares-1411436",
+      "title": "Zircon Large Planter | Kaiku",
+      "blocksBefore": 20,
+      "blocksAfter": 18,
+      "removed": [
+        "The specifications do not list whether the Zircon Large Planter has pre-drilled drainage holes or if a saucer or liner is included.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-1411604",
+      "title": "Lentigo Set Of Two White Planters | Kaiku",
+      "blocksBefore": 22,
+      "blocksAfter": 20,
+      "removed": [
+        "The specifications provided do not state whether the Lentigo planters come with drainage holes or if a saucer is included.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-1411661",
+      "title": "Alden Black Floor Standing Planter | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 23,
+      "removed": [
+        "The specifications do not state whether this planter includes drainage holes or the presence of a saucer or liner, which may be necessary for plant health and stability.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-2404467",
+      "title": "Black Garden Chair | Kaiku",
+      "blocksBefore": 26,
+      "blocksAfter": 24,
+      "removed": [
+        "The specifications do not list the exact contents included with the Black Garden Chair.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-2404883",
+      "title": "Selby Natural Tropical Hevea Wood Square Plant Stand | Kaiku",
+      "blocksBefore": 23,
+      "blocksAfter": 23,
+      "removed": [
+        "The specifications do not list whether drainage holes are present or if a saucer or liner is included with this plant stand."
+      ]
+    },
+    {
+      "id": "premier-housewares-2405939",
+      "title": "Helia 3 Seat Blue Velvet Sofa | Kaiku",
+      "blocksBefore": 26,
+      "blocksAfter": 24,
+      "removed": [
+        "The specifications do not list a weight or load capacity for the Helia sofa.",
+        "(heading) Weight Limits and Everyday Use"
+      ]
+    },
+    {
+      "id": "premier-housewares-2406046",
+      "title": "Goa Brown Rattan Hanging Chair | Kaiku",
+      "blocksBefore": 27,
+      "blocksAfter": 27,
+      "removed": [
+        "The specifications do not confirm if the chair can be left outside throughout the entire year."
+      ]
+    },
+    {
+      "id": "premier-housewares-2406729",
+      "title": "Mataram Natural Rattan Table | Kaiku",
+      "blocksBefore": 35,
+      "blocksAfter": 33,
+      "removed": [
+        "The specifications do not list the exact contents included in the set.",
+        "The specifications do not list weight limits for seating or table load capacity.",
+        "The specifications do not state whether a cover is included for the table, nor do they mention if the table has removable cushion covers.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-2406740",
+      "title": "Depok Rattan Side Table With Metal Legs | Kaiku",
+      "blocksBefore": 22,
+      "blocksAfter": 22,
+      "removed": [
+        "The specifications do not detail whether the table is weather-resistant or if it can be left outdoors year-round."
+      ]
+    },
+    {
+      "id": "premier-housewares-2406765",
+      "title": "Avento Set Of Two Round Black Plant Stands | Kaiku",
+      "blocksBefore": 22,
+      "blocksAfter": 22,
+      "removed": [
+        "The specifications available do not state whether these plant stands are suitable for outdoor use or frost-resistant."
+      ]
+    },
+    {
+      "id": "premier-housewares-2450048",
+      "title": "Goa White Rattan Effect Hanging Chair with Grey Cushions | Kaiku",
+      "blocksBefore": 28,
+      "blocksAfter": 26,
+      "removed": [
+        "The specifications do not detail the number of pieces included in the delivery.",
+        "The specifications do not detail whether tools or instructions are provided for assembly, and the product ships in 4 cartons.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-2450049",
+      "title": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 25,
+      "removed": [
+        "The specifications do not detail whether tools are supplied, but it ships in 4 cartons."
+      ]
+    },
+    {
+      "id": "premier-housewares-2907097",
+      "title": "Fiori Mixed Succulents In Wood Wall Planter | Kaiku",
+      "blocksBefore": 23,
+      "blocksAfter": 23,
+      "removed": [
+        "The product specifications do not confirm whether the planter is suitable for outdoor use or if it can withstand frost."
+      ]
+    },
+    {
+      "id": "premier-housewares-5502316",
+      "title": "Opus Woven Rope Armchair | Kaiku",
+      "blocksBefore": 34,
+      "blocksAfter": 32,
+      "removed": [
+        "The specifications do not state the exact number of pieces included in the set.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-5502329",
+      "title": "Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand | Kaiku",
+      "blocksBefore": 23,
+      "blocksAfter": 21,
+      "removed": [
+        "The specifications do not state whether drainage holes are pre-drilled in this plant stand, nor do they mention if a saucer or liner is included.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-5505789",
+      "title": "Darnell Medium Grey Speckled Planter | Kaiku",
+      "blocksBefore": 19,
+      "blocksAfter": 19,
+      "removed": [
+        "However, the product specifications do not state any frost resistance features, so it may need to be protected during colder months to preserve its integrity."
+      ]
+    },
+    {
+      "id": "premier-housewares-5505790",
+      "title": "Darnell Large Grey Speckled Planter | Kaiku",
+      "blocksBefore": 18,
+      "blocksAfter": 18,
+      "removed": [
+        "However, the specifications do not confirm whether it can be safely left outside during frost."
+      ]
+    },
+    {
+      "id": "premier-housewares-5505793",
+      "title": "Darnell Small White Planter | Kaiku",
+      "blocksBefore": 24,
+      "blocksAfter": 24,
+      "removed": [
+        "The specifications do not state whether the planter has drainage holes, nor do they mention if a saucer or liner is included.",
+        "However, the specifications do not state whether the planter is appropriate for frost conditions."
+      ]
+    },
+    {
+      "id": "premier-housewares-5505802",
+      "title": "Darnell Large Black And White Finish Planter | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 23,
+      "removed": [
+        "The specifications do not state if drainage holes are included, nor whether a saucer or liner is provided with the planter.",
+        "However, the specifications do not state whether it can be left outside during frost conditions.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-5506187",
+      "title": "Yuri Large Ceramic Planter | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 21,
+      "removed": [
+        "The specifications do not indicate whether the Yuri Large Ceramic Planter has drainage holes or if a saucer or liner is included.",
+        "The specifications do not indicate if the Yuri Large Ceramic Planter is suitable for indoor or outdoor use or if it is frost-resistant.",
+        "(heading) Drainage and Planting",
+        "(heading) Indoor and Outdoor Use"
+      ]
+    },
+    {
+      "id": "premier-housewares-5506188",
+      "title": "Yuri Small Ceramic Planter | Kaiku",
+      "blocksBefore": 20,
+      "blocksAfter": 18,
+      "removed": [
+        "The specifications for the Yuri Small Ceramic Planter do not mention whether drainage holes are included or if a saucer or liner comes with it.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-5506191",
+      "title": "Yuri Large Terracotta Gold Spotted Planter | Kaiku",
+      "blocksBefore": 30,
+      "blocksAfter": 30,
+      "removed": [
+        "The specifications do not state whether the planter is suitable for indoor and outdoor use or if it can withstand frost conditions.",
+        "The specifications do not mention food safety, so it's recommended to use it for decorative purposes only or consult support.",
+        "Can the planter be used for herbs or vegetables? While the specs do not specify food safety, using it for decorative houseplants is advisable. For edibles, check support for safe use."
+      ]
+    },
+    {
+      "id": "premier-housewares-5506424",
+      "title": "Darnell Brown Planter With Angular Legs | Kaiku",
+      "blocksBefore": 27,
+      "blocksAfter": 25,
+      "removed": [
+        "The product specifications do not detail whether the Darnell Brown Planter has drainage holes nor if a saucer or liner is included.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-5506429",
+      "title": "Darnell Large Rustic Face Planter | Kaiku",
+      "blocksBefore": 31,
+      "blocksAfter": 31,
+      "removed": [
+        "The specifications do not state whether this planter includes drainage holes or if a saucer or liner is provided."
+      ]
+    },
+    {
+      "id": "premier-housewares-5506450",
+      "title": "Jada Large Planter | Kaiku",
+      "blocksBefore": 24,
+      "blocksAfter": 22,
+      "removed": [
+        "The specifications do not state whether drainage holes are included, nor is a saucer or liner mentioned.",
+        "The specifications do not confirm the planter's suitability for indoor or outdoor use, nor do they address frost resistance.",
+        "(heading) Drainage and Planting"
+      ]
+    },
+    {
+      "id": "premier-housewares-5511371",
+      "title": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "blocksBefore": 28,
+      "blocksAfter": 28,
+      "removed": [
+        "The specifications do not state whether this light fitting is hard-wired to a ceiling rose or plugs into a socket."
+      ]
+    },
+    {
+      "id": "premier-housewares-5511631",
+      "title": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "blocksBefore": 26,
+      "blocksAfter": 24,
+      "removed": [
+        "The specifications for this pendant shade do not state whether a bulb is included or what the bulb cap type and maximum wattage are.",
+        "(heading) Bulb Requirements"
+      ]
+    },
+    {
+      "id": "premier-housewares-5528545",
+      "title": "Opus Grey Woven Rope Chair with Cushioned Seat | Kaiku",
+      "blocksBefore": 22,
+      "blocksAfter": 22,
+      "removed": [
+        "Unfortunately, the specifications do not list seating capacity or weight limits."
+      ]
+    },
+    {
+      "id": "premier-housewares-5528547",
+      "title": "Opus Grey Woven Rope Three Seater Sofa with Cushions | Kaiku",
+      "blocksBefore": 27,
+      "blocksAfter": 25,
+      "removed": [
+        "The specifications do not list the exact contents of the set.",
+        "The specifications do not confirm whether the sofa is weatherproof or suitable for year-round outdoor use.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-5528628",
+      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 23,
+      "removed": [
+        "The product details do not confirm if a cover is included for the bench.",
+        "(heading) Covers, Cleaning and Winter Storage"
+      ]
+    },
+    {
+      "id": "premier-housewares-5529141",
+      "title": "Myan Acacia Wood and White Marble Media Unit | Kaiku",
+      "blocksBefore": 25,
+      "blocksAfter": 25,
+      "removed": [
+        "While the exact weight capacity isn't specified, this media unit is designed to hold your media devices securely."
+      ]
+    },
+    {
+      "id": "premier-housewares-5529698",
+      "title": "Cebu White Wash Elm Wood Dining Chair | Kaiku",
+      "blocksBefore": 29,
+      "blocksAfter": 27,
+      "removed": [
+        "The specifications do not detail the exact contents of the set, including the number of chairs or other items included.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "premier-housewares-5529699",
+      "title": "Cebu Grey Wash Elm Wood Dining Chair | Kaiku",
+      "blocksBefore": 28,
+      "blocksAfter": 26,
+      "removed": [
+        "The specifications for the Cebu Grey Wash Elm Wood Dining Chair do not list the exact contents of the set.",
+        "The specifications do not state whether the chair is weather-resistant or suitable for outdoor use during inclement weather.",
+        "(heading) What's in the Set"
+      ]
+    },
+    {
+      "id": "product-aosom-860-053",
+      "title": "5-Seater Aluminium Garden Sofa Set, Grey | Kaiku",
+      "blocksBefore": 53,
+      "blocksAfter": 53,
+      "removed": [
+        "While the specifications do not state whether a protective cover is included, it is important to properly care for and maintain the set."
+      ]
+    },
+    {
+      "id": "product-aw-waterf-10",
+      "title": "Tabletop Water Feature - - Golden Buddha & Pots | Kaiku",
+      "blocksBefore": 17,
+      "blocksAfter": 15,
+      "removed": [
+        "The specifications do not confirm whether a pump is included or how it is powered.",
+        "The specifications do not detail the water reservoir capacity or provide guidance on how often it may need topping up.",
+        "The specifications do not confirm whether the feature is frost-resistant or suitable for outdoor winter conditions.",
+        "(heading) Water Capacity and Running It"
+      ]
+    },
+    {
+      "id": "product-aw-waterf-23",
+      "title": "Pebble Wall Tabletop Water Feature with Crystal Ball | Kaiku",
+      "blocksBefore": 15,
+      "blocksAfter": 15,
+      "removed": [
+        "The product page does not state the reservoir capacity or how often the water needs to be topped up."
+      ]
+    },
+    {
+      "id": "product-import-delphine-collection-sliding-glass-dresser-top",
+      "title": "Delphine Collection Sliding Glass Dresser Top | Kaiku",
+      "blocksBefore": 16,
+      "blocksAfter": 16,
+      "removed": [
+        "The Delphine Collection Sliding Glass Dresser Top is an exquisite and functional accessory that enhances the aesthetic appeal of any room. Featuring a seamless glass surface, it brings a touch of modern elegance to standard dressers, creating an illusion of space while letting natural light reflect beautifully within your home. \n\nThis dresser top is designed to complement various styles, from minimalist to mid-century modern, ensuring that it fits effortlessly into your existing décor. Ideal for those looking to elevate their living space, the Delphine dresser top transforms even the most ordinary dressers into a focal point of sophistication and style. \n\nWith its sleek design, this glass top opens up new possibilities for styling and organisation, making it easier to maintain a clutter-free environment while adding a hint of glamour to your space.",
+        "The value of the Delphine Collection Sliding Glass Dresser Top extends beyond its beauty. It serves as a practical surface for organising your essentials, making it a perfect solution whether in the bedroom or living area. You can easily place items such as keys, accessories, or the latest reads on the surface without fear of damaging the underlying dresser. \n\nThis versatile glass surface also allows for easy cleaning and maintenance, making it a practical choice for busy homes where time is often limited. The smooth finish of the glass ensures that any spills or dirt can be wiped away effortlessly, maintaining its pristine look. \n\nAdditionally, the sliding design makes it user-friendly; it's easy to reposition or adjust your items without having to lift heavier objects, facilitating effortless access to your essentials.",
+        "Durability is a hallmark of the Delphine Collection Sliding Glass Dresser Top. Crafted from high-quality glass, its robustness ensures that it withstands daily use whilst remaining visually appealing. The careful construction process makes it resistant to scratches, allowing it to retain its clarity and shine over time. \n\nIncorporating this glass top into your interior not only elevates your style but also adds a protective layer over your dresser. This practical feature helps to shield your furniture from wear and tear, extending its life and maintaining its value. \n\nMoreover, the transparent feature of the glass means it can effortlessly blend with any colour palette, enhancing the overall design without overwhelming your furniture's original characteristics.",
+        "The Delphine Collection Sliding Glass Dresser Top is designed with versatility in mind. It fits beautifully atop various standard dressers, but its applications don’t stop there. Use it in a hall for displaying decorative pieces or in your bedroom to create a refined vanity space. \n\nConsider utilising it in the living area as a unique space for photos or art displays, effectively making it a decorative element in any room. Placing it in your entryway for easy access to your belongings can also enhance its functionality, proving itself to be an essential multi-purpose piece in your home. \n\nNot only does it serve its practical purpose, but its design also makes it a conversation starter, bringing an element of modern design into your home décor.",
+        "With its sleek and contemporary design, the Delphine Collection Sliding Glass Dresser Top can seamlessly blend into any room style. Whether you're embracing a Scandinavian aesthetic with clean lines and muted tones or opting for a more eclectic approach with vibrant decor, this glass top will adapt accordingly. \n\nPair it with beige or white dressers for a minimalist look, or team it with darker woods for a more striking contrast that adds depth and sophistication. The beauty of this dresser top lies in its ability to enhance whatever furniture it accompanies, creating a cohesive look throughout your space.  \n\nAccessorising the glass top with decorative items such as candles, vases, or statement art pieces can also help to define your personal style, allowing you to easily refresh your décor over time.",
+        "The Delphine Collection Sliding Glass Dresser Top stands out not just for its aesthetic appeal but also for its thoughtfully designed features. This glass dresser top makes a fabulous addition to your home storage solutions, enhancing not only the visual aspect of your furniture but also providing ample functionality. \n\nHere are some notable features of the dresser top: \n- Quality glass surface for easy maintenance and cleaning \n- Versatile design fits standard dressers or other surfaces effortlessly \n- Protective layer that safeguards your furniture while adding elegance \n- Sleek lines and modern finish integrate seamlessly with various styles \n- Lightweight construction allows for easy repositioning and decorating",
+        "Taking care of your Delphine Collection Sliding Glass Dresser Top is straightforward and requires minimal effort. To maintain its elegant appearance, regular cleaning is recommended. Simply use a soft cloth and a gentle glass cleaner to wipe the surface, avoiding harsh chemicals that could damage the glass.\n\nIn addition to regular cleaning, it’s advisable to avoid placing overly heavy items on the surface to prevent any potential cracking or scratches. For daily upkeep, simply dusting the surface with a dry cloth will suffice in maintaining the clarity of the glass. \n\nOverall, these simple maintenance steps ensure that your dresser top remains as beautiful as the day you brought it home."
+      ]
+    }
+  ]
+}
