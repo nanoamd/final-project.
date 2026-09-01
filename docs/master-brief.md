@@ -109,9 +109,37 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
     the existing copy say French Grey. Dimensions and weight aren't in
     question, so it stayed in the batch; the new description doesn't
     repeat either colour claim. Worth you checking which field is wrong.
-- [ ] **171 more zero-fact products, same fix, not started.** Real
-      per-product writing, same standard — genuinely the bulk of what
-      still stands between here and "minimal things needing review."
+- [x] **Fourth batch written and verified: 42 more published products —
+      effectively clearing the published zero-fact backlog.**
+      `scripts/write-review-tier-descriptions-batch4.ts`. Applied and
+      verified live: zero-fact fixable backlog **171 → 129**; published
+      REVIEW **7**.
+  - [-] **Dropped a third data-integrity case:** "Himalayan Salt Cooking
+    Plate - Square - 20x20x5cm" — its `weight` field says 4.8kg, but its
+    own `specs` array says "Approximately 1.5 kg". Same shape of bug as
+    Delphine and Provence: two disagreeing numbers on one document.
+  - Also flagged, not acted on beyond noting it: two Premier Housewares
+    products carry a `specs` line labelled "Cart Weight" (2.8kg on a small
+    soap dish, 14kg on a compact planter) that reads like a shipping-carton
+    or multi-unit metric rather than the item's own weight — implausible
+    numbers for the items described, so neither was used.
+- [x] **Fifth batch: the last 3 published products with a
+      thin-not-zero-facts version of the same fault** (1-2 scattered facts
+      across 1,100+ words, so they slipped past the earlier "exactly zero"
+      audit query but still failed the same way). `scripts/write-review-
+    tier-descriptions-batch5.ts`. Applied and verified live.
+- [x] **Published REVIEW tier: 101 → 4.** The 4 remaining are exactly the
+      ones that are genuinely not fixable by writing a better description:
+      the three flagged data-integrity conflicts (Delphine Dresser Top,
+      Provence Bistro Table, Himalayan Salt Square Plate — each needs you
+      or the supplier to settle which of two disagreeing numbers is real)
+      and one artefact-only case (Soft Squiggly Mirror, raw template syntax
+      in the copy, not a facts problem — queued in the artefact cleanup
+      below). **This is "minimal things needing review" for the published
+      catalogue, as asked.**
+- [ ] **129 more zero-fact products, all on drafts now.** Same fix, same
+      standard, not started — this is what's left of the description-audit
+      work, now that published is effectively clear.
 - [ ] **65 remaining artefact instances, drafts included** — 30 "quotes the
       supplier", 22 "admits it doesn't know", 8 markdown, 1 HTML entity, 1
       internal-threshold leak, 1 raw template syntax. Mostly on drafts (an
