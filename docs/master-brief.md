@@ -36,31 +36,95 @@ https://claude.ai/code/artifact/2a1be6e9-5517-4f8f-a77e-e238fcac34a5.
       confirmation (price only, cost price untouched, mandatory
       `priceAdjustment` audit-log document per Damien's own standing
       instruction). Some were as low as 6.8%.
-- [x] **Found a second, much bigger voice problem than the zero-fact
-      backlog**: Damien pasted two real descriptions side by side — a
-      gazebo in genuine Kaiku format, and the Peak Plunge cold plunge in
-      raw SaunaPlunge manufacturer marketing copy, pasted in verbatim.
-      Both confirmed live via direct Sanity query. Scanning every published
-      description for trademark symbols, marketing buzzwords and
+- [x] **The supplier-voice problem is now fully closed: 71 of 71 published
+      products fixed, 0 remaining.** Damien pasted two real descriptions
+      side by side — a gazebo in genuine Kaiku format, and the Peak Plunge
+      cold plunge in raw SaunaPlunge manufacturer marketing copy, pasted in
+      verbatim. Both confirmed live via direct Sanity query. Scanning every
+      published description for trademark symbols, marketing buzzwords and
       self-referential sales phrasing (a different signal than "zero
-      facts") found **71 published products** with this problem, none
-      flagged by the existing scorer. Rewrote the worst cluster — all 8
-      SaunaPlunge products — from each one's own specs/dimensions only.
-      Verified live: no trademark symbols or sales language remain.
-      **63 of 71 still need this same treatment.**
-- [x] **Broadened the "admits a gap" artefact detector** after a live
-      product ("do not mention whether it has drainage holes... please
-      consider this") said exactly what the existing patterns catch,
-      worded differently. Rescan with the broadened patterns (plus a new
-      check for raw unrounded spec dumps like "w45.000000") found **46**
-      and **77** more published products respectively — not yet rewritten,
-      but can no longer slip through undetected on future uploads.
-- [x] **48 products have no delivery lead time set at all** (all
-      Aosom-supplied) — `audit-delivery-lead-times.ts`, not yet fixed.
-- [x] **Image audit across all 4,048 images**: 2,387 missing alt text, 72
-      originals under 700px (unusable), 224 under 1,200px (soft), 87
-      undescriptive filenames, 16 badly off-square (damaged by the grid's
-      square crop), 86 products with only one photo. Not yet fixed.
+      facts") found 71 published products with this problem, none flagged
+      by the existing scorer. Fixed across seven batches (the 8 SaunaPlunge
+      products, then 63 more furniture/lamp products in batches 2–7, each
+      rewritten from that product's own specs/dimensions only) — three of
+      the seven batches (`fix-supplier-voice-batch{2,3,4,5}.ts`) were
+      completed by a background agent while the model was rate-limited;
+      the last two (`batch6`, `batch7`) picked up afterward once verified
+      against a fresh scan. **Re-ran `scan-supplier-voice.ts` after the
+      final batch: 0 published products flagged.**
+- [x] **The "admits a gap" and raw-decimal-dump problems are now fully
+      closed on published products — 0 remaining, verified twice.**
+      Broadened the detector after a live product ("do not mention whether
+      it has drainage holes... please consider this") said exactly what
+      the existing patterns catch, worded differently. First rescan found
+      46 gap-admission and 77 decimal-dump matches in descriptions;
+      `fix-gap-decimal-published-batch1.ts` fixed 55 gap-admission
+      instances (46 products) and 10 of 12 hand-verified decimal instances
+      (2 had already been resolved by an overlapping fix). **Its own dry
+      run reported success on 2 whole-heading-drop cases that the actual
+      apply silently failed to write** — caught only because this session's
+      standing rule (never trust a script's own console output, always
+      re-verify live) turned up the Sanai Planter's description completely
+      unchanged after a reported "applied: 2". `batch2` fixed that
+      (rebuilding the block array directly rather than patching individual
+      spans) plus three more genuine instances the original scan had missed
+      entirely (Lentigo, Relic Onyx, Manado Relax).
+  - **A second, larger instance of the same pattern was hiding outside the
+    field the original scan checked**: the artefact detector scores
+    `summary + description + faqs` together, but the original scan only
+    checked `description`. Re-checking the full scope found **75 more
+    instances, all in FAQ answers** ("Is a saucer or liner included?" → "The
+    specifications do not mention..."). `fix-faq-gap-admissions-batch1.ts`
+    deleted the ~68 FAQ entries whose entire content was the admission (an
+    FAQ that only says "we don't know" gives a shopper nothing) and kept a
+    trimmed, hedge-free version of the ~20 that had a real fact or genuinely
+    useful generic advice alongside it (e.g. "source fixings separately,"
+    "store cushions dry").
+  - **Verified with a non-CDN client, twice, after being misled by the
+    cached one.** The public-facing Sanity client (`useCdn: true`) returned
+    stale content immediately after a real, successful write — a
+    `count()`/fetch a few seconds apart showed the fix both present and
+    absent depending on which CDN edge answered. Every verification in this
+    entry used `useCdn: false` directly against the dataset, not the
+    storefront's own client.
+  - Final state, confirmed live: **0 published products** match either
+    pattern in any of `summary`, `description` or `faqs`. 161
+    gap-admission and 8 decimal-dump instances remain — all on drafts,
+    never in scope for this pass.
+- [x] **48 missing delivery lead times: 25 fixed on a defensible category
+      basis, 23 blocked.** `fix-aosom-missing-lead-times.ts` groups each
+      category's OTHER already-set Aosom products by parsed day-span (same
+      technique `audit-delivery-lead-times.ts` uses to spot "same promise,
+      different wording") and only writes a default where those other
+      products are unanimous (n≥2) or agree ≥75% of the time (n≥3) — the
+      exact wording written is Aosom's own most common phrasing for that
+      promise, never a new variant. Fixed: Fire Pits & Heating (18, "3-4
+      weeks", 3/3 unanimous), Garden Furniture (3, "3-4 weeks", 9/9
+      unanimous), Garden Lighting (2, "7–14 days", 8/9), Lighting (2, "7–14
+      days", 10/13). **Still blocked, genuinely — Damien needs to supply or
+      confirm these directly with Aosom:** Beds (5, existing products split
+      1/1 between two promises), Outdoor Kitchens (2, zero other Aosom
+      products in the category have a lead time at all), Pergolas (6) and
+      Planters (1, one single comparable product each — not a pattern),
+      Privacy Screens (8, split 1/1), Water Features (1, only 67% agreement,
+      below the bar). Verified live via a fresh query after applying.
+      docs/change-log/2026-09-01-aosom-lead-time-defaults.json.
+- [x] **Image audit across all 4,048 images, alt text now 100% covered.**
+      2,388 images (catalogue grew by one since the count above) described
+      via `derive-image-alt.ts --apply`, across 490 products — reusing the
+      existing real-facts-only generator (product name, department, and the
+      `isStudioShot`/`optionValue` gallery metadata; never "image of",
+      never invented styling or colour). Primary image gets the plain
+      product name; secondary images get ", second/third product view" for
+      other studio shots or "photographed in a {department setting}" for
+      lifestyle shots, numbered from the second one on. Never overwrote an
+      editor's own alt text. Verified live via a fresh query on a sample.
+      Added the mandatory per-image change-log this script was missing:
+      docs/change-log/2026-09-01-image-alt-fill.json.
+      Resolution (72 unusable, 224 soft), 87 undescriptive filenames, 16
+      off-square and 86 single-photo products are unchanged — still not
+      fixed, and none of them are fixable by a data patch (they need new
+      photography from the supplier).
 - [x] **Two small reported bugs fixed**: the Compare/Share/Save-for-later
       row was centered while the row above it was left-aligned; a periodic
       metallic shine sweep added to the header wordmark, requested
