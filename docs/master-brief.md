@@ -16,6 +16,69 @@ Status key:
 
 ---
 
+## A wider audit: pricing, lead times, images, and a bigger voice problem (1 September)
+
+Damien: _"we need to properly audit the products and relay it back to me in a
+non confusing way"_ — prompted by finding two live bugs himself (a "we don't
+know" section, his address in search snippets) that no existing audit had
+caught. Report published/updated at
+https://claude.ai/code/artifact/2a1be6e9-5517-4f8f-a77e-e238fcac34a5.
+
+- [x] **Direct answer to a direct question**: no, no product has been
+      checked one-by-one against its supplier's own live listing for price,
+      weight, dimensions and claims. Everything below is either internal
+      consistency (does Sanity's own data agree with itself, does the copy
+      use it honestly) or a live re-audit against Sanity — neither is a
+      substitute for that external check, which has not been done and would
+      be its own project.
+- [x] **75 published products corrected to the 20% minimum margin**,
+      applied via `audit-and-fix-margins.ts --apply` after explicit
+      confirmation (price only, cost price untouched, mandatory
+      `priceAdjustment` audit-log document per Damien's own standing
+      instruction). Some were as low as 6.8%.
+- [x] **Found a second, much bigger voice problem than the zero-fact
+      backlog**: Damien pasted two real descriptions side by side — a
+      gazebo in genuine Kaiku format, and the Peak Plunge cold plunge in
+      raw SaunaPlunge manufacturer marketing copy, pasted in verbatim.
+      Both confirmed live via direct Sanity query. Scanning every published
+      description for trademark symbols, marketing buzzwords and
+      self-referential sales phrasing (a different signal than "zero
+      facts") found **71 published products** with this problem, none
+      flagged by the existing scorer. Rewrote the worst cluster — all 8
+      SaunaPlunge products — from each one's own specs/dimensions only.
+      Verified live: no trademark symbols or sales language remain.
+      **63 of 71 still need this same treatment.**
+- [x] **Broadened the "admits a gap" artefact detector** after a live
+      product ("do not mention whether it has drainage holes... please
+      consider this") said exactly what the existing patterns catch,
+      worded differently. Rescan with the broadened patterns (plus a new
+      check for raw unrounded spec dumps like "w45.000000") found **46**
+      and **77** more published products respectively — not yet rewritten,
+      but can no longer slip through undetected on future uploads.
+- [x] **48 products have no delivery lead time set at all** (all
+      Aosom-supplied) — `audit-delivery-lead-times.ts`, not yet fixed.
+- [x] **Image audit across all 4,048 images**: 2,387 missing alt text, 72
+      originals under 700px (unusable), 224 under 1,200px (soft), 87
+      undescriptive filenames, 16 badly off-square (damaged by the grid's
+      square crop), 86 products with only one photo. Not yet fixed.
+- [x] **Two small reported bugs fixed**: the Compare/Share/Save-for-later
+      row was centered while the row above it was left-aligned; a periodic
+      metallic shine sweep added to the header wordmark, requested
+      directly (aria-hidden overlay, disabled under reduced-motion).
+      Also separated the Delivery/Returns/Warranty tab's three columns
+      with a divider (shared component — applies to every product).
+- [!] **A placeholder-illustration bug Damien flagged is traced but not
+  confirmed live.** The exact pattern (a decorative line-art motif
+  instead of a real photo, on a category tile) matches a component
+  chain (`ProductCard`/`CategoryCard` using a "swap-ready stand-in for
+  real photography") that is dead code on this branch — not wired into
+  any live route. Needs the exact page URL to fix the real occurrence
+  rather than guess.
+- [ ] **Requested, not started**: a step-by-step guide for pulling live
+      price and stock feeds per supplier.
+
+---
+
 ## Two real bugs from Damien's own screenshots: home address exposed, and the category bar actually broken (1 September)
 
 - [x] **Home address was in the meta description on dozens of unrelated
