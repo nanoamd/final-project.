@@ -181,7 +181,13 @@ export const REWRITES: Written[] = [
       {
         heading: "No Assembly",
         paragraphs: [
-          "It arrives fully assembled. Unbox it, put it where you want it, and that's the job done.",
+          "It arrives fully assembled. Unbox it, put it where you want it, and that's the job done — no fittings to lose and nothing to bolt on.",
+        ],
+      },
+      {
+        heading: "Everyday Family Use",
+        paragraphs: [
+          "The recycled glass surface and the steel frame are built for daily use rather than for a room nobody sits in, so mugs, laptops and feet on the edge of it are all fine.",
         ],
       },
       {
@@ -245,13 +251,13 @@ export const REWRITES: Written[] = [
       {
         heading: "Geometric Steel Base",
         paragraphs: [
-          "The frame is gold-painted steel in a geometric shape, taking the weight of the top on metal rather than timber legs.",
+          "The frame is gold-painted steel in a geometric shape, taking the weight of the top on metal rather than timber legs. It's the part that decides whether a table like this looks light or heavy in a room, and this one is open rather than boxed in.",
         ],
       },
       {
         heading: "110 x 80cm, and a Two-Person Lift",
         paragraphs: [
-          "110 x 80 x 38cm and 25kg — heavy enough that you'll want help carrying it through, so have someone about on delivery day.",
+          "110 x 80 x 38cm and 25kg. At 80cm deep it's a broad top rather than a narrow one, so there's room for a tray, books and a lamp without everything ending up in a line. 25kg is heavy enough that you'll want help carrying it through, so have someone about on delivery day.",
         ],
       },
       {
@@ -400,7 +406,7 @@ export const REWRITES: Written[] = [
       {
         heading: "Curved Fronts, Tapered Legs, Gold Handles",
         paragraphs: [
-          "The drawer fronts are curved, the legs tapered, and the handles are square in a gold colour.",
+          "The drawer fronts are curved, the legs tapered, and the handles are square in a gold colour. The curve is on the front face rather than the sides, so it still sits flat against a wall.",
         ],
       },
       {
@@ -438,7 +444,7 @@ export const REWRITES: Written[] = [
       {
         heading: "Ribbed Doors and Brass-Style Hardware",
         paragraphs: [
-          "Four ribbed door fronts, tapered legs and brass-style hardware.",
+          "Four ribbed door fronts, tapered legs and brass-style hardware. Four narrower doors rather than two wide ones means each one swings less far into the room when you open it — worth having in a dining room where chairs are behind you.",
         ],
       },
       {
@@ -476,7 +482,7 @@ export const REWRITES: Written[] = [
       {
         heading: "Three Drawers on Metal Runners",
         paragraphs: [
-          "Three drawers, all on metal runners, so they still run smoothly with a full load of clothes or bedding in them.",
+          "Three drawers, all on metal runners, so they still run smoothly with a full load of clothes or bedding in them. Metal runners are the part that tells you how a chest will feel in five years' time, more than the finish does.",
         ],
       },
       {
@@ -520,7 +526,7 @@ export const REWRITES: Written[] = [
       {
         heading: "Two Drawers",
         paragraphs: [
-          "Two drawers on metal runners, sized for stationery, paperwork and the everyday clutter of a desk.",
+          "Two drawers on metal runners, sized for stationery, paperwork and the everyday clutter of a desk. Handy on a desk this size, since the surface is the thing you want to keep clear.",
         ],
       },
       {
@@ -623,13 +629,13 @@ export const REWRITES: Written[] = [
       {
         heading: "Birch and MDF Under White Paint",
         paragraphs: [
-          "Birch wood and MDF finished in white paint, with tapered legs, cut-line detailing and brass-style handles.",
+          "Birch wood and MDF finished in white paint, with tapered legs, cut-line detailing and brass-style handles. The paint is the surface you'll be cleaning rather than a timber grain, so it stays even across the whole piece.",
         ],
       },
       {
         heading: "Three Drawers on Wooden Runners",
         paragraphs: [
-          "Three drawers, running on traditional wooden runners rather than metal ones.",
+          "Three drawers, running on traditional wooden runners rather than metal ones. Worth knowing if you're used to the glide of a ball-bearing runner, because these slide differently.",
         ],
       },
       {

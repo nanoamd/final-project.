@@ -148,6 +148,21 @@ describe("isAdmission — guesses made from an absence", () => {
     ])
       expect(isAdmission(fine)).toBe(false);
   });
+
+  it('does not flag "as no X is required" — a fact, not an absence', () => {
+    // Found by scripts/audit-copy-quality.ts on a live solar bollard light.
+    // The pattern used to be `as (no|none|nothing) ... (is|are)` with no
+    // constraint on the verb, so a positive selling point ("no electrical
+    // contracting is required") read as reasoning from missing information.
+    // The verb now has to be one about information — specified, stated,
+    // listed — which is what actually distinguishes the two.
+    for (const fine of [
+      "Enjoy hassle-free installation, as no electrical contracting is required.",
+      "Since no assembly is required, it works straight out of the box.",
+      "As no mains supply is needed, it can go anywhere in the garden.",
+    ])
+      expect(isAdmission(fine)).toBe(false);
+  });
 });
 
 describe("cleanParagraph", () => {
