@@ -25,9 +25,9 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
 - [x] **A true comprehensive audit, drafts included** — the earlier one
       (31 August) had no write token and could only see 732 published
       products. `scripts/audit-full-catalogue.ts` sees the whole thing: 1630
-      products (755 published, 875 drafts). Live counts: **GOLD 70, SILVER
-      697, REVIEW 863** overall; **published-only: GOLD 38, SILVER 630,
-      REVIEW 87.**
+      products (755 published, 875 drafts). Live counts as of the second
+      rewrite batch: **GOLD 80, SILVER 705, REVIEW 845** overall;
+      **published-only: GOLD 50, SILVER 646, REVIEW 69.**
 - [x] **SKU and yesterday's artefact fixes, confirmed durable catalogue-wide**
       — 0 missing SKUs, 0 non-canonical, out of all 1630. The html-entity and
       doubled-spacing fix is clean across the whole catalogue bar one new
@@ -49,10 +49,24 @@ want minimal things needing reviewing in the products tab of kaiku hq."_
     real values, and a recorded height of 120cm on a dresser-top glass
     panel doesn't hold together. Flagged below rather than written from
     data that doesn't add up.
-- [ ] **209 more zero-fact products, same fix, not started.** Real
+- [x] **Second batch written and verified: 18 more published products.**
+      `scripts/write-review-tier-descriptions-batch2.ts` — same standard,
+      real dimensions/weight/specs/colour only, pulled fresh from each
+      _published_ document (not assumed from its draft, which can and does
+      hold different data — confirmed this batch). Applied and verified
+      live: published REVIEW dropped **87 → 69**; overall REVIEW
+      **863 → 845**; zero-fact fixable backlog **209 → 191**, all still
+      confirmed fixable, none blocked.
+  - [-] **Dropped one candidate rather than guess:** "Provence Collection
+    Outdoor Bistro Table" — its `dimensions`/`weight` fields (70 × 70 ×
+    72cm, 8.4kg) directly contradict its own `specs` array on the same
+    document (80cm diameter, 75cm height, 12kg). Two disagreeing sources
+    of truth on one product is a data question for you, not something to
+    pick a winner on by guessing.
+- [ ] **191 more zero-fact products, same fix, not started.** Real
       per-product writing, same standard — genuinely the bulk of what
       still stands between here and "minimal things needing review."
-- [ ] **65 remaining artefact instances, drafts included** — 32 "quotes the
+- [ ] **65 remaining artefact instances, drafts included** — 31 "quotes the
       supplier", 22 "admits it doesn't know", 8 markdown, 1 HTML entity, 1
       internal-threshold leak, 1 raw template syntax. Mostly on drafts (an
       active generation process — Damien's own workflow or a tool — keeps

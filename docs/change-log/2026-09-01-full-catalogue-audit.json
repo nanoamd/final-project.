@@ -1,16 +1,16 @@
 {
   "total": 1630,
-  "publishedCount": 755,
-  "draftCount": 875,
+  "publishedCount": 765,
+  "draftCount": 865,
   "tierCounts": {
-    "GOLD": 70,
-    "SILVER": 697,
-    "REVIEW": 863
+    "GOLD": 80,
+    "SILVER": 705,
+    "REVIEW": 845
   },
   "publishedTierCounts": {
-    "GOLD": 38,
-    "SILVER": 630,
-    "REVIEW": 87
+    "GOLD": 50,
+    "SILVER": 646,
+    "REVIEW": 69
   },
   "medians": {
     "accuracy": 10,
@@ -22,14 +22,14 @@
     "commercial": 8,
     "returnRisk": 9,
     "readability": 10,
-    "aiRisk": 9.4
+    "aiRisk": 9.6
   },
   "sku": {
     "missing": 0,
     "nonCanonical": 0
   },
   "artefactHits": {
-    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 32,
+    "Quotes “the supplier” rather than stating the fact as Kaiku's own.": 31,
     "The copy admits it does not know something instead of finding it out.": 22,
     "An HTML entity or tag is showing as literal text.": 1,
     "Markdown markup left in the text.": 8,
@@ -4782,87 +4782,6 @@
       "price": 32
     },
     {
-      "id": "hill-decor-17459",
-      "title": "Set Of Three Wooden Lanterns With Traditional Cross Section | Kaiku",
-      "slug": "set-of-three-wooden-lanterns-with-traditional-cross-section",
-      "published": true,
-      "overall": 7.1,
-      "words": 1556,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 84,
-        "length": 31,
-        "unit": "cm",
-        "width": 31
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 9
-      },
-      "specs": null,
-      "category": "Candles & Lanterns",
-      "supplier": "Hill Interiors",
-      "price": 149
-    },
-    {
-      "id": "hill-decor-17461",
-      "title": "Set Of Three Wooden Lanterns With Archway Design | Kaiku",
-      "slug": "set-of-three-wooden-lanterns-with-archway-design",
-      "published": true,
-      "overall": 6.5,
-      "words": 1228,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 104,
-        "length": 31,
-        "unit": "cm",
-        "width": 31
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 11.5
-      },
-      "specs": null,
-      "category": "Candles & Lanterns",
-      "supplier": "Hill Interiors",
-      "price": 149
-    },
-    {
-      "id": "hill-decor-17857",
-      "title": "Silver Heart Skeleton Wall Clock | Kaiku",
-      "slug": "silver-heart-skeleton-wall-clock",
-      "published": true,
-      "overall": 6.8,
-      "words": 1011,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 89,
-        "length": 4,
-        "unit": "cm",
-        "width": 89
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 3.5
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 99
-    },
-    {
       "id": "hill-decor-17858",
       "title": "Large Silver Skeleton Wall Clock | Kaiku",
       "slug": "large-silver-skeleton-wall-clock",
@@ -5403,60 +5322,6 @@
       "price": 41
     },
     {
-      "id": "hill-decor-21618",
-      "title": "Roza Panelled Wall Clock | Kaiku",
-      "slug": "roza-panelled-wall-clock",
-      "published": true,
-      "overall": 6.3,
-      "words": 986,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 112,
-        "length": 5,
-        "unit": "cm",
-        "width": 112
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 15.7
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 149
-    },
-    {
-      "id": "hill-decor-21619",
-      "title": "Celina Mirrored Wall Clock | Kaiku",
-      "slug": "celina-mirrored-wall-clock",
-      "published": true,
-      "overall": 7.4,
-      "words": 841,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 112,
-        "length": 5,
-        "unit": "cm",
-        "width": 112
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 15.7
-      },
-      "specs": null,
-      "category": "Wall Clocks",
-      "supplier": "Hill Interiors",
-      "price": 199
-    },
-    {
       "id": "hill-decor-21620",
       "title": "Bronze Skeleton Wall Clock | Kaiku",
       "slug": "bronze-skeleton-wall-clock",
@@ -5835,60 +5700,6 @@
       "price": 35
     },
     {
-      "id": "hill-decor-21717",
-      "title": "Large Hammered Silver Astral Vase | Kaiku",
-      "slug": "large-hammered-silver-astral-vase",
-      "published": true,
-      "overall": 7,
-      "words": 1349,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 57,
-        "length": 40,
-        "unit": "cm",
-        "width": 40
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 10
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 163
-    },
-    {
-      "id": "hill-decor-21718",
-      "title": "Hammered Silver Astral Vase | Kaiku",
-      "slug": "hammered-silver-astral-vase",
-      "published": true,
-      "overall": 6.9,
-      "words": 818,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 38,
-        "length": 39,
-        "unit": "cm",
-        "width": 39
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 110
-    },
-    {
       "id": "hill-decor-21761",
       "title": "Garda Grey Glazed Gisela Vase | Kaiku",
       "slug": "garda-grey-glazed-gisela-vase",
@@ -5943,33 +5754,6 @@
       "price": 39
     },
     {
-      "id": "hill-decor-21772",
-      "title": "Garda Grey Glazed Juniper Vase | Kaiku",
-      "slug": "garda-grey-glazed-juniper-vase",
-      "published": true,
-      "overall": 6.6,
-      "words": 1113,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 37,
-        "length": 37,
-        "unit": "cm",
-        "width": 37
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 13
-      },
-      "specs": null,
-      "category": "Vases",
-      "supplier": "Hill Interiors",
-      "price": 113
-    },
-    {
       "id": "hill-decor-21775",
       "title": "Garda Grey Glazed Tiber Vase | Kaiku",
       "slug": "garda-grey-glazed-tiber-vase",
@@ -5995,33 +5779,6 @@
       "category": "Vases",
       "supplier": "Hill Interiors",
       "price": 63
-    },
-    {
-      "id": "hill-decor-21795",
-      "title": "Galaxy Silver And Grey Hand Painted Canvas | Kaiku",
-      "slug": "galaxy-silver-and-grey-hand-painted-canvas",
-      "published": true,
-      "overall": 6.7,
-      "words": 950,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 150,
-        "length": 4,
-        "unit": "cm",
-        "width": 150
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 7.2
-      },
-      "specs": null,
-      "category": "Wall Art",
-      "supplier": "Hill Interiors",
-      "price": 199
     },
     {
       "id": "hill-decor-24479",
@@ -6622,52 +6379,6 @@
       "price": 17.5
     },
     {
-      "id": "product-aw-rds-149",
-      "title": "Natural Folding Wooden A-Frame Shelf – Brown | Kaiku",
-      "slug": "natural-folding-wooden-a-frame-shelf-brown",
-      "published": true,
-      "overall": 8.8,
-      "words": 208,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 105,
-        "length": 31,
-        "unit": "cm",
-        "width": 40
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 5.5
-      },
-      "specs": [
-        {
-          "_key": "dimensions",
-          "_type": "productSpec",
-          "label": "Dimensions",
-          "value": "105x40x31 (cm)"
-        },
-        {
-          "_key": "materials",
-          "_type": "productSpec",
-          "label": "Materials",
-          "value": "Albasia Wood"
-        },
-        {
-          "_key": "weight",
-          "_type": "productSpec",
-          "label": "Weight",
-          "value": "5.5 kg"
-        }
-      ],
-      "category": "The Reclaimed Collection",
-      "supplier": "AW Dropship",
-      "price": 121.35
-    },
-    {
       "id": "product-aw-waterf-19",
       "title": "Tabletop Water Feature - 19x19x28cm - Buddha, Lotus Flower Cascading Potsx | Kaiku",
       "slug": "tabletop-water-feature-19x19x28cm-buddha-lotus-flower-cascading-potsx",
@@ -6692,88 +6403,6 @@
       "category": "Water Features",
       "supplier": "AW Dropship",
       "price": 45
-    },
-    {
-      "id": "product-import-adjustable-tractor-seat",
-      "title": "Adjustable Tractor Seat | Kaiku",
-      "slug": "adjustable-tractor-seat",
-      "published": true,
-      "overall": 8.6,
-      "words": 1006,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 86,
-        "length": 37,
-        "unit": "cm",
-        "width": 37
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 15.6
-      },
-      "specs": [
-        {
-          "_key": "material",
-          "_type": "productSpec",
-          "label": "Material",
-          "value": "Metal"
-        },
-        {
-          "_key": "finish",
-          "_type": "productSpec",
-          "label": "Finish",
-          "value": "Gloss black"
-        },
-        {
-          "_key": "seat",
-          "_type": "productSpec",
-          "label": "Seat",
-          "value": "Pressed and pierced tractor pan, dished"
-        },
-        {
-          "_key": "footrest",
-          "_type": "productSpec",
-          "label": "Footrest",
-          "value": "Twisted bar with turned ball ends"
-        },
-        {
-          "_key": "base",
-          "_type": "productSpec",
-          "label": "Base",
-          "value": "Four scrolled cast spokes with curled feet"
-        },
-        {
-          "_key": "width",
-          "_type": "productSpec",
-          "label": "Width",
-          "value": "37 cm"
-        },
-        {
-          "_key": "depth",
-          "_type": "productSpec",
-          "label": "Depth",
-          "value": "37 cm"
-        },
-        {
-          "_key": "height",
-          "_type": "productSpec",
-          "label": "Height",
-          "value": "86 cm, adjustable"
-        },
-        {
-          "_key": "weight",
-          "_type": "productSpec",
-          "label": "Weight",
-          "value": "15.6 kg"
-        }
-      ],
-      "category": "Furniture",
-      "supplier": "Hill Interiors",
-      "price": 112
     },
     {
       "id": "product-import-belluno-urn-table-lamp-with-linen-shade",
@@ -6822,27 +6451,6 @@
       "category": "Planters",
       "supplier": "Hill Interiors",
       "price": 19
-    },
-    {
-      "id": "product-import-capri-collection-outdoor-dining-chair",
-      "title": "Capri Collection Outdoor Dining Chair | Kaiku",
-      "slug": "capri-collection-outdoor-dining-chair",
-      "published": true,
-      "overall": 7.8,
-      "words": 139,
-      "hasDims": false,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": null,
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 13.2
-      },
-      "specs": null,
-      "category": "Garden Furniture",
-      "supplier": "Hill Interiors",
-      "price": 225
     },
     {
       "id": "product-import-contour-collection-pet-feeder-table",
@@ -7090,64 +6698,6 @@
       "price": 49
     },
     {
-      "id": "product-import-large-ribbed-gesso-lamp",
-      "title": "Large Ribbed Gesso Table Lamp | Luxury Designer Table Lamp | Kaiku",
-      "slug": "large-ribbed-gesso-table-lamp",
-      "published": true,
-      "overall": 8,
-      "words": 772,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 81,
-        "length": 41,
-        "unit": "cm",
-        "width": 41
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 10
-      },
-      "specs": [
-        {
-          "_key": "spec-0",
-          "_type": "productSpec",
-          "label": "Colour",
-          "value": "Brown, Neutral, Taupe"
-        },
-        {
-          "_key": "spec-1",
-          "_type": "productSpec",
-          "label": "Material",
-          "value": "Gesso"
-        },
-        {
-          "_key": "spec-2",
-          "_type": "productSpec",
-          "label": "Size",
-          "value": "81-90 cm"
-        },
-        {
-          "_key": "spec-3",
-          "_type": "productSpec",
-          "label": "Dimensions",
-          "value": "41W x 41D x 81H cm"
-        },
-        {
-          "_key": "spec-4",
-          "_type": "productSpec",
-          "label": "Weight",
-          "value": "10 kg"
-        }
-      ],
-      "category": "Lighting",
-      "supplier": "D.I. Designs",
-      "price": 230
-    },
-    {
       "id": "product-import-large-rustic-metal-hanging-bell",
       "title": "Large Rustic Metal Hanging Bell | Kaiku",
       "slug": "large-rustic-metal-hanging-bell",
@@ -7175,60 +6725,6 @@
       "price": 19
     },
     {
-      "id": "product-import-lennox-black-2-door-side-cupboard",
-      "title": "Lennox Black 2 Door Side Cupboard | Kaiku",
-      "slug": "lennox-black-2-door-side-cupboard",
-      "published": true,
-      "overall": 7.3,
-      "words": 283,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 67,
-        "length": 43,
-        "unit": "cm",
-        "width": 49
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 10
-      },
-      "specs": null,
-      "category": "Storage",
-      "supplier": "Hill Interiors",
-      "price": 235
-    },
-    {
-      "id": "product-import-lennox-black-framed-console",
-      "title": "Lennox Black Framed Console | Kaiku",
-      "slug": "lennox-black-framed-console",
-      "published": true,
-      "overall": 7.9,
-      "words": 1006,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 81,
-        "length": 36,
-        "unit": "cm",
-        "width": 132
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 20
-      },
-      "specs": null,
-      "category": "Console Tables",
-      "supplier": "Hill Interiors",
-      "price": 199
-    },
-    {
       "id": "product-import-nahla-large-mirror-with-dimpled-frame",
       "title": "Nahla Large Mirror With Dimpled Frame | Kaiku",
       "slug": "nahla-large-mirror-with-dimpled-frame",
@@ -7254,103 +6750,6 @@
       "category": "Mirrors",
       "supplier": "Hill Interiors",
       "price": 99
-    },
-    {
-      "id": "product-import-norton-black-end-table",
-      "title": "Norton Black Square End Table | Modern Side Table | Kaiku",
-      "slug": "norton-black-square-end-table",
-      "published": true,
-      "overall": 8.2,
-      "words": 557,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": true,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 48,
-        "length": 56,
-        "unit": "cm",
-        "width": 56
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 10.3
-      },
-      "specs": [
-        {
-          "_key": "spec-0",
-          "_type": "productSpec",
-          "label": "Material",
-          "value": "Metal"
-        },
-        {
-          "_key": "spec-1",
-          "_type": "productSpec",
-          "label": "Size",
-          "value": "51-60 cm"
-        },
-        {
-          "_key": "spec-2",
-          "_type": "productSpec",
-          "label": "Colour",
-          "value": "Black"
-        },
-        {
-          "_key": "spec-3",
-          "_type": "productSpec",
-          "label": "Dimensions",
-          "value": "56 × 56 × 48 cm"
-        },
-        {
-          "_key": "spec-4",
-          "_type": "productSpec",
-          "label": "Weight",
-          "value": "10.3 kg"
-        },
-        {
-          "_key": "spec-5",
-          "_type": "productSpec",
-          "label": "Packed size",
-          "value": "62.5W x 62.5D x 59H cm"
-        },
-        {
-          "_key": "spec-6",
-          "_type": "productSpec",
-          "label": "Packed weight",
-          "value": "14.7kg"
-        }
-      ],
-      "category": "Side Tables",
-      "supplier": "D.I. Designs",
-      "price": 299
-    },
-    {
-      "id": "product-import-oura-round-coffee-table",
-      "title": "Oura Round Coffee Table | Kaiku",
-      "slug": "oura-round-coffee-table",
-      "published": true,
-      "overall": 7.2,
-      "words": 974,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 40,
-        "length": 72,
-        "unit": "cm",
-        "width": 72
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 10
-      },
-      "specs": null,
-      "category": "Coffee Tables",
-      "supplier": "Hill Interiors",
-      "price": 169
     },
     {
       "id": "product-import-provence-collection-outdoor-bistro-table",
@@ -7415,33 +6814,6 @@
       "category": "Garden Furniture",
       "supplier": "Hill Interiors",
       "price": 299
-    },
-    {
-      "id": "product-import-slim-snowy-woodland-pre-lit-200-led-christmas-tree",
-      "title": "Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree | Kaiku",
-      "slug": "slim-snowy-woodland-pre-lit-200-led-christmas-tree",
-      "published": true,
-      "overall": 7,
-      "words": 1067,
-      "hasDims": true,
-      "hasWeight": true,
-      "hasSpecs": false,
-      "dimensions": {
-        "_type": "dimensions",
-        "height": 210,
-        "length": 91,
-        "unit": "cm",
-        "width": 91
-      },
-      "weight": {
-        "_type": "weight",
-        "unit": "kg",
-        "value": 6.2
-      },
-      "specs": null,
-      "category": "Christmas Trees",
-      "supplier": "Hill Interiors",
-      "price": 230
     }
   ],
   "blocked": []
