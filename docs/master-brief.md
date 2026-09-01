@@ -16,6 +16,51 @@ Status key:
 
 ---
 
+## The comprehensive audit, and the first real rewrite batch (1 September)
+
+Damien: _"continue the description audit then make a report of everything
+youve fixed and what needs fixing and what needs to be better, after this i
+want minimal things needing reviewing in the products tab of kaiku hq."_
+
+- [x] **A true comprehensive audit, drafts included** — the earlier one
+      (31 August) had no write token and could only see 732 published
+      products. `scripts/audit-full-catalogue.ts` sees the whole thing: 1630
+      products (755 published, 875 drafts). Live counts: **GOLD 70, SILVER
+      697, REVIEW 863** overall; **published-only: GOLD 38, SILVER 630,
+      REVIEW 87.**
+- [x] **SKU and yesterday's artefact fixes, confirmed durable catalogue-wide**
+      — 0 missing SKUs, 0 non-canonical, out of all 1630. The html-entity and
+      doubled-spacing fix is clean across the whole catalogue bar one new
+      instance (see below).
+- [x] **Classified every zero-fact REVIEW product by whether it's actually
+      fixable** — 223 products carry the "900+ words, not one measurement"
+      fault. All 223 have real dimensions, weight or specs recorded that the
+      description just never used — **zero are genuinely blocked on missing
+      data.** This is real writing work, not a data problem.
+- [x] **First batch written and verified: the 14 highest-value published
+      products.** `scripts/write-review-tier-descriptions.ts` — real numbers
+      only, pulled from each product's own `dimensions`/`weight`/`specs`,
+      cross-checked against packed/carton dimensions where the raw label
+      didn't say which number was width vs depth. Applied and verified live
+      (not the script's own printout): published REVIEW dropped **101 → 87**.
+  - [-] **Dropped one candidate from this batch rather than guess:**
+    "Delphine Collection Sliding Glass Dresser Top" — its specs read as
+    generic placeholders ("Standard size", "Lightweight") rather than
+    real values, and a recorded height of 120cm on a dresser-top glass
+    panel doesn't hold together. Flagged below rather than written from
+    data that doesn't add up.
+- [ ] **209 more zero-fact products, same fix, not started.** Real
+      per-product writing, same standard — genuinely the bulk of what
+      still stands between here and "minimal things needing review."
+- [ ] **65 remaining artefact instances, drafts included** — 32 "quotes the
+      supplier", 22 "admits it doesn't know", 8 markdown, 1 HTML entity, 1
+      internal-threshold leak, 1 raw template syntax. Mostly on drafts (an
+      active generation process — Damien's own workflow or a tool — keeps
+      producing this exact hedge pattern on new drafts). Not yet fixed; see
+      the full report for the breakdown.
+
+---
+
 ## Why expensive products were showing "7 day" delivery (31 August)
 
 Damien: _"the shipping times rule according to price i made doesnt exist
