@@ -57,5 +57,12 @@ next-env.d.ts
 docs/change-log/remediation-items.json
 
 # Throwaway investigation scripts. Anything worth keeping becomes a real
-# script in scripts/ with a comment explaining why it exists.
+# script in scripts/ with a comment explaining why it exists. Several
+# naming conventions have accumulated for these across sessions/agents
+# (a leading dot, "tmp-", "_scratch-", "_throwaway-") — ignored from
+# scripts/ specifically so the pattern doesn't reach outside that folder.
 .tmp-*
+scripts/.tmp-*
+scripts/tmp-*
+scripts/_scratch-*
+scripts/_throwaway-*
