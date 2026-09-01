@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: page?.title ?? "About",
     description:
       page?.intro ??
-      "We're building the UK's most considered home improvement platform — one where the advice is as carefully made as the products.",
+      "We're building the UK's most helpful home store — one where the advice is as carefully made as the products.",
     path: "/about",
   });
 }
@@ -23,7 +23,7 @@ export default async function AboutPage() {
     <GenericPage
       page={page}
       fallbackTitle="A knowledge-first retailer"
-      fallbackIntro="We're building the UK's most considered home improvement platform — one where the advice is as carefully made as the products. More on our approach, and the people behind it, soon."
+      fallbackIntro="We're building the UK's most helpful home store — one where the advice is as carefully made as the products. More on our approach, and the people behind it, soon."
     />
   );
 }

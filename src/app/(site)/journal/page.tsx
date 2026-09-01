@@ -20,7 +20,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = buildMetadata({
   title: "Journal",
   description:
-    "Editorial and writing on home improvement, wellness living and outdoor living.",
+    "Editorial and writing on furniture, garden and outdoor living, and wellness living.",
   path: "/journal",
 });
 
@@ -31,11 +31,11 @@ export default async function JournalPage() {
     <ArticleList
       eyebrow="The Journal"
       title="Considered writing, occasionally"
-      intro="Editorial on home improvement, wellness living and the rituals that make a house feel like home."
+      intro="Editorial on furniture, garden and outdoor living, and the rituals that make a house feel like home."
       basePath="/journal"
       articles={posts}
       emptyTitle="The journal, publishing soon"
-      emptyIntro="Editorial on home improvement and outdoor living — this is where it will live."
+      emptyIntro="Editorial on furniture and outdoor living — this is where it will live."
     />
   );
 }

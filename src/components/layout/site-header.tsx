@@ -270,8 +270,13 @@ export function SiteHeader({
             {/* The room list overflows on narrow screens. It has always been
                 scrollable, but with no affordance it just read as a word cut in
                 half at the right edge — the mask fades the last item out so it
-                reads as "more to scroll" instead of "broken text". */}
-            <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12">
+                reads as "more to scroll" instead of "broken text".
+                `[scrollbar-width:none]` hides the track in Firefox; without the
+                matching `::-webkit-scrollbar` rule, Chrome/Edge/Safari render a
+                grey scrollbar across the bottom of the bar that appears and
+                disappears as you interact with it — the bar visibly jumping.
+                Same fix already applied in shop-drill-nav.tsx. */}
+            <div className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden">
               {roomLinks.map((item) => {
                 const active = item.href === activeRoom;
                 return (

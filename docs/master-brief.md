@@ -16,6 +16,58 @@ Status key:
 
 ---
 
+## Draft artefact cleanup, a header bug fix, and a positioning change (1 September)
+
+- [x] **Draft artefact cleanup: last 34 draft products, 49 fixes, applied and
+      verified.** `scripts/fix-draft-artefacts-batch1.ts` — the remaining
+      "admits a gap", "quotes the supplier", markdown, HTML-entity and one
+      internal-threshold-leak instance, all on drafts. Dry run matched 49/49
+      before anything was written. Confirmed live afterward via
+      `audit-full-catalogue.ts`: **ARTEFACTS remaining: none**, across the
+      whole 1,629-document catalogue (published and draft). This closes the
+      "65 remaining artefact instances, mostly on drafts" item.
+  - What's left in the draft catalogue is now only the **129 zero-fact REVIEW
+    products** (all 129 confirmed fixable — real dims/weight/specs exist,
+    the written description just doesn't use them yet). Same real-facts
+    standard as the 117 published rewrites applies whenever this continues.
+    Not started this pass — Damien redirected to positioning instead (below).
+- [x] **Fixed a real header bug**: the category sub-bar on shop pages
+      (`site-header.tsx`) was missing `[&::-webkit-scrollbar]:hidden` on its
+      horizontal-scroll row — Chrome/Edge/Safari rendered a visible grey
+      scrollbar track that appeared and disappeared as you scrolled the bar,
+      reading as the bar jumping. The same bug had already been found and
+      fixed in `shop-drill-nav.tsx`, `rail.ts` and two other spots; this was
+      the one row that never got the fix. Reported by Damien as "the scroll
+      bar up down always bugs out here."
+- [x] **Positioning: broadened from "home improvement" to "the UK's most
+      helpful home store."** Damien: _"we need to kind of position ourself as
+      a premium home store, home improvement store, indoors and outdoors
+      furniture store and garden wellness and sauna store all at once... the
+      most helpful uk home store appearing [in] googles results could catch a
+      lot of traffic, it sounds unique"_ — confirmed no incumbent (John Lewis,
+      Dunelm, M&S) claims that exact phrase, so it is genuinely ownable
+      ground for long-tail/content SEO, not a claim to out-rank them on head
+      terms.
+  - Updated `siteConfig.tagline`/`description` (the single source every page
+    title, meta description, OG tag and JSON-LD reads from), the homepage
+    hero eyebrow, the About/Journal/Learn page copy, the `/shop/room/[room]`
+    fallback description, and the AI product-description prompt
+    (`write-description.ts`) to the broader "home store" framing —
+    furniture, decor, garden structures/outdoor living, and wellness
+    (saunas, cold plunges).
+  - **Deliberately did not put the literal phrase "home improvement" back
+    into any customer-facing copy.** `shop-all.tsx` already carries this
+    exact decision, in Damien's own words from an earlier session — _"we can
+    say the uks most helpful/informative home improvement store because we
+    are"_ — with the reasoning that in the UK "home improvement" means
+    B&Q/Wickes (timber, paint, power tools), not furniture/decor/garden/
+    sauna, and using it risks the wrong expectation at the door. Put the
+    question back to Damien this session and he confirmed: keep it out.
+    The AI description-writer prompt now says so explicitly, so future
+    generated copy doesn't drift back into it either.
+
+---
+
 ## Post-emergency artefact cleanup: published catalogue effectively clean (1 September)
 
 Resumed the description-audit work once the Sanity/Vercel bot-traffic incident
@@ -27,7 +79,7 @@ incomplete tasks."_
       remained (27 published, 34 draft), more than the pre-emergency count
       because the emergency interrupted the cleanup mid-pass.
 - [x] **8 published markdown/template-syntax fixes.** `scripts/fix-markdown-
-    artefacts-batch2.ts` — six mechanical strips (literal `*`/`- **bold**`
+  artefacts-batch2.ts` — six mechanical strips (literal `*`/`- **bold**`
       markdown in FAQ dimension answers and a bed-frame's feature list, a
       stray `*` standing in for a multiplication sign). One real rewrite:
       "Soft Squiggly Mirror" had raw generator scaffolding

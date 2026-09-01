@@ -10,9 +10,9 @@ export const siteConfig = {
   // Kaiku trades as a sole trader, so the legal name is the trader's own name.
   // See the note on `companyDetails` for why this is not "Project Kaiku Ltd".
   legalName: "Damien McCormack",
-  tagline: "Premium home improvement, considered",
+  tagline: "The UK's most helpful home store",
   description:
-    "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",
+    "Kaiku is the UK's most helpful home store — premium furniture and decor, garden structures and outdoor living, and wellness structures like saunas and cold plunges, chosen with expert guidance and built to last a lifetime.",
   // www, not the bare domain — kaikuhome.com 308-redirects to
   // www.kaikuhome.com in production, so the bare domain was never the
   // actual final URL any page serves from. Every canonical tag, OG tag,
@@ -154,7 +154,7 @@ export const primaryNav: NavGroup[] = [
 
 /**
  * Collection sub-navigation — the secondary bar shown on shop routes. Labels
- * are brand-coherent (the premium home improvement range) rather than the
+ * are brand-coherent (the premium home store range) rather than the
  * generic room-based template labels. This is a fallback only: the header
  * prefers Sanity-sourced departments when available.
  */

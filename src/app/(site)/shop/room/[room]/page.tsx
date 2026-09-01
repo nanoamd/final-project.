@@ -42,7 +42,8 @@ export async function generateMetadata({
   return {
     title: department?.name ?? "Shop",
     description:
-      department?.description ?? "Premium home improvement, room by room.",
+      department?.description ??
+      "The UK's most helpful home store, room by room.",
     /**
      * Self-canonical. This page and /shop/room/<room>/all list the same
      * products, and neither declared a preference — so Search Console reports

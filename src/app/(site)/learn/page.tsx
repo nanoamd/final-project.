@@ -20,7 +20,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = buildMetadata({
   title: "Buying Guides",
   description:
-    "Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts.",
+    "Practical, jargon-free buying guides on furniture, saunas, cold therapy and garden structures that last.",
   path: "/learn",
 });
 
@@ -31,11 +31,11 @@ export default async function LearnPage() {
     <ArticleList
       eyebrow="Buying Guides"
       title="In-depth guides, honestly written"
-      intro="Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts."
+      intro="Practical, jargon-free buying guides on furniture, saunas, cold therapy and garden structures that last."
       basePath="/learn"
       articles={guides}
       emptyTitle="In-depth guides, publishing soon"
-      emptyIntro="Practical, jargon-free buying guides on saunas, cold therapy and home improvement that lasts. This is where our knowledge base will live."
+      emptyIntro="Practical, jargon-free buying guides on furniture, saunas, cold therapy and garden structures that last. This is where our knowledge base will live."
     />
   );
 }

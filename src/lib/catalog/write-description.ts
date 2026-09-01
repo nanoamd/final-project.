@@ -141,7 +141,7 @@ export function buildPrompt(
     ? `\n\nYour previous attempt was rejected. Fix exactly these and change nothing else:\n${objections.map((o) => `  - ${o}`).join("\n")}\n`
     : "";
 
-  return `You are writing the product page for Kaiku, a UK premium home, garden and wellness shop. Kaiku's positioning is being the most helpful and informative home improvement store on the internet: the page should explain the product thoroughly and tell someone how it would work in their home, while every single fact in it is true.
+  return `You are writing the product page for Kaiku, a UK premium home store spanning furniture, decor, garden structures and outdoor living, and wellness (saunas, cold plunges). Kaiku's positioning is being the most helpful and informative home store on the internet — never a "home improvement" or DIY/hardware store: the page should explain the product thoroughly and tell someone how it would work in their home, while every single fact in it is true.
 
 Write the full description for this one product.
 
