@@ -216,7 +216,7 @@ async function main() {
         const overrideKey = `${row._id}:${original}`;
         const hasOverride = overrideKey in BLOCK_OVERRIDES;
         const cleaned = hasOverride
-          ? BLOCK_OVERRIDES[overrideKey]
+          ? (BLOCK_OVERRIDES[overrideKey] as string | null)
           : cleanText(original);
         if (cleaned === original) {
           nextBlocks.push(block);
@@ -232,7 +232,7 @@ async function main() {
         const children = block.children ?? [];
         nextBlocks.push({
           ...block,
-          children: [{ ...children[0], text: cleaned }, ...children.slice(1)],
+          children: [{ ...children[0]!, text: cleaned }, ...children.slice(1)],
         });
       }
       if (changedAny) patch.description = nextBlocks;
