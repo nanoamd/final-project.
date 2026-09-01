@@ -86,7 +86,7 @@ const ADMITS_A_GAP =
  * about a lamp.
  */
 const GUESSES_FROM_ABSENCE =
-  /\b(?:(?:no|nothing|none)\b[^.]{0,80}?\b(?:mentioned|specified|stated|listed|indicated|given)\b[^.]{0,40}?\b(?:indicat\w+|suggest\w+|implies|implying|meaning|so it|therefore|which means)|(?:indicating|suggesting|implying) that it (?:may|might|should|would|is likely|probably)|\b(?:presumably|appears to be|would appear|seems to be|may well be)\b|\bsince (?:no|none|nothing)\b[^.]{0,60}|\bas (?:no|none|nothing)\b[^.]{0,60}\b(?:is|are)\b)/i;
+  /\b(?:(?:no|nothing|none)\b[^.]{0,80}?\b(?:mentioned|specified|stated|listed|indicated|given)\b[^.]{0,40}?\b(?:indicat\w+|suggest\w+|implies|implying|meaning|so it|therefore|which means)|(?:indicating|suggesting|implying) that it (?:may|might|should|would|is likely|probably)|\b(?:presumably|appears to be|would appear|seems to be|may well be)\b|\b(?:since|as|because)\s+(?:no|none|nothing)\b[^.]{0,60}?\b(?:is|are|was|were)\s+(?:mentioned|specified|stated|listed|given|provided|detailed|indicated|available|disclosed|noted|documented)\b)/i;
 
 /**
  * Sentences that send the reader somewhere else for the answer.
