@@ -64,6 +64,70 @@ Multi Shelf Unit, the £829 Light Up Bookcase.
 
 ---
 
+## Breadth as the edge, and where the catalogue does not look premium (2 September)
+
+Damien has set the strategy: _"product count is going to be our edge for a fresh
+dropshipping brand ... so im going to find more suppliers"_ — then, immediately,
+the problem with it: _"we have empty categories or categories with the low budget
+products which isnt what you expect we need more premium products and brands."_
+
+Full sourcing brief in `docs/research/premium-positioning-gaps.md`.
+
+### The finding
+
+**Breadth is currently concentrated in the cheap end.** The four largest
+non-furniture categories are the four with the lowest medians:
+
+| Category             | Products | Median | Top  |
+| -------------------- | -------- | ------ | ---- |
+| Planters             | 86       | £60    | £246 |
+| Wall Clocks          | 36       | £53    | £199 |
+| Bathroom Accessories | 35       | £27    | £49  |
+| Water Features       | 27       | £45    | £120 |
+
+That is 184 products — a fifth of the catalogue — so a shopper browsing the
+widest parts of the shop sees the cheapest things in it. The furniture
+categories are genuinely well positioned by contrast: Sofas £272–£2,078, TV
+Units £139–£1,591, Kitchen Furniture £129–£2,459.
+
+So count as the edge is sound, but count and cheapness are the same axis right
+now. The fix is not fewer cheap products, it is more expensive ones in the
+categories that already have depth.
+
+- [~] 3 empty categories: Bathroom Lighting, Towel Rails, Living Room Rugs — all
+  three already carry SEO copy, buying guidance and FAQs, so they rank the
+  moment stock lands
+- [~] 13 categories with nothing above £250 to anchor the range
+- [~] 3 categories more than 30% under £25 — Bathroom Accessories is the clearest
+  case in the shop: 35 products, median £27, nothing over £49
+- [~] 11 categories too thin to read as a range, of which Sauna and Cold Plunge
+  are thin by nature and the rest are unsourced
+
+### Sourcing priorities, by what would change the shop most
+
+1. **Rugs** — empty, copy already written, high value, high margin, cross-sells
+   against every furniture range we are strong in. Nothing else is as ready.
+2. **Premium planters, £250–£800** — 86 products of depth with no ceiling.
+3. **Bathroom entire** — lighting, towel rails, accessories above £50. Three of
+   the worst-positioned entries are one room, so one supplier fixes a department.
+4. **Statement lighting for kitchen and office** — thin at 5 and 4.
+5. **Water features and garden lighting above £250** — both cap at £110–£120.
+6. **Outdoor storage** — 4 products, top £149.
+
+- [-] **Not** more sub-£25 decor. There is enough, it is already the loudest part
+  of the shop by volume, and each new cheap line worsens the positioning
+  rather than improving the breadth advantage.
+
+### One thing to check before signing any supplier
+
+On Hill's terms a £20 item carries £6.99 of carriage and cannot be sold at market
+price at all when dropshipped singly. Cheap products only work where carriage is
+included in the trade price, or where they are bought to stock. **Ask about
+carriage terms before range** — that is the question that would have saved the
+£1,250 on Hill.
+
+---
+
 ## With VAT counted, the Hill range is not a pricing problem (2 September)
 
 Damien: _"you need to account for cost prices, vat and shipping."_ Doing that
@@ -686,11 +750,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                              | ---- | ------------------- |
-                                              | 0.09 (before) | **454ms** |
-                                              | 0.18 (now)    | **232ms** |
+                                                  | ---- | ------------------- |
+                                                  | 0.09 (before) | **454ms** |
+                                                  | 0.18 (now)    | **232ms** |
 
-                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
