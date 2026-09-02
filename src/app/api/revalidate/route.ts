@@ -99,6 +99,22 @@ export async function POST(request: Request) {
         revalidate(`/shop/room/${body.roomSlug}`);
         revalidate(`/shop/room/${body.roomSlug}/all`);
       }
+      /*
+       * The Merchant Center feed carries the price too, and it was not on this
+       * list.
+       *
+       * The product page revalidates the instant a price changes, through this
+       * webhook. The feed had only its own hourly ISR, so for up to an hour the
+       * two disagreed — the page showing the new price, the feed still serving
+       * the old one. A price mismatch between feed and landing page is one of
+       * the reasons Merchant Center disapproves an item, and it bites hardest
+       * exactly when prices have just been corrected in bulk, which is when the
+       * most items are in flight.
+       *
+       * Revalidating it here costs one regeneration per publish and closes the
+       * window to nothing.
+       */
+      revalidate("/api/feeds/google-merchant");
       break;
     }
     case "collection":

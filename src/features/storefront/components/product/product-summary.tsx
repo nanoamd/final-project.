@@ -26,6 +26,10 @@ import { trackAddToCart } from "@/lib/analytics/events";
 import { availabilityLine, leadTimeLine } from "@/lib/catalog/delivery";
 import { selectableOptions } from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
+import {
+  needsTwoManDelivery,
+  TWO_MAN_EXCLUSION_NOTE,
+} from "@/lib/suppliers/delivery-zones";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -317,6 +321,18 @@ export function ProductSummary({
           product.stockQuantity <= LOW_STOCK_THRESHOLD ? (
             <p className="mt-2 text-[13px] font-medium text-amber-700">
               Only {product.stockQuantity} left in stock
+            </p>
+          ) : null}
+          {/* Where a two-person delivery genuinely cannot reach.
+              Our suppliers' two-man services do not serve Northern Ireland,
+              the Isle of Man, the Outer Hebrides, Orkney, Shetland or the
+              remoter Highlands and Argyll at all — and checkout accepts any UK
+              address, so without this a customer in Belfast could buy a 63kg
+              bookcase and we would have to unwind the sale after taking the
+              money. Said before the order rather than after it. */}
+          {needsTwoManDelivery(product.weight?.value) ? (
+            <p className="text-graphite mt-2 text-[13px] leading-relaxed">
+              {TWO_MAN_EXCLUSION_NOTE}
             </p>
           ) : null}
         </div>

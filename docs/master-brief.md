@@ -16,6 +16,98 @@ Status key:
 
 ---
 
+## Where the margin is actually thin, and a postcode we cannot deliver to (2 September)
+
+### Only 267 of 906 products can have their margin measured at all
+
+Damien asked how many products leave minimal profit. The honest answer is that
+for 639 of them nobody can say, because carriage is not recorded:
+
+| Supplier           | Products | Carriage recorded | Shipping rule  |
+| ------------------ | -------- | ----------------- | -------------- |
+| Premier Housewares | 546      | **1**             | none           |
+| Aosom              | 103      | 22                | none           |
+| Hill Interiors     | 139      | 139               | weight bands ✓ |
+| AW Dropship        | 56       | 47                | none           |
+| D.I. Designs       | 54       | 50                | none           |
+| SaunaPlunge        | 8        | 8                 | included ✓     |
+
+Damien believes Premier and Aosom pricing is correct, and their _cost prices_
+may well be — Premier's were VAT-corrected in August. But **Premier is 60% of
+the catalogue and its carriage terms are not recorded anywhere**, so its margin
+cannot be verified, only assumed. That is the same position Hill was in this
+morning, and Hill turned out to be absorbing £1,250.
+
+- [!] **Blocked on Damien:** Premier Housewares and Aosom carriage terms. One
+  rate card each closes 649 products.
+
+### Of the 267 that can be measured
+
+- [x] 0 losing money
+- [x] 0 under 10% net margin
+- [x] 0 under 15% net margin
+- [~] 52 under 20% net
+- [~] 6 returning under £5 net on an order — two AW Dropship essential oils at
+  £2.75 and £3.25 (39% and 41% margin, so the percentage is fine and the
+  pounds are not), and four Hill pieces at £3.41 to £4.19
+
+The £5 figure is mine, not Damien's — roughly what an order costs to handle
+end to end. The point of separating it from the percentage is that a 40% margin
+on a £6.95 bottle of oil passes every percentage floor and still returns £2.75.
+
+`scripts/audit-thin-margins.ts`, read-only, re-runnable.
+
+### A postcode we take money for and cannot deliver to
+
+Hill's rate card: _"2 Man delivery service is not available in these postcodes;
+BT (all), HS (all), IM (all), IV26-99, KA27, KA28, KW (all), PA15-78, PH19-50,
+ZE (all)."_ Checkout accepts any GB address with no postcode logic, so a
+customer in Belfast could buy the 63kg Light Up Bookcase and we would have to
+unwind the sale after taking the money.
+
+- [x] `src/lib/suppliers/delivery-zones.ts` — classifies a UK postcode into
+      two-man availability and remote surcharge, with 11 tests. The district
+      ranges matter: Hill exclude IV26-99, so Inverness is served and Ullapool
+      is not, and only KA27/KA28 of all KA. An unparseable postcode is treated
+      as unrestricted, because a wrong guess must never block a fulfillable sale.
+- [x] The exclusion stated on the product page for the 52 pieces at or above
+      40kg, before the order rather than after it.
+- [ ] Not done: blocking at checkout. Stripe collects the address after the
+      session is created, so a real block needs a postcode step before checkout
+      or a validation in order handling. The page notice is the honest interim.
+- [ ] Not done: the £10 remote surcharge is still unmodelled on every supplier.
+
+### Aosom weights that cannot be right
+
+Surfaced by the 40kg two-man threshold. These would wrongly warn on flat-pack
+items, and would wreck any weight-banded carriage calculation:
+
+- 4ft6 Double Ottoman Bed, £399 — **500kg**
+- King Gas-Lift Ottoman Bed, £203.69 — **500kg**
+- 4ft6 Double Bed Frame, £109 — **272kg**
+- 3ft Single Bed Frame, £89 — **136kg**
+- Modern Writing Desk, £69 — **80kg**
+- LED Computer Desk, £59 — **60kg**
+
+Almost certainly pallet or carton-quantity weights rather than unit weights.
+Not corrected here because the real figures have to come from Aosom.
+
+### Merchant Center: yes, the new prices flow automatically
+
+The feed at `/api/feeds/google-merchant` is generated from Sanity on request,
+so it carries whatever price is current — the repriced items will be reviewed
+against their new prices, not the old ones.
+
+- [x] One gap found and fixed: the revalidation webhook cleared the product page
+      and every listing page on a price change but **not the feed**, which had
+      only its own hourly ISR. So for up to an hour the landing page showed the
+      new price and the feed served the old one, and a feed-versus-page price
+      mismatch is one of the reasons Merchant Center disapproves an item. Worst
+      possible timing is a bulk reprice, which is exactly what just happened.
+      The feed path is now revalidated with the rest.
+
+---
+
 ## Hill Interiors: real carriage bands, and 76 prices corrected (2 September)
 
 Damien sent Hill's published rate card after my second attempt: _"so our prices
@@ -426,11 +518,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                              | ---- | ------------------- |
-                              | 0.09 (before) | **454ms** |
-                              | 0.18 (now)    | **232ms** |
+                                  | ---- | ------------------- |
+                                  | 0.09 (before) | **454ms** |
+                                  | 0.18 (now)    | **232ms** |
 
-                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
