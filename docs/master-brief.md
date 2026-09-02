@@ -16,6 +16,75 @@ Status key:
 
 ---
 
+## Every category page now has SEO copy, buying guidance and FAQs — 49/49 (2 September)
+
+Damien sent a screenshot of a category in Studio with "SEO introduction" and
+"Buying guidance" both reading **Empty**, and said to do this before anything
+else. He was right that it was the priority: this is a requirement the brief has
+carried from the start — _"Every category page needs: SEO introduction, buying
+guidance, FAQs, internal links, related categories"_ — and only 12 of 49
+categories had it. The other 37 were a heading and a product grid, which ranks
+for nothing, because there is no text on the page for a query to match.
+
+### The code defect underneath it
+
+`buyingGuide` has been in the category schema, in the GROQ projection and in the
+Studio editor since the field was added. **It was rendered nowhere.** Every word
+already written into that field — on Coffee Tables, Sofas, Garden Furniture and
+nine others — was invisible on the live site. Filling the field on 37 more
+categories without finding this would have produced 37 more invisible pages.
+
+Fixed in `shop-all.tsx`: the `CategoryContent` block now renders the guidance
+under a "How to choose" heading, above the FAQs, in the same 68-character
+measure as the intro.
+
+- [x] `buyingGuide` rendered on the category page (`shop-all.tsx`)
+- [x] `intro` — 2 paragraphs on every one of 49 categories
+- [x] `buyingGuide` — 4 paragraphs on every one of 49 categories
+- [x] `faqs` — 4 questions on every one of 49 categories, with `FAQPage` schema
+- [x] `seo.metaTitle` on all 49 (15 were inheriting the site default)
+- [x] `seo.metaDescription` on all 49, every one inside 70–160 characters
+- [x] Room-level `seo.metaTitle`, `seo.metaDescription` and `description` on all
+      11 departments — every room page was previously using the site default
+
+### How the copy was written
+
+`scripts/fill-category-content.ts`, applied and verified live with a fresh
+uncached client. Nothing was generated from the category name. For each category
+I pulled its own stock first — price range, dimension range, material tags and
+the actual product names — and wrote from that. So the Planters intro says 86
+pieces from £15 to £246 in heights from 11cm to 189cm because that is what is in
+it; the TV Units guidance gives the unit height for a 55-inch screen because the
+range runs 44cm to 66cm and the arithmetic is the useful part.
+
+The guidance is deliberately the sort of thing that gets a page ranked for a
+question rather than a product name: how much clearance behind a dining chair
+(90cm), how tall a mirror has to be to show a whole outfit (120cm), why a solar
+light in a hedge disappoints, why you plant a large pot where it will stand.
+
+Existing content was never overwritten. The script writes only into empty fields,
+so the twelve categories Damien already had keep every word of theirs.
+
+### Three categories with no products still got full copy
+
+Towel Rails, Bathroom Lighting and Rugs hold nothing yet. They are `noindex,
+follow` while empty, so the copy is not chasing a ranking today — but the pages
+are URL-reachable, the intro renders above the coming-soon state, and the
+guidance is honest about the range being curated rather than pretending stock
+exists.
+
+### Still open on this
+
+- [ ] Departments have no `intro` or `buyingGuide` fields at all — only
+      `description` and `seo`. Room pages therefore carry no body copy of their
+      own. Adding those two fields to the department schema is a small change and
+      would give 11 more rankable pages; say the word and I will.
+- [!] Cold Plunge and Outdoor Kitchen still have one category each, and Lighting
+  has one. Those room grids are thin because the catalogue is, not because
+  the copy is missing.
+
+---
+
 ## The "laggy" site: found, measured and fixed (2 September)
 
 Damien reported "the websites laggy too". Investigated properly rather than
@@ -38,11 +107,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-          | ---- | ------------------- |
-          | 0.09 (before) | **454ms** |
-          | 0.18 (now)    | **232ms** |
+              | ---- | ------------------- |
+              | 0.09 (before) | **454ms** |
+              | 0.18 (now)    | **232ms** |
 
-          Roughly halved. Still visibly smooth, but it tracks the wheel.
+              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

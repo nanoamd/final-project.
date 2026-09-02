@@ -1,0 +1,468 @@
+{
+  "apply": true,
+  "queued": 47,
+  "results": [
+    {
+      "slug": "bathroom-mirrors",
+      "title": "Mirrors",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 597,
+      "guideChars": 957,
+      "metaTitleLen": 35,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "bathroom-storage",
+      "title": "Storage",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 611,
+      "guideChars": 886,
+      "metaTitleLen": 35,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "bathroom-accessories",
+      "title": "Accessories",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 585,
+      "guideChars": 887,
+      "metaTitleLen": 39,
+      "metaDescLen": 138
+    },
+    {
+      "slug": "towel-rails",
+      "title": "Towel Rails",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 467,
+      "guideChars": 869,
+      "metaTitleLen": 30,
+      "metaDescLen": 135
+    },
+    {
+      "slug": "bathroom-lighting",
+      "title": "Lighting",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 527,
+      "guideChars": 912,
+      "metaTitleLen": 36,
+      "metaDescLen": 130
+    },
+    {
+      "slug": "beds",
+      "title": "Beds",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 576,
+      "guideChars": 1060,
+      "metaTitleLen": 22,
+      "metaDescLen": 129
+    },
+    {
+      "slug": "bedroom-storage",
+      "title": "Storage",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 509,
+      "guideChars": 945,
+      "metaTitleLen": 33,
+      "metaDescLen": 145
+    },
+    {
+      "slug": "bedroom-lighting",
+      "title": "Lighting",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 609,
+      "guideChars": 896,
+      "metaTitleLen": 34,
+      "metaDescLen": 134
+    },
+    {
+      "slug": "bedroom-mirrors",
+      "title": "Mirrors",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 549,
+      "guideChars": 964,
+      "metaTitleLen": 33,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "candles-and-lanterns",
+      "title": "Candles & Lanterns",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 581,
+      "guideChars": 890,
+      "metaTitleLen": 34,
+      "metaDescLen": 136
+    },
+    {
+      "slug": "christmas-trees",
+      "title": "Christmas Trees",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 481,
+      "guideChars": 917,
+      "metaTitleLen": 31,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "mirrors",
+      "title": "Mirrors",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 638,
+      "guideChars": 981,
+      "metaTitleLen": 23,
+      "metaDescLen": 126
+    },
+    {
+      "slug": "vases",
+      "title": "Vases",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 539,
+      "guideChars": 933,
+      "metaTitleLen": 21,
+      "metaDescLen": 126
+    },
+    {
+      "slug": "wall-art",
+      "title": "Wall Art",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 466,
+      "guideChars": 945,
+      "metaTitleLen": 24,
+      "metaDescLen": 129
+    },
+    {
+      "slug": "christmas-decorations",
+      "title": "Christmas Decorations",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 415,
+      "guideChars": 725,
+      "metaTitleLen": 37,
+      "metaDescLen": 130
+    },
+    {
+      "slug": "kitchen-shelving",
+      "title": "Shelving",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 503,
+      "guideChars": 902,
+      "metaTitleLen": 34,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "kitchen-storage",
+      "title": "Storage",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 614,
+      "guideChars": 887,
+      "metaTitleLen": 33,
+      "metaDescLen": 137
+    },
+    {
+      "slug": "kitchen-furniture",
+      "title": "Furniture",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 663,
+      "guideChars": 1052,
+      "metaTitleLen": 44,
+      "metaDescLen": 130
+    },
+    {
+      "slug": "kitchen-lighting",
+      "title": "Lighting",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 582,
+      "guideChars": 953,
+      "metaTitleLen": 34,
+      "metaDescLen": 141
+    },
+    {
+      "slug": "living-room-lighting",
+      "title": "Lighting",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 655,
+      "guideChars": 1023,
+      "metaTitleLen": 42,
+      "metaDescLen": 126
+    },
+    {
+      "slug": "rugs",
+      "title": "Rugs",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 481,
+      "guideChars": 929,
+      "metaTitleLen": 26,
+      "metaDescLen": 131
+    },
+    {
+      "slug": "tv-units",
+      "title": "TV Units",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 555,
+      "guideChars": 1091,
+      "metaTitleLen": 48,
+      "metaDescLen": 124
+    },
+    {
+      "slug": "desks",
+      "title": "Desks",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 559,
+      "guideChars": 977,
+      "metaTitleLen": 22,
+      "metaDescLen": 117
+    },
+    {
+      "slug": "office-lighting",
+      "title": "Lighting",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 491,
+      "guideChars": 920,
+      "metaTitleLen": 32,
+      "metaDescLen": 130
+    },
+    {
+      "slug": "office-shelving",
+      "title": "Shelving",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 487,
+      "guideChars": 839,
+      "metaTitleLen": 32,
+      "metaDescLen": 124
+    },
+    {
+      "slug": "cold-plunges",
+      "title": "Cold Plunges",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 608,
+      "guideChars": 1147,
+      "metaTitleLen": 31,
+      "metaDescLen": 135
+    },
+    {
+      "slug": "outdoor-kitchens",
+      "title": "Outdoor Kitchens",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 535,
+      "guideChars": 1033,
+      "metaTitleLen": 36,
+      "metaDescLen": 138
+    },
+    {
+      "slug": "indoor-saunas",
+      "title": "Indoor Saunas",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 517,
+      "guideChars": 1094,
+      "metaTitleLen": 38,
+      "metaDescLen": 133
+    },
+    {
+      "slug": "wellness-accessories",
+      "title": "Wellness Accessories",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 396,
+      "guideChars": 997,
+      "metaTitleLen": 44,
+      "metaDescLen": 134
+    },
+    {
+      "slug": "pergolas",
+      "title": "Pergolas",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 534,
+      "guideChars": 1053,
+      "metaTitleLen": 43,
+      "metaDescLen": 135
+    },
+    {
+      "slug": "fire-pits",
+      "title": "Fire Pits & Heating",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 569,
+      "guideChars": 1085,
+      "metaTitleLen": 50,
+      "metaDescLen": 126
+    },
+    {
+      "slug": "garden-lighting",
+      "title": "Garden Lighting",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 562,
+      "guideChars": 970,
+      "metaTitleLen": 40,
+      "metaDescLen": 127
+    },
+    {
+      "slug": "planters",
+      "title": "Planters",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 600,
+      "guideChars": 1098,
+      "metaTitleLen": 48,
+      "metaDescLen": 126
+    },
+    {
+      "slug": "water-features",
+      "title": "Water Features",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 535,
+      "guideChars": 929,
+      "metaTitleLen": 51,
+      "metaDescLen": 135
+    },
+    {
+      "slug": "outdoor-storage",
+      "title": "Outdoor Storage",
+      "wrote": ["intro", "buyingGuide", "faqs"],
+      "introChars": 508,
+      "guideChars": 934,
+      "metaTitleLen": 40,
+      "metaDescLen": 128
+    },
+    {
+      "slug": "privacy-screens",
+      "title": "Privacy Screens",
+      "wrote": [
+        "intro",
+        "buyingGuide",
+        "faqs",
+        "seo.metaTitle",
+        "seo.metaDescription"
+      ],
+      "introChars": 641,
+      "guideChars": 1095,
+      "metaTitleLen": 47,
+      "metaDescLen": 132
+    },
+    {
+      "slug": "garden-furniture",
+      "wrote": []
+    },
+    {
+      "department": "outdoor-living",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "sauna",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "cold-plunge",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "outdoor-kitchen",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "living-room",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "bedroom",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "kitchen",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "office",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "bathroom",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "lighting",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    },
+    {
+      "department": "decor",
+      "wrote": ["seo.metaTitle", "seo.metaDescription", "description"]
+    }
+  ]
+}
