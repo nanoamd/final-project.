@@ -64,8 +64,22 @@ const LARGE_FLOOR = 0.2;
 /** Card processing, the rate Kaiku actually pays. */
 const CARD_PCT = 0.015;
 const CARD_FIXED = 0.2;
-/** Flip to true only once Hill's invoices confirm 20% on top. */
-const VAT_ON_COST = false;
+/**
+ * Hill invoice 20% on top and Kaiku, not being VAT-registered, cannot reclaim
+ * it. Damien: "you need to account for cost prices, vat and shipping."
+ *
+ * With it counted, 116 of 139 products were under their floor and real net
+ * margin across the range was 4-5%, not 20%. On several products the price that
+ * clears the floor is above what rivals charge, and rivals can go lower because
+ * they are VAT-registered and reclaiming — their cost on the Provence set is
+ * £928 against our £1,113.60.
+ *
+ * Damien's call on that: "we will just be profitable and not compete but try and
+ * stay close to competitors prices." So the floor wins, and staying close is
+ * served by pricing at the exact minimum that clears it and never a penny above
+ * — which is what minPriceForFloor already returns.
+ */
+const VAT_ON_COST = true;
 
 /** Net margin after carriage and card fees. */
 function netMargin(price: number, cost: number, ship: number): number {

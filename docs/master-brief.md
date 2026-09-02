@@ -16,6 +16,54 @@ Status key:
 
 ---
 
+## Profit first, priced as close to the market as the floor allows (2 September)
+
+Damien, after seeing that profitability and being cheapest cannot both hold:
+_"okay no worries we will just be profitable and not compete but try and stay
+close to competitors prices."_
+
+That resolves the tension. Profit is non-negotiable, so `VAT_ON_COST` is now
+`true` in the reprice and every product goes to the **exact minimum** that clears
+its tier floor and not a penny above — which is what "as close as possible"
+means once profit wins.
+
+- [x] 116 of 139 Hill products raised, £3,086 of uplift, VAT counted on both
+      cost and carriage, each with its own `priceAdjustment` audit document
+
+### Where that lands against the market
+
+| Product                | Was    | Now    | Cheapest rival | vs market               |
+| ---------------------- | ------ | ------ | -------------- | ----------------------- |
+| Antique Gold Hare Lamp | £76    | £91    | £99.95         | **−9%, still cheapest** |
+| Capri Foot Stool       | £276   | £331   | £320           | +3.4%                   |
+| Provence 4 Seater Set  | £1,259 | £1,511 | £1,295         | +17%                    |
+| Garda Juniper Vase     | £124   | £149   | £128.99        | +15.5%                  |
+| Vellis Wingback        | £374   | £449   | £355.81        | +26%                    |
+| Luxe LED Candles       | £23    | £27    | £19.99         | **+35%**                |
+
+`scripts/hill-market-gap.ts` reports this on demand, flagging anything more than
+10% above the cheapest rival found.
+
+### Two of them are no longer pricing decisions
+
+At £27 against £19.99 the candles will not sell, and the damage is wider than one
+product: a shopper who spots a 35% gap concludes the whole shop is expensive.
+Same on the Vellis at +26%.
+
+For those the choice is buy differently or delist. Hill's volume tier is 77.6% of
+dropship and removes carriage on a £500+ order — the candles land at £9.18 that
+way and make 51.6% at the market's own £19.99. Unsellable to best-margin line, on
+purchase terms alone.
+
+### The honest limit
+
+**Only 6 of the 116 repriced products have a market reference.** The other 110
+went up with no idea where the market sits. The highest-value ones are worth
+checking before relying on them — the £556 Delphine dresser, the £750 Large Black
+Multi Shelf Unit, the £829 Light Up Bookcase.
+
+---
+
 ## With VAT counted, the Hill range is not a pricing problem (2 September)
 
 Damien: _"you need to account for cost prices, vat and shipping."_ Doing that
@@ -638,11 +686,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                          | ---- | ------------------- |
-                                          | 0.09 (before) | **454ms** |
-                                          | 0.18 (now)    | **232ms** |
+                                              | ---- | ------------------- |
+                                              | 0.09 (before) | **454ms** |
+                                              | 0.18 (now)    | **232ms** |
 
-                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
