@@ -1,0 +1,103 @@
+{
+  "blocked": 5,
+  "measurable": 8,
+  "total": 906,
+  "report": [
+    {
+      "supplier": "AW Dropship",
+      "products": 56,
+      "ready": false,
+      "blockingFailures": [
+        "Carriage terms recorded",
+        "Every product has a carriage figure"
+      ],
+      "warnings": ["Carriage source is stated"],
+      "stats": {
+        "total": 56,
+        "withCost": 56,
+        "withPrice": 56,
+        "withShip": 47,
+        "withWeight": 56
+      }
+    },
+    {
+      "supplier": "Aosom",
+      "products": 103,
+      "ready": false,
+      "blockingFailures": [
+        "Carriage terms recorded",
+        "Every product has a carriage figure"
+      ],
+      "warnings": ["Carriage source is stated"],
+      "stats": {
+        "total": 103,
+        "withCost": 103,
+        "withPrice": 103,
+        "withShip": 22,
+        "withWeight": 103
+      }
+    },
+    {
+      "supplier": "D.I. Designs",
+      "products": 54,
+      "ready": false,
+      "blockingFailures": [
+        "Carriage terms recorded",
+        "Every product has a carriage figure"
+      ],
+      "warnings": ["Carriage source is stated"],
+      "stats": {
+        "total": 54,
+        "withCost": 54,
+        "withPrice": 54,
+        "withShip": 50,
+        "withWeight": 51
+      }
+    },
+    {
+      "supplier": "Hill Interiors",
+      "products": 139,
+      "ready": false,
+      "blockingFailures": ["Weights present for the weight-banded rule"],
+      "warnings": [],
+      "stats": {
+        "total": 139,
+        "withCost": 139,
+        "withPrice": 139,
+        "withShip": 139,
+        "withWeight": 138
+      }
+    },
+    {
+      "supplier": "Premier Housewares",
+      "products": 546,
+      "ready": false,
+      "blockingFailures": [
+        "Carriage terms recorded",
+        "Every product has a carriage figure"
+      ],
+      "warnings": ["Carriage source is stated"],
+      "stats": {
+        "total": 546,
+        "withCost": 546,
+        "withPrice": 546,
+        "withShip": 1,
+        "withWeight": 0
+      }
+    },
+    {
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "products": 8,
+      "ready": true,
+      "blockingFailures": [],
+      "warnings": ["Carriage source is stated"],
+      "stats": {
+        "total": 8,
+        "withCost": 8,
+        "withPrice": 8,
+        "withShip": 8,
+        "withWeight": 2
+      }
+    }
+  ]
+}
