@@ -1,0 +1,257 @@
+{
+  "apply": true,
+  "fixed": [
+    {
+      "id": "product-aw-acshop-12",
+      "before": "4 Drawer Recycled Wood Storage Chest | Rustic Teak Storage Unit | Kaiku",
+      "after": "4 Drawer Recycled Wood Storage Chest | Kaiku"
+    },
+    {
+      "id": "product-aw-acshop-21",
+      "before": "Large Reclaimed Wood Coffee Table | Recycled Teak | Kaiku",
+      "after": "Large Reclaimed Wood Coffee Table | Kaiku"
+    },
+    {
+      "id": "product-import-abberley-2-drawer-white-bedside-table",
+      "before": "Abberley White Bedside Table | Luxury 2 Drawer Bedside Table | Kaiku",
+      "after": "Abberley White Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-abberley-black-sideboard",
+      "before": "Abberley Black Oak Sideboard | Luxury 4 Door Sideboard | Kaiku",
+      "after": "Abberley Black Oak Sideboard | Kaiku"
+    },
+    {
+      "id": "product-import-abberley-white-chest-of-drawers",
+      "before": "Abberley White Chest of Drawers | Luxury 3 Drawer Chest | Kaiku",
+      "after": "Abberley White Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-abberley-white-desk",
+      "before": "Abberley White Desk | Luxury Oak Home Office Desk | Kaiku",
+      "after": "Abberley White Desk | Kaiku"
+    },
+    {
+      "id": "product-import-abberley-white-end-table",
+      "before": "Abberley White End Table | Luxury Oak Side Table | Kaiku",
+      "after": "Abberley White End Table | Kaiku"
+    },
+    {
+      "id": "product-import-alton-white-chest-of-drawers",
+      "before": "Alton White Chest of Drawers | Luxury 3 Drawer Birch Chest | Kaiku",
+      "after": "Alton White Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-alton-white-console-table",
+      "before": "Alton White Console Table | Luxury 3 Drawer Birch Console Table | Kaiku",
+      "after": "Alton White Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-bamboo-gesso-lamp",
+      "before": "Bamboo Gesso Table Lamp | Luxury White Gesso Designer Lamp | Kaiku",
+      "after": "Bamboo Gesso Table Lamp | Kaiku"
+    },
+    {
+      "id": "product-import-bentley-oak-console-table",
+      "before": "Bentley Grey Aged Oak Console Table | Luxury Oak Console Table | Kaiku",
+      "after": "Bentley Grey Aged Oak Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-berkeley-1-drawer-black-bedside-table",
+      "before": "Berkeley Black 1 Drawer Bedside Table | Luxury High Gloss Bedside Cabinet | Kaiku",
+      "after": "Berkeley Black 1 Drawer Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-berkeley-white-console-table",
+      "before": "Berkeley White Console Table | Luxury High Gloss Console Table | Kaiku",
+      "after": "Berkeley White Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-broadway-chest-of-drawers",
+      "before": "Broadway Oak Chest of Drawers | Luxury 3 Drawer Oak Chest | Kaiku",
+      "after": "Broadway Oak Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-broadway-one-drawer-bedside-table",
+      "before": "Broadway Oak Bedside Table | Luxury Solid Oak 1 Drawer Bedside Table | Kaiku",
+      "after": "Broadway Oak Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-candover-neutral-sofa",
+      "before": "Candover Neutral Upholstered Sofa | Luxury 3 Seater Fabric Sofa | Kaiku",
+      "after": "Candover Neutral Upholstered Sofa | Kaiku"
+    },
+    {
+      "id": "product-import-charlton-2-drawer-walnut-ribbed-bedside-table",
+      "before": "Charlton Ribbed Walnut 2 Drawer Bedside Table | Luxury Walnut Bedside Cabinet | Kaiku",
+      "after": "Charlton Ribbed Walnut 2 Drawer Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-charlton-ribbed-walnut-desk",
+      "before": "Charlton Ribbed Walnut Desk | Luxury Walnut Home Office Desk | Kaiku",
+      "after": "Charlton Ribbed Walnut Desk | Kaiku"
+    },
+    {
+      "id": "product-import-charlton-walnut-ribbed-chest-of-drawers",
+      "before": "Charlton Ribbed Walnut Chest of Drawers | Luxury 6 Drawer Chest | Kaiku",
+      "after": "Charlton Ribbed Walnut Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-chilworth-1-drawer-grey-bedside-table",
+      "before": "Chilworth Grey Bedside Table | Luxury 1 Drawer Bedside Table | Kaiku",
+      "after": "Chilworth Grey Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-easton-2-drawer-chest-of-drawers",
+      "before": "Easton 2 Drawer Chest of Drawers | Luxury Oak Chest | Kaiku",
+      "after": "Easton 2 Drawer Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-elmley-grey-glass-top-end-table",
+      "before": "Elmley Grey End Table | Luxury Glass Side Table | Kaiku",
+      "after": "Elmley Grey End Table | Kaiku"
+    },
+    {
+      "id": "product-import-elmley-ivory-console-table",
+      "before": "Elmley Ivory Console Table | Luxury Glass & Faux Shagreen Console Table | Kaiku",
+      "after": "Elmley Ivory Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-five-black-console-table",
+      "before": "Five Black Console Table | Luxury Oak Console Table | Kaiku",
+      "after": "Five Black Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-grafton-1-drawer-black-bedside-table",
+      "before": "Grafton Black Bedside Table | Industrial Oak 1 Drawer Bedside Table | Kaiku",
+      "after": "Grafton Black Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-grafton-black-chest-of-drawers",
+      "before": "Grafton Black Chest of Drawers | Industrial 3 Drawer Chest | Kaiku",
+      "after": "Grafton Black Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-grafton-black-console-table",
+      "before": "Grafton Black Console Table | Industrial Oak Console Table | Kaiku",
+      "after": "Grafton Black Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-grafton-black-end-table",
+      "before": "Grafton Black End Table | Industrial Oak Side Table | Kaiku",
+      "after": "Grafton Black End Table | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-bedside-table",
+      "before": "Hampton Grey Bedside Table | Luxury Faux Shagreen Bedside Cabinet | Kaiku",
+      "after": "Hampton Grey Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-brown-console-table",
+      "before": "Hampton Brown Shagreen Console Table | Luxury Faux Shagreen Console Table | Kaiku",
+      "after": "Hampton Brown Shagreen Console Table | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-2-nest-tables",
+      "before": "Hampton Ivory Shagreen Nest of Tables | Luxury Nesting Tables Set of 2 | Kaiku",
+      "after": "Hampton Ivory Shagreen Nest of Tables | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-chest-of-drawers",
+      "before": "Hampton Ivory Shagreen Chest of Drawers | Luxury 3 Drawer Chest | Kaiku",
+      "after": "Hampton Ivory Shagreen Chest of Drawers | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-octagonal-mirror",
+      "before": "Hampton Ivory Octagonal Wall Mirror | Luxury Shagreen Designer Mirror | Kaiku",
+      "after": "Hampton Ivory Octagonal Wall Mirror | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-round-bedside-table",
+      "before": "Hampton Ivory Round Bedside Table | Luxury Shagreen Bedside Cabinet | Kaiku",
+      "after": "Hampton Ivory Round Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-square-bedside",
+      "before": "Hampton Ivory Square Bedside Table | Luxury Shagreen Bedside Cabinet | Kaiku",
+      "after": "Hampton Ivory Square Bedside Table | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-ivory-tv-unit",
+      "before": "Hampton Ivory Shagreen TV Unit | Luxury Media Console | Kaiku",
+      "after": "Hampton Ivory Shagreen TV Unit | Kaiku"
+    },
+    {
+      "id": "product-import-hampton-small-square-ivory-mirror",
+      "before": "Hampton Ivory Shagreen Square Wall Mirror | Luxury Designer Mirror | Kaiku",
+      "after": "Hampton Ivory Shagreen Square Wall Mirror | Kaiku"
+    },
+    {
+      "id": "product-import-himbleton-green-sofa",
+      "before": "Himbleton Green 3 Seater Sofa | Luxury Chenille Sofa | Kaiku",
+      "after": "Himbleton Green 3 Seater Sofa | Kaiku"
+    },
+    {
+      "id": "product-import-huddington-black-sideboard",
+      "before": "Huddington Black Sideboard | Luxury 3 Door Sideboard | Kaiku",
+      "after": "Huddington Black Sideboard | Kaiku"
+    },
+    {
+      "id": "product-import-kington-grey-club-chair",
+      "before": "Kington Grey Club Chair | Luxury Upholstered Accent Chair | Kaiku",
+      "after": "Kington Grey Club Chair | Kaiku"
+    },
+    {
+      "id": "product-import-large-ribbed-gesso-lamp",
+      "before": "Large Ribbed Gesso Table Lamp | Luxury Designer Table Lamp | Kaiku",
+      "after": "Large Ribbed Gesso Table Lamp | Kaiku"
+    },
+    {
+      "id": "product-import-large-round-gesso-lamp",
+      "before": "Large Round Gesso Table Lamp | Luxury Designer Lighting | Kaiku",
+      "after": "Large Round Gesso Table Lamp | Kaiku"
+    },
+    {
+      "id": "product-import-large-small-rectangular-gesso-lamp",
+      "before": "Small Rectangular Gesso Table Lamp | Luxury Designer Lighting | Kaiku",
+      "after": "Small Rectangular Gesso Table Lamp | Kaiku"
+    },
+    {
+      "id": "product-import-leckford-oak-ribbed-occasion-table",
+      "before": "Leckford Ribbed Black Oak Occasional Table | Luxury Round Side Table | Kaiku",
+      "after": "Leckford Ribbed Black Oak Occasional Table | Kaiku"
+    },
+    {
+      "id": "product-import-neathan-end-table",
+      "before": "Neatham End Table | Luxury Modern Side Table | Kaiku",
+      "after": "Neatham End Table | Kaiku"
+    },
+    {
+      "id": "product-import-norton-black-end-table",
+      "before": "Norton Black Square End Table | Modern Side Table | Kaiku",
+      "after": "Norton Black Square End Table | Kaiku"
+    }
+  ],
+  "skipped": [
+    {
+      "id": "product-aw-csalt-01",
+      "title": "Himalayan Salt BBQ Cooking Plate | 30 x 20 x 5cm | Kaiku",
+      "middle": "30 x 20 x 5cm"
+    },
+    {
+      "id": "product-aw-eo-03",
+      "title": "Eucalyptus Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "middle": "Ancient Wisdom"
+    },
+    {
+      "id": "product-aw-eo-76",
+      "title": "Sweet Birch Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "middle": "Ancient Wisdom"
+    },
+    {
+      "id": "product-aw-preo-76",
+      "title": "Sweet Birch Essential Oil 50ml | Ancient Wisdom | Kaiku",
+      "middle": "Ancient Wisdom"
+    }
+  ]
+}

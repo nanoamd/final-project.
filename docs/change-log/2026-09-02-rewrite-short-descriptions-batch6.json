@@ -1,0 +1,84 @@
+{
+  "apply": true,
+  "queued": 13,
+  "results": [
+    {
+      "id": "product-import-zephra-chair",
+      "found": true,
+      "sections": 4,
+      "words": 318
+    },
+    {
+      "id": "product-import-seraphia-table-lamp-with-edged-linen-shade",
+      "found": true,
+      "sections": 4,
+      "words": 296
+    },
+    {
+      "id": "product-import-the-serene-collection-three-drawer-bedside-table",
+      "found": true,
+      "sections": 4,
+      "words": 318
+    },
+    {
+      "id": "product-import-seville-collection-lebes-planter",
+      "found": true,
+      "sections": 4,
+      "words": 269
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-side-table",
+      "found": true,
+      "sections": 4,
+      "words": 284
+    },
+    {
+      "id": "product-import-solenne-table-lamp-with-edged-linen-shade",
+      "found": true,
+      "sections": 4,
+      "words": 287
+    },
+    {
+      "id": "product-import-the-serene-collection-one-drawer-side-table",
+      "found": true,
+      "sections": 4,
+      "words": 226
+    },
+    {
+      "id": "product-import-veyla-ceramic-table-lamp-with-linen-shade",
+      "found": true,
+      "sections": 4,
+      "words": 286
+    },
+    {
+      "id": "product-import-square-decorative-hanging-collage-mirror-in-black",
+      "found": true,
+      "sections": 4,
+      "words": 365
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-coffee-table",
+      "found": true,
+      "sections": 4,
+      "words": 343
+    },
+    {
+      "id": "product-import-large-ribbed-gesso-lamp",
+      "found": true,
+      "sections": 4,
+      "words": 364
+    },
+    {
+      "id": "product-import-large-round-gesso-lamp",
+      "found": true,
+      "sections": 4,
+      "words": 347
+    },
+    {
+      "id": "product-import-the-rutland-collection-side-table",
+      "found": true,
+      "sections": 4,
+      "words": 291
+    }
+  ]
+}
