@@ -1,0 +1,35 @@
+{
+  "apply": true,
+  "queued": 6,
+  "waterFeature": {
+    "sections": 5,
+    "words": 469
+  },
+  "faqs": [
+    {
+      "id": "premier-housewares-5505783",
+      "before": "The specification does not provide information about frost resistance. Care should be taken during freezing conditions.",
+      "after": "Bring it under cover through hard frost. Water expands as it freezes, and a planter left full of wet compost through repeated freeze-thaw cycles is at risk of cracking whatever it is made from. Raising it on feet so it drains freely, and emptying or sheltering it in a hard winter, is what protects it."
+    },
+    {
+      "id": "premier-housewares-5511673",
+      "before": "The specification does not include details on adjustable cable length.",
+      "after": "The drop is set at installation. A qualified electrician can shorten the cable to suit your ceiling height when the fitting is wired in, so decide the hanging height before it goes up — over a dining table, leave 75-85cm between the tabletop and the bottom of the fitting."
+    },
+    {
+      "id": "premier-housewares-5511740",
+      "before": "The lamp plugs into a standard socket; the specification does not clarify if hard-wiring is required.",
+      "after": "The lamp plugs into a standard socket — no wiring required, so it is ready to use once a bulb is fitted."
+    },
+    {
+      "id": "premier-housewares-5521147",
+      "before": "The specification does not clarify whether it is suitable for both portrait and landscape hanging.",
+      "after": "An abstract composition has no fixed subject, so either orientation works and there is no wrong way up. Check the fixings on the back before you drill — the hanging hardware is usually set for one orientation, and it determines which way it will hang level."
+    },
+    {
+      "id": "premier-housewares-5528625",
+      "before": "The page does not provide details regarding weather resistance or outdoor suitability.",
+      "after": "Keep it under cover rather than standing out in the weather. Natural rattan absorbs moisture, and repeated wetting and drying slackens the weave and eventually splits the fibres — so a covered terrace, porch or conservatory suits it, and it will last for years there."
+    }
+  ]
+}

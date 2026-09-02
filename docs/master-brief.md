@@ -16,6 +16,90 @@ Status key:
 
 ---
 
+## Every published description rewritten to the sauna standard — 906/906 (2 September)
+
+Damien: "i dont need you to only fact check everything i just need nice long
+kaiku style descriptions." This closes that out.
+
+Live catalogue, verified with a fresh uncached client across all 906 published
+products:
+
+| Check                                    | Start | Now |
+| ---------------------------------------- | ----: | --: |
+| Thin (<=1 heading)                       |    78 |   0 |
+| Under 400 characters                     |    65 |   0 |
+| Raw decimals in `description`            |    76 |   0 |
+| Raw decimals in `specs`                  |    63 |   0 |
+| Hedge / "we don't know" (desc + summary) |    28 |   0 |
+| Hedge / "we don't know" (FAQs)           |    75 |   0 |
+| Keyword-stuffed titles                   |    50 |   0 |
+| Stuffed titles leaked into FAQ prose     |    45 |   0 |
+| Supplier names in customer copy          |    71 |   0 |
+
+Shortest description in the catalogue is now 413 characters; the median is
+1,506. **116 products were written by hand across nine batches** — roughly
+37,000 words — plus 113 more applied from agent batches that were finished but
+never run.
+
+### The two things that went wrong, both worth keeping
+
+- [x] **A trailing `\b` after a word stem is the bug that keeps recurring.**
+      It hid 76 raw decimals (`/\b\d+\.\d{4,}\b/` can never match `w65.000000`,
+      because there is no boundary between `w` and `6`), and then it did it
+      again in the FAQ repair script (`\bdimension\b` can never match
+      "dimensions"), reporting 0 repairable answers when 6 were. Both were
+      caught by checking a reported zero against known-bad live data rather
+      than trusting it.
+- [x] **A pattern that edits prose can overrun.** The first FAQ title-repair
+      used `\|\s*(Luxury|…)\b[^|.]*` and destroyed content: `[^|.]*` runs to
+      the first period, so "weighs 23.6kg" became ".6kg" and a whole
+      dimensions sentence was swallowed. Fixed by replacing literal known
+      strings taken from the earlier fix's own change-log. **Prefer a literal
+      replacement over a pattern whenever the target string is already known.**
+      The dry-run default is what caught it.
+
+### Rules this work establishes
+
+1. **A section count is not a quality measure.** "Wood construction in grey,
+   round." is two headings and eleven words, and it passed every check while
+   telling a shopper nothing. 65 descriptions were in that state — all of them
+   my own earlier work.
+2. **Mine the FAQs, not just the specs.** They held the anti-tip strap supplied
+   with a 200cm shelving unit, the 43.3kg ceiling load on a pendant, the 185cm
+   carton on an 81kg sofa, and that the Tarn pot is watertight. None of it was
+   in any description.
+3. **A known unwelcome fact stays.** "1 x AA (not supplied)", "bulbs not
+   included", "plants not included" — trimming those to make copy read cleanly
+   removes the one thing the customer needed.
+4. **Never publish an admission of ignorance under a heading that promised an
+   answer.** Either state the fact, give the practical guidance that answers
+   the underlying question, or omit the section.
+5. **Never claim not to know something the document stores.** The Grand Water
+   Feature's description read "the page does not disclose the overall
+   dimensions, weight, or materials" while the same document held 24 x 22 x
+   48cm and 5.1kg — above a specifications tab rendering those numbers.
+
+### Still open
+
+- [!] **Two data errors** the copy deliberately works around rather than
+  printing: the Abira floor lamp's `Maximum Wattage` reads "1 W per bulb"
+  for a 190cm five-bulb lamp, and the Mano Gold Table Lamp's dimensions
+  read "H71 x D18 x W70" — a 70cm-wide table lamp on an 18cm depth. Both
+  need correcting at source.
+- [!] **The Light Up Bookcase has no material data.** Its FAQ answers "what is
+  it made from" with "high-quality materials". Its copy is built from the
+  figures that are real (220 x 90 x 38cm, 63kg, integrated lighting).
+- [!] **Four titles keep a three-part form** because the middle segment is real
+  information, not marketing — "Ancient Wisdom" is a genuine brand on the
+  essential oils, and "30 x 20 x 5cm" is a size on the salt plate. Your
+  call whether they stay.
+- [ ] **244 summaries still contain superlatives** ("elegant", "stunning").
+      Every summary rewritten in these nine batches is clean, but the ones on
+      products that were never short were not touched.
+- [!] **Site is laggy** — reported and still not investigated.
+
+---
+
 ## Every room now has the dark category grid, and the hero has two real CTAs (2 September)
 
 Damien: "we need all of the other rooms to have a category grid like this
@@ -46,7 +130,7 @@ Only the wiring was wrong, so this is a small change with a large effect.
       than `/shop` as white. The room grid would have rendered a light header on
       a near-black page and stacked a second room sub-bar on the grid's own.
       Added an `isRoomCollection` exception (three segments, `segments[1] ===
-    "room"`).
+  "room"`).
 - [x] **`ShopDrillNav` on the white listing** gets `roomHrefSuffix="/all"` back,
       so room tabs move sideways between listings instead of throwing a shopper
       mid-shop out to the editorial grid.

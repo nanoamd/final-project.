@@ -1,0 +1,84 @@
+{
+  "apply": true,
+  "queued": 13,
+  "results": [
+    {
+      "id": "product-import-leckford-oak-ribbed-occasion-table",
+      "found": true,
+      "sections": 4,
+      "words": 361
+    },
+    {
+      "id": "product-import-mickleton-cream-chenille-armchair",
+      "found": true,
+      "sections": 5,
+      "words": 378
+    },
+    {
+      "id": "product-import-symi-slim-table-lamp",
+      "found": true,
+      "sections": 4,
+      "words": 271
+    },
+    {
+      "id": "product-import-hampton-bedside-table",
+      "found": true,
+      "sections": 5,
+      "words": 332
+    },
+    {
+      "id": "product-import-hampton-ivory-octagonal-mirror",
+      "found": true,
+      "sections": 5,
+      "words": 482
+    },
+    {
+      "id": "product-import-grafton-1-drawer-black-bedside-table",
+      "found": true,
+      "sections": 4,
+      "words": 311
+    },
+    {
+      "id": "product-import-grafton-black-chest-of-drawers",
+      "found": true,
+      "sections": 4,
+      "words": 361
+    },
+    {
+      "id": "product-import-hampton-ivory-square-bedside",
+      "found": true,
+      "sections": 4,
+      "words": 336
+    },
+    {
+      "id": "product-import-hampton-brown-console-table",
+      "found": true,
+      "sections": 5,
+      "words": 381
+    },
+    {
+      "id": "premier-housewares-5506459",
+      "found": true,
+      "sections": 4,
+      "words": 297
+    },
+    {
+      "id": "product-import-hampton-ivory-tv-unit",
+      "found": true,
+      "sections": 6,
+      "words": 487
+    },
+    {
+      "id": "premier-housewares-5528624",
+      "found": true,
+      "sections": 5,
+      "words": 332
+    },
+    {
+      "id": "product-import-hampton-ivory-2-nest-tables",
+      "found": true,
+      "sections": 4,
+      "words": 375
+    }
+  ]
+}

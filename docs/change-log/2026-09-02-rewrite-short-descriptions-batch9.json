@@ -1,0 +1,84 @@
+{
+  "apply": true,
+  "queued": 13,
+  "results": [
+    {
+      "id": "product-import-hampton-ivory-chest-of-drawers",
+      "found": true,
+      "sections": 5,
+      "words": 365
+    },
+    {
+      "id": "product-import-hampton-ivory-round-bedside-table",
+      "found": true,
+      "sections": 5,
+      "words": 342
+    },
+    {
+      "id": "hill-decor-21647",
+      "found": true,
+      "sections": 4,
+      "words": 348
+    },
+    {
+      "id": "hill-decor-21615",
+      "found": true,
+      "sections": 4,
+      "words": 283
+    },
+    {
+      "id": "hill-decor-21625",
+      "found": true,
+      "sections": 3,
+      "words": 335
+    },
+    {
+      "id": "premier-housewares-5511739",
+      "found": true,
+      "sections": 5,
+      "words": 337
+    },
+    {
+      "id": "hill-decor-21627",
+      "found": true,
+      "sections": 4,
+      "words": 324
+    },
+    {
+      "id": "product-aw-ssm-06",
+      "found": true,
+      "sections": 4,
+      "words": 300
+    },
+    {
+      "id": "hill-decor-21629",
+      "found": true,
+      "sections": 4,
+      "words": 323
+    },
+    {
+      "id": "hill-decor-21617",
+      "found": true,
+      "sections": 3,
+      "words": 262
+    },
+    {
+      "id": "product-aw-csalt-03",
+      "found": true,
+      "sections": 4,
+      "words": 399
+    },
+    {
+      "id": "hill-decor-21637",
+      "found": true,
+      "sections": 4,
+      "words": 286
+    },
+    {
+      "id": "premier-housewares-5527329",
+      "found": true,
+      "sections": 4,
+      "words": 340
+    }
+  ]
+}

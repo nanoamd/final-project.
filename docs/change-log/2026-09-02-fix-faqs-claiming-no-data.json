@@ -1,0 +1,199 @@
+{
+  "apply": true,
+  "queued": 18,
+  "results": [
+    {
+      "id": "hill-decor-20854",
+      "repaired": [
+        {
+          "question": "What are the dimensions of the Antique Etched Foxed Wall Art Mirror?",
+          "before": "Dimensions are currently unavailable, but it is designed to fit well in various wall placements.",
+          "after": "The Antique Etched foxed Wall Art Mirror measures 3 × 62 × 92cm (length × width × height)."
+        }
+      ],
+      "removed": []
+    },
+    {
+      "id": "hill-decor-21248",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What are the Luxe Collection Natural Glow Dinner Candles made of?",
+          "answer": "These LED candles are crafted to resemble real wax candles and are made of durable materials that ensure a realistic appearance."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21358",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the Darcy Ople Vase made from?",
+          "answer": "The Darcy Ople Vase is crafted from high-quality materials designed to ensure durability and aesthetic appeal."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21501",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What is the material of the Marble Effect Pudding Vase?",
+          "answer": "The Marble Effect Pudding Vase is crafted from high-quality materials designed for durability and aesthetic appeal."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21615",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the Roco Wall Clock made of?",
+          "answer": "The Roco Wall Clock features high-quality materials designed for durability and aesthetic appeal."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21617",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the Louie Wall Clock made from?",
+          "answer": "The Louie Wall Clock is crafted from high-quality materials designed to ensure durability and aesthetic appeal."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21625",
+      "repaired": [
+        {
+          "question": "What are the dimensions of the Rothay Large Wall Clock?",
+          "before": "Specific dimensions are currently unavailable for the Rothay Large Wall Clock.",
+          "after": "The Rothay Large Wall Clock measures 5 × 80 × 80cm (length × width × height)."
+        }
+      ],
+      "removed": [
+        {
+          "question": "What materials is the Rothay Large Wall Clock made from?",
+          "answer": "Exact material specifications for the Rothay Large Wall Clock have not been supplied."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21627",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What finishes are available for the Rothay Wall Clock?",
+          "answer": "The Rothay Wall Clock is available in various finishes to complement your home decor."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21633",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials are used in the Karlsson Large Wall Clock?",
+          "answer": "The clock is crafted from high-quality materials to ensure durability and longevity."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21637",
+      "repaired": [
+        {
+          "question": "What are the dimensions of the Butchers Cuts Pork Wall Plaque?",
+          "before": "Specific dimensions for the plaque haven't been verified, but it's designed to fit well in typical kitchen and dining spaces.",
+          "after": "The Butchers Cuts Pork Wall Plaque measures 3 × 58 × 45cm (length × width × height)."
+        }
+      ],
+      "removed": [
+        {
+          "question": "What materials is the plaque made from?",
+          "answer": "The plaque is made from high-quality materials that ensure durability and an attractive finish."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21639",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What material is the Butchers Cuts Chicken Wall Plaque made of?",
+          "answer": "The product is crafted from high-quality materials designed for longevity."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-21647",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the clock made of?",
+          "answer": "The clock is crafted with durable materials ensuring longevity and quality."
+        }
+      ]
+    },
+    {
+      "id": "hill-decor-24505",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What is the material of the Mistora Hand Painted Canvas?",
+          "answer": "The canvas is made of high-quality materials designed for longevity and vibrant colour retention."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-ssm-07",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the Soft Squiggly Mirror made from?",
+          "answer": "The mirror is crafted from high-quality materials that reflect a commitment to sustainability."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-waterf-01",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the water feature made from?",
+          "answer": "The Tabletop Water Feature - 30cm - Golden Meditating Buddha is crafted from high-quality materials designed for durability while maintaining an elegant aesthetic."
+        }
+      ]
+    },
+    {
+      "id": "product-import-adjustable-tractor-seat",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What type of material is the seat made from?",
+          "answer": "The seat is constructed from durable materials that are both supportive and easy to maintain."
+        }
+      ]
+    },
+    {
+      "id": "product-import-lennox-black-framed-console",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials is the Lennox Black Framed Console made from?",
+          "answer": "The Lennox Black Framed Console is constructed with high-quality materials, ensuring durability and a stylish finish."
+        }
+      ]
+    },
+    {
+      "id": "product-import-shop-display-light-up-bookcase",
+      "repaired": [],
+      "removed": [
+        {
+          "question": "What materials are used in the bookcase?",
+          "answer": "The bookcase is crafted with high-quality materials designed for durability and aesthetic appeal."
+        }
+      ]
+    }
+  ]
+}
