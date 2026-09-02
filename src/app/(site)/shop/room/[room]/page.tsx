@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
-import { ShopAll } from "@/features/storefront/components/category/shop-all";
+import { CollectionIndex } from "@/features/storefront/components/category/collection-index";
 import { getDepartments } from "@/lib/sanity/queries";
 
 /**
@@ -61,7 +61,21 @@ export default async function RoomPage({
   params: Promise<{ room: string }>;
 }) {
   const { room } = await params;
-  // White shopping page, for the same reason as the category route.
-  // `searchParams` is deliberately not read — see the note on /shop/[category].
-  return <ShopAll roomSlug={room} />;
+  /**
+   * The dark category grid, not the white product listing.
+   *
+   * `/shop` rendered this grid hardcoded to `outdoor-living`, while every room
+   * route rendered the white `ShopAll`. So the grid existed for exactly one
+   * room, and clicking any other room in the header — the bar drawn over that
+   * very grid — dropped you onto a white product listing instead of the same
+   * grid for the room you picked. Two different page types behind one row of
+   * sibling tabs.
+   *
+   * `CollectionIndex` was always room-generic (it takes `roomSlug` and filters
+   * the tiles by department); its own docstring already claimed this route
+   * rendered it. Only the wiring was wrong. The dense white grid is still one
+   * tap away at `/shop/room/<room>/all`, which is where this page's
+   * "Shop All …" button points.
+   */
+  return <CollectionIndex roomSlug={room} />;
 }

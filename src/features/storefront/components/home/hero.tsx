@@ -29,13 +29,28 @@ export function Hero({ content }: { content?: HeroContent }) {
   const headline = content?.headline ?? "Spaces\nthat slow";
   const highlight = content?.highlight ?? "life down";
   const image = content?.image ?? "/images/garden-after.jpg";
+  /**
+   * The two ways into the catalogue, as two equal buttons.
+   *
+   * "Shop by Room" goes to the white, dense product listing for Outdoor
+   * Living — every product in the room, filterable. "Shop by Category" goes to
+   * the dark editorial grid of category tiles. They are different pages doing
+   * different jobs, and a shopper arriving on the home page should be able to
+   * pick which one they want rather than discovering the other later.
+   *
+   * These default to real paths rather than leaning on the Sanity `homepage`
+   * CTAs, because the two are structural navigation, not editorial copy. The
+   * Sanity override had drifted: the button labelled "Shop by Room" carried an
+   * `internalRef` to `category-pergolas`, so it went to the pergolas category.
+   * A reference-based link cannot express `/shop/room/<room>/all` at all.
+   */
   const ctaPrimary = content?.ctaPrimary ?? {
-    label: "Explore Collections",
-    href: "/shop",
+    label: "Shop by Room",
+    href: "/shop/room/outdoor-living/all",
   };
   const ctaSecondary = content?.ctaSecondary ?? {
-    label: "Our Story",
-    href: "/about",
+    label: "Shop by Category",
+    href: "/shop",
   };
   const featured = content?.featuredProduct;
   const headlineLines = headline.split("\n");
@@ -91,11 +106,15 @@ export function Hero({ content }: { content?: HeroContent }) {
                 {ctaPrimary.label}
                 <span aria-hidden>→</span>
               </AppLink>
+              {/* Same treatment as the primary. Both routes into the catalogue
+                  carry equal weight, so the second is a button rather than the
+                  quiet text link it used to be when it pointed at About. */}
               <AppLink
                 href={ctaSecondary.href}
-                className="text-canvas/85 hover:text-canvas flex items-center gap-2 text-[12px] font-medium tracking-[0.16em] uppercase transition-colors"
+                className="bg-brass hover:bg-brass-deep flex h-12 items-center gap-2 rounded-none px-7 text-[12px] font-semibold tracking-[0.16em] text-white uppercase transition-colors"
               >
-                {ctaSecondary.label} <span aria-hidden>→</span>
+                {ctaSecondary.label}
+                <span aria-hidden>→</span>
               </AppLink>
             </div>
           </div>

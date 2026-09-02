@@ -16,6 +16,74 @@ Status key:
 
 ---
 
+## Every room now has the dark category grid, and the hero has two real CTAs (2 September)
+
+Damien: "we need all of the other rooms to have a category grid like this
+because when your on this page and click to a different room it brings you to
+the white page when you should be expecting to go to the same black category
+page with all these images for a different room."
+
+The grid existed for exactly one room. `/shop` rendered `CollectionIndex`
+hardcoded to `outdoor-living`, while `/shop/room/[room]` rendered the white
+`ShopAll` — so the room bar drawn _over_ the dark grid led out of it. Tap Sauna
+from the Outdoor Living grid and you landed on a white product listing.
+
+`CollectionIndex` was already room-generic: it takes `roomSlug`, filters tiles
+by department, and its own docstring claimed `/shop/room/[room]` rendered it.
+Only the wiring was wrong, so this is a small change with a large effect.
+
+- [x] **`/shop/room/<room>` renders the dark category grid** for every room.
+      Verified in the browser: `/shop/room/sauna` shows Outdoor Saunas (5),
+      Wellness Accessories (6), Indoor Saunas (2) and a "Shop All Sauna" tile,
+      with the dark header and SAUNA active in the room bar.
+- [x] **The white listing moved to its `/all` child**, which already existed.
+      `/shop/room/sauna/all` still renders the dense filterable grid with the
+      light header — verified in the browser.
+- [x] **`allHref` in `CollectionIndex`** pointed at `/shop/room/<room>`, which
+      after this change is the page itself, so "Shop All …" would have linked to
+      where the shopper already stood. Now `/shop/room/<room>/all`.
+- [x] **Header theme** keyed off segment count, counting any shop route deeper
+      than `/shop` as white. The room grid would have rendered a light header on
+      a near-black page and stacked a second room sub-bar on the grid's own.
+      Added an `isRoomCollection` exception (three segments, `segments[1] ===
+    "room"`).
+- [x] **`ShopDrillNav` on the white listing** gets `roomHrefSuffix="/all"` back,
+      so room tabs move sideways between listings instead of throwing a shopper
+      mid-shop out to the editorial grid.
+- [x] **Two orange hero buttons.** "Shop by Room" → `/shop/room/outdoor-living/all`
+      (the white full Outdoor Living catalogue), "Shop by Category" → `/shop`
+      (the dark grid). The second was a quiet text link to About; both are now
+      equal `bg-brass` buttons.
+
+Two live bugs found while wiring this up, both fixed:
+
+- [x] **The "Shop by Room" button went to the pergolas category.** The Sanity
+      `homepage.heroCtaPrimary` was labelled "Shop by Room" but carried an
+      `internalRef` to `category-pergolas`. Both hero CTA fields are now unset
+      (`scripts/fix-hero-ctas.ts`) so the component defaults own them — these two
+      buttons are structural navigation, not editorial copy, and a
+      reference-based link cannot express `/shop/room/<room>/all` at all. Either
+      field can still be set in Studio to override.
+- [x] **Every `department` link resolved to a bare `/shop`.** `LINK_PROJECTION`
+      in `src/lib/sanity/queries/fragments.ts` mapped department refs to the
+      literal string `"/shop"`, so a link to any room went to the Outdoor Living
+      index. Now `/shop/room/<slug>`.
+
+Worth knowing, not fixed (data, not code):
+
+- [!] **`cold-plunge` and `outdoor-kitchen` have 0 categories**, so their grids
+  render empty. Both are `showInMainNav: false`, so nothing links to them —
+  but the URLs are prerendered and reachable directly. Either give them
+  categories or drop the departments.
+- [!] **`lighting` has 1 category**, so its grid is a single tile beside "Shop
+  All". Correct for the data, thin as a page.
+- [!] **Every room hero reuses the Outdoor Living image and subcopy** ("Timeless
+  design. The finest materials. Built for life outdoors."), so the Sauna and
+  Bedroom grids are headed by a pergola-and-pool photo. Needs a per-department
+  image and description in Studio.
+
+---
+
 ## A scan regex bug that hid 76 defects, and 113 batches that were written but never applied (2 September)
 
 Damien sent screenshots of live pages showing three things I had reported as
@@ -103,7 +171,7 @@ the finding worth recording.
 
 - [x] **Raw supplier decimals in the Specifications tab** — 63 published
       Premier Housewares products showed `w120.000000 x d40.000000 x
-  h47.000000`. These live in `specs[].value` **strings**, a field every
+h47.000000`. These live in `specs[].value` **strings**, a field every
       earlier decimal-dump pass ignored (those covered `dimensions`,
       `weight` and `description`). Fixed exactly, not by rounding:
       `dimensions` on the same documents already stored the clean integers,
@@ -112,7 +180,7 @@ the finding worth recording.
 - [x] **"The specification does not list…" still on 28 published products** —
       the gap-admission pattern I reported closed earlier the same day. The
       earlier regex matched `does not mention|specify|indicate|include
-  information` and **missed `does not list|state|detail|confirm`**, which
+information` and **missed `does not list|state|detail|confirm`**, which
       is the wording most of the catalogue actually used.
       `scripts/fix-hedge-phrases-batch1.ts`: sections that were 100% hedge
       dropped, hedge clauses sitting next to a real fact trimmed with the fact

@@ -149,10 +149,17 @@ export async function ShopAll({
        * surfaces cannot say different things — see that component for why. */}
       <SiteBanner />
 
-      {/* No "/all" suffix any more. The room and category routes themselves now
-          render this page, so the clean URL is the shopping URL — appending /all
-          would send a shopper to a duplicate of the page they are already on. */}
-      <ShopDrillNav rooms={rooms} categories={categories} theme="light" />
+      {/* The "/all" suffix is back, because `/shop/room/<room>` is the dark
+          category grid again. Without it, tapping a room from this white
+          listing would throw the shopper out to the editorial grid mid-shop;
+          with it, room tabs move sideways between listings, and the grid is
+          reached deliberately from the header or the hero. */}
+      <ShopDrillNav
+        rooms={rooms}
+        categories={categories}
+        theme="light"
+        roomHrefSuffix="/all"
+      />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
         {/*

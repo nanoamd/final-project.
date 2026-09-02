@@ -133,7 +133,19 @@ export function SiteHeader({
    * Defined by exclusion rather than by listing shapes, since listing shapes is
    * what broke this twice already.
    */
-  const isShopAllPage = isShopRoute && segments.length > 1 && !isProductPage;
+  /**
+   * `/shop/room/<room>` — exactly three segments — is the dark category grid,
+   * not the white listing. Its `/all` child (four segments) is the white one.
+   *
+   * Without this exception the rule below counts any shop route deeper than
+   * `/shop` as a white page, so the room grid would render a light header over
+   * a near-black page and stack its own room sub-bar on top of the grid's.
+   */
+  const isRoomCollection =
+    isShopRoute && segments[1] === "room" && segments.length === 3;
+
+  const isShopAllPage =
+    isShopRoute && segments.length > 1 && !isProductPage && !isRoomCollection;
 
   const isCollection = isShopRoute && !isProductPage && !isShopAllPage;
   const isHome = pathname === "/";

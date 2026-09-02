@@ -67,7 +67,15 @@ export async function CollectionIndex({
     ? await getProductsByCategory(active.slug, { styleTag })
     : [];
 
-  const allHref = room ? `/shop/room/${room.slug}` : "/shop";
+  /**
+   * The white, dense product listing — the `/all` sibling, not this page.
+   *
+   * This pointed at `/shop/room/<room>` (and `/shop`) back when those routes
+   * rendered the white listing. Now that they render *this* grid, the
+   * unsuffixed href would have made "Shop All …" a link to the page the
+   * shopper is already standing on.
+   */
+  const allHref = room ? `/shop/room/${room.slug}/all` : "/shop/all";
 
   return (
     <div className="bg-basalt">

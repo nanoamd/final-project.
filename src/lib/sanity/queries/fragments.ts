@@ -12,7 +12,7 @@ export const LINK_PROJECTION = `{
     linkType == "external" => externalUrl,
     linkType == "internal" => select(
       internalRef->_type == "category" => "/shop/" + internalRef->slug.current,
-      internalRef->_type == "department" => "/shop",
+      internalRef->_type == "department" => "/shop/room/" + internalRef->slug.current,
       internalRef->_type == "collection" => "/collections/" + internalRef->slug.current,
       internalRef->_type == "product" => "/shop/" + internalRef->category->slug.current + "/" + internalRef->slug.current,
       internalRef->_type == "page" => "/" + internalRef->slug.current,
