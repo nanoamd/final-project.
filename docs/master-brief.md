@@ -16,6 +16,67 @@ Status key:
 
 ---
 
+## With VAT counted, the Hill range is not a pricing problem (2 September)
+
+Damien: _"you need to account for cost prices, vat and shipping."_ Doing that
+changes the answer completely.
+
+Landed cost is `costPrice × 1.20 + shippingCost × 1.20 + card fees`. Kaiku is not
+VAT-registered, so the 20% Hill add is a real cost. On that basis **116 of 139
+Hill products sit below their margin floor**, and real net margin at today's
+prices is 4–5%, not 20%.
+
+On four of the six products we price-checked, **the price needed to clear the
+floor is above what rivals charge**. Capri footstool: landed £258.95, floor needs
+£330.12, cheapest rival £320. Provence dining set: landed £1,185.59, floor needs
+£1,510.56, cheapest rival £1,295. We cannot be both profitable and cheapest —
+while dropshipping.
+
+### Why rivals can and we cannot
+
+They are VAT-registered and reclaim input VAT. Their real cost on the Provence
+set is £928; ours is £1,113.60. Same supplier, same product, 20% handicap.
+Registering does not obviously fix it — registered, we would charge output VAT on
+B2C sales too, which usually costs more than the reclaim returns. That trade is
+not the lever.
+
+### The lever: our costs are Hill's most expensive tier
+
+Our recorded costs are Hill's **dropship** price. From their own pages, both
+products give identical ratios — **wholesale is 86.2% of dropship, volume is
+77.6%** — and a stocked order over £500 ships carriage-free.
+
+The candles at the market price of £19.99:
+
+| How we buy                          | Landed    | Net        | Margin    |
+| ----------------------------------- | --------- | ---------- | --------- |
+| Dropship, single-item order         | £20.22    | **−£0.73** | loss      |
+| Dropship, three items in one parcel | £14.63    | £4.86      | 24.3%     |
+| Wholesale, order over £500          | £10.20    | £9.29      | 46.5%     |
+| **Volume (qty 12), over £500**      | **£9.18** | **£10.31** | **51.6%** |
+
+Same product, same shelf price. The margin runs from a loss to 51.6% purely on
+how it is bought.
+
+### This reframes the £350 minimum
+
+Damien was treating Premier's £350 first-order minimum as an obstacle and floated
+posting unordered goods to a customer to clear it. It is the opposite. On Hill the
+equivalent thresholds — £200 to despatch, £500 for free carriage — are the doorway
+to the only pricing at which this range is competitive and profitable together.
+
+- [!] **Decision for Damien:** stock the fast-moving small items instead of
+  dropshipping them, and keep dropshipping the large, expensive, infrequent
+  pieces where carriage is a small share of price and stock would tie up cash.
+- [!] My reprice raised 76 products against dropship-cost-plus-full-carriage. If
+  the buying model changes, those prices should be recomputed from the tier
+  actually being bought — the script takes the cost as given, so it is one
+  rerun.
+- [x] `scripts/hill-viability-with-vat.ts` — read-only, sets no prices, shows
+      every product at carriage carried solo, split two ways and split three ways.
+
+---
+
 ## Competitor prices on the Hill range, and a mistake in my own reprice (2 September)
 
 Damien: _"audit all of our competitiors ... and see if theres still enough space
@@ -577,11 +638,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                      | ---- | ------------------- |
-                                      | 0.09 (before) | **454ms** |
-                                      | 0.18 (now)    | **232ms** |
+                                          | ---- | ------------------- |
+                                          | 0.09 (before) | **454ms** |
+                                          | 0.18 (now)    | **232ms** |
 
-                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
