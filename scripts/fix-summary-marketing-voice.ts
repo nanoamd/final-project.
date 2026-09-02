@@ -199,7 +199,10 @@ function stripAdjectives(sentence: string): string {
     (_m, article: string, word: string) => {
       const fixed = articleFor(word);
       const capital = article[0] === "A";
-      return `${capital ? fixed[0].toUpperCase() + fixed.slice(1) : fixed} ${word}`;
+      // Capitalised without indexing into `fixed`, which is `string | undefined`
+      // to the compiler under noUncheckedIndexedAccess and broke `next build`.
+      const shown = capital ? (fixed === "an" ? "An" : "A") : fixed;
+      return `${shown} ${word}`;
     },
   );
 

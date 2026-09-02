@@ -16,6 +16,120 @@ Status key:
 
 ---
 
+## The "laggy" site: found, measured and fixed (2 September)
+
+Damien reported "the websites laggy too". Investigated properly rather than
+guessed at, and it was not what it sounded like.
+
+**Nothing was actually slow.** Ruled out in order:
+
+- Caching is fine — every storefront route is static or ISR, none dynamic.
+- The 4MB JS chunk is **Sanity Studio**, loaded only on `/studio`.
+- **Three.js and @react-three/fiber** are real dependencies but isolated to
+  `/experience`. No shopper loads either.
+
+**The cause was the smooth-scroll configuration.** `src/components/providers/
+smooth-scroll.tsx` set Lenis to `lerp: 0.09` — slower than Lenis's own default.
+At 0.09 the page closes 9% of the remaining distance per frame, so it keeps
+drifting for about half a second after the wheel stops. Input and response come
+apart, and that is what reads as lag.
+
+- [x] **Raised to `lerp: 0.18`.** Measured in a real browser with Playwright,
+      one 1200px wheel tick, sampling `scrollY` every 25ms:
+
+      | lerp | time to 90% settled |
+          | ---- | ------------------- |
+          | 0.09 (before) | **454ms** |
+          | 0.18 (now)    | **232ms** |
+
+          Roughly halved. Still visibly smooth, but it tracks the wheel.
+
+- [x] **Reduced-motion is now actually honoured.** The file's own docstring
+      claimed it "respects reduced-motion by leaving Lenis effectively
+      pass-through" — and there was no check of any kind. Smoothing was applied
+      to everyone regardless of their OS accessibility setting. The
+      `useReducedMotion` hook already existed and was used elsewhere; it simply
+      was never wired in here. With reduced motion requested, `lerp` is 1 and
+      `smoothWheel` is off, handing scrolling back to the browser.
+
+Both values are a one-line change at the top of that file if Damien wants it
+snappier again — `1` is effectively native scrolling, and `smoothWheel: false`
+turns smoothing off altogether.
+
+- [x] **Fixed a build-breaking type error I introduced myself** in
+      `scripts/fix-summary-marketing-voice.ts` — indexing into a string under
+      `noUncheckedIndexedAccess`. Same class of error that took the deploy down
+      earlier today from an agent's script. `next build` type checks everything,
+      including scripts.
+
+---
+
+## Summaries: supplier marketing voice removed from 641 of 906 (2 September)
+
+The pergola complaint generalised. Damien objected to "This elegant Metal
+Pergola … offers comfort and style for your garden or patio", and 522 summaries
+were written in that register.
+
+- [x] **336 stripped mechanically.** The defect has a consistent shape — a
+      factual sentence carrying a marketing adjective, plus a trailing sentence
+      of pure padding. Adjectives removed in place; only fact-free sentences
+      dropped. Every material, dimension and capacity survives.
+- [x] **139 composed from each document's own fields** — product type,
+      materials, dimensions, weight, bulb, battery, assembly, capacity. Nothing
+      inferred; absent fields omitted.
+- [x] **14 written by hand** where the fields were too sparse or contradictory.
+- [x] **115 had a trailing marketing clause trimmed** from an otherwise factual
+      sentence ("…with an acacia wood lid, perfect for kitchen storage").
+- [-] **31 deliberately left alone.** Trimming would have produced a sentence
+  fragment. A summary that still reads faintly of marketing beats one that
+  reads as broken English.
+
+Two facts the old copy had dropped are now on the page: the Vitus wall clock
+**"Takes 1 x AA, not supplied"**, and the Vertex basket **is not watertight** so
+it cannot hold liquid.
+
+### The hedge distinction, which took three attempts to get right
+
+23 description paragraphs and 16 FAQ answers still deferred to "the
+specifications". Finding them required a rule, because both obvious patterns
+were wrong:
+
+| Text                                                                                  | Verdict         |
+| ------------------------------------------------------------------------------------- | --------------- |
+| "does not include any fixings, as it is designed to stand independently on the floor" | **Fact.** Keep. |
+| "requires 1 x AA battery, which is not supplied"                                      | **Fact.** Keep. |
+| "the specifications do not clarify if it is frost-resistant"                          | **Hedge.** Fix. |
+
+**A product that lacks something is a fact; a specification that lacks something
+is our problem, not the customer's.** Now 0 in descriptions, summaries and FAQs.
+
+Three were outright false rather than unhelpful: two water features claimed the
+specifications gave no dimensions or weight while their own documents store
+16 x 21.5 x 12.5cm / 0.91kg and 35 x 16 x 18cm / 2.3kg.
+
+### Bugs the dry runs caught before they reached live copy
+
+- `FACT_TOKEN` joined its alternatives with `""` instead of `"|"`, concatenating
+  the sub-patterns. The regex then required a digit followed by a unit followed
+  by a material and essentially never matched — so sentences full of facts
+  ("Made primarily from polystyrene and glass") were classed as pure marketing
+  and deleted.
+- A naive vowel-letter article rule turned "a unique frame" into "an unique".
+- `"premium"` in the strip list broke "where space is at a premium" → "at a."
+- The composer opened "The <name> is a <noun>", producing "The Vertex
+  Rectangular Basket is a basket in iron".
+- Falling back to the description's first paragraph imported uncontrolled prose,
+  including a hedge; removed entirely.
+- `bulbClause` hardcoded "an", giving "an G4".
+- The clause trimmer judged the whole summary, so a pre-existing fragment
+  elsewhere blocked a good trim. It now judges only sentences it rewrote.
+
+**Counts in this area were wrong twice — 244, then 402, actually 522 —** because
+`.test()` on a regex carrying `/g` advances `lastIndex` between calls. Every
+regex here is now built fresh per use.
+
+---
+
 ## Every published description rewritten to the sauna standard — 906/906 (2 September)
 
 Damien: "i dont need you to only fact check everything i just need nice long
@@ -130,7 +244,7 @@ Only the wiring was wrong, so this is a small change with a large effect.
       than `/shop` as white. The room grid would have rendered a light header on
       a near-black page and stacked a second room sub-bar on the grid's own.
       Added an `isRoomCollection` exception (three segments, `segments[1] ===
-  "room"`).
+"room"`).
 - [x] **`ShopDrillNav` on the white listing** gets `roomHrefSuffix="/all"` back,
       so room tabs move sideways between listings instead of throwing a shopper
       mid-shop out to the editorial grid.
