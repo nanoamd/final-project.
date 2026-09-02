@@ -80,6 +80,19 @@ const CARD_FIXED = 0.2;
  * — which is what minPriceForFloor already returns.
  */
 const VAT_ON_COST = true;
+/**
+ * The rate to use when a product does not state its own.
+ *
+ * Damien flagged that some of Hill's products carry different VAT percentages.
+ * Scanning the range by name and category found nothing plausibly zero or
+ * reduced-rated — it is all furniture, lighting, mirrors, decor and planters,
+ * every one standard-rated in the UK — so 20% is the right default here. But the
+ * invoices are the authority and he has them, so `supplierVatRate` on the
+ * product now overrides this per item. A product wrongly assumed to be 20% when
+ * it is zero-rated gets priced about 20% too high and then does not sell, which
+ * is a worse outcome than a thin margin.
+ */
+const DEFAULT_VAT_PCT = 20;
 
 /** Net margin after carriage and card fees. */
 function netMargin(price: number, cost: number, ship: number): number {
@@ -101,13 +114,16 @@ interface Row {
   costPrice: number;
   shippingCost: number | null;
   compareAtPrice: number | null;
+  /** Per-product override; null means use DEFAULT_VAT_PCT. */
+  supplierVatRate: number | null;
 }
 
 async function main() {
   const rows = await client.fetch<Row[]>(
     `*[_type == "product" && !(_id in path("drafts.**")) && supplier->name == $supplier
        && defined(price) && defined(costPrice)]{
-      _id, title, sku, supplierSku, price, costPrice, shippingCost, compareAtPrice
+      _id, title, sku, supplierSku, price, costPrice, shippingCost, compareAtPrice,
+      supplierVatRate
     }`,
     { supplier: SUPPLIER },
   );
@@ -136,8 +152,14 @@ async function main() {
       continue;
     }
 
-    const cost = VAT_ON_COST ? row.costPrice * 1.2 : row.costPrice;
-    const ship = VAT_ON_COST ? row.shippingCost * 1.2 : row.shippingCost;
+    // Per-product rate where one is recorded, otherwise the default.
+    const vatPct =
+      typeof row.supplierVatRate === "number"
+        ? row.supplierVatRate
+        : DEFAULT_VAT_PCT;
+    const vatMultiplier = VAT_ON_COST ? 1 + vatPct / 100 : 1;
+    const cost = row.costPrice * vatMultiplier;
+    const ship = row.shippingCost * vatMultiplier;
     const before = netMargin(row.price, cost, ship);
     const small = row.price < SMALL_THRESHOLD;
     const floor = small ? SMALL_FLOOR : LARGE_FLOOR;
@@ -213,6 +235,7 @@ async function main() {
       costPrice: cost,
       // The real figure, not the 0 the Premier run recorded.
       shippingCost: ship,
+      supplierVatRatePct: vatPct,
       previousMarginPct: +(before * 100).toFixed(2),
       newMarginPct: +(after * 100).toFixed(2),
       compareAtPriceCleared: staleCompareAt,

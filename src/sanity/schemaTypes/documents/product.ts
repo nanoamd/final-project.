@@ -130,6 +130,22 @@ export const product = defineType({
         "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Premier Housewares invoice 20% on top of their trade list price: type their list price in here, then use the +20% VAT button beside the box rather than doing the sum by hand.",
     }),
     defineField({
+      name: "supplierVatRate",
+      title: "Supplier VAT rate (%)",
+      type: "number",
+      group: "commerce",
+      description:
+        "The VAT rate the supplier charges Kaiku on THIS product, as a percentage. " +
+        "Leave empty for the standard 20%. Set it only where an invoice shows " +
+        "something else — 0 for zero-rated goods (books, children's clothing, " +
+        "food), 5 for the reduced rate. Kaiku is not VAT-registered, so this is " +
+        "unreclaimable cost and it feeds the margin floor directly: a product " +
+        "wrongly assumed to be 20% when it is zero-rated gets priced about 20% " +
+        "too high and stops selling.",
+      options: { list: [0, 5, 20] },
+      validation: (rule) => rule.min(0).max(100),
+    }),
+    defineField({
       name: "costPriceVatCorrected",
       title: "Cost price already includes supplier VAT",
       type: "boolean",
