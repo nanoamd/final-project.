@@ -1,0 +1,126 @@
+{
+  "apply": true,
+  "queued": 15,
+  "results": [
+    {
+      "id": "buying-guide-choosing-a-planter",
+      "type": "buyingGuide",
+      "title": "What size planter do you need?",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 38,
+      "descLen": 138
+    },
+    {
+      "id": "buying-guide-choosing-a-vase-for-what-you-put-in-it",
+      "type": "buyingGuide",
+      "title": "What size vase do you need for your flowers?",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 40,
+      "descLen": 135
+    },
+    {
+      "id": "buying-guide-garden-furniture-british-winter",
+      "type": "buyingGuide",
+      "title": "What garden furniture can stay out all winter?",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 54,
+      "descLen": 140
+    },
+    {
+      "id": "buying-guide-how-many-lights-does-a-room-need",
+      "type": "buyingGuide",
+      "title": "How many lights does a room need?",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 41,
+      "descLen": 141
+    },
+    {
+      "id": "buying-guide-where-to-hang-a-wall-clock",
+      "type": "buyingGuide",
+      "title": "What size wall clock do you need, and where does it hang?",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 50,
+      "descLen": 140
+    },
+    {
+      "id": "buyingGuide-choosing-a-sauna",
+      "type": "buyingGuide",
+      "title": "Barrel vs cabin sauna: how to choose",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 44,
+      "descLen": 137
+    },
+    {
+      "id": "page-about",
+      "type": "page",
+      "title": "About Kaiku",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 11,
+      "descLen": 130
+    },
+    {
+      "id": "page-contact",
+      "type": "page",
+      "title": "Contact Us",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 13,
+      "descLen": 139
+    },
+    {
+      "id": "page-delivery",
+      "type": "page",
+      "title": "Delivery",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 16,
+      "descLen": 132
+    },
+    {
+      "id": "page-returns",
+      "type": "page",
+      "title": "Returns & Refunds",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 25,
+      "descLen": 137
+    },
+    {
+      "id": "page-warranty",
+      "type": "page",
+      "title": "Warranty",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 16,
+      "descLen": 136
+    },
+    {
+      "id": "page-privacy",
+      "type": "page",
+      "title": "Privacy Policy",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 22,
+      "descLen": 144
+    },
+    {
+      "id": "page-cookies",
+      "type": "page",
+      "title": "Cookie Policy",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 21,
+      "descLen": 141
+    },
+    {
+      "id": "page-terms",
+      "type": "page",
+      "title": "Terms & Conditions",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 26,
+      "descLen": 137
+    },
+    {
+      "id": "post-sauna-ritual",
+      "type": "post",
+      "title": "Building a weekly sauna ritual that actually sticks",
+      "wrote": ["seo.metaTitle", "seo.metaDescription"],
+      "titleLen": 50,
+      "descLen": 132
+    }
+  ]
+}
