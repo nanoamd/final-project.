@@ -16,6 +16,87 @@ Status key:
 
 ---
 
+## Hill Interiors carriage was recorded as free, and it is not (2 September)
+
+Damien: _"we are currently losing money on alot of hill interiors products and
+the pricing doesnt account for this."_ He is right, and the cause was in the
+supplier record.
+
+`supplier-hill-interiors` held `shippingRule: { kind: "included" }` and
+`carriageIncludedInCost: true`, with this note:
+
+> "Free delivery to Kaiku. Evidenced: 70 of 136 products already recorded at
+> exactly £0 carriage and none above zero..."
+
+**Those £0s were the unfilled default on the product field.** The data was cited
+as evidence for itself. Nobody had checked Hill's actual terms.
+
+Hill's own pages, from Damien's screenshots:
+
+- "Hill Interiors Parcel Delivery Service — **£6.99**", next working day, small
+  parcels.
+- "This item can be delivered via a 2 man delivery service to GB mainland
+  address only for **£69.99**" (Capri Outdoor Large Corner Set).
+- Over 200kg, Hill quote per consignment and bill after the order.
+- "All prices ... will be subject to **additional VAT and surcharge costs**."
+
+Because the customer pays £0 shipping by Damien's own rule, all of that comes
+out of margin.
+
+### What it costs
+
+Across the 138 Hill products with a cost and a weight, **£1,405 of carriage was
+being absorbed invisibly** on single-item orders. Worked through with card fees
+(1.5% + 20p) and carriage at +VAT:
+
+| Product                       | Sell | Cost   | Carriage | Net        |
+| ----------------------------- | ---- | ------ | -------- | ---------- |
+| Small Blue Flora Planter Pot  | £15  | £7.54  | £8.39    | **−£1.35** |
+| Seville Lebes Planter         | £20  | £12.26 | £8.39    | **−£1.15** |
+| Luxe Ivory LED Dinner Candles | £19  | £9.86  | £8.39    | £0.27      |
+| Large Conical Lattice Lantern | £29  | £19.72 | £8.39    | £0.26      |
+
+The candles are the item in Damien's own Hill basket screenshot at £9.86.
+
+- [x] Supplier rule replaced with the real one: weight bands, £6.99 to 30kg,
+      £69.99 above, with the circular note removed and the source named
+- [x] `shippingCost` backfilled on 138 products from that rule
+- [!] The 30kg split is **my inference** — Hill publish both rates but not the
+  threshold. Seven products sit above it (Light Up Bookcase 63kg, Multi Shelf
+  Industrial 52.6kg, Provence 4 Seater 52kg, Sorelle Sofa 39.9kg, Bloom Sofa
+  34kg, Saltaire 3-Shelf 32kg, Large Black Multi Shelf 30.3kg). Worth checking
+  against Hill's Dropship tab, because £63 of carriage rides on each.
+- [!] Romanby Stone Round Coffee Table has no weight, so its carriage stays
+  unknown rather than being guessed.
+
+### Blocked on Damien: does Hill invoice +20% VAT?
+
+Premier Housewares does, and Kaiku is not VAT-registered so it cannot be
+reclaimed — that was found and fixed in August, 542 of 546 Premier costs
+corrected. **Hill has had 1 of 139 corrected.** Hill's site says prices are
+"subject to additional VAT", which points the same way, but the invoices settle
+it and only Damien has those.
+
+Modelled both ways against his existing tiered floor (under £50: 17% or +£4,
+whichever is higher; £50+: 20%):
+
+|                                          | Products needing a rise | Total uplift |
+| ---------------------------------------- | ----------------------- | ------------ |
+| Hill prices already include VAT          | 58 of 139               | £644         |
+| Hill invoices +20% on goods and carriage | 111 of 139              | £3,497       |
+
+No repricing applied until he confirms which.
+
+### Also: the £350 Premier Housewares first-order minimum
+
+Damien floated sending unordered extra products to a customer to reach it. Not
+worth doing — it costs the goods, the carriage and the review, and an unsolicited
+parcel is a poor first impression. It is a **first-order** minimum only: one £350
+stocking order of small fast-movers, held or sold normally, clears it once and
+every order after has no minimum at all.
+
+---
+
 ## Damien's Capri/Contour catch, and the 66 products it led to (2 September)
 
 He noticed the Contour Collection 3 Drawer Console was carrying the Capri
@@ -254,11 +335,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                      | ---- | ------------------- |
-                      | 0.09 (before) | **454ms** |
-                      | 0.18 (now)    | **232ms** |
+                          | ---- | ------------------- |
+                          | 0.09 (before) | **454ms** |
+                          | 0.18 (now)    | **232ms** |
 
-                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
