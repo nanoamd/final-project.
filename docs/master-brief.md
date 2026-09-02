@@ -16,6 +16,86 @@ Status key:
 
 ---
 
+## A scan regex bug that hid 76 defects, and 113 batches that were written but never applied (2 September)
+
+Damien sent screenshots of live pages showing three things I had reported as
+fixed: a raw `w120.000000 x d40.000000 x h47.000000` in a Specifications tab, a
+"What's in the Set" heading whose body said the spec does not list the contents,
+and a Sanity description containing a single short section. His words: "im so
+convinced you just dont listen to me". He was right on all three counts.
+
+What was actually wrong, in order of how badly I had misreported it:
+
+- [x] **The scan regex could not match the defect it was looking for.**
+      Detection used `/\b\d+\.\d{4,}\b/`. In the string `w65.000000` there is no
+      word boundary between `w` and `6`, so the leading `\b` fails and the match
+      never happens. It reported **1** affected product where there were **76**.
+      Every "0 remaining, verified" claim about raw decimals rested on this.
+      Fixed in `scripts/fix-description-raw-decimals.ts` (detection drops the
+      leading boundary); 76 products cleaned, re-verified 0.
+- [x] **A whole field was never in scope.** Raw supplier decimals also sat in
+      `specs[].value`, a separate field from `description` that no earlier
+      decimal pass had touched — which is why they survived every previous
+      "clean" report. `scripts/fix-specs-raw-decimals.ts`, 63 products, verified 0.
+      Both fixes are exact, not rounding: `parseFloat(x).toString()` strips zero
+      padding losslessly, and the `dimensions` object already held the clean
+      integers, proving the padding was formatting and not precision.
+- [x] **The hedge pattern had wording the regex didn't cover.** The earlier
+      broadening caught "does not mention/specify/indicate", but not "does not
+      **list**", "does not **state**", "does not **confirm**", "does not
+      **detail**", or "the page does not…". 28 products still carried a heading
+      that promised an answer above a sentence refusing to give one. Down to 1.
+- [x] **113 products of finished work had been written but never applied.** Five
+      `rewrite-descriptions-*-batch2.ts` scripts plus `fix-hedging-summaries.ts`
+      were sitting untracked in `scripts/`, written by background agents that
+      died on rate limits before running them. The content was good — real facts,
+      confident voice, no hedging. Applied all of them: +110 descriptions,
+      +3 summaries.
+- [x] **12 thin descriptions rewritten by hand** in
+      `scripts/rewrite-thin-descriptions-batch1.ts` — 5-6 sections each,
+      averaging 351 words, mined from specs _and_ FAQs (the FAQs held weight
+      capacities, hob/dishwasher safety, country of manufacture and real care
+      instructions that no description was using).
+
+Live catalogue state after this work, re-verified with a fresh uncached client:
+
+| Defect                          | Before | Now |
+| ------------------------------- | -----: | --: |
+| Raw decimals in `description`   |     76 |   0 |
+| Raw decimals in `specs`         |     63 |   0 |
+| Hedge/gap-admission phrases     |     28 |   1 |
+| Thin descriptions (<=1 section) |     78 |  38 |
+| Superlatives in `summary`       |    244 | 244 |
+
+### Standing rules this episode adds
+
+1. **A regex that reports zero is a suspect, not a result.** Before trusting any
+   "0 remaining", test the pattern against a known-bad string copied from live
+   data. `\b` next to a digit adjacent to a letter is the specific trap.
+2. **Enumerate the fields before scanning them.** `summary + description + faqs`
+   was already known to be the scoring surface; `specs[].value` was not in it and
+   held 63 defects. Scan every field that renders on the page.
+3. **Never write a section that admits a gap.** If the fact isn't known, omit the
+   section. If the fact IS known and unwelcome — "bulbs not included", "1 x AA
+   (not supplied)" — it stays, stated plainly. Deleting "(not supplied)" to make
+   copy read cleanly removes the one thing the customer needed and is worse than
+   the hedge it replaced.
+4. **The deliverable is a good description, not a passing scan.** Damien: "i dont
+   need you to only fact check everything i just need nice long kaiku style
+   descriptions."
+
+### Still open
+
+- [~] **38 thin descriptions** remain at <=1 section. Batch 1 of the hand-written
+  rewrite covered 12; the rest need the same treatment.
+- [ ] **244 summaries contain superlatives** ("elegant", "stunning", "impressive").
+      This is the pergola complaint generalised — the description gets rewritten
+      while the summary above it keeps the old supplier marketing voice.
+- [ ] **1 hedge phrase** left, on `product-aw-waterf-22`.
+- [!] **Site is laggy** — Damien reported this and I have not investigated it yet.
+
+---
+
 ## Two defects Damien found live that my own scans had missed (1 September)
 
 Both were found by him opening real pages, not by any scan of mine. That is
@@ -23,7 +103,7 @@ the finding worth recording.
 
 - [x] **Raw supplier decimals in the Specifications tab** — 63 published
       Premier Housewares products showed `w120.000000 x d40.000000 x
-    h47.000000`. These live in `specs[].value` **strings**, a field every
+  h47.000000`. These live in `specs[].value` **strings**, a field every
       earlier decimal-dump pass ignored (those covered `dimensions`,
       `weight` and `description`). Fixed exactly, not by rounding:
       `dimensions` on the same documents already stored the clean integers,
@@ -32,7 +112,7 @@ the finding worth recording.
 - [x] **"The specification does not list…" still on 28 published products** —
       the gap-admission pattern I reported closed earlier the same day. The
       earlier regex matched `does not mention|specify|indicate|include
-    information` and **missed `does not list|state|detail|confirm`**, which
+  information` and **missed `does not list|state|detail|confirm`**, which
       is the wording most of the catalogue actually used.
       `scripts/fix-hedge-phrases-batch1.ts`: sections that were 100% hedge
       dropped, hedge clauses sitting next to a real fact trimmed with the fact

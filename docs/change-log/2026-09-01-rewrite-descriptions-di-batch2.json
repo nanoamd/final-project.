@@ -1,0 +1,111 @@
+{
+  "apply": true,
+  "queued": 15,
+  "results": [
+    {
+      "id": "product-import-bamboo-gesso-lamp",
+      "title": "Bamboo Gesso Table Lamp | Luxury White Gesso Designer Lamp | Kaiku",
+      "found": true,
+      "sections": 4,
+      "words": 157
+    },
+    {
+      "id": "product-import-bentley-oak-console-table",
+      "title": "Bentley Grey Aged Oak Console Table | Luxury Oak Console Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 168
+    },
+    {
+      "id": "product-import-berkeley-1-drawer-black-bedside-table",
+      "title": "Berkeley Black 1 Drawer Bedside Table | Luxury High Gloss Bedside Cabinet | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 154
+    },
+    {
+      "id": "product-import-berkeley-white-console-table",
+      "title": "Berkeley White Console Table | Luxury High Gloss Console Table | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 167
+    },
+    {
+      "id": "product-import-broadway-chest-of-drawers",
+      "title": "Broadway Oak Chest of Drawers | Luxury 3 Drawer Oak Chest | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 152
+    },
+    {
+      "id": "product-import-broadway-one-drawer-bedside-table",
+      "title": "Broadway Oak Bedside Table | Luxury Solid Oak 1 Drawer Bedside Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 142
+    },
+    {
+      "id": "product-import-candover-neutral-sofa",
+      "title": "Candover Neutral Upholstered Sofa | Luxury 3 Seater Fabric Sofa | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 174
+    },
+    {
+      "id": "product-import-charlton-2-drawer-walnut-ribbed-bedside-table",
+      "title": "Charlton Ribbed Walnut 2 Drawer Bedside Table | Luxury Walnut Bedside Cabinet | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 183
+    },
+    {
+      "id": "product-import-charlton-ribbed-walnut-desk",
+      "title": "Charlton Ribbed Walnut Desk | Luxury Walnut Home Office Desk | Kaiku",
+      "found": true,
+      "sections": 6,
+      "words": 190
+    },
+    {
+      "id": "product-import-charlton-walnut-ribbed-chest-of-drawers",
+      "title": "Charlton Ribbed Walnut Chest of Drawers | Luxury 6 Drawer Chest | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 168
+    },
+    {
+      "id": "product-import-chilworth-1-drawer-grey-bedside-table",
+      "title": "Chilworth Grey Bedside Table | Luxury 1 Drawer Bedside Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 156
+    },
+    {
+      "id": "product-import-easton-2-drawer-chest-of-drawers",
+      "title": "Easton 2 Drawer Chest of Drawers | Luxury Oak Chest | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 146
+    },
+    {
+      "id": "product-import-elmley-grey-glass-top-end-table",
+      "title": "Elmley Grey End Table | Luxury Glass Side Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 172
+    },
+    {
+      "id": "product-import-elmley-ivory-console-table",
+      "title": "Elmley Ivory Console Table | Luxury Glass & Faux Shagreen Console Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 189
+    },
+    {
+      "id": "product-import-five-black-console-table",
+      "title": "Five Black Console Table | Luxury Oak Console Table | Kaiku",
+      "found": true,
+      "sections": 5,
+      "words": 158
+    }
+  ]
+}

@@ -1,0 +1,730 @@
+/**
+ * Hill Interiors description rewrite — "hill-a" pass, batch 2 of 4. Products
+ * 16–30 of the 60-product Hill Interiors description work queue
+ * (scripts/list-description-work-queue.ts --supplier "Hill Interiors").
+ *
+ * Nine of these fifteen are wall clocks, and their FAQ answers are the worst
+ * hedgers in the whole slice — "size details can be confirmed upon request",
+ * "exact material specifications have not been supplied", "specific dimensions
+ * are currently unavailable", "details regarding battery specifications have
+ * not been provided". Every one of those is discarded rather than repeated:
+ * where the document's own `dimensions`/`weight`/`materialTags` fields hold
+ * the real answer (they nearly always do) the real number is used, and where
+ * nothing anywhere states a fact — the Rothay Large's power source, for
+ * instance — that section simply doesn't exist. No gap is ever mentioned.
+ *
+ * Facts otherwise come from each product's own FAQs, which are where the
+ * useful detail hides: quartz vs battery movement, batteries not included,
+ * "a hook or nail is generally sufficient", wall anchors on brick or plaster,
+ * mirror glass isn't scratch-proof, no wax residue on the LED candles, "use
+ * florist cellophane for real flowers", store the wreath out of direct
+ * sunlight, don't hang the foxed mirror above a heat source.
+ *
+ * Same standard as batch 1: 4–6 sections, 150–250 words, every fact carrying
+ * its consequence, product-specific headings, plain British voice with
+ * contractions, no superlatives, no supplier voice, no supplier name, no
+ * trademarks, no raw feed decimals, no hedging. Delivery/returns/warranty
+ * boilerplate is left to its own tab rather than padding the description.
+ *
+ *   pnpm tsx --env-file=.env.local scripts/rewrite-descriptions-hill-a-batch2.ts
+ *   pnpm tsx --env-file=.env.local scripts/rewrite-descriptions-hill-a-batch2.ts --apply
+ */
+import { mkdirSync, writeFileSync } from "node:fs";
+
+import { createClient } from "@sanity/client";
+
+const apply = process.argv.includes("--apply");
+const token = process.env.SANITY_API_WRITE_TOKEN;
+if (apply && !token) {
+  console.error("SANITY_API_WRITE_TOKEN is not set — refusing to --apply.");
+  process.exit(1);
+}
+
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "huh1e45n",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  apiVersion: "2025-01-01",
+  token,
+  useCdn: false,
+});
+
+interface Section {
+  heading: string;
+  paragraphs: string[];
+}
+interface Written {
+  id: string;
+  title: string;
+  summary: string;
+  sections: Section[];
+}
+
+export const REWRITES: Written[] = [
+  {
+    id: "hill-decor-20854",
+    title: "Antique Etched Foxed Wall Art Mirror | Kaiku",
+    summary:
+      "A wall mirror with a bronze-toned frame and an etched, foxed antique finish worked into the glass. 62cm wide, 92cm tall, 3cm deep and 5.8kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "A bronze-toned frame around glass given a foxed finish — the mottled, clouded etching you get on genuinely old mirrors, worked into the glass itself rather than faked with a tinted frame. It means the reflection is deliberately imperfect, so this is a mirror to look at rather than one to check your collar in.",
+        ],
+      },
+      {
+        heading: "Dimensions and Weight",
+        paragraphs: [
+          "62cm wide, 92cm tall and 3cm deep, weighing 5.8kg. That's large enough to hold a hallway or living room wall on its own without needing anything hung alongside it.",
+        ],
+      },
+      {
+        heading: "Hanging and Fixings",
+        paragraphs: [
+          "It arrives ready to hang, with no assembly. At 5.8kg, though, use a fixing rated for the weight — plasterboard needs a proper anchor rather than a nail, and we'd get a second pair of hands to hold it while you mark the wall.",
+        ],
+      },
+      {
+        heading: "Where to Hang It",
+        paragraphs: [
+          "Indoors only. It does the most work opposite a window or a lamp, where it picks up the light and bounces it back into the room, which is also why it's worth considering in a small space. Don't hang it above a heat source.",
+        ],
+      },
+      {
+        heading: "Cleaning",
+        paragraphs: [
+          "Dust it with a soft cloth, and use a lightly damp cloth with a gentle cleaner when it needs more. Don't try to polish the clouding out — that's the finish, not a mark.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21186",
+    title: "Large Frosted Eucalyptus Candle Wreath | Kaiku",
+    summary:
+      "A candle wreath of artificial frosted eucalyptus foliage, 33cm across and 8cm deep, weighing 0.13kg. Sits around a standard-sized candle.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Artificial eucalyptus foliage with a frosted finish, made up on a ring. Being faux rather than real greenery, it won't dry out and drop leaves over a dining table, and the colour holds instead of browning off after a week.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "A 33cm ring, 8cm deep, weighing 0.13kg — barely anything. The 33cm outer diameter is the number to check against your table: it takes up about the width of a dinner plate and a half.",
+        ],
+      },
+      {
+        heading: "Using It With a Candle",
+        paragraphs: [
+          "It sits flat around a standard-sized candle, so the foliage frames the base rather than sitting up near the flame. Keep the leaves clear of the wick — artificial foliage isn't fireproof.",
+        ],
+      },
+      {
+        heading: "Indoor Use",
+        paragraphs: [
+          "Indoors only. Outdoors, damp and sun between them will wreck the frosted finish.",
+        ],
+      },
+      {
+        heading: "Care and Storing It",
+        paragraphs: [
+          "Dust it with a dry cloth. Don't use water or cleaning sprays on it — they'll take the frosting off. Between Christmases, keep it somewhere cool and dry out of direct sunlight, and store it flat so the ring doesn't get squashed out of shape.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21248",
+    title: "Luxe Collection Natural Glow S/2 Ivory LED Dinner Candles | Kaiku",
+    summary:
+      "A pair of flameless LED dinner candles in ivory, 2 x 2cm and 25cm tall, 0.3kg for the set. Battery powered, with a flickering-light effect.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Two LED dinner candles in ivory, made to pass for wax at a glance, with a flicker built into the light rather than a flat steady glow. They arrive assembled and ready to switch on.",
+        ],
+      },
+      {
+        heading: "Size and Fit",
+        paragraphs: [
+          "2 x 2cm and 25cm tall — standard dinner-candle proportions, so they drop into the candlesticks and candelabra you already own rather than needing their own holder. The pair weighs 0.3kg together.",
+        ],
+      },
+      {
+        heading: "Light and Batteries",
+        paragraphs: [
+          "Battery powered. How long a set of batteries lasts depends on how much you run them, but LEDs draw very little, so it's months rather than evenings for most people.",
+        ],
+      },
+      {
+        heading: "Safety and Where They Can Go",
+        paragraphs: [
+          "There's no flame, no smoke and nothing to burn down, which is the whole reason to buy them if you've got children or a cat that walks along the dining table. They're fine outdoors too, so they'll do a patio table or a garden party where real candles would just blow out.",
+        ],
+      },
+      {
+        heading: "Cleaning",
+        paragraphs: [
+          "A wipe with a soft, damp cloth. No wax to scrape out of the holders afterwards.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21358",
+    title: "Darcy Ople Vase | Kaiku",
+    summary:
+      "A cube-shaped ceramic vase, 20 x 20 x 20cm and 1.38kg, for indoor use with fresh or dried flowers.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Ceramic, and a genuine cube — 20cm in all three directions. That's unusual in a vase, where almost everything runs taller than it is wide, and it means the mouth is as wide as the base rather than tapering in.",
+        ],
+      },
+      {
+        heading: "Dimensions and Weight",
+        paragraphs: [
+          "20 x 20 x 20cm, weighing 1.38kg. Light enough to pick up and shift with one hand, and low enough to sit on a dining table without anyone having to look around it.",
+        ],
+      },
+      {
+        heading: "Flowers and Stems",
+        paragraphs: [
+          "The wide mouth suits a loose, low arrangement rather than a tight bunch of tall stems, which will lean out to the sides in a vase this shape. Line it with florist cellophane before you put real flowers in it. It also holds up as an object on its own with nothing in it.",
+        ],
+      },
+      {
+        heading: "Where It Can Go",
+        paragraphs: [
+          "Indoors, somewhere dry — living room, dining room or bedroom. Damp is what gets at unsealed ceramic over time.",
+        ],
+      },
+      {
+        heading: "Cleaning",
+        paragraphs: [
+          "A soft, damp cloth and regular dusting is the whole job. Keep harsh chemicals off it.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21499",
+    title: "Marble Effect Ellipse Large Vase | Kaiku",
+    summary:
+      "A ceramic vase in grey with a marble-effect finish, 23 x 23cm at the base and 36cm tall, weighing 2.18kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Ceramic in grey with a marble-effect finish and an elliptical body — it swells out through the middle and draws back in at the neck, so stems get held together at the top instead of falling open.",
+        ],
+      },
+      {
+        heading: "Dimensions and Weight",
+        paragraphs: [
+          "23 x 23cm at the base, 36cm tall, weighing 2.18kg empty. The wide base against that height is what keeps it upright once there's a full arrangement leaning out of the top, and it's still light enough to carry to the sink to fill.",
+        ],
+      },
+      {
+        heading: "Flowers, Fresh or Faux",
+        paragraphs: [
+          "Fresh flowers and artificial stems both work in it. Line it with florist cellophane before adding real flowers.",
+        ],
+      },
+      {
+        heading: "Where It Can Go",
+        paragraphs: [
+          "Indoors — living room, bedroom, dining room or hallway. Left outside, weather takes the marble effect off it soon enough.",
+        ],
+      },
+      {
+        heading: "Cleaning",
+        paragraphs: [
+          "Wipe it down with a soft, damp cloth, and use a gentle cleaner on marks that won't shift.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21501",
+    title: "Marble Effect Pudding Vase | Kaiku",
+    summary:
+      "A rounded ceramic vase in grey with a marble-effect finish, 25 x 25cm at the base and 23cm tall, weighing 2.24kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Ceramic in grey with the same marble-effect finish as the Ellipse vase, but in a squat, rounded pudding shape that's wider than it is tall — 25cm across against 23cm high.",
+        ],
+      },
+      {
+        heading: "Dimensions and Weight",
+        paragraphs: [
+          "25 x 25 x 23cm and 2.24kg. It's a shade heavier than the taller Ellipse in the same range despite being 13cm shorter, which points to thicker walls. Low enough to sit in the middle of a laid table without blocking anyone's view.",
+        ],
+      },
+      {
+        heading: "Flowers and Liners",
+        paragraphs: [
+          "Fine with real flowers. A liner is worth using rather than optional — florist cellophane keeps standing water off the inside of the ceramic, which is where the damage happens over time.",
+        ],
+      },
+      {
+        heading: "Standing On Its Own",
+        paragraphs: [
+          "The shape carries itself empty, so it works as an object on a shelf rather than only as something to put flowers in.",
+        ],
+      },
+      {
+        heading: "Cleaning",
+        paragraphs: [
+          "A damp cloth and a mild detergent. Nothing abrasive — scouring pads scratch the finish and the marks stay.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21615",
+    title: "Roco Wall Clock | Kaiku",
+    summary:
+      "A wall clock with a glass face in a metal frame, 45cm across, 5cm deep and 0.92kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "A glass face set in a metal frame. The glass covers the dial rather than leaving it open, so dust settles on the outside where you can wipe it off instead of on the hands.",
+        ],
+      },
+      {
+        heading: "Size and Where It Fits",
+        paragraphs: [
+          "45cm across and 5cm deep — the smallest clock in the range, which otherwise runs from 59cm up to 112cm. That makes it the one that fits a narrow chimney breast, a kitchen wall between units, or a landing where an 80cm clock would swamp the space.",
+        ],
+      },
+      {
+        heading: "Weight and Hanging",
+        paragraphs: [
+          "0.92kg, which is under a bag of sugar. A single picture hook or a nail will hold it, and there's no need to hunt for a stud.",
+        ],
+      },
+      {
+        heading: "Where It Can Go and Care",
+        paragraphs: [
+          "Living room, bedroom or hallway. Clean it with a soft, dry cloth and keep harsh chemicals away from the frame, since they'll mark the metal finish faster than they'll mark the glass.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21616",
+    title: "Bloomsbury Wall Clock | Kaiku",
+    summary:
+      "A wall clock with a glass face in a metal frame, 59cm across, 6cm deep and 2.16kg. Battery operated, batteries not included.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "A glass face in a metal frame, 6cm deep, so it stands off the wall rather than sitting flush to it.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "59cm across and 2.16kg. It shares those exact numbers with the Louie clock in the same range — the two differ in the face and the finish, not the size — and sits a step up from the 45cm Roco.",
+        ],
+      },
+      {
+        heading: "Hanging It",
+        paragraphs: [
+          "A hook or a nail is generally enough at this weight. Hang it at eye level if you actually want to read it rather than just look at it.",
+        ],
+      },
+      {
+        heading: "Batteries",
+        paragraphs: [
+          "Battery operated, and the batteries aren't included — worth having a set in before you put it up, so you're not taking it back off the wall.",
+        ],
+      },
+      {
+        heading: "Care",
+        paragraphs: [
+          "A soft, dry cloth. Keep damp cloths and abrasive cleaners off it — the frame finish doesn't take either well.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21617",
+    title: "Louie Wall Clock | Kaiku",
+    summary:
+      "A wall clock with a glass face in a black metal frame, 59cm across, 6cm deep and 2.16kg. Battery operated, batteries not included.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "A glass-covered face in a black metal frame. The black reads harder against a pale wall than the same clock would in a light finish, so it holds its own as the only thing hung on a stretch of plaster.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "59 x 59cm, 6cm deep, 2.16kg — the same body as the Bloomsbury clock, in a different finish.",
+        ],
+      },
+      {
+        heading: "Hanging It",
+        paragraphs: [
+          "Standard wall hooks or nails rated for a couple of kilos will do it. Eye level is where it's easiest to read.",
+        ],
+      },
+      {
+        heading: "Batteries",
+        paragraphs: [
+          "It runs on batteries, which aren't supplied. Have them ready for setting it up.",
+        ],
+      },
+      {
+        heading: "Where It Can Go and Care",
+        paragraphs: [
+          "Indoors only — living room, hallway or a home office. Wipe it over with a soft, dry cloth now and again to keep dust off the glass.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21618",
+    title: "Roza Panelled Wall Clock | Kaiku",
+    summary:
+      "A large panelled wall clock in metal and wood, 112cm across, 5cm deep and 15.7kg. Battery operated.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "The face is built up from separate metal and wood panels rather than printed onto one flat disc, in a neutral palette. That construction is where the 5cm depth and most of the 15.7kg comes from — it's a made-up object hung on the wall rather than a picture.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "112cm across and 15.7kg. That's over a metre of wall, and about the width of a small dining table stood on end, so measure the space before you order. Most people can lift it alone, but it's much easier with someone holding one side.",
+        ],
+      },
+      {
+        heading: "Hanging and Fixings",
+        paragraphs: [
+          "It's straightforward to mount, but 15.7kg needs a fixing into a stud or into masonry. A plasterboard hook will not hold this, and we'd rather say so now than have you find out.",
+        ],
+      },
+      {
+        heading: "Batteries",
+        paragraphs: [
+          "Battery operated. Use decent batteries and check them once a year — getting this one down to swap a cell is not a two-minute job.",
+        ],
+      },
+      {
+        heading: "Where It Can Go and Care",
+        paragraphs: [
+          "Indoors: above a console table, along a dining room wall, anywhere with the run of clear wall to carry it. Dust it with a soft, dry cloth.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21619",
+    title: "Celina Mirrored Wall Clock | Kaiku",
+    summary:
+      "A large wall clock with a mirrored glass face in a metal frame, 112cm across, 5cm deep and 15.7kg. Quartz movement.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Mirrored glass in a metal frame, at a size where the mirror does as much work as the numerals — 112cm of reflective face throws light back into the room the way a mirror would.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "112 x 112cm, 5cm deep, 15.7kg. It wants a wall to itself; hung next to pictures it will simply reflect them back at you.",
+        ],
+      },
+      {
+        heading: "Hanging and Fixings",
+        paragraphs: [
+          "It goes onto brick or plaster without any special mounting kit, but use wall anchors sized for the weight rather than a picture hook — 15.7kg of glass coming off a wall is not something to risk. Get help lifting it into place.",
+        ],
+      },
+      {
+        heading: "Movement",
+        paragraphs: [
+          "A quartz movement, and a quiet one, which matters more than it sounds at this size — a loud tick from a metre-wide clock carries across a whole room.",
+        ],
+      },
+      {
+        heading: "Cleaning the Mirrored Face",
+        paragraphs: [
+          "Dust it regularly, then a soft cloth and a gentle glass cleaner. The mirror isn't scratch-proof, so nothing gritty and no harsh chemicals.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21620",
+    title: "Bronze Skeleton Wall Clock | Kaiku",
+    summary:
+      "A skeleton-style wall clock in bronze-finished metal, 70cm across, 5cm deep and 1.94kg. Quartz movement.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Metal in a bronze finish, built as a skeleton clock — the dial is left open, so you see the wall through it and the numerals appear to float. Losing the solid backing is also why a 70cm clock only weighs 1.94kg.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "70cm across and 5cm deep. That puts it between the range's 45–59cm clocks and its 112cm pieces: big enough to be the main thing on a wall, not so big it needs the whole wall.",
+        ],
+      },
+      {
+        heading: "Setting It Up",
+        paragraphs: [
+          "Hang it, drop the battery in, set the hands. At under 2kg the fixing isn't a problem — a hook sized for the wall type is plenty.",
+        ],
+      },
+      {
+        heading: "Movement and Batteries",
+        paragraphs: [
+          "A quartz movement running off a battery you replace as needed.",
+        ],
+      },
+      {
+        heading: "Where It Can Go and Care",
+        paragraphs: [
+          "Living room, hallway or office. Dust it with a soft, dry cloth and keep chemical cleaners off the bronze finish. With an open dial, dust settles on the hands as well as the frame, so it's worth doing more often than a glass-fronted clock.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21623",
+    title: "White Skeleton Wall Clock | Kaiku",
+    summary:
+      "A skeleton-style wall clock in white metal, 70cm across, 5cm deep and 1.94kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "The white version of the skeleton clock — same 70cm frame and same open dial as the bronze one, at the same 1.94kg. In white it disappears into a pale wall rather than standing off it, which is the point if you want the size without the statement.",
+        ],
+      },
+      {
+        heading: "Size and Legibility",
+        paragraphs: [
+          "70 x 70cm and 5cm deep. The open face keeps the numerals readable from an angle as well as head-on, so it works at the end of a hallway where you're rarely square to it.",
+        ],
+      },
+      {
+        heading: "Weight and Hanging",
+        paragraphs: [
+          "1.94kg. Light enough for nails or adhesive hooks, so it can go up on plasterboard without a stud fixing.",
+        ],
+      },
+      {
+        heading: "Where It Can Go",
+        paragraphs: [
+          "Indoors only — living room, bedroom, hallway or a home office.",
+        ],
+      },
+      {
+        heading: "Care",
+        paragraphs: [
+          "A soft, dry cloth, and no harsh chemicals. A white finish shows a dirty cloth, so use a clean one.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21625",
+    title: "Rothay Large Wall Clock | Kaiku",
+    summary:
+      "A large wall clock in grey metal, 80cm across, 5cm deep and 3.08kg.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Metal in a grey finish. It's the large one of the two Rothay clocks — the standard version is 49cm across and 1.21kg, so this is over half again the diameter and more than double the weight.",
+        ],
+      },
+      {
+        heading: "Size and Legibility",
+        paragraphs: [
+          "80cm across and 5cm deep. At that size the numerals read from the far end of a room, which is the reason to buy an 80cm clock rather than a 49cm one — it's meant to be read in passing, not walked up to.",
+        ],
+      },
+      {
+        heading: "Weight and Hanging",
+        paragraphs: [
+          "3.08kg. Use a hook or fixing rated for the weight and matched to the wall; that's more than a picture pin should be asked to carry, though it's well short of needing a stud.",
+        ],
+      },
+      {
+        heading: "Where It Can Go",
+        paragraphs: [
+          "Indoors — above a mantelpiece, along a hallway or on a dining room wall. Think twice about a kitchen or bathroom: steam and humidity get at both the finish and the movement, and it isn't built for that.",
+        ],
+      },
+      {
+        heading: "Care",
+        paragraphs: [
+          "Regular dusting with a soft cloth. Harsh cleaning products will take the grey finish with them.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "hill-decor-21627",
+    title: "Rothay Wall Clock | Kaiku",
+    summary:
+      "A wall clock in grey metal, 49cm across, 4cm deep and 1.21kg. Battery operated.",
+    sections: [
+      {
+        heading: "Design and Materials",
+        paragraphs: [
+          "Grey metal, 4cm deep — the standard-size Rothay. Next to the Large version at 80cm and 3.08kg, this one is a wall clock you hang in a bedroom or a small hallway rather than a centrepiece.",
+        ],
+      },
+      {
+        heading: "Size and Weight",
+        paragraphs: [
+          "49 x 49cm and 1.21kg, so it needs about half a metre of clear wall and nothing more than an ordinary hook to hold it.",
+        ],
+      },
+      {
+        heading: "Hanging It",
+        paragraphs: [
+          "Straightforward to get up and level, and light enough that repositioning it later only costs you one hole.",
+        ],
+      },
+      {
+        heading: "Batteries",
+        paragraphs: [
+          "Battery operated, so there's nothing to wind and nothing to plug in.",
+        ],
+      },
+      {
+        heading: "Where It Can Go and Care",
+        paragraphs: [
+          "Indoors: living room, bedroom or hallway. Dust it regularly, use a damp cloth on marks that won't come off dry, and keep harsh chemicals away from the finish.",
+        ],
+      },
+    ],
+  },
+];
+
+function toBlocks(sections: Section[], key: string): unknown[] {
+  const blocks: unknown[] = [];
+  let index = 0;
+  const b = (text: string, style: string) => {
+    const id = `${key}-${index++}`;
+    return {
+      _type: "block",
+      _key: id,
+      style,
+      markDefs: [],
+      children: [{ _type: "span", _key: `${id}s`, text, marks: [] }],
+    };
+  };
+  for (const section of sections) {
+    blocks.push(b(section.heading, "h2"));
+    for (const paragraph of section.paragraphs)
+      blocks.push(b(paragraph, "normal"));
+  }
+  return blocks;
+}
+
+function keyFor(id: string): string {
+  return id.replace(/[^a-z0-9]+/g, "-").slice(0, 40);
+}
+
+function wordCount(written: Written): number {
+  return written.sections
+    .flatMap((s) => [s.heading, ...s.paragraphs])
+    .join(" ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+async function main() {
+  const results: {
+    id: string;
+    title: string;
+    found: boolean;
+    sections: number;
+    words: number;
+  }[] = [];
+  const transaction = client.transaction();
+  let queued = 0;
+
+  for (const written of REWRITES) {
+    const doc = await client.fetch<{ _id: string } | null>(
+      `*[_id == $id][0]{_id}`,
+      { id: written.id },
+    );
+    results.push({
+      id: written.id,
+      title: written.title,
+      found: !!doc,
+      sections: written.sections.length,
+      words: wordCount(written),
+    });
+    if (!doc) continue;
+    if (apply) {
+      transaction.patch(written.id, (p) =>
+        p.set({
+          description: toBlocks(written.sections, keyFor(written.id)),
+          summary: written.summary,
+        }),
+      );
+      queued += 1;
+    }
+  }
+
+  console.table(results);
+
+  if (apply && queued > 0) {
+    await transaction.commit();
+    console.log(`\nApplied: ${queued} products updated.`);
+  } else if (!apply) {
+    console.log("\nDry run — pass --apply to write these to Sanity.");
+  }
+
+  mkdirSync("docs/change-log", { recursive: true });
+  writeFileSync(
+    "docs/change-log/2026-09-01-rewrite-descriptions-hill-a-batch2.json",
+    JSON.stringify(
+      {
+        apply,
+        queued,
+        results,
+        rewrites: REWRITES.map((w) => ({
+          id: w.id,
+          summary: w.summary,
+          sections: w.sections,
+        })),
+      },
+      null,
+      2,
+    ),
+  );
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
