@@ -1,0 +1,58 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "id": "product-aw-waterf-20",
+      "title": "Buddha Hand & Head Tabletop Water Feature | Kaiku",
+      "was": 2,
+      "now": 6,
+      "wasQuestions": [
+        "What are the exact dimensions?",
+        "How heavy is it, and can I move it on my own?"
+      ]
+    },
+    {
+      "id": "product-import-amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top | Kaiku",
+      "was": 2,
+      "now": 6,
+      "wasQuestions": [
+        "What are the exact dimensions?",
+        "How heavy is it, and can I move it on my own?"
+      ]
+    },
+    {
+      "id": "product-aw-waterf-09",
+      "title": "Tabletop Water Feature - Cascading Pots | Kaiku",
+      "was": 3,
+      "now": 5,
+      "wasQuestions": [
+        "How much water does the feature hold and how often should I top it up?",
+        "What are the delivery and returns terms for this product?",
+        "How heavy is it, and can I move it on my own?"
+      ]
+    },
+    {
+      "id": "premier-housewares-2450049",
+      "title": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
+      "was": 3,
+      "now": 8,
+      "wasQuestions": [
+        "What is the delivery estimate for this product?",
+        "What is the return policy for the chair?",
+        "What are the exact dimensions?"
+      ]
+    },
+    {
+      "id": "premier-housewares-5528057",
+      "title": "Batu Set Of 2 Natural Rattan Side Tables | Kaiku",
+      "was": 3,
+      "now": 4,
+      "wasQuestions": [
+        "How do I clean the tables?",
+        "What is the delivery time for this product?",
+        "What are the exact dimensions?"
+      ]
+    }
+  ]
+}

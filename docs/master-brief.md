@@ -16,6 +16,72 @@ Status key:
 
 ---
 
+## Damien's Capri/Contour catch, and the 66 products it led to (2 September)
+
+He noticed the Contour Collection 3 Drawer Console was carrying the Capri
+Outdoor Foot Stool's meta title and asked whether the descriptions were wrong
+too. They were worse than that.
+
+**The Contour console had all fifteen of the footstool's FAQs.** "Is the wicker
+real rattan?", "Can the footstool stay outside?", "How do I clean the HDPE
+wicker?" — on a black wood hallway console. Its own title, summary and
+description were correct, so nothing that looks for missing or thin content
+would ever have flagged it.
+
+Building a detector for that pattern found the mirror image: **the Capri
+Collection Outdoor Dining Chair was carrying the Contour Collection Sideboard's
+FAQs.** A two-way swap. Both sets rewritten from each product's own data.
+
+`scripts/audit-cross-contamination.ts` is the detector, and it stays. Two
+signals: products sharing an identical FAQ question list, and copy naming a
+range that is not its own. The first version took any capitalised word in a
+title and returned 818 findings — "Design" and "Hanging" appear in the section
+headings of every description here — so it now requires a name to lead its title,
+which is what makes "Capri" in the Contour console's FAQs diagnostic.
+
+### And a claim of mine that was wrong
+
+I reported hedging at zero across the catalogue. It was not zero. My patterns
+covered "the specification does not list" and missed the entire consult-the-
+manual family, plus "is not explicitly stated", "not specifically listed", "not
+indicated" and "unless specified otherwise".
+
+**84 spans across 66 products** told the customer to go and read a manual they do
+not have yet, instead of answering: _"Please consult the instruction manual or
+customer support for guidance."_ Several admitted the gap outright: _"The weight
+capacity for this chair is not explicitly stated."_
+
+- [x] 128 spans rewritten across 93 products
+- [x] 114 blocks dropped where the paragraph was nothing but deflection, taking
+      the orphaned heading with it
+- [x] 37 FAQ answers rewritten
+- [x] Where the answer is known it replaces the deflection — the pump stays
+      submerged, the basin is drained before the first frost, mains-wired
+      fittings need an electrician, the bulb is not included
+- [x] Verified live: 0 remaining
+
+### Also fixed in the same pass
+
+- [x] Five products with two or three stub FAQs, two of which shared the
+      identical pair "What are the exact dimensions?" / "How heavy is it" — which
+      is why they surfaced next to the genuine Capri/Contour swap
+- [x] Ten products quoting their own **old** title inside an FAQ answer, still
+      carrying the doubled dash I repaired in the titles earlier today. Renaming
+      a product means finding every place the old name was written down; I had
+      only fixed the field it was stored in.
+
+### On Side Tables
+
+Checked directly after he sent the screenshot. There is one Sanity dataset on
+this project (`production`) and one Side Tables document, `category-side-tables`.
+It holds 2 intro blocks, 4 buying-guidance blocks, 4 FAQs and the meta title
+"Side Tables | Living Room | Kaiku", last written 14 August — it was one of the
+twelve categories that already had content, so today's script correctly left it
+alone. There are no draft categories. Whatever that Studio tab was showing, it
+was not this document's stored content.
+
+---
+
 ## 806 meta descriptions were supplier marketing, and 209 meta titles were truncated mid-word (2 September)
 
 This came out of correcting my own audit. The first run of
@@ -188,11 +254,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                  | ---- | ------------------- |
-                  | 0.09 (before) | **454ms** |
-                  | 0.18 (now)    | **232ms** |
+                      | ---- | ------------------- |
+                      | 0.09 (before) | **454ms** |
+                      | 0.18 (now)    | **232ms** |
 
-                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
