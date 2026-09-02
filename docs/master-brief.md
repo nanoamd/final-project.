@@ -64,6 +64,84 @@ Multi Shelf Unit, the £829 Light Up Bookcase.
 
 ---
 
+## The famous brand partnership is already half set up in Sanity (2 September)
+
+Damien: _"aosom can fill in some more products but i want the higher margin stuff
+too. we need a famous brand partnership or more suppliers."_
+
+Full shortlist in `docs/research/supplier-and-brand-shortlist.md`.
+
+### 897 of 906 products are branded Kaiku
+
+There is no third-party brand in the catalogue except SaunaPlunge, at 8 products.
+But three brand records exist with **zero products attached**:
+
+| Brand                      | Products | What it is                                                           |
+| -------------------------- | -------- | -------------------------------------------------------------------- |
+| **Harvia**                 | 0        | Largest sauna and steam manufacturer in the world. Finnish, listed.  |
+| **Auroom**                 | 0        | Premium Latvian sauna cabins, the design end.                        |
+| **Mercia Garden Products** | 0        | UK timber garden buildings, runs an active trade dropship programme. |
+
+Harvia sits in the highest-value department in the shop — Sauna is £2,813–£6,500
+— and is the one name a serious sauna buyer already searches for. Someone
+intended to stock all three and never did.
+
+Two reasons this beats approaching a lifestyle brand cold:
+
+- **The category is already built.** Sauna and Cold Plunge have the deepest copy,
+  the buying guides and the size calculators. A Harvia range lands into a section
+  made for it.
+- **Branded search volume.** Nobody types "Kaiku sauna"; people type "Harvia
+  sauna UK". An own-brand-only catalogue has no branded search demand at all,
+  which is a ceiling on traffic that no amount of product count lifts.
+
+### On famous brands generally
+
+Cox & Cox, Neptune and Garden Trading appear in no UK dropship or trade
+directory, and that is deliberate — they are vertically integrated DTC
+businesses whose brand _is_ the margin. Where partnerships are available it is
+**manufacturer** brands, and they come with MAP/RRP enforcement (the name and
+credibility, not price freedom), site approval, and often stocking rather than
+dropship. Site approval is a much easier conversation than it was a week ago:
+906 real descriptions plus category buying guides reads as a real retailer.
+
+### Rugs can be filled this week from an existing account
+
+**Premier Housewares already sells 86 rugs.** Existing account, VAT position
+known, no onboarding. It will not supply premium anchors — Premier is a value
+supplier — but an empty category is a worse problem than a mid-priced one. For
+the anchor end: The Real Rug Company (direct dispatch), Think Rugs (live stock,
+automated ordering).
+
+### Planters need Adezz
+
+The recognised premium planter brand, corten and fibreglass, built for UK
+weather — exactly the £250–£800 anchor missing from a category with 86 products.
+Via trade distributors: Riverhill Garden Supplies, Yard Garden Style, or Taylor
+Made Planters, whose trade terms include **free UK mainland delivery**. That term
+matters more than the price list; its absence is what cost £1,250 on Hill.
+
+### Aosom: not more products, more of their top of range
+
+Five of Aosom's six biggest categories here are ones flagged as having no anchor
+above £250, and Aosom's stock in them tops out at £249 — so more Aosom lines in
+those categories worsens the positioning. The exception is the one that counts:
+**Aosom Garden Furniture is £387–£938, median £590**, genuinely the premium end.
+
+- [!] Aosom carriage terms still unrecorded — 81 of their 103 products have no
+  carriage figure, so none of this can be priced honestly until that lands.
+
+### Order recommended
+
+1. Harvia — famous brand, highest-value department, record already exists
+2. Premier Housewares rugs — existing account, fills an empty category
+3. Adezz via Riverhill or Taylor Made — gives Planters its ceiling, carriage included
+4. Mercia — record exists, active trade programme, high ticket
+5. Aosom top-of-range only, once carriage terms are recorded
+6. A bathroom supplier — still to find, and the worst-positioned department
+
+---
+
 ## Breadth as the edge, and where the catalogue does not look premium (2 September)
 
 Damien has set the strategy: _"product count is going to be our edge for a fresh
@@ -750,11 +828,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                  | ---- | ------------------- |
-                                                  | 0.09 (before) | **454ms** |
-                                                  | 0.18 (now)    | **232ms** |
+                                                      | ---- | ------------------- |
+                                                      | 0.09 (before) | **454ms** |
+                                                      | 0.18 (now)    | **232ms** |
 
-                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
