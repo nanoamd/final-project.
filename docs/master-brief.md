@@ -16,6 +16,65 @@ Status key:
 
 ---
 
+## Competitor prices on the Hill range, and a mistake in my own reprice (2 September)
+
+Damien: _"audit all of our competitiors ... and see if theres still enough space
+to beat them all on price for each product because we were originally and i think
+some should still be eligible."_
+
+Full findings in `docs/research/hill-interiors-competitor-prices.md`.
+
+Hill are a wholesaler, so the same products sit on dozens of UK sites under
+identical names — our price is directly comparable rather than approximate.
+
+| Product                              | Ours now | Cheapest found          | Verdict                   |
+| ------------------------------------ | -------- | ----------------------- | ------------------------- |
+| Provence Outdoor 4 Seater Dining Set | £1,259   | £1,295 (also £1,899.95) | cheapest by £36           |
+| Capri Outdoor Foot Stool             | £276     | £320, Olivia's £410     | cheapest by £44, headroom |
+| Antique Gold Hare Table Lamp         | £76      | £99.95                  | cheapest by £24, headroom |
+| Garda Grey Glazed Juniper Vase       | £124     | £128.99                 | cheapest by £4.99         |
+| Vellis Blue Wingback Armchair        | £374     | £355.81 on offer        | **£18 above**             |
+| Luxe Natural Glow S/2 LED Candles    | £23      | £19.99                  | **£3 above market**       |
+
+**So: yes, there is still room — but only above about £70.** From there up we are
+the cheapest listing on every product checked, with £24 to £134 of headroom on
+some. Below it, the reprice has pushed us above the market.
+
+### The mistake
+
+The reprice charged every product its **full** carriage. Hill's rates are per
+**consignment** — their table bands the whole parcel by weight, so £6.99 covers
+everything up to 10kg in one shipment. The same candle carries £6.99 as a solo
+order, £2.33 shipped with two other small items, and nothing at all if it rides
+in a parcel already under 10kg.
+
+`shipping-rules.ts` already distinguishes `flatPerOrder` from `flatPerItem` and
+documents exactly this. I used the per-item reading. It is right for a
+single-item basket and pessimistic for every other, and on a £20 item the
+difference is the entire margin.
+
+- [!] **Recommend, needs Damien:** take everything raised under ~£30 back to
+  market price — £23 for those candles loses the sale to a dozen retailers at
+  £19.99, and being thin beats being invisible.
+- [!] **Recommend, needs Damien:** fix solo orders structurally instead of with
+  price. A minimum order value, a small-order handling charge, or free
+  delivery over a threshold all turn the per-consignment rate into an
+  advantage. This costs no sales on price, which a rise does.
+- [!] **Recommend, needs Damien:** raise where there is headroom. Capri footstool
+  £276 against Olivia's £410 — £310 would still be the cheapest listing by
+  £10. Hare lamp £76 against £99.95, same again.
+
+Points one and three are the same script run in both directions, so they are
+quick once he picks the numbers.
+
+### Not checked
+
+Products whose names are generic — Light Up Bookcase, Multi Shelf Industrial
+Shelf Unit — are not findable by name search and need Hill's SKU or a reverse
+image search. Nine of the 76 repriced items are in that position.
+
+---
+
 ## Where the margin is actually thin, and a postcode we cannot deliver to (2 September)
 
 ### Only 267 of 906 products can have their margin measured at all
@@ -518,11 +577,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                  | ---- | ------------------- |
-                                  | 0.09 (before) | **454ms** |
-                                  | 0.18 (now)    | **232ms** |
+                                      | ---- | ------------------- |
+                                      | 0.09 (before) | **454ms** |
+                                      | 0.18 (now)    | **232ms** |
 
-                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
