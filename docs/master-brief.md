@@ -64,6 +64,70 @@ Multi Shelf Unit, the £829 Light Up Bookcase.
 
 ---
 
+## Mercia is the approved brand, and a supplier onboarding list (2 September)
+
+Damien: _"im approved by mercia but not harvia or auroom that was just
+placeholder."_ My Harvia recommendation was wrong — those two brand records are
+aspiration. Mercia is the real relationship.
+
+Both briefs in `docs/research/supplier-onboarding.md`.
+
+### Mercia is a good fit for the gap
+
+UK manufacturer of timber garden buildings, self-described market-leading
+dropship supplier. Range covers exactly the high-ticket end the catalogue lacks:
+
+| Range                               | Typical retail |
+| ----------------------------------- | -------------- |
+| Overlap and standard sheds          | £200–£300      |
+| Summerhouses                        | £825–£990      |
+| Log cabins                          | £825–£2,587    |
+| Insulated garden rooms, 100mm walls | above cabins   |
+
+It also sits beside what already sells best. The eight dearest products in the
+shop are seven saunas and a bookcase, £3,263–£6,500. A £2,587 log cabin is the
+same customer, the same considered purchase, the same delivery and installation
+profile — and Sauna is the department with the deepest copy and tools already
+built.
+
+- [ ] **No garden buildings coverage exists at all** — no department, no
+      category. Proposed new **Garden Buildings** department after Outdoor
+      Kitchen: Sheds, Summerhouses, Log Cabins, Garden Rooms & Offices,
+      Greenhouses, Playhouses. Deliberately **not created yet**: Damien's own
+      complaint was empty categories, so these get created with their SEO
+      introduction, buying guidance and FAQs at the same time as the products,
+      the way all 49 existing ones now are.
+- [!] Mercia's terms are not published — handled in conversation. The question
+  list is the conversation.
+- [~] Their "ready painted buildings and home installation" services are upsells
+  with real margin and need modelling as options, not buried in a
+  description.
+
+### The onboarding list, so this stops happening
+
+Hill, Premier and Aosom were all onboarded without their carriage terms being
+captured. With more suppliers coming, that is the failure mode to close. The
+brief has 19 questions to ask before looking at a range, grouped as carriage,
+VAT, pricing tiers, and data/operations — every one of them derived from
+something that has already gone wrong here:
+
+- carriage per order or per item (the whole margin on a £20 product)
+- the exact rate table, not a summary (my two-band inference from a screenshot
+  was wrong; Hill publish ten bands)
+- minimum despatch value (Hill will not ship below £200 at all)
+- surcharge areas and service exclusions (we currently take money for orders
+  two-man delivery cannot reach)
+- which pricing tier we are being quoted (Hill's dropship is their dearest —
+  wholesale is 86.2% of it, volume 77.6%)
+- whether the feed carries weights (a weight-banded rule is unresolvable without
+  one, which is why Hill still has one product with unknown carriage)
+
+And the rule underneath all of it: **a missing carriage figure is not zero, it is
+unknown, and a margin calculated over it is fiction.** That is precisely how
+Hill's carriage came to be recorded as free.
+
+---
+
 ## The famous brand partnership is already half set up in Sanity (2 September)
 
 Damien: _"aosom can fill in some more products but i want the higher margin stuff
@@ -83,8 +147,14 @@ But three brand records exist with **zero products attached**:
 | **Mercia Garden Products** | 0        | UK timber garden buildings, runs an active trade dropship programme. |
 
 Harvia sits in the highest-value department in the shop — Sauna is £2,813–£6,500
-— and is the one name a serious sauna buyer already searches for. Someone
-intended to stock all three and never did.
+— and is the one name a serious sauna buyer already searches for.
+
+**Correction, from Damien:** _"im approved by mercia but not harvia or auroom
+that was just placeholder."_ So Harvia and Auroom are aspiration, not
+relationships, and the recommendation to lead with Harvia was wrong. **Mercia is
+the approved one**, and it is the lead. The point about branded search volume
+still stands — 897 of 906 products branded Kaiku means no branded search demand
+at all — but Mercia is the brand actually available to act on.
 
 Two reasons this beats approaching a lifestyle brand cold:
 
@@ -828,11 +898,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                      | ---- | ------------------- |
-                                                      | 0.09 (before) | **454ms** |
-                                                      | 0.18 (now)    | **232ms** |
+                                                          | ---- | ------------------- |
+                                                          | 0.09 (before) | **454ms** |
+                                                          | 0.18 (now)    | **232ms** |
 
-                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
