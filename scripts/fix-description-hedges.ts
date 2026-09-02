@@ -122,15 +122,20 @@ function stripHedges(blocks: Block[]): { blocks: Block[]; removed: string[] } {
   // Pass 2 — drop headings whose section is now empty.
   const out: Block[] = [];
   for (let i = 0; i < cleaned.length; i++) {
+    // Indexed reads are `Block | undefined` under `noUncheckedIndexedAccess`,
+    // so each one is bound to a local and guarded before use.
     const block = cleaned[i];
+    if (!block) continue;
     if (!isHeading(block)) {
       out.push(block);
       continue;
     }
     let hasBody = false;
     for (let j = i + 1; j < cleaned.length; j++) {
-      if (isHeading(cleaned[j])) break;
-      if (textOf(cleaned[j]).trim()) {
+      const next = cleaned[j];
+      if (!next) continue;
+      if (isHeading(next)) break;
+      if (textOf(next).trim()) {
         hasBody = true;
         break;
       }

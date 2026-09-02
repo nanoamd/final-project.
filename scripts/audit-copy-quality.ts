@@ -260,9 +260,11 @@ async function main() {
 
   const byCheck: Record<string, { fields: number; products: Set<string> }> = {};
   for (const h of hits) {
-    byCheck[h.check] ??= { fields: 0, products: new Set() };
-    byCheck[h.check].fields += 1;
-    byCheck[h.check].products.add(h.id);
+    // Held in a local so `noUncheckedIndexedAccess` can see it is defined —
+    // indexing the record again on the next line re-widens it to `| undefined`.
+    const entry = (byCheck[h.check] ??= { fields: 0, products: new Set() });
+    entry.fields += 1;
+    entry.products.add(h.id);
   }
 
   mkdirSync("docs/change-log", { recursive: true });
@@ -292,12 +294,20 @@ async function main() {
     console.log("Clean on every check.");
     return;
   }
-  const rows = CHECKS.filter((c) => byCheck[c.name]).map((c) => ({
-    check: c.name,
-    occurrences: byCheck[c.name].fields,
-    products: byCheck[c.name].products.size,
-    what: c.note,
-  }));
+  // flatMap rather than filter+map: a `filter` narrows nothing for the
+  // compiler, so the `map` still sees `byCheck[c.name]` as possibly undefined.
+  const rows = CHECKS.flatMap((c) => {
+    const entry = byCheck[c.name];
+    if (!entry) return [];
+    return [
+      {
+        check: c.name,
+        occurrences: entry.fields,
+        products: entry.products.size,
+        what: c.note,
+      },
+    ];
+  });
   console.table(rows);
 
   for (const c of CHECKS) {
