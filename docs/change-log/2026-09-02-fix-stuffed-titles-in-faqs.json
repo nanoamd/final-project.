@@ -1,0 +1,583 @@
+{
+  "apply": true,
+  "queued": 45,
+  "results": [
+    {
+      "id": "product-aw-acshop-12",
+      "changes": [
+        {
+          "before": "The 4 Drawer Recycled Wood Storage Chest | Rustic Teak Storage Unit measures 77 × 42 × 43cm (length × width × height).",
+          "after": "The 4 Drawer Recycled Wood Storage Chest measures 77 × 42 × 43cm (length × width × height)."
+        },
+        {
+          "before": "The 4 Drawer Recycled Wood Storage Chest | Rustic Teak Storage Unit weighs 23.6kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The 4 Drawer Recycled Wood Storage Chest weighs 23.6kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-aw-acshop-21",
+      "changes": [
+        {
+          "before": "The Large Reclaimed Wood Coffee Table | Recycled Teak measures 122 × 61 × 41cm (length × width × height).",
+          "after": "The Large Reclaimed Wood Coffee Table measures 122 × 61 × 41cm (length × width × height)."
+        },
+        {
+          "before": "The Large Reclaimed Wood Coffee Table | Recycled Teak weighs 19.5kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Large Reclaimed Wood Coffee Table weighs 19.5kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-abberley-2-drawer-white-bedside-table",
+      "changes": [
+        {
+          "before": "The Abberley White Bedside Table | Luxury 2 Drawer Bedside Table measures 45 × 40 × 60cm (length × width × height).",
+          "after": "The Abberley White Bedside Table measures 45 × 40 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Abberley White Bedside Table | Luxury 2 Drawer Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Abberley White Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-abberley-black-sideboard",
+      "changes": [
+        {
+          "before": "The Abberley Black Oak Sideboard | Luxury 4 Door Sideboard measures 160 × 45 × 80cm (length × width × height).",
+          "after": "The Abberley Black Oak Sideboard measures 160 × 45 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Abberley Black Oak Sideboard | Luxury 4 Door Sideboard weighs 58kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Abberley Black Oak Sideboard weighs 58kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-abberley-white-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Abberley White Chest of Drawers | Luxury 3 Drawer Chest measures 90 × 45 × 85cm (length × width × height).",
+          "after": "The Abberley White Chest of Drawers measures 90 × 45 × 85cm (length × width × height)."
+        },
+        {
+          "before": "The Abberley White Chest of Drawers | Luxury 3 Drawer Chest weighs 44kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Abberley White Chest of Drawers weighs 44kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-abberley-white-desk",
+      "changes": [
+        {
+          "before": "The Abberley White Desk | Luxury Oak Home Office Desk measures 120 × 50 × 76cm (length × width × height).",
+          "after": "The Abberley White Desk measures 120 × 50 × 76cm (length × width × height)."
+        },
+        {
+          "before": "The Abberley White Desk | Luxury Oak Home Office Desk weighs 15kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Abberley White Desk weighs 15kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-abberley-white-end-table",
+      "changes": [
+        {
+          "before": "The Abberley White End Table | Luxury Oak Side Table measures 40 × 40 × 60cm (length × width × height).",
+          "after": "The Abberley White End Table measures 40 × 40 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Abberley White End Table | Luxury Oak Side Table weighs 13kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Abberley White End Table weighs 13kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-alton-white-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Alton White Chest of Drawers | Luxury 3 Drawer Birch Chest measures 90 × 45 × 75cm (length × width × height).",
+          "after": "The Alton White Chest of Drawers measures 90 × 45 × 75cm (length × width × height)."
+        },
+        {
+          "before": "The Alton White Chest of Drawers | Luxury 3 Drawer Birch Chest weighs 22kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Alton White Chest of Drawers weighs 22kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-alton-white-console-table",
+      "changes": [
+        {
+          "before": "The Alton White Console Table | Luxury 3 Drawer Birch Console Table measures 100 × 45 × 76cm (length × width × height).",
+          "after": "The Alton White Console Table measures 100 × 45 × 76cm (length × width × height)."
+        },
+        {
+          "before": "The Alton White Console Table | Luxury 3 Drawer Birch Console Table weighs 20kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Alton White Console Table weighs 20kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-bamboo-gesso-lamp",
+      "changes": [
+        {
+          "before": "The Bamboo Gesso Table Lamp | Luxury White Gesso Designer Lamp measures 33 × 33 × 63cm (length × width × height).",
+          "after": "The Bamboo Gesso Table Lamp measures 33 × 33 × 63cm (length × width × height)."
+        },
+        {
+          "before": "The Bamboo Gesso Table Lamp | Luxury White Gesso Designer Lamp weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Bamboo Gesso Table Lamp weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-bentley-oak-console-table",
+      "changes": [
+        {
+          "before": "The Bentley Grey Aged Oak Console Table | Luxury Oak Console Table measures 150 × 40 × 80cm (length × width × height).",
+          "after": "The Bentley Grey Aged Oak Console Table measures 150 × 40 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Bentley Grey Aged Oak Console Table | Luxury Oak Console Table weighs 22kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Bentley Grey Aged Oak Console Table weighs 22kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-berkeley-1-drawer-black-bedside-table",
+      "changes": [
+        {
+          "before": "The Berkeley Black 1 Drawer Bedside Table | Luxury High Gloss Bedside Cabinet measures 45 × 45 × 60cm (length × width × height).",
+          "after": "The Berkeley Black 1 Drawer Bedside Table measures 45 × 45 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Berkeley Black 1 Drawer Bedside Table | Luxury High Gloss Bedside Cabinet weighs 26kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Berkeley Black 1 Drawer Bedside Table weighs 26kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-berkeley-white-console-table",
+      "changes": [
+        {
+          "before": "The Berkeley White Console Table | Luxury High Gloss Console Table measures 120 × 35 × 80cm (length × width × height).",
+          "after": "The Berkeley White Console Table measures 120 × 35 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Berkeley White Console Table | Luxury High Gloss Console Table weighs 38kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Berkeley White Console Table weighs 38kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-broadway-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Broadway Oak Chest of Drawers | Luxury 3 Drawer Oak Chest measures 120 × 50 × 85cm (length × width × height).",
+          "after": "The Broadway Oak Chest of Drawers measures 120 × 50 × 85cm (length × width × height)."
+        },
+        {
+          "before": "The Broadway Oak Chest of Drawers | Luxury 3 Drawer Oak Chest weighs 53kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Broadway Oak Chest of Drawers weighs 53kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-broadway-one-drawer-bedside-table",
+      "changes": [
+        {
+          "before": "The Broadway Oak Bedside Table | Luxury Solid Oak 1 Drawer Bedside Table measures 55 × 45 × 55cm (length × width × height).",
+          "after": "The Broadway Oak Bedside Table measures 55 × 45 × 55cm (length × width × height)."
+        },
+        {
+          "before": "The Broadway Oak Bedside Table | Luxury Solid Oak 1 Drawer Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Broadway Oak Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-candover-neutral-sofa",
+      "changes": [
+        {
+          "before": "The Candover Neutral Upholstered Sofa | Luxury 3 Seater Fabric Sofa measures 210.5 × 98 × 84.5cm (length × width × height).",
+          "after": "The Candover Neutral Upholstered Sofa measures 210.5 × 98 × 84.5cm (length × width × height)."
+        },
+        {
+          "before": "The Candover Neutral Upholstered Sofa | Luxury 3 Seater Fabric Sofa weighs 57.5kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Candover Neutral Upholstered Sofa weighs 57.5kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-charlton-2-drawer-walnut-ribbed-bedside-table",
+      "changes": [
+        {
+          "before": "The Charlton Ribbed Walnut 2 Drawer Bedside Table | Luxury Walnut Bedside Cabinet measures 45 × 40 × 60cm (length × width × height).",
+          "after": "The Charlton Ribbed Walnut 2 Drawer Bedside Table measures 45 × 40 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Charlton Ribbed Walnut 2 Drawer Bedside Table | Luxury Walnut Bedside Cabinet weighs 29kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Charlton Ribbed Walnut 2 Drawer Bedside Table weighs 29kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-charlton-ribbed-walnut-desk",
+      "changes": [
+        {
+          "before": "The Charlton Ribbed Walnut Desk | Luxury Walnut Home Office Desk measures 120 × 50 × 76cm (length × width × height).",
+          "after": "The Charlton Ribbed Walnut Desk measures 120 × 50 × 76cm (length × width × height)."
+        },
+        {
+          "before": "The Charlton Ribbed Walnut Desk | Luxury Walnut Home Office Desk weighs 71kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Charlton Ribbed Walnut Desk weighs 71kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-charlton-walnut-ribbed-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Charlton Ribbed Walnut Chest of Drawers | Luxury 6 Drawer Chest measures 110 × 45 × 85cm (length × width × height).",
+          "after": "The Charlton Ribbed Walnut Chest of Drawers measures 110 × 45 × 85cm (length × width × height)."
+        },
+        {
+          "before": "The Charlton Ribbed Walnut Chest of Drawers | Luxury 6 Drawer Chest weighs 88kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Charlton Ribbed Walnut Chest of Drawers weighs 88kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-chilworth-1-drawer-grey-bedside-table",
+      "changes": [
+        {
+          "before": "The Chilworth Grey Bedside Table | Luxury 1 Drawer Bedside Table measures 35 × 35 × 60cm (length × width × height).",
+          "after": "The Chilworth Grey Bedside Table measures 35 × 35 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Chilworth Grey Bedside Table | Luxury 1 Drawer Bedside Table weighs 13kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Chilworth Grey Bedside Table weighs 13kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-easton-2-drawer-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Easton 2 Drawer Chest of Drawers | Luxury Oak Chest measures 90 × 45 × 85cm (length × width × height).",
+          "after": "The Easton 2 Drawer Chest of Drawers measures 90 × 45 × 85cm (length × width × height)."
+        }
+      ]
+    },
+    {
+      "id": "product-import-elmley-grey-glass-top-end-table",
+      "changes": [
+        {
+          "before": "The Elmley Grey End Table | Luxury Glass Side Table measures 45 × 45 × 60cm (length × width × height).",
+          "after": "The Elmley Grey End Table measures 45 × 45 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Elmley Grey End Table | Luxury Glass Side Table weighs 12kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Elmley Grey End Table weighs 12kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-elmley-ivory-console-table",
+      "changes": [
+        {
+          "before": "The Elmley Ivory Console Table | Luxury Glass & Faux Shagreen Console Table measures 120 × 40 × 80cm (length × width × height).",
+          "after": "The Elmley Ivory Console Table measures 120 × 40 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Elmley Ivory Console Table | Luxury Glass & Faux Shagreen Console Table weighs 24kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Elmley Ivory Console Table weighs 24kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-five-black-console-table",
+      "changes": [
+        {
+          "before": "The Five Black Console Table | Luxury Oak Console Table measures 140 × 30 × 80cm (length × width × height).",
+          "after": "The Five Black Console Table measures 140 × 30 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Five Black Console Table | Luxury Oak Console Table weighs 20kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Five Black Console Table weighs 20kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-grafton-1-drawer-black-bedside-table",
+      "changes": [
+        {
+          "before": "The Grafton Black Bedside Table | Industrial Oak 1 Drawer Bedside Table measures 45 × 40 × 60cm (length × width × height).",
+          "after": "The Grafton Black Bedside Table measures 45 × 40 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Grafton Black Bedside Table | Industrial Oak 1 Drawer Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Grafton Black Bedside Table weighs 16kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-grafton-black-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Grafton Black Chest of Drawers | Industrial 3 Drawer Chest measures 90 × 50 × 85cm (length × width × height).",
+          "after": "The Grafton Black Chest of Drawers measures 90 × 50 × 85cm (length × width × height)."
+        },
+        {
+          "before": "The Grafton Black Chest of Drawers | Industrial 3 Drawer Chest weighs 67kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Grafton Black Chest of Drawers weighs 67kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-grafton-black-console-table",
+      "changes": [
+        {
+          "before": "The Grafton Black Console Table | Industrial Oak Console Table measures 140 × 35 × 80cm (length × width × height).",
+          "after": "The Grafton Black Console Table measures 140 × 35 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Grafton Black Console Table | Industrial Oak Console Table weighs 15.4kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Grafton Black Console Table weighs 15.4kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-grafton-black-end-table",
+      "changes": [
+        {
+          "before": "The Grafton Black End Table | Industrial Oak Side Table measures 50 × 32 × 60cm (length × width × height).",
+          "after": "The Grafton Black End Table measures 50 × 32 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Grafton Black End Table | Industrial Oak Side Table weighs 7kg. Light enough to move and reposition on your own.",
+          "after": "The Grafton Black End Table weighs 7kg. Light enough to move and reposition on your own."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-bedside-table",
+      "changes": [
+        {
+          "before": "The Hampton Grey Bedside Table | Luxury Faux Shagreen Bedside Cabinet measures 56 × 46 × 66cm (length × width × height).",
+          "after": "The Hampton Grey Bedside Table measures 56 × 46 × 66cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Grey Bedside Table | Luxury Faux Shagreen Bedside Cabinet weighs 28kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Hampton Grey Bedside Table weighs 28kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-brown-console-table",
+      "changes": [
+        {
+          "before": "The Hampton Brown Shagreen Console Table | Luxury Faux Shagreen Console Table measures 122 × 38 × 81cm (length × width × height).",
+          "after": "The Hampton Brown Shagreen Console Table measures 122 × 38 × 81cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Brown Shagreen Console Table | Luxury Faux Shagreen Console Table weighs 24kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Hampton Brown Shagreen Console Table weighs 24kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-2-nest-tables",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Shagreen Nest of Tables | Luxury Nesting Tables Set of 2 measures 39 × 39 × 54cm (length × width × height).",
+          "after": "The Hampton Ivory Shagreen Nest of Tables measures 39 × 39 × 54cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Shagreen Nest of Tables | Luxury Nesting Tables Set of 2 weighs 7kg. Light enough to move and reposition on your own.",
+          "after": "The Hampton Ivory Shagreen Nest of Tables weighs 7kg. Light enough to move and reposition on your own."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-chest-of-drawers",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Shagreen Chest of Drawers | Luxury 3 Drawer Chest measures 90 × 45 × 85cm (length × width × height).",
+          "after": "The Hampton Ivory Shagreen Chest of Drawers measures 90 × 45 × 85cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Shagreen Chest of Drawers | Luxury 3 Drawer Chest weighs 50kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Hampton Ivory Shagreen Chest of Drawers weighs 50kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-octagonal-mirror",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Octagonal Wall Mirror | Luxury Shagreen Designer Mirror measures 80 × 2.5 × 80cm (length × width × height).",
+          "after": "The Hampton Ivory Octagonal Wall Mirror measures 80 × 2.5 × 80cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Octagonal Wall Mirror | Luxury Shagreen Designer Mirror weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Hampton Ivory Octagonal Wall Mirror weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-round-bedside-table",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Round Bedside Table | Luxury Shagreen Bedside Cabinet measures 45 × 45 × 60cm (length × width × height).",
+          "after": "The Hampton Ivory Round Bedside Table measures 45 × 45 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Round Bedside Table | Luxury Shagreen Bedside Cabinet weighs 18kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Hampton Ivory Round Bedside Table weighs 18kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-square-bedside",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Square Bedside Table | Luxury Shagreen Bedside Cabinet measures 45 × 45 × 60cm (length × width × height).",
+          "after": "The Hampton Ivory Square Bedside Table measures 45 × 45 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Square Bedside Table | Luxury Shagreen Bedside Cabinet weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Hampton Ivory Square Bedside Table weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-ivory-tv-unit",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Shagreen TV Unit | Luxury Media Console measures 160 × 50 × 55cm (length × width × height).",
+          "after": "The Hampton Ivory Shagreen TV Unit measures 160 × 50 × 55cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Shagreen TV Unit | Luxury Media Console weighs 85kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Hampton Ivory Shagreen TV Unit weighs 85kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-hampton-small-square-ivory-mirror",
+      "changes": [
+        {
+          "before": "The Hampton Ivory Shagreen Square Wall Mirror | Luxury Designer Mirror measures 80 × 80 × 2.5cm (length × width × height).",
+          "after": "The Hampton Ivory Shagreen Square Wall Mirror measures 80 × 80 × 2.5cm (length × width × height)."
+        },
+        {
+          "before": "The Hampton Ivory Shagreen Square Wall Mirror | Luxury Designer Mirror weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Hampton Ivory Shagreen Square Wall Mirror weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-huddington-black-sideboard",
+      "changes": [
+        {
+          "before": "The Huddington Black Sideboard | Luxury 3 Door Sideboard measures 150 × 45 × 87cm (length × width × height).",
+          "after": "The Huddington Black Sideboard measures 150 × 45 × 87cm (length × width × height)."
+        },
+        {
+          "before": "The Huddington Black Sideboard | Luxury 3 Door Sideboard weighs 57kg. That is a two-person lift — please have help ready on the day.",
+          "after": "The Huddington Black Sideboard weighs 57kg. That is a two-person lift — please have help ready on the day."
+        }
+      ]
+    },
+    {
+      "id": "product-import-kington-grey-club-chair",
+      "changes": [
+        {
+          "before": "The Kington Grey Club Chair | Luxury Upholstered Accent Chair measures 62 × 70 × 81cm (length × width × height).",
+          "after": "The Kington Grey Club Chair measures 62 × 70 × 81cm (length × width × height)."
+        },
+        {
+          "before": "The Kington Grey Club Chair | Luxury Upholstered Accent Chair weighs 12kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Kington Grey Club Chair weighs 12kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-large-ribbed-gesso-lamp",
+      "changes": [
+        {
+          "before": "The Large Ribbed Gesso Table Lamp | Luxury Designer Table Lamp measures 41 × 41 × 81cm (length × width × height).",
+          "after": "The Large Ribbed Gesso Table Lamp measures 41 × 41 × 81cm (length × width × height)."
+        },
+        {
+          "before": "The Large Ribbed Gesso Table Lamp | Luxury Designer Table Lamp weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Large Ribbed Gesso Table Lamp weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-large-round-gesso-lamp",
+      "changes": [
+        {
+          "before": "The Large Round Gesso Table Lamp | Luxury Designer Lighting measures 46 × 46 × 88cm (length × width × height).",
+          "after": "The Large Round Gesso Table Lamp measures 46 × 46 × 88cm (length × width × height)."
+        },
+        {
+          "before": "The Large Round Gesso Table Lamp | Luxury Designer Lighting weighs 15kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Large Round Gesso Table Lamp weighs 15kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-large-small-rectangular-gesso-lamp",
+      "changes": [
+        {
+          "before": "The Small Rectangular Gesso Table Lamp | Luxury Designer Lighting measures 31 × 31 × 55cm (length × width × height).",
+          "after": "The Small Rectangular Gesso Table Lamp measures 31 × 31 × 55cm (length × width × height)."
+        }
+      ]
+    },
+    {
+      "id": "product-import-leckford-oak-ribbed-occasion-table",
+      "changes": [
+        {
+          "before": "The Leckford Ribbed Black Oak Occasional Table | Luxury Round Side Table measures 75 × 75 × 76cm (length × width × height).",
+          "after": "The Leckford Ribbed Black Oak Occasional Table measures 75 × 75 × 76cm (length × width × height)."
+        },
+        {
+          "before": "The Leckford Ribbed Black Oak Occasional Table | Luxury Round Side Table weighs 23kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Leckford Ribbed Black Oak Occasional Table weighs 23kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-neathan-end-table",
+      "changes": [
+        {
+          "before": "The Neatham End Table | Luxury Modern Side Table measures 40 × 40 × 60cm (length × width × height).",
+          "after": "The Neatham End Table measures 40 × 40 × 60cm (length × width × height)."
+        },
+        {
+          "before": "The Neatham End Table | Luxury Modern Side Table weighs 10kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Neatham End Table weighs 10kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    },
+    {
+      "id": "product-import-norton-black-end-table",
+      "changes": [
+        {
+          "before": "The Norton Black Square End Table | Modern Side Table measures 56 × 56 × 48cm (length × width × height).",
+          "after": "The Norton Black Square End Table measures 56 × 56 × 48cm (length × width × height)."
+        },
+        {
+          "before": "The Norton Black Square End Table | Modern Side Table weighs 10.3kg. Most people can manage that alone, though it is easier with help.",
+          "after": "The Norton Black Square End Table weighs 10.3kg. Most people can manage that alone, though it is easier with help."
+        }
+      ]
+    }
+  ]
+}

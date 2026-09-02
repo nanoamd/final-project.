@@ -1,0 +1,84 @@
+{
+  "apply": true,
+  "queued": 13,
+  "results": [
+    {
+      "id": "product-import-siena-brown-round-ribbed-planter",
+      "found": true,
+      "sections": 5,
+      "words": 296
+    },
+    {
+      "id": "product-import-vellis-wingback-armchair",
+      "found": true,
+      "sections": 4,
+      "words": 342
+    },
+    {
+      "id": "product-import-huddington-black-sideboard",
+      "found": true,
+      "sections": 4,
+      "words": 278
+    },
+    {
+      "id": "product-import-wadborough-neutral-sofa",
+      "found": true,
+      "sections": 4,
+      "words": 330
+    },
+    {
+      "id": "product-import-kington-grey-club-chair",
+      "found": true,
+      "sections": 5,
+      "words": 318
+    },
+    {
+      "id": "product-import-sorelle-two-seater-sofa-with-cushions",
+      "found": true,
+      "sections": 5,
+      "words": 311
+    },
+    {
+      "id": "product-import-neathan-end-table",
+      "found": true,
+      "sections": 4,
+      "words": 258
+    },
+    {
+      "id": "product-import-grafton-black-console-table",
+      "found": true,
+      "sections": 4,
+      "words": 299
+    },
+    {
+      "id": "product-import-grafton-black-end-table",
+      "found": true,
+      "sections": 4,
+      "words": 258
+    },
+    {
+      "id": "product-import-hampton-small-square-ivory-mirror",
+      "found": true,
+      "sections": 4,
+      "words": 377
+    },
+    {
+      "id": "product-import-solara-orb-pendant-ceiling-light",
+      "found": true,
+      "sections": 4,
+      "words": 318
+    },
+    {
+      "id": "product-import-teos-table-lamp",
+      "found": true,
+      "sections": 4,
+      "words": 264
+    },
+    {
+      "id": "product-import-himbleton-green-sofa",
+      "found": true,
+      "sections": 4,
+      "words": 373
+    }
+  ]
+}
