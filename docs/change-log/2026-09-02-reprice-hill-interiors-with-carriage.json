@@ -1,0 +1,54 @@
+{
+  "applied": true,
+  "smallThreshold": 50,
+  "smallFloor": 0.17,
+  "smallMinBump": 4,
+  "largeFloor": 0.2,
+  "cardPct": 0.015,
+  "cardFixed": 0.2,
+  "vatOnCost": false,
+  "raises": 4,
+  "upliftTotal": 6,
+  "results": [
+    {
+      "title": "Medium Conran Vase | Kaiku",
+      "tier": "£50+ (20%)",
+      "costPrice": 34.8,
+      "shippingCost": 6.99,
+      "priceBefore": 53,
+      "priceAfter": 54,
+      "netMarginBefore": 19.3,
+      "netMarginAfter": 20.7
+    },
+    {
+      "title": "Garda Glazed Gisela Vase | Kaiku",
+      "tier": "£50+ (20%)",
+      "costPrice": 34.8,
+      "shippingCost": 6.99,
+      "priceBefore": 53,
+      "priceAfter": 54,
+      "netMarginBefore": 19.3,
+      "netMarginAfter": 20.7
+    },
+    {
+      "title": "Garda Grey Glazed Gisela Vase | Kaiku",
+      "tier": "£50+ (20%)",
+      "costPrice": 34.8,
+      "shippingCost": 6.99,
+      "priceBefore": 53,
+      "priceAfter": 54,
+      "netMarginBefore": 19.3,
+      "netMarginAfter": 20.7
+    },
+    {
+      "title": "Siena Brown Round Ribbed Planter | Kaiku",
+      "tier": "£50+ (20%)",
+      "costPrice": 36,
+      "shippingCost": 6.99,
+      "priceBefore": 53,
+      "priceAfter": 56,
+      "netMarginBefore": 17,
+      "netMarginAfter": 21.4
+    }
+  ]
+}

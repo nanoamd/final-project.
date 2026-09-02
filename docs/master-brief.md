@@ -16,6 +16,97 @@ Status key:
 
 ---
 
+## Hill Interiors: real carriage bands, and 76 prices corrected (2 September)
+
+Damien sent Hill's published rate card after my second attempt: _"so our prices
+for hill interiors are very wrong."_ They were, and so was my fix.
+
+### Three wrong figures in a row, for the record
+
+1. The supplier record said carriage was **free**, "evidenced" by 70 of 136
+   products recorded at £0. Those £0s were the unfilled default on the field —
+   the data was cited as evidence for itself.
+2. I replaced that with two bands, £6.99 under 30kg and £69.99 over, inferred
+   from a checkout screenshot and one product page. I flagged the 30kg split as
+   a guess.
+3. The guess was wrong. Hill publish **ten** bands across two services, and
+   £6.99 covers only the first 10kg, not 30.
+
+### The actual rate card
+
+| Standard courier |        | Two-man (room of choice, packaging removed) |         |
+| ---------------- | ------ | ------------------------------------------- | ------- |
+| up to 10kg       | £6.99  | up to 35kg                                  | £49.99  |
+| 10–20kg          | £9.99  | 35–60kg                                     | £59.99  |
+| 20–40kg          | £14.99 | 61–100kg                                    | £69.99  |
+| over 40kg        | £24.99 | 101–150kg                                   | £84.99  |
+|                  |        | 151–200kg                                   | £109.99 |
+|                  |        | over 200kg                                  | POA     |
+
+Plus £10 for the Isle of Man, Isle of Wight, Northern Ireland and the Scottish
+Highlands & Islands. Kaiku's own trade orders are separate again: carriage free
+over £500 by Palletways, £20 between £200 and £499.99, and **£200 is the minimum
+Hill will despatch at all**.
+
+- [x] Supplier rule rebuilt with all ten bands and the source named
+- [x] `shippingCost` set on 138 of 139 products from the bands
+- [x] Where they land: 108 at £6.99, 20 at £9.99, 7 at £14.99, 2 at £59.99,
+      1 at £69.99
+- [!] The standard/two-man split at 40kg is the one judgement left. Hill publish
+  both tables and not which applies; their Capri corner set quotes the
+  £69.99 two-man band, so furniture goes two-man. It is the expensive
+  direction — if Hill will send a 52kg dining set standard at £24.99 instead
+  of two-man at £59.99, that is £35 back on each.
+- [!] Romanby Stone Round Coffee Table has no weight, so its carriage stays
+  unknown. The repricing skips it rather than assuming £0, which is the
+  mistake this whole pass exists to undo.
+
+### Repricing
+
+Damien's own tiered floor, unchanged from the one he set for Premier Housewares
+— under £50: the higher of +£4 or the minimum clearing 17%; £50 and over: the
+minimum clearing 20%. The difference here is what cost means. The Premier script
+computed margin as (price − costPrice) / price and wrote `shippingCost: 0` into
+its audit trail. True for Premier, false for Hill, so the floor is measured
+against **landed** cost:
+
+    landed = costPrice + shippingCost + (price × 1.5% + 20p)
+
+Because the card fee moves with price, the minimum price clearing a floor has to
+be solved rather than divided: `p = (c + s + 0.20) / (0.985 − f)`.
+
+- [x] 76 of 139 products raised, £717 of uplift, every raise with its own
+      `priceAdjustment` audit document recording the real carriage
+- [x] 0 products now below their tier floor, verified live
+- [x] Net profit across one of each: £5,195
+
+A tier-boundary bug caught on the verification pass, not the dry run: four vases
+at £49 were raised to £53 to clear the 17% small-tier floor, which put them over
+£50 and made them large-tier products needing 20% — landing at 19.3%, below
+their floor immediately after being "fixed". The script now settles the tier with
+a short fixed point before writing.
+
+### VAT still open
+
+Premier Housewares invoice 20% on top and Kaiku cannot reclaim it; 542 of 546
+Premier costs were corrected for that in August. **Hill has 1 of 139 corrected**,
+and Hill's site says trade prices are "subject to additional VAT". Damien has not
+confirmed it, so `VAT_ON_COST` in the reprice script stays `false` — inflating
+139 costs by 20% on my inference would move his whole Hill range off a guess. If
+he confirms, it is one flag and a rerun. Modelled: it would raise 111 of 139
+products instead of 76, for £3,497 rather than £717.
+
+### Not handled yet: postcodes we cannot actually deliver to
+
+Checkout accepts any GB address (`allowed_countries: ["GB"]`) with no postcode
+logic. Hill's two-man service **is not available at all** in BT, HS, IM, IV26-99,
+KA27, KA28, KW, PA15-78, PH19-50 and ZE. So a customer in Belfast can today buy
+the 63kg Light Up Bookcase and we would take the money with no way to fulfil it.
+The £10 remote-area surcharge is unhandled too, on every supplier. Worth building
+a postcode guard; not started.
+
+---
+
 ## Hill Interiors carriage was recorded as free, and it is not (2 September)
 
 Damien: _"we are currently losing money on alot of hill interiors products and
@@ -335,11 +426,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                          | ---- | ------------------- |
-                          | 0.09 (before) | **454ms** |
-                          | 0.18 (now)    | **232ms** |
+                              | ---- | ------------------- |
+                              | 0.09 (before) | **454ms** |
+                              | 0.18 (now)    | **232ms** |
 
-                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
