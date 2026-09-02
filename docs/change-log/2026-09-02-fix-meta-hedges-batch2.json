@@ -1,0 +1,30 @@
+{
+  "apply": true,
+  "queued": 3,
+  "results": [
+    {
+      "id": "premier-housewares-5511678",
+      "ok": true,
+      "before": "The specifications do not provide details on adjustable drop or cable length.",
+      "after": "There is no drop to set — this is a floor lamp, so it stands on the floor rather than hanging from a ceiling. Run the cable along the skirting rather than across open floor, and keep the lamp out of the main walking line through the room."
+    },
+    {
+      "id": "premier-housewares-5529698",
+      "ok": true,
+      "before": "The specifications do not provide guidance on winter storage for the chair.",
+      "after": "Bring it indoors or under cover for the winter. Elm is not a naturally durable timber like teak, so standing out through months of wet and frost is what opens joints and lifts a finish — a shed, garage or covered terrace is enough, and the chair is light enough to carry in."
+    },
+    {
+      "id": "premier-housewares-5529698",
+      "ok": true,
+      "before": "The specifications do not provide information about the care of the cushions.",
+      "after": "Treat the cushions as non-washable unless a care label on them says otherwise. Vacuum them with a soft brush attachment, blot spills immediately rather than rubbing, and store them dry when the chair is not in use — damp is what makes a foam cushion smell."
+    },
+    {
+      "id": "premier-housewares-5529699",
+      "ok": true,
+      "before": "The specifications do not provide winter storage guidance; it's suggested to consult the instruction manual.",
+      "after": "Bring it indoors or under cover for the winter. Elm is not a naturally durable timber like teak, so standing out through months of wet and frost is what opens joints and lifts a finish — a shed, garage or covered terrace is enough, and the chair is light enough to carry in."
+    }
+  ]
+}
