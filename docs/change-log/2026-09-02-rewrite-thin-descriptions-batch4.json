@@ -1,0 +1,72 @@
+{
+  "apply": true,
+  "queued": 11,
+  "results": [
+    {
+      "id": "product-import-avia-mist-armchair",
+      "found": true,
+      "sections": 4,
+      "words": 314
+    },
+    {
+      "id": "product-import-black-wood-arched-window-mirror",
+      "found": true,
+      "sections": 5,
+      "words": 426
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-footstool",
+      "found": true,
+      "sections": 4,
+      "words": 336
+    },
+    {
+      "id": "product-import-echo-french-grey-chair",
+      "found": true,
+      "sections": 5,
+      "words": 382
+    },
+    {
+      "id": "product-import-large-black-multi-shelf-unit",
+      "found": true,
+      "sections": 5,
+      "words": 422
+    },
+    {
+      "id": "product-import-large-circular-silver-wall-hanging-multi-shelf",
+      "found": true,
+      "sections": 5,
+      "words": 384
+    },
+    {
+      "id": "product-import-saltaire-collection-3-shelf-unit",
+      "found": true,
+      "sections": 5,
+      "words": 367
+    },
+    {
+      "id": "product-import-sepia-shadows-squat-table-lamp-with-linen-shade",
+      "found": true,
+      "sections": 5,
+      "words": 356
+    },
+    {
+      "id": "product-import-shop-display-light-up-bookcase",
+      "found": true,
+      "sections": 4,
+      "words": 375
+    },
+    {
+      "id": "product-import-slim-snowy-woodland-pre-lit-200-led-christmas-tree",
+      "found": true,
+      "sections": 5,
+      "words": 391
+    },
+    {
+      "id": "product-import-small-blue-flora-planter-pot",
+      "found": true,
+      "sections": 5,
+      "words": 348
+    }
+  ]
+}

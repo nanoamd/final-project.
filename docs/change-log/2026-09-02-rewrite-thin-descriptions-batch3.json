@@ -1,0 +1,90 @@
+{
+  "apply": true,
+  "queued": 14,
+  "results": [
+    {
+      "id": "premier-housewares-5528976",
+      "found": true,
+      "sections": 4,
+      "words": 347
+    },
+    {
+      "id": "premier-housewares-5529002",
+      "found": true,
+      "sections": 4,
+      "words": 291
+    },
+    {
+      "id": "premier-housewares-5529746",
+      "found": true,
+      "sections": 5,
+      "words": 501
+    },
+    {
+      "id": "premier-housewares-5530012",
+      "found": true,
+      "sections": 4,
+      "words": 385
+    },
+    {
+      "id": "premier-housewares-5535032",
+      "found": true,
+      "sections": 4,
+      "words": 258
+    },
+    {
+      "id": "product-aw-waterf-19",
+      "found": true,
+      "sections": 5,
+      "words": 371
+    },
+    {
+      "id": "product-import-13-6m-44ft-6in-plug-in-led-warm-white-christmas-string-light",
+      "found": true,
+      "sections": 4,
+      "words": 308
+    },
+    {
+      "id": "product-import-2-75m-9ft-plug-in-led-8-sequence-warm-white-cluster-string",
+      "found": true,
+      "sections": 4,
+      "words": 282
+    },
+    {
+      "id": "product-import-adjustable-tractor-seat",
+      "found": true,
+      "sections": 5,
+      "words": 412
+    },
+    {
+      "id": "product-import-aegina-table-lamp",
+      "found": true,
+      "sections": 5,
+      "words": 305
+    },
+    {
+      "id": "product-import-alto-putty-grey-table",
+      "found": true,
+      "sections": 4,
+      "words": 338
+    },
+    {
+      "id": "product-import-antia-stem-table-lamp-with-linen-shade",
+      "found": true,
+      "sections": 4,
+      "words": 262
+    },
+    {
+      "id": "product-import-antique-gold-marching-hares-lamp-with-green-velvet-shade",
+      "found": true,
+      "sections": 5,
+      "words": 408
+    },
+    {
+      "id": "product-import-augusta-column-table-lamp-with-linen-shade",
+      "found": true,
+      "sections": 5,
+      "words": 289
+    }
+  ]
+}
