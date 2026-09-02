@@ -16,6 +16,87 @@ Status key:
 
 ---
 
+## 806 meta descriptions were supplier marketing, and 209 meta titles were truncated mid-word (2 September)
+
+This came out of correcting my own audit. The first run of
+`scripts/audit-everything.ts` reported all 906 products as missing an SEO title
+and description. I recognised an all-906 row as an auditor bug — it was, the
+field is a nested `seo` object and I had read `seoTitle` — but the important part
+is what was behind it: **nothing had ever audited the SEO fields, so nobody had
+looked at what was in them.**
+
+What was in them:
+
+- **209 meta titles truncated with a literal "…"**, mid-phrase, with " | Kaiku"
+  appended after the ellipsis. On the four Freska storage jars that cut off
+  "1100ml", "800ml", "550ml" and "250ml" — the only thing distinguishing them —
+  so all four went to Google under one identical title. Ten such groups.
+- **806 of 906 meta descriptions were supplier or generated filler**: _"Shop the
+  Set Of Three Wooden Lanterns at Kaiku, a perfect addition for charming home
+  ambience. Premium UK homewares for modern interiors."_ This is the voice you
+  told me to get out of the copy, and it was worse here than anywhere else,
+  because the meta description is the line a searcher reads before deciding
+  whether to click.
+- **19 descriptions over 160 characters**, so they truncated in the result.
+- **Four meta titles that were simply the wrong product.** The Contour Collection
+  3 Drawer Console carried "Capri Outdoor Foot Stool | Wicker Garden Footrest |
+  Kaiku". Two different LED wall lights both carried "Led Wall Lamp 2 Pack". No
+  length check would ever have found these.
+
+### Fixed, and verified live with a fresh uncached client
+
+- [x] 296 meta titles rebuilt from the product's own title — 0 now contain an
+      ellipsis, 0 duplicated
+- [x] 811 meta descriptions rebuilt from the product's own summary — 0 filler
+      phrases remain, 0 over 160 characters
+- [x] 9 summaries the earlier de-marketing passes missed, rewritten from data
+- [x] 12 product titles with a doubled separator ("Tabletop Water Feature - -
+      Cascading Pots") repaired
+- [x] 124 gallery images across 31 products given alt text — 0 missing
+- [x] 2 FAQ questions with an eaten "I" ("s it suitable for boutique hotels?")
+- [x] 2 products with no FAQs at all, written from their own specs
+- [x] 1 product with two spec rows labelled "Material" — merged, not dropped,
+      because Aluminium and Polyester are both true of it
+
+`scripts/fix-product-meta.ts`, `scripts/fix-meta-remainder-and-faqs.ts`,
+`scripts/fix-titles-alt-and-last-summaries.ts`,
+`scripts/fix-last-meta-mismatches.ts`.
+
+### A buy-box defect found on the way
+
+127 published products carry no `stockStatus` — they came in through the
+importers rather than through Studio, where the schema's initial value would have
+set it. `product-summary.tsx` printed the raw field, so those 127 showed **a
+lorry icon with nothing beside it** in the buy box, at the moment someone is
+deciding whether to order. `availabilityLine()` in `delivery.ts` already had the
+wording for every case including the missing one; it was not being used here.
+Now it is.
+
+### Deliberately not "fixed"
+
+- [-] 118 meta titles still exceed 60 characters. They are long product names,
+  and Google renders a truncated title while still indexing the whole thing.
+  Cutting them would mean dropping the size or capacity that distinguishes
+  one variant from another, which is the defect I just spent this pass
+  removing. Cosmetic truncation is the better of the two.
+- [-] 80 meta descriptions are under 70 characters, because the product's summary
+  is short and factual. A short honest line beats a long empty one.
+
+### Supplier data gaps, not defects — for you
+
+- [!] 552 products have no `weight`, 159 no `specs`, 12 no `dimensions`. These
+  are gaps in what the suppliers supplied. Every one of them still has a
+  full description, summary and FAQ set, because those were written from
+  whatever data does exist. Where you can get the numbers, they are worth
+  having — weight in particular, because it is what a customer asks before
+  buying a mirror or a wall unit.
+- [!] 26 products have no `deliveryLeadTime`. The delivery window shown on the
+  page is derived from price (your rule), so nothing is broken — this is the
+  free-text override being empty, which is correct unless a piece has a
+  genuinely different lead time.
+
+---
+
 ## Every category page now has SEO copy, buying guidance and FAQs — 49/49 (2 September)
 
 Damien sent a screenshot of a category in Studio with "SEO introduction" and
@@ -107,11 +188,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-              | ---- | ------------------- |
-              | 0.09 (before) | **454ms** |
-              | 0.18 (now)    | **232ms** |
+                  | ---- | ------------------- |
+                  | 0.09 (before) | **454ms** |
+                  | 0.18 (now)    | **232ms** |
 
-              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

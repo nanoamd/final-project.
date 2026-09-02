@@ -1,0 +1,66 @@
+{
+  "apply": true,
+  "queued": 8,
+  "results": [
+    {
+      "id": "product-import-contour-collection-3-drawer-console",
+      "productTitle": "Contour Collection 3 Drawer Console | Kaiku",
+      "field": "seo.metaTitle",
+      "was": "Capri Outdoor Foot Stool | Wicker Garden Footrest | Kaiku",
+      "now": "Contour Collection 3 Drawer Console | Kaiku",
+      "len": 43
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-foot-stool",
+      "productTitle": "Capri Collection Outdoor Foot Stool | Kaiku",
+      "field": "seo.metaTitle",
+      "was": "Capri Outdoor Foot Stool | Wicker Garden Footrest | Kaiku",
+      "now": "Capri Collection Outdoor Foot Stool | Kaiku",
+      "len": 43
+    },
+    {
+      "id": "product-aosom-b31-562v00gd",
+      "productTitle": "Spiral LED Wall Lights, Set of 2, Gold | Kaiku",
+      "field": "seo.metaTitle",
+      "was": "Led Wall Lamp 2 Pack | Lighting | Kaiku",
+      "now": "Spiral LED Wall Lights, Set of 2, Gold | Kaiku",
+      "len": 46
+    },
+    {
+      "id": "product-aosom-b31-565v00gd",
+      "productTitle": "Geometric Mesh LED Wall Lights, Set of 2, Gold | Kaiku",
+      "field": "seo.metaTitle",
+      "was": "Led Wall Lamp 2 Pack | Lighting | Kaiku",
+      "now": "Geometric Mesh LED Wall Lights, Set of 2, Gold | Kaiku",
+      "len": 54
+    },
+    {
+      "id": "premier-housewares-1601835",
+      "field": "summary + seo.metaDescription",
+      "was": "Made from bamboo fibre, corn starch, and mineral powder, it's ideal for adding a modern touch to your bathroom decor.",
+      "now": "Made from bamboo fibre, corn starch and mineral powder, so it is a plant-based composite rather than plastic. Wipe clean with a soft cloth and avoid abrasive cleaners.",
+      "metaLen": 113
+    },
+    {
+      "id": "premier-housewares-2406244",
+      "field": "summary + seo.metaDescription",
+      "was": "The Laxton 3 Tier Light Oak Effect Shelving Unit combines a light oak effect with a sturdy iron frame. Measuring 120 x 28 x 107 cm, it's ideal for any interior.",
+      "now": "A three-tier shelving unit with a light oak effect finish on a sturdy iron frame, 120 x 28 x 107cm. Shallow at 28cm deep, so it sits against a wall without narrowing a walkway.",
+      "metaLen": 118
+    },
+    {
+      "id": "premier-housewares-2406556",
+      "field": "summary + seo.metaDescription",
+      "was": "The Sherman Black Finish and Natural Rattan One Drawer Bedside Table blends a black MDF frame with a natural rattan panel, ideal for any contemporary bedroom.",
+      "now": "A one-drawer bedside table with a black MDF frame and a natural rattan drawer panel. One drawer for the things that live beside a bed, and an open shelf below it.",
+      "metaLen": 110
+    },
+    {
+      "id": "premier-housewares-5511427",
+      "field": "summary + seo.metaDescription",
+      "was": "Crafted from a combination of black iron and transparent glass, the Salasco Black Finish 3 Tiered Glass Chandelier is the perfect addition to any modern home. Featuring a drum shape with multiple transparent glass panes, it stands elegantly at a height of 146 cm and a diameter of 55 cm, making it suitable for various ceiling heights and room sizes. Designed for a luxe ambience, this chandelier requires twelve E14 bulbs with a maximum wattage of 40W each, allowing for ample light in dining rooms, living areas, or hallways. Assembly is required upon delivery, and the chandelier is intended for indoor use only. Its easy maintenance ensures that it remains a feature in your home for years to come.",
+      "now": "A three-tier chandelier in black iron with transparent glass shades. Hard-wired to a ceiling rose, so it needs a qualified electrician, and it needs the ceiling height to hang clear of anyone walking beneath it.",
+      "metaLen": 117
+    }
+  ]
+}

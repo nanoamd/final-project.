@@ -23,7 +23,7 @@ import { GARDEN_VISUALISER_DEPARTMENT_SLUGS } from "@/config/garden-visualiser";
 import { useCart } from "@/hooks/use-cart";
 import { useSavedProducts } from "@/hooks/use-saved-products";
 import { trackAddToCart } from "@/lib/analytics/events";
-import { leadTimeLine } from "@/lib/catalog/delivery";
+import { availabilityLine, leadTimeLine } from "@/lib/catalog/delivery";
 import { selectableOptions } from "@/lib/catalog/product-options";
 import { formatPriceExact } from "@/lib/format";
 import { subscribeToNewsletter } from "@/server/actions/newsletter";
@@ -295,7 +295,15 @@ export function ProductSummary({
                 strokeWidth={1.5}
                 aria-hidden
               />
-              {product.stockStatus}
+              {/* availabilityLine, not the raw field. 127 published products
+                  carry no `stockStatus` at all — they came in through the
+                  importers rather than through Studio, where the schema's
+                  initial value would have set it — and printing the raw field
+                  rendered a lorry icon with nothing beside it, in the buy box,
+                  at the moment someone is deciding whether to order. The helper
+                  already had the wording for every case including the missing
+                  one; it simply was not being used here. */}
+              {availabilityLine(product)}
             </span>
             {/* deliveryWindow, not the raw field — so the buy-box, the
                 delivery panel below, the comparison table and the
