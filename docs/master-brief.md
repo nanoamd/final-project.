@@ -64,6 +64,87 @@ Multi Shelf Unit, the £829 Light Up Bookcase.
 
 ---
 
+## I rewrote damaged descriptions instead of recovering them — 236 restored (2 September)
+
+Damien: _"YOUVE RUINED ALL OF MY BEST DESCRIPTIONS!!! THESE DESCRIPTIONS HAD SO
+MUCH EFFORT INTO THEM THEY WERE WHAT MAKES KAIKU KAIKU."_
+
+He is right, and the history proves it. The Himalayan Salt BBQ Cooking Plate:
+
+| When        | Blocks | Chars            |
+| ----------- | ------ | ---------------- |
+| 1 Aug       | 38     | 3,576            |
+| 14 Aug      | 37     | 3,571            |
+| 25 Aug      | 19     | 2,488            |
+| 1 Sep 09:00 | 3      | **379**          |
+| 1 Sep 19:47 | 6      | 648 (my rewrite) |
+
+The gutting happened between 25 August and 1 September, before this session. **My
+part is what came next and it is the worse half:** I scanned for "thin"
+descriptions, found hundreds of 300–500 character stubs, and wrote new short
+factual ones from spec data. The originals were in Sanity's history the entire
+time. I treated damaged content as missing content and never once checked whether
+there was something to restore.
+
+### Recovered
+
+`scripts/recover-descriptions-from-history.ts` samples every product across eight
+historical snapshots, takes the revision with the most editorial text, and
+restores it where it is materially richer than what is live. It never shortens
+anything, so descriptions written to fill a genuine blank survive.
+
+- [x] **236 products restored, 986,787 characters of Damien's writing recovered**
+- [x] Total description text across the catalogue now 2,380,581 chars; median per
+      product 1,751, p90 5,662
+- [x] Salt plate back to "Designed for Authentic Outdoor Cooking" at 2,526 chars;
+      Tamarind & Resin table back to "Designed to Make a Statement" at 2,590
+
+### One judgement made, and it is reversible
+
+Every historical description ends with a Delivery & Returns section quoting
+carriage that is no longer true — the salt plate's said "0–99g: £2.79 / 2kg+:
+£5.99 / Northern Ireland 2kg+: £14.50" while the site promises free UK delivery
+and the buy box above renders the real terms. Restoring that verbatim would have
+put wrong prices back on 200+ pages. So the editorial content came back exactly
+as written and the delivery tail was held back; every dropped heading is listed
+in `docs/change-log/2026-09-02-recover-descriptions.json`.
+
+- [!] Some restored descriptions carry keyword-stuffed runs — the White Ceramic
+  Pot Table Lamp is 265 blocks, of which most are single phrases ("Living
+  rooms / Bedrooms / Master bedrooms / … Boutique hotels / Show homes /
+  Premium rental properties"). That is Damien's content and it is restored
+  verbatim rather than edited on my judgement, but it reads as spam to a
+  search engine and one description also uses an `h1`. Worth trimming — his
+  call, not mine.
+
+---
+
+## 406 products were invisible on the site (2 September)
+
+Damien: _"i keep finding products which arent listed on the site but there
+published on sanity. fix this ... we shouldnt have any invisible products."_
+
+Three listing queries defaulted to limits **below the catalogue size**:
+
+| Query                                                | Old cap | Actual               | Invisible          |
+| ---------------------------------------------------- | ------- | -------------------- | ------------------ |
+| `getAllProducts` — /shop/all and every category page | 500     | 906                  | **406**            |
+| `getProductsByDepartment` — room pages               | 200     | 230 (Outdoor Living) | **30**             |
+| `getProductsByCategory` — category pages             | 200     | 138 (largest)        | 0, not yet         |
+| `getProductParams` — generateStaticParams            | 200     | 906                  | 0 (ISR covered it) |
+
+The cap itself was defensible — the comment says a 10,000-product store should
+not turn `next build` into a full-catalogue crawl. Defaulting _below the actual
+catalogue_ was not, and nothing anywhere reported that a list had been cut short,
+which is why this was found one product at a time.
+
+- [x] All four lifted to a shared `LISTING_QUERY_CEILING` of 5,000
+- [x] `warnIfTruncated` logs an error whenever a listing query returns exactly its
+      limit — the only observable signal that a cap has bitten. Silent truncation
+      is what made this invisible for weeks.
+
+---
+
 ## Mercia is the approved brand, and a supplier onboarding list (2 September)
 
 Damien: _"im approved by mercia but not harvia or auroom that was just
@@ -898,11 +979,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                          | ---- | ------------------- |
-                                                          | 0.09 (before) | **454ms** |
-                                                          | 0.18 (now)    | **232ms** |
+                                                              | ---- | ------------------- |
+                                                              | 0.09 (before) | **454ms** |
+                                                              | 0.18 (now)    | **232ms** |
 
-                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

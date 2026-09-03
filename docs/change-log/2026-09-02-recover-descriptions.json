@@ -1,0 +1,2382 @@
+{
+  "apply": true,
+  "snapshots": [
+    "2026-08-05T00:00:00Z",
+    "2026-08-12T00:00:00Z",
+    "2026-08-18T00:00:00Z",
+    "2026-08-20T00:00:00Z",
+    "2026-08-24T00:00:00Z",
+    "2026-08-27T00:00:00Z",
+    "2026-08-30T00:00:00Z",
+    "2026-09-01T09:00:00Z"
+  ],
+  "minRatio": 1.5,
+  "minExtra": 400,
+  "recovered": [
+    {
+      "id": "product-import-white-ceramic-pot-lamp-with-linen-shade",
+      "title": "White Ceramic Pot Table Lamp with Linen Shade | Kaiku",
+      "charsBefore": 1376,
+      "charsAfter": 11549,
+      "blocks": 265,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-teos-table-lamp",
+      "title": "Teos Table Lamp | Kaiku",
+      "charsBefore": 1506,
+      "charsAfter": 11375,
+      "blocks": 273,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-twill-weave-ceramic-table-lamp-with-linen-shade",
+      "title": "Twill Weave Ceramic Table Lamp with Linen Shade | Kaiku",
+      "charsBefore": 1413,
+      "charsAfter": 10516,
+      "blocks": 251,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-white-beaded-ceramic-lamp-with-linen-shade",
+      "title": "White Beaded Ceramic Table Lamp with Linen Shade | Kaiku",
+      "charsBefore": 1225,
+      "charsAfter": 10253,
+      "blocks": 239,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-veyla-ceramic-table-lamp-with-linen-shade",
+      "title": "Veyla Ceramic Table Lamp with Linen Shade | Kaiku",
+      "charsBefore": 1637,
+      "charsAfter": 10432,
+      "blocks": 234,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-4-seater-dining-set",
+      "title": "Provence Collection Outdoor 4 Seater Dining Set | Kaiku",
+      "charsBefore": 1058,
+      "charsAfter": 9734,
+      "blocks": 193,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-sofa",
+      "title": "Bloom Collection Outdoor Sofa | Kaiku",
+      "charsBefore": 1156,
+      "charsAfter": 9781,
+      "blocks": 226,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 9,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-sorelle-two-seater-sofa-with-cushions",
+      "title": "Sorelle Two Seater Sofa with Cushions | Kaiku",
+      "charsBefore": 1851,
+      "charsAfter": 10472,
+      "blocks": 267,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 9,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-camden-collection-one-drawer-side-table",
+      "title": "Camden One Drawer Side Table | Kaiku",
+      "charsBefore": 1269,
+      "charsAfter": 9851,
+      "blocks": 233,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-tarn-collection-large-pot-with-handles",
+      "title": "Tarn Large Pot with Handles | Kaiku",
+      "charsBefore": 1822,
+      "charsAfter": 10223,
+      "blocks": 240,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-solara-orb-pendant-ceiling-light",
+      "title": "Solara Orb Pendant Ceiling Light | Kaiku",
+      "charsBefore": 1913,
+      "charsAfter": 10200,
+      "blocks": 234,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-axis-putty-grey-chair",
+      "title": "Axis Putty Grey Carver Dining Chair | Kaiku",
+      "charsBefore": 919,
+      "charsAfter": 9167,
+      "blocks": 177,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-camden-collection-half-moon-3-tier-table",
+      "title": "Camden Half Moon 3 Tier Table | Kaiku",
+      "charsBefore": 1951,
+      "charsAfter": 10123,
+      "blocks": 227,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-rutland-collection-side-table",
+      "title": "Rutland Side Table | Kaiku",
+      "charsBefore": 1584,
+      "charsAfter": 9731,
+      "blocks": 213,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-uthina-table-lamp",
+      "title": "Uthina Table Lamp | Kaiku",
+      "charsBefore": 1501,
+      "charsAfter": 9472,
+      "blocks": 207,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-nahla-large-mirror-with-dimpled-frame",
+      "title": "Nahla Large Mirror With Dimpled Frame | Kaiku",
+      "charsBefore": 987,
+      "charsAfter": 8911,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-17459",
+      "title": "Set Of Three Wooden Lanterns With Traditional Cross Section | Kaiku",
+      "charsBefore": 1149,
+      "charsAfter": 8912,
+      "blocks": 79,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-2-person-outdoor-infrared-sauna-saunaplunge-9b8264b5",
+      "title": "SaunaPlunge™ Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
+      "charsBefore": 1608,
+      "charsAfter": 9365,
+      "blocks": 60,
+      "fromSnapshot": "2026-08-27T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-dining-chair",
+      "title": "Provence Collection Outdoor Dining Chair | Kaiku",
+      "charsBefore": 1194,
+      "charsAfter": 8866,
+      "blocks": 169,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-coffee-table",
+      "title": "Serene Rattan Coffee Table | Kaiku",
+      "charsBefore": 1931,
+      "charsAfter": 9539,
+      "blocks": 211,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-rutland-collection-rectangular-bench",
+      "title": "Rutland Rectangular Bench | Kaiku",
+      "charsBefore": 1895,
+      "charsAfter": 9366,
+      "blocks": 191,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-camden-collection-round-side-table",
+      "title": "Camden Round Side Table | Kaiku",
+      "charsBefore": 1452,
+      "charsAfter": 8898,
+      "blocks": 207,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-zephra-chair",
+      "title": "Zephra White Armchair | Kaiku",
+      "charsBefore": 1833,
+      "charsAfter": 9272,
+      "blocks": 180,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-grey-stone-effect-hurricane-lantern",
+      "title": "Large Grey Stone Effect Hurricane Lantern | Kaiku",
+      "charsBefore": 907,
+      "charsAfter": 8226,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-serene-collection-one-drawer-side-table",
+      "title": "Serene One Drawer Side Table | Kaiku",
+      "charsBefore": 1272,
+      "charsAfter": 8509,
+      "blocks": 198,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-20806",
+      "title": "Square Decorative Hanging Collage Mirror In Silver | Kaiku",
+      "charsBefore": 983,
+      "charsAfter": 8185,
+      "blocks": 58,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-foot-stool",
+      "title": "Capri Collection Outdoor Foot Stool | Kaiku",
+      "charsBefore": 1028,
+      "charsAfter": 8206,
+      "blocks": 176,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-vellis-wingback-armchair",
+      "title": "Vellis Blue Wingback Armchair | Kaiku",
+      "charsBefore": 1968,
+      "charsAfter": 9120,
+      "blocks": 183,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-seraphia-table-lamp-with-edged-linen-shade",
+      "title": "Seraphia Table Lamp with Edged Linen Shade | Kaiku",
+      "charsBefore": 1659,
+      "charsAfter": 8789,
+      "blocks": 213,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-solenne-table-lamp-with-edged-linen-shade",
+      "title": "Solenne Table Lamp with Edged Linen Shade | Kaiku",
+      "charsBefore": 1620,
+      "charsAfter": 8733,
+      "blocks": 211,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-reed-collection-2-drawer-2-door-console",
+      "title": "Reed Collection 2 Drawer 2 Door Console | Kaiku",
+      "charsBefore": 1550,
+      "charsAfter": 8590,
+      "blocks": 195,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-nahla-small-mirror-with-dimpled-frame",
+      "title": "Nahla Small Mirror With Dimpled Frame | Kaiku",
+      "charsBefore": 1030,
+      "charsAfter": 8054,
+      "blocks": 197,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21717",
+      "title": "Large Hammered Silver Astral Vase | Kaiku",
+      "charsBefore": 541,
+      "charsAfter": 7534,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-eucalyptus-plant-in-stone-effect-pot",
+      "title": "Eucalyptus Plant In Stone Effect Pot | Kaiku",
+      "charsBefore": 999,
+      "charsAfter": 7975,
+      "blocks": 179,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-symi-slim-table-lamp",
+      "title": "Symi Slim Table Lamp | Kaiku",
+      "charsBefore": 1539,
+      "charsAfter": 8405,
+      "blocks": 211,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-serene-collection-three-drawer-bedside-table",
+      "title": "Serene Three Drawer Bedside Table | Kaiku",
+      "charsBefore": 1834,
+      "charsAfter": 8696,
+      "blocks": 184,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-contour-collection-pet-feeder-table",
+      "title": "Contour Collection Pet Feeder Table | Kaiku",
+      "charsBefore": 941,
+      "charsAfter": 7751,
+      "blocks": 36,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-saltaire-collection-3-shelf-unit",
+      "title": "Saltaire Collection 3-Shelf Unit | Kaiku",
+      "charsBefore": 2110,
+      "charsAfter": 8906,
+      "blocks": 219,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-dales-glow-indoor-infrared-sauna-by-saunaplunge-2-person-9bf29917",
+      "title": "SaunaPlunge™ Dales Glow 2 Person Indoor Infrared Sauna | Kaiku",
+      "charsBefore": 935,
+      "charsAfter": 7721,
+      "blocks": 51,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 22,
+      "deliveryHeadingsDropped": ["Delivery", "Returns", "Warranty"]
+    },
+    {
+      "id": "product-import-siena-brown-round-ribbed-planter",
+      "title": "Siena Brown Round Ribbed Planter | Kaiku",
+      "charsBefore": 1832,
+      "charsAfter": 8514,
+      "blocks": 195,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-side-table",
+      "title": "Serene Rattan Side Table | Kaiku",
+      "charsBefore": 1625,
+      "charsAfter": 8285,
+      "blocks": 180,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21639",
+      "title": "Butchers Cuts Chicken Wall Plaque | Kaiku",
+      "charsBefore": 478,
+      "charsAfter": 7095,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21643",
+      "title": "Williston Square Wooden Wall Clock | Kaiku",
+      "charsBefore": 516,
+      "charsAfter": 7127,
+      "blocks": 31,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21633",
+      "title": "Karlsson Large Wall Clock | Kaiku",
+      "charsBefore": 428,
+      "charsAfter": 7036,
+      "blocks": 47,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-nahla-medium-mirror-with-dimpled-frame",
+      "title": "Nahla Medium Mirror With Dimpled Frame | Kaiku",
+      "charsBefore": 988,
+      "charsAfter": 7595,
+      "blocks": 178,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-13-6m-44ft-6in-plug-in-led-warm-white-christmas-string-light",
+      "title": "13.6m Warm White Decorative LED String Lights | Kaiku",
+      "charsBefore": 1809,
+      "charsAfter": 8199,
+      "blocks": 196,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21644",
+      "title": "Williston Square Large Wooden Wall Clock | Kaiku",
+      "charsBefore": 571,
+      "charsAfter": 6908,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-small-blue-flora-planter-pot",
+      "title": "Small Blue Flora Planter Pot | Kaiku",
+      "charsBefore": 2048,
+      "charsAfter": 8333,
+      "blocks": 186,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-ssm-05",
+      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue (30.5x22.5x2.3cm) | Kaiku",
+      "charsBefore": 422,
+      "charsAfter": 6603,
+      "blocks": 59,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-etched-collection-tall-pot-with-handle",
+      "title": "Etched Collection Tall Pot With Handle | Kaiku",
+      "charsBefore": 1012,
+      "charsAfter": 7161,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-17461",
+      "title": "Set Of Three Wooden Lanterns With Archway Design | Kaiku",
+      "charsBefore": 876,
+      "charsAfter": 6998,
+      "blocks": 53,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-square-decorative-hanging-collage-mirror-in-black",
+      "title": "Square Decorative Hanging Collage Mirror in Black | Kaiku",
+      "charsBefore": 2170,
+      "charsAfter": 8280,
+      "blocks": 197,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-24505",
+      "title": "Mistora Hand Painted Canvas In Frame | Kaiku",
+      "charsBefore": 422,
+      "charsAfter": 6520,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-seville-collection-lebes-planter",
+      "title": "Seville Collection Lebes Planter | Kaiku",
+      "charsBefore": 1652,
+      "charsAfter": 7742,
+      "blocks": 193,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-24480",
+      "title": "Rhea Large Lighthouse Tealight Holder | Kaiku",
+      "charsBefore": 506,
+      "charsAfter": 6331,
+      "blocks": 14,
+      "fromSnapshot": "2026-08-20T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-delphine-collection-1-drawer-1-door-chest-right-hand",
+      "title": "Delphine Collection 1 Drawer 1 Door Chest Right Hand | Kaiku",
+      "charsBefore": 938,
+      "charsAfter": 6611,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21634",
+      "title": "Brandon Wall Clock | Kaiku",
+      "charsBefore": 445,
+      "charsAfter": 6108,
+      "blocks": 38,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-19501",
+      "title": "Downton Large Antique White Vase | Kaiku",
+      "charsBefore": 912,
+      "charsAfter": 6541,
+      "blocks": 16,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21766",
+      "title": "Garda Emerald Glazed Liv Vase | Kaiku",
+      "charsBefore": 468,
+      "charsAfter": 6097,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bronte-6-person-cabin-sauna-saunaplunge-cae97287",
+      "title": "SaunaPlunge™ Bronte 6-Person Outdoor Cabin Sauna | Kaiku",
+      "charsBefore": 887,
+      "charsAfter": 6486,
+      "blocks": 52,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 22,
+      "deliveryHeadingsDropped": ["Delivery", "Returns", "Warranty"]
+    },
+    {
+      "id": "hill-decor-21617",
+      "title": "Louie Wall Clock | Kaiku",
+      "charsBefore": 1442,
+      "charsAfter": 7028,
+      "blocks": 35,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-romanby-stone-round-coffee-table",
+      "title": "Romanby Stone Round Coffee Table | Kaiku",
+      "charsBefore": 1691,
+      "charsAfter": 7237,
+      "blocks": 164,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-19428",
+      "title": "Large Conical Ceramic Lattice Hurricane Lantern | Kaiku",
+      "charsBefore": 935,
+      "charsAfter": 6447,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21632",
+      "title": "Brandon Large Wall Clock | Kaiku",
+      "charsBefore": 428,
+      "charsAfter": 5914,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-sepia-shadows-squat-table-lamp-with-linen-shade",
+      "title": "Sepia Shadows Squat Table Lamp With Linen Shade | Kaiku",
+      "charsBefore": 2055,
+      "charsAfter": 7492,
+      "blocks": 191,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21499",
+      "title": "Marble Effect Ellipse Large Vase | Kaiku",
+      "charsBefore": 840,
+      "charsAfter": 6237,
+      "blocks": 22,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-rustic-metal-hanging-bell",
+      "title": "Large Rustic Metal Hanging Bell | Kaiku",
+      "charsBefore": 909,
+      "charsAfter": 6306,
+      "blocks": 31,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-pennine-barrel-6-person-sauna-saunaplunge-0c76326a",
+      "title": "SaunaPlunge™ Pennine Barrel 6-Person Outdoor Sauna | Kaiku",
+      "charsBefore": 1292,
+      "charsAfter": 6599,
+      "blocks": 44,
+      "fromSnapshot": "2026-08-27T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "hill-decor-21772",
+      "title": "Garda Grey Glazed Juniper Vase | Kaiku",
+      "charsBefore": 509,
+      "charsAfter": 5801,
+      "blocks": 29,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bronte-2-person-cabin-sauna-saunaplunge-0875b2a6",
+      "title": "SaunaPlunge™ Bronte 2-Person Outdoor Cabin Sauna | Kaiku",
+      "charsBefore": 1053,
+      "charsAfter": 6309,
+      "blocks": 42,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 23,
+      "deliveryHeadingsDropped": ["Delivery", "Returns", "Warranty"]
+    },
+    {
+      "id": "hill-decor-21631",
+      "title": "Ashmount Wall Clock | Kaiku",
+      "charsBefore": 414,
+      "charsAfter": 5653,
+      "blocks": 35,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21620",
+      "title": "Bronze Skeleton Wall Clock | Kaiku",
+      "charsBefore": 530,
+      "charsAfter": 5705,
+      "blocks": 42,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-24479",
+      "title": "Sona Large Hurricane Lantern With Lid | Kaiku",
+      "charsBefore": 525,
+      "charsAfter": 5690,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-20T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-19429",
+      "title": "Round Ceramic Lattice Hurricane Lantern | Kaiku",
+      "charsBefore": 913,
+      "charsAfter": 6072,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-reed-collection-3-drawer-bedside-table",
+      "title": "Reed Collection 3 Drawer Bedside Table | Kaiku",
+      "charsBefore": 1620,
+      "charsAfter": 6774,
+      "blocks": 161,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-echo-putty-grey-chair",
+      "title": "Echo Putty Grey Chair | Kaiku",
+      "charsBefore": 792,
+      "charsAfter": 5921,
+      "blocks": 50,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21623",
+      "title": "White Skeleton Wall Clock | Kaiku",
+      "charsBefore": 452,
+      "charsAfter": 5556,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-echo-french-grey-chair",
+      "title": "Echo French Grey Chair | Kaiku",
+      "charsBefore": 2335,
+      "charsAfter": 7432,
+      "blocks": 150,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-19417",
+      "title": "Aged Stone Ceramic Vase | Kaiku",
+      "charsBefore": 894,
+      "charsAfter": 5971,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21761",
+      "title": "Garda Grey Glazed Gisela Vase | Kaiku",
+      "charsBefore": 551,
+      "charsAfter": 5537,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21637",
+      "title": "Butchers Cuts Pork Wall Plaque | Kaiku",
+      "charsBefore": 1599,
+      "charsAfter": 6571,
+      "blocks": 32,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-24506",
+      "title": "Silvra Hand Painted Canvas In Frame | Kaiku",
+      "charsBefore": 408,
+      "charsAfter": 5344,
+      "blocks": 42,
+      "fromSnapshot": "2026-08-20T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21501",
+      "title": "Marble Effect Pudding Vase | Kaiku",
+      "charsBefore": 522,
+      "charsAfter": 5426,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-20782",
+      "title": "Garda Glazed Gisela Vase | Kaiku",
+      "charsBefore": 879,
+      "charsAfter": 5742,
+      "blocks": 21,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-antique-gold-hare-table-lamp-with-green-velvet-shade",
+      "title": "Antique Gold Hare Table Lamp With Green Velvet Shade | Kaiku",
+      "charsBefore": 444,
+      "charsAfter": 5278,
+      "blocks": 144,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21358",
+      "title": "Darcy Ople Vase | Kaiku",
+      "charsBefore": 925,
+      "charsAfter": 5734,
+      "blocks": 32,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21186",
+      "title": "Large Frosted Eucalyptus Candle Wreath | Kaiku",
+      "charsBefore": 1005,
+      "charsAfter": 5794,
+      "blocks": 27,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21248",
+      "title": "Luxe Collection Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
+      "charsBefore": 984,
+      "charsAfter": 5672,
+      "blocks": 41,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21629",
+      "title": "Ashmount Large Wall Clock | Kaiku",
+      "charsBefore": 1823,
+      "charsAfter": 6484,
+      "blocks": 48,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21618",
+      "title": "Roza Panelled Wall Clock | Kaiku",
+      "charsBefore": 540,
+      "charsAfter": 5187,
+      "blocks": 30,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-blue-agapanthus-plant-in-pot",
+      "title": "Blue Agapanthus Plant In Pot | Kaiku",
+      "charsBefore": 812,
+      "charsAfter": 5402,
+      "blocks": 31,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-17857",
+      "title": "Silver Heart Skeleton Wall Clock | Kaiku",
+      "charsBefore": 978,
+      "charsAfter": 5541,
+      "blocks": 40,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-18282",
+      "title": "Medium Conran Vase | Kaiku",
+      "charsBefore": 1099,
+      "charsAfter": 5649,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21767",
+      "title": "Garda Grey Glazed Chive Vase | Kaiku",
+      "charsBefore": 546,
+      "charsAfter": 5075,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-20T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-kyra-french-grey-chair",
+      "title": "Kyra French Grey Chair | Kaiku",
+      "charsBefore": 879,
+      "charsAfter": 5391,
+      "blocks": 29,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-lennox-black-framed-console",
+      "title": "Lennox Black Framed Console | Kaiku",
+      "charsBefore": 823,
+      "charsAfter": 5296,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-alto-putty-grey-table",
+      "title": "Alto Putty Grey Outdoor Table | Kaiku",
+      "charsBefore": 1956,
+      "charsAfter": 6396,
+      "blocks": 151,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-16210",
+      "title": "Glass Candle Holder | Kaiku",
+      "charsBefore": 1009,
+      "charsAfter": 5434,
+      "blocks": 46,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-oura-round-coffee-table",
+      "title": "Oura Round Coffee Table | Kaiku",
+      "charsBefore": 754,
+      "charsAfter": 5172,
+      "blocks": 30,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-csalt-04",
+      "title": "Himalayan Salt Cooking Plate - Square - 20x20x5cm | Kaiku",
+      "charsBefore": 453,
+      "charsAfter": 4866,
+      "blocks": 43,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-ssm-03",
+      "title": "Soft Squiggly Mirror – Star – Mauve (33x31x2.3cm) | Kaiku",
+      "charsBefore": 494,
+      "charsAfter": 4888,
+      "blocks": 35,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-boucle-ribbed-ark-chair",
+      "title": "Boucle Ribbed Ark Chair | Kaiku",
+      "charsBefore": 887,
+      "charsAfter": 5281,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-17858",
+      "title": "Large Silver Skeleton Wall Clock | Kaiku",
+      "charsBefore": 834,
+      "charsAfter": 5193,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-4-person-outdoor-infrared-sauna-saunaplunge-90561a20",
+      "title": "SaunaPlunge™ Yorkshire Cabin 4-Person Outdoor Infrared Sauna | Kaiku",
+      "charsBefore": 1257,
+      "charsAfter": 5566,
+      "blocks": 98,
+      "fromSnapshot": "2026-08-27T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-import-ice-bath-with-chiller-saunaplunge-7c314725",
+      "title": "SaunaPlunge™ Peak Plunge Ice Bath with Chiller | Kaiku",
+      "charsBefore": 1138,
+      "charsAfter": 5425,
+      "blocks": 101,
+      "fromSnapshot": "2026-08-27T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "hill-decor-21616",
+      "title": "Bloomsbury Wall Clock | Kaiku",
+      "charsBefore": 430,
+      "charsAfter": 4620,
+      "blocks": 18,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-19418",
+      "title": "Aged Stone Tall Ceramic Vase | Kaiku",
+      "charsBefore": 924,
+      "charsAfter": 5109,
+      "blocks": 22,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-di-di-pershore-ct-oak",
+      "title": "Pershore Rectangular Aged Oak Coffee Table | Kaiku",
+      "charsBefore": 880,
+      "charsAfter": 4985,
+      "blocks": 49,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 11,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21627",
+      "title": "Rothay Wall Clock | Kaiku",
+      "charsBefore": 1854,
+      "charsAfter": 5932,
+      "blocks": 55,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21619",
+      "title": "Celina Mirrored Wall Clock | Kaiku",
+      "charsBefore": 567,
+      "charsAfter": 4621,
+      "blocks": 39,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-axis-shelf-unit-with-glass-shelves",
+      "title": "Axis Shelf Unit With Glass Shelves | Kaiku",
+      "charsBefore": 985,
+      "charsAfter": 5026,
+      "blocks": 141,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21795",
+      "title": "Galaxy Silver And Grey Hand Painted Canvas | Kaiku",
+      "charsBefore": 686,
+      "charsAfter": 4716,
+      "blocks": 14,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-4-person-indoor-infrared-sauna-saunaplunge-25f636e4",
+      "title": "SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
+      "charsBefore": 988,
+      "charsAfter": 4971,
+      "blocks": 37,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 12,
+      "deliveryHeadingsDropped": ["Delivery", "Returns & Refunds", "Warranty"]
+    },
+    {
+      "id": "product-import-abberley-white-end-table",
+      "title": "Abberley White End Table | Kaiku",
+      "charsBefore": 809,
+      "charsAfter": 4714,
+      "blocks": 89,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21615",
+      "title": "Roco Wall Clock | Kaiku",
+      "charsBefore": 1638,
+      "charsAfter": 5527,
+      "blocks": 35,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-20836",
+      "title": "Tristan Mirror And Wood 4X6 Frame | Kaiku",
+      "charsBefore": 795,
+      "charsAfter": 4665,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-abberley-white-desk",
+      "title": "Abberley White Desk | Kaiku",
+      "charsBefore": 851,
+      "charsAfter": 4713,
+      "blocks": 100,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21775",
+      "title": "Garda Grey Glazed Tiber Vase | Kaiku",
+      "charsBefore": 681,
+      "charsAfter": 4537,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-abberley-black-sideboard",
+      "title": "Abberley Black Oak Sideboard | Kaiku",
+      "charsBefore": 955,
+      "charsAfter": 4782,
+      "blocks": 99,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-multi-shelf-industrial-shelf-unit",
+      "title": "Multi Shelf Industrial Shelf Unit | Kaiku",
+      "charsBefore": 913,
+      "charsAfter": 4717,
+      "blocks": 30,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-decorative-hanging-black-mirror",
+      "title": "Decorative Hanging Black Mirror | Kaiku",
+      "charsBefore": 895,
+      "charsAfter": 4696,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-charlton-walnut-ribbed-chest-of-drawers",
+      "title": "Charlton Ribbed Walnut Chest of Drawers | Kaiku",
+      "charsBefore": 912,
+      "charsAfter": 4677,
+      "blocks": 98,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-charlton-ribbed-walnut-desk",
+      "title": "Charlton Ribbed Walnut Desk | Kaiku",
+      "charsBefore": 1036,
+      "charsAfter": 4776,
+      "blocks": 96,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-20837",
+      "title": "Tristan Mirror And Wood 5X7 Frame | Kaiku",
+      "charsBefore": 991,
+      "charsAfter": 4686,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-broadway-chest-of-drawers",
+      "title": "Broadway Oak Chest of Drawers | Kaiku",
+      "charsBefore": 862,
+      "charsAfter": 4539,
+      "blocks": 93,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-20854",
+      "title": "Antique Etched foxed Wall Art Mirror | Kaiku",
+      "charsBefore": 1178,
+      "charsAfter": 4829,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21718",
+      "title": "Hammered Silver Astral Vase | Kaiku",
+      "charsBefore": 487,
+      "charsAfter": 4109,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-broadway-one-drawer-bedside-table",
+      "title": "Broadway Oak Bedside Table | Kaiku",
+      "charsBefore": 720,
+      "charsAfter": 4308,
+      "blocks": 91,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21706",
+      "title": "Silver Punch Faced Ceramic Large Candle Holder | Kaiku",
+      "charsBefore": 518,
+      "charsAfter": 4100,
+      "blocks": 28,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-17",
+      "title": "Tall Reclaimed Teak Chest of 5 Drawers | Kaiku",
+      "charsBefore": 696,
+      "charsAfter": 4222,
+      "blocks": 38,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-adjustable-tractor-seat",
+      "title": "Adjustable Tractor Seat | Kaiku",
+      "charsBefore": 2377,
+      "charsAfter": 5889,
+      "blocks": 63,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bamboo-gesso-lamp",
+      "title": "Bamboo Gesso Table Lamp | Kaiku",
+      "charsBefore": 778,
+      "charsAfter": 4264,
+      "blocks": 90,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-avia-mist-armchair",
+      "title": "Avia Mist Armchair | Kaiku",
+      "charsBefore": 1808,
+      "charsAfter": 5287,
+      "blocks": 15,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-belluno-urn-table-lamp-with-linen-shade",
+      "title": "Belluno Urn Table Lamp With Linen Shade | Kaiku",
+      "charsBefore": 884,
+      "charsAfter": 4349,
+      "blocks": 30,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-13",
+      "title": "Small Recycled Teak TV Stand with 2 Drawers | Kaiku",
+      "charsBefore": 812,
+      "charsAfter": 4276,
+      "blocks": 37,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-abberley-white-chest-of-drawers",
+      "title": "Abberley White Chest of Drawers | Kaiku",
+      "charsBefore": 890,
+      "charsAfter": 4345,
+      "blocks": 105,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-small-rectangular-gesso-lamp",
+      "title": "Small Rectangular Gesso Table Lamp | Kaiku",
+      "charsBefore": 1891,
+      "charsAfter": 5310,
+      "blocks": 97,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 10,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-charlton-2-drawer-walnut-ribbed-bedside-table",
+      "title": "Charlton Ribbed Walnut 2 Drawer Bedside Table | Kaiku",
+      "charsBefore": 982,
+      "charsAfter": 4335,
+      "blocks": 93,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-abberley-1-drawer-black-console-table",
+      "title": "Abberley One Drawer Black Console Table | Kaiku",
+      "charsBefore": 806,
+      "charsAfter": 4121,
+      "blocks": 70,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-easton-2-drawer-chest-of-drawers",
+      "title": "Easton 2 Drawer Chest of Drawers | Kaiku",
+      "charsBefore": 811,
+      "charsAfter": 4111,
+      "blocks": 88,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-alton-white-chest-of-drawers",
+      "title": "Alton White Chest of Drawers | Kaiku",
+      "charsBefore": 824,
+      "charsAfter": 4113,
+      "blocks": 94,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-slim-snowy-woodland-pre-lit-200-led-christmas-tree",
+      "title": "Slim Snowy Woodland Pre-Lit 200 Led Christmas Tree | Kaiku",
+      "charsBefore": 2263,
+      "charsAfter": 5520,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-shop-display-light-up-bookcase",
+      "title": "Light Up Bookcase | Kaiku",
+      "charsBefore": 2136,
+      "charsAfter": 5392,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-21",
+      "title": "Large Reclaimed Wood Coffee Table | Kaiku",
+      "charsBefore": 832,
+      "charsAfter": 4076,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "product-import-abberley-2-drawer-white-bedside-table",
+      "title": "Abberley White Bedside Table | Kaiku",
+      "charsBefore": 908,
+      "charsAfter": 4133,
+      "blocks": 86,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21625",
+      "title": "Rothay Large Wall Clock | Kaiku",
+      "charsBefore": 1881,
+      "charsAfter": 5102,
+      "blocks": 21,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-14",
+      "title": "Round Reclaimed Teak Bedside Table with Drawer | Kaiku",
+      "charsBefore": 714,
+      "charsAfter": 3887,
+      "blocks": 39,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-norton-black-end-table",
+      "title": "Norton Black Square End Table | Kaiku",
+      "charsBefore": 498,
+      "charsAfter": 3670,
+      "blocks": 69,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-waterf-19",
+      "title": "Tabletop Water Feature - 19x19x28cm - Buddha, Lotus Flower Cascading Potsx | Kaiku",
+      "charsBefore": 2150,
+      "charsAfter": 5316,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-20T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "hill-decor-21647",
+      "title": "Williston Grey Square Wall Clock | Kaiku",
+      "charsBefore": 1970,
+      "charsAfter": 5125,
+      "blocks": 50,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-rds-151",
+      "title": "Brown Wooden Storage Crates (Set of 3) | Kaiku",
+      "charsBefore": 566,
+      "charsAfter": 3716,
+      "blocks": 48,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-bts-02",
+      "title": "Natural Wooden Beer Barrel Storage Stool | Kaiku",
+      "charsBefore": 578,
+      "charsAfter": 3719,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-07",
+      "title": "Reclaimed Teak Dining Table 180cm | Kaiku",
+      "charsBefore": 1099,
+      "charsAfter": 4218,
+      "blocks": 38,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-ribbed-gesso-lamp",
+      "title": "Large Ribbed Gesso Table Lamp | Kaiku",
+      "charsBefore": 2092,
+      "charsAfter": 5210,
+      "blocks": 98,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 9,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-chilworth-1-drawer-grey-bedside-table",
+      "title": "Chilworth Grey Bedside Table | Kaiku",
+      "charsBefore": 783,
+      "charsAfter": 3893,
+      "blocks": 79,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-02",
+      "title": "Reclaimed Teak Console Table with 3 Drawers | Kaiku",
+      "charsBefore": 988,
+      "charsAfter": 4042,
+      "blocks": 38,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-08",
+      "title": "Reclaimed Teak Six Shelf Display Unit with Castors | Kaiku",
+      "charsBefore": 1158,
+      "charsAfter": 4186,
+      "blocks": 42,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-dining-chair",
+      "title": "Capri Collection Outdoor Dining Chair | Kaiku",
+      "charsBefore": 920,
+      "charsAfter": 3900,
+      "blocks": 110,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-elmley-ivory-console-table",
+      "title": "Elmley Ivory Console Table | Kaiku",
+      "charsBefore": 1044,
+      "charsAfter": 3993,
+      "blocks": 82,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-round-gesso-lamp",
+      "title": "Large Round Gesso Table Lamp | Kaiku",
+      "charsBefore": 2018,
+      "charsAfter": 4951,
+      "blocks": 107,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 10,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-elmley-grey-glass-top-end-table",
+      "title": "Elmley Grey End Table | Kaiku",
+      "charsBefore": 901,
+      "charsAfter": 3822,
+      "blocks": 84,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-five-black-console-table",
+      "title": "Five Black Console Table | Kaiku",
+      "charsBefore": 832,
+      "charsAfter": 3745,
+      "blocks": 82,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-contour-collection-2-drawer-2-door-sideboard",
+      "title": "Contour Collection 2 Drawer 2 Door Sideboard | Kaiku",
+      "charsBefore": 997,
+      "charsAfter": 3900,
+      "blocks": 110,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bentley-oak-console-table",
+      "title": "Bentley Grey Aged Oak Console Table | Kaiku",
+      "charsBefore": 858,
+      "charsAfter": 3718,
+      "blocks": 81,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-berkeley-1-drawer-black-bedside-table",
+      "title": "Berkeley Black 1 Drawer Bedside Table | Kaiku",
+      "charsBefore": 804,
+      "charsAfter": 3656,
+      "blocks": 89,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-contour-collection-3-drawer-console",
+      "title": "Contour Collection 3 Drawer Console | Kaiku",
+      "charsBefore": 879,
+      "charsAfter": 3725,
+      "blocks": 115,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 11,
+      "deliveryHeadingsDropped": ["Delivery", "Returns", "Warranty"]
+    },
+    {
+      "id": "product-aw-acshop-11",
+      "title": "Small Reclaimed Teak Coffee Table | Kaiku",
+      "charsBefore": 915,
+      "charsAfter": 3754,
+      "blocks": 36,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-round-bedside-table",
+      "title": "Hampton Ivory Round Bedside Table | Kaiku",
+      "charsBefore": 2006,
+      "charsAfter": 4826,
+      "blocks": 100,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-candover-neutral-sofa",
+      "title": "Candover Neutral Upholstered Sofa | Kaiku",
+      "charsBefore": 976,
+      "charsAfter": 3772,
+      "blocks": 77,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-wadborough-neutral-sofa",
+      "title": "Wadborough 3 Seater Sofa in Neutral | Kaiku",
+      "charsBefore": 1960,
+      "charsAfter": 4736,
+      "blocks": 56,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 15,
+      "deliveryHeadingsDropped": ["Shipping and Delivery ", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-square-bedside",
+      "title": "Hampton Ivory Square Bedside Table | Kaiku",
+      "charsBefore": 1914,
+      "charsAfter": 4672,
+      "blocks": 99,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-di-di-abberley-ct-br",
+      "title": "Abberley Coffee Table in Brown | Kaiku",
+      "charsBefore": 1159,
+      "charsAfter": 3916,
+      "blocks": 36,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery"]
+    },
+    {
+      "id": "product-import-alton-white-console-table",
+      "title": "Alton White Console Table | Kaiku",
+      "charsBefore": 919,
+      "charsAfter": 3660,
+      "blocks": 90,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-01",
+      "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+      "charsBefore": 1145,
+      "charsAfter": 3857,
+      "blocks": 40,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-berkeley-white-console-table",
+      "title": "Berkeley White Console Table | Kaiku",
+      "charsBefore": 853,
+      "charsAfter": 3559,
+      "blocks": 88,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-rds-146",
+      "title": "Large Brown Wooden Storage Tub | Kaiku",
+      "charsBefore": 444,
+      "charsAfter": 3065,
+      "blocks": 37,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-grafton-black-console-table",
+      "title": "Grafton Black Console Table | Kaiku",
+      "charsBefore": 1765,
+      "charsAfter": 4357,
+      "blocks": 92,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-neathan-end-table",
+      "title": "Neatham End Table | Kaiku",
+      "charsBefore": 1458,
+      "charsAfter": 4008,
+      "blocks": 76,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-ssm-06",
+      "title": "Soft Squiggly Mirror – Flower – Stone (25.4x25.4x2.3cm) | Kaiku",
+      "charsBefore": 1811,
+      "charsAfter": 4304,
+      "blocks": 27,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-mickleton-cream-chenille-armchair",
+      "title": "Mickleton Cream Chenille Armchair | Kaiku",
+      "charsBefore": 2216,
+      "charsAfter": 4698,
+      "blocks": 66,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-di-di-witley-ct-oak",
+      "title": "Witley Coffee Table | Kaiku",
+      "charsBefore": 1010,
+      "charsAfter": 3408,
+      "blocks": 34,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery"]
+    },
+    {
+      "id": "product-import-huddington-black-sideboard",
+      "title": "Huddington Black Sideboard | Kaiku",
+      "charsBefore": 1703,
+      "charsAfter": 4098,
+      "blocks": 94,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-kington-grey-club-chair",
+      "title": "Kington Grey Club Chair | Kaiku",
+      "charsBefore": 1930,
+      "charsAfter": 4266,
+      "blocks": 86,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-brown-console-table",
+      "title": "Hampton Brown Shagreen Console Table | Kaiku",
+      "charsBefore": 2229,
+      "charsAfter": 4483,
+      "blocks": 97,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-small-square-ivory-mirror",
+      "title": "Hampton Ivory Shagreen Square Wall Mirror | Kaiku",
+      "charsBefore": 2216,
+      "charsAfter": 4399,
+      "blocks": 88,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-grafton-black-end-table",
+      "title": "Grafton Black End Table | Kaiku",
+      "charsBefore": 1499,
+      "charsAfter": 3595,
+      "blocks": 79,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-bedside-table",
+      "title": "Hampton Grey Bedside Table | Kaiku",
+      "charsBefore": 1944,
+      "charsAfter": 4008,
+      "blocks": 88,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-rwa-01",
+      "title": "Tamarind & Resin Coffee Table – Aqua | Kaiku",
+      "charsBefore": 504,
+      "charsAfter": 2560,
+      "blocks": 32,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 13,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-bts-01",
+      "title": "Beer Barrel Table – Natural Wood 60 x 48.5 cm | Kaiku",
+      "charsBefore": 528,
+      "charsAfter": 2581,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 19,
+      "deliveryHeadingsDropped": [
+        "Delivery & Returns Copy",
+        "UK Mainland Delivery",
+        "International Delivery",
+        "Returns"
+      ]
+    },
+    {
+      "id": "product-import-grafton-black-chest-of-drawers",
+      "title": "Grafton Black Chest of Drawers | Kaiku",
+      "charsBefore": 2110,
+      "charsAfter": 4032,
+      "blocks": 83,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-himbleton-green-sofa",
+      "title": "Himbleton Green 3 Seater Sofa | Kaiku",
+      "charsBefore": 2219,
+      "charsAfter": 4125,
+      "blocks": 85,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-grafton-1-drawer-black-bedside-table",
+      "title": "Grafton Black Bedside Table | Kaiku",
+      "charsBefore": 1830,
+      "charsAfter": 3727,
+      "blocks": 89,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-836-668v01nd",
+      "title": "Folding Wall-Mounted Work Table, Natural | Kaiku",
+      "charsBefore": 535,
+      "charsAfter": 2392,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-csalt-01",
+      "title": "Himalayan Salt BBQ Cooking Plate | 30 x 20 x 5cm | Kaiku",
+      "charsBefore": 653,
+      "charsAfter": 2507,
+      "blocks": 20,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 18,
+      "deliveryHeadingsDropped": ["Delivery & Returns Copy"]
+    },
+    {
+      "id": "product-import-2-75m-9ft-plug-in-led-8-sequence-warm-white-cluster-string",
+      "title": "2.75m\\9ft Plug-In LED 8 Sequence Warm White Cluster String | Kaiku",
+      "charsBefore": 1675,
+      "charsAfter": 3510,
+      "blocks": 102,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-chest-of-drawers",
+      "title": "Hampton Ivory Shagreen Chest of Drawers | Kaiku",
+      "charsBefore": 2138,
+      "charsAfter": 3950,
+      "blocks": 84,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-leckford-oak-ribbed-occasion-table",
+      "title": "Leckford Ribbed Black Oak Occasional Table | Kaiku",
+      "charsBefore": 1988,
+      "charsAfter": 3781,
+      "blocks": 71,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-footstool",
+      "title": "Bloom Collection Outdoor Footstool | Kaiku",
+      "charsBefore": 1940,
+      "charsAfter": 3730,
+      "blocks": 100,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-aegina-table-lamp",
+      "title": "Aegina Table Lamp | Kaiku",
+      "charsBefore": 1756,
+      "charsAfter": 3507,
+      "blocks": 107,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-860-025",
+      "title": "8-Seater Rattan Corner Dining Set with Footstool, Black | Kaiku",
+      "charsBefore": 1191,
+      "charsAfter": 2931,
+      "blocks": 39,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-octagonal-mirror",
+      "title": "Hampton Ivory Octagonal Wall Mirror | Kaiku",
+      "charsBefore": 2789,
+      "charsAfter": 4508,
+      "blocks": 90,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-black-wood-arched-window-mirror",
+      "title": "Black Wood Arched Window Mirror | Kaiku",
+      "charsBefore": 2484,
+      "charsAfter": 4195,
+      "blocks": 113,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-2-nest-tables",
+      "title": "Hampton Ivory Shagreen Nest of Tables | Kaiku",
+      "charsBefore": 2110,
+      "charsAfter": 3809,
+      "blocks": 78,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-di-di-bentley-ct-oak",
+      "title": "Bentley Coffee Table in Oak | Kaiku",
+      "charsBefore": 929,
+      "charsAfter": 2613,
+      "blocks": 23,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 10,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-preo-76",
+      "title": "Sweet Birch Essential Oil 50ml | Ancient Wisdom | Kaiku",
+      "charsBefore": 431,
+      "charsAfter": 2038,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-27T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-aw-csalt-03",
+      "title": "Himalayan Salt Cooking Plate - Round - 20x20x5cm | Kaiku",
+      "charsBefore": 2241,
+      "charsAfter": 3827,
+      "blocks": 32,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-836-296cg",
+      "title": "Folding Convertible Desk with Blackboard, Grey | Kaiku",
+      "charsBefore": 741,
+      "charsAfter": 2322,
+      "blocks": 23,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-antia-stem-table-lamp-with-linen-shade",
+      "title": "Antia Stem Table Lamp With Linen Shade | Kaiku",
+      "charsBefore": 1477,
+      "charsAfter": 3052,
+      "blocks": 91,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-836-580v00rb",
+      "title": "Compact Folding Desk with Storage Shelf, Rustic Brown | Kaiku",
+      "charsBefore": 694,
+      "charsAfter": 2251,
+      "blocks": 29,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-augusta-column-table-lamp-with-linen-shade",
+      "title": "Augusta Column Table Lamp With Linen Shade | Kaiku",
+      "charsBefore": 1671,
+      "charsAfter": 3219,
+      "blocks": 99,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-b31-300",
+      "title": "Eight-Light Crystal Pendant Chandelier, Silver | Kaiku",
+      "charsBefore": 1078,
+      "charsAfter": 2594,
+      "blocks": 27,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-hampton-ivory-tv-unit",
+      "title": "Hampton Ivory Shagreen TV Unit | Kaiku",
+      "charsBefore": 2866,
+      "charsAfter": 4335,
+      "blocks": 85,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-large-black-multi-shelf-unit",
+      "title": "Large Black Multi Shelf Unit | Kaiku",
+      "charsBefore": 2474,
+      "charsAfter": 3932,
+      "blocks": 116,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-836-263gy",
+      "title": "Computer Desk with Sliding Keyboard Tray, Grey | Kaiku",
+      "charsBefore": 509,
+      "charsAfter": 1829,
+      "blocks": 26,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-b31-573v00bk",
+      "title": "Three-Light Crystal Semi-Flush Ceiling Light | Kaiku",
+      "charsBefore": 1077,
+      "charsAfter": 2380,
+      "blocks": 27,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-di-di-crofton-ct-wh",
+      "title": "Crofton White Marble Coffee Table | Kaiku",
+      "charsBefore": 995,
+      "charsAfter": 2279,
+      "blocks": 33,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-import-antique-gold-marching-hares-lamp-with-green-velvet-shade",
+      "title": "Antique Gold Marching Hares Lamp With Green Velvet Shade | Kaiku",
+      "charsBefore": 2343,
+      "charsAfter": 3597,
+      "blocks": 114,
+      "fromSnapshot": "2026-08-18T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-831-804v70cw",
+      "title": "4ft6 Double Ottoman Bed with Front Drawer, Cream | Kaiku",
+      "charsBefore": 648,
+      "charsAfter": 1860,
+      "blocks": 29,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-12",
+      "title": "4 Drawer Recycled Wood Storage Chest | Kaiku",
+      "charsBefore": 599,
+      "charsAfter": 1802,
+      "blocks": 19,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 4,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "product-aosom-836-068v02bk",
+      "title": "Computer Desk with Three Shelves and Drawers, Black | Kaiku",
+      "charsBefore": 540,
+      "charsAfter": 1726,
+      "blocks": 16,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aosom-836-410v00gy",
+      "title": "Compact Computer Desk with Keyboard Tray, Grey | Kaiku",
+      "charsBefore": 496,
+      "charsAfter": 1682,
+      "blocks": 27,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "premier-housewares-5511596",
+      "title": "Karter Chrome Finish And White Glass Shade Floor Lamp | Kaiku",
+      "charsBefore": 410,
+      "charsAfter": 1542,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-30T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-aw-acshop-19",
+      "title": "Bedside Table - Classic - Recycled Wood | Kaiku",
+      "charsBefore": 642,
+      "charsAfter": 1773,
+      "blocks": 19,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 3,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "product-aosom-836-046wt",
+      "title": "Modern Writing Desk with Storage Shelf, White Wood Grain | Kaiku",
+      "charsBefore": 512,
+      "charsAfter": 1638,
+      "blocks": 25,
+      "fromSnapshot": "2026-08-24T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "product-aw-acshop-18",
+      "title": "Large Reclaimed Wood TV Stand with 2 Drawers & Open Shelving | Kaiku",
+      "charsBefore": 712,
+      "charsAfter": 1836,
+      "blocks": 21,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 14,
+      "deliveryHeadingsDropped": ["Delivery & Returns", "Delivery", "Returns"]
+    },
+    {
+      "id": "premier-housewares-2407023",
+      "title": "Miami Black Rattan 3 Piece Patio Set (Seat) | Kaiku",
+      "charsBefore": 1016,
+      "charsAfter": 2085,
+      "blocks": 35,
+      "fromSnapshot": "2026-09-01T09:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-aw-pss-03",
+      "title": "Set of 3 Gamal Wood Plant Stands | Kaiku",
+      "charsBefore": 558,
+      "charsAfter": 1606,
+      "blocks": 23,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 7,
+      "deliveryHeadingsDropped": ["Delivery & Returns Copy"]
+    },
+    {
+      "id": "premier-housewares-2405836",
+      "title": "Hatton Grey Velvet Sofa Bed | Kaiku",
+      "charsBefore": 881,
+      "charsAfter": 1907,
+      "blocks": 32,
+      "fromSnapshot": "2026-08-30T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-aw-eo-76",
+      "title": "Sweet Birch Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "charsBefore": 456,
+      "charsAfter": 1457,
+      "blocks": 17,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "premier-housewares-2405831",
+      "title": "Hayton Black Velvet Sofa Bed | Kaiku",
+      "charsBefore": 921,
+      "charsAfter": 1867,
+      "blocks": 37,
+      "fromSnapshot": "2026-08-30T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-aw-eo-03",
+      "title": "Eucalyptus Essential Oil 10ml | Ancient Wisdom | Kaiku",
+      "charsBefore": 490,
+      "charsAfter": 1323,
+      "blocks": 17,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 8,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "product-aw-rds-149",
+      "title": "Natural Folding Wooden A-Frame Shelf – Brown | Kaiku",
+      "charsBefore": 639,
+      "charsAfter": 1388,
+      "blocks": 12,
+      "fromSnapshot": "2026-08-05T00:00:00Z",
+      "deliveryTailDropped": 6,
+      "deliveryHeadingsDropped": ["Delivery & Returns"]
+    },
+    {
+      "id": "product-di-di-overbury-ct",
+      "title": "Overbury Coffee Table in Chocolate Brown | Kaiku",
+      "charsBefore": 1008,
+      "charsAfter": 1689,
+      "blocks": 17,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 15,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "premier-housewares-2405846",
+      "title": "Hannah Grey Velvet Ottoman Bed Double | Kaiku",
+      "charsBefore": 1026,
+      "charsAfter": 1699,
+      "blocks": 22,
+      "fromSnapshot": "2026-08-30T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    },
+    {
+      "id": "product-di-di-elmley-ct-iv",
+      "title": "Elmley Coffee Table in Ivory | Kaiku",
+      "charsBefore": 943,
+      "charsAfter": 1597,
+      "blocks": 16,
+      "fromSnapshot": "2026-08-12T00:00:00Z",
+      "deliveryTailDropped": 15,
+      "deliveryHeadingsDropped": ["Delivery", "Returns"]
+    },
+    {
+      "id": "premier-housewares-5502122",
+      "title": "Loire White Super Kingsize Bed | Kaiku",
+      "charsBefore": 1185,
+      "charsAfter": 1790,
+      "blocks": 24,
+      "fromSnapshot": "2026-08-30T00:00:00Z",
+      "deliveryTailDropped": 0,
+      "deliveryHeadingsDropped": []
+    }
+  ]
+}

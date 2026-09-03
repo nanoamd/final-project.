@@ -13,6 +13,7 @@ import {
   getDepartments,
   getProductsByCategory,
   getProductsByDepartment,
+  LISTING_QUERY_CEILING,
 } from "@/lib/sanity/queries";
 import type { SanityCategory } from "@/types/sanity-content";
 
@@ -43,7 +44,11 @@ export async function ShopAll({
     getDepartments(),
     getCategories(),
     categorySlug
-      ? getProductsByCategory(categorySlug, { limit: 200 })
+      ? // Was 200. The largest category holds 138 today so it had not bitten
+        // yet — but /shop/all and the room pages were capped below the
+        // catalogue size and hid 406 and 30 products, so this is lifted for the
+        // same reason before it does.
+        getProductsByCategory(categorySlug, { limit: LISTING_QUERY_CEILING })
       : roomSlug
         ? getProductsByDepartment(roomSlug)
         : getAllProducts(),

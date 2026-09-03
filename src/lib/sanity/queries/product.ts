@@ -14,6 +14,33 @@ import type {
   SanityProductGalleryImage,
 } from "@/types/sanity-content";
 
+/**
+ * The ceiling for listing queries, and a guard that makes truncation loud.
+ *
+ * These queries used to default to 200 and 500. With 906 published products
+ * that meant **406 products appeared nowhere on the site**: /shop/all showed the
+ * 500 newest, and the Outdoor Living room page showed 200 of its 230. Damien
+ * found them one at a time — "i keep finding products which arent listed on the
+ * site but there published on sanity" — because nothing anywhere said a list had
+ * been cut short.
+ *
+ * The cap itself was reasonable (a 10,000-product store should not turn a build
+ * into a full-catalogue crawl); silently defaulting *below the actual catalogue
+ * size* was not. So the ceiling is now well above the catalogue, and
+ * `warnIfTruncated` shouts the moment a query comes back exactly full — which is
+ * the only observable signal that a limit has bitten.
+ */
+export const LISTING_QUERY_CEILING = 5000;
+
+function warnIfTruncated(label: string, received: number, limit: number) {
+  if (received >= limit) {
+    console.error(
+      `[catalogue] ${label} returned ${received} rows at its limit of ${limit}. ` +
+        "Products beyond this are INVISIBLE on the site. Raise the limit or paginate.",
+    );
+  }
+}
+
 const PRODUCT_PROJECTION = /* groq */ `{
   "slug": slug.current,
   "name": title,
@@ -452,12 +479,17 @@ export async function getFlagshipProduct(): Promise<SanityProduct | null> {
 /** Every product across every category in a room — powers the room's "Shop All" page. */
 export async function getProductsByDepartment(
   departmentSlug: string,
-  limit = 200,
+  limit = LISTING_QUERY_CEILING,
 ): Promise<SanityProduct[]> {
   const raw = await sanityFetch<RawProduct[]>(
     PRODUCTS_BY_DEPARTMENT_QUERY,
     { departmentSlug, limit },
     [],
+  );
+  warnIfTruncated(
+    `getProductsByDepartment(${departmentSlug})`,
+    raw.length,
+    limit,
   );
   return normalizeProducts(raw);
 }
@@ -481,12 +513,15 @@ export async function getProductsBySupplier(
   return normalizeProducts(raw);
 }
 
-export async function getAllProducts(limit = 500): Promise<SanityProduct[]> {
+export async function getAllProducts(
+  limit = LISTING_QUERY_CEILING,
+): Promise<SanityProduct[]> {
   const raw = await sanityFetch<RawProduct[]>(
     ALL_PRODUCTS_QUERY,
     { limit },
     [],
   );
+  warnIfTruncated("getAllProducts", raw.length, limit);
   return normalizeProducts(raw);
 }
 
@@ -646,7 +681,7 @@ const PRODUCT_PARAMS_QUERY = /* groq */ `
  * uncapped slugs still render on demand via ISR (dynamicParams stays true).
  */
 export async function getProductParams(
-  limit = 200,
+  limit = LISTING_QUERY_CEILING,
 ): Promise<{ category: string; slug: string }[]> {
   return sanityFetch<{ category: string; slug: string }[]>(
     PRODUCT_PARAMS_QUERY,
