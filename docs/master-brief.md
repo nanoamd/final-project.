@@ -16,6 +16,52 @@ Status key:
 
 ---
 
+## Furniture To Go approved — nine bathroom sets imported (3 September)
+
+Damien: _"furniture to go has accepted us too so we have plenty of bathroom
+products now"_, with a screenshot of their trade site's Bathroom category
+page. Bathroom was the thinnest department on the site — Mirrors (6 live) and
+Storage (11 live) either side of two fully empty categories (Towel Rails,
+Lighting) fixed out of the nav on 3 September. Nine substantial multi-piece
+furniture sets is a real change to that.
+
+`scripts/import-furniture-to-go-bathroom-sets.ts`, data in
+`scripts/data/furniture-to-go-bathroom.ts`:
+
+- [x] **9 five-piece bathroom sets** imported into Bathroom Storage — one each
+      from Ipsarion, Ice Cave, Lokko and Alice Springs, five finishes from
+      Veris (their flagship line). SKU, EAN (→ `gtin`, for Google Shopping),
+      packed carton dimensions, weight, box count, the five pieces per set,
+      and one image each, all from Furniture To Go's own public product pages.
+- [x] **Carriage confirmed in writing, not inferred — a first for this
+      account.** Furniture To Go publish "free next-day delivery" and "no
+      MOQ" as their own trade terms, dropshipping direct to the customer.
+      Recorded on the supplier record as `shippingRule.kind: "included"` with
+      the source quoted in `notes`, so `audit-supplier-readiness.ts` stops
+      flagging this supplier BLOCKED the moment a price exists.
+- [-] **No price, no description.** Trade prices are hidden behind the account
+  login, same wall as every other supplier on this account — costPrice is
+  null on all nine until you paste the trade list. Descriptions are yours
+  to write or ask for, same as Mercia.
+- [-] **Individual cabinets, mirrors and under-sink units not imported** —
+  Furniture To Go sell roughly 30 more SKUs across those three category
+  pages, sold separately from the five-piece sets. Left for a follow-up
+  pass; the nine sets are the hero, category-defining products.
+- [-] **One SKU deliberately skipped**: their Ipsarion set has two URLs
+  (`80FIPQZ111120p1` and `80FIPQZ121120p1`) with identical dimensions,
+  weight and finish — almost certainly the same physical product under
+  two catalogue SKUs from a site migration, not two colourways. Only the
+  unambiguous one is imported, rather than risk a duplicate listing.
+- [x] Caught and fixed before it reached Sanity: the first version of the
+      title-shortening logic collapsed "Artisan Oak with Light Grey doors"
+      and "Artisan Oak with Sage Green doors" to the identical title and slug
+      — two different products would have fought over one URL. Fixed by
+      writing each finish's short form by hand instead of deriving it, plus a
+      hard duplicate-slug check that exits before writing anything if it ever
+      recurs.
+
+---
+
 ## The Hill reprice computed VAT correctly and then didn't write it down (3 September)
 
 Damien, from his own Hill Interiors checkout for the Provence 4 Seater Lounge Set
@@ -1378,11 +1424,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                          | ---- | ------------------- |
-                                                                                          | 0.09 (before) | **454ms** |
-                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                              | ---- | ------------------- |
+                                                                                              | 0.09 (before) | **454ms** |
+                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -1,0 +1,95 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "sku": "80FVERZ12Q34p1",
+      "ean": "5056920404492",
+      "collection": "Veris",
+      "title": "Veris 5 Piece Bathroom Set Sonoma Oak & White High Gloss | Kaiku",
+      "slug": "veris-5-piece-bathroom-set-sonoma-oak-white-high-gloss",
+      "weightKg": 90.3,
+      "boxes": 5,
+      "availability": "In Stock"
+    },
+    {
+      "sku": "80FVERZ12U60p1",
+      "ean": "5056920404577",
+      "collection": "Veris",
+      "title": "Veris 5 Piece Bathroom Set Sand | Kaiku",
+      "slug": "veris-5-piece-bathroom-set-sand",
+      "weightKg": 90.3,
+      "boxes": 5,
+      "availability": "In Stock"
+    },
+    {
+      "sku": "80FVERZ12M823p1",
+      "ean": "5056920404515",
+      "collection": "Veris",
+      "title": "Veris 5 Piece Bathroom Set Artisan Oak & Light Grey | Kaiku",
+      "slug": "veris-5-piece-bathroom-set-artisan-oak-light-grey",
+      "weightKg": 90.3,
+      "boxes": 5,
+      "availability": "In Stock"
+    },
+    {
+      "sku": "80FVERZ12C764p1",
+      "ean": "5056920404508",
+      "collection": "Veris",
+      "title": "Veris 5 Piece Bathroom Set Walnut & Dark Grey | Kaiku",
+      "slug": "veris-5-piece-bathroom-set-walnut-dark-grey",
+      "weightKg": 90.3,
+      "boxes": 5,
+      "availability": "Next delivery 5 October 2026"
+    },
+    {
+      "sku": "80FVERZ12M888p1",
+      "ean": "5056920404522",
+      "collection": "Veris",
+      "title": "Veris 5 Piece Bathroom Set Artisan Oak & Sage Green | Kaiku",
+      "slug": "veris-5-piece-bathroom-set-artisan-oak-sage-green",
+      "weightKg": 90.3,
+      "boxes": 5,
+      "availability": "Next delivery 5 October 2026"
+    },
+    {
+      "sku": "80FIPQZ121120p1",
+      "ean": "5056920404539",
+      "collection": "Ipsarion",
+      "title": "Ipsarion 5 Piece Bathroom Set White | Kaiku",
+      "slug": "ipsarion-5-piece-bathroom-set-white",
+      "weightKg": 85.3,
+      "boxes": 5,
+      "availability": "In Stock"
+    },
+    {
+      "sku": "80FCQVZ121C857p1",
+      "ean": "5056920403945",
+      "collection": "Ice Cave",
+      "title": "Ice Cave 5 Piece Bathroom Set White & White High Gloss | Kaiku",
+      "slug": "ice-cave-5-piece-bathroom-set-white-white-high-gloss",
+      "weightKg": 58.7,
+      "boxes": 5,
+      "availability": "Next delivery 4 September 2026"
+    },
+    {
+      "sku": "80FLKXZ121Z12p1",
+      "ean": "5056920404485",
+      "collection": "Lokko",
+      "title": "Lokko 5 Piece Bathroom Set White | Kaiku",
+      "slug": "lokko-5-piece-bathroom-set-white",
+      "weightKg": 76,
+      "boxes": 5,
+      "availability": "Next delivery 5 October 2026"
+    },
+    {
+      "sku": "80FACSZ121U88p1",
+      "ean": "5056920403938",
+      "collection": "Alice Springs",
+      "title": "Alice Springs 5 Piece Bathroom Set Taupe | Kaiku",
+      "slug": "alice-springs-5-piece-bathroom-set-taupe",
+      "weightKg": 109.5,
+      "boxes": 6,
+      "availability": "Next delivery 4 September 2026"
+    }
+  ]
+}
