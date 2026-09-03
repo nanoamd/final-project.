@@ -16,6 +16,35 @@ Status key:
 
 ---
 
+## The "+VAT" Studio button had the same gap the Hill fix just found (3 September)
+
+Checked proactively after the Hill VAT bookkeeping fix, rather than wait for
+Damien to hit it on a different supplier. He didn't hand-correct
+product-hill-24513's `costPrice` in a script or in raw JSON — he clicked the
+**"+20% VAT" button that sits next to the Cost Price box in Studio**
+(`src/sanity/components/cost-price-input.tsx`). That button is wired to every
+supplier's `costPrice` field, not just Premier Housewares', but it had only
+ever known how to touch `costPrice`. Click it on a product with a real
+carriage cost of its own — any Hill product, or any future supplier priced
+the same way — and it leaves `shippingCost` exactly where the Hill sweep found
+it: raw, stale, silently wrong, with `costPriceVatCorrected: true` on the
+document actively vouching that it's fine.
+
+- [x] The button now corrects `shippingCost` by the same VAT rate in the same
+      click, whenever one is set. For Premier Housewares (`shippingCost`
+      always 0 — checked directly, 0 of their products carry a nonzero
+      figure) this is a harmless no-op; for Hill, or any future supplier
+      billed the same way, it closes the exact gap Damien just found by hand.
+- [x] The button now reads **`supplierVatRate`** per product instead of
+      assuming Premier's flat 20% — it was already wrong to hardcode that
+      for a button live on every supplier's field.
+- [x] Field description and button tooltip corrected to stop naming Premier
+      Housewares specifically; both are supplier-agnostic in practice and
+      were only ever documented as if they weren't.
+- [x] Typecheck, lint and the full suite (1,021 tests) all still pass.
+
+---
+
 ## Furniture To Go approved — nine bathroom sets imported (3 September)
 
 Damien: _"furniture to go has accepted us too so we have plenty of bathroom
@@ -1424,11 +1453,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                              | ---- | ------------------- |
-                                                                                              | 0.09 (before) | **454ms** |
-                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                  | ---- | ------------------- |
+                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

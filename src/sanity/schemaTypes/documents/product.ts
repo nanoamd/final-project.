@@ -127,7 +127,7 @@ export const product = defineType({
       group: "commerce",
       components: { input: CostPriceInput },
       description:
-        "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Premier Housewares invoice 20% on top of their trade list price: type their list price in here, then use the +20% VAT button beside the box rather than doing the sum by hand.",
+        "The TRUE landed cost — including any VAT the supplier charges that Kaiku can't reclaim (Kaiku is not VAT-registered). Several suppliers (Premier Housewares, Hill Interiors, and others) invoice VAT on top of their trade list price: type their ex-VAT list price in here, then use the +VAT button beside the box rather than doing the sum by hand. If this product also has a Shipping cost, the same click corrects that too — supplier carriage is VATable the same way the goods are.",
     }),
     defineField({
       name: "supplierVatRate",
