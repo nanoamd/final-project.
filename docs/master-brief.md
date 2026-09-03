@@ -16,6 +16,53 @@ Status key:
 
 ---
 
+## Three more tools, ahead of the next guide batch (3 September)
+
+Damien: _"continue?? idk why youve stopped to talk when like 5% of that list
+you just sent me is complete"_ — working straight through the remaining 26
+roadmap line items now, without pausing between guides to report back. Built
+the tools first, since several of the next guides need one that didn't exist.
+
+Checked all three against the (then-)14-tool list before building, the same
+discipline that already caught five false gaps once — these three are
+genuine: nothing on `/tools` sizes a sofa, a TV or TV unit, or wall art.
+
+- [x] **`/tools/sofa-size-calculator`** — `src/lib/tools/sofa-size.ts` (9
+      tests). No official sofa-size standard exists the way it does for a UK
+      bed, so the nominal widths (2-seater 160cm, 3-seater 213cm, 4-seater
+      250cm) are the midpoints of real published ranges, not an invented
+      spec. Deliberately does not attempt corner or chaise sofas — an L-shape
+      needs its two legs measured separately, and the guide it powers covers
+      that in prose instead of forcing a single width-and-depth check to
+      answer a question it can't.
+- [x] **`/tools/tv-unit-size-calculator`** — `src/lib/tools/tv-unit-size.ts`
+      (7 tests). Answers two different questions people conflate: THX's
+      cinema-immersion figure (distance(ft) = diagonal(in)/10) versus the
+      1.5-2x-diagonal everyday range most rooms actually use, and a screen's
+      real width versus its diagonal (a 65in TV is ~144cm wide, not 165cm) —
+      which is the number that actually decides the unit under it.
+- [x] **`/tools/wall-art-size-calculator`** — `src/lib/tools/wall-art-size.ts`
+      (7 tests). Reuses this site's existing mirror-calculator constants
+      (`GALLERY_CENTRE_CM` 145, `GAP_ABOVE_FURNITURE_CM` 20) rather than
+      re-deriving them, since a picture and a mirror follow the identical
+      hanging convention. Adds the one genuinely new rule: a gallery wall is
+      sized by its outer edges as one shape, at the same two-thirds
+      proportion as a single piece — not each print judged on its own.
+- [x] All three registered in `guide-tool-embed.tsx`'s `TOOLS` map and the
+      `guideTool` schema enum, `/tools` index copy and count corrected to 17,
+      and both new-tool doc comments updated from ten/fourteen.
+- [-] **Sauna and cold-plunge capacity calculators still not embeddable in a
+  guide.** Both need server-fetched product data (`CapacityMatchCalculator`
+  takes a `products` array), which this embed mechanism can't carry without
+  making every article route async-aware for a block type most articles
+  don't use. The two wellness guides in this same batch link to them in
+  prose instead — documented as a deliberate limitation in
+  `guide-tool-embed.tsx`, not a gap to quietly work around.
+- [x] Typecheck, lint (scoped to every file this pass touched) and the new
+      tests all pass clean.
+
+---
+
 ## First two guides from the roadmap, built with new tools (3 September)
 
 Damien: "start building" — then, mid-build, "remember to include relevant
@@ -37,10 +84,10 @@ you can make, make it." Both live now.
       measured — regular frames and ottoman storage side by side.
 - [x] **Two new tools built, not just linked to.** Checking the roadmap's
       tool-overlap flags earlier had already found `dining-set-size-
-    calculator` only ever matched Garden Furniture stock
+  calculator` only ever matched Garden Furniture stock
       (`getProductsByCategory("garden-furniture", ...)`, confirmed in code)
       — no indoor equivalent existed. Built `/tools/dining-table-size-
-    calculator`, reusing the same `DiningSpaceCalculator` component
+  calculator`, reusing the same `DiningSpaceCalculator` component
       (the seating arithmetic doesn't care whether the table is on a patio
       or in a dining room) against the indoor Kitchen Furniture category
       instead. No bed-sizing tool existed at all — built
@@ -1564,11 +1611,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                          | ---- | ------------------- |
-                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                              | ---- | ------------------- |
+                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -8,14 +8,13 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildMetadata({
   title: "Tools",
   description:
-    "Fourteen free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, bed size, planter volume, patio heat output, sauna capacity.",
+    "Seventeen free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, bed and sofa size, TV and wall art sizing, planter volume, patio heat output, sauna capacity.",
   path: "/tools",
 });
 
 /**
- * Grouped, because there are fourteen now and a flat list of fourteen reads
- * as a dump. The visible copy below had drifted to "ten" while this comment
- * already said twelve — fixed both to the real count while adding two more.
+ * Grouped, because there are seventeen now and a flat list of seventeen
+ * reads as a dump.
  *
  * Ordered within each group by how often the question gets asked rather than by
  * when the tool was built.
@@ -41,6 +40,24 @@ const GROUPS = [
         title: "What size bed fits my room?",
         description:
           "The largest UK bed size your room takes with room left to walk round it and make the bed, matched against real in-stock frames.",
+      },
+      {
+        href: "/tools/sofa-size-calculator",
+        title: "What size sofa fits my room?",
+        description:
+          "The largest straight sofa your wall and floor space take, with enough left in front of it to reach the coffee table or walk past.",
+      },
+      {
+        href: "/tools/tv-unit-size-calculator",
+        title: "What size TV, and what size unit under it?",
+        description:
+          "The screen size your seating distance actually suits, and the unit width it needs — not the same number as its diagonal.",
+      },
+      {
+        href: "/tools/wall-art-size-calculator",
+        title: "What size wall art, and where to hang it?",
+        description:
+          "The width to shop at above furniture or on a bare wall, and — for a gallery wall — the arrangement's outer edges, not any one piece.",
       },
       {
         href: "/tools/mirror-size-calculator",
@@ -136,7 +153,7 @@ export default function ToolsPage() {
           Free planning tools
         </h1>
         <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
-          Fourteen calculators for the questions that come before a purchase —
+          Seventeen calculators for the questions that come before a purchase —
           what size, how high, will it fit, how much will it hold. All of them
           work from measurements you can go and take, and none of them need an
           email address.

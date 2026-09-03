@@ -17,9 +17,15 @@ import * as React from "react";
  * `next/dynamic` inside a client component splits each into its own chunk,
  * fetched only when a page that actually embeds it is rendered.
  *
+ * Not every /tools page is in this map. A few — the sauna and cold-plunge
+ * capacity calculators, and the AI design studio — need server-fetched
+ * product data or a much heavier client, which this prop-less embed
+ * mechanism deliberately can't carry. Guides that reference those link out
+ * to the tool page in prose instead of embedding it.
+ *
  * It lives in the article feature rather than in components/shared because a
  * shared component may not import its siblings, and this is a switch over
- * ten of them.
+ * thirteen of them.
  */
 const TOOLS = {
   "planter-size": {
@@ -109,6 +115,33 @@ const TOOLS = {
     Component: dynamic(() =>
       import("@/components/shared/dining-space-calculator").then(
         (m) => m.DiningSpaceCalculator,
+      ),
+    ),
+  },
+  "sofa-size": {
+    label: "Sofa size and room fit calculator",
+    href: "/tools/sofa-size-calculator",
+    Component: dynamic(() =>
+      import("@/components/shared/sofa-size-calculator").then(
+        (m) => m.SofaSizeCalculator,
+      ),
+    ),
+  },
+  "tv-unit-size": {
+    label: "TV and TV unit size calculator",
+    href: "/tools/tv-unit-size-calculator",
+    Component: dynamic(() =>
+      import("@/components/shared/tv-unit-size-calculator").then(
+        (m) => m.TvUnitSizeCalculator,
+      ),
+    ),
+  },
+  "wall-art-size": {
+    label: "Wall art size and arrangement calculator",
+    href: "/tools/wall-art-size-calculator",
+    Component: dynamic(() =>
+      import("@/components/shared/wall-art-size-calculator").then(
+        (m) => m.WallArtSizeCalculator,
       ),
     ),
   },
