@@ -131,34 +131,26 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
   });
 
   /**
-   * **Sign-in is required to check out.** Damien: "checking out as a guest
-   * shouldnt be possible."
+   * **Guest checkout is allowed.** This reverses an earlier deliberate choice —
+   * Damien: "checking out as a guest shouldnt be possible" — made after his
+   * first live order was a guest checkout and showed up nowhere in
+   * /account/orders. That guarantee (every order attached to an account,
+   * visible in order history) still holds; it is just no longer bought by
+   * blocking payment on a signup form first.
    *
-   * The trade-off is real and worth stating: guest checkout exists because some
-   * buyers abandon rather than register, so this costs some conversion. What it
-   * buys is that every order is attached to a person — it appears in their own
-   * order history, they can track it without a magic link, and Kaiku never has
-   * an order it cannot tie to an account. His first live order was a guest
-   * checkout and consequently showed up nowhere in /account/orders, which is
-   * what prompted this.
-   *
-   * Enforced here, in the server action, rather than only by hiding the button:
-   * this is the only path that can create a Stripe session, so a signed-out
-   * request cannot reach payment however it was made.
+   * A signed-in visitor still checks out as themselves, unchanged below. A
+   * signed-out one pays with no `client_reference_id` and no pre-filled
+   * `customer_email` — Stripe's own hosted Checkout page collects the email
+   * instead, the same way it always has for anyone Kaiku didn't already know.
+   * `persistOrder` (server/webhooks/stripe.ts) is what still closes the loop:
+   * a completed session with no `client_reference_id` gets an account
+   * found-or-created from that email and attached, after payment, so the
+   * order is never left dangling. Nothing here needs to know that happens.
    */
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  if (!user) {
-    // A redirect rather than a thrown error, for a practical reason: Next
-    // redacts server-action error messages in production, so a thrown
-    // "please sign in" would reach the cart as an opaque digest and render as
-    // "something went wrong". Sending them straight to the login page is both
-    // clearer and one fewer click.
-    redirect("/account/login?next=/cart");
-  }
 
   const session = await getStripe().checkout.sessions.create({
     mode: "payment",
@@ -187,10 +179,13 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
         },
       },
     ],
-    // Always set now that sign-in is required — the webhook reads
-    // client_reference_id back out to attach the order to this account.
-    client_reference_id: user.id,
-    customer_email: user.email,
+    // Only set for a signed-in visitor. The webhook reads client_reference_id
+    // back out to attach the order to this exact account; left undefined for
+    // a guest, Stripe collects the email itself on its own hosted page, and
+    // persistOrder resolves an account from that email after payment instead.
+    ...(user
+      ? { client_reference_id: user.id, customer_email: user.email }
+      : {}),
   });
 
   if (!session.url) {

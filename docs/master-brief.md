@@ -16,6 +16,70 @@ Status key:
 
 ---
 
+## Guest checkout — the likely reason clicks weren't becoming sales (3 September)
+
+Damien: _"we are unbelievably slowly getting more clicks and its all positive
+signs but such small numbers"_ — traffic climbing, conversions still zero.
+Read the actual checkout code rather than guess, and found the probable cause:
+`createCheckoutSession` refused to even create a Stripe session for a
+signed-out visitor, redirecting straight to `/account/login` instead — a bare
+email+password form, with signup behind that requiring an email confirmation
+link before the customer could even get back to paying. That is friction
+inserted at the exact moment of highest purchase intent, for a brand nobody
+has a reason to trust yet with an account. It is exactly the shape of bug
+that produces "clicks up, conversions flat at zero."
+
+**This reverses an explicit instruction, and Damien confirmed the reversal
+before anything was touched.** The wall was not an oversight — the code
+comment quoted him directly: _"checking out as a guest shouldnt be
+possible."_ It existed to guarantee every order lands in someone's order
+history, after his first live order was a guest checkout that showed up
+nowhere in `/account/orders`. Asked explicitly whether to remove it anyway,
+given a way to keep that same guarantee without the friction: **"Yes, remove
+the wall."**
+
+- [x] `createCheckoutSession` no longer requires sign-in. A signed-in visitor
+      checks out exactly as before; a signed-out one pays with no
+      `client_reference_id` and no pre-filled email — Stripe's own hosted
+      Checkout page collects it instead, same as it always has for anyone
+      Kaiku didn't already know.
+- [x] **The original guarantee still holds.** `persistOrder`
+      (`src/server/webhooks/stripe.ts`) now resolves an account for every
+      guest order after payment: `resolveGuestOrderUserId` calls Supabase's
+      `generateLink({ type: "magiclink" })` on the email Stripe collected,
+      which creates the account if it's new or resolves to the existing one
+      if they've ordered before — either way handing back a real user id,
+      silently, with no email sent to the customer (`generateLink` only
+      generates the link; nothing here sends it). The order is attached to
+      that id exactly as if they had signed in. `orders.user_id` already
+      references `auth.users(id) on delete set null` and the
+      `orders_select_own` RLS policy is already `auth.uid() = user_id` — no
+      schema change needed, this was compatible with the table from day one.
+- [x] Never allowed to fail or retry a paid order over this: a failed
+      account lookup logs and leaves `user_id: null`, exactly the pre-existing
+      guest-checkout behaviour, rather than losing or re-triggering a charge
+      that already succeeded.
+- [x] Checked the UI separately: the Checkout button already just says
+      "Checkout" with no sign-in-specific copy anywhere — the wall was purely
+      server-side, so no interface text needed to change.
+- [x] Typecheck, lint, the full test suite (1,021 tests) and a full
+      production build all pass clean.
+- [!] **Not verified against a live Stripe/Supabase environment.** I don't
+  have test-mode credentials or a safe way to trigger a real webhook
+  delivery from here. The logic is straightforward and the schema is
+  already compatible, but a real test-mode checkout — place an order
+  signed out, confirm it appears in Stripe, confirm the account and the
+  order both exist in Supabase afterward — is worth doing once before
+  trusting this fully in production.
+- [-] Not built: a magic-link "view your order" line in the confirmation
+  email. The account exists and is fully usable via ordinary "forgot
+  password" on the email they checked out with; wiring the link itself
+  into the email template touches `OrderEmailData` and the Studio-authored
+  template resolver, more surface than this specific fix needed. Worth
+  doing as a follow-up, not urgent.
+
+---
+
 ## The "+VAT" Studio button had the same gap the Hill fix just found (3 September)
 
 Checked proactively after the Hill VAT bookkeeping fix, rather than wait for
@@ -1453,11 +1517,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                  | ---- | ------------------- |
-                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                      | ---- | ------------------- |
+                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

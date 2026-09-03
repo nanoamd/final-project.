@@ -29,9 +29,11 @@ import { createAdminClient } from "@/server/supabase/admin";
 /**
  * Processes a verified Stripe webhook event. Stripe's own dashboard remains
  * the authoritative payment record; the `orders` table is a local, queryable
- * copy written here so signed-in customers can see their own order history.
- * Guest checkouts (no `client_reference_id`) still get a row, just with no
- * `user_id` — nobody can read it back until they have an account.
+ * copy written here so customers can see their own order history. Guest
+ * checkouts (no `client_reference_id`) still get an account attached, found
+ * or created from the email Stripe collected — see resolveGuestOrderUserId.
+ * `user_id` only ends up null if that lookup itself fails, not simply
+ * because the customer checked out without signing in first.
  */
 export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
   switch (event.type) {
@@ -69,6 +71,52 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
       // Unhandled event types are expected — Stripe sends many more than we
       // act on. Acknowledging with 200 (see the route handler) is correct.
       break;
+  }
+}
+
+/**
+ * Finds or creates the account a guest checkout's order should attach to.
+ *
+ * A signed-in checkout already carries `client_reference_id` — used
+ * directly by the caller, this function is never involved. A guest checkout
+ * has none, and this is what still delivers the original guarantee (every
+ * order lands in someone's order history) without requiring an account
+ * before payment: `generateLink` with type "magiclink" creates the user if
+ * the email is new, or resolves to the existing one if they've ordered
+ * before, either way handing back a real user id — the same call Supabase
+ * itself uses under the hood for passwordless sign-in, so this piggybacks on
+ * a path Supabase already keeps working rather than hand-rolling one.
+ *
+ * Deliberately swallows its own errors. A paid order must never be lost or
+ * retried over an account-linking hiccup — see the note on persistOrder
+ * about why that function itself must NOT do this. Failing here just means
+ * the order keeps the one property guest orders have always had: it exists,
+ * with no `user_id`, exactly as if this function did not exist at all.
+ */
+async function resolveGuestOrderUserId(
+  admin: ReturnType<typeof createAdminClient>,
+  email: string,
+  sessionId: string,
+): Promise<string | null> {
+  try {
+    const { data, error } = await admin.auth.admin.generateLink({
+      type: "magiclink",
+      email,
+    });
+    if (error || !data.user) {
+      console.error(
+        `[stripe] could not resolve an account for guest checkout ${sessionId}`,
+        error,
+      );
+      return null;
+    }
+    return data.user.id;
+  } catch (error) {
+    console.error(
+      `[stripe] could not resolve an account for guest checkout ${sessionId}`,
+      error,
+    );
+    return null;
   }
 }
 
@@ -115,11 +163,18 @@ async function persistOrder(session: Stripe.Checkout.Session): Promise<{
   });
 
   const admin = createAdminClient();
+  const guestEmail = session.customer_details?.email;
+  const userId = session.client_reference_id
+    ? session.client_reference_id
+    : guestEmail
+      ? await resolveGuestOrderUserId(admin, guestEmail, session.id)
+      : null;
+
   const { data: orderRow, error } = await admin
     .from("orders")
     .upsert(
       {
-        user_id: session.client_reference_id || null,
+        user_id: userId,
         stripe_session_id: session.id,
         stripe_payment_intent_id:
           typeof session.payment_intent === "string"
