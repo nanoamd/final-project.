@@ -16,6 +16,65 @@ Status key:
 
 ---
 
+## The Hill reprice computed VAT correctly and then didn't write it down (3 September)
+
+Damien, from his own Hill Interiors checkout for the Provence 4 Seater Lounge Set
+(subtotal £1160, delivery £59.99, VAT £244, total £1463.99): _"another
+mistake!! you knew the shipping and vat rules for hill interiors. the cost
+specific to each supplier needs to be added up in the cost price!"_
+
+Right, and not a new mistake — a repeat of one. `reprice-hill-interiors-with-
+carriage.ts` (2 September) worked out the VAT arithmetic correctly and used it
+to set the right `price` on every product it touched. It never wrote the
+VAT-corrected cost and shipping back onto the product's own `costPrice` /
+`shippingCost` fields — only `price` was patched; the corrected figures went
+into the `priceAdjustment` audit trail and nowhere else. Every margin tool in
+this codebase (`audit-thin-margins`, `audit-and-fix-margins`, `margin-report`,
+`audit-full-catalogue`, `apply-supplier-shipping-rules`,
+`audit-published-catalogue-readonly`) reads `costPrice` + `shippingCost`
+straight off the product, so all of them have been overstating margin on every
+repriced Hill product by exactly the VAT withheld.
+
+`scripts/fix-hill-interiors-vat-bookkeeping.ts`, checked against the immutable
+`priceAdjustment` trail rather than guessed:
+
+- [x] **116 of 192** recorded adjustments had never reached the product they
+      described. `costPrice` and `shippingCost` corrected in place on all of
+      them, flagged `costPriceVatCorrected: true` per the convention
+      `fix-premier-housewares-margins.ts` already established, so nothing
+      downstream can double-apply the VAT.
+- [x] **56 products were priced under an earlier no-VAT pass and never
+      revisited** — a real pricing gap, not just bookkeeping. Once VAT is
+      counted properly they no longer clear the floor. Repriced the same way
+      the original script would have: **£1,624 further uplift**, on top of the
+      £3,086.01 already applied on 2 September. Every one confirmed at or
+      above its floor after — 0 exceptions.
+- [x] Also caught the split-state case the flag alone would have missed:
+      **product-hill-24513 already had `costPrice` corrected** (Damien fixed
+      it himself, or via the "Add supplier VAT" Studio action, after spotting
+      the discrepancy) but `shippingCost` was still raw. A flag-only check
+      would have skipped it as "done". Two more products had the identical
+      split. Fixed by checking shipping independently against Hill's own
+      published carriage bands rather than trusting the cost flag for it.
+- [-] **product-hill-24513 itself excluded from this run.** Damien: _"if your
+  talking about provence 4 seater its correct ffs"_ — left exactly as he
+  has it. `shippingCost` on that one still reads the raw £59.99, not
+  £71.99; flagged to him once, not acted on, since he said it's correct.
+- [x] 218 products checked, 0 left below floor, 0 skipped except 12 with
+      genuinely unknown carriage (unchanged from before).
+
+### The standing lesson
+
+A script that computes the right number in a local variable and never writes
+it to the field every other tool reads is a bug that looks finished. Before
+calling a pricing or margin fix done, check what it wrote to the _product_,
+not just what it logged or what it used to compute `price` — the same
+`costPrice`/`shippingCost` shape recurs across every supplier on this account,
+so this exact failure mode is worth checking for on any future repricing pass
+before it ships, not after Damien's own invoice catches it.
+
+---
+
 ## Profit first, priced as close to the market as the floor allows (2 September)
 
 Damien, after seeing that profitability and being cheapest cannot both hold:
@@ -1319,11 +1378,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                      | ---- | ------------------- |
-                                                                                      | 0.09 (before) | **454ms** |
-                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                          | ---- | ------------------- |
+                                                                                          | 0.09 (before) | **454ms** |
+                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
