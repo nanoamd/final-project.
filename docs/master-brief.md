@@ -276,9 +276,73 @@ standard Trent does not: at 20% it lands £25 above RRP, and at the 17% small-ti
 floor it would be £987, just under. Which floor applies to a £1,000 product is
 his call.
 
-- [x] Also available from the screenshots if wanted: Globel Apex Metal Shed
-      (£246), Globel Pent Metal Shed (£254.40), Absco Metal Bike Store (£350.40)
-      — all of which would give Outdoor Storage the anchor above £250 it lacks.
+---
+
+## The four imports Damien ordered, 1 and 2 done (3 September)
+
+Damien: _"i want these products imported too"_, then the order:
+_"1. hill interiors 2. mercia 3 and 4. aosom"_.
+
+### 1. Hill Interiors garden furniture sets — done, priced, live-ready
+
+Five sets into Garden Furniture, with descriptions and FAQs written, images
+uploaded, real specs, and carriage resolved from Hill's published band table.
+
+| Set                               | Code  | Trade  | Carriage | Kaiku  | Market found                                       | Position              |
+| --------------------------------- | ----- | ------ | -------- | ------ | -------------------------------------------------- | --------------------- |
+| Capri Large Corner + Coffee Table | 23913 | £1,682 | £69.99   | £2,679 | £2,409 Felker · £2,805 Green&Gable                 | mid                   |
+| Provence 4 Seater Lounge          | 24513 | £1,160 | £59.99   | £1,866 | £2,399.95 Haddon                                   | **cheapest, -£534**   |
+| Amalfi Large Corner               | 23912 | £1,856 | £84.99   | £2,968 | £2,799 eFurn · £2,992 StyleOurHome · RRP £3,999.95 | mid, £1,032 under RRP |
+| Amalfi Corner + Riser + 2 Stools  | 23914 | £2,668 | £84.99   | £4,209 | £4,131 Luxe · £4,433 · £5,650                      | near cheapest         |
+| Capri Corner + Riser + 2 Stools   | 23099 | £2,726 | £84.99   | £4,298 | £3,387 JDC · £7,308 Haffertys                      | mid                   |
+
+- [x] Imported as drafts with 4–6 `h3` sections each (1,277–2,165 chars) and 7–9
+      FAQs, in the recovered Kaiku voice — `scripts/import-hill-garden-furniture-sets.ts`
+- [x] 17 images uploaded across the five, alt text written
+- [x] Carriage resolved per set from Hill's published bands: £384.95 total, all
+      two-man. The customer pays £0 shipping, so this is cost of goods every time.
+- [x] **Priced** at Damien's 20% net floor — the same arithmetic the other 139
+      Hill products sit on, so the range stays internally consistent —
+      `scripts/price-hill-garden-furniture-sets.ts`
+- [x] SEO meta title and description written for all five
+- [x] Competitor prices checked live **before** pricing, not after. All five land
+      inside the market range; three are at or below the cheapest retailer found.
+- [!] The floor charges **20% VAT on trade with no reclaim**. If Kaiku is VAT
+  registered and reclaims input VAT, the true floor drops to £1,554–£3,581 —
+  about 17% lower — and Kaiku undercuts every retailer on all five. Worth
+  settling before any sale campaign.
+- [!] Buying at Hill's **volume** tier instead of dropship saves **£2,262 across
+  these five sets alone**. At these order values that is the highest-leverage
+  supplier conversation on the account.
+- [-] Left as drafts. Publishing is Damien's.
+
+### 2. Mercia metal sheds — done, and they do not clear the floor
+
+Three sheds into **Outdoor Storage, which had no published product in it at all**.
+`scripts/import-mercia-metal-sheds.ts`.
+
+| Product              | Brand  | Trade (inc VAT) | Market  | Net at market | 20% floor needs      |
+| -------------------- | ------ | --------------- | ------- | ------------- | -------------------- |
+| Globel 6x3 Apex      | Globel | £246.00         | £279.99 | 10.6%         | £314 → **£34 above** |
+| Globel 6x4 Pent      | Globel | £254.40         | £318.99 | 18.7%         | £325 → **£6 above**  |
+| Absco 7x3 Bike Store | Absco  | £350.40         | £399.00 | 10.6%         | £447 → **£48 above** |
+
+- [x] Imported as drafts with 5 `h3` sections each (2,506–2,743 chars), 7–9 FAQs,
+      12–14 spec rows, full published dimensions, 16 images uploaded
+- [x] Brand records created for **Globel** and **Absco** with written descriptions
+      — Absco is Australia's largest steel shed maker, 20-year warranty. This is
+      the "companies which sell famous brands" route working through Mercia.
+- [x] Market prices checked live: the market price for these sheds **is** Mercia's
+      own RRP. There is no headroom above it.
+- [!] **No price written on any of the three.** Two cannot clear the 20% floor at
+  the price the entire market sells them for, and Mercia's carriage is still
+  unrecorded — a palletised kerbside metal shed is £30–£60, not a £7 parcel,
+  and any of it turns the Apex and the bike store negative.
+- [!] The honest read on the Mercia account: the **outdoor kitchens (20–27% trade
+  discount) are the profitable half; the metal sheds are not**. They become
+  viable only if Mercia's carriage is genuinely free to Kaiku and Damien
+  accepts ~10% on them as a category-filling loss leader. That is his call and
+  it needs the rate card first.
 
 ---
 
@@ -1180,11 +1244,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                              | ---- | ------------------- |
-                                                                              | 0.09 (before) | **454ms** |
-                                                                              | 0.18 (now)    | **232ms** |
+                                                                                  | ---- | ------------------- |
+                                                                                  | 0.09 (before) | **454ms** |
+                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -1,0 +1,60 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "code": "23913",
+      "title": "Capri Collection Outdoor Large Corner And Coffee Table Set | Kaiku",
+      "dropship": 1682,
+      "wholesale": 1450,
+      "volume": 1305,
+      "weightKg": 97,
+      "carriage": 69.99,
+      "chars": 1955,
+      "faqs": 9
+    },
+    {
+      "code": "24513",
+      "title": "Provence Collection Outdoor 4 Seater Lounge Set | Kaiku",
+      "dropship": 1160,
+      "wholesale": 1000,
+      "volume": 900,
+      "weightKg": 52,
+      "carriage": 59.99,
+      "chars": 1148,
+      "faqs": 7
+    },
+    {
+      "code": "23912",
+      "title": "Amalfi Collection Outdoor Large Corner Set | Kaiku",
+      "dropship": 1856,
+      "wholesale": 1600,
+      "volume": 1440,
+      "weightKg": 112,
+      "carriage": 84.99,
+      "chars": 1246,
+      "faqs": 7
+    },
+    {
+      "code": "23914",
+      "title": "Amalfi Outdoor Large Corner Set With Riser Table & 2 Stools | Kaiku",
+      "dropship": 2668,
+      "wholesale": 2300,
+      "volume": 2070,
+      "weightKg": 150,
+      "carriage": 84.99,
+      "chars": 1313,
+      "faqs": 8
+    },
+    {
+      "code": "23099",
+      "title": "Capri Outdoor Large Corner Set With Riser Table & 2 Stools | Kaiku",
+      "dropship": 2726,
+      "wholesale": 2350,
+      "volume": 2115,
+      "weightKg": 137,
+      "carriage": 84.99,
+      "chars": 1729,
+      "faqs": 9
+    }
+  ]
+}

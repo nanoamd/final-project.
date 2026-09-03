@@ -1,0 +1,29 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "console-tables",
+      "action": "restored",
+      "restored": ["intro 0->2", "buyingGuide 0->4", "faqs 0->4", "seo 0->1"]
+    },
+    {
+      "slug": "garden-furniture",
+      "action": "left alone"
+    },
+    {
+      "slug": "side-tables",
+      "action": "restored",
+      "restored": ["intro 0->2", "buyingGuide 0->4", "faqs 0->4", "seo 0->1"]
+    },
+    {
+      "slug": "sofas",
+      "action": "restored",
+      "restored": ["intro 0->2", "buyingGuide 0->4", "faqs 0->4", "seo 0->1"]
+    },
+    {
+      "slug": "wall-art",
+      "action": "restored",
+      "restored": ["intro 0->2", "buyingGuide 0->4", "faqs 0->4", "seo 0->1"]
+    }
+  ]
+}

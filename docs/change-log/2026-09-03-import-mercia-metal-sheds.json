@@ -1,0 +1,50 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "id": "mercia-globel-apex-metal-shed",
+      "title": "Globel 6 x 3 Apex Metal Shed | Kaiku",
+      "brand": "Globel",
+      "sku": "ESDXL20MET201",
+      "costPrice": 246,
+      "merciaRrp": 279.99,
+      "marketLow": 279.99,
+      "netAtMarketPct": 10.6,
+      "priceForFloor": 314,
+      "floorAboveMarket": true,
+      "chars": 2743,
+      "faqs": 9,
+      "images": 6
+    },
+    {
+      "id": "mercia-globel-pent-metal-shed",
+      "title": "Globel 6 x 4 Pent Metal Shed | Kaiku",
+      "brand": "Globel",
+      "sku": "ESDXL20MET223",
+      "costPrice": 254.4,
+      "merciaRrp": 318.99,
+      "marketLow": null,
+      "netAtMarketPct": 18.7,
+      "priceForFloor": 325,
+      "floorAboveMarket": true,
+      "chars": 2506,
+      "faqs": 7,
+      "images": 4
+    },
+    {
+      "id": "mercia-absco-metal-bike-store",
+      "title": "Absco 7 x 3 Metal Bike Store | Kaiku",
+      "brand": "Absco",
+      "sku": "ESDXL20MET132",
+      "costPrice": 350.4,
+      "merciaRrp": 399.99,
+      "marketLow": 399,
+      "netAtMarketPct": 10.6,
+      "priceForFloor": 447,
+      "floorAboveMarket": true,
+      "chars": 2561,
+      "faqs": 8,
+      "images": 6
+    }
+  ]
+}

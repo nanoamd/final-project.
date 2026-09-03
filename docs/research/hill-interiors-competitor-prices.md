@@ -150,3 +150,29 @@ range is competitive and profitable at the same time.
 The move is to stock the fast-moving small items rather than dropship them, and
 keep dropshipping the large, expensive, low-frequency pieces where carriage is a
 small share of the price and holding stock would tie up cash.
+
+## Garden furniture sets — the five imported 3 Sep 2026
+
+Checked against live UK retailers selling the same Hill SKUs, before the prices
+were written. Every one of the five clears Damien's 20% net floor _and_ lands
+inside the market range, which is why they were priced at the floor rather than
+held back for a manual decision.
+
+| Set                               | Code  | Kaiku  | Market found                                                                        | Position                    |
+| --------------------------------- | ----- | ------ | ----------------------------------------------------------------------------------- | --------------------------- |
+| Capri Large Corner + Coffee Table | 23913 | £2,679 | £2,409 Felker · £2,805 Green & Gable                                                | mid                         |
+| Provence 4 Seater Lounge          | 24513 | £1,866 | £2,399.95 Haddon                                                                    | **cheapest found, by £534** |
+| Amalfi Large Corner               | 23912 | £2,968 | £2,799 eFurn (flash) · £2,992 Style Our Home · £3,780 Modern Rattan · RRP £3,999.95 | mid, £1,032 under RRP       |
+| Amalfi Corner + Riser + 2 Stools  | 23914 | £4,209 | £4,131 Luxe Realms · £4,433 Style Our Home · £5,650 Bed Kingdom                     | near cheapest               |
+| Capri Corner + Riser + 2 Stools   | 23099 | £4,298 | £3,387 JDC · £7,308 Haffertys                                                       | mid                         |
+
+Two notes that matter commercially:
+
+- The floor charges **20% VAT on trade cost with no reclaim**, the same
+  conservative assumption used on the other 139 Hill products. If Kaiku is VAT
+  registered and reclaims input VAT, the true floor on these five drops to
+  £1,554–£3,581 — roughly 17% lower — and Kaiku undercuts every retailer above
+  on all five rather than three. Worth confirming before a sale campaign.
+- Buying at Hill's **volume** tier rather than dropship saves £2,262 across just
+  these five sets. At these order values that is the single highest-leverage
+  supplier conversation on the account.

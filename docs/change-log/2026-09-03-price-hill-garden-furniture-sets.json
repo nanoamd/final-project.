@@ -1,0 +1,71 @@
+{
+  "apply": true,
+  "rule": "20% net floor over trade+VAT, carriage+VAT and 1.5%+20p card fees",
+  "results": [
+    {
+      "code": "23913",
+      "id": "drafts.product-hill-23913",
+      "title": "Capri Collection Outdoor Large Corner And Coffee Table Set | Kaiku",
+      "trade": 1682,
+      "carriage": 69.99,
+      "price": 2679,
+      "landed": 2142.77,
+      "marginPct": 20,
+      "metaTitle": "Capri Large Corner Sofa & Coffee Table Set | Kaiku",
+      "hadPrice": null,
+      "hadMeta": null
+    },
+    {
+      "code": "24513",
+      "id": "drafts.product-hill-24513",
+      "title": "Provence Collection Outdoor 4 Seater Lounge Set | Kaiku",
+      "trade": 1160,
+      "carriage": 59.99,
+      "price": 1866,
+      "landed": 1492.18,
+      "marginPct": 20,
+      "metaTitle": "Provence 4 Seater Outdoor Lounge Set | Kaiku",
+      "hadPrice": null,
+      "hadMeta": null
+    },
+    {
+      "code": "23912",
+      "id": "drafts.product-hill-23912",
+      "title": "Amalfi Collection Outdoor Large Corner Set | Kaiku",
+      "trade": 1856,
+      "carriage": 84.99,
+      "price": 2968,
+      "landed": 2373.91,
+      "marginPct": 20,
+      "metaTitle": "Amalfi Large Outdoor Corner Sofa Set | Kaiku",
+      "hadPrice": null,
+      "hadMeta": null
+    },
+    {
+      "code": "23914",
+      "id": "drafts.product-hill-23914",
+      "title": "Amalfi Outdoor Large Corner Set With Riser Table & 2 Stools | Kaiku",
+      "trade": 2668,
+      "carriage": 84.99,
+      "price": 4209,
+      "landed": 3366.92,
+      "marginPct": 20,
+      "metaTitle": "Amalfi Corner Set, Riser Table & 2 Stools | Kaiku",
+      "hadPrice": null,
+      "hadMeta": null
+    },
+    {
+      "code": "23099",
+      "id": "drafts.product-hill-23099",
+      "title": "Capri Outdoor Large Corner Set With Riser Table & 2 Stools | Kaiku",
+      "trade": 2726,
+      "carriage": 84.99,
+      "price": 4298,
+      "landed": 3437.86,
+      "marginPct": 20,
+      "metaTitle": "Capri Corner Set, Riser Table & 2 Stools | Kaiku",
+      "hadPrice": null,
+      "hadMeta": null
+    }
+  ]
+}

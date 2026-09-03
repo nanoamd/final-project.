@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "id": "mercia-trent-outdoor-kitchen",
+      "sections": 8,
+      "blocks": 22,
+      "chars": 3732,
+      "faqs": 9
+    },
+    {
+      "id": "mercia-ultimate-trent-outdoor-kitchen",
+      "sections": 7,
+      "blocks": 18,
+      "chars": 2396,
+      "faqs": 8
+    },
+    {
+      "id": "mercia-pressure-treated-bbq-table",
+      "sections": 6,
+      "blocks": 15,
+      "chars": 2023,
+      "faqs": 8
+    }
+  ]
+}
