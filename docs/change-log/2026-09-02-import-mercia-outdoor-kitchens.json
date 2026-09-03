@@ -1,0 +1,41 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "id": "mercia-trent-outdoor-kitchen",
+      "title": "Mercia Trent Outdoor Kitchen | Kaiku",
+      "sku": "ESDXL21PT056K",
+      "costPrice": 804,
+      "merciaRrp": 999.99,
+      "priceForFloor": 1025,
+      "floorPct": 20,
+      "aboveRrp": true,
+      "images": 3,
+      "specs": 8
+    },
+    {
+      "id": "mercia-ultimate-trent-outdoor-kitchen",
+      "title": "Mercia Ultimate Trent Outdoor Kitchen | Kaiku",
+      "sku": "ESDXL21PT056K2",
+      "costPrice": 1098,
+      "merciaRrp": 1499.99,
+      "priceForFloor": 1399,
+      "floorPct": 20,
+      "aboveRrp": false,
+      "images": 3,
+      "specs": 7
+    },
+    {
+      "id": "mercia-pressure-treated-bbq-table",
+      "title": "Mercia Pressure Treated BBQ Table | Kaiku",
+      "sku": "ESDXL21PT048BR",
+      "costPrice": 264,
+      "merciaRrp": 349.99,
+      "priceForFloor": 337,
+      "floorPct": 20,
+      "aboveRrp": false,
+      "images": 1,
+      "specs": 7
+    }
+  ]
+}

@@ -173,6 +173,115 @@ which is why this was found one product at a time.
 
 ---
 
+## Merchant Center prices are stale because the feed cannot be fetched (3 September)
+
+Damien: _"our prices havent updated on merchant centre!! lots of products passed
+review."_
+
+### The data is right; delivery to Google is not
+
+| Product                           | Merchant Center shows | Sanity holds |
+| --------------------------------- | --------------------- | ------------ |
+| Luxe Natural Glow S/2 LED Candles | £19.00                | **£27**      |
+| Glass Candle Holder               | £32.00                | **£40**      |
+| Silver Punch Faced Candle Holder  | £35.00                | **£43**      |
+| Large Frosted Eucalyptus Wreath   | £19.00                | **£23**      |
+
+SKUs match exactly (`KK-CAND-LUXE-WHT-001` etc.), so these are the same items.
+The feed route reads `product.price` live from Sanity with a one-hour ISR, so it
+would serve the new figures the moment it is read.
+
+### What is in the way
+
+**Every request to the site returns HTTP 429 with a "Vercel Security Checkpoint"
+page** — the homepage included, so this is site-wide and not specific to the
+feed. That is Vercel Firewall Bot Protection, which was published on **1
+September** as the fix for the four-figure bot-traffic bill. The same window in
+which the prices stopped moving.
+
+Ruled out on the way:
+
+- [x] `src/proxy.ts`'s route allowlist is not the cause — `api` is allowlisted
+      _and_ `/api/` is excluded from the matcher entirely.
+- [x] The feed's own ISR is one hour, so it cannot hold a price from two days ago.
+- [x] The revalidation webhook now clears the feed path too (fixed yesterday), so
+      a publish no longer leaves it stale.
+
+### What I cannot prove from here, and the check that settles it
+
+Vercel verifies good bots by IP and reverse DNS, not by user agent, so my request
+with a Googlebot user agent would be challenged whether or not the real crawler
+is. **I cannot tell from outside whether Google's feed fetcher is being
+challenged or simply has not re-fetched yet.**
+
+- [!] **Damien: Merchant Center → Products → Feeds → the feed's fetch history.**
+  It shows the last successful fetch time and any fetch error. A fetch error
+  or a last-fetch date before 2 September confirms the checkpoint is the
+  cause.
+
+### The surgical fix if it is confirmed
+
+Do **not** turn Bot Protection off — it is there for a reason that cost real
+money. Add a Vercel Firewall **bypass rule scoped to the feed path only**:
+
+    Path starts with  /api/feeds/     ->  Action: Bypass / Allow
+
+That leaves the protection on every page a bot could actually abuse, and stops
+the one machine-readable endpoint that is _supposed_ to be read by a machine from
+being challenged. Merchant Center's fetcher does not execute JavaScript, so it
+can never solve a challenge.
+
+Worth doing regardless of the diagnosis: a feed behind a JS challenge is a
+permanent liability, and the same applies to `/sitemap.xml` and `/robots.txt`.
+
+---
+
+## Mercia outdoor kitchens imported (3 September)
+
+Damien: _"import the mercia garden products i sent you ... its not many products
+i want from them apart from there outdoor kitchen sets."_
+
+Three drafts created in the existing **Outdoor Kitchens** category, every fact
+taken from Mercia's own product pages, trade prices from Damien's logged-in
+screenshots:
+
+| Product                        | SKU            | Trade (inc VAT) | Mercia RRP | Images |
+| ------------------------------ | -------------- | --------------- | ---------- | ------ |
+| Trent Outdoor Kitchen          | ESDXL21PT056K  | £804.00         | £999.99    | 3      |
+| Ultimate Trent Outdoor Kitchen | ESDXL21PT056K2 | £1,098.00       | £1,499.99  | 3      |
+| Pressure Treated BBQ Table     | ESDXL21PT048BR | £264.00         | £349.99    | 1      |
+
+- [x] Images downloaded from Mercia and uploaded to Sanity with alt text
+- [x] Dimensions, materials, storage layout, guarantee terms and assembly reality
+      captured as specs — including that the BBQ table's 15-year anti-rot
+      guarantee is conditional on a waterproof topcoat within 14 days and
+      annually after, and that it needs two people to build
+- [x] Supplier record created for Mercia, stating plainly that **carriage terms
+      are not yet recorded**, so per the readiness gate they are BLOCKED until
+      the rate card is in
+- [-] **No price and no description written.** Both are Damien's, and after today
+  that is not a line to go near. The import sets up what a description needs
+  to be written _from_.
+
+### The pricing tension, for Damien to settle
+
+| Product        | Trade  | 20% floor needs | Mercia RRP                  |
+| -------------- | ------ | --------------- | --------------------------- |
+| Trent          | £804   | £1,025          | £999.99 → **£25 above RRP** |
+| Ultimate Trent | £1,098 | £1,399          | £1,499.99 → £101 under      |
+| BBQ Table      | £264   | £337            | £349.99 → £13 under         |
+
+Two of the three clear the floor comfortably below Mercia's own retail price. The
+standard Trent does not: at 20% it lands £25 above RRP, and at the 17% small-tier
+floor it would be £987, just under. Which floor applies to a £1,000 product is
+his call.
+
+- [x] Also available from the screenshots if wanted: Globel Apex Metal Shed
+      (£246), Globel Pent Metal Shed (£254.40), Absco Metal Bike Store (£350.40)
+      — all of which would give Outdoor Storage the anchor above £250 it lacks.
+
+---
+
 ## The four ideas from the usage gap, researched (2 September)
 
 Full write-up appended to `docs/research/supplier-and-brand-shortlist.md`.
@@ -1071,11 +1180,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                          | ---- | ------------------- |
-                                                                          | 0.09 (before) | **454ms** |
-                                                                          | 0.18 (now)    | **232ms** |
+                                                                              | ---- | ------------------- |
+                                                                              | 0.09 (before) | **454ms** |
+                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
