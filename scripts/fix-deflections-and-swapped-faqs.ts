@@ -326,7 +326,7 @@ async function main() {
   const replacedIds = new Set(FAQ_REPLACEMENTS.map((f) => f.id));
   let descProducts = 0;
   let spans = 0;
-  let blocksDropped = 0;
+  let emptyBlocksKept = 0;
   let faqAnswers = 0;
 
   for (const d of docs) {
@@ -354,25 +354,43 @@ async function main() {
         const anyText = children.some(
           (s) => typeof s.text === "string" && s.text.trim(),
         );
-        // A heading whose paragraph has gone takes the heading with it.
+        /*
+         * DO NOT DROP BLOCKS. This is disabled, and the reason is the whole
+         * point of the change.
+         *
+         * This script dropped 114 blocks in its first run, on the theory that a
+         * paragraph consisting only of a deflection should go, and a heading
+         * left with nothing under it should follow. Both are reasonable in
+         * isolation. What actually happened is that it cut real paragraphs out
+         * of roughly thirty descriptions — the exhaustive history sweep later
+         * found them, timestamped 2026-09-02T10:38, which is this script's own
+         * run. The Morano 8 Bulb Chandelier went from 2,889 characters to 1,112.
+         *
+         * Damien's descriptions are the most valuable content on the site and
+         * they had already been damaged once before I touched them. A script
+         * that edits them must only ever REWRITE text in place, never delete
+         * structure — because a rewrite is visible in a diff and a deletion is
+         * not, and because the cost of being wrong is asymmetric: a leftover
+         * empty heading is untidy, a deleted paragraph is gone until someone
+         * notices and digs it out of history.
+         *
+         * If empty blocks genuinely need clearing, do it as its own reviewed
+         * pass with a before/after dump per product, not as a side effect of a
+         * text fix.
+         */
         if (!anyText) {
-          blocksDropped += 1;
-          changed = true;
+          emptyBlocksKept += 1;
+          rebuilt.push({ ...block, children });
           continue;
         }
         rebuilt.push({ ...block, children });
       }
-      // Drop a trailing heading left with nothing beneath it.
-      const pruned = rebuilt.filter((block, i) => {
-        if (block.style === "h2" || block.style === "h3") {
-          const next = rebuilt[i + 1];
-          if (!next || next.style === "h2" || next.style === "h3") {
-            blocksDropped += 1;
-            return false;
-          }
-        }
-        return true;
-      });
+      /*
+       * The orphaned-heading prune is gone too, for the same reason as above: it
+       * removed structure rather than rewriting text, and it ran on the same
+       * pass that damaged the descriptions.
+       */
+      const pruned = rebuilt;
       if (changed) {
         patch.description = pruned;
         descProducts += 1;
@@ -414,7 +432,7 @@ async function main() {
   console.log(`Swapped FAQ sets replaced: ${FAQ_REPLACEMENTS.length}`);
   console.log(`Products with description edits: ${descProducts}`);
   console.log(`  spans rewritten: ${spans}`);
-  console.log(`  empty blocks dropped: ${blocksDropped}`);
+  console.log(`  empty blocks KEPT (never dropped): ${emptyBlocksKept}`);
   console.log(`FAQ answers rewritten: ${faqAnswers}`);
   console.log(`Documents touched: ${results.length}`);
 
