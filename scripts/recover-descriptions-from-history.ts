@@ -63,6 +63,7 @@ const client = createClient({
  * returns content.
  */
 const SNAPSHOTS = [
+  "2026-08-02T00:00:00Z",
   "2026-08-05T00:00:00Z",
   "2026-08-12T00:00:00Z",
   "2026-08-18T00:00:00Z",
@@ -70,7 +71,9 @@ const SNAPSHOTS = [
   "2026-08-24T00:00:00Z",
   "2026-08-27T00:00:00Z",
   "2026-08-30T00:00:00Z",
+  "2026-08-31T12:00:00Z",
   "2026-09-01T09:00:00Z",
+  "2026-09-01T18:00:00Z",
 ];
 
 /** Ids per history request. Kept modest so the URL stays well inside limits. */
@@ -214,8 +217,15 @@ async function main() {
    * ratio stops a 40-character formatting difference counting as a recovery, and
    * the absolute floor stops a short product being churned for no gain.
    */
-  const MIN_RATIO = 1.5;
-  const MIN_EXTRA = 400;
+  /*
+   * Damien: "youve done it to loads of prodc" — i.e. more than the 236 the first
+   * pass restored. He was right: the first run required history to be 1.5x
+   * longer AND at least 400 characters longer, which skipped every product I had
+   * shortened by a moderate amount. Both are now overridable so the true extent
+   * can be measured and then restored.
+   */
+  const MIN_RATIO = Number(process.env.MIN_RATIO ?? 1.5);
+  const MIN_EXTRA = Number(process.env.MIN_EXTRA ?? 400);
 
   const candidates = current
     .map((p) => {
