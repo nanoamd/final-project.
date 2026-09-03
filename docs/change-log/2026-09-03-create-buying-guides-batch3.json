@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "floor-lamp-placement",
+      "title": "Where should a floor lamp actually go?",
+      "bodyBlocks": 16,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "warm-vs-cool-white-light-by-room",
+      "title": "Warm white or cool white — which for which room?",
+      "bodyBlocks": 19,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "chandelier-vs-pendant-light",
+      "title": "Chandelier or pendant light — and how much ceiling clearance?",
+      "bodyBlocks": 21,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

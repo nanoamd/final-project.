@@ -16,6 +16,63 @@ Status key:
 
 ---
 
+## Ten more guides from the roadmap — Sofas, Lighting, TV Units, Desks, Mirrors, Wall Art (3 September)
+
+Continuing straight through the roadmap's remaining 26 line items per Damien's
+instruction to stop reporting between batches. Ten guides, covering 14 of
+those line items after the same merge-don't-duplicate pattern already
+established.
+
+- [x] **`/learn/sofa-size-for-your-room`** and **`/learn/choosing-a-sofa`** —
+      sizing (embeds the new `sofa-size` tool) and the fabric/shape decision,
+      kept as two guides rather than one since they answer different
+      searches. **Checked the catalogue before writing the second one and
+      found Kaiku sells zero leather sofas** — velvet, linen, textured weave
+      and chenille only. The guide says so plainly and recommends the
+      closest fabric equivalent, rather than describing a leather option
+      that isn't purchasable here.
+- [x] **`/learn/coffee-table-top-material`** — stone, wood, veneer, glass/
+      ceramic and rattan, what each actually costs day to day rather than
+      just how it looks new.
+- [x] **Three Lighting guides** — `/learn/floor-lamp-placement`,
+      `/learn/warm-vs-cool-white-light-by-room`,
+      `/learn/chandelier-vs-pendant-light` (embeds the existing
+      `pendant-light` tool). All three needed the general Lighting category
+      (138 products), not the room subcategories — a title search for "floor
+      lamp" / "chandelier" / "pendant" found 42/20/29 real matches, 2-4x what
+      Bedroom/Living Room Lighting alone would have shown, because most
+      aren't cross-tagged into a room subcategory.
+- [x] **`/learn/tv-unit-size-and-height`** — embeds the new `tv-unit-size`
+      tool; the width-vs-diagonal distinction (a 65in TV is ~144cm wide, not
+      165cm) is the one this guide leads with, since it's the actual source
+      of most TV-unit sizing mistakes.
+- [x] **`/learn/desk-depth-and-sit-stand-height`** — **checked the catalogue
+      and found zero height-adjustable or sit-stand desks**, confirmed by
+      title search before writing a word. The guide states that plainly up
+      front rather than describing a feature not on sale, then gives the
+      fixed-height standard (72-75cm, BS EN 527) and is honest that none of
+      our own desks reach BS EN 527's 80cm recommended depth for a monitor
+      setup — all are better suited to a laptop, which the guide says
+      directly rather than implying they're interchangeable.
+- [x] **`/learn/what-shape-mirror`** — embeds the existing `mirror-size`
+      tool; shape (round/square/rectangular/arched/hexagonal/octagonal/oval)
+      as a separate decision from size, which the two-thirds rule doesn't
+      touch either way.
+- [x] **`/learn/wall-art-size-and-arrangement`** — embeds the new
+      `wall-art-size` tool; gallery-wall-or-single-piece reframed correctly
+      as not a sizing question at all (both fill an identical footprint at
+      an identical proportion) — the real decision is upkeep and commitment,
+      which is what the guide actually covers.
+- [x] Every relatedProduct and relatedCategory reference (59 across the ten
+      guides) checked to exist in Sanity **before** writing, not after —
+      caught nothing this batch, but it's the same check that would have
+      caught the Furniture To Go duplicate-slug problem earlier if run
+      first instead of after.
+- [x] Lint clean on all new scripts; full test suite unaffected (content-only
+      changes, no code touched this batch).
+
+---
+
 ## Three more tools, ahead of the next guide batch (3 September)
 
 Damien: _"continue?? idk why youve stopped to talk when like 5% of that list
@@ -84,10 +141,10 @@ you can make, make it." Both live now.
       measured — regular frames and ottoman storage side by side.
 - [x] **Two new tools built, not just linked to.** Checking the roadmap's
       tool-overlap flags earlier had already found `dining-set-size-
-  calculator` only ever matched Garden Furniture stock
+calculator` only ever matched Garden Furniture stock
       (`getProductsByCategory("garden-furniture", ...)`, confirmed in code)
       — no indoor equivalent existed. Built `/tools/dining-table-size-
-  calculator`, reusing the same `DiningSpaceCalculator` component
+calculator`, reusing the same `DiningSpaceCalculator` component
       (the seating arithmetic doesn't care whether the table is on a patio
       or in a dining room) against the indoor Kitchen Furniture category
       instead. No bed-sizing tool existed at all — built
@@ -1611,11 +1668,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                              | ---- | ------------------- |
-                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                  | ---- | ------------------- |
+                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

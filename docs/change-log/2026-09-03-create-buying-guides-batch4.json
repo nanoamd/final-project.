@@ -1,0 +1,33 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "tv-unit-size-and-height",
+      "title": "What size TV unit, and how high to mount the screen?",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "desk-depth-and-sit-stand-height",
+      "title": "How deep does a desk need to be, and is sit-stand worth it?",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "what-shape-mirror",
+      "title": "What shape mirror suits your wall?",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "wall-art-size-and-arrangement",
+      "title": "What size wall art, and gallery wall or single piece?",
+      "bodyBlocks": 20,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

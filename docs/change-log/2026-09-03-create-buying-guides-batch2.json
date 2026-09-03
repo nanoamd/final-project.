@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "sofa-size-for-your-room",
+      "title": "What size sofa for your room, seat by seat?",
+      "bodyBlocks": 22,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "choosing-a-sofa",
+      "title": "Corner, 3-seater or two smaller pieces — and which fabric?",
+      "bodyBlocks": 19,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "coffee-table-top-material",
+      "title": "What coffee table top material actually holds up?",
+      "bodyBlocks": 19,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}
