@@ -119,6 +119,9 @@ anything, so descriptions written to fill a genuine blank survive.
       the sampling pass
 - [x] Verified after: min 645 chars, p10 1,254, median 1,813, p90 5,662, max
       11,808. Total description text 2,452,766 chars. Only 5 products under 800.
+- [x] **Re-ran the exhaustive sweep after restoring: 0 products with a richer
+      version anywhere in their history.** The recovery is provably complete, not
+      complete-as-far-as-I-checked, which is the distinction that failed twice.
 - [x] Total description text across the catalogue now 2,380,581 chars; median per
       product 1,751, p90 5,662
 - [x] Salt plate back to "Designed for Authentic Outdoor Cooking" at 2,526 chars;
@@ -1004,11 +1007,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                  | ---- | ------------------- |
-                                                                  | 0.09 (before) | **454ms** |
-                                                                  | 0.18 (now)    | **232ms** |
+                                                                      | ---- | ------------------- |
+                                                                      | 0.09 (before) | **454ms** |
+                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
