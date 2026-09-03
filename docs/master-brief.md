@@ -86,6 +86,23 @@ factual ones from spec data. The originals were in Sanity's history the entire
 time. I treated damaged content as missing content and never once checked whether
 there was something to restore.
 
+### And I did fresh damage today, which the exhaustive sweep identified
+
+`scripts/fix-deflections-and-swapped-faqs.ts` dropped **114 blocks** in its first
+run: a paragraph consisting only of a "consult the manual" deflection was
+removed, and a heading left with nothing beneath it went with it. Both are
+defensible in isolation. Together they cut real paragraphs out of roughly thirty
+descriptions — the sweep found them timestamped `2026-09-02T10:38`, which is that
+script's own run. The Morano 8 Bulb Champagne Glass Chandelier went from 2,889
+characters to 1,112.
+
+- [x] Block deletion and the orphaned-heading prune are both **disabled**, with
+      the reasoning written into the file. A script that edits these descriptions
+      may rewrite text in place but must never delete structure: a rewrite shows
+      in a diff, a deletion does not, and the costs are asymmetric — a leftover
+      empty heading is untidy, a deleted paragraph is gone until someone digs it
+      out of history. Which is what happened.
+
 ### Recovered
 
 `scripts/recover-descriptions-from-history.ts` samples every product across eight
@@ -93,7 +110,15 @@ historical snapshots, takes the revision with the most editorial text, and
 restores it where it is materially richer than what is live. It never shortens
 anything, so descriptions written to fill a genuine blank survive.
 
-- [x] **236 products restored, 986,787 characters of Damien's writing recovered**
+- [x] **487 products restored in total, across three passes.** Damien: "youve
+      done it to loads of prodc ... products not just these" — he was right at
+      each step: - 236 on the first pass (986,787 chars), which required history to be 1.5x
+      longer AND +400 chars, so it skipped everything shortened moderately - 156 more once those thresholds dropped to 1.01x / +50 chars - 95 more from `scripts/recover-descriptions-exact.ts`, which walks every
+      product's actual revision list instead of sampling eleven dates, because
+      a description that was rich only _between_ two snapshots was invisible to
+      the sampling pass
+- [x] Verified after: min 645 chars, p10 1,254, median 1,813, p90 5,662, max
+      11,808. Total description text 2,452,766 chars. Only 5 products under 800.
 - [x] Total description text across the catalogue now 2,380,581 chars; median per
       product 1,751, p90 5,662
 - [x] Salt plate back to "Designed for Authentic Outdoor Cooking" at 2,526 chars;
@@ -979,11 +1004,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                              | ---- | ------------------- |
-                                                              | 0.09 (before) | **454ms** |
-                                                              | 0.18 (now)    | **232ms** |
+                                                                  | ---- | ------------------- |
+                                                                  | 0.09 (before) | **454ms** |
+                                                                  | 0.18 (now)    | **232ms** |
 
-                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
