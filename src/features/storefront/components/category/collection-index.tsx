@@ -8,7 +8,10 @@ import { buttonVariants } from "@/components/ui/button";
 import { CategoryAccordion } from "@/features/storefront/components/category/category-accordion";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
 import { formatPrice } from "@/lib/format";
-import { categoryInRoom } from "@/lib/sanity/category-rooms";
+import {
+  categoryInRoom,
+  shoppableCategories,
+} from "@/lib/sanity/category-rooms";
 import {
   getCategories,
   getCategory,
@@ -59,9 +62,18 @@ export async function CollectionIndex({
     : undefined;
   if (roomSlug && !room) notFound();
 
-  const categories = room
-    ? allCategories.filter((c) => categoryInRoom(c, room.slug))
-    : allCategories;
+  // Empty categories are dropped from the room's navigation — see
+  // shoppableCategories. The accordion labels each tile with its own product
+  // count, so before this filter Bathroom offered two tiles reading
+  // "0 Products" and Living Room a third, all linking to a page holding nothing
+  // but the empty state. `active` is passed so a direct link to one of those
+  // pages still renders consistently with its own nav.
+  const categories = shoppableCategories(
+    room
+      ? allCategories.filter((c) => categoryInRoom(c, room.slug))
+      : allCategories,
+    active?.slug,
+  );
 
   const products = active
     ? await getProductsByCategory(active.slug, { styleTag })

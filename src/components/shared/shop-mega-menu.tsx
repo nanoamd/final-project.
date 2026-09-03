@@ -1,5 +1,8 @@
 import { AppLink } from "@/components/ui/app-link";
-import { categoryInRoom } from "@/lib/sanity/category-rooms";
+import {
+  categoryInRoom,
+  shoppableCategories,
+} from "@/lib/sanity/category-rooms";
 import type { SanityCategory, SanityDepartment } from "@/types/sanity-content";
 
 const MAX_CATEGORIES_PER_ROOM = 6;
@@ -9,6 +12,10 @@ const MAX_CATEGORIES_PER_ROOM = 6;
  * categories, grouped by `departmentSlug`) — nothing here is hardcoded data,
  * so new rooms/categories added in Studio show up automatically. A room with
  * zero categories yet is simply omitted rather than shown empty.
+ *
+ * Categories with no products are omitted for the same reason, one level down —
+ * this menu sits on every page, so an empty category here is a site-wide link
+ * into a page holding nothing but its empty state. See shoppableCategories.
  */
 export function ShopMegaMenu({
   rooms,
@@ -23,7 +30,9 @@ export function ShopMegaMenu({
     .filter((room) => room.showInMainNav !== false)
     .map((room) => ({
       room,
-      categories: categories.filter((c) => categoryInRoom(c, room.slug)),
+      categories: shoppableCategories(
+        categories.filter((c) => categoryInRoom(c, room.slug)),
+      ),
     }))
     .filter((col) => col.categories.length > 0);
 

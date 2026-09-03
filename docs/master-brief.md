@@ -344,6 +344,81 @@ Three sheds into **Outdoor Storage, which had no published product in it at all*
   accepts ~10% on them as a category-filling loss leader. That is his call and
   it needs the rate card first.
 
+### 3 and 4. Aosom — blocked, and this is what unblocks it
+
+The ten Outsunny storage boxes and the smokeless fire pit cannot be imported yet.
+Three inputs are missing and none of them is something I can work out:
+
+1. **The per-item trade prices.** I recorded only the range from the grid Damien
+   screenshotted (£19.20–£87.47), not the price against each box. Aosom's own
+   site is behind Akamai and returns 403 to any fetch — I have not tried to get
+   round that and will not.
+2. **Which ten boxes.** Same reason. Outsunny's range runs 93L to 627L across
+   plastic, galvanised steel, PE rattan and bench-seat variants, at £29.99–£189.99
+   retail. Importing ten guessed ones would be worse than importing none.
+3. **Product images.** Aosom's image CDN filenames only appear on the product
+   pages, which are the pages that 403. Ryman, Studio and Littlewoods all block
+   fetches too. A product without an image is not sellable.
+
+And a fourth that blocks pricing even once the above land: **Aosom's carriage
+terms are still unrecorded on 81 of their 103 products.** The fire pit's trade
+price I do have (£14.33), and it still cannot be priced honestly without them.
+
+- [!] **To unblock: paste the storage-box grid** — product name and trade price
+  per row is enough. `scripts/import-mercia-metal-sheds.ts` is the working
+  template; the same script shape takes a table and does the rest.
+- [!] Aosom carriage terms remain the single highest-value supplier input
+  outstanding. They gate these 11 products **and** the 81 existing ones.
+
+---
+
+## Empty categories were linked from every page (3 September)
+
+Found while checking where the Aosom boxes would land, and fixed. Three
+categories hold nothing at all — **Rugs**, **Towel Rails** and **Lighting
+[Bathroom]** — and the catalogue has no product anywhere that belongs in any of
+them, so this is a real hole rather than a filing mistake.
+
+The bug was what the site did with them. The category route already sets
+`noindex` when the count is zero, and the sitemap already excludes them. The
+navigation did not:
+
+- The **shop mega menu**, which renders on every page, listed categories filtered
+  only by room. Rugs, Towel Rails and Bathroom Lighting were site-wide links into
+  a page holding nothing but its empty state.
+- The **room accordion** (`/shop`, `/shop/room/<room>`) did the same, and labels
+  each tile with its own product count — so Bathroom showed two tiles reading
+  literally "0 Products" and Living Room a third.
+
+- [x] `shoppableCategories()` added next to `categoryInRoom` in
+      `src/lib/sanity/category-rooms.ts`, with the reasoning in-file
+- [x] Wired into `shop-mega-menu.tsx` and `collection-index.tsx`
+- [x] The **active** category is always kept, whatever its count — a bookmark to
+      an empty category still renders that page with its hero, breadcrumb and
+      empty state, rather than a nav that disagrees with the page in front of you
+- [x] 7 tests in `src/lib/sanity/category-rooms.test.ts`; full suite 1,021 passing
+- [-] Rugs stays empty deliberately — Damien on Viva: _"there rugs are shit and
+  out of stock"_. Towel Rails and Bathroom Lighting are genuine catalogue
+  gaps, and Premier Housewares carry neither.
+
+### Correction to an earlier note in this ledger
+
+An earlier entry read that Outdoor Storage "holds 4 products at £40, £49, £87.40
+and £148.80". That is right, and a check I ran today saying the category was
+empty was wrong: those four are Reclaimed Collection pieces cross-listed through
+`additionalCategories`, and my query filtered on `category._ref` only.
+`getProductsByCategory` honours `additionalCategories` (product.ts:287), so they
+do render. Outdoor Storage is thin with no anchor above £250, not empty.
+
+### One dead record, flagged not deleted
+
+`supplier-aoson` (name "AOSON", created 31 July) is a typo duplicate of
+`supplier-aosom` ("Aosom"). It has no other fields and **nothing references it**.
+Left in place rather than deleted — it harms nothing, and removing supplier
+records off my own initiative is not where trust should be spent today. Worth one
+click in Studio, because a duplicate in the supplier list is how a product ends
+up filed against the wrong carriage terms.
+
 ---
 
 ## The four ideas from the usage gap, researched (2 September)
@@ -1244,11 +1319,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                  | ---- | ------------------- |
-                                                                                  | 0.09 (before) | **454ms** |
-                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                      | ---- | ------------------- |
+                                                                                      | 0.09 (before) | **454ms** |
+                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
