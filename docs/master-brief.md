@@ -16,6 +16,60 @@ Status key:
 
 ---
 
+## Roadmap complete — last 3 guides, Wellness and Planters (3 September)
+
+The final batch. All 26 line items from the Buying Guide Roadmap are now
+live, across 19 guides built this pass (some merged per the
+anti-cannibalization pattern used throughout) plus the 2 built earlier the
+same day — 21 new guides in total, on top of whatever was live before this
+pass began.
+
+- [x] **`/learn/infrared-vs-traditional-sauna`** — **the roadmap's original
+      framing was infrared vs wood-fired; checked the actual product
+      descriptions (not just titles) and found Kaiku sells zero wood-fired
+      saunas.** The Bronte and Pennine Barrel ranges run on a Harvia
+      electric stove. Retitled and rewritten to compare what we actually
+      sell — infrared vs traditional electric-heated — rather than a fuel
+      type not in the catalogue.
+- [x] **`/learn/cold-plunge-chiller-vs-ice-and-temperature`** — the
+      catalogue has exactly one cold plunge SKU, chiller-equipped. Said so
+      plainly rather than presenting ice-vs-chiller as a live choice on this
+      site, then made the real case for why the chiller is built that way.
+      Paired with two infrared saunas in relatedProducts for the
+      contrast-therapy angle — a genuine reason those products sell
+      together, not padding.
+- [x] **`/learn/best-planter-material-for-winter`** — terracotta/ceramic
+      crack risk from trapped freezing water, versus stone-effect, metal and
+      synthetic rattan, which don't. Eight real planters sorted by winter
+      care needed.
+- [x] **A fourteenth embeddable tool, not a new one built**: added
+      `contrast-therapy` (wraps the existing `ContrastTherapyBuilder`,
+      already prop-less like every other embeddable tool) to
+      `guide-tool-embed.tsx`'s `TOOLS` map and the `guideTool` schema enum —
+      it was live at `/tools/contrast-therapy-planner` but not embeddable
+      until this pass, and both wellness guides use it.
+- [x] **Roadmap fully executed: 26/26 recommended topics now live**, across
+      3 new tools (sofa, TV unit, wall art), 1 newly-embeddable existing
+      tool (contrast-therapy), and 19 new guide documents this pass. Two
+      roadmap items were honestly repurposed rather than forced (bathroom
+      vanity → bathroom storage; wood-fired → traditional electric sauna)
+      after checking the catalogue found no matching stock for the original
+      framing — both flagged plainly in their own guides and in this ledger
+      rather than silently substituted.
+- [x] Typecheck, lint, the full test suite (1,055 tests) and a full
+      production build all pass clean. Build output confirms all three new
+      `/tools/` routes and all 21 new `/learn/` routes prerendering with no
+      errors.
+- [ ] **Roadmap artifact** (the working plan document) still needs updating
+      to mark all 26 items complete — next action.
+- [ ] **Previously flagged, still not actioned**: ~40 Hill Interiors
+      products with duplicated-sentence and stray-brand-name description
+      defects, ~36 mostly-Premier products with a repeated care-instructions
+      paragraph, and 99 products with exactly one gallery image. Diagnosed
+      earlier in this session, not yet built into a fix script.
+
+---
+
 ## Six more guides — Storage & Shelving, and Garden structures (3 September)
 
 Continuing the same uninterrupted pass. Six guides, covering the last of the
@@ -1717,11 +1771,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                      | ---- | ------------------- |
-                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                          | ---- | ------------------- |
+                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "infrared-vs-traditional-sauna",
+      "title": "Infrared or traditional sauna — and what the running cost actually looks like",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 7
+    },
+    {
+      "slug": "cold-plunge-chiller-vs-ice-and-temperature",
+      "title": "Cold plunge with a chiller — is it worth it over ice, and what temperature?",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 3
+    },
+    {
+      "slug": "best-planter-material-for-winter",
+      "title": "Which planter material actually survives a British winter outside?",
+      "bodyBlocks": 17,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

@@ -25,7 +25,7 @@ import * as React from "react";
  *
  * It lives in the article feature rather than in components/shared because a
  * shared component may not import its siblings, and this is a switch over
- * thirteen of them.
+ * fourteen of them.
  */
 const TOOLS = {
   "planter-size": {
@@ -142,6 +142,15 @@ const TOOLS = {
     Component: dynamic(() =>
       import("@/components/shared/wall-art-size-calculator").then(
         (m) => m.WallArtSizeCalculator,
+      ),
+    ),
+  },
+  "contrast-therapy": {
+    label: "Sauna and cold plunge protocol builder",
+    href: "/tools/contrast-therapy-planner",
+    Component: dynamic(() =>
+      import("@/components/shared/contrast-therapy-builder").then(
+        (m) => m.ContrastTherapyBuilder,
       ),
     ),
   },

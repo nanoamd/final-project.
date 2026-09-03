@@ -42,6 +42,10 @@ export const guideTool = defineType({
           { title: "Sofa size and room fit", value: "sofa-size" },
           { title: "TV and TV unit size", value: "tv-unit-size" },
           { title: "Wall art size and arrangement", value: "wall-art-size" },
+          {
+            title: "Sauna and cold plunge protocol builder",
+            value: "contrast-therapy",
+          },
         ],
       },
       validation: (rule) => rule.required(),
