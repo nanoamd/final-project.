@@ -173,6 +173,70 @@ which is why this was found one product at a time.
 
 ---
 
+## The four ideas from the usage gap, researched (2 September)
+
+Full write-up appended to `docs/research/supplier-and-brand-shortlist.md`.
+
+### Famous BBQ brands: the brands are closed, the distributor idea is not
+
+Weber and Big Green Egg both run hand-picked authorised-dealer networks, not open
+trade programmes — neither will take a new online-only retailer. Reachable and
+still famous: **Ooni** direct (£199–£799, far more open to online retail) and
+Char-Broil through distributors such as Ambar.
+
+Damien's own framing — _"partnerships with companys which sell famous brands"_ —
+is the better idea, and **UP.Direct** is exactly that: a UK B2B platform carrying
+Salter, Beldray, Russell Hobbs, Progress, Intempo, Giles & Posner and Kleeneze,
+1,000+ products, minimum order **2 cartons**. Far softer than Premier's £350.
+
+- [!] **The trade-off to decide before signing.** Those are value brands at Argos
+  and Tesco price points. They give real brand names and instant breadth, and
+  they pull directly against the premium positioning problem. A Russell Hobbs
+  kettle beside a £6,500 sauna reads as a marketplace, not a curated shop.
+  Works if confined to its own Heating & Cooling or Home Appliances
+  department, or if only the top of the range is taken.
+- Beldray, Progress, Kleeneze and Intempo are all Ultimate Products plc — one
+  relationship, not seven.
+
+### AC units: a real gap
+
+**0 products** match air conditioning; one fan at £53 and three heaters at
+£129–£219. It is the seasonal mirror of Fire Pits & Heating, which has 21. High
+demand and high search volume, available via UP.Direct's Heating & Cooling or
+Aosom. Caveat: portable AC is bought on spec comparison, not curation — treat it
+as traffic, not as brand.
+
+### Electric recliners: the best of the four
+
+Nothing matches "recliner" at all, while the three armchairs in the catalogue sit
+at £424, £449 and £668 — the price point is already proven in that department.
+Electric recliners run £400–£1,500, carry real margin, and are a considered
+purchase where a rich description and a buying guide change the decision, which
+is exactly where this site is now strong.
+
+### The Aosom storage boxes: depth, but the wrong direction
+
+The grid Damien sent runs £19.20–£87.47. Outdoor Storage today is 4 products at
+£40–£148.80 and was already flagged as having no anchor above £250. Eight boxes at
+£19–£87 would add depth and make the positioning worse — median down, ceiling
+unmoved.
+
+- [-] Recommend **top of their range, not the volume**. The category needs
+  something at £300–£600, not more sub-£90 boxes.
+- [!] Aosom carriage is still unrecorded on 81 of 103 products, so nothing from
+  them can be priced honestly yet.
+
+### Order recommended
+
+1. Electric recliners — new category, proven price point, plays to the site's
+   strengths
+2. Ooni — famous, reachable, right band
+3. AC units — real gap, treat as traffic
+4. UP.Direct — only in its own department, and only after deciding whether value
+   brands belong here
+
+---
+
 ## Mercia is the approved brand, and a supplier onboarding list (2 September)
 
 Damien: _"im approved by mercia but not harvia or auroom that was just
@@ -1007,11 +1071,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                      | ---- | ------------------- |
-                                                                      | 0.09 (before) | **454ms** |
-                                                                      | 0.18 (now)    | **232ms** |
+                                                                          | ---- | ------------------- |
+                                                                          | 0.09 (before) | **454ms** |
+                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

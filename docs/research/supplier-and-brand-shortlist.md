@@ -126,3 +126,102 @@ products have no carriage figure at all.
 4. **Mercia** — brand record exists, active trade programme, high ticket.
 5. **Aosom top-of-range only**, once their carriage terms are recorded.
 6. **A bathroom supplier**, still to find.
+
+---
+
+# Update: the four ideas from Damien's messages
+
+## "famous brands ... for like bbqs etc, famous bbqs or just famous anything for the home. designer brands or partnerships with companys which sell famous brands"
+
+### The BBQ brands themselves are closed
+
+**Weber** and **Big Green Egg** both run hand-picked authorised-dealer networks
+rather than open trade programmes. Big Green Egg's own stockist page describes
+dealers as hand-picked with local grilling expertise; that is a relationship
+built over time with a showroom, not a dropship signup. Realistically neither
+will take a new online-only retailer.
+
+The reachable ones in that space are a tier down in fame but real: **Char-Broil**
+through distributors such as Ambar, and **Ooni** direct — Ooni is genuinely
+famous, sells at £199–£799, and is much more open to online retail than Weber.
+Ooni is the one worth an email.
+
+### The "partnership with a company that sells famous brands" idea is the better one
+
+That is exactly what **UP.Direct** is — a UK B2B wholesale platform carrying
+seven household brands: **Salter, Beldray, Russell Hobbs, Progress, Intempo,
+Giles & Posner, Kleeneze.** Over 1,000 products, tiered trade pricing, and a
+minimum order of just **2 cartons**, which is far softer than Premier's £350 or
+Hill's £200.
+
+Categories: Kitchen, Scales, Floorcare, Laundry, Cleaning, **Heating & Cooling**,
+Home & Lifestyle, Audio & Tech.
+
+**But be clear about the trade-off before signing.** Those are value brands —
+Russell Hobbs and Salter sit at Argos and Tesco price points. They would give
+Kaiku real brand names and instant breadth, and they would pull directly against
+the premium positioning problem identified in
+`docs/research/premium-positioning-gaps.md`. A Russell Hobbs kettle beside a
+£6,500 sauna does not read as a curated premium shop; it reads as a marketplace.
+
+Two ways that works rather than hurts:
+
+1. **Confine them to a department where the brand is the point** — Heating &
+   Cooling, or a Home Appliances section — rather than scattering them through
+   Kitchen and Decor where they undercut the existing range.
+2. **Take only the top of their range**, the same discipline recommended for
+   Aosom.
+
+Also worth knowing: Beldray, Progress, Kleeneze and Intempo are all owned by
+Ultimate Products plc, which is why the platform is called UP.Direct. It is one
+supplier relationship, not seven.
+
+## "maybe ac units?"
+
+Nothing in the catalogue: **0 products matching air conditioning**, one fan at
+£53, three heaters at £129–£219. So it is a genuine gap, and it is the seasonal
+mirror of Fire Pits & Heating which already has 21 products.
+
+Two routes: UP.Direct's Heating & Cooling category, or Aosom, who carry portable
+air conditioners. Worth doing — it is high-demand, high-search-volume, and it
+balances a catalogue currently weighted entirely to keeping warm.
+
+The caution is that portable AC is a price-driven commodity bought on spec
+comparison, not on curation. It fits a breadth strategy and does nothing for
+positioning, so treat it as traffic rather than as brand.
+
+## "some electric recliner armchairs too could work"
+
+**The best of the four ideas.** Nothing in the catalogue matches "recliner" at
+all, while the three armchairs we do have sit at £424, £449 and £668 — so the
+price point is already proven in that department.
+
+Electric recliners run £400–£1,500, carry genuine margin, and are a considered
+purchase where a rich description and a buying guide actually change the
+decision — which is where this site is now unusually strong. It also fits the
+Living Room department, already the second-largest and well positioned.
+
+## "heres some for example" — the Aosom garden storage boxes
+
+The grid shown runs £19.20 to £87.47 — Outsunny plastic and galvanised steel
+storage boxes, 97L to 336L.
+
+Outdoor Storage today holds **4 products at £40, £49, £87.40 and £148.80**, and
+was flagged as having no anchor above £250. Adding eight boxes at £19–£87 would
+give the category depth and make its positioning worse: the median would fall and
+the ceiling would not move.
+
+The honest recommendation is the same as for Aosom generally: **take the top of
+the range, not the volume.** A 336L galvanised steel store at £87 is a reasonable
+entry; what the category actually needs is something at £300–£600. And Aosom's
+carriage terms are still unrecorded on 81 of their 103 products, so nothing from
+them can be priced honestly until that lands.
+
+## Order these four
+
+1. **Electric recliners** — new category, proven price point, real margin,
+   plays to the site's strengths
+2. **Ooni** — genuinely famous, reachable, right price band
+3. **AC units** — real gap, high demand, treat as traffic not positioning
+4. **UP.Direct** — only if confined to its own appliances department, and only
+   after deciding whether value brands belong on this site at all
