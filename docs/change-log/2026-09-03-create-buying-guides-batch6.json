@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "fire-pit-fuel-type",
+      "title": "Gas, wood or electric — which fire pit fuel actually suits you?",
+      "bodyBlocks": 18,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "solar-vs-mains-garden-lighting-and-water-features",
+      "title": "Solar or mains garden lighting — and why water features are different",
+      "bodyBlocks": 17,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "pergola-vs-gazebo-and-privacy-screen-height",
+      "title": "Pergola or gazebo, and how tall can a privacy screen legally be?",
+      "bodyBlocks": 17,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

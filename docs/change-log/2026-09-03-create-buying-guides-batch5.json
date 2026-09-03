@@ -1,0 +1,26 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "shelving-how-many-and-open-or-cupboard",
+      "title": "How many shelves do you need, and open or behind a door?",
+      "bodyBlocks": 17,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "bathroom-storage-ideas",
+      "title": "Bathroom storage without a fitted vanity",
+      "bodyBlocks": 15,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "chest-of-drawers-vs-wardrobe",
+      "title": "Chest of drawers or wardrobe — or both?",
+      "bodyBlocks": 17,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

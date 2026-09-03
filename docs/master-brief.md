@@ -16,6 +16,55 @@ Status key:
 
 ---
 
+## Six more guides — Storage & Shelving, and Garden structures (3 September)
+
+Continuing the same uninterrupted pass. Six guides, covering the last of the
+Storage/Shelving items and the outdoor-structures cluster.
+
+- [x] **`/learn/shelving-how-many-and-open-or-cupboard`** — the roadmap's
+      original vanity slot's neighbour, unaffected. Real capacity numbers
+      (23-26 hardbacks/metre solid-packed, 65-75% of that in practice), and
+      the open-vs-cupboard comparison pulled from two categories on purpose:
+      checked first and found Shelving (20 products) is open units only —
+      no cupboard-fronted piece in it at all. Closed storage lives under
+      Living Room / Office Storage as door-fronted sideboards, so the guide
+      pulls two of those in rather than pretending Shelving alone answers
+      both halves of its own question.
+- [x] **`/learn/bathroom-storage-ideas`** — **the roadmap's vanity guide,
+      repurposed.** Checked the catalogue before writing anything: Bathroom
+      Storage (11 products) is baskets, wall shelves and caddies only, and a
+      sitewide title search for "vanity" found exactly one product — a
+      freestanding mirror, not a cabinet. There is no vanity unit to sell,
+      so a vanity buying guide would have linked to nothing. Same slot in
+      the plan, same category, honest subject: unfitted bathroom storage,
+      leading with the fact it isn't a vanity guide rather than burying it.
+- [x] **`/learn/chest-of-drawers-vs-wardrobe`** — hanging vs folded storage
+      as the actual distinction, not a size comparison; 8 real wardrobes and
+      chests measured.
+- [x] **`/learn/fire-pit-fuel-type`** — embeds the existing `patio-heat`
+      tool for output sizing once the fuel's picked. Real stock is
+      overwhelmingly gas, one genuine wood-burning smokeless pit, and two
+      electric/infrared heaters — confirmed against actual titles and
+      descriptions (the two "cabin" and "barrel" saunas elsewhere in this
+      pass got the same check) rather than assumed from category name.
+- [x] **`/learn/solar-vs-mains-garden-lighting-and-water-features`** —
+      **checked before writing and found zero solar water features in the
+      27-product Water Features category** (title search for "solar"
+      returned nothing; every one is mains-powered tabletop decor). The
+      guide says so directly and centres on garden lighting, where the
+      solar/mains choice is real — Garden Lighting is 100% solar today.
+- [x] **`/learn/pergola-vs-gazebo-and-privacy-screen-height`** — the real UK
+      permitted-development figures (2m boundary height without planning
+      permission, 1m facing a highway, a trellis topper counting toward the
+      total). **Standing constraint respected**: reads and references the
+      Pergolas category for guide content only — no product, price or
+      category data in Pergolas touched.
+- [x] Every relatedProduct/relatedCategory reference (54 across six guides)
+      checked to exist in Sanity before writing. Lint clean; no code
+      touched this batch, so the existing test suite is unaffected.
+
+---
+
 ## Ten more guides from the roadmap — Sofas, Lighting, TV Units, Desks, Mirrors, Wall Art (3 September)
 
 Continuing straight through the roadmap's remaining 26 line items per Damien's
@@ -1668,11 +1717,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                  | ---- | ------------------- |
-                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                      | ---- | ------------------- |
+                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
