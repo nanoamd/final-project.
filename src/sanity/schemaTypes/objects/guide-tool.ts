@@ -28,12 +28,17 @@ export const guideTool = defineType({
           { title: "Planter size and compost", value: "planter-size" },
           { title: "Pendant light size and drop", value: "pendant-light" },
           { title: "Mirror size and hanging height", value: "mirror-size" },
-          { title: "Dining set space", value: "dining-space" },
+          { title: "Dining set space (garden)", value: "dining-space" },
+          {
+            title: "Dining table size and seating (indoor)",
+            value: "dining-table-space",
+          },
           { title: "Patio heater output", value: "patio-heat" },
           {
             title: "Garden furniture material",
             value: "furniture-material",
           },
+          { title: "Bed size and room fit", value: "bed-size" },
         ],
       },
       validation: (rule) => rule.required(),

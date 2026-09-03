@@ -19,7 +19,7 @@ import * as React from "react";
  *
  * It lives in the article feature rather than in components/shared because a
  * shared component may not import its siblings, and this is a switch over
- * eight of them.
+ * ten of them.
  */
 const TOOLS = {
   "planter-size": {
@@ -91,6 +91,24 @@ const TOOLS = {
     Component: dynamic(() =>
       import("@/components/shared/vase-size-calculator").then(
         (m) => m.VaseSizeCalculator,
+      ),
+    ),
+  },
+  "bed-size": {
+    label: "Bed size and room fit calculator",
+    href: "/tools/bed-size-calculator",
+    Component: dynamic(() =>
+      import("@/components/shared/bed-size-calculator").then(
+        (m) => m.BedSizeCalculator,
+      ),
+    ),
+  },
+  "dining-table-space": {
+    label: "Dining table size and seating calculator",
+    href: "/tools/dining-table-size-calculator",
+    Component: dynamic(() =>
+      import("@/components/shared/dining-space-calculator").then(
+        (m) => m.DiningSpaceCalculator,
       ),
     ),
   },

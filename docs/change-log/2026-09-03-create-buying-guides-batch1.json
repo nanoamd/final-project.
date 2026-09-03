@@ -1,0 +1,19 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "slug": "dining-table-size-and-shape",
+      "title": "What size dining table for how many seats?",
+      "bodyBlocks": 25,
+      "faqs": 5,
+      "relatedProducts": 8
+    },
+    {
+      "slug": "bed-size-and-storage",
+      "title": "King or super king, and is ottoman storage worth it?",
+      "bodyBlocks": 19,
+      "faqs": 5,
+      "relatedProducts": 8
+    }
+  ]
+}

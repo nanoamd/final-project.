@@ -8,12 +8,14 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildMetadata({
   title: "Tools",
   description:
-    "Ten free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, planter volume, patio heat output, sauna capacity.",
+    "Fourteen free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, bed size, planter volume, patio heat output, sauna capacity.",
   path: "/tools",
 });
 
 /**
- * Grouped, because there are twelve now and a flat list of twelve reads as a dump.
+ * Grouped, because there are fourteen now and a flat list of fourteen reads
+ * as a dump. The visible copy below had drifted to "ten" while this comment
+ * already said twelve — fixed both to the real count while adding two more.
  *
  * Ordered within each group by how often the question gets asked rather than by
  * when the tool was built.
@@ -24,9 +26,21 @@ const GROUPS = [
     tools: [
       {
         href: "/tools/dining-set-size-calculator",
-        title: "Will the dining set fit?",
+        title: "Will the garden dining set fit?",
         description:
-          "Enter your patio or room and get the largest table that fits with room to get out of a chair — and what it will really seat.",
+          "Enter your patio and get the largest table that fits with room to get out of a chair — and what it will really seat.",
+      },
+      {
+        href: "/tools/dining-table-size-calculator",
+        title: "Will the dining table fit?",
+        description:
+          "The indoor version — enter your dining room and get the largest table that fits, and what it will really seat.",
+      },
+      {
+        href: "/tools/bed-size-calculator",
+        title: "What size bed fits my room?",
+        description:
+          "The largest UK bed size your room takes with room left to walk round it and make the bed, matched against real in-stock frames.",
       },
       {
         href: "/tools/mirror-size-calculator",
@@ -122,10 +136,10 @@ export default function ToolsPage() {
           Free planning tools
         </h1>
         <p className="text-muted mt-6 text-lg leading-relaxed text-pretty">
-          Ten calculators for the questions that come before a purchase — what
-          size, how high, will it fit, how much will it hold. All of them work
-          from measurements you can go and take, and none of them need an email
-          address.
+          Fourteen calculators for the questions that come before a purchase —
+          what size, how high, will it fit, how much will it hold. All of them
+          work from measurements you can go and take, and none of them need an
+          email address.
         </p>
 
         <div className="mt-14 flex flex-col gap-12">

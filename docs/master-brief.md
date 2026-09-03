@@ -16,6 +16,53 @@ Status key:
 
 ---
 
+## First two guides from the roadmap, built with new tools (3 September)
+
+Damien: "start building" — then, mid-build, "remember to include relevant
+tools embedded into the buying guide page and if theres any relevant tool
+you can make, make it." Both live now.
+
+- [x] **`/learn/dining-table-size-and-shape`** — "What size dining table for
+      how many seats?" Merged two roadmap line items (size, and round-vs-
+      rectangular) into one guide rather than two, the same anti-
+      cannibalization logic from the roadmap applied to my own execution.
+      Opens with the direct numbers, a reference table, an embedded
+      calculator, four rules as sections, and eight real dining tables from
+      the catalogue measured against them — following the exact structure
+      of the working `where-to-hang-a-wall-clock` guide, checked rather than
+      invented.
+- [x] **`/learn/bed-size-and-storage`** — "King or super king, and is
+      ottoman storage worth it?" Same merge logic (size and storage are one
+      buying decision, not two searches), same structure, eight real beds
+      measured — regular frames and ottoman storage side by side.
+- [x] **Two new tools built, not just linked to.** Checking the roadmap's
+      tool-overlap flags earlier had already found `dining-set-size-
+    calculator` only ever matched Garden Furniture stock
+      (`getProductsByCategory("garden-furniture", ...)`, confirmed in code)
+      — no indoor equivalent existed. Built `/tools/dining-table-size-
+    calculator`, reusing the same `DiningSpaceCalculator` component
+      (the seating arithmetic doesn't care whether the table is on a patio
+      or in a dining room) against the indoor Kitchen Furniture category
+      instead. No bed-sizing tool existed at all — built
+      `/tools/bed-size-calculator` from scratch: a pure `bedSize()` function
+      (`src/lib/tools/bed-size.ts`, 9 tests) plus a thin component, matching
+      the codebase's existing pattern for every other calculator.
+- [x] Both tools are genuinely embedded in their guide, not just linked —
+      registered in `guide-tool-embed.tsx`'s `TOOLS` map and the `guideTool`
+      schema enum, the same mechanism the working guides already use.
+- [x] Found and fixed in passing: the `/tools` index page's own copy said
+      "Ten calculators" in two places while a code comment already said
+      "twelve" — neither was live-accurate before or after this pass.
+      Fixed to the real count (14) and added both new tools to it.
+- [x] Typecheck, lint, the full suite (1,030 tests, +9 for the new
+      calculator) and a full production build all pass clean; both new
+      `/tools/` routes confirmed prerendering with no errors in the build
+      log.
+- [x] Roadmap artifact updated to mark both as built rather than
+      recommended — 26 topics remain on it.
+
+---
+
 ## Guest checkout — the likely reason clicks weren't becoming sales (3 September)
 
 Damien: _"we are unbelievably slowly getting more clicks and its all positive
@@ -1517,11 +1564,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                      | ---- | ------------------- |
-                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                          | ---- | ------------------- |
+                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
