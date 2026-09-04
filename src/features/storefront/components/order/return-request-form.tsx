@@ -27,7 +27,7 @@ const REASONS: { value: string; label: string; hint?: string }[] = [
   {
     value: "damaged-in-transit",
     label: "It arrived damaged",
-    hint: "Photographs help enormously — we'll ask for them by email.",
+    hint: "A photo below helps enormously, and speeds up the claim.",
   },
   { value: "faulty", label: "It's faulty or has stopped working" },
   { value: "not-as-described", label: "It isn't as described" },
@@ -37,6 +37,7 @@ const REASONS: { value: string; label: string; hint?: string }[] = [
 export function ReturnRequestForm({ orderId }: { orderId: string }) {
   const [open, setOpen] = React.useState(false);
   const [reason, setReason] = React.useState("");
+  const [photoCount, setPhotoCount] = React.useState(0);
   const [pending, setPending] = React.useState(false);
   const [result, setResult] = React.useState<{
     ok: boolean;
@@ -187,6 +188,33 @@ export function ReturnRequestForm({ orderId }: { orderId: string }) {
           className="border-line focus:border-ink text-ink rounded-md border px-3 py-2 text-[14px] outline-none"
         />
       </label>
+
+      {/* Fault claims only — a change of mind has nothing to photograph, and
+          asking for one there reads the same way the condition questions
+          would: like we're looking for a reason to say no. */}
+      {!isChangeOfMind ? (
+        <label className="flex flex-col gap-1.5">
+          <span className="text-muted text-[12px] font-medium tracking-[0.08em] uppercase">
+            Photos (optional, up to 6)
+          </span>
+          <input
+            type="file"
+            name="photos"
+            accept="image/*"
+            multiple
+            onChange={(event) =>
+              setPhotoCount(event.currentTarget.files?.length ?? 0)
+            }
+            className="text-graphite file:border-line file:text-ink text-[13px] file:mr-3 file:rounded-md file:border file:bg-transparent file:px-3 file:py-1.5 file:text-[13px]"
+          />
+          <span className="text-muted text-[12.5px]">
+            {reason === "damaged-in-transit"
+              ? "A transit-damage claim is much more likely to succeed with a photo attached."
+              : "A photo of the fault helps us sort it faster."}
+            {photoCount > 0 ? ` ${photoCount} selected.` : ""}
+          </span>
+        </label>
+      ) : null}
 
       <div className="flex flex-wrap items-center gap-3">
         <Button type="submit" disabled={pending || !reason}>

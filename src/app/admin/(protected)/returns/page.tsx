@@ -7,6 +7,8 @@ import {
 } from "@/server/actions/hq-returns";
 import { nextReturnStatuses, type ReturnStatus } from "@/server/hq/returns";
 
+import { SupplierReturnCell } from "./supplier-return-cell";
+
 /**
  * The returns queue. Design: docs/kaiku-hq-design.md §3.
  *
@@ -67,6 +69,7 @@ export default async function AdminReturnsPage({
                 <Th>Assessment</Th>
                 <Th>Placed</Th>
                 <Th>Status</Th>
+                <Th>Supplier</Th>
                 {tab === "open" ? <Th>Move to</Th> : null}
               </tr>
             </thead>
@@ -190,6 +193,9 @@ function ReturnRow({
         <span className="hq-label" style={{ color: STATUS_COLOUR[ret.status] }}>
           {ret.status.replace(/_/g, " ")}
         </span>
+      </Td>
+      <Td>
+        <SupplierReturnCell returnId={ret.id} />
       </Td>
       {showActions ? (
         <Td>

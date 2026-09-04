@@ -12,7 +12,67 @@ import {
   isFault,
   type ReturnReason,
 } from "@/server/returns/eligibility";
+import { getSanityWriteClient } from "@/server/sanity/write-client";
 import { createAdminClient } from "@/server/supabase/admin";
+
+/**
+ * Photograph evidence for a return — the one thing `assessReturn` already
+ * asked for (a transit-damage claim without photos is unlikely to succeed
+ * with the carrier) but that nothing collected until now. Same upload shape
+ * as the quote form's attachments: Sanity is the asset store regardless of
+ * which system owns the parent record, and a photo that fails to upload is
+ * noted rather than failing the whole request — losing one photo is
+ * recoverable, losing the return request is not.
+ */
+const MAX_RETURN_PHOTOS = 6;
+const MAX_RETURN_PHOTO_BYTES = 15 * 1024 * 1024;
+const ACCEPTED_PHOTO_EXTENSIONS = [
+  "jpg",
+  "jpeg",
+  "png",
+  "webp",
+  "heic",
+  "heif",
+];
+
+function extensionOf(filename: string): string {
+  const dot = filename.lastIndexOf(".");
+  return dot === -1 ? "" : filename.slice(dot + 1).toLowerCase();
+}
+
+async function uploadReturnPhotos(formData: FormData): Promise<string[]> {
+  const client = getSanityWriteClient();
+  if (!client) return [];
+
+  const files = formData
+    .getAll("photos")
+    .filter((value): value is File => value instanceof File && value.size > 0)
+    .slice(0, MAX_RETURN_PHOTOS);
+
+  const urls: string[] = [];
+  let uploadedBytes = 0;
+
+  for (const file of files) {
+    if (!ACCEPTED_PHOTO_EXTENSIONS.includes(extensionOf(file.name))) continue;
+    if (uploadedBytes + file.size > MAX_RETURN_PHOTO_BYTES) continue;
+    try {
+      const asset = await client.assets.upload(
+        "image",
+        Buffer.from(await file.arrayBuffer()),
+        {
+          filename: file.name,
+          ...(file.type ? { contentType: file.type } : {}),
+        },
+      );
+      urls.push(asset.url);
+      uploadedBytes += file.size;
+    } catch (err) {
+      console.error(`requestReturn: failed to upload photo ${file.name}`, err);
+    }
+  }
+
+  return urls;
+}
 
 /**
  * Requesting a return.
@@ -135,6 +195,11 @@ export async function requestReturn(
   const lineItems = Array.isArray(order.line_items) ? order.line_items : [];
   const madeToOrder = looksMadeToOrder(lineItems);
 
+  // Uploaded before the assessment runs — a photo count of 0 when the
+  // customer genuinely attached one would tell them their own claim is
+  // "very unlikely to succeed" for no reason.
+  const photoUrls = await uploadReturnPhotos(formData);
+
   const assessment = assessReturn({
     reason,
     deliveredAt: order.actual_delivery_date
@@ -146,9 +211,7 @@ export async function requestReturn(
     productionStarted: !["paid", "review"].includes(order.stage ?? ""),
     unused,
     originalPackaging,
-    // Photograph upload is a follow-up; a request is not blocked on it, and the
-    // assessment notes ask for pictures where they matter.
-    photoCount: 0,
+    photoCount: photoUrls.length,
   });
 
   const { data: created, error: insertError } = await admin
@@ -159,6 +222,7 @@ export async function requestReturn(
       customer_name: order.customer_name,
       reason,
       detail: detail || null,
+      photo_urls: photoUrls,
       unused,
       original_packaging: originalPackaging,
       line_items: lineItems,

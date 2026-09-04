@@ -16,6 +16,92 @@ Status key:
 
 ---
 
+## The supplier return request, closing the Returns feature's last real code gap (4 September)
+
+The one genuinely-open half of "a dedicated admin returns screen and the
+supplier return request" — the screen was already built, checked and
+confirmed above; notifying the supplier was not. Built to the exact shape
+of the existing purchase-order flow (`server/actions/supplier-orders.ts`),
+deliberately, since it is the same category of message: an outward-facing
+commitment to a trade supplier that gets read before it goes.
+
+- [x] **`server/suppliers/return-request.ts`** —
+      `buildSupplierReturnRequestEmail`, mirroring `purchase-order.ts`'s
+      three rules (no prices, the supplier's own SKU leads, the customer's
+      phone goes to the supplier and never their email) plus what a return
+      specifically needs and an order doesn't: the reason, whether Kaiku or
+      the customer is paying return shipping — so a supplier is never asked
+      to arrange a collection Kaiku isn't covering — and any photo evidence
+      the customer supplied, linked directly rather than described.
+- [x] **`server/actions/supplier-return-request.ts`** — the same two-step
+      draft/send shape as purchase orders: `getSupplierReturnRequestDrafts`
+      groups a return's line items by supplier (a return can only be for
+      one order's items, but that order can span suppliers), resolves
+      contacts and supplier SKUs the same way, and flags the same class of
+      problem (missing SKU, missing collection address) before anything
+      sends. `sendSupplierReturnRequest` sends and logs a
+      `supplier_return_request` order-timeline event, checked before
+      re-sending so a double-click doesn't double-notify.
+- [x] **Wired into the returns admin table** — a new "Supplier" column,
+      `supplier-return-cell.tsx`: drafts are fetched lazily on first expand
+      per row rather than for the whole queue on page load (a returns queue
+      can run to hundreds of rows), and each supplier gets its own
+      read-the-email-first-then-send control, condensed for a table cell
+      rather than the full page section the order detail view uses for the
+      same job.
+- [x] Typecheck, lint (scoped to every file this pass touched), the full
+      test suite (1,055 tests) and a full production build all pass clean;
+      `/admin/returns` confirmed building with no errors in the log.
+- [!] **Still genuinely open on Returns**: migration `0006_returns.sql`
+  needs running in Supabase before any of this feature works live, and
+  the policy itself still needs a qualified legal review. With this
+  pass, every code gap flagged in the original "Returns — the last
+  legal gap" section is now closed.
+
+---
+
+## The admin returns screen was already built, and photo upload wasn't (4 September)
+
+Checked the Returns "still to finish" list item by item before assuming
+anything on it was still open.
+
+- [x] **"A dedicated admin returns screen" — already fully built, ledger was
+      stale.** `src/app/admin/(protected)/returns/page.tsx` exists: open/
+      resolved tabs, a full table (ref, order, customer, reason, assessment,
+      placed date, status), and per-row status-progression controls with a
+      refund-amount field and notes, wired through `hq-returns.ts` and
+      `server/hq/returns.ts`. Linked from the admin sidebar
+      (`{ label: "Returns", href: "/admin/returns" }`). This is the third
+      item this session that turned out to already be resolved once actually
+      checked rather than trusted from an old ledger entry — most likely the
+      same earlier work that already cleared the shadow drafts.
+- [x] **Photograph upload — genuinely missing, now built.** `requestReturn`
+      had `photoCount: 0` hardcoded with a comment calling it "a follow-up" —
+      this was real, unlike the screen above. Added `uploadReturnPhotos` to
+      `server/actions/returns.ts`, matching the quote form's existing
+      attachment pattern exactly: images go to Sanity via
+      `client.assets.upload("image", ...)`, a file that fails to upload is
+      skipped rather than failing the whole request, capped at 6 photos /
+      15MB total. The URLs land in `photo_urls` — a column migration 0006
+      already had, reserved for exactly this and unused until now. The real
+      `photoCount` now reaches `assessReturn`, so a customer who does attach
+      a photo no longer gets told their claim is "very unlikely to succeed"
+      for lack of one they actually sent.
+- [x] **Form updated to match** — a file input on `return-request-form.tsx`,
+      shown for fault-type reasons only (a change of mind has nothing to
+      photograph), and the "It arrived damaged" hint corrected from "we'll
+      ask for them by email" — no longer true — to pointing at the field
+      that's now right there.
+- [x] Typecheck, lint, the full suite (1,055 tests) and a full production
+      build all pass clean.
+- [!] **Still genuinely open on Returns**: migration `0006_returns.sql`
+  needs running in Supabase before any of this works live — the
+  `photo_urls` column this feature writes to doesn't exist until then —
+  and the policy itself still needs a qualified legal review. Both were
+  already flagged; not duplicated in detail here.
+
+---
+
 ## The return-requested email, closing one of the Returns "still to finish" items (4 September)
 
 Found in the Returns section (_"the last legal gap"_): `requestReturn` recorded
@@ -1986,11 +2072,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -5912,8 +5998,12 @@ Still to finish:
     a return becomes a chargeback.
   - Reading the `returns` table **fails soft to an empty list**, so the order
     watchdogs keep working before migration 0006 has been run.
-- [ ] **A dedicated admin returns screen** and the supplier return request.
-      Actionable from the order page and visible in alerts meanwhile.
+- [x] **A dedicated admin returns screen** — already built; ledger was
+      stale. See "The admin returns screen was already built" entry near
+      the top of this ledger.
+- [x] **The supplier return request** — built. See "The supplier return
+      request, closing the Returns feature's last real code gap" near the
+      top of this ledger.
 - [x] **Emails** — `return-requested` is now in the email catalogue, built,
       wired into `requestReturn`, and previewable at `/admin/emails`. See
       "The return-requested email" entry near the top of this ledger for
