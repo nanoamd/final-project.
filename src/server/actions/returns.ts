@@ -2,7 +2,11 @@
 
 import "server-only";
 
+import { siteUrl } from "@/config/site";
 import { createClient } from "@/lib/supabase/server";
+import { buildReturnRequestedEmail } from "@/server/emails/form-acknowledgements";
+import { resolveFormEmail } from "@/server/emails/resolve-email";
+import { sendEmail } from "@/server/integrations/resend";
 import {
   assessReturn,
   isFault,
@@ -192,6 +196,40 @@ export async function requestReturn(
       .join("\n"),
     actor: "customer",
   });
+
+  // The return is already safely recorded above — an email hiccup from here
+  // on is logged (inside sendEmail) but never turns an otherwise-successful
+  // request into an error for the customer. Same fail-soft shape as the
+  // contact and quote forms.
+  if (order.email) {
+    const { built } = await resolveFormEmail({
+      templateKey: "return-requested",
+      variables: {
+        customerName: order.customer_name ?? "",
+        siteUrl,
+        returnNumber: created.return_number,
+        reason,
+        customerMessage: assessment.customerMessage,
+        returnShippingPaidBy: assessment.returnShippingPaidBy,
+      },
+      fallback: () =>
+        buildReturnRequestedEmail({
+          customerName: order.customer_name ?? "",
+          siteUrl,
+          returnNumber: created.return_number,
+          reason,
+          customerMessage: assessment.customerMessage,
+          returnShippingPaidBy: assessment.returnShippingPaidBy,
+        }),
+    });
+
+    await sendEmail({
+      to: order.email,
+      subject: built.subject,
+      html: built.html,
+      text: built.text,
+    });
+  }
 
   return {
     ok: true,

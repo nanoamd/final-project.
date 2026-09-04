@@ -116,6 +116,12 @@ export const EMAIL_KINDS: readonly EmailKind[] = [
     when: "To the customer, when they submit the contact form.",
     trigger: "form",
   },
+  {
+    key: "return-requested",
+    label: "Return request received",
+    when: "To the customer, the moment they submit a return request on their order.",
+    trigger: "form",
+  },
 ] as const;
 
 /** The Studio dropdown, built from the list above rather than repeated. */

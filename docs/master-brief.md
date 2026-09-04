@@ -16,6 +16,71 @@ Status key:
 
 ---
 
+## The return-requested email, closing one of the Returns "still to finish" items (4 September)
+
+Found in the Returns section (_"the last legal gap"_): `requestReturn` recorded
+the return, wrote it to the order timeline, and told the customer the result
+on-screen — and sent nothing to their inbox. A customer who closes that tab
+has no record of a KR- reference or what happens next, on the one flow this
+whole feature exists to give a paper trail to.
+
+- [x] **`return-requested` added to the email catalogue**
+      (`src/lib/emails/catalogue.ts`) — a `trigger: "form"` email, same shape
+      as `quote-received`/`contact-received`, so it's Studio-customisable and
+      shows up in `/admin/emails` automatically.
+- [x] **`buildReturnRequestedEmail`** (`server/emails/form-acknowledgements.ts`)
+      wraps `assessReturn`'s own `customerMessage` rather than re-deriving
+      decision language — the same text the customer already saw on-screen,
+      so the two never drift apart. Reference, reason, and who pays return
+      shipping, in the same layout every other Kaiku email uses.
+- [x] **Wired into `requestReturn`**, sent to `order.email` after the
+      Supabase insert and timeline event both succeed — fail-soft, matching
+      `contact.ts`'s pattern exactly: a `sendEmail` failure is logged but
+      never turns an already-recorded return request into an error for the
+      customer.
+- [x] **Added to `/admin/emails`'s preview list** (`email-preview.ts`) with
+      realistic sample data (a damaged-in-transit fault, Kaiku-paid return
+      shipping) — previewable and test-sendable like the other twelve.
+- [x] **`catalogue.test.ts` updated** — the pinned 12-email list is now 13,
+      renamed from "the twelve emails" to "the thirteen emails" to match.
+- [x] Typecheck, lint (scoped to every touched file), the full suite (1,055
+      tests) and a full production build all pass clean.
+- [!] **Still open on Returns, not something I can finish**: photograph
+  upload for fault claims, a dedicated admin returns screen, and running
+  migration `0006_returns.sql` in Supabase — the whole feature is
+  unusable in production until that last one happens. Flagged in the
+  section above; not duplicated here.
+
+---
+
+## Two more items from the backlog list checked — one already gone, one confirmed and scoped (4 September)
+
+- [x] **"~36 mostly-Premier products with a repeated care-instructions
+      paragraph" — searched thoroughly, found nothing at that scale.**
+      Checked three ways: exact-duplicate paragraphs within a single
+      product's own description (found 1, unrelated to care instructions),
+      identical paragraph text shared across 5+ different products (found
+      0), and every care/clean/maintain-related text block shared across
+      2+ products (the largest cluster was 3 products sharing one
+      generic sentence — not a real duplicate-content problem at any
+      scale). Whatever this was, it doesn't match the current state of the
+      catalogue — most likely resolved by the same earlier work that
+      already cleared the shadow drafts, not something I fixed just now.
+- [x] **99 single-gallery-image products — confirmed still real, and
+      confirmed it isn't a code bug.** Read `product-gallery.tsx` and
+      `image-lightbox.tsx` directly: both already guard on
+      `slides.length > 1` / `images.length > 1` and hide the thumbnail
+      strip, prev/next arrows and lightbox navigation entirely when a
+      product has one photo — a single-image product renders cleanly with
+      no broken controls. This is a content-sourcing gap, not a rendering
+      one: **97 of the 99 are Premier Housewares products** (1 Hill Decor,
+      1 Ancient Wisdom) — worth asking Premier for additional angles on
+      those 97 specifically, rather than a sitewide problem. Nothing left
+      for me to fix here without either real additional photography or a
+      decision to accept single-image listings as-is.
+
+---
+
 ## Raw JSON debris repaired in 4 more product descriptions (4 September)
 
 Spotted while fixing the supplier-leak batch above: `hill-decor-21499`
@@ -1921,11 +1986,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -5849,7 +5914,10 @@ Still to finish:
     watchdogs keep working before migration 0006 has been run.
 - [ ] **A dedicated admin returns screen** and the supplier return request.
       Actionable from the order page and visible in alerts meanwhile.
-- [ ] **Emails** — `return-requested` is not in the email catalogue yet.
+- [x] **Emails** — `return-requested` is now in the email catalogue, built,
+      wired into `requestReturn`, and previewable at `/admin/emails`. See
+      "The return-requested email" entry near the top of this ledger for
+      the detail.
 - [ ] **Migration 0006 needs running** in Supabase before any of it works.
 - [ ] **Have the policy itself reviewed by someone qualified.** The code
       implements it conservatively in the customer's favour, which is the safer legal

@@ -13,6 +13,7 @@ import { getAuthorizedAdmin } from "@/server/auth/admin";
 import {
   buildContactReceivedEmail,
   buildQuoteReceivedEmail,
+  buildReturnRequestedEmail,
 } from "@/server/emails/form-acknowledgements";
 import { buildNewsletterWelcomeEmail } from "@/server/emails/newsletter-welcome";
 import {
@@ -64,6 +65,16 @@ const SAMPLE_CONTACT = {
   siteUrl,
   message:
     "Hello — we are looking at the two-seater sauna for a garden in Buckinghamshire. Is the door reversible, and can it be delivered through a side gate about 900mm wide?",
+};
+
+const SAMPLE_RETURN = {
+  customerName: SAMPLE_ORDER.customerName ?? "Alex Whitfield",
+  siteUrl,
+  returnNumber: "KR-2287",
+  reason: "damaged-in-transit",
+  customerMessage:
+    "We're sorry it arrived damaged. This is a fault, not a change of mind, so there's no deadline on it and we'll always cover the return shipping. A photo of the damage helps us sort a replacement faster — reply to this email with one when you can, and we'll take it from there.",
+  returnShippingPaidBy: "kaiku" as const,
 };
 
 /** Sample data for the second-order offer, matching SAMPLE_ORDER's customer. */
@@ -139,6 +150,19 @@ function formArgs(key: string) {
           message: SAMPLE_CONTACT.message,
         },
         fallback: () => buildContactReceivedEmail(SAMPLE_CONTACT),
+      };
+    case "return-requested":
+      return {
+        templateKey: key,
+        variables: {
+          customerName: SAMPLE_RETURN.customerName,
+          siteUrl,
+          returnNumber: SAMPLE_RETURN.returnNumber,
+          reason: SAMPLE_RETURN.reason,
+          customerMessage: SAMPLE_RETURN.customerMessage,
+          returnShippingPaidBy: SAMPLE_RETURN.returnShippingPaidBy,
+        },
+        fallback: () => buildReturnRequestedEmail(SAMPLE_RETURN),
       };
     default: {
       // newsletter-welcome. The unsubscribe link is a real route shape with a

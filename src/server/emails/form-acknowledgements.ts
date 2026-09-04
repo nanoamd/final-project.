@@ -158,3 +158,73 @@ export function buildContactReceivedEmail(
 
   return { subject, html, text };
 }
+
+export interface ReturnRequestedData {
+  customerName: string;
+  siteUrl: string;
+  /** The KR- reference, so it can be quoted straight back at us. */
+  returnNumber: string;
+  reason: string;
+  /**
+   * Written for the customer already, by `assessReturn` — the email wraps it
+   * rather than re-deriving decision language of its own, so the on-screen
+   * result and the email a customer forwards to someone always agree.
+   */
+  customerMessage: string;
+  returnShippingPaidBy: "kaiku" | "customer";
+}
+
+export function buildReturnRequestedEmail(
+  data: ReturnRequestedData,
+): BuiltEmail {
+  const firstName = data.customerName.trim().split(/\s+/)[0] || "";
+  const greeting = firstName
+    ? `Thank you, ${firstName}.`
+    : "Thank you for letting us know.";
+  const subject = `Your return — ${data.returnNumber}`;
+  const readableReason = data.reason.replace(/-/g, " ");
+  const shippingLine =
+    data.returnShippingPaidBy === "kaiku"
+      ? "We're covering the cost of getting it back to us."
+      : "Return shipping is on you for this one — the message above explains why.";
+
+  const html = renderEmail({
+    title: subject,
+    preheader: `Reference ${data.returnNumber} — ${data.customerMessage.slice(0, 90)}`,
+    content: [
+      eyebrow("Return request received"),
+      heading(greeting),
+      paragraph(
+        `We have your return request for <strong style="color:#1b1b1d;">${escapeHtml(readableReason)}</strong>, and here's where it stands.`,
+      ),
+      subheading("Your reference"),
+      paragraph(
+        `<span style="font-family:Consolas,Menlo,monospace;font-size:15px;">${escapeHtml(
+          data.returnNumber,
+        )}</span>`,
+      ),
+      paragraph(
+        "Quote us that reference in any reply and we'll have your request in front of us.",
+      ),
+      subheading("What happens next"),
+      paragraph(escapeHtmlWithBreaks(data.customerMessage)),
+      paragraph(escapeHtml(shippingLine)),
+      spacer(8),
+      smallPrint(
+        `Reply to this email, or write to ${escapeHtml(siteConfig.email)}. We answer by email only, and we read every message ourselves.`,
+      ),
+    ].join("\n"),
+  });
+
+  const text = renderText([
+    greeting,
+    `We have your return request for ${readableReason}, and here's where it stands.`,
+    `YOUR REFERENCE\n${data.returnNumber}`,
+    "Quote us that reference in any reply and we'll have your request in front of us.",
+    `WHAT HAPPENS NEXT\n${data.customerMessage}`,
+    shippingLine,
+    `Reply to this email, or write to ${siteConfig.email}. We answer by email only, and we read every message ourselves.`,
+  ]);
+
+  return { subject, html, text };
+}
