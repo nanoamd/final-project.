@@ -1,0 +1,373 @@
+{
+  "apply": true,
+  "results": [
+    {
+      "id": "drafts.product-aw-eo-76",
+      "title": "Sweet Birch Essential Oil 10ml",
+      "blocksBefore": 17,
+      "blocksAfter": 16,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "drafts.product-aw-preo-76",
+      "title": "Sweet Birch Essential Oil 50ml",
+      "blocksBefore": 26,
+      "blocksAfter": 25,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-aw-eo-03",
+      "title": "Eucalyptus Essential Oil 10ml | Ancient Wisdom",
+      "blocksBefore": 17,
+      "blocksAfter": 16,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-aw-eo-76",
+      "title": "Sweet Birch Essential Oil 10ml | Ancient Wisdom",
+      "blocksBefore": 17,
+      "blocksAfter": 16,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-aw-preo-76",
+      "title": "Sweet Birch Essential Oil 50ml | Ancient Wisdom",
+      "blocksBefore": 26,
+      "blocksAfter": 25,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-import-13-6m-44ft-6in-plug-in-led-warm-white-christmas-string-light",
+      "title": "13.6m Warm White Decorative LED String Lights",
+      "blocksBefore": 195,
+      "blocksAfter": 195,
+      "blocksRemoved": 0,
+      "blocksEdited": 5
+    },
+    {
+      "id": "product-import-2-75m-9ft-plug-in-led-8-sequence-warm-white-cluster-string",
+      "title": "2.75m\\9ft Plug-In LED 8 Sequence Warm White Cluster String",
+      "blocksBefore": 102,
+      "blocksAfter": 100,
+      "blocksRemoved": 2,
+      "blocksEdited": 8
+    },
+    {
+      "id": "product-import-aegina-table-lamp",
+      "title": "Aegina Table Lamp",
+      "blocksBefore": 107,
+      "blocksAfter": 101,
+      "blocksRemoved": 6,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-alto-putty-grey-table",
+      "title": "Alto Putty Grey Outdoor Table",
+      "blocksBefore": 150,
+      "blocksAfter": 150,
+      "blocksRemoved": 0,
+      "blocksEdited": 7
+    },
+    {
+      "id": "product-import-antia-stem-table-lamp-with-linen-shade",
+      "title": "Antia Stem Table Lamp With Linen Shade",
+      "blocksBefore": 91,
+      "blocksAfter": 89,
+      "blocksRemoved": 2,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-antique-gold-hare-table-lamp-with-green-velvet-shade",
+      "title": "Antique Gold Hare Table Lamp With Green Velvet Shade",
+      "blocksBefore": 144,
+      "blocksAfter": 144,
+      "blocksRemoved": 0,
+      "blocksEdited": 4
+    },
+    {
+      "id": "product-import-antique-gold-marching-hares-lamp-with-green-velvet-shade",
+      "title": "Antique Gold Marching Hares Lamp With Green Velvet Shade",
+      "blocksBefore": 114,
+      "blocksAfter": 107,
+      "blocksRemoved": 7,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-import-augusta-column-table-lamp-with-linen-shade",
+      "title": "Augusta Column Table Lamp With Linen Shade",
+      "blocksBefore": 99,
+      "blocksAfter": 93,
+      "blocksRemoved": 6,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-black-wood-arched-window-mirror",
+      "title": "Black Wood Arched Window Mirror",
+      "blocksBefore": 113,
+      "blocksAfter": 111,
+      "blocksRemoved": 2,
+      "blocksEdited": 4
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-footstool",
+      "title": "Bloom Collection Outdoor Footstool",
+      "blocksBefore": 100,
+      "blocksAfter": 98,
+      "blocksRemoved": 2,
+      "blocksEdited": 8
+    },
+    {
+      "id": "product-import-bloom-collection-outdoor-sofa",
+      "title": "Bloom Collection Outdoor Sofa",
+      "blocksBefore": 225,
+      "blocksAfter": 225,
+      "blocksRemoved": 0,
+      "blocksEdited": 13
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-dining-chair",
+      "title": "Capri Collection Outdoor Dining Chair",
+      "blocksBefore": 110,
+      "blocksAfter": 109,
+      "blocksRemoved": 1,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-capri-collection-outdoor-foot-stool",
+      "title": "Capri Collection Outdoor Foot Stool",
+      "blocksBefore": 176,
+      "blocksAfter": 176,
+      "blocksRemoved": 0,
+      "blocksEdited": 10
+    },
+    {
+      "id": "product-import-contour-collection-2-drawer-2-door-sideboard",
+      "title": "Contour Collection 2 Drawer 2 Door Sideboard",
+      "blocksBefore": 110,
+      "blocksAfter": 109,
+      "blocksRemoved": 1,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-contour-collection-3-drawer-console",
+      "title": "Contour Collection 3 Drawer Console",
+      "blocksBefore": 115,
+      "blocksAfter": 108,
+      "blocksRemoved": 7,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-echo-french-grey-chair",
+      "title": "Echo French Grey Chair",
+      "blocksBefore": 149,
+      "blocksAfter": 149,
+      "blocksRemoved": 0,
+      "blocksEdited": 9
+    },
+    {
+      "id": "product-import-eucalyptus-plant-in-stone-effect-pot",
+      "title": "Eucalyptus Plant In Stone Effect Pot",
+      "blocksBefore": 179,
+      "blocksAfter": 179,
+      "blocksRemoved": 0,
+      "blocksEdited": 10
+    },
+    {
+      "id": "product-import-large-black-multi-shelf-unit",
+      "title": "Large Black Multi Shelf Unit",
+      "blocksBefore": 116,
+      "blocksAfter": 114,
+      "blocksRemoved": 2,
+      "blocksEdited": 7
+    },
+    {
+      "id": "product-import-large-circular-silver-wall-hanging-multi-shelf",
+      "title": "Large Circular Silver Wall Hanging Multi Shelf",
+      "blocksBefore": 97,
+      "blocksAfter": 95,
+      "blocksRemoved": 2,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-nahla-medium-mirror-with-dimpled-frame",
+      "title": "Nahla Medium Mirror With Dimpled Frame",
+      "blocksBefore": 178,
+      "blocksAfter": 178,
+      "blocksRemoved": 0,
+      "blocksEdited": 9
+    },
+    {
+      "id": "product-import-nahla-small-mirror-with-dimpled-frame",
+      "title": "Nahla Small Mirror With Dimpled Frame",
+      "blocksBefore": 197,
+      "blocksAfter": 197,
+      "blocksRemoved": 0,
+      "blocksEdited": 10
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-4-seater-dining-set",
+      "title": "Provence Collection Outdoor 4 Seater Dining Set",
+      "blocksBefore": 192,
+      "blocksAfter": 192,
+      "blocksRemoved": 0,
+      "blocksEdited": 11
+    },
+    {
+      "id": "product-import-provence-collection-outdoor-dining-chair",
+      "title": "Provence Collection Outdoor Dining Chair",
+      "blocksBefore": 168,
+      "blocksAfter": 168,
+      "blocksRemoved": 0,
+      "blocksEdited": 13
+    },
+    {
+      "id": "product-import-reed-collection-2-drawer-2-door-console",
+      "title": "Reed Collection 2 Drawer 2 Door Console",
+      "blocksBefore": 194,
+      "blocksAfter": 194,
+      "blocksRemoved": 0,
+      "blocksEdited": 5
+    },
+    {
+      "id": "product-import-reed-collection-3-drawer-bedside-table",
+      "title": "Reed Collection 3 Drawer Bedside Table",
+      "blocksBefore": 161,
+      "blocksAfter": 161,
+      "blocksRemoved": 0,
+      "blocksEdited": 11
+    },
+    {
+      "id": "product-import-saltaire-collection-3-shelf-unit",
+      "title": "Saltaire Collection 3-Shelf Unit",
+      "blocksBefore": 219,
+      "blocksAfter": 219,
+      "blocksRemoved": 0,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-sepia-shadows-squat-table-lamp-with-linen-shade",
+      "title": "Sepia Shadows Squat Table Lamp With Linen Shade",
+      "blocksBefore": 191,
+      "blocksAfter": 191,
+      "blocksRemoved": 0,
+      "blocksEdited": 10
+    },
+    {
+      "id": "product-import-seraphia-table-lamp-with-edged-linen-shade",
+      "title": "Seraphia Table Lamp with Edged Linen Shade",
+      "blocksBefore": 213,
+      "blocksAfter": 212,
+      "blocksRemoved": 1,
+      "blocksEdited": 0
+    },
+    {
+      "id": "product-import-seville-collection-lebes-planter",
+      "title": "Seville Collection Lebes Planter",
+      "blocksBefore": 192,
+      "blocksAfter": 192,
+      "blocksRemoved": 0,
+      "blocksEdited": 9
+    },
+    {
+      "id": "product-import-small-blue-flora-planter-pot",
+      "title": "Small Blue Flora Planter Pot",
+      "blocksBefore": 185,
+      "blocksAfter": 185,
+      "blocksRemoved": 0,
+      "blocksEdited": 9
+    },
+    {
+      "id": "product-import-solenne-table-lamp-with-edged-linen-shade",
+      "title": "Solenne Table Lamp with Edged Linen Shade",
+      "blocksBefore": 211,
+      "blocksAfter": 211,
+      "blocksRemoved": 0,
+      "blocksEdited": 10
+    },
+    {
+      "id": "product-import-square-decorative-hanging-collage-mirror-in-black",
+      "title": "Square Decorative Hanging Collage Mirror in Black",
+      "blocksBefore": 197,
+      "blocksAfter": 197,
+      "blocksRemoved": 0,
+      "blocksEdited": 3
+    },
+    {
+      "id": "product-import-symi-slim-table-lamp",
+      "title": "Symi Slim Table Lamp",
+      "blocksBefore": 210,
+      "blocksAfter": 210,
+      "blocksRemoved": 0,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-tarn-collection-large-pot-with-handles",
+      "title": "Tarn Large Pot with Handles",
+      "blocksBefore": 240,
+      "blocksAfter": 240,
+      "blocksRemoved": 0,
+      "blocksEdited": 6
+    },
+    {
+      "id": "product-import-teos-table-lamp",
+      "title": "Teos Table Lamp",
+      "blocksBefore": 273,
+      "blocksAfter": 273,
+      "blocksRemoved": 0,
+      "blocksEdited": 5
+    },
+    {
+      "id": "product-import-the-camden-collection-half-moon-3-tier-table",
+      "title": "Camden Half Moon 3 Tier Table",
+      "blocksBefore": 227,
+      "blocksAfter": 227,
+      "blocksRemoved": 0,
+      "blocksEdited": 3
+    },
+    {
+      "id": "product-import-the-camden-collection-one-drawer-side-table",
+      "title": "Camden One Drawer Side Table",
+      "blocksBefore": 233,
+      "blocksAfter": 233,
+      "blocksRemoved": 0,
+      "blocksEdited": 3
+    },
+    {
+      "id": "product-import-the-rutland-collection-side-table",
+      "title": "Rutland Side Table",
+      "blocksBefore": 213,
+      "blocksAfter": 213,
+      "blocksRemoved": 0,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-the-serene-rattan-collection-coffee-table",
+      "title": "Serene Rattan Coffee Table",
+      "blocksBefore": 211,
+      "blocksAfter": 211,
+      "blocksRemoved": 0,
+      "blocksEdited": 1
+    },
+    {
+      "id": "product-import-twill-weave-ceramic-table-lamp-with-linen-shade",
+      "title": "Twill Weave Ceramic Table Lamp with Linen Shade",
+      "blocksBefore": 251,
+      "blocksAfter": 251,
+      "blocksRemoved": 0,
+      "blocksEdited": 2
+    },
+    {
+      "id": "product-import-white-beaded-ceramic-lamp-with-linen-shade",
+      "title": "White Beaded Ceramic Table Lamp with Linen Shade",
+      "blocksBefore": 239,
+      "blocksAfter": 239,
+      "blocksRemoved": 0,
+      "blocksEdited": 1
+    }
+  ]
+}
