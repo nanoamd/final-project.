@@ -16,6 +16,50 @@ Status key:
 
 ---
 
+## Shadow-draft investigation — resolved before I could act on it (4 September)
+
+A container restart mid-session lost two background tasks named "shadow-draft
+fix," with no result reported. I have no visible record in this conversation
+of starting that investigation — it predates what's shown here — so rather
+than guess at what the fix was meant to do, I re-ran the read-only diagnostic
+I found (`scripts/.tmp-pd2.ts`, untracked, left over from that earlier work)
+to see the current state before touching anything.
+
+- **First re-run**: 748 product drafts existed, 10 of them "shadow" —
+  the draft emptier than its published twin by 50+ characters, which is a
+  real risk (opening and saving a stale draft in Studio would overwrite good
+  content with the thin version). Asked Damien how to proceed; he chose to
+  sync the 10 drafts to match published.
+- **Before I could build that fix**: re-ran the same diagnostic to get exact
+  IDs and found **zero drafts of any type, anywhere in the dataset** — not
+  just the 10 flagged ones, all 748. Checked directly with `count()` queries
+  against the same project/dataset config, twice, to rule out a query bug
+  rather than trust one number.
+- **Checked the published side wasn't damaged along the way**: spot-checked
+  two of the previously-flagged shadow products (Bloomsbury Wall Clock,
+  Aged Stone Tall Ceramic Vase) — both still hold their full, rich
+  description (4,637 and 5,130 characters respectively, matching what the
+  diagnostic reported before), with no draft twin remaining. That's the
+  correct outcome a real fix would produce: discard the stale draft, leave
+  the good published content alone.
+- **My best-supported read, not a confirmed one**: the lost "shadow-draft
+  fix" task most likely completed and resolved itself — probably by
+  discarding stale/orphaned drafts wholesale — before the container restart
+  cut off its ability to report back. I have no execution log to confirm
+  this outright, only the before/after state.
+- **[x] No action taken.** The specific problem I was asked to fix (10
+  shadow drafts) no longer exists, so running the sync Damien approved would
+  have been a no-op against already-resolved data. Reported this rather than
+  silently declaring the (already-approved) fix "done" for a problem that
+  wasn't there to fix.
+- **[!] Worth Damien's own confirmation**: 748 drafts, including 647 with no
+  published twin and no price, is a lot of state to have vanished in one
+  sweep. If that wasn't the shadow-draft fix completing as expected, it's
+  worth checking Sanity Studio's own history/activity log for what actually
+  ran.
+
+---
+
 ## Roadmap complete — last 3 guides, Wellness and Planters (3 September)
 
 The final batch. All 26 line items from the Buying Guide Roadmap are now
@@ -1771,11 +1815,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                          | ---- | ------------------- |
-                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                              | ---- | ------------------- |
+                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
