@@ -16,6 +16,46 @@ Status key:
 
 ---
 
+## Raw JSON debris repaired in 4 more product descriptions (4 September)
+
+Spotted while fixing the supplier-leak batch above: `hill-decor-21499`
+(flagged and left for later at the time) had several description blocks
+containing literal, unparsed JSON fragments as plain text — the tail of a
+`{"paragraph": "...", "bullets": [...]}, {` structure that never got parsed
+into real content, e.g. `"bullets':['Marble effect finish', ...]},{"`
+sitting right in the middle of the customer-facing copy. A full-catalogue
+scan for the same pattern found it wasn't unique to that one product.
+
+`scripts/fix-json-leak-descriptions.ts`, `scripts/fix-json-leak-open-
+fragments.ts`:
+
+- [x] **hill-decor-21499** — 7 malformed blocks, each with real bullet text
+      still recoverable inside the array literal. Parsed and replaced with
+      proper bullet-list blocks in the same position, rather than deleted —
+      the content was intact, just never structured correctly.
+- [x] **hill-decor-21717** — 1 malformed block with an empty `bullets: []`
+      array — nothing to recover, block removed outright.
+- [x] **product-aw-ssm-05** — 1 malformed block, 3 recoverable bullets,
+      same repair as hill-decor-21499.
+- [x] **product-import-echo-putty-grey-chair** — a different, simpler shape
+      of the same bug: 8 blocks containing only the stray opening fragment
+      `bullets":[` with no closing bracket, sitting directly in front of
+      what were already correctly-formed bullet blocks. Pure debris,
+      removed — the real content next to each one was never actually broken.
+- [x] Verified with a full sitewide scan for both fragment shapes (a closing
+      `]},{ ` and a bare opening `bullets":[`) across every one of the 907
+      product descriptions: 0 remaining.
+- [x] **Caught a stale-query artifact along the way, not a real bug**: a
+      broad `*[_type=="product"]` fetch intermittently returned `drafts.*`
+      rows for two of these documents that direct `getDocument()` and
+      exact-`_id` lookups confirmed do not exist. Excluded drafts explicitly
+      in both scripts' queries rather than trust the wider fetch, and
+      re-verified the real, published document counts before applying
+      either fix.
+- [x] Typecheck and lint clean on both scripts.
+
+---
+
 ## Working the backlog: supplier-identity leaks removed from 46 product descriptions (4 September)
 
 Damien: _"keep working dont stop. were backlogged. anything you can find which
@@ -1881,11 +1921,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
