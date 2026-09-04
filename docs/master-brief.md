@@ -16,6 +16,33 @@ Status key:
 
 ---
 
+## A real next item found, quantified, and deliberately not attempted (4 September)
+
+While closing out this pass, checked whether the marketing-voice cleanup
+from 2 September ("Summaries: supplier marketing voice removed from 641 of
+906") also covered full product descriptions, not just the short `summary`
+field it was scoped to. It doesn't.
+
+- [ ] **597 of 907 products still carry a superlative word in their full
+      `description` body** — "elegant", "stunning", "perfect for" and
+      similar, checked live against the current catalogue rather than
+      assumed from the old count. Roughly double the scale of the summary
+      cleanup, and concentrated in Premier Housewares (307) and the
+      `product-import` batch (135).
+- [-] **Deliberately not attempted in this pass.** The summary cleanup
+  that came before it wasn't a mechanical strip-and-done — it needed real
+  editorial judgement per product (336 stripped, 139 recomposed from
+  fields, 14 hand-written, 115 trimmed, and 31 _deliberately_ left alone
+  because a fragment reads worse than faint marketing tone). Full
+  descriptions are longer and more varied than the one-line summaries that
+  process was built for, and a rushed regex pass risks producing exactly
+  the broken-sentence outcome that process was careful to avoid. This is
+  real, scoped, ready-to-start work — not something to open at the tail
+  end of an already-long pass without a considered plan for it, the way
+  the original cleanup had one.
+
+---
+
 ## The supplier return request, closing the Returns feature's last real code gap (4 September)
 
 The one genuinely-open half of "a dedicated admin returns screen and the
@@ -2072,11 +2099,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
