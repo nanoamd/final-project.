@@ -16,6 +16,43 @@ Status key:
 
 ---
 
+## Full-description superlatives, phase one: the `-ly` adverbs (5 September)
+
+Picked up the item below. Rather than a single blind regex pass across all
+597 products, split it by grammatical shape — the same discipline the 2
+September summary cleanup used — and started with the one shape that needs
+no editorial judgement at all: an `-ly` adverb modifying a verb
+("pairs **beautifully** with", "adapts **effortlessly** to", "displayed
+**beautifully**."). Deleting that kind of adverb never changes which
+article a nearby noun needs and never leaves a dangling clause, because the
+verb it modifies is still doing the work without it — unlike an adjective
+sitting right after "a"/"an" (breaks on deletion unless the article is also
+fixed) or a superlative in predicate position ("can be exceptionally
+elegant" — leaves a dangling clause if the word is just cut), which is why
+those two shapes are still left alone below.
+
+- [x] `scripts/strip-superlative-adverbs.ts` — self-tests against 8 real
+      catalogue sentences before touching Sanity, dry-run by default,
+      `--apply` requires `SANITY_API_WRITE_TOKEN`. Sample-verified against
+      15 products spread across the affected set (54 edited blocks,
+      hand-read) before applying, on top of the self-test, same as every
+      other content fix this session.
+- [x] Applied: **265 products, 593 blocks fixed.** Fresh re-scan
+      afterwards found zero remaining occurrences of the twelve adverbs.
+      Full suite green after: typecheck, lint (on the new script), 1055
+      tests, all passing. Change log:
+      `docs/change-log/2026-09-05-strip-superlative-adverbs.json`.
+- [ ] **Still open, and still deliberately not attempted:** the
+      adjective-before-noun pattern ("an elegant design", "a stunning
+      piece") and the predicate-position pattern ("looking beautiful",
+      "can be exceptionally elegant") on the remaining products. Both need
+      real per-sentence judgement — article-agreement logic for the first,
+      clause-level rewriting or dropping for the second — that a regex
+      pass isn't safe to guess at. A real, scoped follow-up; not attempted
+      here for the same reason it wasn't attempted on 4 September.
+
+---
+
 ## A real next item found, quantified, and deliberately not attempted (4 September)
 
 While closing out this pass, checked whether the marketing-voice cleanup
@@ -23,23 +60,25 @@ from 2 September ("Summaries: supplier marketing voice removed from 641 of
 906") also covered full product descriptions, not just the short `summary`
 field it was scoped to. It doesn't.
 
-- [ ] **597 of 907 products still carry a superlative word in their full
-      `description` body** — "elegant", "stunning", "perfect for" and
-      similar, checked live against the current catalogue rather than
-      assumed from the old count. Roughly double the scale of the summary
-      cleanup, and concentrated in Premier Housewares (307) and the
-      `product-import` batch (135).
-- [-] **Deliberately not attempted in this pass.** The summary cleanup
-  that came before it wasn't a mechanical strip-and-done — it needed real
-  editorial judgement per product (336 stripped, 139 recomposed from
-  fields, 14 hand-written, 115 trimmed, and 31 _deliberately_ left alone
-  because a fragment reads worse than faint marketing tone). Full
-  descriptions are longer and more varied than the one-line summaries that
-  process was built for, and a rushed regex pass risks producing exactly
-  the broken-sentence outcome that process was careful to avoid. This is
-  real, scoped, ready-to-start work — not something to open at the tail
-  end of an already-long pass without a considered plan for it, the way
-  the original cleanup had one.
+- [~] **597 of 907 products still carry a superlative word in their full
+  `description` body** — "elegant", "stunning", "perfect for" and
+  similar, checked live against the current catalogue rather than
+  assumed from the old count. Roughly double the scale of the summary
+  cleanup, and concentrated in Premier Housewares (307) and the
+  `product-import` batch (135). **Phase one (the `-ly` adverb shape)
+  is now done — see 5 September above.** The adjective and
+  predicate-position shapes remain.
+- [-] **The adjective and predicate-position shapes deliberately not
+  attempted yet.** The summary cleanup that came before this wasn't a
+  mechanical strip-and-done — it needed real editorial judgement per
+  product (336 stripped, 139 recomposed from fields, 14 hand-written, 115
+  trimmed, and 31 _deliberately_ left alone because a fragment reads worse
+  than faint marketing tone). Full descriptions are longer and more varied
+  than the one-line summaries that process was built for, and a rushed
+  regex pass risks producing exactly the broken-sentence outcome that
+  process was careful to avoid. Real, scoped, ready-to-start work — not
+  something to open without a considered plan for it, the way the adverb
+  phase above had one.
 
 ---
 
@@ -2099,11 +2138,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
