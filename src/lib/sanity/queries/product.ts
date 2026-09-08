@@ -708,7 +708,8 @@ export interface MerchantFeedProduct {
   gtin: string | null;
   mpn: string | null;
   sku: string | null;
-  stockStatus: string;
+  /** Null on the 127 importer-created products that never got one set. */
+  stockStatus: string | null;
   /** Same string the product page renders; parsed into handling days. */
   deliveryLeadTime: string | null;
   /** Needed to apply the same delivery rule the storefront applies — a

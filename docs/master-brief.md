@@ -16,6 +16,97 @@ Status key:
 
 ---
 
+## Asked for faster organic. The answer was a switch that has been off for a month (8 September)
+
+Damien: _"theres got to be something else we can do to boost seo quicker. i want
+organic quicker. how can we genuinely make it bound to happen"_.
+
+The honest reframe first: **ranking cannot be made bound to happen.** Authority
+takes months, and Wayfair and Dunelm outrank this domain on every product name
+they also sell. What _can_ be made bound to happen is traffic from surfaces
+where domain age is not the ranking factor — and the largest of those is built,
+tested, and switched off.
+
+### The finding: the feed is complete and serving an empty channel
+
+- [!] **`MERCHANT_FEED_ENABLED` is still unset in Vercel, a month after the
+  traffic plan named it as phase 1.** `/api/feeds/google-merchant` is
+  finished code — per-product handling times parsed from real lead times,
+  `identifier_exists: no` for own-brand goods, 1:1 feed crops, canonical
+  `www` URLs — and it answers with an empty channel until that variable
+  exists. On the Shopping tab, being cheaper than B&Q is the ranking
+  factor rather than being older than them, which is exactly why this is
+  the fastest lever available and why it does not depend on authority.
+- [!] **Still no analytics tag on the live site.** No `gtag`, no GTM. Search
+  Console impressions are visible (domain verification, not the tag), but
+  nothing about what a session does, which page converts, or whether any
+  of this work landed.
+- [!] **Worth two minutes of yours: confirm Googlebot is not being challenged.**
+  Vercel Bot Protection went live on 1 September after the £1500 Sanity
+  incident. Every request from here — every user agent, two independent
+  network paths — returns `429`. That is _probably_ correct behaviour
+  rather than a fault, because these requests originate from datacenter
+  IPs and a Googlebot user agent arriving from a non-Google IP **should**
+  be challenged; rising impressions also suggest the real crawler is
+  getting through. But it cannot be confirmed from here and the downside
+  is total. Search Console → URL Inspection → **Test Live URL** settles
+  it. Related: Merchant Center's feed fetcher is a _different_ crawler
+  from Googlebot, and Vercel firewalls are known to block it — so if the
+  first scheduled fetch reports "could not fetch", that is the cause.
+
+### What was done here, so the switch works first time
+
+- [x] **`scripts/audit-merchant-feed-readiness.ts`** — validates every product
+      the feed would send against Google's required attributes, using the
+      feed's own GROQ query verbatim and importing the feed's own availability
+      mapping rather than a copy, so the audit cannot drift from what Google
+      actually receives. Read-only, takes no token. Graded BLOCKING (rejected
+      outright) versus WARNING (accepted but handicapped), because those are
+      not the same problem. The traffic plan scoped this for 99 products;
+      there are now **907**.
+- [x] **Result: 906 of 907 approvable, one hard rejection, now fixed.**
+      "Rattan Solar Floor Lantern, Grey" carried no `brand`, which Google
+      requires for home and garden goods — `identifier_exists` excuses a
+      missing barcode, not a missing brand. Every other published Aosom
+      product references the own-brand "Kaiku" document, so the value was
+      evidenced rather than guessed. `scripts/fix-missing-feed-brand.ts`,
+      applied and verified. **907 of 907 now approvable, zero rejections.**
+- [x] **The real find, worth more than the rejection: 127 products would have
+      been submitted and then shown to nobody.** They carry no `stockStatus`
+      at all, having come in through the importers rather than Studio, whose
+      schema `initialValue` would have set it. The storefront sells all 127 —
+      full buy box, working add-to-cart, and `product-summary.tsx` already
+      documents this exact set, telling the customer "availability confirmed
+      when you order". The feed, meanwhile, mapped a missing status to
+      `out of stock`, and Google accepts out-of-stock items and then withholds
+      them from free listings entirely. So 14% of the catalogue was set to be
+      advertised as unavailable while the site sold it — the same
+      page-versus-feed contradiction the route's own comments are careful
+      about elsewhere.
+  - [x] **Fixed as `googleAvailability()` in `src/lib/catalog/delivery.ts`**,
+        deliberately alongside `availabilityLine()` — those two answer the same
+        question to two audiences and must not drift. A **missing** status now
+        sends `backorder`: eligible to appear, and the honest description of a
+        dropship order placed with the supplier on purchase, which is what the
+        storefront already tells the customer. Not `in stock`, which would
+        assert stock nobody has confirmed. `Coming Soon` stays `out of stock`
+        (checked: those genuinely cannot be ordered — the buy box is replaced
+        with "Still in production"), and an unrecognised **non-empty** value
+        stays `out of stock` too, since absence means nobody set one while an
+        unknown value means somebody set something this code has not been
+        taught. Four tests added to `delivery.test.ts`.
+  - [x] **Net effect: products with no feed findings at all went 591 → 718.**
+        Only 10 are now correctly withheld (4 genuinely out of stock, 6 coming
+        soon). 1059 tests, typecheck, lint and production build all green.
+- [ ] **Two warnings left that are yours, not code.** 178 products have no
+      GTIN or MPN — legitimate for own-brand goods and already declared
+      honestly, but an item with no identifier competes less well on matched
+      queries. And 26 have no parseable `deliveryLeadTime`, so they fall back
+      to whatever account-level handling default gets configured in Merchant
+      Center.
+
+---
+
 ## Full-description superlatives, phase one: the `-ly` adverbs (5 September)
 
 Picked up the item below. Rather than a single blind regex pass across all
@@ -2138,11 +2229,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

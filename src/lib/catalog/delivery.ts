@@ -65,6 +65,55 @@ export function availabilityLine(product: SanityProduct): string {
 }
 
 /**
+ * The same availability, in Google's four-value enum, for the Merchant Center
+ * feed. Deliberately next to `availabilityLine`: these two answer the same
+ * question to two different audiences, and a feed that contradicts the page it
+ * links to is the misrepresentation Merchant Center suspends accounts for.
+ *
+ * The three cases that are not a straight lookup, and why:
+ *
+ * **No status at all → `backorder`.** 127 published products carry no
+ * `stockStatus`, having come in through the importers rather than Studio,
+ * whose schema `initialValue` would have set it. The storefront sells all of
+ * them — full buy box, working add-to-cart — and tells the customer
+ * "availability confirmed when you order". Sending `out of stock` for those
+ * would be both untrue and expensive: Google accepts out-of-stock items and
+ * then shows them to nobody, so it silently withholds 14% of the catalogue
+ * from free listings. `backorder` is eligible to appear, and is the honest
+ * description of a dropship order placed with the supplier on purchase — the
+ * same value "Made to Order" already uses.
+ *
+ * **`Coming Soon` → `out of stock`.** These genuinely cannot be ordered: the
+ * product page replaces the buy box with "Still in production". Google's
+ * `preorder` would be the value if we took the order now and shipped later,
+ * and we do not.
+ *
+ * **An unrecognised non-empty value → `out of stock`.** Absence of a status
+ * means nobody set one; a value we do not know means somebody deliberately
+ * set something this code has not been taught yet (a "Discontinued", say).
+ * Advertising that as available is the one wrong answer, so the unknown case
+ * stays conservative while the missing case does not.
+ */
+export function googleAvailability(
+  stockStatus: string | null | undefined,
+): "in stock" | "out of stock" | "backorder" {
+  if (!stockStatus?.trim()) return "backorder";
+
+  switch (stockStatus) {
+    case "In Stock":
+      return "in stock";
+    case "Made to Order":
+    case "Backorder":
+      return "backorder";
+    case "Out of Stock":
+    case "Coming Soon":
+      return "out of stock";
+    default:
+      return "out of stock";
+  }
+}
+
+/**
  * Kaiku's standard delivery windows, by price. Damien's rule, verbatim:
  * "under £50 should be 7-14 days delivery and over 50 should be 2-3 weeks and
  * above 120 should be 3-4 weeks shipping".

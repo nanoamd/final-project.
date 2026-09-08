@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
-import { deliveryWindow } from "@/lib/catalog/delivery";
+import { deliveryWindow, googleAvailability } from "@/lib/catalog/delivery";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -13,23 +13,6 @@ function escapeXml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
-}
-
-/** Google's allowed availability enum: in stock | out of stock | preorder | backorder. */
-function mapAvailability(stockStatus: string): string {
-  switch (stockStatus) {
-    case "In Stock":
-      return "in stock";
-    case "Out of Stock":
-      return "out of stock";
-    case "Made to Order":
-      // Closest fit: available to buy now, ships once produced.
-      return "backorder";
-    case "Backorder":
-      return "backorder";
-    default:
-      return "out of stock";
-  }
 }
 
 /**
@@ -194,7 +177,7 @@ export async function GET() {
         ? `<g:image_link>${escapeXml(product.feedImage || product.image!)}</g:image_link>`
         : ""
     }
-    <g:availability>${mapAvailability(product.stockStatus)}</g:availability>
+    <g:availability>${googleAvailability(product.stockStatus)}</g:availability>
     <g:price>${priceValue}</g:price>
     <g:condition>new</g:condition>
     ${product.brand ? `<g:brand>${escapeXml(product.brand)}</g:brand>` : ""}
