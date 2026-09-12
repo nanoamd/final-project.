@@ -5,6 +5,7 @@ import type { SanityProduct } from "@/types/sanity-content";
 import {
   deliveryWindow,
   googleAvailability,
+  handlingDays,
   leadTimeLine,
   schemaOrgAvailability,
   standardWindowForPrice,
@@ -104,6 +105,27 @@ describe("googleAvailability", () => {
 
   it("stays conservative on a status it has not been taught", () => {
     expect(googleAvailability("Discontinued")).toBe("out of stock");
+  });
+});
+
+describe("handlingDays", () => {
+  it("converts the windows the catalogue actually uses", () => {
+    expect(handlingDays("7–14 days")).toEqual({ min: 7, max: 14 });
+    expect(handlingDays("2–3 weeks")).toEqual({ min: 14, max: 21 });
+    expect(handlingDays("4–6 weeks")).toEqual({ min: 28, max: 42 });
+  });
+
+  it("accepts a plain hyphen as well as the normaliser's en dash", () => {
+    expect(handlingDays("3-4 weeks")).toEqual({ min: 21, max: 28 });
+  });
+
+  it("returns null rather than guessing, so the field is omitted", () => {
+    expect(handlingDays(null)).toBeNull();
+    expect(handlingDays(undefined)).toBeNull();
+    expect(handlingDays("ask us")).toBeNull();
+    // Google rejects a max below the min and a zero-day handling time.
+    expect(handlingDays("4–2 weeks")).toBeNull();
+    expect(handlingDays("0–0 days")).toBeNull();
   });
 });
 

@@ -16,6 +16,83 @@ Status key:
 
 ---
 
+## Two Search Console warnings fixed, one refused, and an analytics claim I got wrong (12 September)
+
+Damien, with three Search Console screenshots: _"i want all of these fixed too"_.
+
+### Fixed
+
+- [x] **`Missing field 'handlingTime'` (8 items).** The page's `shippingDetails`
+      was a shared constant carrying transit time only, on the reasoning that
+      one handling figure would be wrong across a catalogue spanning 2 days to
+      6 weeks. That reasoning was right and the conclusion was not: the answer
+      is per-product handling, not none. `handlingDays()` moved out of the feed
+      route into `delivery.ts` and both now use it, so the page and the feed
+      cannot quote different figures — itself the kind of contradiction
+      Merchant Center suspends accounts for. Five tests added.
+- [x] **`Missing field 'returnShippingFeesAmount'` (8 items), fixed by
+      correcting the value rather than inventing a number.**
+      `ReturnShippingFees` means the merchant charges a stated fee for the
+      return, which is why Google then asks how much. Kaiku charges nothing —
+      the customer arranges and pays their own carrier on a change of mind.
+      That is `ReturnFeesCustomerResponsibility`, which takes no amount. The
+      warning was pointing at a wrong value, not a missing one.
+
+### Refused, and this should stay refused
+
+- [-] **`Missing field 'aggregateRating'` and `'review'` (8 items each).** Same
+  answer as 29 August, for the same reason: no product has a real review,
+  `ProductJsonLd` already declines to emit a rating it does not have, and
+  Google's own documentation says markup for a rating with no visible
+  reviews **can trigger a manual action for spammy structured data** —
+  worse than the warning it would silence. This resolves the day real
+  customers review products and not before. Do not press "Validate fix".
+
+### The indexing report, and what its shape says
+
+- [ ] **"Discovered – currently not indexed" has gone 122 → 626 since
+      29 August and is still rising**, while "Crawled – currently not indexed"
+      barely moved, 50 → 58. That pattern is diagnostic. A content-quality
+      problem grows the _crawled_ bucket, because Google fetches pages and then
+      declines them. Here the _discovered_ bucket is exploding while crawling
+      stays flat — Google knows the URLs exist and is not fetching them. That
+      is crawl capacity, not content.
+- [ ] **Two candidate causes, distinguishable in one report.** The catalogue
+      grew roughly sixfold over the same period, which alone could explain a
+      fivefold rise. But Vercel Bot Protection went live on 1 September, every
+      request from here still returns `429`, and sustained 429s are documented
+      to make Googlebot back off sharply. **Search Console → Settings → Crawl
+      stats → By response** settles it: if 429s appear there, that outranks
+      everything else on this list.
+- [x] Sitemap and robots checked, both sound — hourly revalidation, real
+      `lastmod` only, stocked categories only, filtered URLs excluded,
+      `/search` and `/compare` disallowed. The 626 is not a sitemap fault.
+- [ ] The small rows are mostly the system working: 13 redirects, 8
+      alternate-canonical. Worth a look: **2 × 404**, **1 duplicate without a
+      user-selected canonical**, and confirming the **4 noindex** pages are
+      meant to be.
+
+### And a correction I owe on analytics
+
+- [!] **"There is no analytics tag on the live site" was asserted repeatedly
+  today and I could not actually verify it.** It came from the 14 August
+  traffic plan plus a `curl` that was blocked by the same 429 — the page
+  HTML was never seen. Google's own tag setup screen reports a tag already
+  installed on kaikuhome.com: **`G-GC49NVMF68`**, with a `GT-NMKN5W7J`
+  container. That is better evidence than anything gathered here.
+- [!] **Open question worth answering before anything is clicked.** The
+  `GoogleAnalytics` component is gated behind cookie consent and renders
+  nothing until a visitor accepts, so a tag detector should not normally
+  see it. If Google spotted that ID anyway, something may be injecting a
+  tag that is **not** consent-gated — which would mean pageviews counted
+  twice and analytics cookies set before consent, the part UK PECR
+  actually cares about. Check what `NEXT_PUBLIC_GA_MEASUREMENT_ID` holds in
+  Vercel: if it is `G-GC49NVMF68`, this is our own component and there is
+  nothing to fix. A newly created property (`G-L25X610FKN`) should not be
+  attached to the existing tag — that splits the history for no gain.
+
+---
+
 ## Categories mapped onto Google's taxonomy, verified against the real file (12 September)
 
 Damien: _"what else can we do to improve visibility and traffic"_.
@@ -40,7 +117,7 @@ The lever named as next in the entry below, now built.
   per-product classification beats one blanket category that is right for
   most of a range and wrong for the rest: `kitchen-furniture` (dining
   tables, chairs and sets, checked by sampling), `rustic-reclaimed-
-    furniture` (sideboards, dining, coffee, TV, bedside, chests),
+  furniture` (sideboards, dining, coffee, TV, bedside, chests),
   `outdoor-kitchens` (only three products, worth checking by eye first),
   and `pergolas` — mappable to node 703, but the standing constraint says
   never edit that category, so it is flagged rather than decided.
@@ -2508,11 +2585,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -5,6 +5,7 @@ import { ProductTabs } from "@/features/storefront/components/product/product-ta
 import { RecentlyViewed } from "@/features/storefront/components/product/recently-viewed";
 import { RelatedContent } from "@/features/storefront/components/product/related-content";
 import { RelatedProducts } from "@/features/storefront/components/product/related-products";
+import { deliveryWindow } from "@/lib/catalog/delivery";
 import { getRelatedProducts } from "@/lib/sanity/queries/product";
 import { getRelatedContentForProduct } from "@/lib/sanity/queries/related-content";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -58,6 +59,9 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           width: product.dimensions?.width,
           height: product.dimensions?.height,
           dimensionUnit: product.dimensions?.unit,
+          // The same window the buy box states, via the shared rule — the page
+          // and the feed must not quote different handling times.
+          deliveryWindow: deliveryWindow(product),
         }}
       />
       <div className="mx-auto max-w-[1280px] px-6 pt-8 sm:px-8 lg:px-12">

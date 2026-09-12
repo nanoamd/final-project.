@@ -166,6 +166,40 @@ export function schemaOrgAvailability(
 }
 
 /**
+ * Handling time in days, parsed from a delivery window like "3–4 weeks".
+ *
+ * Google splits delivery into handling time (order to dispatch) and transit
+ * time (dispatch to doorstep). Transit is a courier constant; handling is the
+ * supplier's lead time, and Kaiku's runs from 2-5 days on an essential oil to
+ * 4-6 weeks on a barrel sauna — a 20x spread no single figure can represent.
+ *
+ * Shared between the Merchant feed and the page's own structured data, because
+ * Search Console reports a missing `handlingTime` on the page while the feed
+ * has always sent one, and two different answers to the same question is how a
+ * merchant gets suspended.
+ *
+ * Lead times were normalised to "N–M weeks" / "N–M days" by
+ * `scripts/normalise-lead-times.ts`, so parsing is a small closed problem. A
+ * value that does not parse returns null and the caller omits the field rather
+ * than guessing.
+ */
+export function handlingDays(
+  window: string | null | undefined,
+): { min: number; max: number } | null {
+  if (!window) return null;
+  // En dash from the normaliser, hyphen from anything added since.
+  const match = /(\d+)\s*[-–—]\s*(\d+)\s*(day|week|month)/i.exec(window);
+  if (!match) return null;
+  const perUnit = { day: 1, week: 7, month: 30 }[match[3]!.toLowerCase()];
+  if (!perUnit) return null;
+  const min = Number(match[1]) * perUnit;
+  const max = Number(match[2]) * perUnit;
+  // Google rejects a max below the min, and a 0-day handling time.
+  if (!min || max < min) return null;
+  return { min, max };
+}
+
+/**
  * Kaiku's standard delivery windows, by price. Damien's rule, verbatim:
  * "under £50 should be 7-14 days delivery and over 50 should be 2-3 weeks and
  * above 120 should be 3-4 weeks shipping".

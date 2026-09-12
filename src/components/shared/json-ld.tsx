@@ -1,5 +1,5 @@
 import { companyDetails, siteConfig } from "@/config/site";
-import { schemaOrgAvailability } from "@/lib/catalog/delivery";
+import { handlingDays, schemaOrgAvailability } from "@/lib/catalog/delivery";
 import type { StockStatus } from "@/types/sanity-content";
 
 /**
@@ -122,41 +122,68 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
  * any date put there would be invented — the same mistake as the seeded star
  * ratings, in a smaller way.
  */
-const SHIPPING_DETAILS = {
-  "@type": "OfferShippingDetails",
-  shippingRate: {
-    "@type": "MonetaryAmount",
-    value: 0,
-    currency: "GBP",
-  },
-  shippingDestination: {
-    "@type": "DefinedRegion",
-    addressCountry: "GB",
-  },
-  deliveryTime: {
-    "@type": "ShippingDeliveryTime",
-    // Courier time only. Handling — the supplier's lead time, 2 days to 6 weeks
-    // across this catalogue — is sent per product in the Merchant feed instead,
-    // because one figure here would be wrong for most of the range.
-    transitTime: {
-      "@type": "QuantitativeValue",
-      minValue: 2,
-      maxValue: 5,
-      unitCode: "DAY",
+function shippingDetailsFor(handling: { min: number; max: number } | null) {
+  return {
+    "@type": "OfferShippingDetails",
+    shippingRate: {
+      "@type": "MonetaryAmount",
+      value: 0,
+      currency: "GBP",
     },
-  },
-};
+    shippingDestination: {
+      "@type": "DefinedRegion",
+      addressCountry: "GB",
+    },
+    deliveryTime: {
+      "@type": "ShippingDeliveryTime",
+      // Handling used to be omitted here on the grounds that one figure would
+      // be wrong for most of a catalogue spanning 2 days to 6 weeks — true,
+      // which is why this is now per product from the same rule the feed uses
+      // rather than a constant. Search Console was reporting the omission as
+      // "Missing field 'handlingTime'".
+      ...(handling
+        ? {
+            handlingTime: {
+              "@type": "QuantitativeValue",
+              minValue: handling.min,
+              maxValue: handling.max,
+              unitCode: "DAY",
+            },
+          }
+        : {}),
+      // Courier time, which genuinely is a constant.
+      transitTime: {
+        "@type": "QuantitativeValue",
+        minValue: 2,
+        maxValue: 5,
+        unitCode: "DAY",
+      },
+    },
+  };
+}
 
+/**
+ * `ReturnFeesCustomerResponsibility`, not `ReturnShippingFees`.
+ *
+ * Search Console reported "Missing field 'returnShippingFeesAmount'", and the
+ * honest fix is not to invent an amount — it is that the previous value was
+ * the wrong one. `ReturnShippingFees` means the merchant charges a stated fee
+ * for the return, which is why Google then wants the figure.
+ * `ReturnFeesCustomerResponsibility` means the customer arranges and pays for
+ * return carriage themselves, which is exactly what /returns says happens on a
+ * change of mind, and it takes no amount because Kaiku charges none.
+ *
+ * A faulty, damaged or incorrect item is covered by Kaiku either way; this
+ * field describes the change-of-mind case, which is the one the policy makes
+ * the customer's responsibility.
+ */
 const RETURN_POLICY = {
   "@type": "MerchantReturnPolicy",
   applicableCountry: "GB",
   returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
   merchantReturnDays: 14,
   returnMethod: "https://schema.org/ReturnByMail",
-  // Change-of-mind returns are at the customer's cost; we cover carriage only
-  // when an item arrives faulty, damaged or incorrect. Stating the generous
-  // half here and not the other would be the thing a customer discovers later.
-  returnFees: "https://schema.org/ReturnShippingFees",
+  returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
 };
 
 export interface ProductJsonLdInput {
@@ -183,6 +210,8 @@ export interface ProductJsonLdInput {
   width?: number;
   height?: number;
   dimensionUnit?: string;
+  /** The delivery window this product's page states, e.g. "3–4 weeks". */
+  deliveryWindow?: string | null;
 }
 
 /**
@@ -265,7 +294,7 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
       // The feed has always sent condition; the page never did, leaving Google
       // to assume it on the one path it actually reads.
       itemCondition: "https://schema.org/NewCondition",
-      shippingDetails: SHIPPING_DETAILS,
+      shippingDetails: shippingDetailsFor(handlingDays(product.deliveryWindow)),
       hasMerchantReturnPolicy: RETURN_POLICY,
     },
     ...(product.rating && product.reviewCount

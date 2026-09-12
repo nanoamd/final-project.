@@ -1,6 +1,10 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
-import { deliveryWindow, googleAvailability } from "@/lib/catalog/delivery";
+import {
+  deliveryWindow,
+  googleAvailability,
+  handlingDays,
+} from "@/lib/catalog/delivery";
 import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -14,44 +18,6 @@ function escapeXml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
-}
-
-/**
- * Handling time, per product, from the same `deliveryLeadTime` string the
- * product page shows.
- *
- * Merchant Center splits delivery into handling time (order to dispatch) and
- * transit time (dispatch to doorstep), and shows a delivery estimate built from
- * both. Transit is a courier constant, so it belongs in the account settings.
- * Handling is our supplier's lead time, and ours runs from 2-5 days on an
- * essential oil to 4-6 weeks on a barrel sauna — a 20x spread that no single
- * account-level figure can represent.
- *
- * Setting one account default would mean either promising a sauna in days, or
- * telling someone their £48 bottle of oil takes six weeks. The first invites a
- * complaint on every order and is a misrepresentation Merchant Center suspends
- * accounts for; the second loses the sale outright. Per-product overrides the
- * account setting, so each listing shows its own truth.
- *
- * Lead times were normalised to "N–M weeks" / "N–M days" by
- * scripts/normalise-lead-times.ts, so parsing is a small, closed problem. A
- * value that does not parse returns null and falls back to the account default
- * rather than guessing.
- */
-function handlingDays(
-  leadTime: string | null,
-): { min: number; max: number } | null {
-  if (!leadTime) return null;
-  // En dash from the normaliser, hyphen from anything added since.
-  const match = /(\d+)\s*[-–—]\s*(\d+)\s*(day|week|month)/i.exec(leadTime);
-  if (!match) return null;
-  const perUnit = { day: 1, week: 7, month: 30 }[match[3]!.toLowerCase()];
-  if (!perUnit) return null;
-  const min = Number(match[1]) * perUnit;
-  const max = Number(match[2]) * perUnit;
-  // Google rejects a max below the min, and a 0-day handling time.
-  if (!min || max < min) return null;
-  return { min, max };
 }
 
 /**
