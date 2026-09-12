@@ -1,0 +1,1163 @@
+{
+  "generatedAt": "2026-09-12T19:08:19.484Z",
+  "changes": [
+    {
+      "_id": "hill-decor-17459",
+      "slug": "set-of-three-wooden-lanterns-with-traditional-cross-section",
+      "before": "Set Of Three Wooden Lanterns With Traditional Cross Section | Kaiku",
+      "after": "Set Of Three Wooden Lanterns | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 36,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "hill-decor-21248",
+      "slug": "luxe-collection-natural-glow-s-2-ivory-led-dinner-candles",
+      "before": "Luxe Collection Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
+      "after": "Luxe Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 55,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210016",
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-1100ml",
+      "before": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 1100ml | Kaiku",
+      "after": "Freska Ribbed Round Glass Jar | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210017",
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-800ml",
+      "before": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 800ml | Kaiku",
+      "after": "Freska Ribbed Round Glass Jar | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210018",
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-550ml",
+      "before": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 550ml | Kaiku",
+      "after": "Freska Ribbed Round Glass Jar | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210019",
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-250ml",
+      "before": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 250ml | Kaiku",
+      "after": "Freska Ribbed Round Glass Jar | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210020",
+      "slug": "freska-set-of-five-ribbed-round-glass-jars-with-acacia-wood-lids",
+      "before": "Freska Set of Five Ribbed Round Glass Jars with Acacia Wood Lids | Kaiku",
+      "after": "Freska Set of Five Ribbed Round Glass Jars | Kaiku",
+      "beforeLength": 72,
+      "afterLength": 50,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-1210022",
+      "slug": "freska-set-of-five-ribbed-round-clear-glass-jars-with-acacia-wood-lids",
+      "before": "Freska Set of Five Ribbed Round Clear Glass Jars with Acacia Wood Lids | Kaiku",
+      "after": "Freska Set of Five Ribbed Round Clear Glass Jars | Kaiku",
+      "beforeLength": 78,
+      "afterLength": 56,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2404029",
+      "slug": "vermont-white-wash-round-dining-table-with-4-chairs-set",
+      "before": "Vermont White Wash Round Dining Table with 4 Chairs Set | Kaiku",
+      "after": "Vermont White Wash Round Dining Table | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 45,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2404968",
+      "slug": "lyon-grey-oak-wood-and-rattan-cross-back-dining-chair",
+      "before": "Lyon Grey Oak Wood And Rattan Cross Back Dining Chair | Kaiku",
+      "after": "Lyon Grey Oak Wood & Rattan Cross Back Dining Chair | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 59,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2405802",
+      "slug": "rowan-two-seater-natural-and-silver-woven-bamboo-small-sofa",
+      "before": "Rowan Two Seater Natural And Silver Woven Bamboo Small Sofa | Kaiku",
+      "after": "Two Seater Natural & Silver Woven Bamboo Small Sofa | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 59,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2405803",
+      "slug": "rowan-two-seater-natural-and-black-woven-bamboo-small-sofa",
+      "before": "Rowan Two Seater Natural And Black Woven Bamboo Small Sofa | Kaiku",
+      "after": "Two Seater Natural & Black Woven Bamboo Small Sofa | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 58,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2405941",
+      "slug": "weston-round-marble-effect-dining-table-with-6-chairs-set",
+      "before": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "after": "Weston Round Marble Effect Dining Table | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 47,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2405946",
+      "slug": "wimslow-blacktempered-glass-dining-table-with-6-chairs",
+      "before": "Wimslow BlackTempered Glass Dining Table with 6 Chairs | Kaiku",
+      "after": "Wimslow BlackTempered Glass Dining Table | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 48,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2406213",
+      "slug": "rowan-natural-and-black-woven-bamboo-chair-and-stool-set",
+      "before": "Rowan Natural And Black Woven Bamboo Chair And Stool Set | Kaiku",
+      "after": "Rowan Natural & Black Woven Bamboo Chair & Stool Set | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2406556",
+      "slug": "sherman-black-finish-and-natural-rattan-one-drawer-bedside-table",
+      "before": "Sherman Black Finish and Natural Rattan One Drawer Bedside Table | Kaiku",
+      "after": "Black & Natural Rattan One Drawer Bedside Table | Kaiku",
+      "beforeLength": 72,
+      "afterLength": 55,
+      "steps": ["ampersand", "filler", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2406741",
+      "slug": "depok-rattan-round-coffee-table-with-cross-metal-legs",
+      "before": "Depok Rattan Round Coffee Table With Cross Metal Legs | Kaiku",
+      "after": "Depok Rattan Round Coffee Table | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 39,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2407087",
+      "slug": "addison-warm-white-metal-fluted-glass-door-media-unit",
+      "before": "Addison Warm White Metal Fluted Glass Door Media Unit | Kaiku",
+      "after": "Warm White Metal Fluted Glass Door Media Unit | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 53,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2407101",
+      "slug": "maxwell-textured-beige-fabric-curved-swivel-dining-chair",
+      "before": "Maxwell Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
+      "after": "Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 56,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2450048",
+      "slug": "goa-white-rattan-effect-hanging-chair-with-grey-cushions",
+      "before": "Goa White Rattan Effect Hanging Chair with Grey Cushions | Kaiku",
+      "after": "Goa White Rattan Effect Hanging Chair | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 45,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2450049",
+      "slug": "goa-black-rattan-effect-double-hanging-chair-with-grey-cushions",
+      "before": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
+      "after": "Goa Black Rattan Effect Double Hanging Chair | Kaiku",
+      "beforeLength": 71,
+      "afterLength": 52,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-2502353",
+      "slug": "revive-gold-finish-metal-floor-lamp-with-white-marble-base",
+      "before": "Revive Gold Finish Metal Floor Lamp with White Marble Base | Kaiku",
+      "after": "Revive Gold Metal Floor Lamp with White Marble Base | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 59,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5501114",
+      "slug": "hampstead-white-and-oak-wood-coffee-table-with-drawers",
+      "before": "Hampstead White and Oak Wood Coffee Table with Drawers | Kaiku",
+      "after": "Hampstead White & Oak Wood Coffee Table with Drawers | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5501127",
+      "slug": "kensington-townhouse-grey-wash-and-antique-black-media-unit",
+      "before": "Kensington Townhouse Grey Wash and Antique Black Media Unit | Kaiku",
+      "after": "Townhouse Grey Wash & Antique Black Media Unit | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 54,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5501128",
+      "slug": "kensington-townhouse-grey-wash-and-antique-black-sideboard",
+      "before": "Kensington Townhouse Grey Wash and Antique Black Sideboard | Kaiku",
+      "after": "Townhouse Grey Wash & Antique Black Sideboard | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 53,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5501173",
+      "slug": "kensington-townhouse-brown-and-white-hair-on-leather-side-table",
+      "before": "Kensington Townhouse Brown And White Hair on Leather Side Table | Kaiku",
+      "after": "Townhouse Brown & White Hair on Leather Side Table | Kaiku",
+      "beforeLength": 71,
+      "afterLength": 58,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5501655",
+      "slug": "lyon-linen-dining-chair-with-oak-wood-whitewash-finish",
+      "before": "Lyon Linen Dining Chair with Oak Wood Whitewash Finish | Kaiku",
+      "after": "Lyon Linen Dining Chair with Oak Wood Whitewash | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 55,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5502329",
+      "slug": "hoffmann-black-mirrored-glass-and-nickel-finish-plant-stand",
+      "before": "Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand | Kaiku",
+      "after": "Hoffmann Black Mirrored Glass & Nickel Plant Stand | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 58,
+      "steps": ["ampersand", "filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5503394",
+      "slug": "trento-small-square-black-metal-frame-round-insert-wall-mirror",
+      "before": "Trento Small Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
+      "after": "Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
+      "beforeLength": 70,
+      "afterLength": 57,
+      "steps": ["drop-leading:2"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5505128",
+      "slug": "kensington-townhouse-nickel-finish-large-floorstanding-candle-holder",
+      "before": "Kensington Townhouse Nickel Finish Large Floorstanding Candle Holder | Kaiku",
+      "after": "Townhouse Nickel Large Floorstanding Candle Holder | Kaiku",
+      "beforeLength": 76,
+      "afterLength": 58,
+      "steps": ["filler", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511039",
+      "slug": "hampstead-black-finish-large-pendant-light-with-hints-of-gold",
+      "before": "Hampstead Black Finish Large Pendant Light With Hints of Gold | Kaiku",
+      "after": "Hampstead Black Large Pendant Light | Kaiku",
+      "beforeLength": 69,
+      "afterLength": 43,
+      "steps": ["filler", "with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511371",
+      "slug": "abira-gold-finish-adjustable-8-arm-statement-pendant-light",
+      "before": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "after": "Abira Gold Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 59,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511372",
+      "slug": "abira-silver-finish-adjustable-5-arm-statement-pendant-light",
+      "before": "Abira Silver Finish Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "after": "Silver Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "beforeLength": 68,
+      "afterLength": 55,
+      "steps": ["filler", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511482",
+      "slug": "alexis-nickel-finish-8-bulb-round-statement-pendant-light",
+      "before": "Alexis Nickel Finish 8 Bulb Round Statement Pendant Light | Kaiku",
+      "after": "Alexis Nickel 8 Bulb Round Statement Pendant Light | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 58,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511596",
+      "slug": "karter-chrome-finish-and-white-glass-shade-floor-lamp",
+      "before": "Karter Chrome Finish And White Glass Shade Floor Lamp | Kaiku",
+      "after": "Karter Chrome Finish & White Glass Shade Floor Lamp | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 59,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511631",
+      "slug": "palu-natural-white-and-amber-shell-large-pendant-shade",
+      "before": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "after": "Palu Natural White & Amber Shell Large Pendant Shade | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511722",
+      "slug": "abira-white-marble-and-brass-finish-5-bulb-floor-lamp",
+      "before": "Abira White Marble and Brass Finish 5 Bulb Floor Lamp | Kaiku",
+      "after": "Abira White Marble & Brass Finish 5 Bulb Floor Lamp | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 59,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511723",
+      "slug": "abira-black-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "before": "Abira Black Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "after": "Abira Black Marble & Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511724",
+      "slug": "abira-white-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "before": "Abira White Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "after": "Abira White Marble & Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511739",
+      "slug": "hanah-black-snake-leather-effect-table-lamp-with-chrome-base",
+      "before": "Hanah Black Snake Leather Effect Table Lamp with Chrome Base | Kaiku",
+      "after": "Hanah Black Snake Leather Effect Table Lamp | Kaiku",
+      "beforeLength": 68,
+      "afterLength": 51,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511740",
+      "slug": "hanah-black-snake-leather-effect-floor-lamp-with-chrome-base-and-black-shade",
+      "before": "Hanah Black Snake Leather Effect Floor Lamp with Chrome Base and Black Shade | Kaiku",
+      "after": "Hanah Black Snake Leather Effect Floor Lamp | Kaiku",
+      "beforeLength": 84,
+      "afterLength": 51,
+      "steps": ["ampersand", "with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511751",
+      "slug": "murdoch-brushed-brass-floor-lamp-with-black-marble-base",
+      "before": "Murdoch Brushed Brass Floor Lamp with Black Marble Base | Kaiku",
+      "after": "Murdoch Brushed Brass Floor Lamp | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 40,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511758",
+      "slug": "equipoise-black-and-brass-finish-floor-lamp-with-marble-base",
+      "before": "Equipoise Black and Brass Finish Floor Lamp with Marble Base | Kaiku",
+      "after": "Equipoise Black & Brass Floor Lamp with Marble Base | Kaiku",
+      "beforeLength": 68,
+      "afterLength": 59,
+      "steps": ["ampersand", "filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511824",
+      "slug": "carta-black-and-white-papier-mache-table-lamp-with-geometric-lines",
+      "before": "Carta Black And White Papier Mache Table Lamp with Geometric Lines | Kaiku",
+      "after": "Carta Black & White Papier Mache Table Lamp | Kaiku",
+      "beforeLength": 74,
+      "afterLength": 51,
+      "steps": ["ampersand", "with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511825",
+      "slug": "carta-black-and-white-curved-stripe-papier-mache-table-lamp",
+      "before": "Carta Black and White Curved Stripe Papier Mache Table Lamp | Kaiku",
+      "after": "Black & White Curved Stripe Papier Mache Table Lamp | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 59,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511826",
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp-with-dome-shade",
+      "before": "Carta Black and White Stripe Papier Mache Table Lamp with Dome Shade | Kaiku",
+      "after": "Carta Black & White Stripe Papier Mache Table Lamp | Kaiku",
+      "beforeLength": 76,
+      "afterLength": 58,
+      "steps": ["ampersand", "with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511869",
+      "slug": "carta-black-and-white-stripe-papier-mache-domed-floor-lamp",
+      "before": "Carta Black and White Stripe Papier Mache Domed Floor Lamp | Kaiku",
+      "after": "Black & White Stripe Papier Mache Domed Floor Lamp | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 58,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511871",
+      "slug": "carta-black-and-white-polka-dot-papier-mache-table-lamp",
+      "before": "Carta Black and White Polka Dot Papier Mache Table Lamp | Kaiku",
+      "after": "Black & White Polka Dot Papier Mache Table Lamp | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 55,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511873",
+      "slug": "carta-oatmeal-etched-linear-design-papier-mache-domed-table-lamp",
+      "before": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "after": "Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "beforeLength": 72,
+      "afterLength": 58,
+      "steps": ["drop-leading:2"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5511874",
+      "slug": "carta-black-etched-linear-design-papier-mache-table-lamp",
+      "before": "Carta Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "after": "Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 58,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527514",
+      "slug": "kempton-grey-shagreen-effect-and-walnut-veneer-media-unit",
+      "before": "Kempton Grey Shagreen Effect and Walnut Veneer Media Unit | Kaiku",
+      "after": "Grey Shagreen Effect & Walnut Veneer Media Unit | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 55,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527838",
+      "slug": "kerala-recycled-natural-wood-console-table-with-curved-legs",
+      "before": "Kerala Recycled Natural Wood Console Table with Curved Legs | Kaiku",
+      "after": "Kerala Recycled Natural Wood Console Table | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 50,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527842",
+      "slug": "kerala-recycled-natural-wood-dining-table-with-curved-legs",
+      "before": "Kerala Recycled Natural Wood Dining Table with Curved Legs | Kaiku",
+      "after": "Kerala Recycled Natural Wood Dining Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 49,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527850",
+      "slug": "kerala-natural-recycled-wood-dining-table-with-cross-base",
+      "before": "Kerala Natural Recycled Wood Dining Table With Cross Base | Kaiku",
+      "after": "Kerala Natural Recycled Wood Dining Table | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 49,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527918",
+      "slug": "lena-oak-veneer-console-table-with-brushed-gold-frame",
+      "before": "Lena Oak Veneer Console Table with Brushed Gold Frame | Kaiku",
+      "after": "Lena Oak Veneer Console Table | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527920",
+      "slug": "lena-oak-veneer-round-side-table-with-brushed-gold-legs",
+      "before": "Lena Oak Veneer Round Side Table with Brushed Gold Legs | Kaiku",
+      "after": "Lena Oak Veneer Round Side Table | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 40,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527921",
+      "slug": "lena-oak-veneer-rectangular-side-table-with-brushed-gold-legs",
+      "before": "Lena Oak Veneer Rectangular Side Table with Brushed Gold Legs | Kaiku",
+      "after": "Lena Oak Veneer Rectangular Side Table | Kaiku",
+      "beforeLength": 69,
+      "afterLength": 46,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5527935",
+      "slug": "luxor-grey-wash-recycled-pine-wood-console-table-with-drawers",
+      "before": "Luxor Grey Wash Recycled Pine Wood Console Table with Drawers | Kaiku",
+      "after": "Luxor Grey Wash Recycled Pine Wood Console Table | Kaiku",
+      "beforeLength": 69,
+      "afterLength": 56,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528011",
+      "slug": "trento-round-rattan-and-antique-gold-finish-side-table",
+      "before": "Trento Round Rattan and Antique Gold Finish Side Table | Kaiku",
+      "after": "Trento Round Rattan & Antique Gold Finish Side Table | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 60,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528012",
+      "slug": "trento-round-rattan-and-antique-gold-finish-coffee-table",
+      "before": "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
+      "after": "Trento Round Rattan & Antique Gold Coffee Table | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 55,
+      "steps": ["ampersand", "filler"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528628",
+      "slug": "manado-natural-rattan-bean-shaped-bench-with-cream-cushion",
+      "before": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "after": "Manado Natural Rattan Bean Shaped Bench | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 47,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528753",
+      "slug": "siena-black-and-natural-oak-wood-three-door-sideboard",
+      "before": "Siena Black and Natural Oak Wood Three Door Sideboard | Kaiku",
+      "after": "Siena Black & Natural Oak Wood Three Door Sideboard | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 59,
+      "steps": ["ampersand"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528860",
+      "slug": "imperia-2-tier-large-asymmetrical-ceramic-coffee-table",
+      "before": "Imperia 2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
+      "after": "2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 54,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528863",
+      "slug": "imperia-round-grey-glass-and-ceramic-large-coffee-table",
+      "before": "Imperia Round Grey Glass And Ceramic Large Coffee Table | Kaiku",
+      "after": "Round Grey Glass & Ceramic Large Coffee Table | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 53,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5528866",
+      "slug": "imperia-ceramic-marble-effect-rectangular-dining-table",
+      "before": "Imperia Ceramic Marble Effect Rectangular Dining Table | Kaiku",
+      "after": "Ceramic Marble Effect Rectangular Dining Table | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 54,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5529797",
+      "slug": "perdoba-cream-textured-linen-dining-chair-with-black-metal-frame",
+      "before": "Perdoba Cream Textured Linen Dining Chair with Black Metal Frame | Kaiku",
+      "after": "Perdoba Cream Textured Linen Dining Chair | Kaiku",
+      "beforeLength": 72,
+      "afterLength": 49,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5529798",
+      "slug": "persolo-mango-wood-live-edge-black-metal-legs-dining-table",
+      "before": "Persolo Mango Wood Live Edge Black Metal legs Dining Table | Kaiku",
+      "after": "Mango Wood Live Edge Black Metal legs Dining Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 58,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5529926",
+      "slug": "waris-cream-marble-top-and-black-mango-wood-console-table",
+      "before": "Waris Cream Marble Top and Black Mango Wood Console Table | Kaiku",
+      "after": "Cream Marble Top & Black Mango Wood Console Table | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 57,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5529989",
+      "slug": "palermo-travertine-top-and-black-acacia-wood-console-table",
+      "before": "Palermo Travertine Top and Black Acacia Wood Console Table | Kaiku",
+      "after": "Travertine Top & Black Acacia Wood Console Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 56,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5529990",
+      "slug": "palermo-travertine-top-and-brown-acacia-wood-console-table",
+      "before": "Palermo Travertine Top and Brown Acacia Wood Console Table | Kaiku",
+      "after": "Travertine Top & Brown Acacia Wood Console Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 56,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530013",
+      "slug": "babel-travertine-and-mango-wood-2-door-curved-sideboard",
+      "before": "Babel Travertine and Mango Wood 2 Door Curved Sideboard | Kaiku",
+      "after": "Travertine & Mango Wood 2 Door Curved Sideboard | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 55,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530016",
+      "slug": "barto-round-mango-wood-carved-ridged-side-table-and-stool",
+      "before": "Barto Round Mango Wood Carved Ridged Side Table and Stool | Kaiku",
+      "after": "Round Mango Wood Carved Ridged Side Table & Stool | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 57,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530017",
+      "slug": "barto-round-black-mango-wood-carved-ridge-coffee-table",
+      "before": "Barto Round Black Mango Wood Carved Ridge Coffee Table | Kaiku",
+      "after": "Round Black Mango Wood Carved Ridge Coffee Table | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 56,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530018",
+      "slug": "barto-round-black-mango-wood-carved-ridge-side-table-and-stool",
+      "before": "Barto Round Black Mango Wood Carved Ridge Side Table and Stool | Kaiku",
+      "after": "Black Mango Wood Carved Ridge Side Table & Stool | Kaiku",
+      "beforeLength": 70,
+      "afterLength": 56,
+      "steps": ["ampersand", "drop-leading:2"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530019",
+      "slug": "barola-round-brown-marble-and-dark-mango-wood-carved-coffee-table",
+      "before": "Barola Round Brown Marble and Dark Mango Wood Carved Coffee Table | Kaiku",
+      "after": "Brown Marble & Dark Mango Wood Carved Coffee Table | Kaiku",
+      "beforeLength": 73,
+      "afterLength": 58,
+      "steps": ["ampersand", "drop-leading:2"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530021",
+      "slug": "barola-round-brown-marble-and-mango-wood-carved-side-table",
+      "before": "Barola Round Brown Marble and Mango Wood Carved Side Table | Kaiku",
+      "after": "Round Brown Marble & Mango Wood Carved Side Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 57,
+      "steps": ["ampersand", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "premier-housewares-5530022",
+      "slug": "barola-round-brown-marble-and-mango-wood-carved-tiered-side-table",
+      "before": "Barola Round Brown Marble and Mango Wood Carved Tiered Side Table | Kaiku",
+      "after": "Brown Marble & Mango Wood Carved Tiered Side Table | Kaiku",
+      "beforeLength": 73,
+      "afterLength": 58,
+      "steps": ["ampersand", "drop-leading:2"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-836-046wt",
+      "slug": "modern-computer-desk-home-office-table-small-writing-desk-with-storage-shelf-white-wood-gr",
+      "before": "Modern Writing Desk with Storage Shelf, White Wood Grain | Kaiku",
+      "after": "Modern Writing Desk | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 27,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-836-580v00rb",
+      "slug": "compact-folding-desk-for-small-spaces-with-storage-shelf-for-home-office-rustic-brown",
+      "before": "Compact Folding Desk with Storage Shelf, Rustic Brown | Kaiku",
+      "after": "Compact Folding Desk | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 28,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-842-345v70cg",
+      "slug": "50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-dark-grey",
+      "before": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey | Kaiku",
+      "after": "50,000 BTU Gas Fire Pit Table | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-842-345v70gy",
+      "slug": "outsunny-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "before": "50,000 BTU Gas Fire Pit Table with Glass Screen, Grey | Kaiku",
+      "after": "50,000 BTU Gas Fire Pit Table | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-842-346v70gy",
+      "slug": "outsunny-71cm-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "before": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey | Kaiku",
+      "after": "50,000 BTU Gas Fire Pit Table 71cm | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 42,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-846-136v70bk",
+      "slug": "outsunny-five-burner-steel-gas-grill-with-thermometer-black",
+      "before": "Five-Burner Steel Gas Barbecue with Thermometer, Black | Kaiku",
+      "after": "Five-Burner Steel Gas Barbecue | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 38,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-84b-815v70",
+      "slug": "outsunny-4-piece-l-shaped-garden-furniture-set-8-seater-aluminium-outdoor-dining-set-conve",
+      "before": "L-Shaped 8-Seater Aluminium Garden Dining Set with Bench, Grey | Kaiku",
+      "after": "L-Shaped 8-Seater Aluminium Garden Dining Set | Kaiku",
+      "beforeLength": 70,
+      "afterLength": 53,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-84g-462v00cg",
+      "slug": "outsunny-five-piece-aluminium-garden-sofa-set-with-glass-top-table-grey",
+      "before": "5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey | Kaiku",
+      "after": "5-Piece Aluminium Garden Sofa Set | Kaiku",
+      "beforeLength": 68,
+      "afterLength": 41,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-84g-547v70lr",
+      "slug": "6-piece-rattan-garden-sofa-set-with-washable-covers-grey",
+      "before": "6-Piece Rattan Garden Sofa Set with Washable Covers, Grey | Kaiku",
+      "after": "6-Piece Rattan Garden Sofa Set | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 38,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-84j-256v70mx",
+      "slug": "outdoor-fountain-with-4-tier-rustic-pots-planter-garden-fountain-with-led-lights-rustic-br",
+      "before": "Four-Tier Rustic Pot Fountain with Planter, Rustic Brown | Kaiku",
+      "after": "Four-Tier Rustic Pot Fountain | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-860-015v70gg",
+      "slug": "outsunny-7-seater-patio-wicker-sofa-set-rattan-chair-furniture-w-glass-cushioned-dark-blue",
+      "before": "7-Seater Rattan Sofa Set with Glass-Top Table, Dark Blue | Kaiku",
+      "after": "7-Seater Rattan Sofa Set | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 32,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-860-025",
+      "slug": "outsunny-8-seater-garden-rattan-furniture-rattan-corner-dining-sofa-set-wicker-conservator",
+      "before": "8-Seater Rattan Corner Dining Set with Footstool, Black | Kaiku",
+      "after": "8-Seater Rattan Corner Dining Set | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 41,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-860-146v70",
+      "slug": "outsunny-6-pieces-outdoor-pe-rattan-wicker-corner-sofa-set-with-10cm-thick-padded-cushions",
+      "before": "6-Piece Rattan Corner Sofa Set with Glass-Top Table, Grey | Kaiku",
+      "after": "6-Piece Rattan Corner Sofa Set | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 38,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-860-335v70gy",
+      "slug": "outsunny-5-piece-rattan-patio-furniture-set-with-gas-fire-pit-table-loveseat-sofa-armchair",
+      "before": "5-Piece Rattan Garden Set with Gas Fire Pit Table, Grey | Kaiku",
+      "after": "5-Piece Rattan Garden Set | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 33,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-920-084v80rb",
+      "slug": "multi-storage-work-desk-with-sliding-keyboard-tray-brown-black",
+      "before": "Multi-Storage Work Desk with Sliding Keyboard Tray, Brown | Kaiku",
+      "after": "Multi-Storage Work Desk | Kaiku",
+      "beforeLength": 65,
+      "afterLength": 31,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aosom-920-100v70gg",
+      "slug": "led-computer-desk-with-power-outlets-and-shelves-carbon-fibre-grey",
+      "before": "LED Computer Desk with Power Outlets, Carbon Fibre Grey | Kaiku",
+      "after": "LED Computer Desk | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 25,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-acshop-01",
+      "slug": "reclaimed-teak-sideboard-console-table-6-drawers",
+      "before": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+      "after": "Reclaimed Teak Sideboard Console Table | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 46,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-acshop-18",
+      "slug": "large-reclaimed-wood-tv-stand-2-drawers",
+      "before": "Large Reclaimed Wood TV Stand with Drawers | Solid Teak | Kaiku",
+      "after": "Large Reclaimed Wood TV Stand | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 37,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-ssm-05",
+      "slug": "soft-squiggly-mirror-chunky-frame-royal-blue-30-5x22-5x2-3cm",
+      "before": "Soft Squiggly Mirror – Chunky Frame – Royal Blue (30.5x22.5x2.3cm) | Kaiku",
+      "after": "Soft Squiggly Mirror – Chunky Frame – Royal Blue | Kaiku",
+      "beforeLength": 74,
+      "afterLength": 56,
+      "steps": ["dimensions"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-tds-03",
+      "slug": "natural-teak-corner-shelf-unit-4-tier-135cm",
+      "before": "Natural Teak Corner Shelf Unit – 4 Tier Display Stand 135cm | Kaiku",
+      "after": "Natural Teak Corner Shelf Unit – 4 Tier Display | Kaiku",
+      "beforeLength": 67,
+      "afterLength": 55,
+      "steps": ["truncate"],
+      "truncated": true
+    },
+    {
+      "_id": "product-aw-tds-04",
+      "slug": "natural-teak-corner-shelf-unit-3-tier-90cm",
+      "before": "Natural Teak Corner Shelf Unit – 3 Tier Display Stand 90cm | Kaiku",
+      "after": "Natural Teak Corner Shelf Unit – 3 Tier Display | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 55,
+      "steps": ["truncate"],
+      "truncated": true
+    },
+    {
+      "_id": "product-aw-waterf-01",
+      "slug": "tabletop-water-feature-30cm-golden-meditating-buddha",
+      "before": "Tabletop Water Feature - 30cm - Golden Meditating Buddha | Kaiku",
+      "after": "Water Feature - 30cm - Golden Meditating Buddha | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 55,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-02",
+      "slug": "tabletop-water-feature-30cm-golden-buddha-lotus",
+      "before": "Tabletop Water Feature - 30cm - Golden Buddha & Lotus | Kaiku",
+      "after": "Water Feature - 30cm - Golden Buddha & Lotus | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 52,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-03",
+      "slug": "tabletop-water-feature-30cm-golden-buddha-pouring-pots",
+      "before": "Tabletop Water Feature - - Golden Buddha & Pouring Pots | Kaiku",
+      "after": "Water Feature - Golden Buddha & Pouring Pots | Kaiku",
+      "beforeLength": 63,
+      "afterLength": 52,
+      "steps": ["tidy", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-04",
+      "slug": "tabletop-water-feature-30cm-golden-buddha-vitarka-mudra",
+      "before": "Tabletop Water Feature - 30cm - Golden Buddha & Vitarka Mudra | Kaiku",
+      "after": "Water Feature - 30cm - Golden Buddha & Vitarka Mudra | Kaiku",
+      "beforeLength": 69,
+      "afterLength": 60,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-12",
+      "slug": "tabletop-water-feature-35cm-elephants-crystal-ball-water-wheel",
+      "before": "Tabletop Water Feature - - Elephants, Crystal Ball & Water Wheel | Kaiku",
+      "after": "Water Feature - Elephants, Crystal Ball | Kaiku",
+      "beforeLength": 72,
+      "afterLength": 47,
+      "steps": ["tidy", "drop-leading:1", "truncate"],
+      "truncated": true
+    },
+    {
+      "_id": "product-aw-waterf-13",
+      "slug": "tabletop-water-feature-35cm-dragons-crystal-ball-water-wheel",
+      "before": "Tabletop Water Feature - - Dragons, Crystal Ball & Water Wheel | Kaiku",
+      "after": "Water Feature - Dragons, Crystal Ball & Water Wheel | Kaiku",
+      "beforeLength": 70,
+      "afterLength": 59,
+      "steps": ["tidy", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-16",
+      "slug": "tabletop-water-feature-35cm-slab-rocks-formation-crystal-ball",
+      "before": "Tabletop Water Feature - - Slab Rocks Formation & Crystal Ball | Kaiku",
+      "after": "Water Feature - Slab Rocks Formation & Crystal Ball | Kaiku",
+      "beforeLength": 70,
+      "afterLength": 59,
+      "steps": ["tidy", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-17",
+      "slug": "tabletop-water-feature-35cm-silver-buddha-cascade-crystal-ball",
+      "before": "Tabletop Water Feature - - Silver Buddha Cascade & Crystal Ball | Kaiku",
+      "after": "Water Feature - Silver Buddha Cascade & Crystal Ball | Kaiku",
+      "beforeLength": 71,
+      "afterLength": 60,
+      "steps": ["tidy", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-19",
+      "slug": "tabletop-water-feature-19x19x28cm-buddha-lotus-flower-cascading-potsx",
+      "before": "Tabletop Water Feature - 19x19x28cm - Buddha, Lotus Flower Cascading Potsx | Kaiku",
+      "after": "Water Feature - Buddha, Lotus Flower Cascading Potsx | Kaiku",
+      "beforeLength": 82,
+      "afterLength": 60,
+      "steps": ["dimensions", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-21",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-rock",
+      "before": "Grand Water Feature - Colour Changing Crystal Ball in Rock | Kaiku",
+      "after": "Water Feature - Colour Changing Crystal Ball in Rock | Kaiku",
+      "beforeLength": 66,
+      "afterLength": 60,
+      "steps": ["drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-aw-waterf-22",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-greek-urn-in-basket",
+      "before": "Grand Water Feature - Colour Changing Crystal Ball in Greek Urn in Basket | Kaiku",
+      "after": "Water Feature - Colour Changing Crystal Ball | Kaiku",
+      "beforeLength": 81,
+      "afterLength": 52,
+      "steps": ["drop-leading:1", "truncate"],
+      "truncated": true
+    },
+    {
+      "_id": "product-aw-waterf-25",
+      "slug": "elephants-in-love-tabletop-water-feature-with-crystal-ball-light-watermill-30x20x35cm",
+      "before": "Elephants in Love Tabletop Water Feature with Crystal Ball, Light & Watermill | Kaiku",
+      "after": "Elephants in Love Tabletop Water Feature | Kaiku",
+      "beforeLength": 85,
+      "afterLength": 48,
+      "steps": ["with-clause"],
+      "truncated": false
+    },
+    {
+      "_id": "product-import-2-person-outdoor-infrared-sauna-saunaplunge-9b8264b5",
+      "slug": "saunaplunge-yorkshire-cabin-2-person-outdoor-infrared-sauna",
+      "before": "SaunaPlunge™ Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
+      "after": "Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
+      "beforeLength": 68,
+      "afterLength": 55,
+      "steps": ["trademark", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-import-4-person-indoor-infrared-sauna-saunaplunge-25f636e4",
+      "slug": "saunaplunge-dales-glow-4-person-indoor-infrared-sauna",
+      "before": "SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
+      "after": "Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
+      "beforeLength": 62,
+      "afterLength": 49,
+      "steps": ["trademark", "drop-leading:1"],
+      "truncated": false
+    },
+    {
+      "_id": "product-import-amalfi-collection-outdoor-bistro-table-with-glass-top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-glass-top",
+      "before": "Amalfi Collection Outdoor Bistro Table With Glass Top | Kaiku",
+      "after": "Amalfi Outdoor Bistro Table With Glass Top | Kaiku",
+      "beforeLength": 61,
+      "afterLength": 50,
+      "steps": ["filler"],
+      "truncated": false
+    },
+    {
+      "_id": "product-import-antique-gold-marching-hares-lamp-with-green-velvet-shade",
+      "slug": "antique-gold-marching-hares-lamp-with-green-velvet-shade",
+      "before": "Antique Gold Marching Hares Lamp With Green Velvet Shade | Kaiku",
+      "after": "Antique Gold Marching Hares Lamp | Kaiku",
+      "beforeLength": 64,
+      "afterLength": 40,
+      "steps": ["with-clause"],
+      "truncated": false
+    }
+  ],
+  "unsafe": [
+    {
+      "slug": "carta-black-and-white-stripe-papier-mache-domed-pendant-light",
+      "title": "Carta Black and White Stripe Papier Mache Domed Pendant Light | Kaiku"
+    },
+    {
+      "slug": "carta-taupe-etched-linear-design-papier-mache-domed-table-lamp",
+      "title": "Carta Taupe Etched Linear Design Papier Mache Domed Table Lamp | Kaiku"
+    },
+    {
+      "slug": "torcino-mango-wood-carved-design-marble-top-three-door-sideboard",
+      "title": "Torcino Mango Wood Carved Design Marble Top Three Door Sideboard | Kaiku"
+    },
+    {
+      "slug": "2-75m-9ft-plug-in-led-8-sequence-warm-white-cluster-string",
+      "title": "2.75m\\9ft Plug-In LED 8 Sequence Warm White Cluster String | Kaiku"
+    }
+  ]
+}

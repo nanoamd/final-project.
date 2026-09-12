@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T18:46:32.314Z",
+  "generatedAt": "2026-09-12T19:18:36.233Z",
   "thresholds": {
     "TITLE_MAX": 60,
     "TITLE_MIN": 30,
@@ -8,22 +8,7 @@
   },
   "total": 994,
   "duplicateTitles": [],
-  "duplicateDescriptions": [
-    [
-      "a hand-painted canvas in a wood frame, 80 x 80 x 3cm and 2.6kg.",
-      [
-        "/shop/wall-art/mistora-hand-painted-canvas-in-frame",
-        "/shop/wall-art/silvra-hand-painted-canvas-in-frame"
-      ]
-    ],
-    [
-      "a table mirror in polystyrene and glass, 18 x 6 x 28cm. arrives assembled.",
-      [
-        "/shop/mirrors/cassini-tri-fold-white-led-table-mirror",
-        "/shop/mirrors/cassini-tri-fold-black-led-table-mirror"
-      ]
-    ]
-  ],
+  "duplicateDescriptions": [],
   "pages": [
     {
       "kind": "product",
@@ -36,7 +21,7 @@
     {
       "kind": "product",
       "path": "/shop/candles-and-lanterns/set-of-three-wooden-lanterns-with-traditional-cross-section",
-      "title": "Set Of Three Wooden Lanterns With Traditional Cross Section | Kaiku",
+      "title": "Set Of Three Wooden Lanterns | Kaiku",
       "description": "A set of three wooden lanterns in grey with a cross-section cut design, in graduated heights up to 84cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -164,7 +149,7 @@
     {
       "kind": "product",
       "path": "/shop/candles-and-lanterns/luxe-collection-natural-glow-s-2-ivory-led-dinner-candles",
-      "title": "Luxe Collection Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
+      "title": "Luxe Natural Glow S/ 2 Ivory LED Dinner Candles | Kaiku",
       "description": "A pair of flameless LED dinner candles in ivory, 2 x 2cm and 25cm tall, 0.3kg for the set. Battery powered, with a flickering-light effect.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -437,7 +422,7 @@
       "kind": "product",
       "path": "/shop/wall-art/mistora-hand-painted-canvas-in-frame",
       "title": "Mistora Hand Painted Canvas In Frame | Wall Art | Kaiku",
-      "description": "A hand-painted canvas in a wood frame, 80 x 80 x 3cm and 2.6kg.",
+      "description": "The Mistora: a hand-painted canvas in a wood frame, 80 x 80 x 3cm and 2.6kg. One of a pair with the Silvra, sold separately.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -445,7 +430,7 @@
       "kind": "product",
       "path": "/shop/wall-art/silvra-hand-painted-canvas-in-frame",
       "title": "Silvra Hand Painted Canvas In Frame | Wall Art | Kaiku",
-      "description": "A hand-painted canvas in a wood frame, 80 x 80 x 3cm and 2.6kg.",
+      "description": "The Silvra: a hand-painted canvas in a wood frame, 80 x 80 x 3cm and 2.6kg. One of a pair with the Mistora, sold separately.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -541,7 +526,7 @@
       "kind": "product",
       "path": "/shop/mirrors/cassini-tri-fold-white-led-table-mirror",
       "title": "Cassini Tri Fold White LED Table Mirror | Kaiku",
-      "description": "A table mirror in polystyrene and glass, 18 x 6 x 28cm. Arrives assembled.",
+      "description": "The Cassini tri-fold vanity mirror in white — three LED panels, touch sensor, wide magnification and an adjustable base. 18 x 6 x 28cm, 4xAAA or USB.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -549,7 +534,7 @@
       "kind": "product",
       "path": "/shop/mirrors/cassini-tri-fold-black-led-table-mirror",
       "title": "Cassini Tri Fold Black LED Table Mirror | Kaiku",
-      "description": "A table mirror in polystyrene and glass, 18 x 6 x 28cm. Arrives assembled.",
+      "description": "The Cassini tri-fold vanity mirror in black — three LED panels, touch sensor, wide magnification and an adjustable base. 18 x 6 x 28cm, 4xAAA or USB.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -572,7 +557,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-ribbed-round-glass-jar-with-acacia-wood-lid-1100ml",
-      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 1100ml | Kaiku",
+      "title": "Ribbed Round Glass Jar with Acacia Wood Lid 1100ml | Kaiku",
       "description": "The Freska Ribbed Round Glass Jar with Acacia Wood Lid offers an 1100ml capacity, combining high borosilicate glass and an acacia wood lid.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -580,7 +565,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-ribbed-round-glass-jar-with-acacia-wood-lid-800ml",
-      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 800ml | Kaiku",
+      "title": "Ribbed Round Glass Jar with Acacia Wood Lid 800ml | Kaiku",
       "description": "The Freska Ribbed Round Glass Jar combines a high borosilicate glass body with an acacia wood lid, offering an 800ml capacity to keep your contents fresh.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -588,7 +573,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-ribbed-round-glass-jar-with-acacia-wood-lid-550ml",
-      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 550ml | Kaiku",
+      "title": "Ribbed Round Glass Jar with Acacia Wood Lid 550ml | Kaiku",
       "description": "The Freska Ribbed Round Glass Jar with Acacia Wood Lid holds 550ml and is crafted from high borosilicate glass with an acacia wood lid.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -596,7 +581,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-ribbed-round-glass-jar-with-acacia-wood-lid-250ml",
-      "title": "Freska Ribbed Round Glass Jar with Acacia Wood Lid 250ml | Kaiku",
+      "title": "Ribbed Round Glass Jar with Acacia Wood Lid 250ml | Kaiku",
       "description": "The Freska Ribbed Round Glass Jar features a clear high borosilicate glass body and an acacia wood lid.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -604,7 +589,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-set-of-five-ribbed-round-glass-jars-with-acacia-wood-lids",
-      "title": "Freska Set of Five Ribbed Round Glass Jars with Acacia Wood Lids | Kaiku",
+      "title": "Freska Set of Five Ribbed Round Glass Jars | Kaiku",
       "description": "The Freska Set of Five Ribbed Round Glass Jars with Acacia Wood Lids is a versatile storage solution for any kitchen, crafted from high borosilicate glass and…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -612,7 +597,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-storage/freska-set-of-five-ribbed-round-clear-glass-jars-with-acacia-wood-lids",
-      "title": "Freska Set of Five Ribbed Round Clear Glass Jars with Acacia Wood Lids | Kaiku",
+      "title": "Freska Set of Five Ribbed Round Clear Glass Jars | Kaiku",
       "description": "The Freska Set of Five Ribbed Round Clear Glass Jars with Acacia Wood Lids combines functionality and aesthetic appeal.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -964,7 +949,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/vermont-white-wash-round-dining-table-with-4-chairs-set",
-      "title": "Vermont White Wash Round Dining Table with 4 Chairs Set | Kaiku",
+      "title": "Vermont White Wash Round Dining Table | Kaiku",
       "description": "The Vermont White Wash Round Dining Table with 4 Chairs Set is perfect for adding a contemporary touch to your dining area, crafted from wood with a whitewash…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1004,7 +989,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/lyon-grey-oak-wood-and-rattan-cross-back-dining-chair",
-      "title": "Lyon Grey Oak Wood And Rattan Cross Back Dining Chair | Kaiku",
+      "title": "Lyon Grey Oak Wood & Rattan Cross Back Dining Chair | Kaiku",
       "description": "The Lyon Grey Oak Wood and Rattan Cross Back Dining Chair combines natural grey oak with a woven rattan seat, offering rustic charm and durability.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1076,7 +1061,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/rowan-two-seater-natural-and-silver-woven-bamboo-small-sofa",
-      "title": "Rowan Two Seater Natural And Silver Woven Bamboo Small Sofa | Kaiku",
+      "title": "Two Seater Natural & Silver Woven Bamboo Small Sofa | Kaiku",
       "description": "A sofa in bamboo, rope and plastic, 105 x 46 x 89cm. 7kg shipped. Arrives assembled.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1084,7 +1069,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/rowan-two-seater-natural-and-black-woven-bamboo-small-sofa",
-      "title": "Rowan Two Seater Natural And Black Woven Bamboo Small Sofa | Kaiku",
+      "title": "Two Seater Natural & Black Woven Bamboo Small Sofa | Kaiku",
       "description": "A sofa in bamboo, rope and plastic, 105 x 46 x 89cm and 7kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1180,7 +1165,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/weston-round-marble-effect-dining-table-with-6-chairs-set",
-      "title": "Weston Round Marble Effect Dining Table with 6 Chairs Set | Kaiku",
+      "title": "Weston Round Marble Effect Dining Table | Kaiku",
       "description": "The Weston Round Marble Effect Dining Table with 6 Chairs Set features a round marble effect tabletop and a sturdy design.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1212,7 +1197,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/wimslow-blacktempered-glass-dining-table-with-6-chairs",
-      "title": "Wimslow BlackTempered Glass Dining Table with 6 Chairs | Kaiku",
+      "title": "Wimslow BlackTempered Glass Dining Table | Kaiku",
       "description": "The Wimslow Black Tempered Glass Dining Table with 6 Chairs features a modern style with a rectangular glass top black velvet chairs.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1276,7 +1261,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/rowan-natural-and-black-woven-bamboo-chair-and-stool-set",
-      "title": "Rowan Natural And Black Woven Bamboo Chair And Stool Set | Kaiku",
+      "title": "Rowan Natural & Black Woven Bamboo Chair & Stool Set | Kaiku",
       "description": "The Rowan Natural and Black Woven Bamboo Chair and Stool Set features sustainable bamboo construction, offering an organic charm to any outdoor space.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1316,7 +1301,7 @@
     {
       "kind": "product",
       "path": "/shop/bedside-tables/sherman-black-finish-and-natural-rattan-one-drawer-bedside-table",
-      "title": "Sherman Black Finish and Natural Rattan One Drawer Bedside Table | Kaiku",
+      "title": "Black & Natural Rattan One Drawer Bedside Table | Kaiku",
       "description": "A one-drawer bedside table with a black MDF frame and a natural rattan drawer panel, with an open shelf below.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1444,7 +1429,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/depok-rattan-round-coffee-table-with-cross-metal-legs",
-      "title": "Depok Rattan Round Coffee Table With Cross Metal Legs | Kaiku",
+      "title": "Depok Rattan Round Coffee Table | Kaiku",
       "description": "A coffee table in natural rattan, iron and MDF, 60 x 60 x 41cm and 4.3kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1516,7 +1501,7 @@
     {
       "kind": "product",
       "path": "/shop/tv-units/addison-warm-white-metal-fluted-glass-door-media-unit",
-      "title": "Addison Warm White Metal Fluted Glass Door Media Unit | Kaiku",
+      "title": "Warm White Metal Fluted Glass Door Media Unit | Kaiku",
       "description": "The Addison Warm White Metal Fluted Glass Door Media Unit features a contemporary design with tempered glass and cold rolled steel.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1524,7 +1509,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/maxwell-textured-beige-fabric-curved-swivel-dining-chair",
-      "title": "Maxwell Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
+      "title": "Textured Beige Fabric Curved Swivel Dining Chair | Kaiku",
       "description": "The Maxwell Textured Beige Fabric Curved Swivel Dining Chair features a beautifully padded seat and a supportive curved backrest, made with a blend of iron…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1572,7 +1557,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/goa-white-rattan-effect-hanging-chair-with-grey-cushions",
-      "title": "Goa White Rattan Effect Hanging Chair with Grey Cushions | Kaiku",
+      "title": "Goa White Rattan Effect Hanging Chair | Kaiku",
       "description": "The Goa White Rattan Effect Hanging Chair with Grey Cushions seamlessly combines comfort and style.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1582,7 +1567,7 @@
       "path": "/shop/garden-furniture/goa-black-rattan-effect-double-hanging-chair-with-grey-cushions",
       "title": "Goa Black Rattan Effect Double Hanging Chair With Grey Cushions | Kaiku",
       "description": "The Goa Black Rattan Effect Double Hanging Chair is designed for both indoor and outdoor relaxation.",
-      "titleOverridden": true,
+      "titleOverridden": false,
       "descriptionOverridden": true
     },
     {
@@ -1684,7 +1669,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/revive-gold-finish-metal-floor-lamp-with-white-marble-base",
-      "title": "Revive Gold Finish Metal Floor Lamp with White Marble Base | Kaiku",
+      "title": "Revive Gold Metal Floor Lamp with White Marble Base | Kaiku",
       "description": "A floor lamp in iron, marble, glass and plastic, 28 x 28 x 157cm. Takes a bulb up to 60W. Arrives assembled.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1892,7 +1877,7 @@
     {
       "kind": "product",
       "path": "/shop/coffee-tables/hampstead-white-and-oak-wood-coffee-table-with-drawers",
-      "title": "Hampstead White and Oak Wood Coffee Table with Drawers | Kaiku",
+      "title": "Hampstead White & Oak Wood Coffee Table with Drawers | Kaiku",
       "description": "The Hampstead White and Oak Wood Coffee Table with Drawers combines oak and birch wood for both durability and style.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1900,7 +1885,7 @@
     {
       "kind": "product",
       "path": "/shop/tv-units/kensington-townhouse-grey-wash-and-antique-black-media-unit",
-      "title": "Kensington Townhouse Grey Wash and Antique Black Media Unit | Kaiku",
+      "title": "Townhouse Grey Wash & Antique Black Media Unit | Kaiku",
       "description": "The Kensington Townhouse Grey Wash and Antique Black Media Unit features an oak and birchwood construction, providing a functional addition to any living space.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1908,7 +1893,7 @@
     {
       "kind": "product",
       "path": "/shop/living-room-storage/kensington-townhouse-grey-wash-and-antique-black-sideboard",
-      "title": "Kensington Townhouse Grey Wash and Antique Black Sideboard | Kaiku",
+      "title": "Townhouse Grey Wash & Antique Black Sideboard | Kaiku",
       "description": "The Kensington Townhouse Grey Wash and Antique Black Sideboard combines oak and birch wood for a durable design.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1924,7 +1909,7 @@
     {
       "kind": "product",
       "path": "/shop/bedside-tables/kensington-townhouse-brown-and-white-hair-on-leather-side-table",
-      "title": "Kensington Townhouse Brown And White Hair on Leather Side Table | Kaiku",
+      "title": "Townhouse Brown & White Hair on Leather Side Table | Kaiku",
       "description": "The Kensington Townhouse Brown And White Hair on Leather Side Table features genuine cowhide and a leather trim. This piece measures 52 x 55 x 55 cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -1996,7 +1981,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/lyon-linen-dining-chair-with-oak-wood-whitewash-finish",
-      "title": "Lyon Linen Dining Chair with Oak Wood Whitewash Finish | Kaiku",
+      "title": "Lyon Linen Dining Chair with Oak Wood Whitewash | Kaiku",
       "description": "The Lyon Linen Dining Chair, crafted with a sturdy oak wood frame and upholstered in soft linen, offers a blend of elegance and practicality for your dining…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -2084,7 +2069,7 @@
     {
       "kind": "product",
       "path": "/shop/planters/hoffmann-black-mirrored-glass-and-nickel-finish-plant-stand",
-      "title": "Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand | Kaiku",
+      "title": "Hoffmann Black Mirrored Glass & Nickel Plant Stand | Kaiku",
       "description": "Explore the Hoffmann Black Mirrored Glass and Nickel Finish Plant Stand, crafted from stainless steel and mirror. Perfect for displaying plants elegantly.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -2412,7 +2397,7 @@
     {
       "kind": "product",
       "path": "/shop/mirrors/trento-small-square-black-metal-frame-round-insert-wall-mirror",
-      "title": "Trento Small Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
+      "title": "Square Black Metal Frame Round Insert Wall Mirror | Kaiku",
       "description": "The Trento Small Square Black Metal Frame Round Insert Wall Mirror features a sturdy design crafted from iron and glass.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -2492,7 +2477,7 @@
     {
       "kind": "product",
       "path": "/shop/candles-and-lanterns/kensington-townhouse-nickel-finish-large-floorstanding-candle-holder",
-      "title": "Kensington Townhouse Nickel Finish Large Floorstanding Candle Holder | Kaiku",
+      "title": "Townhouse Nickel Large Floorstanding Candle Holder | Kaiku",
       "description": "The Kensington Townhouse Nickel Finish Large Floorstanding Candle Holder features a nickel-coated aluminium design, standing at 113 cm tall.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3012,7 +2997,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/hampstead-black-finish-large-pendant-light-with-hints-of-gold",
-      "title": "Hampstead Black Finish Large Pendant Light With Hints of Gold | Kaiku",
+      "title": "Hampstead Black Large Pendant Light | Kaiku",
       "description": "A pendant light in iron and plastic, 50 x 50 x 84cm. 16.1kg shipped. Takes a bulb up to 40W, not included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3100,7 +3085,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/abira-gold-finish-adjustable-8-arm-statement-pendant-light",
-      "title": "Abira Gold Finish Adjustable 8 Arm Statement Pendant Light | Kaiku",
+      "title": "Abira Gold Adjustable 8 Arm Statement Pendant Light | Kaiku",
       "description": "A pendant light in iron and glass, 175 x 67 x 54cm. Takes a bulb up to 60W, not included. Assembly required.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3108,7 +3093,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/abira-silver-finish-adjustable-5-arm-statement-pendant-light",
-      "title": "Abira Silver Finish Adjustable 5 Arm Statement Pendant Light | Kaiku",
+      "title": "Silver Adjustable 5 Arm Statement Pendant Light | Kaiku",
       "description": "The Abira Silver Finish Adjustable 5 Arm Statement Pendant Light offers a blend of contemporary design and functionality.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3172,7 +3157,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/alexis-nickel-finish-8-bulb-round-statement-pendant-light",
-      "title": "Alexis Nickel Finish 8 Bulb Round Statement Pendant Light | Kaiku",
+      "title": "Alexis Nickel 8 Bulb Round Statement Pendant Light | Kaiku",
       "description": "A round eight-bulb pendant in iron and glass with a nickel finish. 110 x 110 x 115cm, 23.4kg. Takes eight E27 bulbs up to 40W each, not included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3220,7 +3205,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/karter-chrome-finish-and-white-glass-shade-floor-lamp",
-      "title": "Karter Chrome Finish And White Glass Shade Floor Lamp | Kaiku",
+      "title": "Karter Chrome Finish & White Glass Shade Floor Lamp | Kaiku",
       "description": "A chrome floor lamp with white glass shades, 34 × 34 × 162cm. Takes a G9 bulb (max 5W, not included) and plugs into a standard socket.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3260,7 +3245,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/palu-natural-white-and-amber-shell-large-pendant-shade",
-      "title": "Palu Natural White and Amber Shell Large Pendant Shade | Kaiku",
+      "title": "Palu Natural White & Amber Shell Large Pendant Shade | Kaiku",
       "description": "A pendant shade in metal and stone, 40 x 40 x 120cm. 3.2kg shipped.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3388,7 +3373,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/abira-white-marble-and-brass-finish-5-bulb-floor-lamp",
-      "title": "Abira White Marble and Brass Finish 5 Bulb Floor Lamp | Kaiku",
+      "title": "Abira White Marble & Brass Finish 5 Bulb Floor Lamp | Kaiku",
       "description": "A floor lamp in marble, iron and glass, 39 x 39 x 190cm. Takes a bulb up to 5W.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3396,7 +3381,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/abira-black-marble-and-nickel-finish-5-bulb-floor-lamp",
-      "title": "Abira Black Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "title": "Abira Black Marble & Nickel Finish 5 Bulb Floor Lamp | Kaiku",
       "description": "A floor lamp in marble, glass and iron, 39 x 39 x 190cm and 27kg. Assembly required.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3404,7 +3389,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/abira-white-marble-and-nickel-finish-5-bulb-floor-lamp",
-      "title": "Abira White Marble and Nickel Finish 5 Bulb Floor Lamp | Kaiku",
+      "title": "Abira White Marble & Nickel Finish 5 Bulb Floor Lamp | Kaiku",
       "description": "A five-bulb floor lamp in iron, marble and glass with a nickel finish, on a white marble base. 39 x 39 x 190cm, around 27kg. Bulbs not included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3460,7 +3445,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/hanah-black-snake-leather-effect-table-lamp-with-chrome-base",
-      "title": "Hanah Black Snake Leather Effect Table Lamp with Chrome Base | Kaiku",
+      "title": "Hanah Black Snake Leather Effect Table Lamp | Kaiku",
       "description": "A table lamp with a black snake-leather-effect body on a chrome base, under a linen shade. 38 x 38 x 78cm, 4.2kg. Takes an E27 bulb up to 60W, not included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3468,7 +3453,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/hanah-black-snake-leather-effect-floor-lamp-with-chrome-base-and-black-shade",
-      "title": "Hanah Black Snake Leather Effect Floor Lamp with Chrome Base and Black Shade | Kaiku",
+      "title": "Hanah Black Snake Leather Effect Floor Lamp | Kaiku",
       "description": "The Hanah Black Snake Leather Effect Floor Lamp combines modern style and functionality, featuring a faux snakeskin design and a chrome base for durability.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3476,7 +3461,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/murdoch-brushed-brass-floor-lamp-with-black-marble-base",
-      "title": "Murdoch Brushed Brass Floor Lamp with Black Marble Base | Kaiku",
+      "title": "Murdoch Brushed Brass Floor Lamp | Kaiku",
       "description": "A floor lamp in iron, marble and plastic, 40 x 40 x 150cm. Takes an E27 bulb up to 60W. Arrives assembled.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3492,7 +3477,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/equipoise-black-and-brass-finish-floor-lamp-with-marble-base",
-      "title": "Equipoise Black and Brass Finish Floor Lamp with Marble Base | Kaiku",
+      "title": "Equipoise Black & Brass Floor Lamp with Marble Base | Kaiku",
       "description": "A floor lamp in iron, marble and plastic, 90 x 20 x 160cm and 14.3kg. Takes an E27 bulb up to 60W.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3508,7 +3493,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-and-white-papier-mache-table-lamp-with-geometric-lines",
-      "title": "Carta Black And White Papier Mache Table Lamp with Geometric Lines | Kaiku",
+      "title": "Carta Black & White Papier Mache Table Lamp | Kaiku",
       "description": "The Carta Black And White Papier Mache Table Lamp features a unique geometric design, crafted from sustainable papier mache and iron.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3516,7 +3501,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-and-white-curved-stripe-papier-mache-table-lamp",
-      "title": "Carta Black and White Curved Stripe Papier Mache Table Lamp | Kaiku",
+      "title": "Black & White Curved Stripe Papier Mache Table Lamp | Kaiku",
       "description": "A papier mache and iron table lamp with curved monochrome stripes, 30cm across and 50cm tall. Arrives assembled.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3524,7 +3509,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-and-white-stripe-papier-mache-table-lamp-with-dome-shade",
-      "title": "Carta Black and White Stripe Papier Mache Table Lamp with Dome Shade | Kaiku",
+      "title": "Carta Black & White Stripe Papier Mache Table Lamp | Kaiku",
       "description": "A table lamp with a papier mache body in a black and white stripe, on an iron frame, with a dome shade. Bulb not included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3548,7 +3533,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-and-white-stripe-papier-mache-domed-floor-lamp",
-      "title": "Carta Black and White Stripe Papier Mache Domed Floor Lamp | Kaiku",
+      "title": "Black & White Stripe Papier Mache Domed Floor Lamp | Kaiku",
       "description": "A floor lamp in iron and paper mache, 41 x 41 x 105cm and 13kg. Assembly required.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3564,7 +3549,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-and-white-polka-dot-papier-mache-table-lamp",
-      "title": "Carta Black and White Polka Dot Papier Mache Table Lamp | Kaiku",
+      "title": "Black & White Polka Dot Papier Mache Table Lamp | Kaiku",
       "description": "A table lamp in paper mache and iron, 26 x 26 x 44cm and 3.7kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3580,7 +3565,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-oatmeal-etched-linear-design-papier-mache-domed-table-lamp",
-      "title": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
+      "title": "Etched Linear Design Papier Mache Domed Table Lamp | Kaiku",
       "description": "A table lamp in paper mache and iron, 31 x 31 x 53cm and 3.9kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3588,7 +3573,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/carta-black-etched-linear-design-papier-mache-table-lamp",
-      "title": "Carta Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
+      "title": "Black Etched Linear Design Papier Mache Table Lamp | Kaiku",
       "description": "A table lamp in paper mache and iron, 35 x 35 x 51cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3652,7 +3637,7 @@
     {
       "kind": "product",
       "path": "/shop/tv-units/kempton-grey-shagreen-effect-and-walnut-veneer-media-unit",
-      "title": "Kempton Grey Shagreen Effect and Walnut Veneer Media Unit | Kaiku",
+      "title": "Grey Shagreen Effect & Walnut Veneer Media Unit | Kaiku",
       "description": "The Kempton Grey Shagreen Effect and Walnut Veneer Media Unit combines modern design with practical functionality, featuring a textured shagreen effect and…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3692,7 +3677,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/kerala-recycled-natural-wood-console-table-with-curved-legs",
-      "title": "Kerala Recycled Natural Wood Console Table with Curved Legs | Kaiku",
+      "title": "Kerala Recycled Natural Wood Console Table | Kaiku",
       "description": "The Kerala Recycled Natural Wood Console Table with Curved Legs brings a unique blend of rustic charm and modern sophistication to your home.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3700,7 +3685,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/kerala-recycled-natural-wood-dining-table-with-curved-legs",
-      "title": "Kerala Recycled Natural Wood Dining Table with Curved Legs | Kaiku",
+      "title": "Kerala Recycled Natural Wood Dining Table | Kaiku",
       "description": "The Kerala Recycled Natural Wood Dining Table features a unique combination of salvaged wood, stainless steel, and glass.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3708,7 +3693,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/kerala-natural-recycled-wood-dining-table-with-cross-base",
-      "title": "Kerala Natural Recycled Wood Dining Table With Cross Base | Kaiku",
+      "title": "Kerala Natural Recycled Wood Dining Table | Kaiku",
       "description": "The Kerala Natural Recycled Wood Dining Table features a natural wood top with a cross base finished in silver.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3764,7 +3749,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/lena-oak-veneer-console-table-with-brushed-gold-frame",
-      "title": "Lena Oak Veneer Console Table with Brushed Gold Frame | Kaiku",
+      "title": "Lena Oak Veneer Console Table | Kaiku",
       "description": "A console table with an oak veneer top on a brushed gold metal frame.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3780,7 +3765,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/lena-oak-veneer-round-side-table-with-brushed-gold-legs",
-      "title": "Lena Oak Veneer Round Side Table with Brushed Gold Legs | Kaiku",
+      "title": "Lena Oak Veneer Round Side Table | Kaiku",
       "description": "A side table in oak veneer and stainless steel, 55 x 55 x 62cm. 16kg shipped.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3788,7 +3773,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/lena-oak-veneer-rectangular-side-table-with-brushed-gold-legs",
-      "title": "Lena Oak Veneer Rectangular Side Table with Brushed Gold Legs | Kaiku",
+      "title": "Lena Oak Veneer Rectangular Side Table | Kaiku",
       "description": "Crafted from solid oak veneer and stainless steel, this Lena Rectangular Side Table features a brushed gold base.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3804,7 +3789,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/luxor-grey-wash-recycled-pine-wood-console-table-with-drawers",
-      "title": "Luxor Grey Wash Recycled Pine Wood Console Table with Drawers | Kaiku",
+      "title": "Luxor Grey Wash Recycled Pine Wood Console Table | Kaiku",
       "description": "The Luxor Grey Wash Console Table is crafted from recycled pine wood, offering an eco-friendly solution to your home décor needs.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3820,7 +3805,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/trento-round-rattan-and-antique-gold-finish-side-table",
-      "title": "Trento Round Rattan and Antique Gold Finish Side Table | Kaiku",
+      "title": "Trento Round Rattan & Antique Gold Finish Side Table | Kaiku",
       "description": "A side table in iron, rattan and MDF, 56 x 56 x 54cm. Arrives assembled.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -3828,7 +3813,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/trento-round-rattan-and-antique-gold-finish-coffee-table",
-      "title": "Trento Round Rattan and Antique Gold Finish Coffee Table | Kaiku",
+      "title": "Trento Round Rattan & Antique Gold Coffee Table | Kaiku",
       "description": "A coffee table in iron, rattan and MDF, 76 x 76 x 38cm. 9.26kg shipped. Arrives assembled. Rated to 5kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4052,7 +4037,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/manado-natural-rattan-bean-shaped-bench-with-cream-cushion",
-      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion | Kaiku",
+      "title": "Manado Natural Rattan Bean Shaped Bench | Kaiku",
       "description": "A bench in rattan, foam and fabric, 85 x 65 x 48cm. 6kg shipped. Assembly required.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4164,7 +4149,7 @@
     {
       "kind": "product",
       "path": "/shop/living-room-storage/siena-black-and-natural-oak-wood-three-door-sideboard",
-      "title": "Siena Black and Natural Oak Wood Three Door Sideboard | Kaiku",
+      "title": "Siena Black & Natural Oak Wood Three Door Sideboard | Kaiku",
       "description": "The Siena Black and Natural Oak Wood Three Door Sideboard is a storage solution, crafted from oak wood and stainless steel.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4188,7 +4173,7 @@
     {
       "kind": "product",
       "path": "/shop/coffee-tables/imperia-2-tier-large-asymmetrical-ceramic-coffee-table",
-      "title": "Imperia 2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
+      "title": "2 Tier Large Asymmetrical Ceramic Coffee Table | Kaiku",
       "description": "A coffee table in ceramic and iron, 135 x 107 x 39cm. Assembly required.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4196,7 +4181,7 @@
     {
       "kind": "product",
       "path": "/shop/coffee-tables/imperia-round-grey-glass-and-ceramic-large-coffee-table",
-      "title": "Imperia Round Grey Glass And Ceramic Large Coffee Table | Kaiku",
+      "title": "Round Grey Glass & Ceramic Large Coffee Table | Kaiku",
       "description": "The Imperia Round Grey Glass And Ceramic Large Coffee Table features a grey glass top and a marble effect ceramic lower shelf.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4212,7 +4197,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/imperia-ceramic-marble-effect-rectangular-dining-table",
-      "title": "Imperia Ceramic Marble Effect Rectangular Dining Table | Kaiku",
+      "title": "Ceramic Marble Effect Rectangular Dining Table | Kaiku",
       "description": "The Imperia Ceramic Marble Effect Rectangular Dining Table features a grey ceramic top and resilient black stainless steel legs.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4508,7 +4493,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/perdoba-cream-textured-linen-dining-chair-with-black-metal-frame",
-      "title": "Perdoba Cream Textured Linen Dining Chair with Black Metal Frame | Kaiku",
+      "title": "Perdoba Cream Textured Linen Dining Chair | Kaiku",
       "description": "The Perdoba Cream Textured Linen Dining Chair combines a cream textured linen upholstery with a black iron frame.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4516,7 +4501,7 @@
     {
       "kind": "product",
       "path": "/shop/kitchen-furniture/persolo-mango-wood-live-edge-black-metal-legs-dining-table",
-      "title": "Persolo Mango Wood Live Edge Black Metal legs Dining Table | Kaiku",
+      "title": "Mango Wood Live Edge Black Metal legs Dining Table | Kaiku",
       "description": "Crafted from natural mango wood, this dining table features a live edge design and sturdy black metal legs.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4596,7 +4581,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/waris-cream-marble-top-and-black-mango-wood-console-table",
-      "title": "Waris Cream Marble Top and Black Mango Wood Console Table | Kaiku",
+      "title": "Cream Marble Top & Black Mango Wood Console Table | Kaiku",
       "description": "A console table in mango wood, marble and MDF, 120 x 36 x 80cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4604,7 +4589,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/palermo-travertine-top-and-black-acacia-wood-console-table",
-      "title": "Palermo Travertine Top and Black Acacia Wood Console Table | Kaiku",
+      "title": "Travertine Top & Black Acacia Wood Console Table | Kaiku",
       "description": "A console table in acacia wood and travertine marble, 120 x 40 x 80cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4612,7 +4597,7 @@
     {
       "kind": "product",
       "path": "/shop/console-tables/palermo-travertine-top-and-brown-acacia-wood-console-table",
-      "title": "Palermo Travertine Top and Brown Acacia Wood Console Table | Kaiku",
+      "title": "Travertine Top & Brown Acacia Wood Console Table | Kaiku",
       "description": "The Palermo Travertine Top and Brown Acacia Wood Console Table beautifully combines natural materials with a contemporary design.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4644,7 +4629,7 @@
     {
       "kind": "product",
       "path": "/shop/living-room-storage/babel-travertine-and-mango-wood-2-door-curved-sideboard",
-      "title": "Babel Travertine and Mango Wood 2 Door Curved Sideboard | Kaiku",
+      "title": "Travertine & Mango Wood 2 Door Curved Sideboard | Kaiku",
       "description": "Explore the Babel Travertine and Mango Wood 2 Door Curved Sideboard, featuring a unique design and quality materials, perfect for your living space.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4660,7 +4645,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/barto-round-mango-wood-carved-ridged-side-table-and-stool",
-      "title": "Barto Round Mango Wood Carved Ridged Side Table and Stool | Kaiku",
+      "title": "Round Mango Wood Carved Ridged Side Table & Stool | Kaiku",
       "description": "The Barto Round Mango Wood Carved Ridged Side Table and Stool is crafted from 100% mango wood.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4668,7 +4653,7 @@
     {
       "kind": "product",
       "path": "/shop/coffee-tables/barto-round-black-mango-wood-carved-ridge-coffee-table",
-      "title": "Barto Round Black Mango Wood Carved Ridge Coffee Table | Kaiku",
+      "title": "Round Black Mango Wood Carved Ridge Coffee Table | Kaiku",
       "description": "The Barto Round Black Mango Wood Carved Ridge Coffee Table features a sculptural design, made from sustainable mango wood.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4676,7 +4661,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/barto-round-black-mango-wood-carved-ridge-side-table-and-stool",
-      "title": "Barto Round Black Mango Wood Carved Ridge Side Table and Stool | Kaiku",
+      "title": "Black Mango Wood Carved Ridge Side Table & Stool | Kaiku",
       "description": "The Barto Round Black Mango Wood Carved Ridge Side Table and Stool combines practical use with artistic design, crafted entirely from sustainable mango wood.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4684,7 +4669,7 @@
     {
       "kind": "product",
       "path": "/shop/coffee-tables/barola-round-brown-marble-and-dark-mango-wood-carved-coffee-table",
-      "title": "Barola Round Brown Marble and Dark Mango Wood Carved Coffee Table | Kaiku",
+      "title": "Brown Marble & Dark Mango Wood Carved Coffee Table | Kaiku",
       "description": "The Barola Round Brown Marble and Dark Mango Wood Carved Coffee Table combines a dark emperador marble top with a robust mango wood base, bringing…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4692,7 +4677,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/barola-round-brown-marble-and-mango-wood-carved-side-table",
-      "title": "Barola Round Brown Marble and Mango Wood Carved Side Table | Kaiku",
+      "title": "Round Brown Marble & Mango Wood Carved Side Table | Kaiku",
       "description": "The Barola Round Brown Marble and Mango Wood Carved Side Table features a combination of dark emperador marble and durable mango wood, offering both…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4700,7 +4685,7 @@
     {
       "kind": "product",
       "path": "/shop/side-tables/barola-round-brown-marble-and-mango-wood-carved-tiered-side-table",
-      "title": "Barola Round Brown Marble and Mango Wood Carved Tiered Side Table | Kaiku",
+      "title": "Brown Marble & Mango Wood Carved Tiered Side Table | Kaiku",
       "description": "The Barola Round Side Table combines dark emperador marble with a mango wood frame for a modern aesthetic.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4836,7 +4821,7 @@
     {
       "kind": "product",
       "path": "/shop/desks/modern-computer-desk-home-office-table-small-writing-desk-with-storage-shelf-white-wood-gr",
-      "title": "Modern Writing Desk with Storage Shelf, White Wood Grain | Kaiku",
+      "title": "Modern Writing Desk | Kaiku",
       "description": "Explore the Modern Computer Desk made of durable particle board with a white wood grain finish. Compact dimensions with ample storage space.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -4876,7 +4861,7 @@
     {
       "kind": "product",
       "path": "/shop/desks/compact-folding-desk-for-small-spaces-with-storage-shelf-for-home-office-rustic-brown",
-      "title": "Compact Folding Desk with Storage Shelf, Rustic Brown | Kaiku",
+      "title": "Compact Folding Desk | Kaiku",
       "description": "A folding desk in rustic brown, built from particleboard on a steel frame with a maple wood-effect top, folding flat to 4.5cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5054,13 +5039,13 @@
       "path": "/shop/fire-pits/50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-dark-grey",
       "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey | Kaiku",
       "description": "This dark grey 50,000 BTU Gas Fire Pit Table combines functionality and elegance, made of sturdy metal and suitable for outdoor gatherings.",
-      "titleOverridden": true,
+      "titleOverridden": false,
       "descriptionOverridden": true
     },
     {
       "kind": "product",
       "path": "/shop/fire-pits/outsunny-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
-      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Grey | Kaiku",
+      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen | Kaiku",
       "description": "This 50,000 BTU gas fire pit table combines functionality as a dining table for 4-6 people, with a metal design.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5076,7 +5061,7 @@
     {
       "kind": "product",
       "path": "/shop/fire-pits/outsunny-71cm-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
-      "title": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey | Kaiku",
+      "title": "50,000 BTU Gas Fire Pit Table 71cm | Kaiku",
       "description": "A fire pit table, 71 x 71 x 63cm and 24kg. Rated to 30kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5188,7 +5173,7 @@
     {
       "kind": "product",
       "path": "/shop/outdoor-kitchens/outsunny-five-burner-steel-gas-grill-with-thermometer-black",
-      "title": "Five-Burner Steel Gas Barbecue with Thermometer, Black | Kaiku",
+      "title": "Five-Burner Steel Gas Barbecue | Kaiku",
       "description": "A five-burner steel gas barbecue with a lid thermometer, 135 x 52 x 103cm and 25kg. Runs on LPG (propane); the cylinder is not supplied.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5212,7 +5197,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-4-piece-l-shaped-garden-furniture-set-8-seater-aluminium-outdoor-dining-set-conve",
-      "title": "L-Shaped 8-Seater Aluminium Garden Dining Set with Bench, Grey | Kaiku",
+      "title": "L-Shaped 8-Seater Aluminium Garden Dining Set | Kaiku",
       "description": "Crafted from durable aluminium, this 4 Piece L-shaped Garden Furniture Set is designed for both aesthetics and comfort, making it an ideal choice for your…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5276,7 +5261,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-five-piece-aluminium-garden-sofa-set-with-glass-top-table-grey",
-      "title": "5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey | Kaiku",
+      "title": "5-Piece Aluminium Garden Sofa Set | Kaiku",
       "description": "A five-piece garden sofa set on an aluminium frame with polyester cushions and a tempered glass table top.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5284,7 +5269,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/6-piece-rattan-garden-sofa-set-with-washable-covers-grey",
-      "title": "6-Piece Rattan Garden Sofa Set with Washable Covers, Grey | Kaiku",
+      "title": "6-Piece Rattan Garden Sofa Set | Kaiku",
       "description": "This Six-Piece Rattan Strong Garden Sofa Set features a modern design and is perfect for entertaining guests in your outdoor area.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5332,7 +5317,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/outdoor-fountain-with-4-tier-rustic-pots-planter-garden-fountain-with-led-lights-rustic-br",
-      "title": "Four-Tier Rustic Pot Fountain with Planter, Rustic Brown | Kaiku",
+      "title": "Four-Tier Rustic Pot Fountain | Kaiku",
       "description": "Bring peace to your outdoor space with this rustic four-tier water fountain, crafted from durable resin and featuring integrated LED lights.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5348,7 +5333,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-7-seater-patio-wicker-sofa-set-rattan-chair-furniture-w-glass-cushioned-dark-blue",
-      "title": "7-Seater Rattan Sofa Set with Glass-Top Table, Dark Blue | Kaiku",
+      "title": "7-Seater Rattan Sofa Set | Kaiku",
       "description": "This 7-seater patio sofa set features a sturdy metal frame and weather-proof PE rattan for durability and comfort.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5356,7 +5341,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-8-seater-garden-rattan-furniture-rattan-corner-dining-sofa-set-wicker-conservator",
-      "title": "8-Seater Rattan Corner Dining Set with Footstool, Black | Kaiku",
+      "title": "8-Seater Rattan Corner Dining Set | Kaiku",
       "description": "An eight-seater rattan corner set — two corner sofas with arms, one armless corner sofa, a coffee table and two footstools — on powder-coated steel with a PE…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5372,7 +5357,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-6-pieces-outdoor-pe-rattan-wicker-corner-sofa-set-with-10cm-thick-padded-cushions",
-      "title": "6-Piece Rattan Corner Sofa Set with Glass-Top Table, Grey | Kaiku",
+      "title": "6-Piece Rattan Corner Sofa Set | Kaiku",
       "description": "The 6 Pieces Outdoor PE Rattan Wicker Corner Sofa Set boasts a modern design, crafted from durable aluminium and PE rattan, offering robust yet lightweight…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5396,7 +5381,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/outsunny-5-piece-rattan-patio-furniture-set-with-gas-fire-pit-table-loveseat-sofa-armchair",
-      "title": "5-Piece Rattan Garden Set with Gas Fire Pit Table, Grey | Kaiku",
+      "title": "5-Piece Rattan Garden Set | Kaiku",
       "description": "The 5-Piece Rattan Patio Furniture Set with Gas Fire Pit Table features a grey PE Rattan finish.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5460,7 +5445,7 @@
     {
       "kind": "product",
       "path": "/shop/desks/multi-storage-work-desk-with-sliding-keyboard-tray-brown-black",
-      "title": "Multi-Storage Work Desk with Sliding Keyboard Tray, Brown | Kaiku",
+      "title": "Multi-Storage Work Desk | Kaiku",
       "description": "The Multi-Storage Work Desk in rustic brown and black features a sliding keyboard tray and multiple shelves for efficient organisation.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5468,7 +5453,7 @@
     {
       "kind": "product",
       "path": "/shop/desks/led-computer-desk-with-power-outlets-and-shelves-carbon-fibre-grey",
-      "title": "LED Computer Desk with Power Outlets, Carbon Fibre Grey | Kaiku",
+      "title": "LED Computer Desk | Kaiku",
       "description": "This LED Computer Desk features durable particleboard and steel construction, offering a spacious work surface with RGB lighting and built-in power outlets.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5644,7 +5629,7 @@
     {
       "kind": "product",
       "path": "/shop/rustic-reclaimed-furniture/reclaimed-teak-sideboard-console-table-6-drawers",
-      "title": "Reclaimed Teak Sideboard Console Table with 6 Drawers | Kaiku",
+      "title": "Reclaimed Teak Sideboard Console Table | Kaiku",
       "description": "A reclaimed solid teak sideboard with six drawers and two open shelves, 180 x 60 x 80cm and 60kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5716,7 +5701,7 @@
     {
       "kind": "product",
       "path": "/shop/rustic-reclaimed-furniture/large-reclaimed-wood-tv-stand-2-drawers",
-      "title": "Large Reclaimed Wood TV Stand with Drawers | Solid Teak | Kaiku",
+      "title": "Large Reclaimed Wood TV Stand | Kaiku",
       "description": "Handcrafted reclaimed teak TV stand with two drawers and open shelving.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5852,7 +5837,7 @@
     {
       "kind": "product",
       "path": "/shop/mirrors/soft-squiggly-mirror-chunky-frame-royal-blue-30-5x22-5x2-3cm",
-      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue (30.5x22.5x2.3cm) | Kaiku",
+      "title": "Soft Squiggly Mirror – Chunky Frame – Royal Blue | Kaiku",
       "description": "A handcrafted mirror with a royal blue chunky squiggly frame, 30.5 x 22.5 x 2.3cm and 0.58kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5884,7 +5869,7 @@
     {
       "kind": "product",
       "path": "/shop/rustic-reclaimed-furniture/natural-teak-corner-shelf-unit-4-tier-135cm",
-      "title": "Natural Teak Corner Shelf Unit – 4 Tier Display Stand 135cm | Kaiku",
+      "title": "Natural Teak Corner Shelf Unit – 4 Tier Display | Kaiku",
       "description": "Handcrafted solid teak 4-tier corner shelf unit. Maximise unused corners with elegant natural wood shelving for plants, books and home décor.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5892,7 +5877,7 @@
     {
       "kind": "product",
       "path": "/shop/rustic-reclaimed-furniture/natural-teak-corner-shelf-unit-3-tier-90cm",
-      "title": "Natural Teak Corner Shelf Unit – 3 Tier Display Stand 90cm | Kaiku",
+      "title": "Natural Teak Corner Shelf Unit – 3 Tier Display | Kaiku",
       "description": "Handcrafted natural teak corner shelf unit with three display shelves. Shop premium solid wood furniture at Kaiku.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5908,7 +5893,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-30cm-golden-meditating-buddha",
-      "title": "Tabletop Water Feature - 30cm - Golden Meditating Buddha | Kaiku",
+      "title": "Water Feature - 30cm - Golden Meditating Buddha | Kaiku",
       "description": "The Tabletop Water Feature - 30cm - Golden Meditating Buddha combines artistry and serenity, allowing you to enjoy the calming effects of flowing water.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5916,7 +5901,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-30cm-golden-buddha-lotus",
-      "title": "Tabletop Water Feature - 30cm - Golden Buddha & Lotus | Kaiku",
+      "title": "Water Feature - 30cm - Golden Buddha & Lotus | Kaiku",
       "description": "Discover serenity with our Tabletop Water Feature - 30cm - Golden Buddha & Lotus, handcrafted from reclaimed materials for a unique addition to your decor.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5924,7 +5909,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-30cm-golden-buddha-pouring-pots",
-      "title": "Tabletop Water Feature - - Golden Buddha & Pouring Pots | Kaiku",
+      "title": "Water Feature - Golden Buddha & Pouring Pots | Kaiku",
       "description": "Handcrafted from reclaimed materials, it adds a unique touch and a serene element to any outdoor space.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5932,7 +5917,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-30cm-golden-buddha-vitarka-mudra",
-      "title": "Tabletop Water Feature - 30cm - Golden Buddha & Vitarka Mudra | Kaiku",
+      "title": "Water Feature - 30cm - Golden Buddha & Vitarka Mudra | Kaiku",
       "description": "The Tabletop Water Feature - 30cm - Golden Buddha & Vitarka Mudra offers a unique blend of craftsmanship and tranquillity.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5980,7 +5965,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-35cm-elephants-crystal-ball-water-wheel",
-      "title": "Tabletop Water Feature - - Elephants, Crystal Ball & Water Wheel | Kaiku",
+      "title": "Water Feature - Elephants, Crystal Ball | Kaiku",
       "description": "Explore the enchanting Tabletop Water Feature featuring Elephants, a Crystal Ball, and a Water Wheel, expertly crafted for your garden or patio.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -5988,7 +5973,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-35cm-dragons-crystal-ball-water-wheel",
-      "title": "Tabletop Water Feature - - Dragons, Crystal Ball & Water Wheel | Kaiku",
+      "title": "Water Feature - Dragons, Crystal Ball & Water Wheel | Kaiku",
       "description": "A tabletop water feature with dragons, a crystal ball and a working water wheel, 18 x 35 x 18cm and 2.4kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6012,7 +5997,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-35cm-slab-rocks-formation-crystal-ball",
-      "title": "Tabletop Water Feature - - Slab Rocks Formation & Crystal Ball | Kaiku",
+      "title": "Water Feature - Slab Rocks Formation & Crystal Ball | Kaiku",
       "description": "The Tabletop Water Feature - Slab Rocks Formation & Crystal Ball is a beautifully crafted water feature.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6020,7 +6005,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-35cm-silver-buddha-cascade-crystal-ball",
-      "title": "Tabletop Water Feature - - Silver Buddha Cascade & Crystal Ball | Kaiku",
+      "title": "Water Feature - Silver Buddha Cascade & Crystal Ball | Kaiku",
       "description": "A tabletop water feature with a silver Buddha cascade and crystal ball, 35 x 25 x 20cm and 2.3kg. Pump included.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6036,7 +6021,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/tabletop-water-feature-19x19x28cm-buddha-lotus-flower-cascading-potsx",
-      "title": "Tabletop Water Feature - 19x19x28cm - Buddha, Lotus Flower Cascading Potsx | Kaiku",
+      "title": "Water Feature - Buddha, Lotus Flower Cascading Potsx | Kaiku",
       "description": "A tabletop water feature with a Buddha figure and cascading lotus-flower pots, 19 x 19 x 28cm and 1.27kg. Includes a pump; suitable for indoor or outdoor use.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6052,7 +6037,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-rock",
-      "title": "Grand Water Feature - Colour Changing Crystal Ball in Rock | Kaiku",
+      "title": "Water Feature - Colour Changing Crystal Ball in Rock | Kaiku",
       "description": "The Grand Water Feature - Colour Changing Crystal Ball in Rock offers a unique blend of artistry and nature, designed for those looking to enhance their…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6060,7 +6045,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-greek-urn-in-basket",
-      "title": "Grand Water Feature - Colour Changing Crystal Ball in Greek Urn in Basket | Kaiku",
+      "title": "Water Feature - Colour Changing Crystal Ball | Kaiku",
       "description": "A water feature with a colour-changing crystal ball set in a Greek urn within a woven basket. 24 x 22 x 48cm, 5.1kg. Includes a pump.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6084,7 +6069,7 @@
     {
       "kind": "product",
       "path": "/shop/water-features/elephants-in-love-tabletop-water-feature-with-crystal-ball-light-watermill-30x20x35cm",
-      "title": "Elephants in Love Tabletop Water Feature with Crystal Ball, Light & Watermill | Kaiku",
+      "title": "Elephants in Love Tabletop Water Feature | Kaiku",
       "description": "This delightful Elephants in Love Tabletop Water Feature combines artistic craftsmanship with soothing water movement, featuring a crystal ball and light for…",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6172,7 +6157,7 @@
     {
       "kind": "product",
       "path": "/shop/outdoor-saunas/saunaplunge-yorkshire-cabin-2-person-outdoor-infrared-sauna",
-      "title": "SaunaPlunge™ Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
+      "title": "Yorkshire Cabin 2-Person Outdoor Infrared Sauna | Kaiku",
       "description": "An infrared sauna for two, built from thermo-treated spruce with low EMF carbon heaters, a Smart WiFi controller and colour-therapy lighting.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6180,7 +6165,7 @@
     {
       "kind": "product",
       "path": "/shop/indoor-saunas/saunaplunge-dales-glow-4-person-indoor-infrared-sauna",
-      "title": "SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
+      "title": "Dales Glow 4-Person Indoor Infrared Sauna | Kaiku",
       "description": "Experience premium home wellness with the SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6300,7 +6285,7 @@
     {
       "kind": "product",
       "path": "/shop/garden-furniture/amalfi-collection-outdoor-bistro-table-with-glass-top",
-      "title": "Amalfi Collection Outdoor Bistro Table With Glass Top | Kaiku",
+      "title": "Amalfi Outdoor Bistro Table With Glass Top | Kaiku",
       "description": "The Amalfi Collection Outdoor Bistro Table With Glass Top blends functionality with elegance, perfect for small outdoor spaces.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -6332,7 +6317,7 @@
     {
       "kind": "product",
       "path": "/shop/lighting/antique-gold-marching-hares-lamp-with-green-velvet-shade",
-      "title": "Antique Gold Marching Hares Lamp With Green Velvet Shade | Kaiku",
+      "title": "Antique Gold Marching Hares Lamp | Kaiku",
       "description": "A table lamp with a sculpted marching-hares base in resin with an antique gold finish, under a green velvet shade. 28 x 28 x 48cm, 1.1kg.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7300,7 +7285,7 @@
     {
       "kind": "category",
       "path": "/shop/bathroom-mirrors",
-      "title": "Bathroom Mirrors | Kaiku",
+      "title": "Bathroom Mirrors | Round, Arched & Framed | Kaiku",
       "description": "Two bathroom mirrors at Kaiku: the Hampton Ivory Shagreen Square Wall Mirror and the Hampton Ivory Octagonal Wall Mirror. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7308,7 +7293,7 @@
     {
       "kind": "category",
       "path": "/shop/bathroom-storage",
-      "title": "Bathroom Storage | Kaiku",
+      "title": "Bathroom Storage | Cabinets & Shelf Units | Kaiku",
       "description": "Two bathroom storage pieces at Kaiku: the Natural Wooden Beer Barrel Storage Stool and the Beer Barrel Table – Natural Wood 60 x 48.5 cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7316,7 +7301,7 @@
     {
       "kind": "category",
       "path": "/shop/bedroom-lighting",
-      "title": "Bedroom Lighting | Kaiku",
+      "title": "Bedroom Lighting | Bedside & Table Lamps | Kaiku",
       "description": "Four bedroom lighting pieces at Kaiku, including the Bamboo Gesso Table Lamp and the Small Rectangular Gesso Table Lamp. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7324,7 +7309,7 @@
     {
       "kind": "category",
       "path": "/shop/bedroom-mirrors",
-      "title": "Bedroom Mirrors | Kaiku",
+      "title": "Bedroom Mirrors | Full-Length & Dressing | Kaiku",
       "description": "Two bedroom mirrors at Kaiku: the Hampton Ivory Shagreen Square Wall Mirror and the Hampton Ivory Octagonal Wall Mirror. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7332,7 +7317,7 @@
     {
       "kind": "category",
       "path": "/shop/bedroom-storage",
-      "title": "Bedroom Storage | Kaiku",
+      "title": "Bedroom Storage | Chests, Drawers & Wardrobes | Kaiku",
       "description": "Three bedroom storage pieces at Kaiku, including the Natural Wooden Beer Barrel Storage Stool and the Beer Barrel Table – Natural Wood 60 x 48.5 cm.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7340,7 +7325,7 @@
     {
       "kind": "category",
       "path": "/shop/beds",
-      "title": "Beds | Bedroom | Kaiku",
+      "title": "Beds | Ottoman, Storage & Upholstered Frames | Kaiku",
       "description": "Ottoman, sofa and upholstered beds in double, king and super king from £89. How to size a bed to a room and get it up the stairs.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7388,7 +7373,7 @@
     {
       "kind": "category",
       "path": "/shop/cold-plunges",
-      "title": "Cold Plunges | Kaiku",
+      "title": "Cold Plunges | Stainless Steel Ice Baths | Kaiku",
       "description": "One cold plunge at Kaiku: the SaunaPlunge™ Peak Plunge Ice Bath with Chiller. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7404,7 +7389,7 @@
     {
       "kind": "category",
       "path": "/shop/desks",
-      "title": "Desks | Office | Kaiku",
+      "title": "Desks | Oak, Walnut & Home Office Desks | Kaiku",
       "description": "Two desks at Kaiku: the Abberley White Desk and the Charlton Ribbed Walnut Desk. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7452,7 +7437,7 @@
     {
       "kind": "category",
       "path": "/shop/kitchen-shelving",
-      "title": "Kitchen Shelving | Kaiku",
+      "title": "Kitchen Shelving | Reclaimed Teak Units | Kaiku",
       "description": "Five kitchen shelving pieces at Kaiku, including the Natural Folding Wooden A-Frame Shelf – Brown. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7460,7 +7445,7 @@
     {
       "kind": "category",
       "path": "/shop/kitchen-storage",
-      "title": "Kitchen Storage | Kaiku",
+      "title": "Kitchen Storage | Reclaimed Wood Cabinets | Kaiku",
       "description": "Six kitchen storage pieces at Kaiku, including the Large Brown Wooden Storage Tub and the Brown Wooden Storage Crates (Set of 3). Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7468,7 +7453,7 @@
     {
       "kind": "category",
       "path": "/shop/lighting",
-      "title": "Lighting Lighting | Kaiku",
+      "title": "Lighting | Ceiling, Floor & Table Lights | Kaiku",
       "description": "Table and floor lamps in gesso, ceramic, brass and reclaimed wood — the layer of light that makes a room usable after dark, rather than the ceiling fitting th",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7476,7 +7461,7 @@
     {
       "kind": "category",
       "path": "/shop/living-room-lighting",
-      "title": "Living Room Lighting | Kaiku",
+      "title": "Living Room Lighting | Floor & Table Lamps | Kaiku",
       "description": "Four living room lighting pieces at Kaiku, including the Bamboo Gesso Table Lamp and the Small Rectangular Gesso Table Lamp. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7484,7 +7469,7 @@
     {
       "kind": "category",
       "path": "/shop/living-room-storage",
-      "title": "Living Room Storage | Kaiku",
+      "title": "Living Room Storage | Sideboards & Cabinets | Kaiku",
       "description": "Sideboards, chests and cabinets for the things a living room accumulates — the cables, the board games, the paperwork that has nowhere else to be.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7492,7 +7477,7 @@
     {
       "kind": "category",
       "path": "/shop/mirrors",
-      "title": "Mirrors | Decor | Kaiku",
+      "title": "Mirrors | Wall, Full-Length & Arched | Kaiku",
       "description": "Wall, floor, illuminated and over-door mirrors from £19 to £689. How to size a mirror, place it for light, and hang it safely.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7500,7 +7485,7 @@
     {
       "kind": "category",
       "path": "/shop/office-lighting",
-      "title": "Office Lighting | Kaiku",
+      "title": "Office Lighting | Desk & Task Lamps | Kaiku",
       "description": "Four office lighting pieces at Kaiku, including the Bamboo Gesso Table Lamp and the Small Rectangular Gesso Table Lamp. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7508,7 +7493,7 @@
     {
       "kind": "category",
       "path": "/shop/office-shelving",
-      "title": "Office Shelving | Kaiku",
+      "title": "Office Shelving | Bookcases & Shelf Units | Kaiku",
       "description": "Five office shelving pieces at Kaiku, including the Natural Folding Wooden A-Frame Shelf – Brown. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7516,7 +7501,7 @@
     {
       "kind": "category",
       "path": "/shop/office-storage",
-      "title": "Office Storage | Kaiku",
+      "title": "Office Storage | Cabinets, Drawers & Shelves | Kaiku",
       "description": "Storage for a room that has to work and still look like part of the house.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7524,7 +7509,7 @@
     {
       "kind": "category",
       "path": "/shop/outdoor-kitchens",
-      "title": "Outdoor Kitchens | Kaiku",
+      "title": "Outdoor Kitchens | Garden Cooking & Prep | Kaiku",
       "description": "One outdoor kitchen at Kaiku: the Himalayan Salt BBQ Cooking Plate. Delivered across the UK.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7572,7 +7557,7 @@
     {
       "kind": "category",
       "path": "/shop/rugs",
-      "title": "Rugs | Living Room | Kaiku",
+      "title": "Rugs | Living Room Rugs & Runners | Kaiku",
       "description": "Rugs coming soon to Kaiku. How to size a rug to a seating group, choose a pile for the traffic, and stop it moving on a hard floor.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7588,7 +7573,7 @@
     {
       "kind": "category",
       "path": "/shop/shelving",
-      "title": "Living Room Shelving | Kaiku",
+      "title": "Shelving | Reclaimed Teak & Open Shelf Units | Kaiku",
       "description": "Open shelving earns its place by showing what is on it, which makes it the hardest storage to live with and the most useful when it works.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7604,7 +7589,7 @@
     {
       "kind": "category",
       "path": "/shop/sofas",
-      "title": "Sofas | Living Room | Kaiku",
+      "title": "Sofas | 2 & 3 Seater, Corner & Chenille | Kaiku",
       "description": "Seating chosen for how it sits rather than how it photographs. Chenille, bouclé and linen over frames built to be sat in every evening, in sizes that suit a r",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7628,7 +7613,7 @@
     {
       "kind": "category",
       "path": "/shop/vases",
-      "title": "Vases | Decor | Kaiku",
+      "title": "Vases | Ceramic & Glass, Tall & Table | Kaiku",
       "description": "Ceramic and glass vases from £29, 20cm to 57cm tall. How to match a vase to the stems you actually buy, and where to place it.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7636,7 +7621,7 @@
     {
       "kind": "category",
       "path": "/shop/wall-art",
-      "title": "Wall Art | Decor | Kaiku",
+      "title": "Wall Art | Framed Prints & Canvases | Kaiku",
       "description": "Hand-painted canvases, framed prints and wooden wall plaques from £19. How to size art to a wall and hang it at the right height.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7668,7 +7653,7 @@
     {
       "kind": "category",
       "path": "/shop/indoor-saunas",
-      "title": "Indoor Saunas | Sauna | Kaiku",
+      "title": "Indoor Saunas | Hemlock Cabins for the Home | Kaiku",
       "description": "Two indoor saunas at Kaiku: the SaunaPlunge™  Dales Glow 2 Person Indoor Infrared Sauna and the SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna.",
       "titleOverridden": true,
       "descriptionOverridden": true
@@ -7789,7 +7774,7 @@
       "kind": "buyingGuide",
       "path": "/learn/bathroom-storage-ideas",
       "title": "Bathroom Storage Ideas Without a Fitted Vanity | Kaiku",
-      "description": "We don't sell vanity units — here's what we do sell for bathroom storage: baskets, wall shelves and caddies for what you actually use daily, kept in reach rather than hidden.",
+      "description": "We don't sell vanity units — what we do sell is baskets, wall shelves and caddies, for what you use daily, kept in reach rather than hidden.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7805,7 +7790,7 @@
       "kind": "buyingGuide",
       "path": "/learn/chandelier-vs-pendant-light",
       "title": "Chandelier vs Pendant Light: Clearance & Choice Guide | Kaiku",
-      "description": "A pendant needs 7ft (213cm) of floor clearance in a walkway, 75cm above a dining table. A chandelier's ornamental scale usually wants 8-9ft of ceiling height. The real difference explained.",
+      "description": "A pendant needs 7ft (213cm) of floor clearance in a walkway, 75cm above a dining table. A chandelier's ornamental scale wants 8-9ft of ceiling height.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7813,7 +7798,7 @@
       "kind": "buyingGuide",
       "path": "/learn/chest-of-drawers-vs-wardrobe",
       "title": "Chest of Drawers or Wardrobe? Bedroom Storage Guide | Kaiku",
-      "description": "A wardrobe stores what needs to hang; a chest of drawers stores what doesn't. Most bedrooms need both rather than more of one. 8 real pieces measured, hanging vs folded storage.",
+      "description": "A wardrobe stores what needs to hang; a chest of drawers what doesn't. Most bedrooms need both rather than more of one. 8 real pieces measured.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7821,7 +7806,7 @@
       "kind": "buyingGuide",
       "path": "/learn/choosing-a-sofa",
       "title": "Corner, 3-Seater, or Two Pieces — and Which Fabric? | Kaiku",
-      "description": "We sell velvet, linen, textured weave and chenille sofas, not leather — here's which fabric suits your household, and whether corner, 3-seater or two pieces fits your room.",
+      "description": "We sell velvet, linen, textured weave and chenille sofas, not leather — which fabric suits your household, and whether a corner or 3-seater fits.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7829,7 +7814,7 @@
       "kind": "buyingGuide",
       "path": "/learn/coffee-table-top-material",
       "title": "What Coffee Table Top Material Holds Up Best? | Kaiku",
-      "description": "Marble marks from heat, wood scratches but sands out, glass wipes clean but shows fingerprints, rattan is the least fussy. What each coffee table material actually costs you day to day.",
+      "description": "Marble marks from heat, wood scratches but sands out, glass wipes clean but shows fingerprints, rattan is the least fussy. What each costs you day to day.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7837,7 +7822,7 @@
       "kind": "buyingGuide",
       "path": "/learn/cold-plunge-chiller-vs-ice-and-temperature",
       "title": "Cold Plunge Chiller vs Ice, and Temperature Range | Kaiku",
-      "description": "We sell one cold plunge, chiller-equipped rather than ice-based — here's why that earns its cost for regular use, the real temperature range for cold plunging, and pairing it with a sauna.",
+      "description": "We sell one cold plunge, chiller-equipped rather than ice-based — why that earns its cost, the real temperature range, and pairing it with a sauna.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7861,7 +7846,7 @@
       "kind": "buyingGuide",
       "path": "/learn/fire-pit-fuel-type",
       "title": "Gas vs Wood vs Electric Fire Pit: Which Fuel? | Kaiku",
-      "description": "Gas lights instantly with no smoke or ash. Wood gives real flame but needs ventilation. Electric is the only safe option under cover. 8 real heaters and fire pits, sorted by fuel.",
+      "description": "Gas lights instantly, no smoke or ash. Wood gives real flame but needs ventilation. Electric is the only safe option under cover. 8 real fire pits compared.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7869,7 +7854,7 @@
       "kind": "buyingGuide",
       "path": "/learn/floor-lamp-placement",
       "title": "Where Should a Floor Lamp Go? Placement Guide | Kaiku",
-      "description": "A reading lamp's shade wants to sit at shoulder height when seated, close to the chair. An ambient corner lamp is taller and further away, to bounce light off the ceiling instead.",
+      "description": "A reading lamp's shade sits at shoulder height, close to the chair. An ambient corner lamp is taller and further away, bouncing light off the ceiling.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7877,7 +7862,7 @@
       "kind": "buyingGuide",
       "path": "/learn/pergola-vs-gazebo-and-privacy-screen-height",
       "title": "Pergola vs Gazebo, and Privacy Screen Height Rules | Kaiku",
-      "description": "A gazebo protects from weather with netting and a solid roof; a pergola is more architectural with a retractable canopy. UK permitted development allows 2m boundary height without planning permission.",
+      "description": "A gazebo shelters with netting and a solid roof; a pergola is architectural, with a retractable canopy. UK permitted development allows 2m at a boundary.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7885,7 +7870,7 @@
       "kind": "buyingGuide",
       "path": "/learn/infrared-vs-traditional-sauna",
       "title": "Infrared vs Traditional Sauna: Heat & Running Cost | Kaiku",
-      "description": "Infrared heats your body directly at 45-60°C; traditional heats the room to 70-90°C+. We sell traditional electric-heated cabins, not wood-fired. 7 real saunas compared.",
+      "description": "Infrared heats your body directly at 45-60°C; traditional heats the room to 70-90°C+. We sell electric-heated cabins, not wood-fired. 7 saunas compared.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7893,7 +7878,7 @@
       "kind": "buyingGuide",
       "path": "/learn/what-shape-mirror",
       "title": "What Shape Mirror Suits Your Wall? Style Guide | Kaiku",
-      "description": "Round softens hard edges, rectangular matches a grid of frames, arched and octagonal read as traditional. The two-thirds sizing rule holds across every shape — which shape to choose.",
+      "description": "Round softens hard edges, rectangular matches a grid of frames, arched and octagonal read as traditional. The two-thirds sizing rule holds across them all.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7901,7 +7886,7 @@
       "kind": "buyingGuide",
       "path": "/learn/best-planter-material-for-winter",
       "title": "Best Planter Material for Winter (UK) | Kaiku",
-      "description": "Terracotta absorbs water and cracks when it freezes — the classic winter casualty. Stoneware, stone-effect, metal and synthetic rattan cope better. What to leave out, what to bring in.",
+      "description": "Terracotta absorbs water and cracks when it freezes. Stoneware, stone-effect, metal and synthetic rattan cope better. What to leave out, what to bring in.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7909,7 +7894,7 @@
       "kind": "buyingGuide",
       "path": "/learn/shelving-how-many-and-open-or-cupboard",
       "title": "How Many Shelves Do You Need? Open vs Cupboard Guide | Kaiku",
-      "description": "~23-26 average hardbacks per linear metre of shelf, solid-packed — real-world capacity is 65-75% of that. Open shelving displays; a cupboard hides the mess. Which suits which room.",
+      "description": "~23-26 hardbacks per linear metre solid-packed — real capacity is 65-75% of that. Open shelving displays; a cupboard hides the mess. Which suits which room.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7917,7 +7902,7 @@
       "kind": "buyingGuide",
       "path": "/learn/sofa-size-for-your-room",
       "title": "What Size Sofa for Your Room? Sofa Size Guide | Kaiku",
-      "description": "2-seater 140-180cm, 3-seater 198-229cm, both ~85-100cm deep — there's no fixed standard. The room each needs, corner sofas measured differently, 8 real sofas checked.",
+      "description": "2-seater 140-180cm, 3-seater 198-229cm, both ~85-100cm deep — there's no fixed standard. The room each needs, and 8 real sofas measured.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7925,7 +7910,7 @@
       "kind": "buyingGuide",
       "path": "/learn/solar-vs-mains-garden-lighting-and-water-features",
       "title": "Solar vs Mains Garden Lighting: Which to Choose? | Kaiku",
-      "description": "Solar suits path and border lighting with 4-5 hours of direct sun and no cabling or running cost. Mains suits shaded spots or reliable winter output. Water features are mains, not solar.",
+      "description": "Solar suits paths and borders with 4-5 hours of direct sun, no cabling, no running cost. Mains suits shade and winter. Water features are mains, not solar.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7933,7 +7918,7 @@
       "kind": "buyingGuide",
       "path": "/learn/tv-unit-size-and-height",
       "title": "What Size TV Unit Do I Need? Size & Height Guide | Kaiku",
-      "description": "A 65in TV is ~144cm wide, not 165cm — the number the unit under it needs, plus 5-20cm either side. Screen centre at 100-110cm from the floor. 8 real units measured.",
+      "description": "A 65in TV is ~144cm wide, not 165cm — plus 5-20cm either side. Screen centre 100-110cm from the floor. 8 real units measured.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7941,7 +7926,7 @@
       "kind": "buyingGuide",
       "path": "/learn/wall-art-size-and-arrangement",
       "title": "Wall Art Size & Gallery Wall vs Single Piece Guide | Kaiku",
-      "description": "A gallery wall is sized as one shape at the same two-thirds proportion as a single canvas. When a statement piece beats a group, spacing that reads as one arrangement, and real examples.",
+      "description": "A gallery wall is sized as one shape, at the same two-thirds proportion as a single canvas. When a statement piece beats a group, and how to space it.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },
@@ -7949,7 +7934,7 @@
       "kind": "buyingGuide",
       "path": "/learn/warm-vs-cool-white-light-by-room",
       "title": "Warm White or Cool White? Kelvin Guide by Room | Kaiku",
-      "description": "Warm white (2700-3000K) for living rooms and bedrooms, neutral (3500-4000K) for kitchens and bathrooms, cool white (5000K+) for task spaces. The Kelvin scale explained by room.",
+      "description": "Warm white (2700-3000K) for living rooms and bedrooms, neutral (3500-4000K) for kitchens and bathrooms, cool white (5000K+) for task spaces.",
       "titleOverridden": true,
       "descriptionOverridden": true
     },

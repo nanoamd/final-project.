@@ -16,6 +16,95 @@ Status key:
 
 ---
 
+## Every page title and description brought inside Google's limits (12 September)
+
+Damien: _"make sure the entire site is optimized for seo... to the highest
+standard"_, with the clarification that the brand suffix stays.
+
+All of this writes `seo.metaTitle` / `seo.metaDescription`. **No product,
+category or guide is renamed, and "| Kaiku" survives everywhere**, both
+standing constraints.
+
+### Products — 118 truncated titles
+
+- [x] **`src/lib/catalog/meta-title.ts`** with 18 tests. Reductions apply in
+      order and stop the moment the title fits, so the mildest change that
+      works is the one that ships: whitespace and `- -` artifacts, trademark
+      symbols, dimension strings, "and" to "&", the words "Finish" and
+      "Collection", then a trailing "with …" clause dropped whole, then up to
+      two leading collection names, and only then truncation.
+- [x] **Three defects found by reading the real output rather than trusting
+      the tests**, each fixed before anything was written:
+  - Truncation produced fragments — "…Glass Jars with", "…One Drawer
+    Bedside" (losing "Table", the exact fault being fixed). Dropping the
+    trailing "with …" clause whole replaced it as the main tool, and
+    truncation fell from 30 cases to 4.
+  - `drop-leading` ate "Grand Water" and left "Feature -". A word directly
+    before a head noun is part of that noun phrase, so it now stops there.
+  - Cutting "Papier Mache Domed **Table Lamp**" to "…Domed Table" does not
+    shorten a product, it renames it into a different one. Compound head
+    nouns are never split.
+- [x] **"Effect" is deliberately never dropped** as filler: "Leather Effect"
+      means faux leather, and removing it would make the title a claim about
+      the material that is not true.
+- [x] **114 titles rewritten. 4 refused outright** — where every safe
+      reduction still lost the head noun, nothing is written and Google
+      truncates a correct title instead, which is the better failure.
+
+### The regression this caused, and the repair
+
+- [x] **Dropping the "with …" clause collapsed four Freska jars — 1100ml,
+      800ml, 550ml, 250ml — into one identical title.** The site had **zero**
+      duplicate titles before and three groups covering eight pages after.
+      Two pages sharing a title is worse than one Google truncates, because
+      Google folds them together and drops one. Caught by re-running the audit
+      rather than by assuming the work was done.
+- [x] **`scripts/repair-duplicate-meta-titles.ts`** retries each collision
+      keeping the clause, and accepts the retry **only if it still carries the
+      words that distinguish that product from its siblings**. The Freska jars
+      keep their volumes; the Goa hanging chair "With Grey Cushions" and the
+      "Dark Grey" fire pit would both have lost exactly what made them
+      different, so their overrides were removed and they revert to their own
+      complete titles. **Back to 0 duplicates.**
+
+### Categories, guides and duplicate descriptions
+
+- [x] **24 category titles rewritten by hand**, from 22–29 characters to
+      44–53. A category title is a positioning decision rather than a
+      derivation, and every qualifier is checked against what the category
+      actually holds — "Reclaimed Teak" appears only where there is reclaimed
+      teak. Mean category title 32 → 44.
+- [x] **A real bug found in passing: the Lighting category rendered "Lighting
+      Lighting | Kaiku"**, because it sits in a department of the same name.
+      That is the largest category on the site at 138 products.
+- [x] **Two category drafts patched alongside their published documents**, so
+      the new title does not silently revert the moment somebody publishes.
+- [x] **18 guide descriptions trimmed by hand** from 164–200 to 125–159, with
+      a check that **every figure in every original survives the rewrite** —
+      the concrete numbers are what make them worth clicking. One rewrite came
+      back at 162 and was caught by the script's own guard before writing.
+- [x] **The 2 duplicate description pairs fixed.** The Cassini mirrors differ
+      genuinely (white £44, black £49) so the descriptions differ by that.
+- [ ] **Mistora and Silvra canvases record nothing that differs** — same £74,
+      same wood frame, same 80 x 80 x 3cm, same 2.6kg, no colour tags, no
+      specs. Distinguished by name only, which is honest but thin: a
+      hand-painted canvas should be described by its picture, and that needs
+      somebody who can see it.
+
+### Where it landed
+
+|                             | before   | after                      |
+| --------------------------- | -------- | -------------------------- |
+| Product titles over 60      | 118      | 6                          |
+| Category titles under 30    | 24       | 0                          |
+| Guide descriptions over 160 | 18       | 0                          |
+| Duplicate titles            | 0        | 0 (via 3 groups, repaired) |
+| Duplicate descriptions      | 2 groups | 0                          |
+
+1099 tests, typecheck, lint and production build all green.
+
+---
+
 ## The journal had one post, and it was one paragraph (12 September)
 
 Damien: _"we still havent written any blogs"_.
@@ -2701,11 +2790,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
