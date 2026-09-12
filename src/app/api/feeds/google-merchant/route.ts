@@ -186,6 +186,30 @@ export async function GET() {
     ${product.sku ? `<g:sku>${escapeXml(product.sku)}</g:sku>` : ""}
     ${identifierExists(product) ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
     ${type ? `<g:product_type>${escapeXml(type)}</g:product_type>` : ""}
+    ${
+      // Colour and material are matched against attribute-filtered queries
+      // ("grey glazed vase", "oak console table"). Joined with "/" where a
+      // product has several, per Merchant Center's documented convention.
+      product.colourTags?.length
+        ? `<g:color>${escapeXml(product.colourTags.join("/"))}</g:color>`
+        : ""
+    }
+    ${
+      product.materialTags?.length
+        ? `<g:material>${escapeXml(product.materialTags.join("/"))}</g:material>`
+        : ""
+    }
+    ${
+      // Up to 10 extra photos, which is Merchant Center's cap.
+      (product.extraImages ?? [])
+        .filter(Boolean)
+        .slice(0, 10)
+        .map(
+          (url) =>
+            `<g:additional_image_link>${escapeXml(url)}</g:additional_image_link>`,
+        )
+        .join("\n    ")
+    }
     ${handling ? `<g:min_handling_time>${handling.min}</g:min_handling_time>` : ""}
     ${handling ? `<g:max_handling_time>${handling.max}</g:max_handling_time>` : ""}
   </item>`;

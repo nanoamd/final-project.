@@ -42,6 +42,7 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           name: product.name,
           description: product.summary,
           image: product.image ?? product.gallery?.[0]?.url,
+          images: product.gallery?.map((photo) => photo.url) ?? [],
           sku: product.sku,
           gtin: product.gtin,
           mpn: product.mpn,
@@ -52,6 +53,11 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           url: productUrl,
           rating: product.rating,
           reviewCount: product.reviewCount,
+          colours: product.colourTags,
+          materials: product.materialTags,
+          width: product.dimensions?.width,
+          height: product.dimensions?.height,
+          dimensionUnit: product.dimensions?.unit,
         }}
       />
       <div className="mx-auto max-w-[1280px] px-6 pt-8 sm:px-8 lg:px-12">

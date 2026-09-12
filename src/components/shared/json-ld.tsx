@@ -163,6 +163,8 @@ export interface ProductJsonLdInput {
   name: string;
   description: string;
   image?: string | null;
+  /** Every gallery photo. Google reads multiple images and recommends them. */
+  images?: string[];
   sku?: string;
   gtin?: string;
   mpn?: string;
@@ -174,6 +176,43 @@ export interface ProductJsonLdInput {
   url: string;
   rating?: number;
   reviewCount?: number;
+  /** From `colourTags` — one of the attributes Google matches queries against. */
+  colours?: string[];
+  /** From `materialTags`, same reason. */
+  materials?: string[];
+  width?: number;
+  height?: number;
+  dimensionUnit?: string;
+}
+
+/**
+ * schema.org expects a UN/CEFACT unit code, not "cm". Anything unrecognised
+ * returns null and the measurement is omitted rather than sent with a unit
+ * Google cannot read.
+ */
+function unitCodeFor(unit: string | undefined): string | null {
+  switch (unit?.trim().toLowerCase()) {
+    case "cm":
+    case "cms":
+    case "centimetre":
+    case "centimeter":
+      return "CMT";
+    case "mm":
+      return "MMT";
+    case "m":
+      return "MTR";
+    case "in":
+    case "inch":
+    case "inches":
+      return "INH";
+    default:
+      return null;
+  }
+}
+
+function quantitative(value: number | undefined, unitCode: string | null) {
+  if (typeof value !== "number" || !unitCode) return undefined;
+  return { "@type": "QuantitativeValue", value, unitCode };
 }
 
 /** Product schema for a single product detail page. */
@@ -182,24 +221,50 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
     ? product.url
     : `${siteConfig.url}${product.url}`;
 
+  /**
+   * Every distinct gallery photo, not just the hero. Google reads `image` as a
+   * list and recommends supplying more than one; 808 of 907 products have a
+   * second photo that was being withheld from it.
+   */
+  const images = [
+    ...new Set([product.image, ...(product.images ?? [])].filter(Boolean)),
+  ] as string[];
+
+  const unitCode = unitCodeFor(product.dimensionUnit);
+  const width = quantitative(product.width, unitCode);
+  const height = quantitative(product.height, unitCode);
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
-    ...(product.image ? { image: [product.image] } : {}),
+    ...(images.length ? { image: images } : {}),
     ...(product.sku ? { sku: product.sku } : {}),
     ...(product.gtin ? { gtin: product.gtin } : {}),
     ...(product.mpn ? { mpn: product.mpn } : {}),
     ...(product.brandName
       ? { brand: { "@type": "Brand", name: product.brandName } }
       : {}),
+    // Colour and material are two of the attributes Google matches a query
+    // against — "grey glazed vase", "oak console table" — and they were being
+    // left for it to infer from prose. Joined with "/" where a product has
+    // several, which is the convention Merchant Center documents.
+    ...(product.colours?.length ? { color: product.colours.join("/") } : {}),
+    ...(product.materials?.length
+      ? { material: product.materials.join("/") }
+      : {}),
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
     offers: {
       "@type": "Offer",
       url,
       priceCurrency: product.currency,
       price: product.price,
       availability: schemaOrgAvailability(product.stockStatus),
+      // The feed has always sent condition; the page never did, leaving Google
+      // to assume it on the one path it actually reads.
+      itemCondition: "https://schema.org/NewCondition",
       shippingDetails: SHIPPING_DETAILS,
       hasMerchantReturnPolicy: RETURN_POLICY,
     },

@@ -16,6 +16,61 @@ Status key:
 
 ---
 
+## Why Google barely shows us: the pages carry almost no matchable attributes (12 September)
+
+Damien, with the Merchant Center Pricing report: _"its like everyday i get some
+clicks... ive never broke 5 clicks and i dont understand why. do i literally
+just leave it and it will eventually compound"_, then _"i dont care where im
+leaving money on the table i just want to be shown and i dont understand how"_.
+
+**No, it does not compound.** Free listings are not an authority-accumulating
+system like organic content. Volume is roughly _(approved products) ×
+(how well each matches a query)_, and neither moves on its own. Left alone this
+stays flat, which is exactly what the flat click count is showing.
+
+The second factor is the one nobody had looked at, and it is poor.
+
+- [x] **Google was being sent almost nothing to match a query against.** On the
+      structured-data path — the live one — each product supplied a title, a
+      description, **one** image, a price, a brand and a GTIN. It did not
+      supply colour, material, dimensions, condition, or any of the other
+      photos. So for "grey glazed vase" or "oak console table", Google had to
+      infer every attribute from prose.
+- [x] **The data existed in Sanity the whole time**: 258 products have
+      `colourTags`, 292 have `materialTags`, 896 have dimensions, and **808
+      have a second photograph that was never being sent**.
+- [x] **Product JSON-LD now carries** `color`, `material`, `width`, `height`,
+      every gallery image rather than the hero alone, and `itemCondition`. That
+      last one is worth naming separately: the feed has always sent
+      `<g:condition>new</g:condition>` while the page sent nothing, so on the
+      only path Google actually reads, it was left to assume.
+- [x] **Same attributes added to the feed** — `g:color`, `g:material` and up to
+      ten `g:additional_image_link` entries — so the two paths do not disagree
+      the moment the feed is switched on.
+- [x] Dimensions convert to schema.org's UN/CEFACT unit codes (`cm` → `CMT`),
+      and a unit that does not map is omitted rather than sent in a form Google
+      cannot read. `length` is deliberately not mapped to `depth`: for
+      furniture it almost certainly is, but "almost certainly" is not good
+      enough for data going to Google. 1062 tests, typecheck, lint, build green.
+- [ ] **Still missing, and the next real lever: `google_product_category`.**
+      Neither path sends it, so Google is auto-classifying all 907 products and
+      may be entering some of them in the wrong auctions entirely. Mapping 33
+      categories onto Google's taxonomy is a contained job, and it needs doing
+      by hand rather than guessed.
+- [x] **A finding that reframes the price question.** The Pricing report shows
+      54% of benchmarked products priced above Google's benchmark — but the
+      Black Wood Arched Window Mirror sits at £108 against a £154 benchmark,
+      **30% below market, with zero clicks**, while the Contour Console at 5%
+      _above_ benchmark took one. Being cheaper is not buying impressions.
+      Price is not the binding constraint on those products; being matched at
+      all is.
+- [ ] **And the impressions that do land are on the wrong products.** The six
+      most-clicked in the report are vases, cluster lights, a floor lamp and a
+      mirror — the sub-£110 decor that keeps £5–£15 a sale. One sauna sale is
+      worth roughly a hundred of them.
+
+---
+
 ## 127 product pages were telling Google nothing about availability (12 September)
 
 Damien: _"my products are already on google shopping"_.
@@ -2412,11 +2467,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

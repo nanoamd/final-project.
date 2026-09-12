@@ -708,6 +708,11 @@ export interface MerchantFeedProduct {
   gtin: string | null;
   mpn: string | null;
   sku: string | null;
+  /** Attributes Google matches queries against, rather than inferring from prose. */
+  colourTags: string[] | null;
+  materialTags: string[] | null;
+  /** Gallery photos after the hero, for `additional_image_link`. */
+  extraImages: string[] | null;
   /** Null on the 127 importer-created products that never got one set. */
   stockStatus: string | null;
   /** Same string the product page renders; parsed into handling days. */
@@ -738,6 +743,9 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   sku,
   stockStatus,
   deliveryLeadTime,
+  colourTags,
+  materialTags,
+  "extraImages": gallery[1...11].asset->url,
   "supplierName": supplier->name
 }`;
 
