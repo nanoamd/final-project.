@@ -65,10 +65,15 @@ export function availabilityLine(product: SanityProduct): string {
 }
 
 /**
- * The same availability, in Google's four-value enum, for the Merchant Center
- * feed. Deliberately next to `availabilityLine`: these two answer the same
- * question to two different audiences, and a feed that contradicts the page it
- * links to is the misrepresentation Merchant Center suspends accounts for.
+ * The one availability decision, which `googleAvailability` and
+ * `schemaOrgAvailability` below then render into their own vocabularies.
+ *
+ * Deliberately next to `availabilityLine`: all of these answer the same
+ * question to different audiences — a customer, a feed, a crawler — and a feed
+ * or a page that contradicts the other is the misrepresentation Merchant
+ * Center suspends accounts for. Keeping the decision in one place is what
+ * stops them drifting; `delivery.test.ts` asserts the two machine-readable
+ * ones agree on every input.
  *
  * The three cases that are not a straight lookup, and why:
  *
