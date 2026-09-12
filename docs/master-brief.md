@@ -16,6 +16,46 @@ Status key:
 
 ---
 
+## The catalogue is not rotten — only 13 products are unfixable by pricing (12 September)
+
+Damien: _"why cant we just alter the prices to make every single product worth
+it"_, then _"yes and make sure the price of them makes them as likely as
+possible to sell"_.
+
+`scripts/audit-structurally-unviable.ts` (read-only) separates two questions
+that need opposite answers: which products cannot be rescued by any plausible
+price, and which are priced higher than they need to be and so are less likely
+to sell than they could be.
+
+- [x] **Only 13 products are DOOMED** — needing more than a 25% uplift to clear
+      a 30% net margin, or keeping under £5. Of those, **5 are killed by
+      carriage specifically** (carriage ≥25% of item cost — the "£20 item,
+      £6.99 dropship carriage" shape the 2 September note predicted). By
+      supplier the unviable share is AW Dropship 2/56, Hill 3/140, Premier
+      8/546, and **zero** from Aosom, D.I. Designs and SaunaPlunge.
+- [x] **This corrects an impression the 22%-promotable figure gave.** "Below
+      the bar" meant not worth spending acquisition money on — it did not mean
+      broken. Most of the 703 make a real but modest margin and are perfectly
+      fine as products to own; they simply cannot fund an advert. The delist
+      conversation is 13 products, not 700.
+- [x] **66 products are OVERPRICED** — margin at or above 45%, so the price
+      could come down, still clear 30%, and sell more readily. 15 of those have
+      carriage recorded and are therefore safe to act on; the headline example
+      is the Pershore Aged Oak Coffee Table at £720 against a £430.95 floor.
+- [!] **The "0 bleeding" result must not be read as reassurance, and the script
+  says so.** It treats unrecorded carriage as £0, which is the optimistic
+  assumption, and 639 products have no `shippingCost`. So it means "nothing
+  loses money if carriage is free", which it is not. For roughly a third of
+  the catalogue the true position is genuinely unknown, and that is the
+  concrete cost of the supplier carriage and VAT rules not being written
+  down — not homework for its own sake.
+- [-] **No prices changed.** Repricing on cost data known to be incomplete is
+  how a product ends up priced below cost. The 15 reducible products with
+  known carriage are safe and ready whenever Damien wants them applied; the
+  rest wait for the supplier rules.
+
+---
+
 ## The constraint is margin, not traffic — 83% of the catalogue cannot fund a customer (12 September)
 
 Damien, honestly: _"ive somewhat given up but i dont want too... we have too much
@@ -2321,11 +2361,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
