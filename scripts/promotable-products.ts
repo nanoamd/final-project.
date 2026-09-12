@@ -39,18 +39,39 @@ const CARD_RATE = 0.015;
 const CARD_FIXED = 0.2;
 
 /**
- * The bar. Both must pass.
+ * The bar. A product passes on either of two routes.
  *
- * 35% net leaves room for a marketplace's ~12% and still returns a real
- * profit; 30% does on a good day and is the softer second tier below.
- * £25 cash is the point at which a single return stops erasing several
- * sales — deliberately above margin-report's £15 "not worth listing" floor,
- * because surviving a listing and funding an advert are different bars.
+ * **Percentage and cash together**, which is the ordinary case: 35% net leaves
+ * room for a marketplace's ~12% and still returns a real profit; 30% does on a
+ * good day. £25 cash is the point at which a single return stops erasing
+ * several sales — deliberately above margin-report's £15 "not worth listing"
+ * floor, because surviving a listing and funding an advert are different bars.
+ *
+ * **Or cash alone, on a high-ticket item.** The first version of this script
+ * required both tests on every product and got the top of the range wrong:
+ * SaunaPlunge's cabins returned 0 promotable products at a 19% mean margin,
+ * when 19% of a £6,000 sauna is over a thousand pounds kept. A product keeping
+ * £790 funds a £200 acquisition several times over, and whether that is 19% or
+ * 40% of the ticket does not change it. Percentage matters because it is the
+ * buffer against a return or a costing error; on a large enough cash margin
+ * that buffer is there in absolute terms regardless. So the high-ticket route
+ * keeps a floor under the percentage — below ~15% a single return really does
+ * wipe out the sale — and otherwise lets the cash speak.
  */
 const STRONG_MARGIN = 0.35;
 const STRONG_CASH = 25;
 const VIABLE_MARGIN = 0.3;
 const VIABLE_CASH = 20;
+const HIGH_TICKET_CASH = 250;
+const HIGH_TICKET_MARGIN_FLOOR = 0.15;
+
+function tierOf(margin: number, keep: number): "strong" | "viable" | null {
+  if (keep >= HIGH_TICKET_CASH && margin >= HIGH_TICKET_MARGIN_FLOOR)
+    return "strong";
+  if (margin >= STRONG_MARGIN && keep >= STRONG_CASH) return "strong";
+  if (margin >= VIABLE_MARGIN && keep >= VIABLE_CASH) return "viable";
+  return null;
+}
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (!token) {
@@ -114,22 +135,19 @@ async function main() {
     })
     .sort((a, b) => b.keep - a.keep);
 
-  const strong = analysed.filter(
-    (p) => p.margin >= STRONG_MARGIN && p.keep >= STRONG_CASH,
-  );
-  const viable = analysed.filter(
-    (p) =>
-      !(p.margin >= STRONG_MARGIN && p.keep >= STRONG_CASH) &&
-      p.margin >= VIABLE_MARGIN &&
-      p.keep >= VIABLE_CASH,
+  const strong = analysed.filter((p) => tierOf(p.margin, p.keep) === "strong");
+  const viable = analysed.filter((p) => tierOf(p.margin, p.keep) === "viable");
+  const highTicket = strong.filter(
+    (p) => p.keep >= HIGH_TICKET_CASH && p.margin < STRONG_MARGIN,
   );
 
   const pct = (n: number) => `${Math.round((n / analysed.length) * 100)}%`;
 
   console.log(`\n${analysed.length} published products with a cost price.\n`);
   console.log(
-    `STRONG  (>=${Math.round(STRONG_MARGIN * 100)}% and >=£${STRONG_CASH})   ${strong.length}  (${pct(strong.length)})`,
+    `STRONG  (>=${Math.round(STRONG_MARGIN * 100)}% and >=£${STRONG_CASH}, or >=£${HIGH_TICKET_CASH} cash)   ${strong.length}  (${pct(strong.length)})`,
   );
+  console.log(`   of which high-ticket on cash alone:  ${highTicket.length}`);
   console.log(
     `VIABLE  (>=${Math.round(VIABLE_MARGIN * 100)}% and >=£${VIABLE_CASH})   ${viable.length}  (${pct(viable.length)})`,
   );

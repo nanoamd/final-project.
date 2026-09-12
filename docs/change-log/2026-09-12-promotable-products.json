@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T16:39:25.535Z",
+  "generatedAt": "2026-09-12T16:46:21.575Z",
   "thresholds": {
     "STRONG_MARGIN": 0.35,
     "STRONG_CASH": 25,
@@ -8,11 +8,111 @@
   },
   "counts": {
     "analysed": 907,
-    "strong": 91,
+    "strong": 137,
     "viable": 67,
-    "below": 749
+    "below": 703
   },
   "strong": [
+    {
+      "title": "SaunaPlunge™ Pennine Barrel 6-Person Outdoor Sauna",
+      "slug": "saunaplunge-pennine-barrel-6-person-outdoor-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Outdoor Saunas",
+      "price": 6500,
+      "keep": 1202.3,
+      "margin": 0.18496923076923077,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Bronte 6-Person Outdoor Cabin Sauna",
+      "slug": "saunaplunge-bronte-6-person-outdoor-cabin-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Outdoor Saunas",
+      "price": 5400,
+      "keep": 998.8,
+      "margin": 0.18496296296296297,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Peak Plunge Ice Bath with Chiller",
+      "slug": "saunaplunge-peak-plunge-ice-bath-with-chiller",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Cold Plunges",
+      "price": 4725,
+      "keep": 873.925,
+      "margin": 0.18495767195767196,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Lyon Washed Grey Oak Wood Large Bookcase With Ladder",
+      "slug": "lyon-washed-grey-oak-wood-large-bookcase-with-ladder",
+      "supplier": "Premier Housewares",
+      "category": "Shelving",
+      "price": 4489,
+      "keep": 836.945,
+      "margin": 0.18644352862552907,
+      "carriageUnknown": true
+    },
+    {
+      "title": "SaunaPlunge™ Yorkshire Cabin 4-Person Outdoor Infrared Sauna",
+      "slug": "saunaplunge-yorkshire-cabin-4-person-outdoor-infrared-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Outdoor Saunas",
+      "price": 4388,
+      "keep": 811.98,
+      "margin": 0.18504557885141296,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Dales Glow 4-Person Indoor Infrared Sauna",
+      "slug": "saunaplunge-dales-glow-4-person-indoor-infrared-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Indoor Saunas",
+      "price": 3938,
+      "keep": 728.73,
+      "margin": 0.18505078720162518,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Yorkshire Cabin 2-Person Outdoor Infrared Sauna",
+      "slug": "saunaplunge-yorkshire-cabin-2-person-outdoor-infrared-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Outdoor Saunas",
+      "price": 3263,
+      "keep": 603.855,
+      "margin": 0.18506129328838491,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Bronte 2-Person Outdoor Cabin Sauna",
+      "slug": "saunaplunge-bronte-2-person-outdoor-cabin-sauna",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Outdoor Saunas",
+      "price": 3263,
+      "keep": 603.855,
+      "margin": 0.18506129328838491,
+      "carriageUnknown": false
+    },
+    {
+      "title": "SaunaPlunge™ Dales Glow 2 Person Indoor Infrared Sauna",
+      "slug": "saunaplunge-tm-dales-glow-2-person-indoor-infrared-sauna-or-kaiku",
+      "supplier": "SaunaPlunge (Outdoor Living 365 Ltd)",
+      "category": "Indoor Saunas",
+      "price": 2813,
+      "keep": 520.605,
+      "margin": 0.18507109847138287,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Saronno Grey Marble Dining Table",
+      "slug": "saronno-grey-marble-dining-table",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 2459,
+      "keep": 455.455,
+      "margin": 0.18521960146400976,
+      "carriageUnknown": true
+    },
     {
       "title": "Pershore Rectangular Aged Oak Coffee Table",
       "slug": "pershore-rectangular-aged-oak-coffee-table",
@@ -22,6 +122,96 @@
       "keep": 414,
       "margin": 0.575,
       "carriageUnknown": false
+    },
+    {
+      "title": "Torello Mango Wood Oval Dining Table",
+      "slug": "torello-mango-wood-oval-dining-table",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 1589,
+      "keep": 410.63500000000005,
+      "margin": 0.2584235368156073,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Provence Collection Outdoor 4 Seater Lounge Set",
+      "slug": "provence-collection-outdoor-4-seater-lounge-set",
+      "supplier": "Hill Interiors",
+      "category": "Garden Furniture",
+      "price": 1866,
+      "keep": 385.82,
+      "margin": 0.2067631296891747,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Troyes Cream Three Seat Right Chaise Sofa",
+      "slug": "troyes-cream-three-seat-right-chaise-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 2078,
+      "keep": 384.4899999999999,
+      "margin": 0.18502887391722805,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Troyes Cream Three Seat Left Chaise Sofa",
+      "slug": "troyes-cream-three-seat-left-chaise-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 2078,
+      "keep": 384.4899999999999,
+      "margin": 0.18502887391722805,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Troyes Grey Three Seat Right Chaise Sofa",
+      "slug": "troyes-grey-three-seat-right-chaise-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 2078,
+      "keep": 384.4899999999999,
+      "margin": 0.18502887391722805,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Troyes Grey Three Seat Left Chaise Sofa",
+      "slug": "troyes-grey-three-seat-left-chaise-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 2078,
+      "keep": 384.4899999999999,
+      "margin": 0.18502887391722805,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Avignon 3 Seat Textured Fabric Cream Sofa",
+      "slug": "avignon-3-seat-textured-fabric-cream-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 1387,
+      "keep": 378.765,
+      "margin": 0.2730821917808219,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Ordona Cream Linen 3 Seater Curved Sofa",
+      "slug": "ordona-cream-linen-3-seater-curved-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 1899,
+      "keep": 373.035,
+      "margin": 0.19643759873617694,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Ulmus Black Elm Wood Sideboard",
+      "slug": "ulmus-black-elm-wood-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1982,
+      "keep": 366.61999999999995,
+      "margin": 0.18497477295660947,
+      "carriageUnknown": true
     },
     {
       "title": "Tamarind & Resin Coffee Table – Aqua",
@@ -44,6 +234,166 @@
       "carriageUnknown": false
     },
     {
+      "title": "Anglet Cream Textured Fabric Large 3 Seater Sofa",
+      "slug": "anglet-cream-textured-fabric-large-3-seater-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 1839,
+      "keep": 340.80499999999995,
+      "margin": 0.18532082653616094,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Kerala Natural Recycled Wood Sideboard",
+      "slug": "kerala-natural-recycled-wood-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1817,
+      "keep": 336.2050000000001,
+      "margin": 0.18503302146395162,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Milan Grey Wash Recycled Elm Wood 4 Door Sideboard",
+      "slug": "milan-grey-wash-recycled-elm-wood-4-door-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1722,
+      "keep": 318.80999999999995,
+      "margin": 0.1851393728222996,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Midas Recycled Elm Wood 4 Door Sideboard",
+      "slug": "midas-recycled-elm-wood-4-door-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1716,
+      "keep": 317.99000000000007,
+      "margin": 0.18530885780885784,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Ralph Three Seat Mink Velvet Right Chaise Sofa",
+      "slug": "ralph-three-seat-mink-velvet-right-chaise-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 1699,
+      "keep": 314.315,
+      "margin": 0.185,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Bloom Collection Outdoor Sofa",
+      "slug": "bloom-collection-outdoor-sofa",
+      "supplier": "Hill Interiors",
+      "category": "Garden Furniture",
+      "price": 1531,
+      "keep": 306.6449999999999,
+      "margin": 0.20029065969954274,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Kerala Natural Recycled Wood Dining Table With Cross Base",
+      "slug": "kerala-natural-recycled-wood-dining-table-with-cross-base",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 1649,
+      "keep": 304.9249999999999,
+      "margin": 0.18491510006064274,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Provence Collection Outdoor 4 Seater Dining Set",
+      "slug": "provence-collection-outdoor-4-seater-dining-set",
+      "supplier": "Hill Interiors",
+      "category": "Garden Furniture",
+      "price": 1511,
+      "keep": 302.5450000000001,
+      "margin": 0.2002283256121774,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Babylon Large Black 12 Light Pendant Light",
+      "slug": "babylon-large-black-12-light-pendant-light",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 1549,
+      "keep": 300.6649999999999,
+      "margin": 0.19410264686894765,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Kerala Recycled Natural Wood Dining Table with Curved Legs",
+      "slug": "kerala-recycled-natural-wood-dining-table-with-curved-legs",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 1649,
+      "keep": 294.9450000000001,
+      "margin": 0.17886294724075202,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Saronno Grey Marble Top Media Unit",
+      "slug": "saronno-grey-marble-top-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 1591,
+      "keep": 294.5850000000001,
+      "margin": 0.18515713387806418,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Torello Grey Mango Wood Oval Dining Table",
+      "slug": "torello-grey-mango-wood-oval-dining-table",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 1473,
+      "keep": 291.455,
+      "margin": 0.19786490156143924,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Luxor Grey Wash Recycled Pine Wood 4 Door Sideboard",
+      "slug": "luxor-grey-wash-recycled-pine-wood-4-door-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1568,
+      "keep": 290.28,
+      "margin": 0.18512755102040815,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Broadway Oak Chest of Drawers",
+      "slug": "broadway-oak-chest-of-drawers",
+      "supplier": "D.I. Designs",
+      "category": "Storage",
+      "price": 1150,
+      "keep": 286.55,
+      "margin": 0.24917391304347827,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Kensington Townhouse Grey Wash and Antique Black Sideboard",
+      "slug": "kensington-townhouse-grey-wash-and-antique-black-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1545,
+      "keep": 285.9749999999999,
+      "margin": 0.18509708737864072,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Spezia Grey Marble Top Media Unit",
+      "slug": "spezia-grey-marble-top-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 1535,
+      "keep": 284.1550000000001,
+      "margin": 0.18511726384364827,
+      "carriageUnknown": true
+    },
+    {
       "title": "4ft6 Double Ottoman Bed with Front Drawer, Cream",
       "slug": "4ft6-double-ottoman-bed-frame-with-front-drawer-cream",
       "supplier": "Aosom",
@@ -51,6 +401,116 @@
       "price": 399,
       "keep": 282.955,
       "margin": 0.7091604010025062,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Parkside Grey Fabric Super Kingsize Bed",
+      "slug": "parkside-grey-fabric-super-kingsize-bed",
+      "supplier": "Premier Housewares",
+      "category": "Beds",
+      "price": 1270,
+      "keep": 282.53,
+      "margin": 0.22246456692913383,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Siena Black and Natural Oak Wood Three Door Sideboard",
+      "slug": "siena-black-and-natural-oak-wood-three-door-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1521,
+      "keep": 281.18500000000006,
+      "margin": 0.1848685075608153,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Salem 4 Door Mango Wood Sideboard",
+      "slug": "salem-4-door-mango-wood-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1515,
+      "keep": 280.1849999999999,
+      "margin": 0.18494059405940586,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Saira Carved Mango Wood 4 Door Sideboard",
+      "slug": "saira-carved-mango-wood-4-door-sideboard",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1396,
+      "keep": 278.7600000000001,
+      "margin": 0.19968481375358174,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Lyon Rattan and Oak Wood 2 Door Wardrobe",
+      "slug": "lyon-rattan-and-oak-wood-2-door-wardrobe",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1495,
+      "keep": 276.58500000000004,
+      "margin": 0.18500668896321074,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Deskey Grey Shagreen Effect Media Unit",
+      "slug": "deskey-grey-shagreen-effect-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 1441,
+      "keep": 266.695,
+      "margin": 0.1850763358778626,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Surina 3 Seat Stone Fabric Sofa",
+      "slug": "surina-3-seat-stone-fabric-sofa",
+      "supplier": "Premier Housewares",
+      "category": "Sofas",
+      "price": 1403,
+      "keep": 259.71500000000003,
+      "margin": 0.18511404133998577,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Kyra Grey Wash Elm Wood Wardrobe",
+      "slug": "kyra-grey-wash-elm-wood-wardrobe",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 1402,
+      "keep": 259.48,
+      "margin": 0.1850784593437946,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Lyon Whitewash Dining Table",
+      "slug": "lyon-whitewash-dining-table",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 1397,
+      "keep": 258.9649999999999,
+      "margin": 0.1853722261989978,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Charlton Ribbed Walnut Desk",
+      "slug": "charlton-ribbed-walnut-desk",
+      "supplier": "D.I. Designs",
+      "category": "Desks",
+      "price": 980,
+      "keep": 257.1,
+      "margin": 0.26234693877551024,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Babel Travertine and Mango Wood Curved Media Unit",
+      "slug": "babel-travertine-and-mango-wood-curved-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 898,
+      "keep": 255.96,
+      "margin": 0.2850334075723831,
       "carriageUnknown": true
     },
     {

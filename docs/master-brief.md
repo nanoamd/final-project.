@@ -35,16 +35,41 @@ question matters.
       paid and marketplace channel takes a roughly fixed cut off the top
       (marketplace fees 10–15%; a new unknown brand in UK home and garden costs
       perhaps £50–£200 in clicks to buy one order), while the margin varies
-      hugely. Both a percentage and a cash test have to pass, because each
-      catches a different failure: percentage alone passes a £9 candle holder
-      at 60% keeping £5, cash alone passes an £800 table at 8% keeping £64 that
-      one redelivery erases.
-- [x] **Result: 91 STRONG (≥35% and ≥£25), 67 VIABLE (≥30% and ≥£20), and 749
-      below the bar. 158 of 907 — 17%.** Concentrated in Aosom (61) and AW
-      Dropship (28, the best mean at £92 kept), with Premier Housewares
-      contributing 63 of its 546. By category the strength is Fire Pits &
-      Heating (18), Lighting (18), The Reclaimed Collection (14), Desks (13)
-      and Water Features (12).
+      hugely. In the ordinary case a percentage and a cash test both have to
+      pass, because each catches a different failure: percentage alone passes a
+      £9 candle holder at 60% keeping £5, cash alone passes an £800 table at 8%
+      keeping £64 that one redelivery erases.
+- [x] **The first version got the top of the range wrong, and the error is
+      worth recording.** Requiring both tests on every product returned **zero
+      promotable saunas**, because SaunaPlunge runs a 19% mean margin, below
+      the 30% floor. But 19% of a £6,000 sauna is over a thousand pounds kept,
+      and a product keeping £793 funds a £200 acquisition several times over
+      whether that is 19% of the ticket or 40%. Percentage matters as the
+      buffer against a return or a costing error; past a large enough cash
+      margin that buffer exists in absolute terms regardless. Added a
+      high-ticket route — **≥£250 kept, with a 15% floor so a genuinely bad
+      deal still fails** — and both scripts share it.
+- [x] **Corrected result: 137 STRONG (46 qualifying on cash alone), 67 VIABLE,
+      703 below. 204 of 907 — 22%.** By mean cash kept per sale:
+      **SaunaPlunge £793** (7 of 13 saunas, plus the one cold plunge),
+      D.I. Designs £319, Hill Interiors £187, Premier Housewares £157 across 96
+      products, AW Dropship £92, Aosom £66.
+- [x] **`scripts/category-strength.ts`** — where those products sit, and
+      whether there is enough depth to read as a specialist rather than a
+      general store that happens to stock the thing. Purest: **Fire Pits &
+      Heating 18/21 (86%)**, Desks 14/19 (74%), The Reclaimed Collection 14/20
+      (70%), Beds 10/17 (59%), Garden Lighting 6/11 (55%), Privacy Screens 5/10
+      (50%). Biggest cash per round: Storage £3,922, Sofas £3,205, Kitchen
+      Furniture £2,691, Reclaimed £1,993. By department **Outdoor Living leads
+      on 63 promotable, and Sauna is 54% pure at the highest cash per sale in
+      the catalogue.**
+- [x] **So the wellness content already built is aimed at the right thing.**
+      The sauna size calculator, the cold plunge guides and the
+      contrast-therapy tool serve the category returning more cash per sale
+      than anything else Kaiku sells. That work was not a detour.
+- [ ] **Three categories are close to dead weight: Vases 0/23, Side Tables
+      1/25, Coffee Tables 1/21** — 69 products carrying almost nothing
+      promotable. Decor overall is 10/152 (7%).
 - [x] **This explains the ads instinct, and corrects the reason.** Damien's
       hesitation about ads was right; the stated reason — not enough domain
       authority — is not the mechanism. Paid search does not care about domain
@@ -2296,11 +2321,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
