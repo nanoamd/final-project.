@@ -16,6 +16,56 @@ Status key:
 
 ---
 
+## The journal had one post, and it was one paragraph (12 September)
+
+Damien: _"we still havent written any blogs"_.
+
+Correct, and the SEO audit had just put a number on it without either of us
+noticing: **35 buying guides against 1 journal post** — and that post,
+`post-sauna-ritual`, had been live since July carrying a title, an excerpt and
+a single sentence of body. A published page with no article on it is worse
+than no page at all.
+
+- [x] **Three posts written and applied**, all naming real products with
+      figures read from the catalogue rather than invented:
+  - **Fire pit safety: clearance, surfaces, and what not to burn** —
+    ~848 words, 5 sections. Fire Pits & Heating is the purest promotable
+    category at 86%, and none of the 35 guides covers using the thing safely
+    once it is in the garden.
+  - **Getting another two months out of the garden** — ~786 words. Seasonal,
+    written in mid-September, spanning garden lighting, heating and screening.
+    Outdoor Living leads the catalogue on 63 promotable products.
+  - **Building a weekly sauna ritual that actually sticks** — the July stub,
+    finished to ~547 words around its own original opening paragraph, which
+    was kept verbatim. Saunas return more cash per sale than anything else
+    Kaiku sells.
+- [x] **Written not to overlap the guides.** The 35 guides own the purchase
+      decision — "what size", "which material", "will it fit". These own the
+      two gaps: how to use it safely once bought, and the seasonal question.
+- [x] **Every figure checked against the catalogue**: the 50,000 BTU tables
+      really are 81cm square and the 40,000 BTU models 71cm; the smokeless
+      wood burner is 48.5cm across and 38.5cm high; the post lights run 1.2m
+      to 1.8m; the screens are 198cm by 122cm. Safety clearances are stated as
+      what manufacturers specify, not as regulation, because that is what they
+      are.
+- [x] **One claim corrected before publishing.** A draft line said daylight in
+      October is "roughly half" of June's. It is about two thirds. Rewritten to
+      describe what actually matters for a solar panel — that the energy
+      reaching it falls by much more than the daylight hours do, because the
+      sun is lower and the cloud thicker.
+- [x] **18 products linked** — six per post, resolved from category slugs at
+      write time rather than hard-coded, so a retired product cannot leave a
+      post pointing at nothing.
+- [x] **Held to the audit's own standard.** The first pass produced 2 meta
+      titles over 60 characters and 1 description over 160 — flagged by
+      `audit-seo-metadata.ts`, written an hour earlier. Shortened and
+      re-applied: now 0 and 0.
+- [ ] **The cadence is the part that matters and has not started.** The
+      traffic plan asks for two pieces a week. This is three in one day, which
+      is not the same thing.
+
+---
+
 ## Shopping titles use a third of the space Google allows (12 September)
 
 Damien: _"make sure the entire site is optimized for seo... if it means more
@@ -2651,11 +2701,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

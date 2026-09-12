@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-12T18:19:37.026Z",
+  "generatedAt": "2026-09-12T18:46:32.314Z",
   "thresholds": {
     "TITLE_MAX": 60,
     "TITLE_MIN": 30,
     "DESC_MAX": 160,
     "DESC_MIN": 70
   },
-  "total": 992,
+  "total": 994,
   "duplicateTitles": [],
   "duplicateDescriptions": [
     [
@@ -7955,9 +7955,25 @@
     },
     {
       "kind": "post",
+      "path": "/journal/extending-the-garden-season",
+      "title": "Using Your Garden Into Autumn: Light, Heat & Shelter | Kaiku",
+      "description": "Gardens close in September because of the light, not the cold. What actually extends the season — light, heat and screening — plus the solar caveat.",
+      "titleOverridden": true,
+      "descriptionOverridden": true
+    },
+    {
+      "kind": "post",
+      "path": "/journal/fire-pit-safety",
+      "title": "Fire Pit Safety: Clearance, Surfaces & Fuel | Kaiku",
+      "description": "How far a fire pit needs to be from the house, what to stand it on, what never to burn, and how to put it out. Gas, wood and electric compared.",
+      "titleOverridden": true,
+      "descriptionOverridden": true
+    },
+    {
+      "kind": "post",
       "path": "/journal/building-a-sauna-ritual",
-      "title": "Building a Weekly Sauna Ritual That Sticks | Kaiku",
-      "description": "How often to use a sauna, how long a session should run, and the practical changes that turn an expensive cabin into a weekly habit.",
+      "title": "Building a Weekly Sauna Ritual That Actually Sticks | Kaiku",
+      "description": "Why home saunas fall out of use, and the practical habits that prevent it: fixed times, realistic sessions, heat-up planning and what to do between rounds.",
       "titleOverridden": true,
       "descriptionOverridden": true
     }
