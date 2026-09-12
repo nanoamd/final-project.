@@ -1,4 +1,5 @@
 import { companyDetails, siteConfig } from "@/config/site";
+import { schemaOrgAvailability } from "@/lib/catalog/delivery";
 import type { StockStatus } from "@/types/sanity-content";
 
 /**
@@ -103,17 +104,6 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
   );
 }
 
-const AVAILABILITY_BY_STOCK_STATUS: Record<StockStatus, string> = {
-  "In Stock": "https://schema.org/InStock",
-  "Out of Stock": "https://schema.org/OutOfStock",
-  Backorder: "https://schema.org/BackOrder",
-  "Made to Order": "https://schema.org/PreOrder",
-  // Not yet actually orderable (see the stockStatus schema/UI elsewhere in
-  // the app) — OutOfStock is the honest mapping, not PreOrder, since
-  // customers can't actually buy it yet.
-  "Coming Soon": "https://schema.org/OutOfStock",
-};
-
 /**
  * Delivery and returns, attached to every Offer.
  *
@@ -179,7 +169,8 @@ export interface ProductJsonLdInput {
   brandName?: string;
   price: number;
   currency: string;
-  stockStatus: StockStatus;
+  /** Null on the importer-created products that never got one set. */
+  stockStatus: StockStatus | null | undefined;
   url: string;
   rating?: number;
   reviewCount?: number;
@@ -208,7 +199,7 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
       url,
       priceCurrency: product.currency,
       price: product.price,
-      availability: AVAILABILITY_BY_STOCK_STATUS[product.stockStatus],
+      availability: schemaOrgAvailability(product.stockStatus),
       shippingDetails: SHIPPING_DETAILS,
       hasMerchantReturnPolicy: RETURN_POLICY,
     },

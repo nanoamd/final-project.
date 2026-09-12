@@ -94,23 +94,70 @@ export function availabilityLine(product: SanityProduct): string {
  * Advertising that as available is the one wrong answer, so the unknown case
  * stays conservative while the missing case does not.
  */
-export function googleAvailability(
+type CanonicalAvailability = "in-stock" | "backorder" | "out-of-stock";
+
+function canonicalAvailability(
   stockStatus: string | null | undefined,
-): "in stock" | "out of stock" | "backorder" {
+): CanonicalAvailability {
   if (!stockStatus?.trim()) return "backorder";
 
   switch (stockStatus) {
     case "In Stock":
-      return "in stock";
+      return "in-stock";
     case "Made to Order":
     case "Backorder":
       return "backorder";
     case "Out of Stock":
     case "Coming Soon":
-      return "out of stock";
+      return "out-of-stock";
     default:
-      return "out of stock";
+      return "out-of-stock";
   }
+}
+
+/** Availability in Google's Merchant Center vocabulary, for the product feed. */
+export function googleAvailability(
+  stockStatus: string | null | undefined,
+): "in stock" | "out of stock" | "backorder" {
+  return {
+    "in-stock": "in stock",
+    backorder: "backorder",
+    "out-of-stock": "out of stock",
+  }[canonicalAvailability(stockStatus)] as
+    "in stock" | "out of stock" | "backorder";
+}
+
+/**
+ * The same availability as a schema.org URL, for the Product JSON-LD on the
+ * page itself.
+ *
+ * This is not a duplicate of the feed's mapping, it is the other half of it,
+ * and it matters more than the feed does today: Google builds free Shopping
+ * listings from a site's structured data as well as from a submitted feed, so
+ * for a merchant whose feed is switched off this is the only availability
+ * Google ever sees.
+ *
+ * It previously read from a `Record<StockStatus, string>` lookup. That is
+ * exact for the five statuses Studio can set and silently wrong for a product
+ * with none: the lookup returned `undefined`, `JSON.stringify` drops undefined
+ * values, and the Offer went out with **no `availability` property at all** —
+ * a required attribute, missing, on all 127 importer-created products. The
+ * type did not catch it because `SanityProduct.stockStatus` was declared
+ * non-nullable while the data has held nulls all along.
+ *
+ * `Made to Order` maps to BackOrder rather than PreOrder, matching the feed.
+ * PreOrder in schema.org means an item not yet released, and Google expects an
+ * `availabilityDate` alongside it; made-to-order stock is orderable today and
+ * simply ships once built, which is what BackOrder describes.
+ */
+export function schemaOrgAvailability(
+  stockStatus: string | null | undefined,
+): string {
+  return {
+    "in-stock": "https://schema.org/InStock",
+    backorder: "https://schema.org/BackOrder",
+    "out-of-stock": "https://schema.org/OutOfStock",
+  }[canonicalAvailability(stockStatus)];
 }
 
 /**

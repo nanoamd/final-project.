@@ -6,6 +6,7 @@ import {
   deliveryWindow,
   googleAvailability,
   leadTimeLine,
+  schemaOrgAvailability,
   standardWindowForPrice,
 } from "./delivery";
 
@@ -103,5 +104,58 @@ describe("googleAvailability", () => {
 
   it("stays conservative on a status it has not been taught", () => {
     expect(googleAvailability("Discontinued")).toBe("out of stock");
+  });
+});
+
+describe("schemaOrgAvailability", () => {
+  it("maps the statuses Studio can set", () => {
+    expect(schemaOrgAvailability("In Stock")).toBe(
+      "https://schema.org/InStock",
+    );
+    expect(schemaOrgAvailability("Backorder")).toBe(
+      "https://schema.org/BackOrder",
+    );
+    expect(schemaOrgAvailability("Out of Stock")).toBe(
+      "https://schema.org/OutOfStock",
+    );
+    expect(schemaOrgAvailability("Coming Soon")).toBe(
+      "https://schema.org/OutOfStock",
+    );
+  });
+
+  it("always returns a value, so the Offer never ships without availability", () => {
+    // The bug this replaced: a Record lookup returned undefined for the 127
+    // products with no status, and JSON.stringify drops undefined keys, so
+    // availability — a required attribute — was absent entirely.
+    expect(schemaOrgAvailability(null)).toBe("https://schema.org/BackOrder");
+    expect(schemaOrgAvailability(undefined)).toBe(
+      "https://schema.org/BackOrder",
+    );
+    expect(schemaOrgAvailability("Discontinued")).toBe(
+      "https://schema.org/OutOfStock",
+    );
+  });
+
+  it("agrees with the feed on every input", () => {
+    const equivalent: Record<string, string> = {
+      "in stock": "https://schema.org/InStock",
+      backorder: "https://schema.org/BackOrder",
+      "out of stock": "https://schema.org/OutOfStock",
+    };
+    for (const status of [
+      "In Stock",
+      "Out of Stock",
+      "Backorder",
+      "Made to Order",
+      "Coming Soon",
+      "Discontinued",
+      null,
+      undefined,
+      "  ",
+    ]) {
+      expect(schemaOrgAvailability(status)).toBe(
+        equivalent[googleAvailability(status)],
+      );
+    }
   });
 });

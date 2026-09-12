@@ -16,6 +16,57 @@ Status key:
 
 ---
 
+## 127 product pages were telling Google nothing about availability (12 September)
+
+Damien: _"my products are already on google shopping"_.
+
+That corrected a wrong assumption I had been working from, and it mattered.
+Everything written on 8 September treated the switched-off
+`MERCHANT_FEED_ENABLED` as meaning Shopping was off. It does not: Google builds
+free listings from a site's **structured data** as well as from a submitted
+feed, so the Product JSON-LD on each page has been the live ingestion path all
+along while the feed sat idle. Which makes the availability bug fixed on
+8 September the _second_ most important instance of itself — the same fault
+existed on the path Google actually reads.
+
+- [x] **`AVAILABILITY_BY_STOCK_STATUS` was a `Record<StockStatus, string>`** —
+      exact for the five statuses Studio can set, silently wrong for a product
+      with none. The lookup returned `undefined`, `JSON.stringify` drops
+      undefined values, and so **127 product pages shipped an `Offer` with no
+      `availability` property at all.** Availability is a required attribute
+      for a merchant listing. Live, on the real ingestion path, for as long as
+      those products have existed.
+- [x] **TypeScript could not catch it because the type was a lie.**
+      `SanityProduct.stockStatus` was declared non-nullable while the data has
+      held nulls since the importers first ran. Widened to
+      `StockStatus | null`, which typechecks clean across the codebase — the
+      declaration was wrong, not load-bearing.
+- [x] **Fixed as `schemaOrgAvailability()` in `src/lib/catalog/delivery.ts`**,
+      sharing one private `canonicalAvailability()` with the feed's
+      `googleAvailability()` so the two vocabularies cannot drift. A missing
+      status resolves to BackOrder on both, matching what the product page
+      already tells the customer.
+- [x] **`Made to Order` now maps to BackOrder rather than PreOrder.** PreOrder
+      in schema.org means an item not yet released, and Google expects an
+      `availabilityDate` beside it; made-to-order stock is orderable today and
+      ships once built. This also removes a straight disagreement between the
+      two paths, which previously sent PreOrder on the page and `backorder` in
+      the feed for the same product.
+- [x] **Seven tests added, one asserting the two paths agree on every input** —
+      `null`, `undefined`, whitespace and an unknown status included — so a
+      future edit to one mapping fails the suite unless the other matches.
+      1062 tests, typecheck, lint and build green.
+- [!] **What still needs Damien's account, because no code can see it.**
+  Merchant Center → Diagnostics is the only place the real disapprovals
+  live. The prediction from here: a batch of items currently sit
+  disapproved or excluded for missing availability and should start
+  clearing on the next crawl now the pages carry it. Also worth checking
+  whether those listings come from structured data, a manual upload, or
+  automated feeds — that decides whether switching `MERCHANT_FEED_ENABLED`
+  on adds products or merely duplicates what is already there.
+
+---
+
 ## The catalogue is not rotten — only 13 products are unfixable by pricing (12 September)
 
 Damien: _"why cant we just alter the prices to make every single product worth
@@ -2361,11 +2412,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -228,7 +228,14 @@ export interface SanityProduct {
   dimensions?: SanityDimensions;
   weight?: SanityWeight;
   deliveryLeadTime?: string;
-  stockStatus: StockStatus;
+  /**
+   * Null on 127 published products, which arrived through the importers rather
+   * than Studio, where the schema's `initialValue` would have set it. This was
+   * declared non-nullable until 12 September, which is how a
+   * `Record<StockStatus, string>` lookup in the Product JSON-LD went unnoticed
+   * returning `undefined` and shipping an Offer with no `availability` at all.
+   */
+  stockStatus: StockStatus | null;
   stockQuantity?: number;
   deliveryNotes?: string;
   /** Per-product returns copy. Empty means the page shows the standard
