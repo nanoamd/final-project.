@@ -16,6 +16,47 @@ Status key:
 
 ---
 
+## Categories mapped onto Google's taxonomy, verified against the real file (12 September)
+
+Damien: _"what else can we do to improve visibility and traffic"_.
+
+The lever named as next in the entry below, now built.
+
+- [x] **`src/lib/catalog/google-product-category.ts`** — 40 of Kaiku's 49
+      categories mapped to Google's product taxonomy. Every path copied
+      verbatim from Google's published `taxonomy-with-ids.en-GB.txt` rather
+      than written from memory, because a path that does not match a real node
+      exactly is silently ignored, and one matching the _wrong_ node is worse
+      than sending nothing.
+- [x] **`google-product-category.test.ts` checks all 40 against the taxonomy
+      file**, which is checked in as a fixture. A typo, a British spelling
+      where Google uses American, or an "and" where Google writes "&" now fails
+      the suite rather than failing invisibly inside Merchant Center. 1067
+      tests green.
+- [x] **Held as a code constant, not a Sanity field.** No category documents
+      are written, which keeps the mapping reviewable in the diff and sidesteps
+      the standing constraint on the pergolas category entirely.
+- [-] **Four categories deliberately left unmapped**, because Google's
+  per-product classification beats one blanket category that is right for
+  most of a range and wrong for the rest: `kitchen-furniture` (dining
+  tables, chairs and sets, checked by sampling), `rustic-reclaimed-
+    furniture` (sideboards, dining, coffee, TV, bedside, chests),
+  `outdoor-kitchens` (only three products, worth checking by eye first),
+  and `pergolas` — mappable to node 703, but the standing constraint says
+  never edit that category, so it is flagged rather than decided.
+- [x] Two mappings were checked against the products rather than the category
+      name, and both would have been wrong otherwise. `privacy-screens` is
+      decorative metal garden screens and climbing trellises, not indoor room
+      dividers. `lighting` takes the **parent** node rather than `> Lamps`,
+      because the category holds chandeliers and pendants as well as lamps.
+- [!] **This one only pays off once the feed is on.** `google_product_category`
+  is a feed attribute; structured data has no equivalent. That is now the
+  strongest argument for the switch: the feed carries category, product
+  type, colour, material, extra images and per-product handling times,
+  where structured data carries a fraction of it.
+
+---
+
 ## Why Google barely shows us: the pages carry almost no matchable attributes (12 September)
 
 Damien, with the Merchant Center Pricing report: _"its like everyday i get some
@@ -2467,11 +2508,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -1,6 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import { deliveryWindow, googleAvailability } from "@/lib/catalog/delivery";
+import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -186,6 +187,14 @@ export async function GET() {
     ${product.sku ? `<g:sku>${escapeXml(product.sku)}</g:sku>` : ""}
     ${identifierExists(product) ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
     ${type ? `<g:product_type>${escapeXml(type)}</g:product_type>` : ""}
+    ${
+      // Which auction the product competes in. Absent for the few genuinely
+      // mixed categories, where Google's per-product classification beats one
+      // blanket category that is wrong for part of the range.
+      googleProductCategory(product.category)
+        ? `<g:google_product_category>${escapeXml(googleProductCategory(product.category)!)}</g:google_product_category>`
+        : ""
+    }
     ${
       // Colour and material are matched against attribute-filtered queries
       // ("grey glazed vase", "oak console table"). Joined with "/" where a
