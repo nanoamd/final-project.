@@ -16,6 +16,72 @@ Status key:
 
 ---
 
+## Shopping titles use a third of the space Google allows (12 September)
+
+Damien: _"make sure the entire site is optimized for seo... if it means more
+clicks then pull that lever and change all my titles"_, then, importantly:
+_"dont strip kaiku but its about when you said we average 48 characters and
+google allows 140"_.
+
+That clarification resolves what looked like a conflict with the standing
+constraint, because **two different titles were being conflated**. A `<title>`
+tag is truncated past roughly 60 characters and Kaiku's product names average
+51 — near optimal, almost nothing to gain. A **Shopping feed title allows
+150**, and the same names use a third of it. Title text is the strongest
+signal Google has for which queries a product can appear against. No product
+is renamed; the brand suffix stays.
+
+### The site's own metadata, measured rather than assumed
+
+- [x] **`scripts/audit-seo-metadata.ts`** (read-only) measures the _effective_
+      title and description of all **992 indexable pages** — what a searcher
+      sees after `buildMetadata` resolves `seo.metaTitle ?? derived` — rather
+      than auditing the `seo` group, which would report almost everything as
+      empty while the pages are fine.
+- [x] **Healthier than expected. Zero duplicate titles across the whole site**,
+      and only 2 duplicate descriptions (4 pages, both genuine near-identical
+      variants: two hand-painted canvases, two Cassini mirrors).
+- [ ] **Three real findings, all fixable in `seo` fields without renaming
+      anything:** 118 product titles exceed 60 characters and are truncated
+      (worst is 85 — "Elephants in Love Tabletop Water Feature with Crystal
+      Ball, Light & Watermill | Kaiku"); **24 of 49 category titles are under
+      30 characters** ("Vases", "Desks") on pages that are prime landing
+      surfaces; 18 buying-guide descriptions exceed 160 and get cut off; and 80
+      product descriptions are under 70, where Google tends to write its own
+      snippet instead.
+
+### The feed titles
+
+- [x] **`src/lib/catalog/feed-title.ts`** — appends facts already recorded on
+      the product (colour, material, category noun) _before_ the brand suffix,
+      so the name survives intact and "| Kaiku" still ends the string. Keeping
+      the page's exact name as the leading text is also what stops Merchant
+      Center raising a title mismatch against the landing page.
+- [x] **Three rules keep it honest**: only facts already in Sanity; never
+      repeat a word the name already contains ("Lagom Black Natural Rattan
+      Chair" gains nothing from "— Black Rattan Chair"); never exceed 150,
+      falling back to the plain name rather than emitting a truncated one.
+- [x] **678 of 907 titles enriched; mean length 48.2 → 61.0; zero over the
+      cap.** 11 tests.
+- [x] **Two defects found by reading the real output, not by the tests.** The
+      first singulariser turned "Vases" into "Vas" (a naive `-ses` rule; only
+      `-sses` drops `es`, everything else drops `s`). And compound categories
+      produced "Candles & Lantern" — broken English on the one line a shopper
+      reads — so compound categories now contribute no noun at all, because
+      none is better than a mangled one. Tags are also title-cased so
+      "Mirrored glass" stops reading like a data-entry slip, while "LED"
+      survives untouched.
+- [ ] **The ceiling here is attribute coverage, not the code.** Mean is 61 of a
+      possible 150 because only 258 products carry `colourTags` and 292
+      `materialTags`. Deriving colour and material from each product's own
+      description would roughly triple the addressable set — a real follow-up
+      wanting the same self-tested, sample-verified treatment the adverb pass
+      had.
+- [!] **Only reaches Google once the feed is on.** Structured data has no
+  equivalent of a feed title; the page keeps its own, correctly.
+
+---
+
 ## Two Search Console warnings fixed, one refused, and an analytics claim I got wrong (12 September)
 
 Damien, with three Search Console screenshots: _"i want all of these fixed too"_.
@@ -117,7 +183,7 @@ The lever named as next in the entry below, now built.
   per-product classification beats one blanket category that is right for
   most of a range and wrong for the rest: `kitchen-furniture` (dining
   tables, chairs and sets, checked by sampling), `rustic-reclaimed-
-  furniture` (sideboards, dining, coffee, TV, bedside, chests),
+furniture` (sideboards, dining, coffee, TV, bedside, chests),
   `outdoor-kitchens` (only three products, worth checking by eye first),
   and `pergolas` — mappable to node 703, but the standing constraint says
   never edit that category, so it is flagged rather than decided.
@@ -2585,11 +2651,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -5,6 +5,7 @@ import {
   googleAvailability,
   handlingDays,
 } from "@/lib/catalog/delivery";
+import { feedTitle } from "@/lib/catalog/feed-title";
 import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -132,7 +133,16 @@ export async function GET() {
 
       return `  <item>
     <g:id>${escapeXml(product.slug)}</g:id>
-    <title>${escapeXml(product.title)}</title>
+    <title>${escapeXml(
+      // Not the page's title. A <title> tag is cut off past ~60 characters
+      // and these names average 51; a feed title allows 150. See feed-title.ts.
+      feedTitle({
+        name: product.title,
+        colours: product.colourTags,
+        materials: product.materialTags,
+        categoryName: product.categoryName,
+      }),
+    )}</title>
     <description>${escapeXml(product.summary)}</description>
     <link>${escapeXml(link)}</link>
     ${
