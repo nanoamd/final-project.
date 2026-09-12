@@ -1,0 +1,1599 @@
+{
+  "generatedAt": "2026-09-12T16:39:25.535Z",
+  "thresholds": {
+    "STRONG_MARGIN": 0.35,
+    "STRONG_CASH": 25,
+    "VIABLE_MARGIN": 0.3,
+    "VIABLE_CASH": 20
+  },
+  "counts": {
+    "analysed": 907,
+    "strong": 91,
+    "viable": 67,
+    "below": 749
+  },
+  "strong": [
+    {
+      "title": "Pershore Rectangular Aged Oak Coffee Table",
+      "slug": "pershore-rectangular-aged-oak-coffee-table",
+      "supplier": "D.I. Designs",
+      "category": "Coffee Tables",
+      "price": 720,
+      "keep": 414,
+      "margin": 0.575,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Tamarind & Resin Coffee Table – Aqua",
+      "slug": "tamarind-resin-coffee-table-aqua",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 874,
+      "keep": 358.62,
+      "margin": 0.4103203661327231,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Large Reclaimed Wood TV Stand with 2 Drawers & Open Shelving",
+      "slug": "large-reclaimed-wood-tv-stand-2-drawers",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 850,
+      "keep": 341.87,
+      "margin": 0.4022,
+      "carriageUnknown": false
+    },
+    {
+      "title": "4ft6 Double Ottoman Bed with Front Drawer, Cream",
+      "slug": "4ft6-double-ottoman-bed-frame-with-front-drawer-cream",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 399,
+      "keep": 282.955,
+      "margin": 0.7091604010025062,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Arti Mango Wood and Brass Effect Media Unit",
+      "slug": "arti-mango-wood-and-brass-effect-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 589,
+      "keep": 232.93500000000003,
+      "margin": 0.39547538200339566,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Hannah Grey Velvet Ottoman Bed Double",
+      "slug": "hannah-grey-velvet-ottoman-bed-double",
+      "supplier": "Premier Housewares",
+      "category": "Beds",
+      "price": 631,
+      "keep": 223.355,
+      "margin": 0.35396988906497623,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Josephine Mink King Bed",
+      "slug": "josephine-mink-king-bed",
+      "supplier": "Premier Housewares",
+      "category": "Beds",
+      "price": 589,
+      "keep": 208.38500000000002,
+      "margin": 0.35379456706281837,
+      "carriageUnknown": true
+    },
+    {
+      "title": "6-Piece Rattan Garden Sofa Set with Washable Covers, Grey",
+      "slug": "6-piece-rattan-garden-sofa-set-with-washable-covers-grey",
+      "supplier": "Aosom",
+      "category": "Garden Furniture",
+      "price": 559,
+      "keep": 200.17499999999998,
+      "margin": 0.35809481216457956,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Dorsino Ivory Wood Veneer Two Drawer Bedside Table",
+      "slug": "dorsino-ivory-wood-veneer-two-drawer-bedside-table",
+      "supplier": "Premier Housewares",
+      "category": "Bedside Tables",
+      "price": 495,
+      "keep": 195.53500000000003,
+      "margin": 0.39502020202020205,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Computer Desk with Three Shelves and Drawers, Black",
+      "slug": "computer-desk-writing-table-pc-workstation-with-3-storage-shelves-and-drawers-handle-for-h",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 229,
+      "keep": 189.79500000000002,
+      "margin": 0.8287991266375546,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Reclaimed Teak Six Shelf Display Unit with Castors",
+      "slug": "reclaimed-teak-six-shelf-display-unit-castors",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 390,
+      "keep": 165.95999999999998,
+      "margin": 0.4255384615384615,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Addison Warm White Metal Fluted Glass Door Media Unit",
+      "slug": "addison-warm-white-metal-fluted-glass-door-media-unit",
+      "supplier": "Premier Housewares",
+      "category": "TV Units",
+      "price": 398,
+      "keep": 158.8,
+      "margin": 0.3989949748743719,
+      "carriageUnknown": true
+    },
+    {
+      "title": "4 Drawer Recycled Wood Storage Chest",
+      "slug": "4-drawer-recycled-wood-storage-chest",
+      "supplier": "AW Dropship",
+      "category": "Storage",
+      "price": 370,
+      "keep": 145.35999999999999,
+      "margin": 0.3928648648648648,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Natural Teak Corner Shelf Unit – 4 Tier Display Stand 135cm",
+      "slug": "natural-teak-corner-shelf-unit-4-tier-135cm",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 350,
+      "keep": 141.4,
+      "margin": 0.404,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Saltaire Collection 3-Shelf Unit",
+      "slug": "saltaire-collection-3-shelf-unit",
+      "supplier": "Hill Interiors",
+      "category": "Shelving",
+      "price": 380,
+      "keep": 140.10999999999999,
+      "margin": 0.36871052631578943,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Reed Collection 2 Drawer 2 Door Console",
+      "slug": "reed-collection-2-drawer-2-door-console",
+      "supplier": "Hill Interiors",
+      "category": "Console Tables",
+      "price": 299,
+      "keep": 138.325,
+      "margin": 0.46262541806020063,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Natural Teak Log Shelf Display – 3 Tier 100cm",
+      "slug": "natural-teak-log-shelf-display-3-tier-100cm",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 325,
+      "keep": 135.855,
+      "margin": 0.41801538461538457,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Small Reclaimed Teak Coffee Table",
+      "slug": "small-reclaimed-teak-coffee-table",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 340,
+      "keep": 132.07,
+      "margin": 0.38844117647058823,
+      "carriageUnknown": false
+    },
+    {
+      "title": "5ft King Bed Frame with Hydraulic Storage and LED Lighting, Grey",
+      "slug": "5ft-king-bed-frame-with-headboard-platform-bed-frame-with-hydraulic-storage-led-lights-and",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 263,
+      "keep": 118.085,
+      "margin": 0.4489923954372623,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Natural Teak Corner Shelf Unit – 3 Tier Display Stand 90cm",
+      "slug": "natural-teak-corner-shelf-unit-3-tier-90cm",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 295,
+      "keep": 112.665,
+      "margin": 0.38191525423728817,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Small Recycled Teak TV Stand with 2 Drawers",
+      "slug": "small-recycled-teak-tv-stand-2-drawers",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 279,
+      "keep": 108.08500000000001,
+      "margin": 0.3874014336917563,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Manado Natural Rattan Bean Shaped Bench with Cream Cushion",
+      "slug": "manado-natural-rattan-bean-shaped-bench-with-cream-cushion",
+      "supplier": "Premier Housewares",
+      "category": "Garden Furniture",
+      "price": 229,
+      "keep": 102.10499999999999,
+      "margin": 0.4458733624454148,
+      "carriageUnknown": true
+    },
+    {
+      "title": "11kW Adjustable Gas Patio Heater",
+      "slug": "11kw-adjustable-heat-gas-patio-heater",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 219,
+      "keep": 97.245,
+      "margin": 0.44404109589041096,
+      "carriageUnknown": true
+    },
+    {
+      "title": "3 x 3m Double-Roof Garden Gazebo with Netting",
+      "slug": "3-m-x-3-m-garden-gazebo-double-roof-outdoor-gazebo-canopy-shelter-with-netting-solid-steel",
+      "supplier": "Aosom",
+      "category": "Pergolas",
+      "price": 219,
+      "keep": 93.825,
+      "margin": 0.4284246575342466,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Metal High Sleeper Bunk Bed with Desk",
+      "slug": "metal-bunk-bed-with-desk-high-sleeper-bed-with-led-light-and-safety-guardrail-for-teens-ad",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 229,
+      "keep": 90.365,
+      "margin": 0.3946069868995633,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Lennox Black Framed Console",
+      "slug": "lennox-black-framed-console",
+      "supplier": "Hill Interiors",
+      "category": "Console Tables",
+      "price": 199,
+      "keep": 90.22500000000001,
+      "margin": 0.453391959798995,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Bedside Table - Classic - Recycled Wood",
+      "slug": "classic-recycled-wood-bedside-table",
+      "supplier": "AW Dropship",
+      "category": "Bedside Tables",
+      "price": 229,
+      "keep": 87.42500000000001,
+      "margin": 0.3817685589519651,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Laxton Light Oak Effect Desk",
+      "slug": "laxton-light-oak-effect-desk",
+      "supplier": "Premier Housewares",
+      "category": "Desks",
+      "price": 147,
+      "keep": 87.185,
+      "margin": 0.5930952380952381,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Sherman Black Finish and Natural Rattan One Drawer Bedside Table",
+      "slug": "sherman-black-finish-and-natural-rattan-one-drawer-bedside-table",
+      "supplier": "Premier Housewares",
+      "category": "Bedside Tables",
+      "price": 152,
+      "keep": 86.36,
+      "margin": 0.5681578947368421,
+      "carriageUnknown": true
+    },
+    {
+      "title": "11.7kW Propane Gas Fire Pit Table, Black",
+      "slug": "propane-gas-fire-pit-table-for-garden-11-7-kw-smokeless-firepit-outdoor-heater-with-wind-g",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 189,
+      "keep": 85.825,
+      "margin": 0.4541005291005291,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java Natural Rattan Flared Back Chair",
+      "slug": "java-natural-rattan-flared-back-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 189,
+      "keep": 85.625,
+      "margin": 0.453042328042328,
+      "carriageUnknown": true
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table 81cm, Grey",
+      "slug": "outsunny-81-x-81cm-50-000-btu-gas-fire-pit-table-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 198,
+      "keep": 84.73,
+      "margin": 0.42792929292929294,
+      "carriageUnknown": false
+    },
+    {
+      "title": "40,000 BTU Gas Fire Pit Table, Dark Grey",
+      "slug": "40000-btu-gas-firepit-table-black-dark-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 189,
+      "keep": 84.265,
+      "margin": 0.4458465608465608,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Laxton 3 Tier Light Oak Effect Shelving Unit",
+      "slug": "laxton-3-tier-light-oak-effect-shelving-unit",
+      "supplier": "Premier Housewares",
+      "category": "Shelving",
+      "price": 164,
+      "keep": 84.13000000000001,
+      "margin": 0.5129878048780488,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Round Reclaimed Teak Bedside Table with Drawer",
+      "slug": "round-reclaimed-teak-bedside-table-drawer",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 225,
+      "keep": 83.975,
+      "margin": 0.3732222222222222,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Lean-To Steel Pergola with Sliding Canopy, Dark Grey",
+      "slug": "lean-to-steel-pergola-with-moving-fabric-canopy-dark-grey",
+      "supplier": "Aosom",
+      "category": "Pergolas",
+      "price": 174.59,
+      "keep": 82.72115000000001,
+      "margin": 0.47380233690360274,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Cebu Black Side Table with Rattan Drawer",
+      "slug": "cebu-black-side-table-with-rattan-drawer",
+      "supplier": "Premier Housewares",
+      "category": "Bedside Tables",
+      "price": 209,
+      "keep": 79.435,
+      "margin": 0.3800717703349282,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Beer Barrel Table – Natural Wood 60 x 48.5 cm",
+      "slug": "beer-barrel-table-natural-wood",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 148.8,
+      "keep": 78.22800000000001,
+      "margin": 0.5257258064516129,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Tamzin Dark Grey Leather Effect Curved Dining Chair",
+      "slug": "tamzin-dark-grey-leather-effect-curved-dining-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 198,
+      "keep": 77.24,
+      "margin": 0.39010101010101006,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Parasol-Mounted Electric Patio Heater",
+      "slug": "patio-parasol-heater-electric-umbrella-mounted-heater-for-25-70-mm-poles",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 129,
+      "keep": 75.99499999999999,
+      "margin": 0.5891085271317829,
+      "carriageUnknown": true
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table with Cover, Dark Grey",
+      "slug": "50-000-btu-gas-fire-pit-table-with-cover-dark-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 189,
+      "keep": 75.555,
+      "margin": 0.3997619047619048,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Batu Large Black Rattan Wall Shelf",
+      "slug": "batu-large-black-rattan-wall-shelf",
+      "supplier": "Premier Housewares",
+      "category": "Shelving",
+      "price": 149,
+      "keep": 74.755,
+      "margin": 0.5017114093959731,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Carta Black and White Stripe Papier Mache Table Lamp with Dome Shade",
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp-with-dome-shade",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 180,
+      "keep": 74.14999999999999,
+      "margin": 0.4119444444444444,
+      "carriageUnknown": true
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table 81cm, Black",
+      "slug": "outsunny-81cm-50000-btu-gas-fire-pit-table-black",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 187,
+      "keep": 73.89500000000001,
+      "margin": 0.39516042780748667,
+      "carriageUnknown": false
+    },
+    {
+      "title": "3ft Single Pine Storage Bed with Drawers, Grey",
+      "slug": "pine-storage-bed-3ft-single-solid-wooden-bed-frame-with-drawers-headboard-wood-slat-suppor",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 165,
+      "keep": 70.125,
+      "margin": 0.425,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Rattan-Style Propane Gas Fire Pit Table, Grey",
+      "slug": "rattan-style-propane-gas-fire-pit-table-with-40-000-btu-burner-square-smokeless-firepit-pa",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 169,
+      "keep": 70.035,
+      "margin": 0.41440828402366864,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Arles Water Hyacinth Wall Shelf",
+      "slug": "arles-water-hyacinth-wall-shelf",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 184,
+      "keep": 67.41000000000001,
+      "margin": 0.366358695652174,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Computer Desk with Drawers and Printer Stand, Oak",
+      "slug": "computer-desk-with-drawers-and-storage-shelves-office-desk-writing-table-with-printer-stan",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 149,
+      "keep": 66.935,
+      "margin": 0.4492281879194631,
+      "carriageUnknown": true
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table 71cm with Glass Screen, Grey",
+      "slug": "outsunny-71cm-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 179,
+      "keep": 66.66499999999999,
+      "margin": 0.3724301675977653,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Java Natural Rattan Peacock Accent Chair",
+      "slug": "java-natural-rattan-peacock-accent-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 179,
+      "keep": 66.095,
+      "margin": 0.36924581005586593,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Folding Convertible Desk with Blackboard, Grey",
+      "slug": "folding-convertible-desk-with-blackboard-multi-function-computer-office-workstation-side-s",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 129,
+      "keep": 64.96499999999999,
+      "margin": 0.5036046511627906,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java Natural Rattan Round Back Accent Chair",
+      "slug": "java-natural-rattan-round-back-accent-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 178,
+      "keep": 63.37,
+      "margin": 0.3560112359550562,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Laxton Light Oak Effect Desk With Shelves",
+      "slug": "laxton-light-oak-effect-desk-with-shelves",
+      "supplier": "Premier Housewares",
+      "category": "Desks",
+      "price": 139,
+      "keep": 59.50500000000001,
+      "margin": 0.42809352517985616,
+      "carriageUnknown": true
+    },
+    {
+      "title": "4ft6 Double Bed Frame with Underbed Storage, Black",
+      "slug": "4ft6-double-bed-frame-with-underbed-storage-and-steel-slat-support-32-5-cm-height-noise-fr",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 109,
+      "keep": 59.425,
+      "margin": 0.5451834862385321,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Geometric Mesh LED Wall Lights, Set of 2, Gold",
+      "slug": "led-wall-lamp-2-pack-9w-modern-indoor-geometric-mesh-wall-light-colour-temperature-adjusta",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 69,
+      "keep": 59.015,
+      "margin": 0.8552898550724638,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java Black Rattan Round Back Accent Chair",
+      "slug": "java-black-rattan-round-back-accent-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 167,
+      "keep": 58.735,
+      "margin": 0.3517065868263473,
+      "carriageUnknown": true
+    },
+    {
+      "title": "40,000 BTU Gas Fire Pit Table 71cm, Grey",
+      "slug": "outsunny-71-x-71cm-40000-btu-gas-firepit-table-black-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 149,
+      "keep": 58.66499999999999,
+      "margin": 0.39372483221476506,
+      "carriageUnknown": false
+    },
+    {
+      "title": "1.8m Victorian Three-Head Solar Lamp Post, Black",
+      "slug": "1-8m-traditional-victorian-style-3-way-head-outdoor-garden-solar-post-lamp-sensor-dimmable",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 109,
+      "keep": 58.585,
+      "margin": 0.5374770642201835,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Grand Water Feature - Colour Changing Crystal Ball in Rock",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-rock",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 120,
+      "keep": 58,
+      "margin": 0.48333333333333334,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Compact Folding Desk with Storage Shelf, Rustic Brown",
+      "slug": "compact-folding-desk-for-small-spaces-with-storage-shelf-for-home-office-rustic-brown",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 89,
+      "keep": 55.625,
+      "margin": 0.625,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Hanging Electric Patio Heater, Black",
+      "slug": "hanging-electric-patio-heater-with-2-power-settings-1000-2000w-waterproof-ceiling-mounted-",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 129,
+      "keep": 53.805,
+      "margin": 0.41709302325581393,
+      "carriageUnknown": true
+    },
+    {
+      "title": "3ft Single Bed Frame with Headboard and Footboard, Black",
+      "slug": "3ft-single-bed-frame-with-headboard-and-footboard-metal-platform-bed-frame-with-32-cm-unde",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 89,
+      "keep": 53.225,
+      "margin": 0.5980337078651685,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Rattan-Style Propane Gas Fire Pit Table, Black",
+      "slug": "outsunny-rattan-style-propane-gas-fire-pit-table-with-40-000-btu-burner-square-smokeless-f",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 149,
+      "keep": 53.13499999999999,
+      "margin": 0.3566107382550335,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Ceiling-Mounted Infrared Halogen Patio Heater",
+      "slug": "adjustable-power-1000-2500w-infrared-halogen-electric-patio-light-heater-ceiling-hanging-m",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 129,
+      "keep": 52.925000000000004,
+      "margin": 0.4102713178294574,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Natural Folding Wooden A-Frame Shelf – Brown",
+      "slug": "natural-folding-wooden-a-frame-shelf-brown",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 121.35,
+      "keep": 52.63974999999999,
+      "margin": 0.43378450762257925,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Grand Water Feature - Colour Changing Crystal Ball in Greek Urn in Basket",
+      "slug": "grand-water-feature-24x22x48cm-colour-changing-crystal-ball-in-greek-urn-in-basket",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 120,
+      "keep": 52.01,
+      "margin": 0.4334166666666667,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Compact Computer Desk with Keyboard Tray, Grey",
+      "slug": "compact-computer-desk-with-keyboard-tray-and-drawer-study-desk-writing-desk-for-home-offic",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 79,
+      "keep": 50.325,
+      "margin": 0.6370253164556963,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Revive Gold Finish Metal Floor Lamp with White Marble Base",
+      "slug": "revive-gold-finish-metal-floor-lamp-with-white-marble-base",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 139,
+      "keep": 49.075,
+      "margin": 0.3530575539568346,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Twisted Line Metal Privacy Screen, Black",
+      "slug": "metal-decorative-privacy-screen-outdoor-divider-black-twisted-lines",
+      "supplier": "Aosom",
+      "category": "Privacy Screens",
+      "price": 119,
+      "keep": 47.435,
+      "margin": 0.3986134453781513,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Natural Wooden Beer Barrel Storage Stool",
+      "slug": "natural-wooden-beer-barrel-storage-stool",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 87.4,
+      "keep": 46.499,
+      "margin": 0.532025171624714,
+      "carriageUnknown": false
+    },
+    {
+      "title": "LED Computer Desk with Power Outlets, Rustic Brown",
+      "slug": "led-computer-desk-with-power-outlets-and-shelves-rustic-brown",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 89,
+      "keep": 39.765,
+      "margin": 0.44679775280898876,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Rhombus Metal Privacy Screen with Stand, Black",
+      "slug": "rhombus-metal-privacy-screen-with-stand-black-or-kaiku",
+      "supplier": "Aosom",
+      "category": "Privacy Screens",
+      "price": 109,
+      "keep": 38.955000000000005,
+      "margin": 0.3573853211009175,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Triangle Metal Privacy Screen with Stand, Black",
+      "slug": "decorative-outdoor-divider-metal-privacy-screen-with-stand-triangle-style-black",
+      "supplier": "Aosom",
+      "category": "Privacy Screens",
+      "price": 109,
+      "keep": 38.714999999999996,
+      "margin": 0.3551834862385321,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Modern Writing Desk with Storage Shelf, White Wood Grain",
+      "slug": "modern-computer-desk-home-office-table-small-writing-desk-with-storage-shelf-white-wood-gr",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 69,
+      "keep": 37.805,
+      "margin": 0.5478985507246377,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Banana Leaf Metal Privacy Screen with Stand, Black",
+      "slug": "decorative-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-privacy",
+      "supplier": "Aosom",
+      "category": "Privacy Screens",
+      "price": 99,
+      "keep": 35.934999999999995,
+      "margin": 0.36297979797979796,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Multi-Storage Work Desk with Sliding Keyboard Tray, Brown",
+      "slug": "multi-storage-work-desk-with-sliding-keyboard-tray-brown-black",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 73,
+      "keep": 35.765,
+      "margin": 0.4899315068493151,
+      "carriageUnknown": true
+    },
+    {
+      "title": "1.6m Dimmable Solar Bollard Light, Black",
+      "slug": "outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-pathway-1-6m-tall-black",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 59,
+      "keep": 34.475,
+      "margin": 0.5843220338983051,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Depok Rattan and Metal Square Side Table",
+      "slug": "depok-rattan-and-metal-square-side-table",
+      "supplier": "Premier Housewares",
+      "category": "Garden Furniture",
+      "price": 83,
+      "keep": 32.785,
+      "margin": 0.39499999999999996,
+      "carriageUnknown": true
+    },
+    {
+      "title": "1.6m Dimmable Solar Bollard Lights, Set of 2, Black",
+      "slug": "2-pieces-outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-pathway-1-6m-t",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 56.25,
+      "keep": 31.766250000000003,
+      "margin": 0.5647333333333334,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Cassini Tri Fold Illuminated Pink LED Table Mirror",
+      "slug": "cassini-tri-fold-illuminated-pink-led-table-mirror",
+      "supplier": "Premier Housewares",
+      "category": "Mirrors",
+      "price": 49,
+      "keep": 29.465,
+      "margin": 0.601326530612245,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Cassini Tri Fold Black LED Table Mirror",
+      "slug": "cassini-tri-fold-black-led-table-mirror",
+      "supplier": "Premier Housewares",
+      "category": "Mirrors",
+      "price": 49,
+      "keep": 29.465,
+      "margin": 0.601326530612245,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Folding Wall-Mounted Work Table, Natural",
+      "slug": "folding-shelf-and-work-table-natural",
+      "supplier": "Aosom",
+      "category": "Desks",
+      "price": 78,
+      "keep": 29.19,
+      "margin": 0.37423076923076926,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tortora Red Glass and Black Numbers Wall Clock",
+      "slug": "tortora-red-glass-and-black-numbers-wall-clock",
+      "supplier": "Premier Housewares",
+      "category": "Wall Clocks",
+      "price": 43,
+      "keep": 27.775,
+      "margin": 0.6459302325581395,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - Cascading Rock Formation",
+      "slug": "tabletop-water-feature-18cm-cascading-rock-formation",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 43,
+      "keep": 27.315,
+      "margin": 0.6352325581395349,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Glass Droplet Pendant Chandelier, Chrome",
+      "slug": "modern-crystal-chandelier-ceiling-light-pendant-lamp-chrome-finish-glass-droplets-new-for-",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 59,
+      "keep": 26.705,
+      "margin": 0.4526271186440678,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Set of 3 Gamal Wood Plant Stands",
+      "slug": "set-of-3-gamal-wood-plant-stands-natural",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 65,
+      "keep": 26.494999999999994,
+      "margin": 0.40761538461538455,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Stockholm Chrome Adjustable Floor Lamp",
+      "slug": "stockholm-chrome-adjustable-floor-lamp",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 73,
+      "keep": 26.235,
+      "margin": 0.3593835616438356,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Quackpot Duck Feet Large Plant Stand",
+      "slug": "quackpot-duck-feet-large-plant-stand",
+      "supplier": "Premier Housewares",
+      "category": "Planters",
+      "price": 67,
+      "keep": 26.185000000000002,
+      "margin": 0.3908208955223881,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - Purple Dragon, Crystal Ball & Water Wheel",
+      "slug": "tabletop-water-feature-35cm-purple-dragon-crystal-ball-water-wheel",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 57,
+      "keep": 25.805,
+      "margin": 0.452719298245614,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Mize Black Plastic Frame Over Door Mirror",
+      "slug": "mize-black-plastic-frame-over-door-mirror",
+      "supplier": "Premier Housewares",
+      "category": "Mirrors",
+      "price": 64,
+      "keep": 25.709999999999997,
+      "margin": 0.40171874999999996,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - 19x19x28cm - Buddha, Lotus Flower Cascading Potsx",
+      "slug": "tabletop-water-feature-19x19x28cm-buddha-lotus-flower-cascading-potsx",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 45,
+      "keep": 25.025,
+      "margin": 0.5561111111111111,
+      "carriageUnknown": false
+    }
+  ],
+  "viable": [
+    {
+      "title": "Tall Reclaimed Teak Chest of 5 Drawers",
+      "slug": "tall-reclaimed-teak-chest-5-drawers",
+      "supplier": "AW Dropship",
+      "category": "The Reclaimed Collection",
+      "price": 598.99,
+      "keep": 208.72515,
+      "margin": 0.3484618274094726,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Manado Natural Rattan Long Bench with Cushion",
+      "slug": "manado-natural-rattan-long-bench-with-cushion",
+      "supplier": "Premier Housewares",
+      "category": "Garden Furniture",
+      "price": 659,
+      "keep": 204.205,
+      "margin": 0.30987101669195755,
+      "carriageUnknown": true
+    },
+    {
+      "title": "7-Seater Rattan Sofa Set with Glass-Top Table, Dark Blue",
+      "slug": "outsunny-7-seater-patio-wicker-sofa-set-rattan-chair-furniture-w-glass-cushioned-dark-blue",
+      "supplier": "Aosom",
+      "category": "Garden Furniture",
+      "price": 489,
+      "keep": 165.37500000000003,
+      "margin": 0.3381901840490798,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Amalfi Collection Outdoor Bistro Table With Wood Top",
+      "slug": "amalfi-collection-outdoor-bistro-table-with-wood-top",
+      "supplier": "Hill Interiors",
+      "category": "Garden Furniture",
+      "price": 313,
+      "keep": 102.51500000000001,
+      "margin": 0.3275239616613419,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Heritage Large Black Two Tier Wooden Bookshelf",
+      "slug": "heritage-large-black-two-tier-wooden-bookshelf",
+      "supplier": "Premier Housewares",
+      "category": "Shelving",
+      "price": 289,
+      "keep": 97.035,
+      "margin": 0.33576124567474047,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Corso Black Bedside Table with Rattan Drawer",
+      "slug": "corso-black-bedside-table-with-rattan-drawer",
+      "supplier": "Premier Housewares",
+      "category": "Bedside Tables",
+      "price": 289,
+      "keep": 91.345,
+      "margin": 0.3160726643598616,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Metal Pergola with Sliding Canopy and Curtains, Grey",
+      "slug": "moving-canopy-metal-pergola-with-curtains-grey",
+      "supplier": "Aosom",
+      "category": "Pergolas",
+      "price": 261,
+      "keep": 88.18500000000002,
+      "margin": 0.33787356321839085,
+      "carriageUnknown": true
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Grey",
+      "slug": "outsunny-50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 249,
+      "keep": 83.04499999999999,
+      "margin": 0.33351405622489955,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Naro Mango Wood and Gold Tip Legs Side Table",
+      "slug": "naro-mango-wood-and-gold-tip-legs-side-table",
+      "supplier": "Premier Housewares",
+      "category": "Side Tables",
+      "price": 244,
+      "keep": 78.60000000000001,
+      "margin": 0.32213114754098365,
+      "carriageUnknown": true
+    },
+    {
+      "title": "4+1 Burner Gas Barbecue with Side Table, Black",
+      "slug": "outsunny-4-1-burner-gas-bbq-grill-with-clear-view-lid-portable-gas-barbecue-grill-with-bui",
+      "supplier": "Aosom",
+      "category": "Outdoor Kitchens",
+      "price": 252,
+      "keep": 76.40999999999998,
+      "margin": 0.30321428571428566,
+      "carriageUnknown": false
+    },
+    {
+      "title": "50,000 BTU Gas Fire Pit Table with Glass Screen, Dark Grey",
+      "slug": "50-000-btu-gas-fire-pit-table-with-cover-and-glass-screen-dark-grey",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 229,
+      "keep": 73.02499999999999,
+      "margin": 0.31888646288209604,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Steel Pergola with Retractable Canopy, Khaki",
+      "slug": "steel-pergola-with-retractable-canopy-khaki",
+      "supplier": "Aosom",
+      "category": "Pergolas",
+      "price": 221,
+      "keep": 70.825,
+      "margin": 0.320475113122172,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Bradbury Dark Oak Effect Open Wardrobe",
+      "slug": "bradbury-dark-oak-effect-open-wardrobe",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 209,
+      "keep": 70.18500000000002,
+      "margin": 0.3358133971291867,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Sanai Black Cotton Mache Large Planter",
+      "slug": "sanai-black-cotton-mache-large-planter",
+      "supplier": "Premier Housewares",
+      "category": "Planters",
+      "price": 209,
+      "keep": 70.18500000000002,
+      "margin": 0.3358133971291867,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java Natural Rattan Scalloped Accent Chair",
+      "slug": "java-natural-rattan-scalloped-accent-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 219,
+      "keep": 68.955,
+      "margin": 0.3148630136986301,
+      "carriageUnknown": true
+    },
+    {
+      "title": "King Size Gas-Lift Ottoman Bed with Tufted Headboard",
+      "slug": "king-size-bed-frame-gas-end-lift-under-bed-storage-upholstered-platform-bed-tufted-headboa",
+      "supplier": "Aosom",
+      "category": "Beds",
+      "price": 203.69,
+      "keep": 66.86465000000001,
+      "margin": 0.32826672885266833,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Veneto Midnight Velvet Curved Dining Chair",
+      "slug": "veneto-midnight-velvet-curved-dining-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 199,
+      "keep": 62.38499999999999,
+      "margin": 0.31349246231155775,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Bradbury Natural Oak Effect Open Wardrobe",
+      "slug": "bradbury-natural-oak-effect-open-wardrobe",
+      "supplier": "Premier Housewares",
+      "category": "Storage",
+      "price": 199,
+      "keep": 60.33500000000001,
+      "margin": 0.30319095477386937,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Laxton 5 Tier Light Oak Effect Shelving Unit",
+      "slug": "laxton-5-tier-light-oak-effect-shelving-unit",
+      "supplier": "Premier Housewares",
+      "category": "Shelving",
+      "price": 169,
+      "keep": 58.965,
+      "margin": 0.348905325443787,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Mano Gold Table Lamp",
+      "slug": "mano-gold-table-lamp",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 189,
+      "keep": 57.94499999999999,
+      "margin": 0.3065873015873016,
+      "carriageUnknown": true
+    },
+    {
+      "title": "11kW Freestanding Gas Patio Heater, Black",
+      "slug": "11-kw-freestanding-gas-patio-heater-adjustable-outdoor-garden-propane-heater-with-tip-over",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 189,
+      "keep": 57.345,
+      "margin": 0.3034126984126984,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java White Wash Rattan Chair",
+      "slug": "java-white-wash-rattan-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 168,
+      "keep": 53.519999999999996,
+      "margin": 0.31857142857142856,
+      "carriageUnknown": true
+    },
+    {
+      "title": "PE Rattan Gas Fire Pit Table, Mixed Grey",
+      "slug": "outsunny-outdoor-pe-rattan-gas-fire-pit-table-patio-square-propane-heater-with-rain-cover-",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 166.83,
+      "keep": 51.407550000000015,
+      "margin": 0.30814331954684415,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Square Propane Gas Fire Pit Table, Black",
+      "slug": "outsunny-square-propane-gas-fire-pit-table-40000-btu-rattan-smokeless-firepit-patio-heater",
+      "supplier": "Aosom",
+      "category": "Fire Pits & Heating",
+      "price": 159,
+      "keep": 50.074999999999996,
+      "margin": 0.31493710691823895,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Bradbury Natural Oak Veneer Desk wth 1 Drawer",
+      "slug": "bradbury-natural-oak-veneer-desk-wth-1-drawer",
+      "supplier": "Premier Housewares",
+      "category": "Desks",
+      "price": 149,
+      "keep": 46.405,
+      "margin": 0.31144295302013425,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Bradbury Light Oak Veneer Desk with 1 Drawer",
+      "slug": "bradbury-light-oak-veneer-desk-with-1-drawer",
+      "supplier": "Premier Housewares",
+      "category": "Desks",
+      "price": 149,
+      "keep": 46.405,
+      "margin": 0.31144295302013425,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Lagom Black Natural Rattan And Iron Black Chair",
+      "slug": "lagom-black-natural-rattan-and-iron-black-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 139,
+      "keep": 46.30500000000001,
+      "margin": 0.33312949640287776,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Lagom Natural Rattan And Black Iron Chair",
+      "slug": "lagom-natural-rattan-and-black-iron-chair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 139,
+      "keep": 46.30500000000001,
+      "margin": 0.33312949640287776,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Java Natural Rattan With Black Metal Armchair",
+      "slug": "java-natural-rattan-with-black-metal-armchair",
+      "supplier": "Premier Housewares",
+      "category": "Furniture",
+      "price": 149,
+      "keep": 46.13499999999999,
+      "margin": 0.3096308724832214,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Helvetia Clear Crystal Table Lamp With Chrome Base",
+      "slug": "helvetia-clear-crystal-table-lamp-with-chrome-base",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 139,
+      "keep": 43.735,
+      "margin": 0.31464028776978414,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Pop-Up Double-Roof Gazebo with Netting and Carry Bag",
+      "slug": "pop-up-gazebo-double-roof-garden-tent-with-netting-and-carry-bag-party-event-shelter-for-o",
+      "supplier": "Aosom",
+      "category": "Pergolas",
+      "price": 130,
+      "keep": 42.330000000000005,
+      "margin": 0.32561538461538464,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Willow Branch Metal Privacy Screen with Stand, Black",
+      "slug": "decorative-privacy-screen-with-stand-freestanding-metal-outdoor-divider-decorative-privacy-844-6",
+      "supplier": "Aosom",
+      "category": "Privacy Screens",
+      "price": 109,
+      "keep": 37.245,
+      "margin": 0.341697247706422,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Depok Rattan And Metal Coffee Table",
+      "slug": "depok-rattan-and-metal-coffee-table",
+      "supplier": "Premier Housewares",
+      "category": "Garden Furniture",
+      "price": 109,
+      "keep": 34.635,
+      "margin": 0.3177522935779816,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Garden Planter Box with Back Trellis, Grey",
+      "slug": "garden-planter-box-with-back-trellis-grey",
+      "supplier": "Aosom",
+      "category": "Planters",
+      "price": 95,
+      "keep": 31.735,
+      "margin": 0.3340526315789474,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Williston Grey Square Wall Clock",
+      "slug": "williston-grey-square-wall-clock",
+      "supplier": "Hill Interiors",
+      "category": "Wall Clocks",
+      "price": 81,
+      "keep": 27.994999999999997,
+      "margin": 0.34561728395061725,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Abstract Blue 2 Framed Wall Art",
+      "slug": "abstract-blue-2-framed-wall-art",
+      "supplier": "Premier Housewares",
+      "category": "Wall Art",
+      "price": 88,
+      "keep": 27.150000000000002,
+      "margin": 0.3085227272727273,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Maka Natural Croco Rattan Stool",
+      "slug": "maka-natural-croco-rattan-stool",
+      "supplier": "Premier Housewares",
+      "category": "Garden Furniture",
+      "price": 78,
+      "keep": 26.73,
+      "margin": 0.3426923076923077,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Heidy Green Glass Table Lamp With White Shade",
+      "slug": "heidy-green-glass-table-lamp-with-white-shade",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 78,
+      "keep": 25.349999999999998,
+      "margin": 0.32499999999999996,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Three-Head Solar Lamp Post with Planter, Black",
+      "slug": "3-head-solar-lamp-post-street-light-with-planter-automatic-on-6-hour-max-outdoor-ready-led",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 77.59,
+      "keep": 24.796150000000004,
+      "margin": 0.3195791983503029,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Depok Small Rattan Planter with Metal Stand",
+      "slug": "depok-small-rattan-planter-with-metal-stand",
+      "supplier": "Premier Housewares",
+      "category": "Planters",
+      "price": 74,
+      "keep": 24.570000000000004,
+      "margin": 0.3320270270270271,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Cassini Tri Fold White LED Table Mirror",
+      "slug": "cassini-tri-fold-white-led-table-mirror",
+      "supplier": "Premier Housewares",
+      "category": "Mirrors",
+      "price": 44,
+      "keep": 24.54,
+      "margin": 0.5577272727272727,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - Elephants, Crystal Ball & Water Wheel",
+      "slug": "tabletop-water-feature-35cm-elephants-crystal-ball-water-wheel",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 54,
+      "keep": 24.099999999999998,
+      "margin": 0.44629629629629625,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Tabletop Water Feature - Natural Rocks Formation",
+      "slug": "tabletop-water-feature-35cm-natural-rocks-formation",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 54,
+      "keep": 24.099999999999998,
+      "margin": 0.44629629629629625,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Tabletop Water Feature - Slab Rocks Formation & Crystal Ball",
+      "slug": "tabletop-water-feature-35cm-slab-rocks-formation-crystal-ball",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 54,
+      "keep": 24.099999999999998,
+      "margin": 0.44629629629629625,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Tabletop Water Feature - Dragons, Crystal Ball & Water Wheel",
+      "slug": "tabletop-water-feature-35cm-dragons-crystal-ball-water-wheel",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 55,
+      "keep": 23.835,
+      "margin": 0.4333636363636364,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Crystal Semi-Flush Chandelier, Silver",
+      "slug": "semi-flush-mount-modern-crystal-chandelier-ceiling-light-crystal-ceiling-light-fixture-wit",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 56,
+      "keep": 23.69,
+      "margin": 0.4230357142857143,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - Elephants & Palm Tree",
+      "slug": "tabletop-water-feature-25cm-elephants-palm-tree",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 45,
+      "keep": 23.335,
+      "margin": 0.5185555555555555,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Spiral LED Wall Lights, Set of 2, Gold",
+      "slug": "led-wall-lamp-2-pack-13w-modern-indoor-spiral-wall-light-colour-temperature-adjustable-3000k",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 53,
+      "keep": 23.305,
+      "margin": 0.43971698113207547,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Beauly Metal Wall Clock with Gold Finish",
+      "slug": "beauly-60cm-dia-metal-wall-clock-with-gold-finish",
+      "supplier": "Premier Housewares",
+      "category": "Wall Clocks",
+      "price": 63,
+      "keep": 23.055000000000003,
+      "margin": 0.36595238095238103,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Elephants in Love Tabletop Water Feature with Crystal Ball, Light & Watermill",
+      "slug": "elephants-in-love-tabletop-water-feature-with-crystal-ball-light-watermill-30x20x35cm",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 55,
+      "keep": 22.785000000000004,
+      "margin": 0.41427272727272735,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Pendant Light with Three Colour Temperatures, Gold",
+      "slug": "pendant-light-with-3-colour-temperatures-gold-tone",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 65,
+      "keep": 22.734999999999996,
+      "margin": 0.3497692307692307,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Wyra Black Finish Frame Pendant light",
+      "slug": "wyra-black-finish-frame-pendant-light",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 62,
+      "keep": 22.34,
+      "margin": 0.36032258064516126,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Tabletop Water Feature - Silver Buddha Cascade & Crystal Ball",
+      "slug": "tabletop-water-feature-35cm-silver-buddha-cascade-crystal-ball",
+      "supplier": "AW Dropship",
+      "category": "Water Features",
+      "price": 52,
+      "keep": 22.13,
+      "margin": 0.4255769230769231,
+      "carriageUnknown": false
+    },
+    {
+      "title": "Large Leni Black And Gold Pendant Light",
+      "slug": "large-leni-black-and-gold-pendant-light",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 64,
+      "keep": 21.91,
+      "margin": 0.34234375,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Vitus Large Wooden Wall Clock",
+      "slug": "vitus-60cm-dia-large-wooden-wall-clock",
+      "supplier": "Premier Housewares",
+      "category": "Wall Clocks",
+      "price": 59,
+      "keep": 21.755000000000003,
+      "margin": 0.3687288135593221,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Spiral Raindrop Crystal Chandelier, Silver",
+      "slug": "metal-crystal-ceiling-light-chandelier-elegant-pendant-lamp-living-room-stairway-spiral-ra",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 39,
+      "keep": 21.544999999999998,
+      "margin": 0.5524358974358974,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Wyra Champagne Gold Frame Pendant light",
+      "slug": "wyra-champagne-gold-frame-pendant-light",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 62,
+      "keep": 21.34,
+      "margin": 0.34419354838709676,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Wyra Chrome Gold Frame Pendant light",
+      "slug": "wyra-chrome-gold-frame-pendant-light",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 62,
+      "keep": 21.34,
+      "margin": 0.34419354838709676,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Arlo Large Wooden Black Ombre Planter",
+      "slug": "arlo-large-wooden-black-ombre-planter",
+      "supplier": "Premier Housewares",
+      "category": "Planters",
+      "price": 59,
+      "keep": 21.275,
+      "margin": 0.360593220338983,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Starry LED Wall Lights, Set of 2, Gold",
+      "slug": "led-wall-lamp-2-pack-5w-modern-indoor-starry-wall-light-colour-temperature-adjustable-3000k",
+      "supplier": "Aosom",
+      "category": "Lighting",
+      "price": 42,
+      "keep": 21.17,
+      "margin": 0.5040476190476191,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Darnell Large Rustic Face Planter",
+      "slug": "darnell-large-rustic-face-planter",
+      "supplier": "Premier Housewares",
+      "category": "Planters",
+      "price": 67,
+      "keep": 21.115000000000002,
+      "margin": 0.31514925373134334,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Boho Rattan Solar Floor Lamp with Shelf, Yellow",
+      "slug": "boho-rattan-floor-lamp-3-lights-rattan-lamp-with-shelf-freestanding-solar-garden-light-wit",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 49,
+      "keep": 21.055,
+      "margin": 0.4296938775510204,
+      "carriageUnknown": true
+    },
+    {
+      "title": "1.2m Dimmable Solar Bollard Lights, Set of 2, Black",
+      "slug": "set-of-2-outdoor-garden-solar-post-lamp-sensor-dimmable-led-lantern-bollard-ip44-energy-sa",
+      "supplier": "Aosom",
+      "category": "Garden Lighting",
+      "price": 45,
+      "keep": 20.685,
+      "margin": 0.4596666666666666,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Stockholm Shiny Brass Adjustable Floor Lamp",
+      "slug": "stockholm-shiny-brass-adjustable-floor-lamp",
+      "supplier": "Premier Housewares",
+      "category": "Lighting",
+      "price": 67,
+      "keep": 20.325000000000003,
+      "margin": 0.3033582089552239,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Elko Pink Finish Embossed Effect Wall Clock",
+      "slug": "elko-16cm-dia-pink-finish-embossed-effect-wall-clock",
+      "supplier": "Premier Housewares",
+      "category": "Wall Clocks",
+      "price": 32,
+      "keep": 20.240000000000002,
+      "margin": 0.6325000000000001,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Thread and Loom 6 Piece Warm Sand Towel Set",
+      "slug": "thread-and-loom-6-piece-warm-sand-towel-set",
+      "supplier": "Premier Housewares",
+      "category": "Accessories",
+      "price": 49,
+      "keep": 20.225,
+      "margin": 0.41275510204081634,
+      "carriageUnknown": true
+    },
+    {
+      "title": "Thread and Loom 6 Piece Poppy Seed Towel Set",
+      "slug": "thread-and-loom-6-piece-poppy-seed-towel-set",
+      "supplier": "Premier Housewares",
+      "category": "Accessories",
+      "price": 49,
+      "keep": 20.225,
+      "margin": 0.41275510204081634,
+      "carriageUnknown": true
+    }
+  ]
+}

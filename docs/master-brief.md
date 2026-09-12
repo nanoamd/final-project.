@@ -16,6 +16,73 @@ Status key:
 
 ---
 
+## The constraint is margin, not traffic — 83% of the catalogue cannot fund a customer (12 September)
+
+Damien, honestly: _"ive somewhat given up but i dont want too... we have too much
+work to do and im not seeing enough results to keep me motivated. how do we
+actually get quality traffic without tiktok or instagram"_. And: _"alot of our
+prices are wrong because i havent given you each suppliers shipping and vat rules
+which i need to do then get you to audit the prices which i cant be bothered to
+do at the moment"_.
+
+The traffic question has an answer further down, but it is the second question.
+Running the numbers already in Sanity turned up something that changes which
+question matters.
+
+- [x] **`scripts/promotable-products.ts`** (read-only) — not "what does each
+      product keep", which `margin-report.ts` already answers, but **which
+      products keep enough to survive the cost of acquiring the buyer**. Every
+      paid and marketplace channel takes a roughly fixed cut off the top
+      (marketplace fees 10–15%; a new unknown brand in UK home and garden costs
+      perhaps £50–£200 in clicks to buy one order), while the margin varies
+      hugely. Both a percentage and a cash test have to pass, because each
+      catches a different failure: percentage alone passes a £9 candle holder
+      at 60% keeping £5, cash alone passes an £800 table at 8% keeping £64 that
+      one redelivery erases.
+- [x] **Result: 91 STRONG (≥35% and ≥£25), 67 VIABLE (≥30% and ≥£20), and 749
+      below the bar. 158 of 907 — 17%.** Concentrated in Aosom (61) and AW
+      Dropship (28, the best mean at £92 kept), with Premier Housewares
+      contributing 63 of its 546. By category the strength is Fire Pits &
+      Heating (18), Lighting (18), The Reclaimed Collection (14), Desks (13)
+      and Water Features (12).
+- [x] **This explains the ads instinct, and corrects the reason.** Damien's
+      hesitation about ads was right; the stated reason — not enough domain
+      authority — is not the mechanism. Paid search does not care about domain
+      age at all. What kills it is arithmetic: at the catalogue's mean margin,
+      acquiring one customer costs more than the sale returns. Ads are not
+      blocked by authority, they are blocked by margin, and that distinction
+      matters because the fix is different.
+- [x] **`margin-report.ts`, re-run: 561 of 907 sit under 25% net**, mean margin
+      by supplier running AW Dropship 45%, Aosom 37%, Premier Housewares 25%,
+      Hill Interiors 22%, D.I. Designs 21%, SaunaPlunge 19%. 94 products keep
+      under £15 in cash.
+- [!] **Every figure above is a ceiling, and Damien named exactly why.** 639
+  products have no `shippingCost` recorded, so their real margin is lower —
+  on a heavy item, much lower — and the supplier VAT and carriage rules
+  that would settle it have not been written down yet. **The task is
+  smaller than it sounds and worth saying so: it is six suppliers' rules,
+  not 907 prices.** With those recorded, the audit is mechanical and I run
+  it; without them, 115 of the 158 promotable products are a best case
+  rather than a figure. Explicitly parked at Damien's request, not
+  forgotten.
+
+### What this means for the work
+
+- [ ] **The catalogue is not the asset; the 158 are.** The honest reframe for
+      "too much work": most of that work is on products that cannot pay for the
+      customer who buys them. Listing effort, guides, ad spend and marketplace
+      listings should go to the 158 and stop going to the 749.
+- [ ] **First sale, not first thousand visitors.** Marketplaces (eBay, OnBuy,
+      Etsy) borrow an audience that already exists and need no domain authority
+      at all — but their 10–15% fee is survivable only on the promotable set,
+      which is the same conclusion from the other direction. Pinterest is the
+      right free visual surface for interiors (verification already coded) and
+      unlike TikTok or Instagram a pin keeps returning traffic for years.
+      Google Shopping free listings remain the largest free lever and remain
+      switched off.
+
+---
+
 ## Asked for faster organic. The answer was a switch that has been off for a month (8 September)
 
 Damien: _"theres got to be something else we can do to boost seo quicker. i want
@@ -2229,11 +2296,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
