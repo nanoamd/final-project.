@@ -16,6 +16,35 @@ Status key:
 
 ---
 
+## The first-sale course (13 September)
+
+Damien: _"make me an intensive course to reach my first sale"_, and then _"if we
+can get one sale organically i will define this as a sucessful business in my
+own opinion, is that highly likely to happen"_.
+
+- [x] **Published as a page rather than written into the repo**, because it is a
+      thing to work through over four weeks and tick off, not documentation:
+      <https://claude.ai/code/artifact/80a7760b-c4d0-43ff-99f9-20a8f0900771>
+      Progress is stored per artifact, so ticks survive closing it and follow
+      him between phone and laptop.
+- [x] **Eight sessions in gating order**, the order being the point: verify the
+      till takes real money (01) before spending any week earning traffic into
+      it; read the 27 `checkout.stripe.com` sessions (02); switch the Merchant
+      feed on (03); close the abandoned-checkout blind spot (04); link at
+      products rather than the homepage (05); concentrate on the 204 promotable
+      (06); six supplier emails about marketplaces (07); a week-four decision
+      point with criteria set in advance (08).
+- [x] **The question answered with arithmetic rather than encouragement.** One
+      sale is roughly 100–200 product-page clicks at 0.5–1%. He is getting about
+      one product-page click a fortnight, so on the current line the answer is
+      "years". With the feed live it is weeks to months. The gap is two switches,
+      not more effort — and that is stated on the page in those words.
+- [!] **Session 01 is blocking and only he can do it.** If a customer can reach
+  payment and not be charged, every other item on this ledger makes things
+  worse rather than better.
+
+---
+
 ## Marketplace eligibility, recorded rather than assumed (13 September)
 
 Damien: _"find all my products which are eligible to go on ebay and amazon.
@@ -2822,11 +2851,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
