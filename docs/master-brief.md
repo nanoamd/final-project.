@@ -35,10 +35,29 @@ own opinion, is that highly likely to happen"_.
       (06); six supplier emails about marketplaces (07); a week-four decision
       point with criteria set in advance (08).
 - [x] **The question answered with arithmetic rather than encouragement.** One
-      sale is roughly 100–200 product-page clicks at 0.5–1%. He is getting about
-      one product-page click a fortnight, so on the current line the answer is
-      "years". With the feed live it is weeks to months. The gap is two switches,
-      not more effort — and that is stated on the page in those words.
+      sale is roughly 100–200 product-page clicks at 0.5–1%.
+- [x] **Corrected the same day, after Damien pushed back: "400 of my products
+      are on google shopping? this is already done no?"** He was right and the
+      first version of the page was wrong. Google builds Shopping listings two
+      ways, and only one of them was off:
+  - The **crawled** route reads the Product structured data on each page —
+    price, availability, brand, sku/gtin/mpn, colour, material, condition,
+    handling time and returns are all live there. That is how ~400 products
+    are listed with no feed at all, and the page had described the channel
+    as closed.
+  - The **feed** route is still unsubmitted, and carries three things the
+    page physically cannot: `identifier_exists: no` (**178 products have
+    neither GTIN nor MPN**, and there is no schema.org equivalent — on the
+    crawled route they are rejected for a missing GTIN and no page-side work
+    can answer it), `google_product_category`, and the enriched `feedTitle`
+    that cannot go in a page title without renaming the product.
+  - So session 03 is now coverage and attributes — ~400 listed to 907 —
+    rather than the switch that "turns years into weeks", which overstated it.
+- [x] **A second correction of my own making: Search Console does not report
+      Shopping free-listing clicks.** The "39 clicks in 3 months" every
+      estimate in this session rested on is web search only; the Merchant
+      Center Performance figure was never in it. Session 02 now has him read
+      that number before judging anything.
 - [!] **Session 01 is blocking and only he can do it.** If a customer can reach
   payment and not be charged, every other item on this ledger makes things
   worse rather than better.
@@ -2851,11 +2870,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
