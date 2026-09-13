@@ -16,6 +16,38 @@ Status key:
 
 ---
 
+## Marketplace eligibility, recorded rather than assumed (13 September)
+
+Damien: _"find all my products which are eligible to go on ebay and amazon.
+some suppliers i have dont allow it"_.
+
+- [x] **The answer could not be given from data, because the data did not
+      exist.** Nothing in the supplier schema recorded marketplace permission,
+      and nothing anywhere in Sanity mentioned eBay, Amazon or resale terms. So
+      the honest first move was to make it recordable rather than to guess.
+- [x] **`marketplacesAllowed` and `marketplacePolicySource` added to the
+      supplier schema.** Permission is a supplier's rule, not a product's, so it
+      is recorded once per supplier — **six answers, not 907 decisions.** The
+      source field exists because "I think they allow it" and "clause 7.2 of
+      their trade terms" are different things.
+- [x] **Unset is treated as NOT permitted, deliberately.** An empty list must
+      never read as "anything goes": breaching a dropship supplier's resale
+      terms closes the trade account rather than generating a warning. The cost
+      of wrongly withholding a product is a delayed listing; the cost of wrongly
+      listing one is losing the supplier. Those are not symmetric, so silence
+      means no.
+- [x] **`scripts/marketplace-eligible-products.ts`** reads that permission and
+      then narrows to products worth listing, modelling the commission
+      explicitly — eBay 12.9%, Amazon 15.1%, OnBuy 9%, Etsy 9.5% — because a
+      product keeping £8 before fees keeps nothing after them. Flags products
+      with no GTIN, which Amazon usually requires.
+- [!] **Currently returns nothing, correctly.** No supplier has a permission
+  recorded, so nothing is eligible. Six suppliers to check:
+  Premier Housewares (546 products), Hill Interiors (140), Aosom (103),
+  AW Dropship (56), D.I. Designs (54), SaunaPlunge (8).
+
+---
+
 ## Every page title and description brought inside Google's limits (12 September)
 
 Damien: _"make sure the entire site is optimized for seo... to the highest
@@ -2790,11 +2822,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

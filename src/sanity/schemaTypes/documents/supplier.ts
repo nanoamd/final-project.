@@ -57,6 +57,38 @@ export const supplier = defineType({
       title: "Carriage terms",
       type: "shippingRule",
     }),
+    /**
+     * Which marketplaces this supplier's goods may be resold on.
+     *
+     * Dropship suppliers commonly forbid Amazon and eBay in their trade terms,
+     * and breaching that gets the trade account closed rather than generating a
+     * warning. So this is recorded per supplier — it is their rule, not a
+     * per-product one — and read by `scripts/marketplace-eligible-products.ts`.
+     *
+     * **Unset means unknown, and unknown is treated as not permitted.** An
+     * empty list must never be read as "anything goes": the cost of wrongly
+     * listing is losing the supplier, and the cost of wrongly withholding is a
+     * delayed listing. Only a marketplace explicitly ticked here, with its
+     * source recorded below, counts as permission.
+     */
+    defineField({
+      name: "marketplacesAllowed",
+      title: "Marketplaces this supplier permits",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: ["eBay", "Amazon", "OnBuy", "Etsy"],
+      },
+      description:
+        "Tick only what their trade terms actually permit. Leave empty if you have not checked — empty is treated as 'not permitted', never as 'allowed'.",
+    }),
+    defineField({
+      name: "marketplacePolicySource",
+      title: "Where that came from",
+      type: "string",
+      description:
+        "The clause, page or email that says so — e.g. 'Trade T&Cs cl. 7.2' or 'email from Sam, 3 Sept'. Without a source this is a guess.",
+    }),
     defineField({ name: "notes", type: "text", rows: 3 }),
   ],
   preview: {
