@@ -265,6 +265,28 @@ export const product = defineType({
      * being reconcilable against an invoice — which is the whole reason it
      * is kept accurate.
      */
+    /**
+     * Pins a product to the front of its category grid.
+     *
+     * The grid is otherwise cheapest-first, which stops a category opening on a
+     * price that reads as "not for me". That is a sensible default and a poor
+     * way to merchandise a whole shop, so this is the override: give the two or
+     * three pieces that should greet a visitor a displayOrder of 1, 2, 3 and
+     * they lead, with the price run continuing beneath them.
+     *
+     * Unset means "sort by price", which is what almost every product should
+     * be. Use it sparingly — a category where everything is pinned is just an
+     * alphabetical grid again, which is the problem this replaced.
+     */
+    defineField({
+      name: "displayOrder",
+      title: "Pin to front of category (1 = first)",
+      type: "number",
+      group: "commerce",
+      description:
+        "Leave empty for almost everything. Set 1, 2, 3 on the few pieces that should open the category; everything else follows, cheapest first.",
+      validation: (rule) => rule.min(1).integer(),
+    }),
     defineField({
       name: "splitPackApplied",
       title: "Split-pack surcharge folded into cost price",

@@ -281,12 +281,31 @@ const PRODUCT_BY_SLUG_QUERY = /* groq */ `
  * alphabetical order sits every variant of the same piece next to each
  * other, which is exactly "an appropriate product" beside it.
  */
+/**
+ * A category's products: hand-picked ones first, then cheapest first.
+ *
+ * This was `order(title asc)` — the "Featured" sort was alphabetical, so the
+ * first tile in Mirrors was whichever product happened to start with an A. That
+ * is random with respect to price, and a £996 mirror landing first tells a
+ * shopper the shop is not for them before they have scrolled.
+ *
+ * Cheapest-first is the deliberate replacement. There is a real argument the
+ * other way — `scripts/audit-price-positioning.ts` warns that a £15 planter at
+ * the top sets the tone for the whole category — but the two failure modes are
+ * not equally costly right now. "Nothing here is for me" loses the visit; "this
+ * is affordable" loses a little prestige. With no sales yet, the first is the
+ * one to avoid.
+ *
+ * `displayOrder` is the escape hatch: any product given one sorts ahead of the
+ * price run, in the order set, so a category can be opened with chosen pieces
+ * without hand-ordering all 138 of them.
+ */
 const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
 *[_type == "product"
   && (category->slug.current == $categorySlug
       || $categorySlug in additionalCategories[]->slug.current)
   && (!defined($styleTag) || count(styleTags[lower(@) == lower($styleTag)]) > 0)]
-  | order(title asc)
+  | order(coalesce(displayOrder, 99999) asc, coalesce(price, 999999) asc, title asc)
   [$start...$end]
   ${PRODUCT_PROJECTION}`;
 

@@ -16,6 +16,39 @@ Status key:
 
 ---
 
+## Category grids were sorted alphabetically (14 September)
+
+Damien: _"a lot of my products look pricey at first glance"_, then _"maybe add
+cheaper products towards the top of each category"_.
+
+- [x] **The "Featured" sort was `order(title asc)` — plain A to Z.** Not a
+      merchandising order at all, and random with respect to price. What a
+      visitor actually met first:
+  - **Sofas opened on a £1,874 sofa.** Now £272.
+  - **Lighting** ran £37, £55, £33, **£827** in the first four tiles. Now £23,
+    £30, £32, £33.
+  - **Mirrors** opened at £458. **Planters** at £94.
+- [x] **Now `order(coalesce(displayOrder, 99999) asc, coalesce(price, 999999)
+    asc, title asc)`** — pinned pieces first, then cheapest first.
+- [x] **`displayOrder` added to the product schema** as the editorial escape
+      hatch: set 1, 2, 3 on the few pieces that should greet a visitor and the
+      price run continues beneath them. Unset means "sort by price", which is
+      what nearly every product should be.
+- [x] **The counter-argument is recorded in the query's own comment**, because
+      it is real: `scripts/audit-price-positioning.ts` warns that a cheap item
+      at the top sets the tone for the category. The two failure modes are not
+      equally costly with zero sales — "nothing here is for me" loses the
+      visit outright, "this is affordable" costs a little prestige.
+- [!] **Mirrors now opens on four £19 products in a row**, which is the
+  "looks cheap" risk arriving on schedule, and visually flat besides. That is
+  exactly what `displayOrder` is for — two or three pinned pieces per
+  important category, which is Damien's to choose.
+- [x] **Category TILE order on /shop was already controllable** — `category`
+      documents have an `order` field and the query is `order(order asc)`. No
+      code change needed there, it is a Studio edit.
+
+---
+
 ## Market check continued — and the 2x pattern is NOT universal (14 September)
 
 Damien: _"continue... this work better be correct not ai generated slop"_.
@@ -3086,11 +3119,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
