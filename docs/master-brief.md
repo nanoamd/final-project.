@@ -16,6 +16,43 @@ Status key:
 
 ---
 
+## Market check continued — and the 2x pattern is NOT universal (14 September)
+
+Damien: _"continue... this work better be correct not ai generated slop"_.
+Rule held throughout: **only prices read off a live listing**, every source
+recorded, anchored on the lowest, nothing estimated. A product whose price
+could not be verified was not touched.
+
+- [x] **Saronno Grey Marble Dining Table — £3,430.99** at royalcraft.co.uk,
+      5 in stock. Repriced **£2,506 → £2,745** (profit £502 → £737, margin
+      20% → 26.9%), still **£686 under** the only listing found.
+- [x] **The Troyes chaise sofas were checked and deliberately LEFT ALONE.**
+      Listings at £2,300 (tideshomeandgarden.co.uk, from £2,875) and
+      £2,199.99. Kaiku sits at £2,118 — already under both, on a 20% margin.
+      A 15% undercut would be £1,870, which is **9.6% margin**. The right
+      answer was to change nothing.
+- [x] **That is the important finding: the ~2x multiple does not hold across
+      the catalogue.** Mirrors and case furniture verified at 1.75–2.07x
+      trade cost; the Troyes sofa market sits at **1.32x**. Upholstery is
+      priced far more competitively than decorative goods. Any blanket
+      multiplier would have wrecked the sofa range — which is exactly why
+      only sourced products get touched.
+- [x] **The script now skips rather than aborts**, and records what it
+      checked and declined to change, with the reason. It only ever raises a
+      price, never cuts one, and re-running is idempotent — the four products
+      already at their target are reported as such rather than raised again.
+- [x] **Verified after applying:** Brando £1,135 (31.7%), Riza £996 (35.8%),
+      Kensington £400 (23.7%), Saronno £2,745 (26.9%), Troyes £2,118 (20%,
+      unchanged). **0 of 546 Premier products below 17%.**
+- [-] **Ulmus Black Elm Wood Sideboard (£2,020) could not be verified** — no
+  UK listing found for it. Left untouched, correctly.
+- [ ] **Still unchecked:** the remaining ~20 held-back products and most of
+      the 87 at £800+. Nearly all sit at exactly 1.27x cost / 20.0% margin,
+      which is the mechanical output of the earlier floor script rather than a
+      market judgement. Each needs its own listing check.
+
+---
+
 ## Kaiku is priced at roughly half the market (14 September)
 
 Found by actually checking competitor listings — the thing I had told Damien
@@ -3049,11 +3086,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

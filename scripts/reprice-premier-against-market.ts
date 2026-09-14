@@ -105,6 +105,24 @@ const VERIFIED: Verified[] = [
     seen: [{ price: 499.95, source: "UK stockist, sale price" }],
     note: "Anchored on the sale price, not the £1,120.95 RRP — the conservative choice.",
   },
+  {
+    match: "Saronno Grey Marble Dining Table",
+    seen: [{ price: 3430.99, source: "royalcraft.co.uk, 5 in stock" }],
+  },
+  {
+    // Checked and deliberately left alone — see the skip logic below. Kaiku at
+    // £2,118 already undercuts both listings while holding a 20% margin, and a
+    // further 15% cut would put it at 9.6%. Recorded so nobody re-checks it.
+    match: "Troyes Cream Three Seat Left Chaise Sofa",
+    seen: [
+      { price: 2300.0, source: "tideshomeandgarden.co.uk, from £2,875" },
+      {
+        price: 2199.99,
+        source:
+          "theprimefurniturestore.com (search summary, not confirmed on page)",
+      },
+    ],
+  },
 ];
 
 interface Row {
@@ -123,6 +141,7 @@ async function main() {
   );
 
   const changes = [];
+  const skipped: Record<string, unknown>[] = [];
   for (const v of VERIFIED) {
     const matches = rows.filter((r) => r.title.includes(v.match));
     if (matches.length !== 1) {
@@ -144,9 +163,28 @@ async function main() {
     const keepNow =
       row.price! - cost - ship - (row.price! * CARD_RATE + CARD_FIXED);
 
-    if (keep / to < MIN_MARGIN) {
-      console.error(`\n${row.title}: repriced margin below floor. Refusing.`);
-      process.exit(1);
+    // A product already priced under the market cannot always be cut further.
+    // Where the undercut would breach the margin floor, or would LOWER a price
+    // that is already competitive, the product is left exactly as it is and
+    // recorded as checked. That is a real outcome, not a failure: the Troyes
+    // sofa sits at £2,118 against listings of £2,200 and £2,300, so it already
+    // undercuts the market while holding 20%. Cutting it 15% further would
+    // leave 9.6%.
+    if (keep / to < MIN_MARGIN || to <= row.price!) {
+      skipped.push({
+        title: row.title.replace(" | Kaiku", ""),
+        price: row.price!,
+        lowestSeen: lowest.price,
+        source: lowest.source,
+        marginNow: Number(((keepNow / row.price!) * 100).toFixed(1)),
+        wouldBe: to,
+        wouldBeMargin: Number(((keep / to) * 100).toFixed(1)),
+        reason:
+          to <= row.price!
+            ? `already priced at or below the £${to} undercut target — this script only raises, never cuts`
+            : `raising to the £${to} undercut target would leave only ${((keep / to) * 100).toFixed(1)}% margin`,
+      });
+      continue;
     }
 
     changes.push({
@@ -199,10 +237,24 @@ async function main() {
     `  Extra profit per sale, across these ${changes.length}: £${gained.toFixed(2)}`,
   );
 
+  if (skipped.length) {
+    console.log(
+      `\n  Checked against real listings and LEFT ALONE — ${skipped.length}:\n`,
+    );
+    for (const sk of skipped) {
+      console.log(`    ${sk.title as string}`);
+      console.log(
+        `      at £${sk.price as number} (${sk.marginNow as number}%)` +
+          `   cheapest listing £${sk.lowestSeen as number} — ${sk.source as string}`,
+      );
+      console.log(`      ${sk.reason as string}\n`);
+    }
+  }
+
   mkdirSync("docs/change-log", { recursive: true });
   writeFileSync(
     "docs/change-log/2026-09-14-premier-market-reprice.json",
-    `${JSON.stringify({ generatedAt: new Date().toISOString(), undercut: UNDERCUT, changes }, null, 2)}\n`,
+    `${JSON.stringify({ generatedAt: new Date().toISOString(), undercut: UNDERCUT, changes, skipped }, null, 2)}\n`,
   );
 
   if (!apply) return console.log("\nDry run — re-run with --apply.");

@@ -1,79 +1,71 @@
 {
-  "generatedAt": "2026-09-14T20:24:52.901Z",
+  "generatedAt": "2026-09-14T21:13:22.898Z",
   "undercut": 0.15,
   "changes": [
     {
-      "_id": "premier-housewares-5529084",
-      "slug": "brando-acacia-wood-effect-dining-table",
+      "_id": "premier-housewares-5528970",
+      "slug": "saronno-grey-marble-dining-table",
+      "title": "Saronno Grey Marble Dining Table",
+      "cost": 1966.46,
+      "market": 3430.99,
+      "source": "royalcraft.co.uk, 5 in stock",
+      "allSeen": [
+        {
+          "price": 3430.99,
+          "source": "royalcraft.co.uk, 5 in stock"
+        }
+      ],
+      "singleSource": true,
+      "cut": 0.2,
+      "note": null,
+      "from": 2506,
+      "to": 2745,
+      "keepNow": 501.75,
+      "keepAfter": 737.16,
+      "marginNow": 20,
+      "marginAfter": 26.9
+    }
+  ],
+  "skipped": [
+    {
       "title": "Brando Acacia Wood effect Dining Table",
-      "cost": 757.61,
-      "market": 1334.5,
+      "price": 1135,
+      "lowestSeen": 1334.5,
       "source": "abigailahern.com, reduced from £1,570",
-      "allSeen": [
-        {
-          "price": 1566.99,
-          "source": "royalcraft.co.uk, 10 in stock"
-        },
-        {
-          "price": 1334.5,
-          "source": "abigailahern.com, reduced from £1,570"
-        }
-      ],
-      "singleSource": false,
-      "cut": 0.15,
-      "note": null,
-      "from": 1332,
-      "to": 1135,
-      "keepNow": 554.21,
-      "keepAfter": 360.16,
-      "marginNow": 41.6,
-      "marginAfter": 31.7
+      "marginNow": 31.7,
+      "wouldBe": 1135,
+      "wouldBeMargin": 31.7,
+      "reason": "already priced at or below the £1135 undercut target — this script only raises, never cuts"
     },
     {
-      "_id": "premier-housewares-5503222",
-      "slug": "riza-large-panelled-wall-mirror",
       "title": "Riza Large Panelled Wall Mirror",
-      "cost": 624.08,
-      "market": 1244,
+      "price": 996,
+      "lowestSeen": 1244,
       "source": "houseofisabella.co.uk (SKU 5503222)",
-      "allSeen": [
-        {
-          "price": 1244,
-          "source": "houseofisabella.co.uk (SKU 5503222)"
-        }
-      ],
-      "singleSource": true,
-      "cut": 0.2,
-      "note": null,
-      "from": 1058,
-      "to": 996,
-      "keepNow": 417.85,
-      "keepAfter": 356.78,
-      "marginNow": 39.5,
-      "marginAfter": 35.8
+      "marginNow": 35.8,
+      "wouldBe": 996,
+      "wouldBeMargin": 35.8,
+      "reason": "already priced at or below the £996 undercut target — this script only raises, never cuts"
     },
     {
-      "_id": "premier-housewares-5501173",
-      "slug": "kensington-townhouse-brown-and-white-hair-on-leather-side-table",
       "title": "Kensington Townhouse Brown And White Hair on Leather Side Table",
-      "cost": 299.04,
-      "market": 499.95,
+      "price": 400,
+      "lowestSeen": 499.95,
       "source": "UK stockist, sale price",
-      "allSeen": [
-        {
-          "price": 499.95,
-          "source": "UK stockist, sale price"
-        }
-      ],
-      "singleSource": true,
-      "cut": 0.2,
-      "note": "Anchored on the sale price, not the £1,120.95 RRP — the conservative choice.",
-      "from": 425,
-      "to": 400,
-      "keepNow": 119.38,
-      "keepAfter": 94.76,
-      "marginNow": 28.1,
-      "marginAfter": 23.7
+      "marginNow": 23.7,
+      "wouldBe": 400,
+      "wouldBeMargin": 23.7,
+      "reason": "already priced at or below the £400 undercut target — this script only raises, never cuts"
+    },
+    {
+      "title": "Troyes Cream Three Seat Left Chaise Sofa",
+      "price": 2118,
+      "lowestSeen": 2199.99,
+      "source": "theprimefurniturestore.com (search summary, not confirmed on page)",
+      "marginNow": 20,
+      "wouldBe": 1870,
+      "wouldBeMargin": 9.6,
+      "reason": "already priced at or below the £1870 undercut target — this script only raises, never cuts"
     }
   ]
 }
