@@ -16,6 +16,47 @@ Status key:
 
 ---
 
+## Kaiku is priced at roughly half the market (14 September)
+
+Found by actually checking competitor listings — the thing I had told Damien
+could not be done, on the grounds that no market price was recorded in the
+catalogue. There was a web search tool available the whole time.
+
+- [x] **Three verified listings, three different retailers:**
+  - Brando Acacia dining table — **£1,566.99** (royalcraft.co.uk, 10 in stock)
+  - Riza Large Panelled Wall Mirror — **£1,244.00** (houseofisabella.co.uk)
+  - Kensington Townhouse side table — **£499.95** on sale, RRP £1,120.95
+- [x] **Against the VAT-inclusive trade cost, the market sells these at about
+      2x. Kaiku sold them at 1.23x.** Two independent products landed on
+      1.99x and 2.07x, from different categories and different retailers.
+      That is not a rounding difference — Kaiku was listing at roughly half
+      the market price and still calling 17% "protecting the price".
+- [x] **My 17%-floor proxy was inverted, and this corrects it.** Holding 26
+      products at the floor assumed Kaiku was priced AT market and a large
+      rise would push it above. Kaiku was priced BELOW market, so the products
+      needing the biggest rises had the MOST headroom, not the least. The
+      three checked were all in that held-back group.
+- [x] **`scripts/reprice-premier-against-market.ts`** prices at a deliberate
+      15% undercut of a verified listing — an unknown shop matching a known
+      retailer exactly is not a real offer — and refuses to write if a
+      repriced product would fall below a 20% margin.
+  - Brando £930 → **£1,332** (profit £158 → £554, margin 17% → 41.6%)
+  - Riza £766 → **£1,058** (profit £130 → £418, margin 17% → 39.5%)
+  - Kensington £368 → **£425** (profit £63 → £119, margin 17.2% → 28.1%)
+  - **£739.73 more profit per sale across three products.**
+- [-] **Deliberately NOT extrapolated to 546 products.** Three data points do
+  not license a 2x multiplier across the catalogue — that would repeat the
+  same error in the opposite direction. Only products with a verified,
+  sourced listing are touched; the rest wait for their own check.
+- [!] **The low end of the market is not bracketed.** Debenhams, Robert Dyas
+  and B&Q all stock Premier goods and all render prices in JavaScript, so
+  they could not be read. The 2x figure may be the premium end rather than
+  the median.
+- [ ] **23 of the 26 held-back products still need their own price check**,
+      plus the 87 products at £800+ where the same gap is most expensive.
+
+---
+
 ## Premier Housewares repriced to a 20% floor (14 September)
 
 Damien: _"just make sure everything from ph makes money. more than 20%. if
@@ -72,7 +113,7 @@ it ships — with the reversal built in rather than the objection repeated.
 - [x] **Reversible, because the selection is a judgement and some of it will
       be wrong.** `costPriceBeforeSplitPack` keeps the supplier's actual
       invoice figure and `splitPackApplied` flags the change; `--revert
-  --apply` restores every one exactly. Without that, `costPrice` stops
+--apply` restores every one exactly. Without that, `costPrice` stops
       being reconcilable against an invoice, which is the only reason it is
       worth keeping accurate. The script is idempotent, so a second run
       cannot compound it to 21%.
@@ -2995,11 +3036,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
