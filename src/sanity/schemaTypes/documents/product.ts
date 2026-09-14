@@ -239,6 +239,28 @@ export const product = defineType({
     // Logistics -------------------------------------------------------------
     defineField({ name: "dimensions", type: "dimensions", group: "logistics" }),
     defineField({ name: "weight", type: "weight", group: "logistics" }),
+    /**
+     * How many units the supplier's wholesale pack contains.
+     *
+     * Only matters because of `splitPackSurchargeRate` on the supplier: a
+     * dropship order is always a single unit, so anything with a pack
+     * quantity above 1 carries the surcharge on every single sale. 1 or
+     * unset means the item is sold singly and no surcharge applies.
+     *
+     * Unset is NOT the same as 1 — it means nobody has checked. The margin
+     * report treats unset as "unknown" and shows the surcharge as a range,
+     * because quietly assuming 1 would overstate the margin on exactly the
+     * cheap homeware where 10% decides viability.
+     */
+    defineField({
+      name: "packQuantity",
+      title: "Supplier pack quantity",
+      type: "number",
+      group: "logistics",
+      description:
+        "Units per wholesale pack. 1 = sold singly. Leave unset if unknown — unknown is reported as a range, never silently treated as 1.",
+      validation: (rule) => rule.min(1).integer(),
+    }),
     defineField({
       name: "deliveryLeadTime",
       title: "Delivery lead time",

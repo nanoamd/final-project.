@@ -1,0 +1,453 @@
+{
+  "generatedAt": "2026-09-14T18:18:23.917Z",
+  "supplier": "Premier Housewares",
+  "rate": 0.1,
+  "counts": {
+    "total": 546,
+    "exempt": 218,
+    "atRisk": 328,
+    "known": 0
+  },
+  "decisive": [
+    {
+      "slug": "jada-large-striped-planter",
+      "title": "Jada Large Striped Planter",
+      "category": "Planters",
+      "price": 29,
+      "keepWithout": 6.47,
+      "keepWith": 4.29
+    },
+    {
+      "slug": "freska-set-of-five-ribbed-round-clear-glass-jars-with-acacia-wood-lids",
+      "title": "Freska Set of Five Ribbed Round Clear Glass Jars with Acacia Wood Lids",
+      "category": "Storage",
+      "price": 31,
+      "keepWithout": 6.8,
+      "keepWith": 4.45
+    },
+    {
+      "slug": "jada-large-abstract-planter",
+      "title": "Jada Large Abstract Planter",
+      "category": "Planters",
+      "price": 28,
+      "keepWithout": 7.54,
+      "keepWith": 5.56
+    },
+    {
+      "slug": "baillie-40cm-dia-rose-gold-and-mirror-wall-clock",
+      "title": "Baillie Rose Gold and Mirror Wall Clock",
+      "category": "Wall Clocks",
+      "price": 43,
+      "keepWithout": 9.36,
+      "keepWith": 6.08
+    },
+    {
+      "slug": "allegra-champagne-finish-tissue-box",
+      "title": "Allegra Champagne Finish Tissue Box",
+      "category": "Accessories",
+      "price": 37,
+      "keepWithout": 9,
+      "keepWith": 6.27
+    },
+    {
+      "slug": "darnell-small-rustic-face-planter",
+      "title": "Darnell Small Rustic Face Planter",
+      "category": "Planters",
+      "price": 49,
+      "keepWithout": 10.57,
+      "keepWith": 6.83
+    },
+    {
+      "slug": "cheston-white-antique-finish-wall-clock",
+      "title": "Cheston White Antique Finish Wall Clock",
+      "category": "Wall Clocks",
+      "price": 39,
+      "keepWithout": 10.07,
+      "keepWith": 7.25
+    },
+    {
+      "slug": "hania-large-glass-vase-with-abstract-pattern",
+      "title": "Hania Large Glass Vase with Abstract Pattern",
+      "category": "Vases",
+      "price": 56,
+      "keepWithout": 11.6,
+      "keepWith": 7.26
+    },
+    {
+      "slug": "asher-two-tier-grey-plant-stand",
+      "title": "Asher Two Tier Grey Plant Stand",
+      "category": "Planters",
+      "price": 55,
+      "keepWithout": 11.8,
+      "keepWith": 7.59
+    },
+    {
+      "slug": "freska-set-of-five-ribbed-round-glass-jars-with-acacia-wood-lids",
+      "title": "Freska Set of Five Ribbed Round Glass Jars with Acacia Wood Lids",
+      "category": "Storage",
+      "price": 39,
+      "keepWithout": 10.45,
+      "keepWith": 7.68
+    },
+    {
+      "slug": "darnell-small-white-finish-rounded-planter",
+      "title": "Darnell Small White Finish Rounded Planter",
+      "category": "Planters",
+      "price": 55,
+      "keepWithout": 11.94,
+      "keepWith": 7.73
+    },
+    {
+      "slug": "darnell-large-natural-face-planter",
+      "title": "Darnell Large Natural Face Planter",
+      "category": "Planters",
+      "price": 58,
+      "keepWithout": 12.25,
+      "keepWith": 7.78
+    },
+    {
+      "slug": "deomali-black-finish-large-bottle-vase",
+      "title": "Deomali Black Finish Large Bottle Vase",
+      "category": "Vases",
+      "price": 53,
+      "keepWithout": 11.87,
+      "keepWith": 7.85
+    },
+    {
+      "slug": "darnell-small-black-and-white-finish-planter",
+      "title": "Darnell Small Black And White Finish Planter",
+      "category": "Planters",
+      "price": 53,
+      "keepWithout": 11.87,
+      "keepWith": 7.86
+    },
+    {
+      "slug": "darnell-round-brown-vase",
+      "title": "Darnell Round Brown Vase",
+      "category": "Planters",
+      "price": 62,
+      "keepWithout": 12.82,
+      "keepWith": 8.01
+    },
+    {
+      "slug": "darnell-brown-planter-with-angular-legs",
+      "title": "Darnell Brown Planter With Angular Legs",
+      "category": "Planters",
+      "price": 67,
+      "keepWithout": 13.79,
+      "keepWith": 8.58
+    },
+    {
+      "slug": "darnell-round-natural-and-black-vase",
+      "title": "Darnell Round Natural And Black Vase",
+      "category": "Planters",
+      "price": 63,
+      "keepWithout": 13.81,
+      "keepWith": 9
+    },
+    {
+      "slug": "darnell-large-face-planter",
+      "title": "Darnell Large Face Planter",
+      "category": "Planters",
+      "price": 69,
+      "keepWithout": 14.44,
+      "keepWith": 9.1
+    },
+    {
+      "slug": "avento-set-of-three-black-finish-planters",
+      "title": "Avento Set Of Three Black Finish Planters",
+      "category": "Planters",
+      "price": 63,
+      "keepWithout": 14.21,
+      "keepWith": 9.45
+    },
+    {
+      "slug": "darnell-medium-grey-speckled-planter",
+      "title": "Darnell Medium Grey Speckled Planter",
+      "category": "Planters",
+      "price": 65,
+      "keepWithout": 14.46,
+      "keepWith": 9.52
+    },
+    {
+      "slug": "lentigo-set-of-two-white-planters",
+      "title": "Lentigo Set Of Two White Planters",
+      "category": "Planters",
+      "price": 49,
+      "keepWithout": 13.14,
+      "keepWith": 9.65
+    },
+    {
+      "slug": "vitus-56cm-dia-gold-finish-wall-clock",
+      "title": "Vitus Gold Finish Wall Clock",
+      "category": "Wall Clocks",
+      "price": 49,
+      "keepWithout": 13.22,
+      "keepWith": 9.74
+    },
+    {
+      "slug": "vitus-60cm-dia-large-wall-clock",
+      "title": "Vitus Large Wall Clock",
+      "category": "Wall Clocks",
+      "price": 68,
+      "keepWithout": 15.37,
+      "keepWith": 10.23
+    },
+    {
+      "slug": "asher-two-tier-black-plant-stand",
+      "title": "Asher Two Tier Black Plant Stand",
+      "category": "Planters",
+      "price": 59,
+      "keepWithout": 15.14,
+      "keepWith": 10.87
+    },
+    {
+      "slug": "stockholm-chrome-finish-tapered-floor-lamp",
+      "title": "Stockholm Chrome Finish Tapered Floor Lamp",
+      "category": "Lighting",
+      "price": 84,
+      "keepWithout": 17.63,
+      "keepWith": 11.14
+    },
+    {
+      "slug": "darnell-small-chevron-planter",
+      "title": "Darnell Small Chevron Planter",
+      "category": "Planters",
+      "price": 56,
+      "keepWithout": 15.17,
+      "keepWith": 11.19
+    },
+    {
+      "slug": "carta-taupe-etched-linear-design-papier-mache-domed-table-lamp",
+      "title": "Carta Taupe Etched Linear Design Papier Mache Domed Table Lamp",
+      "category": "Lighting",
+      "price": 89,
+      "keepWithout": 18.31,
+      "keepWith": 11.39
+    },
+    {
+      "slug": "lenno-large-gold-pendant-light",
+      "title": "Lenno Large Gold Pendant Light",
+      "category": "Lighting",
+      "price": 73,
+      "keepWithout": 17.05,
+      "keepWith": 11.59
+    },
+    {
+      "slug": "fiori-mixed-succulents-in-wood-wall-planter",
+      "title": "Fiori Mixed Succulents In Wood Wall Planter",
+      "category": "Planters",
+      "price": 94,
+      "keepWithout": 19.27,
+      "keepWith": 11.96
+    },
+    {
+      "slug": "kensington-townhouse-nickel-finish-large-floorstanding-candle-holder",
+      "title": "Kensington Townhouse Nickel Finish Large Floorstanding Candle Holder",
+      "category": "Candles & Lanterns",
+      "price": 68,
+      "keepWithout": 17.42,
+      "keepWith": 12.48
+    },
+    {
+      "slug": "selby-natural-tropical-hevea-wood-square-plant-stand",
+      "title": "Selby Natural Tropical Hevea Wood Square Plant Stand",
+      "category": "Planters",
+      "price": 67,
+      "keepWithout": 17.82,
+      "keepWith": 13.02
+    },
+    {
+      "slug": "stockholm-shiny-brass-tapered-floor-lamp",
+      "title": "Stockholm Shiny Brass Tapered Floor Lamp",
+      "category": "Lighting",
+      "price": 89,
+      "keepWithout": 22.56,
+      "keepWith": 16.06
+    },
+    {
+      "slug": "alden-black-floor-standing-planter",
+      "title": "Alden Black Floor Standing Planter",
+      "category": "Planters",
+      "price": 94,
+      "keepWithout": 23.22,
+      "keepWith": 16.3
+    },
+    {
+      "slug": "carta-oatmeal-etched-linear-design-papier-mache-domed-table-lamp",
+      "title": "Carta Oatmeal Etched Linear Design Papier Mache Domed Table Lamp",
+      "category": "Lighting",
+      "price": 129,
+      "keepWithout": 26.57,
+      "keepWith": 16.53
+    },
+    {
+      "slug": "sellis-clear-glass-and-black-metal-table-lamp",
+      "title": "Sellis Clear Glass and Black Metal Table Lamp",
+      "category": "Lighting",
+      "price": 109,
+      "keepWithout": 25.34,
+      "keepWith": 17.15
+    },
+    {
+      "slug": "hanah-black-snake-leather-effect-table-lamp-with-chrome-base",
+      "title": "Hanah Black Snake Leather Effect Table Lamp with Chrome Base",
+      "category": "Lighting",
+      "price": 149,
+      "keepWithout": 30.3,
+      "keepWith": 18.67
+    },
+    {
+      "slug": "astratto-abstract-wall-art",
+      "title": "Astratto Abstract Wall Art",
+      "category": "Wall Art",
+      "price": 139,
+      "keepWithout": 30.28,
+      "keepWith": 19.63
+    },
+    {
+      "slug": "hutchinson-clear-crystal-table-lamp-with-black-metal",
+      "title": "Hutchinson Clear Crystal Table Lamp with Black Metal",
+      "category": "Lighting",
+      "price": 164,
+      "keepWithout": 35.36,
+      "keepWith": 22.76
+    },
+    {
+      "slug": "cruzar-large-silver-lantern",
+      "title": "Cruzar Large Silver Lantern",
+      "category": "Candles & Lanterns",
+      "price": 160,
+      "keepWithout": 36.31,
+      "keepWith": 24.2
+    },
+    {
+      "slug": "hexum-black-crystal-glass-table-lamp",
+      "title": "Hexum Black Crystal Glass Table Lamp",
+      "category": "Lighting",
+      "price": 129,
+      "keepWithout": 33.88,
+      "keepWith": 24.59
+    },
+    {
+      "slug": "gavri-wall-mirror",
+      "title": "Gavri Wall Mirror",
+      "category": "Mirrors",
+      "price": 178,
+      "keepWithout": 39.66,
+      "keepWith": 26.11
+    },
+    {
+      "slug": "pasadena-wendi-wall-mirror",
+      "title": "Pasadena Wendi Wall Mirror",
+      "category": "Mirrors",
+      "price": 198,
+      "keepWithout": 42.79,
+      "keepWith": 27.59
+    },
+    {
+      "slug": "wardell-illuminated-wall-mirror",
+      "title": "Wardell Illuminated Wall Mirror",
+      "category": "Mirrors",
+      "price": 179,
+      "keepWithout": 42.68,
+      "keepWith": 29.34
+    },
+    {
+      "slug": "ulyana-floor-lamp-with-linen-shade",
+      "title": "Ulyana Floor Lamp With Linen Shade",
+      "category": "Lighting",
+      "price": 189,
+      "keepWithout": 43.88,
+      "keepWith": 29.68
+    },
+    {
+      "slug": "orbo-gold-and-frosted-glass-statement-pendant-light",
+      "title": "Orbo Gold and Frosted Glass Statement Pendant Light",
+      "category": "Lighting",
+      "price": 222,
+      "keepWithout": 47.15,
+      "keepWith": 30.02
+    },
+    {
+      "slug": "revive-two-light-gold-finish-floor-lamp",
+      "title": "Revive Two Light Gold Finish Floor Lamp",
+      "category": "Lighting",
+      "price": 167,
+      "keepWithout": 43.2,
+      "keepWith": 31.1
+    },
+    {
+      "slug": "avelino-illuminated-led-silver-oval-mirror",
+      "title": "Avelino Illuminated LED Silver Oval Mirror",
+      "category": "Mirrors",
+      "price": 220,
+      "keepWithout": 48.62,
+      "keepWith": 31.83
+    },
+    {
+      "slug": "chloe-crystal-glass-table-lamp",
+      "title": "Chloe Crystal Glass Table Lamp",
+      "category": "Lighting",
+      "price": 199,
+      "keepWithout": 50.09,
+      "keepWith": 35.52
+    },
+    {
+      "slug": "newton-brass-finish-floor-lamp",
+      "title": "Newton Brass Finish Floor Lamp",
+      "category": "Lighting",
+      "price": 199,
+      "keepWithout": 51.94,
+      "keepWith": 37.56
+    },
+    {
+      "slug": "revenna-clear-wall-mirror",
+      "title": "Revenna Clear Wall Mirror",
+      "category": "Mirrors",
+      "price": 259,
+      "keepWithout": 59.44,
+      "keepWith": 39.89
+    },
+    {
+      "slug": "abira-white-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "title": "Abira White Marble and Nickel Finish 5 Bulb Floor Lamp",
+      "category": "Lighting",
+      "price": 398,
+      "keepWithout": 81.69,
+      "keepWith": 50.68
+    },
+    {
+      "slug": "sika-white-marble-and-gold-floor-lamp",
+      "title": "Sika White Marble and Gold Floor Lamp",
+      "category": "Lighting",
+      "price": 379,
+      "keepWithout": 86.68,
+      "keepWith": 58.04
+    },
+    {
+      "slug": "salasco-3-tier-nickel-finish-chandelier-38cm",
+      "title": "Salasco 3 Tier Nickel Finish Chandelier",
+      "category": "Lighting",
+      "price": 440,
+      "keepWithout": 92.36,
+      "keepWith": 58.28
+    },
+    {
+      "slug": "trieste-large-rectangular-pendant-light",
+      "title": "Trieste Large Rectangular Pendant Light",
+      "category": "Lighting",
+      "price": 319,
+      "keepWithout": 82.83,
+      "keepWith": 59.71
+    },
+    {
+      "slug": "salasco-2-tier-nickel-finish-glass-chandelier",
+      "title": "Salasco 2 Tier Nickel Finish Glass Chandelier",
+      "category": "Lighting",
+      "price": 540,
+      "keepWithout": 110.75,
+      "keepWith": 68.65
+    }
+  ]
+}

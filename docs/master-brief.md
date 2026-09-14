@@ -16,6 +16,61 @@ Status key:
 
 ---
 
+## Premier Housewares terms, from the supplier's own words (14 September)
+
+Damien sent the trade FAQ, two real trade-checkout screenshots, the delivery
+rules and the returns policy.
+
+- [x] **VAT is already correct, and the screenshots prove it.** Their trade
+      prices are ex-VAT with VAT added at checkout: lamp £85.78 + £17.16 =
+      £102.94, sofa £822.69 + £164.54 = £987.23. Sanity records
+      `costPrice` 102.94 and 987.23 — the inc-VAT figures, which is right
+      because Kaiku is not VAT registered and cannot reclaim. **546 products
+      confirmed not overstated.** This was the single biggest open risk.
+- [!] **Carriage still unresolved, and it decides ~100 products.** Free over
+  £350 UK mainland is published, but an £85.78 basket also showed "Shipping:
+  Free". Most likely the summary shows Free until a delivery address is
+  entered; possibly dropship carriage is inside the trade price. **390 of 546
+  Premier products (71%) have a trade cost under £350.** At £0 nothing is
+  negative and the median margin is 22.3%; at +£9.95 41 go negative and the
+  median falls to 14.5%. One checkout test with a real postcode settles it.
+- [!] **The returns clause is a larger structural risk than carriage, and was
+  not modelled anywhere.** Premier "do not uplift products that have been
+  sold to members of the public", and Direct Dispatch returns are credited
+  less both carriage legs **and 50% of the value of the goods**. The Consumer
+  Contracts Regulations require Kaiku to accept 14-day cancellations
+  regardless. One returned £93 lamp costs about £56 — four sales of profit.
+  One returned £1,387 sofa costs about £893 — three sales.
+- [x] **"White glove delivery across the UK" is now provably false.** Premier
+      deliver pallets **kerbside only** and require the customer to dispose of
+      the pallet. The homepage promises the opposite on 60% of the catalogue.
+- [x] **The 10% split-pack surcharge is recorded as a supplier rule**, not
+      baked into 546 cost prices. Their FAQ confirms the **rate**; a Google AI
+      Overview asserting that furniture is exempt is an inference about
+      someone else's terms, carrying its own "may include mistakes" notice.
+      `costPrice` is what the invoice says and nothing else belongs in it —
+      inflating it on an inference would overstate furniture costs and make
+      every figure impossible to reconcile against a real invoice later.
+  - `splitPackSurchargeRate` on the supplier (set to 0.1 for Premier),
+    `packQuantity` on the product, where **unset means unknown, never 1**.
+  - `scripts/split-pack-surcharge.ts` reports the exposure as a range: of 328
+    Premier products that could be pack items, **55 drop below 20% margin and
+    1 turns into a loss** if the surcharge applies. Worst affected are
+    Planters, Wall Clocks, Accessories and Vases — the cheap homeware where
+    10% decides viability. Lighting (98), Planters (72) and Mirrors (48) are
+    the categories to get pack sizes for first.
+- [x] **Delivery windows: Damien's long lead times are deliberate**, buffering
+      against Stripe payout timing so the supplier can actually be paid. That
+      is a cash-flow constraint and it beats the conversion argument against
+      it; to be revisited when payouts speed up. Recorded so it is not
+      "corrected" by a future pass.
+- [!] **Still to ask Premier:** does free-over-£350 apply to Direct Dispatch;
+  the charge below it; whether the 10% applies to single-unit dropship orders
+  and on which SKUs; Highlands/NI surcharges; the consumer-cancellation
+  process; and a pack-size and weight column on the price list.
+
+---
+
 ## The first-sale course (13 September)
 
 Damien: _"make me an intensive course to reach my first sale"_, and then _"if we
@@ -2870,11 +2925,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

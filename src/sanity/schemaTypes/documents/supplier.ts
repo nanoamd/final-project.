@@ -71,6 +71,29 @@ export const supplier = defineType({
      * delayed listing. Only a marketplace explicitly ticked here, with its
      * source recorded below, counts as permission.
      */
+    /**
+     * A surcharge for breaking a wholesale pack — ordering one unit of
+     * something the supplier sells in sixes or twelves.
+     *
+     * Premier Housewares state it in their own trade FAQ: "you can split
+     * packs, but a 10% surcharge will apply, this will be automatically
+     * added depending on the quantity you add to your shopping basket".
+     * On a dropship account every order is a split pack by definition, so
+     * for pack items this is a permanent 10% on cost, not an edge case.
+     *
+     * The RATE is recorded here because it is a supplier's rule. WHICH
+     * products it applies to is a per-product fact (`packQuantity`), and
+     * until that is known the margin report shows both cases rather than
+     * picking one.
+     */
+    defineField({
+      name: "splitPackSurchargeRate",
+      title: "Split-pack surcharge (decimal, e.g. 0.1 for 10%)",
+      type: "number",
+      description:
+        "Charged when you order fewer than a full wholesale pack. Leave unset if they do not charge one. Only applies to products with a packQuantity above 1.",
+      validation: (rule) => rule.min(0).max(1),
+    }),
     defineField({
       name: "marketplacesAllowed",
       title: "Marketplaces this supplier permits",
