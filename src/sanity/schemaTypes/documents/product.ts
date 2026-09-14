@@ -252,6 +252,35 @@ export const product = defineType({
      * because quietly assuming 1 would overstate the margin on exactly the
      * cheap homeware where 10% decides viability.
      */
+    /**
+     * Set when a supplier's split-pack surcharge has been folded into
+     * `costPrice`, with the pre-surcharge figure kept in
+     * `costPriceBeforeSplitPack`.
+     *
+     * The pair exists so the adjustment stays reversible. The surcharge is
+     * applied on a JUDGEMENT about which products are pack items, not on a
+     * pack size the supplier has confirmed, so when the real pack sizes
+     * arrive some of these will be wrong and will need putting back. Without
+     * the original figure recorded that is impossible, and `costPrice` stops
+     * being reconcilable against an invoice — which is the whole reason it
+     * is kept accurate.
+     */
+    defineField({
+      name: "splitPackApplied",
+      title: "Split-pack surcharge folded into cost price",
+      type: "boolean",
+      group: "logistics",
+      readOnly: true,
+    }),
+    defineField({
+      name: "costPriceBeforeSplitPack",
+      title: "Cost price before the split-pack surcharge (£)",
+      type: "number",
+      group: "logistics",
+      readOnly: true,
+      description:
+        "The supplier's actual invoice figure, kept so the surcharge can be reversed if the product turns out not to be a pack item.",
+    }),
     defineField({
       name: "packQuantity",
       title: "Supplier pack quantity",

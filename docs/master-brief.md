@@ -16,6 +16,40 @@ Status key:
 
 ---
 
+## The split-pack surcharge, applied on judgement (14 September)
+
+Damien, twice: _"just add the 10% for products you think will be pack
+products"_. Asked again after I argued for keeping it out of `costPrice`, so
+it ships — with the reversal built in rather than the objection repeated.
+
+- [x] **143 of 546 Premier products now carry the 10%** in `costPrice`, via
+      `scripts/apply-split-pack-surcharge.ts`.
+- [x] **Not all 328 candidates, and the catalogue's own medians are why.**
+      Accessories £15, Wall Clocks £28, Vases £45 — small decorative goods
+      that wholesale in sixes. Lighting £191, Mirrors £189, Storage £489 are
+      a different kind of object: a pack of six £190 lamps is an £1,145
+      wholesale unit, and mirrors ship singly because they break. The line is
+      **a £60 trade cost**, above which a multipack stops being plausible.
+      Over-applying would overstate the cost of products that never carried
+      the charge — the same error as understating it, in the direction that
+      loses sales rather than money.
+- [x] **Reversible, because the selection is a judgement and some of it will
+      be wrong.** `costPriceBeforeSplitPack` keeps the supplier's actual
+      invoice figure and `splitPackApplied` flags the change; `--revert
+    --apply` restores every one exactly. Without that, `costPrice` stops
+      being reconcilable against an invoice, which is the only reason it is
+      worth keeping accurate. The script is idempotent, so a second run
+      cannot compound it to 21%.
+- [x] **28 products fall below 20% margin as a result. None become a loss.**
+      The worst are cheap planters and jars keeping £4–£6 a sale: Jada Large
+      Striped Planter £6.47 to £4.29, Freska glass jars £6.80 to £4.46.
+      Those are the repricing candidates.
+- [!] **Still a judgement, not a fact.** One request converts it: a pack-size
+  column on the Premier trade price list, then `packQuantity` per product and
+  a revert-and-reapply against real numbers.
+
+---
+
 ## Premier Housewares terms, from the supplier's own words (14 September)
 
 Damien sent the trade FAQ, two real trade-checkout screenshots, the delivery
@@ -2925,11 +2959,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
