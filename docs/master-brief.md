@@ -40,10 +40,23 @@ catalogue. There was a web search tool available the whole time.
       15% undercut of a verified listing — an unknown shop matching a known
       retailer exactly is not a real offer — and refuses to write if a
       repriced product would fall below a 20% margin.
-  - Brando £930 → **£1,332** (profit £158 → £554, margin 17% → 41.6%)
-  - Riza £766 → **£1,058** (profit £130 → £418, margin 17% → 39.5%)
-  - Kensington £368 → **£425** (profit £63 → £119, margin 17.2% → 28.1%)
-  - **£739.73 more profit per sale across three products.**
+- [x] **Corrected again the same day, after Damien: _"dont make them too
+      expensive we still need to beat competitors"_.** He was right, and a
+      second stockist proved it: the Brando also sells at **£1,334.50** at
+      abigailahern.com, against my £1,332. A £2.50 saving is a price match,
+      not an undercut. Two rules now enforced:
+  - **Anchor on the LOWEST verified listing, never the first one found.**
+    `seen` is an array of every price observed with its source; the minimum
+    is the anchor.
+  - **A single source gets a deeper cut** — 20% rather than 15 — because one
+    listing may be the dearest in the market and one number cannot say.
+    Uncertainty is paid out of margin, not out of the chance of a sale.
+- [x] **Final prices, against the original catalogue values:**
+  - Brando £930 → **£1,135** (profit £158 → £360) — £199.50 under the cheapest listing
+  - Riza £766 → **£996** (profit £130 → £357) — £248 under, single source
+  - Kensington £368 → **£400** (profit £63 → £95) — £99.95 under, single source
+  - **£460 more profit per sale, and all three visibly cheaper than any
+    listing found.**
 - [-] **Deliberately NOT extrapolated to 546 products.** Three data points do
   not license a 2x multiplier across the catalogue — that would repeat the
   same error in the opposite direction. Only products with a verified,
@@ -3036,11 +3049,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

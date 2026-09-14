@@ -26,8 +26,23 @@
  * touched; everything else waits for its own check.
  *
  * The undercut is deliberate. Kaiku is an unknown shop, so matching a known
- * retailer's price exactly is not a real offer — 15% below a verified market
- * price is a reason to buy here, and still multiples of the current margin.
+ * retailer's price exactly is not a real offer — being visibly cheaper is a
+ * reason to buy here, and still multiples of the current margin.
+ *
+ * TWO RULES LEARNED THE HARD WAY, both from Damien pushing back with "dont
+ * make them too expensive we still need to beat competitors":
+ *
+ *   1. ANCHOR ON THE LOWEST verified price, never the first one found. The
+ *      Brando was checked against Royalcraft at £1,566.99 and priced at
+ *      £1,332 — then Abigail Ahern turned out to sell it at £1,334.50. A
+ *      £2.50 saving is a price match, not an undercut. `market` is therefore
+ *      an array of every price seen, and the minimum is what counts.
+ *
+ *   2. A SINGLE SOURCE gets a deeper cut. One listing might be the dearest
+ *      in the market and there is no way to tell from one number, so a
+ *      product checked against one retailer is priced 20% under it rather
+ *      than 15%. Uncertainty is paid for out of margin, not out of the
+ *      chance of a sale.
  *
  *   pnpm tsx --env-file=.env.local scripts/reprice-premier-against-market.ts
  *   pnpm tsx --env-file=.env.local scripts/reprice-premier-against-market.ts --apply
@@ -54,16 +69,18 @@ const client = createClient({
 
 const CARD_RATE = 0.015;
 const CARD_FIXED = 0.2;
-/** How far below a verified market price Kaiku lists. */
+/** How far below the LOWEST verified price Kaiku lists, on 2+ sources. */
 const UNDERCUT = 0.15;
+/** Deeper cut when only one listing was found — one price may be the dearest. */
+const UNDERCUT_SINGLE_SOURCE = 0.2;
 /** Sanity check — a repriced product must still clear this. */
 const MIN_MARGIN = 0.2;
 
 interface Verified {
   /** Substring that identifies the product title uniquely. */
   match: string;
-  market: number;
-  source: string;
+  /** Every price seen, with where it came from. The LOWEST is the anchor. */
+  seen: { price: number; source: string }[];
   note?: string;
 }
 
@@ -74,19 +91,19 @@ interface Verified {
 const VERIFIED: Verified[] = [
   {
     match: "Brando Acacia Wood effect Dining Table",
-    market: 1566.99,
-    source: "royalcraft.co.uk, 10 in stock",
+    seen: [
+      { price: 1566.99, source: "royalcraft.co.uk, 10 in stock" },
+      { price: 1334.5, source: "abigailahern.com, reduced from £1,570" },
+    ],
   },
   {
     match: "Riza Large Panelled Wall Mirror",
-    market: 1244.0,
-    source: "houseofisabella.co.uk (SKU 5503222)",
+    seen: [{ price: 1244.0, source: "houseofisabella.co.uk (SKU 5503222)" }],
   },
   {
     match: "Kensington Townhouse Brown And White Hair on Leather",
-    market: 499.95,
-    source: "UK stockist sale price",
-    note: "Sale price used as the anchor, not the £1,120.95 RRP — the conservative choice.",
+    seen: [{ price: 499.95, source: "UK stockist, sale price" }],
+    note: "Anchored on the sale price, not the £1,120.95 RRP — the conservative choice.",
   },
 ];
 
@@ -118,7 +135,11 @@ async function main() {
     const row = matches[0]!;
     const cost = row.costPrice!;
     const ship = row.shippingCost ?? 0;
-    const to = Math.ceil(v.market * (1 - UNDERCUT));
+    // The lowest listing is the one a shopper will find, so it is the anchor.
+    const lowest = v.seen.reduce((a, b) => (b.price < a.price ? b : a));
+    const singleSource = v.seen.length === 1;
+    const cut = singleSource ? UNDERCUT_SINGLE_SOURCE : UNDERCUT;
+    const to = Math.ceil(lowest.price * (1 - cut));
     const keep = to - cost - ship - (to * CARD_RATE + CARD_FIXED);
     const keepNow =
       row.price! - cost - ship - (row.price! * CARD_RATE + CARD_FIXED);
@@ -133,8 +154,11 @@ async function main() {
       slug: row.slug,
       title: row.title.replace(" | Kaiku", ""),
       cost,
-      market: v.market,
-      source: v.source,
+      market: lowest.price,
+      source: lowest.source,
+      allSeen: v.seen,
+      singleSource,
+      cut,
       note: v.note ?? null,
       from: row.price!,
       to,
@@ -147,14 +171,19 @@ async function main() {
 
   console.log(
     `\n${changes.length} products with a verified market price.` +
-      `  Listing at ${UNDERCUT * 100}% under it.\n`,
+      `  Anchored on the LOWEST listing found.\n`,
   );
   let gained = 0;
   for (const c of changes) {
     gained += c.keepAfter - c.keepNow;
     console.log(`  ${c.title}`);
+    for (const seen of c.allSeen)
+      console.log(
+        `      seen at £${seen.price.toFixed(2).padStart(8)}   ${seen.source}`,
+      );
     console.log(
-      `      trade cost £${c.cost.toFixed(2)}   market £${c.market.toFixed(2)}   (${c.source})`,
+      `      trade cost £${c.cost.toFixed(2)}   anchor £${c.market.toFixed(2)}` +
+        `   cut ${Math.round(c.cut * 100)}%${c.singleSource ? " (single source)" : ""}`,
     );
     if (c.note) console.log(`      ${c.note}`);
     console.log(
@@ -162,7 +191,8 @@ async function main() {
         `        margin ${c.marginNow}% → ${c.marginAfter}%`,
     );
     console.log(
-      `      still ${Math.round((1 - c.to / c.market) * 100)}% below the listing it was checked against\n`,
+      `      undercuts the cheapest listing by £${(c.market - c.to).toFixed(2)}` +
+        ` (${Math.round((1 - c.to / c.market) * 100)}%)\n`,
     );
   }
   console.log(

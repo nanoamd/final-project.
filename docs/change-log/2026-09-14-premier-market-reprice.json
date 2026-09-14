@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T20:22:17.604Z",
+  "generatedAt": "2026-09-14T20:24:52.901Z",
   "undercut": 0.15,
   "changes": [
     {
@@ -7,15 +7,27 @@
       "slug": "brando-acacia-wood-effect-dining-table",
       "title": "Brando Acacia Wood effect Dining Table",
       "cost": 757.61,
-      "market": 1566.99,
-      "source": "royalcraft.co.uk, 10 in stock",
+      "market": 1334.5,
+      "source": "abigailahern.com, reduced from £1,570",
+      "allSeen": [
+        {
+          "price": 1566.99,
+          "source": "royalcraft.co.uk, 10 in stock"
+        },
+        {
+          "price": 1334.5,
+          "source": "abigailahern.com, reduced from £1,570"
+        }
+      ],
+      "singleSource": false,
+      "cut": 0.15,
       "note": null,
-      "from": 930,
-      "to": 1332,
-      "keepNow": 158.24,
-      "keepAfter": 554.21,
-      "marginNow": 17,
-      "marginAfter": 41.6
+      "from": 1332,
+      "to": 1135,
+      "keepNow": 554.21,
+      "keepAfter": 360.16,
+      "marginNow": 41.6,
+      "marginAfter": 31.7
     },
     {
       "_id": "premier-housewares-5503222",
@@ -24,13 +36,21 @@
       "cost": 624.08,
       "market": 1244,
       "source": "houseofisabella.co.uk (SKU 5503222)",
+      "allSeen": [
+        {
+          "price": 1244,
+          "source": "houseofisabella.co.uk (SKU 5503222)"
+        }
+      ],
+      "singleSource": true,
+      "cut": 0.2,
       "note": null,
-      "from": 766,
-      "to": 1058,
-      "keepNow": 130.23,
-      "keepAfter": 417.85,
-      "marginNow": 17,
-      "marginAfter": 39.5
+      "from": 1058,
+      "to": 996,
+      "keepNow": 417.85,
+      "keepAfter": 356.78,
+      "marginNow": 39.5,
+      "marginAfter": 35.8
     },
     {
       "_id": "premier-housewares-5501173",
@@ -38,14 +58,22 @@
       "title": "Kensington Townhouse Brown And White Hair on Leather Side Table",
       "cost": 299.04,
       "market": 499.95,
-      "source": "UK stockist sale price",
-      "note": "Sale price used as the anchor, not the £1,120.95 RRP — the conservative choice.",
-      "from": 368,
-      "to": 425,
-      "keepNow": 63.24,
-      "keepAfter": 119.38,
-      "marginNow": 17.2,
-      "marginAfter": 28.1
+      "source": "UK stockist, sale price",
+      "allSeen": [
+        {
+          "price": 499.95,
+          "source": "UK stockist, sale price"
+        }
+      ],
+      "singleSource": true,
+      "cut": 0.2,
+      "note": "Anchored on the sale price, not the £1,120.95 RRP — the conservative choice.",
+      "from": 425,
+      "to": 400,
+      "keepNow": 119.38,
+      "keepAfter": 94.76,
+      "marginNow": 28.1,
+      "marginAfter": 23.7
     }
   ]
 }
