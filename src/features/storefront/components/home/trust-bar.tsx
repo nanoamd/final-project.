@@ -1,26 +1,38 @@
 import { resolveIcon } from "@/lib/icons";
 import type { TrustBarItem } from "@/types/sanity-content";
 
+/**
+ * Only rendered when the Sanity homepage has no trustBarItems — a fallback for
+ * an empty or unreachable dataset, not the live copy.
+ *
+ * It used to claim "White glove delivery across the UK", "The finest materials,
+ * built to last" and "Our team is here to help you every step". None of those
+ * were true. Kaiku's largest supplier delivers pallets to the kerb and asks the
+ * customer to dispose of the pallet; nobody has inspected the materials; and
+ * the team is one person. A fallback that can render on a bad deploy is not the
+ * place for claims that cannot be stood behind, so these now mirror what the
+ * live Sanity copy actually says.
+ */
 const DEFAULT_ITEMS: TrustBarItem[] = [
   {
     iconName: "truck",
-    title: "Premium Delivery",
-    copy: "White glove delivery across the UK",
+    title: "Free UK Mainland Delivery",
+    copy: "On every product",
   },
   {
     iconName: "shield-check",
-    title: "Quality Guaranteed",
-    copy: "The finest materials, built to last",
+    title: "Clear Product Details",
+    copy: "Materials, dimensions and delivery times",
   },
   {
     iconName: "sparkles",
-    title: "Designed to Inspire",
-    copy: "Timeless pieces for beautiful spaces",
+    title: "Secure Checkout",
+    copy: "Safe, encrypted payments",
   },
   {
     iconName: "headset",
-    title: "Expert Support",
-    copy: "Our team is here to help you every step",
+    title: "UK-Based Support",
+    copy: "Questions answered before you buy",
   },
 ];
 

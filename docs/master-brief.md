@@ -16,6 +16,30 @@ Status key:
 
 ---
 
+## The "white glove" claim was never live — my error (14 September)
+
+- [x] **Corrected.** I told Damien twice, once calling it a legal exposure under
+      the CPRs, that "White glove delivery across the UK" was live on his
+      homepage. **It is not, and has not been.** The Sanity homepage singleton
+      overrides all four trust-bar items, and a search of the dataset finds no
+      occurrence of the phrase anywhere.
+- [x] **The live copy is accurate and rather good:** "Free UK Mainland Delivery
+      / On every product", "Clear Product Details / Materials, dimensions and
+      delivery times", "Secure Checkout / Safe, encrypted payments",
+      "UK-Based Support / Questions answered before you buy".
+- [x] **What existed was a dead code fallback**, rendered only when Sanity is
+      empty or unreachable. Still removed, because a fallback that can render
+      on a bad deploy is not the place for claims nobody can stand behind — it
+      now mirrors the live Sanity copy.
+- [!] **The claim that does carry risk is "Free UK Mainland Delivery — on every
+  product", and it is commercial rather than legal.** It is a promise to the
+  customer that Kaiku absorbs all carriage. Premier Housewares' carriage terms
+  are still unknown below their £350 threshold, and 390 of 546 Premier products
+  sit under it. If carriage is charged, that promise is paid for out of margin
+  on every cheap order. It cannot be assessed until the supplier answers.
+
+---
+
 ## Category grids were sorted alphabetically (14 September)
 
 Damien: _"a lot of my products look pricey at first glance"_, then _"maybe add
@@ -29,7 +53,7 @@ cheaper products towards the top of each category"_.
     £30, £32, £33.
   - **Mirrors** opened at £458. **Planters** at £94.
 - [x] **Now `order(coalesce(displayOrder, 99999) asc, coalesce(price, 999999)
-    asc, title asc)`** — pinned pieces first, then cheapest first.
+  asc, title asc)`** — pinned pieces first, then cheapest first.
 - [x] **`displayOrder` added to the product schema** as the editorial escape
       hatch: set 1, 2, 3 on the few pieces that should greet a visitor and the
       price run continues beneath them. Unset means "sort by price", which is
@@ -3119,11 +3143,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
