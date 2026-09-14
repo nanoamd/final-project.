@@ -16,6 +16,42 @@ Status key:
 
 ---
 
+## Premier Housewares repriced to a 20% floor (14 September)
+
+Damien: _"just make sure everything from ph makes money. more than 20%. if
+its too different to a competitors price then go down a few % minimum
+margining should be 17% for every single product"_.
+
+- [x] **318 of 546 products repriced; 228 left alone.** The instruction is a
+      floor, not a target — cutting a healthy margin down to 20% would throw
+      money away, so anything already above it was not touched.
+      `scripts/reprice-premier-to-floor.ts`.
+- [-] **The competitor test could not be run as written, and nothing was
+  invented to fake it.** `compareAtPrice` is empty on all 546 Premier
+  products and no market price is recorded anywhere in the catalogue.
+- [x] **The size of the rise stands in for it**, because it is a real signal
+      about market risk. The median product needed **2.0%** — a shopper cannot
+      see that and there is no competitive question to ask. A £689 mirror
+      needing 11% is a £77 move, which is exactly where a competitor matters.
+      So a rise over 10% drops the product to the **17% floor** instead of
+      20%, which is Damien's "go down a few %" applied where it bites.
+- [x] **26 products held at the floor and listed for a manual competitor
+      check** — mostly Darnell/Arlo planters and the large mirrors, plus the
+      Brando dining table (£857 → £930) and the Riza mirror (£689 → £766).
+- [x] **Prices round UP to the whole pound.** The catalogue is priced in whole
+      pounds and rounding down would break the floor this exists to enforce.
+- [x] **The script refuses to write if its own post-check fails** — it
+      recomputes every product's margin after the change and aborts unless
+      zero are below 17%. Total uplift across the range: £3,932.
+- [!] **Carriage undoes this if it is charged, and there is no headroom.**
+  Pricing to exactly 20% means any real delivery cost falls straight through:
+  at +£4.95 per item **154 products drop back under 17%**; at +£9.95, 265 do
+  and **57 go to an outright loss**. This is not an argument against the
+  repricing — it is the same open question as everywhere else, and it now has
+  a number attached. Re-run once Premier's terms are known.
+
+---
+
 ## The split-pack surcharge, applied on judgement (14 September)
 
 Damien, twice: _"just add the 10% for products you think will be pack
@@ -36,7 +72,7 @@ it ships — with the reversal built in rather than the objection repeated.
 - [x] **Reversible, because the selection is a judgement and some of it will
       be wrong.** `costPriceBeforeSplitPack` keeps the supplier's actual
       invoice figure and `splitPackApplied` flags the change; `--revert
-    --apply` restores every one exactly. Without that, `costPrice` stops
+  --apply` restores every one exactly. Without that, `costPrice` stops
       being reconcilable against an invoice, which is the only reason it is
       worth keeping accurate. The script is idempotent, so a second run
       cannot compound it to 21%.
@@ -2959,11 +2995,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
