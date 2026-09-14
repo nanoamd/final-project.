@@ -167,8 +167,8 @@ export async function GET() {
       // Which auction the product competes in. Absent for the few genuinely
       // mixed categories, where Google's per-product classification beats one
       // blanket category that is wrong for part of the range.
-      googleProductCategory(product.category)
-        ? `<g:google_product_category>${escapeXml(googleProductCategory(product.category)!)}</g:google_product_category>`
+      googleProductCategory(product.category, product.title)
+        ? `<g:google_product_category>${escapeXml(googleProductCategory(product.category, product.title)!)}</g:google_product_category>`
         : ""
     }
     ${

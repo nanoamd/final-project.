@@ -109,6 +109,44 @@ const GOOGLE_PRODUCT_CATEGORY_BY_SLUG: Record<string, string> = {
   "privacy-screens":
     "Home & Garden > Lawn & Garden > Outdoor Living > Outdoor Structures > Garden Arches, Trellises, Arbours & Pergolas",
   "outdoor-storage": "Furniture > Outdoor Furniture > Outdoor Storage Boxes",
+  // Named "Outdoor Kitchens" but both products are gas barbecues, so this is
+  // the appliance path rather than an outdoor-structure one. Checked against
+  // the products, not the category name.
+  "outdoor-kitchens":
+    "Home & Garden > Kitchen & Dining > Kitchen Appliances > Outdoor Grills",
+  // Seven products, and most are gazebos or canopy pergolas rather than the
+  // open timber kind, so "Canopies & Gazebos" fits the range better than the
+  // arches-and-trellises path used for privacy screens.
+  pergolas:
+    "Home & Garden > Lawn & Garden > Outdoor Living > Outdoor Structures > Canopies & Gazebos",
+};
+
+/**
+ * Categories holding more than one kind of thing, resolved per product.
+ *
+ * "Kitchen > Furniture" is 65 products and is mostly dining tables, but it also
+ * holds dining chairs and a stool. One category-level path would label every
+ * chair a table, and a wrong classification is worse than none: Google matches
+ * the item to queries for the thing it was told the item is.
+ *
+ * Tested against the product title in order, first match wins. Anything that
+ * matches nothing falls through to null, which lets Google classify it — a
+ * better outcome than a confident mistake.
+ */
+const BY_TITLE_WITHIN_CATEGORY: Record<
+  string,
+  { match: RegExp; path: string }[]
+> = {
+  "kitchen-furniture": [
+    {
+      match: /\bdining chair|\bchair\b|\bstool\b|\bbench\b|\bseat\b/i,
+      path: "Furniture > Chairs > Kitchen & Dining Room Chairs",
+    },
+    {
+      match: /\bdining table|\btable\b/i,
+      path: "Furniture > Tables > Kitchen & Dining Room Tables",
+    },
+  ],
 };
 
 /**
@@ -117,8 +155,15 @@ const GOOGLE_PRODUCT_CATEGORY_BY_SLUG: Record<string, string> = {
  */
 export function googleProductCategory(
   categorySlug: string | null | undefined,
+  title?: string | null,
 ): string | null {
   if (!categorySlug) return null;
+  // A mixed category is resolved from the product's own name before falling
+  // back to the category-wide path.
+  const rules = BY_TITLE_WITHIN_CATEGORY[categorySlug];
+  if (rules && title) {
+    for (const rule of rules) if (rule.match.test(title)) return rule.path;
+  }
   return GOOGLE_PRODUCT_CATEGORY_BY_SLUG[categorySlug] ?? null;
 }
 

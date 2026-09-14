@@ -16,6 +16,47 @@ Status key:
 
 ---
 
+## The Merchant feed is LIVE — 907 products (14 September)
+
+Damien set `MERCHANT_FEED_ENABLED=true` and redeployed. Verified by fetching
+the live URL: **200, 1.6 MB of XML, 907 items.**
+
+- [x] **All 907 products are in the feed, including the 178 with no barcode**,
+      which carry `identifier_exists: no` and could never have reached Shopping
+      any other way. 767 in stock, 130 backorder.
+- [x] **Every REQUIRED attribute is at 907/907** — title, description, link,
+      image, availability, price, condition, brand. Nothing is blocking any
+      product from being listed.
+
+### Gaps closed the same session
+
+- [x] **94 products had no `google_product_category`.** Four category slugs had
+      no mapping, and checking the products rather than the names mattered:
+  - **"Outdoor Kitchens" is two gas barbecues** → `Home & Garden > Kitchen &
+Dining > Kitchen Appliances > Outdoor Grills`.
+  - **Pergolas is mostly gazebos and canopy pergolas** → `... Outdoor
+Structures > Canopies & Gazebos`, not the arches-and-trellises path.
+    (Code mapping only — the pergolas category document was not touched.)
+  - **"Kitchen > Furniture" holds dining tables AND dining chairs**, so a
+    category-wide path would label every chair a table. Resolved per product
+    from its own title instead; `googleProductCategory` now takes an optional
+    title and tests it before falling back.
+  - **The Reclaimed Collection stays unmapped deliberately** — barrel tables,
+    crates, corner shelves and a TV stand have nothing in common, and Google
+    classifying it itself beats one confident mistake.
+- [x] **Tests extended to 8**, including one that checks the per-title paths
+      against the real taxonomy fixture — they bypass the slug map, so a typo
+      there would otherwise ship a rejected attribute on 65 products.
+- [x] **`scripts/backfill-colour-material-tags.ts`** — 649 products had no
+      colour and 615 no material. **395 colours and 311 materials were
+      recoverable from the product's own title** and nothing else: a tag is
+      written only where the word is in the name. Existing tags are never
+      overwritten, and the ~254 whose titles say nothing are left empty rather
+      than given a plausible default.
+- [ ] **99 products still have a single image.** Not fixable from data.
+
+---
+
 ## The "white glove" claim was never live — my error (14 September)
 
 - [x] **Corrected.** I told Damien twice, once calling it a legal exposure under
@@ -53,7 +94,7 @@ cheaper products towards the top of each category"_.
     £30, £32, £33.
   - **Mirrors** opened at £458. **Planters** at £94.
 - [x] **Now `order(coalesce(displayOrder, 99999) asc, coalesce(price, 999999)
-  asc, title asc)`** — pinned pieces first, then cheapest first.
+asc, title asc)`** — pinned pieces first, then cheapest first.
 - [x] **`displayOrder` added to the product schema** as the editorial escape
       hatch: set 1, 2, 3 on the few pieces that should greet a visitor and the
       price run continues beneath them. Unset means "sort by price", which is
@@ -3143,11 +3184,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
