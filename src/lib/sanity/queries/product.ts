@@ -111,6 +111,93 @@ const PRODUCT_PROJECTION = /* groq */ `{
   "seo": seo ${SEO_PROJECTION}
 }`;
 
+/**
+ * The same product, minus everything a grid card cannot show.
+ *
+ * WHY THIS EXISTS, with the numbers. Listing pages used `PRODUCT_PROJECTION`,
+ * which is built for a product page: the full portable-text description, every
+ * FAQ, every spec, the delivery, returns and warranty notes, the SEO object.
+ * All of it, for every product in the category. Measured against the live
+ * dataset:
+ *
+ *   /shop/lighting          138 products   2,175KB   a card needs 100KB
+ *   /shop/garden-furniture   76 products   1,177KB   a card needs  57KB
+ *   /shop/planters           86 products   1,098KB   a card needs  66KB
+ *
+ * `description` alone was 53–63% of it. The Lighting page was shipping over
+ * two megabytes of HTML to draw 138 thumbnails, at a 2-second time to first
+ * byte, on a domain with no crawl authority to spare. That is the textbook
+ * shape of "Discovered — currently not indexed": Googlebot throttles its crawl
+ * rate on slow, heavy responses, so pages it knows about never get fetched.
+ *
+ * THE KEYS ARE KEPT AND THE VALUES EMPTIED, rather than the keys dropped. A
+ * projection that omits a field returns `undefined` for it, which is a
+ * different shape from the one `RawProduct` promises and a different thing
+ * from the `null` GROQ returns for a missing field. Emptying keeps
+ * `normalizeProduct` and every consumer working on exactly the type they
+ * already expect, so this is a payload change and not a contract change.
+ *
+ * If a listing ever genuinely needs one of these, fetch it for that one
+ * product rather than for all 138.
+ */
+const PRODUCT_CARD_PROJECTION = /* groq */ `{
+  "slug": slug.current,
+  "name": title,
+  "category": category->slug.current,
+  "categoryName": category->title,
+  "additionalCategorySlugs": additionalCategories[]->slug.current,
+  "departmentSlug": category->department->slug.current,
+  "brand": brand->{ "slug": slug.current, name, "logo": logo.asset->url },
+  tagline,
+  summary,
+  price,
+  compareAtPrice,
+  currency,
+  badges,
+  styleTags,
+  primaryColour,
+  colourTags,
+  materialTags,
+  roomTags,
+  useTags,
+  "gallery": gallery[]{
+    "url": asset->url,
+    "assetRef": asset._ref,
+    hotspot,
+    crop,
+    alt,
+    optionValue,
+    isStudioShot
+  },
+  sku,
+  gtin,
+  mpn,
+  "supplier": supplier->{ name },
+  dimensions,
+  weight,
+  deliveryLeadTime,
+  stockStatus,
+  promotionTier,
+  stockQuantity,
+  "relatedSlugs": relatedProducts[]->slug.current,
+  rating,
+  reviewCount,
+  // Emptied, not omitted. See the note above: a dropped key is \`undefined\`,
+  // which is a different shape from the \`null\` GROQ returns for a missing
+  // field, and \`RawProduct\` promises one of those and not the other.
+  "description": null,
+  "highlights": [],
+  "specs": [],
+  "options": [],
+  "faqs": [],
+  "downloads": [],
+  "video": null,
+  "seo": null,
+  "deliveryNotes": null,
+  "returnsNotes": null,
+  "warrantyNotes": null
+}`;
+
 interface RawGalleryImage {
   url: string;
   assetRef?: string;
@@ -308,10 +395,10 @@ const PRODUCTS_BY_CATEGORY_QUERY = /* groq */ `
   && (!defined($styleTag) || count(styleTags[lower(@) == lower($styleTag)]) > 0)]
   | order(coalesce(displayOrder, 99999) asc, coalesce(price, 999999) asc, title asc)
   [$start...$end]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 const FEATURED_PRODUCTS_QUERY = /* groq */ `
-*[_type == "product"] | order(_createdAt desc) [0...$limit] ${PRODUCT_PROJECTION}`;
+*[_type == "product"] | order(_createdAt desc) [0...$limit] ${PRODUCT_CARD_PROJECTION}`;
 
 const FLAGSHIP_PRODUCT_QUERY = /* groq */ `
 *[_type == "product" && stockStatus != "Coming Soon" && stockStatus != "Out of Stock"]
@@ -353,7 +440,7 @@ const PRODUCTS_BY_DEPARTMENT_QUERY = /* groq */ `
        && (_id == ^.category._ref || _id in ^.additionalCategories[]._ref)]) > 0]
   | order(_createdAt desc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 /**
  * One supplier's products, cheapest first.
@@ -397,13 +484,13 @@ const TOOL_PRODUCTS_QUERY = /* groq */ `
       || $categorySlug in additionalCategories[]->slug.current)
   && (!$promotableOnly || promotionTier in ["strong", "viable", "cash"])]
   | order(coalesce(price, 0) asc)
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 const ALL_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product" && defined(slug.current)]
   | order(_createdAt desc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 const PRODUCTS_BY_SLUGS_QUERY = /* groq */ `
 *[_type == "product" && slug.current in $slugs] ${PRODUCT_PROJECTION}`;
@@ -412,7 +499,7 @@ const RELATED_BY_CATEGORY_QUERY = /* groq */ `
 *[_type == "product" && category->slug.current == $categorySlug && slug.current != $excludeSlug]
   | order(_createdAt desc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 // Tier 3: the same room. Ordered newest-first like the category tier, so a
 // newly added product gets seen rather than sinking behind the original stock.
@@ -422,7 +509,7 @@ const RELATED_BY_DEPARTMENT_QUERY = /* groq */ `
   && !(slug.current in $exclude)]
   | order(_createdAt desc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 // Tier 4: a similar price, anywhere. Ordered by price so what surfaces sits as
 // close to the product's own price as the band allows.
@@ -432,7 +519,7 @@ const RELATED_BY_PRICE_QUERY = /* groq */ `
   && !(slug.current in $exclude)]
   | order(price asc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 const CATEGORY_STYLE_TAGS_QUERY = /* groq */ `
 array::unique(*[_type == "product"
@@ -463,7 +550,7 @@ const SEARCH_PRODUCTS_QUERY = /* groq */ `
 )]
   | order(_createdAt desc)
   [0...$limit]
-  ${PRODUCT_PROJECTION}`;
+  ${PRODUCT_CARD_PROJECTION}`;
 
 // Cached per-request (React's `cache()`, not a time-based cache) — the
 // product page calls this once in generateMetadata and again in the page

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import { TOOL_GROUPS } from "@/lib/content/tools";
 import { getSitemapContent } from "@/lib/sanity/queries/sitemap";
 
 /**
@@ -20,26 +21,24 @@ const STATIC_ROUTES: {
   { path: "/shop", changeFrequency: "daily", tracks: true },
   { path: "/learn", changeFrequency: "weekly", tracks: true },
   { path: "/journal", changeFrequency: "weekly", tracks: true },
-  // Every tool, not just two of them. The sitemap listed /tools and the
-  // visualiser and nothing else, so five working calculators were left to be
-  // found by crawling alone — and a tool nobody finds ranks for nothing, which
-  // was the point of building them.
   { path: "/tools", changeFrequency: "monthly" },
-  { path: "/tools/garden-visualiser", changeFrequency: "monthly" },
-  { path: "/tools/dining-set-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/mirror-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/pendant-light-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/planter-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/wall-clock-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/vase-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/patio-heater-size-calculator", changeFrequency: "monthly" },
-  {
-    path: "/tools/garden-furniture-material-selector",
-    changeFrequency: "monthly",
-  },
-  { path: "/tools/sauna-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/cold-plunge-size-calculator", changeFrequency: "monthly" },
-  { path: "/tools/contrast-therapy-planner", changeFrequency: "monthly" },
+  /**
+   * Every tool, derived rather than listed.
+   *
+   * This was a hand-written list and it drifted: 17 calculators exist and 12
+   * were in it, so five were reachable only by crawling — bed size, dining
+   * table size, sofa size, TV unit size and wall art size. The comment above
+   * the list said "every tool", which is how a stale list survives review.
+   *
+   * `TOOL_GROUPS` is the same registry the /tools page renders from, so a tool
+   * that exists on the site is now in the sitemap by construction.
+   */
+  ...TOOL_GROUPS.flatMap((group) =>
+    group.tools.map((tool) => ({
+      path: tool.href,
+      changeFrequency: "monthly" as Change,
+    })),
+  ),
   { path: "/about", changeFrequency: "monthly" },
   { path: "/contact", changeFrequency: "monthly" },
   { path: "/faq", changeFrequency: "monthly" },

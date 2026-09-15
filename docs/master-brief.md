@@ -16,6 +16,75 @@ Status key:
 
 ---
 
+## Why the pages are not being indexed (15 September)
+
+Damien: _"discover why our pages arent getting indexed"_. 626 URLs sit in
+Search Console as "Discovered — currently not indexed".
+
+### What was ruled out, by checking rather than assuming
+
+- [x] **robots.txt** — correct. `/studio`, `/admin`, `/api/`, `/cart`,
+      `/account`, `/checkout`, `/search`, `/compare` disallowed, everything
+      else allowed.
+- [x] **Sitemap** — 1,022 URLs live, all on the canonical `www` host, no
+      redirecting entries.
+- [x] **Canonicals and noindex** — fetched live as Googlebot. Every page
+      self-canonical on the right host, no `noindex`, no `x-robots-tag`.
+- [x] **Orphan pages** — ruled out. Category pages server-render every product
+      link (86 in the HTML on /shop/planters), so products are internally
+      linked, not sitemap-only.
+- [-] **Vercel bot protection** — ruled out in September and still not it.
+
+### What it actually is
+
+- [!] **Listing pages were shipping the entire product document for every
+  product in the grid.** They used `PRODUCT_PROJECTION`, which is built for
+  a product page — full portable-text description, every FAQ, every spec,
+  delivery/returns/warranty notes, the SEO object. Measured live:
+
+      | Page | Products | Was | A card needs |
+      | --- | --- | --- | --- |
+      | /shop/lighting | 138 | **2,175KB** | 100KB |
+      | /shop/garden-furniture | 76 | 1,177KB | 57KB |
+      | /shop/planters | 86 | 1,098KB | 66KB |
+      | /shop/all | 908 | **12.79MB** | — |
+
+      `description` alone was **53–63%** of it. The Lighting page shipped over
+      two megabytes of HTML to draw 138 thumbnails, at a **2.07s time to first
+      byte**. That is the textbook shape of "Discovered — currently not
+      indexed": Googlebot throttles crawl rate on slow heavy responses, so URLs
+      it knows about never get fetched.
+
+- [x] **`PRODUCT_CARD_PROJECTION` added**, used by the eight queries that
+      render grids and carousels. The detail page, the homepage flagship, the
+      compare page (which reads specs) and the admin supplier query keep the
+      full one.
+
+      | Page | Was | Now |
+          | --- | --- | --- |
+          | /shop/lighting | 2,175KB | **455KB** |
+          | /shop/planters | 1,098KB | **290KB** |
+          | /shop/garden-furniture | 1,177KB | **259KB** |
+          | /shop/all | 12.79MB | **2.94MB** |
+
+- [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
+      `undefined`, which is a different shape from the `null` GROQ returns for
+      a missing field and from what `RawProduct` promises. Verified against a
+      live product: **51 keys on the card, 51 on the full product, none missing
+      and none extra.** A payload change, not a contract change.
+- [x] **Five of 17 tools were missing from the sitemap** — bed size, dining
+      table size, sofa size, TV unit size, wall art size — under a comment
+      claiming "every tool, not just two of them". That is how a stale list
+      survives review. The sitemap now derives from `TOOL_GROUPS`, the same
+      registry /tools renders from, so it cannot drift again. **1,027 entries,
+      17 tools, no duplicates.**
+- [!] **This is a contributing cause, not proof of the whole thing.** A new
+  domain with little authority gets a small crawl budget regardless, and
+  that part is time plus links rather than code. What changed is that the
+  budget is no longer being spent on megabytes of invisible product copy.
+
+---
+
 ## Three guides for categories that had none (15 September)
 
 Damien: _"i want intensive compounding. do some seo work overnight"_, and
@@ -3748,11 +3817,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
