@@ -144,18 +144,61 @@ export const portableTextComponents: PortableTextComponents = {
         </figure>
       );
     },
+    /** A row of routes onward, for a reader who came for an answer. */
+    guideLinkRow: ({ value }) => {
+      const links = (value?.links ?? []) as { label: string; href: string }[];
+      if (!links.length) return null;
+      return (
+        <div className="border-ink/10 my-6 rounded-sm border p-4">
+          {value?.intro ? (
+            <p className="text-ink/60 mb-3 text-sm">{value.intro}</p>
+          ) : null}
+          <div className="flex flex-wrap gap-2">
+            {links.map((link) => (
+              // A plain anchor rather than next/link: typedRoutes rejects a
+              // string href, and these come from Sanity as free text.
+              <a
+                key={link.href}
+                href={link.href}
+                className="border-ink/15 hover:border-ink/40 rounded-sm border px-3 py-1.5 text-sm no-underline transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    },
+    /**
+     * A picture in the body.
+     *
+     * An image block with no asset renders nothing at all, deliberately. The
+     * schema lets an article reserve a space and describe the shot that
+     * belongs in it (`brief`), which is an instruction to whoever fills it —
+     * not something a reader should see, and not something Google should
+     * index as page content. So an unfilled space is invisible here and
+     * unmissable in Studio, where the work actually happens.
+     */
     image: ({ value }) => {
       const url: string | undefined = value?.asset?.url;
       if (!url) return null;
       return (
-        <span className="border-line relative my-8 block aspect-[16/10] w-full overflow-hidden rounded-xl border">
-          <Image
-            src={url}
-            alt={value?.alt ?? ""}
-            fill
-            className="object-cover"
-          />
-        </span>
+        <figure className="my-8">
+          <span className="border-line relative block aspect-[16/10] w-full overflow-hidden rounded-xl border">
+            <Image
+              src={url}
+              alt={value?.alt ?? ""}
+              fill
+              sizes="(min-width: 768px) 720px, 100vw"
+              className="object-cover"
+            />
+          </span>
+          {value?.caption ? (
+            <figcaption className="text-muted mt-2 text-[13px]">
+              {value.caption}
+            </figcaption>
+          ) : null}
+        </figure>
       );
     },
   },

@@ -58,3 +58,28 @@ export const SEO_PROJECTION = `{
 export const PRODUCT_SPEC_PROJECTION = `{ label, value }`;
 export const PRODUCT_OPTION_PROJECTION = `{ label, values }`;
 export const FAQ_ENTRY_PROJECTION = `{ question, answer }`;
+
+/**
+ * A portable-text body with its image assets resolved.
+ *
+ * Every query in this folder projected `body` bare, which returns an image
+ * block exactly as Sanity stores it: an `asset` that is a reference —
+ * `{_ref, _type: "reference"}` — and nothing more. The renderer reads
+ * `value.asset.url`, finds nothing there, and returns null. So an image
+ * dropped into a guide, a journal post or a page has never once appeared on
+ * the site, and no amount of adding images in Studio would have changed that.
+ *
+ * Dereferencing here fixes all three at once, and keeps them fixed: a body
+ * projected any other way is the bug coming back.
+ */
+export const RICH_TEXT_PROJECTION = /* groq */ `[]{
+  ...,
+  _type == "image" => {
+    ...,
+    "asset": asset->{
+      url,
+      "width": metadata.dimensions.width,
+      "height": metadata.dimensions.height
+    }
+  }
+}`;

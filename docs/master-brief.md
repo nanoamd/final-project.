@@ -16,6 +16,35 @@ Status key:
 
 ---
 
+## Images in article bodies never worked — and now do (15 September)
+
+Damien: _"finish the guide rewrite and make sure there's clear placeholders for
+images"_.
+
+- [x] **The bug that made "add images" impossible.** Every query projected
+      `body` bare, which returns an image block exactly as Sanity stores it —
+      an `asset` that is a reference, `{_ref, _type}`, and nothing else. The
+      renderer reads `value.asset.url`, finds nothing, returns null. **No image
+      placed in any guide, journal post or page has ever rendered**, and none
+      ever would have. Adding photography would have changed nothing until this
+      was fixed.
+- [x] **Fixed once, for all three.** `RICH_TEXT_PROJECTION` in
+      `src/lib/sanity/queries/fragments.ts` dereferences the asset, and
+      `buying-guide.ts`, `post.ts` and `page.ts` all use it.
+- [x] **Reserved spaces with a written brief.** The image block now carries
+      `caption` and `brief`. `brief` says what the picture should show, written
+      at the point in the article where it belongs, so filling one in later is
+      finding the shot — not re-reading the piece and deciding where images
+      would help.
+- [x] **Invisible on the page, unmissable in Studio.** An empty block renders
+      nothing, so a brief that is never filled costs a reader nothing and gives
+      Google nothing to index. In Studio the same block reads
+      **"IMAGE NEEDED — <the brief>"** in the body, in position.
+- [x] **Captions render.** `<figcaption>` under the picture, which is how the
+      House & Garden article Damien pointed at carries its images.
+
+---
+
 ## Guides on topics nobody else writes about (15 September)
 
 Damien: _"I want all products which no one writes buying guides for to have
@@ -3305,11 +3334,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

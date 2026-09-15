@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/lib/sanity/fetch";
+import { RICH_TEXT_PROJECTION } from "@/lib/sanity/queries/fragments";
 import type { SanityPage } from "@/types/sanity-content";
 
 const PAGE_BY_SLUG_QUERY = /* groq */ `
@@ -6,7 +7,7 @@ const PAGE_BY_SLUG_QUERY = /* groq */ `
   "slug": slug.current,
   title,
   intro,
-  body
+  "body": body ${RICH_TEXT_PROJECTION}
 }`;
 
 export async function getPageBySlug(slug: string): Promise<SanityPage | null> {

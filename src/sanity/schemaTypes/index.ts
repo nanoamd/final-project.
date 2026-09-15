@@ -17,6 +17,7 @@ import { skuAssignment } from "./documents/sku-assignment";
 import { supplier } from "./documents/supplier";
 import { dimensions } from "./objects/dimensions";
 import { faqEntry } from "./objects/faq-entry";
+import { guideLinkRow } from "./objects/guide-link-row";
 import { guideTable } from "./objects/guide-table";
 import { guideTool } from "./objects/guide-tool";
 import { link } from "./objects/link";
@@ -49,6 +50,7 @@ export const schemaTypes = [
   shippingRule,
   faqEntry,
   guideTable,
+  guideLinkRow,
   guideTool,
   richText,
   // Documents

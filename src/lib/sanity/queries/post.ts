@@ -4,6 +4,7 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { AUTHOR_PROJECTION } from "@/lib/sanity/queries/author";
 import {
   ARTICLE_PRODUCT_PROJECTION,
+  RICH_TEXT_PROJECTION,
   SEO_PROJECTION,
 } from "@/lib/sanity/queries/fragments";
 import type { SanityPost } from "@/types/sanity-content";
@@ -13,7 +14,7 @@ const POST_PROJECTION = /* groq */ `{
   title,
   excerpt,
   "coverImage": coverImage.asset->url,
-  body,
+  "body": body ${RICH_TEXT_PROJECTION},
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
   tags,
