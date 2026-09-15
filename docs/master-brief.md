@@ -16,6 +16,48 @@ Status key:
 
 ---
 
+## The marketplace listing sheet (15 September)
+
+Damien: _"give me a list of the best 10 products to list to ebay"_, then
+_"i feel like these more medium profit ones we can upload too"_, then
+_"find some cheap products"_.
+
+- [x] **`scripts/build-marketplace-listing-sheet.ts` → 177 products** that
+      still clear 20% after the marketplace takes its cut, in
+      `docs/change-log/2026-09-15-marketplace-listing-sheet.csv`. Per product
+      and per marketplace it computes the LOWEST price that holds the floor —
+      the site price does not carry over, because eBay's ~13% is nearly half
+      the margin on something keeping 30% here.
+- [x] **By minimum eBay price:** 75 under £100 (keeping £3–£20), 66 at
+      £100–250 (£21–£50), 22 at £250–500 (£51–£97), 14 at £500+ (£100–£261).
+- [!] **The structural problem, and it is not a pricing error.** Hill's
+  dropship price is **1.16× their stock price**, so a competitor who buys
+  and holds stock starts 16% cheaper and pays carriage per consignment
+  rather than per item. Worked example: the Vellis armchair lands at
+  **£352.07** and a competitor retails it at **£355.81**. Kaiku cannot win
+  that on eBay at dropship cost. **Confirmed by Damien's own first
+  listings: ~6,000 impressions, 6 clicks — 0.1% CTR against a 1–2%
+  norm.** eBay is showing the listings; nobody is clicking.
+- [!] **Today's RRP-anchored reprice put all six researched products above the
+  cheapest known competitor** (Provence dining set £1,853 vs £1,295;
+  Vellis £570 vs £355.81; Antique Gold Hare lamp £105 vs £99.95). The cost
+  correction is sound and stands; **the prices need a market pass, not an
+  RRP pass.** This is the Brando mistake again — anchoring on the wrong
+  reference.
+- [x] **OnBuy is the better economics** — roughly 9% against eBay's 13%, which
+      buys a listing about **5.8% cheaper at the same margin** (median £7, up
+      to £75). Not more cash: the same floor on a lower price.
+- [x] **Two reporting faults caught in the first run.** Comparing cash kept at
+      each marketplace's own minimum made OnBuy look worse, because both are
+      pinned to 20% and 20% of less is less; and the "under RRP" count
+      included Aosom, which has no RRP.
+- [!] **81 of 103 Aosom products have no recorded carriage**, so their
+  headline margins (57.9%, 69.9%) are fiction until it is. Flagged in a
+  column rather than dropped or trusted.
+- [!] **113 of the 177 have no GTIN**, which limits eBay catalogue matching.
+
+---
+
 ## Hill Interiors rebuilt from their own dropship feed (15 September)
 
 Damien supplied `HillInteriorsStock.csv`, `HillInteriorsDropship-2.csv`, two
@@ -3616,11 +3658,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
