@@ -16,6 +16,42 @@ Status key:
 
 ---
 
+## Guides on topics nobody else writes about (15 September)
+
+Damien: _"I want all products which no one writes buying guides for to have
+different buying guides. You can write them and I will improve them and add
+images"_, with House & Garden's coffee table article as the shape to match.
+
+- [x] **Two published**, via `scripts/write-uncontested-guides.ts`:
+  - `/learn/gas-fire-pit-btu-explained` — **1,162 words, 9 sections, 5 FAQs,
+    8 products linked.** Covers what BTU means, 40,000 vs 50,000 in a British
+    garden, what a glass screen changes, propane vs butane in winter, how long
+    a bottle lasts, lava rock vs fire glass, and clearances.
+  - `/learn/crystal-ball-water-features-explained` — **1,074 words, 9 sections,
+    5 FAQs, 9 products linked.** What the ball is actually for, cascades vs
+    water wheels, colour-changing, noise, and why the pump fails.
+- [x] **Chosen on where there is no competition.** The existing 35 target
+      questions every home magazine has answered — Kaiku ranks 71st to 98th for
+      those. Nobody at House & Garden writes about crystal ball water features;
+      Kaiku stocks ten, eight of them promotable.
+- [x] **Shaped on the model Damien picked.** Structured by TYPE rather than by
+      rule, so each section can take an image; ~1,100 words rather than 700;
+      and unlike a magazine these name real products with real prices.
+- [x] **Two faults in my own first draft, caught before publishing:** a meta
+      description at 165 characters, and **703 and 603 words when the model he
+      gave me was 1,611** — the same length as the guides that do not rank.
+      Both fixed; the script warns on either.
+- [x] **Every referenced product and category is checked to exist** before
+      writing, so a guide cannot publish with a broken link.
+- [!] **Images are Damien's, as agreed.** Both guides have none, along with the
+  other 35 and all 3 journal posts. **Zero images across all site content** is
+  the largest remaining content gap and it blocks Pinterest entirely.
+- [!] **The byline is still "Kaiku Editorial" with no photo.** House & Garden
+  ranks partly on "Furniture designer Tom Faulkner". A named founder with a
+  photo is worth more than another guide.
+
+---
+
 ## "Does it fit?" — the differentiator, half built (15 September)
 
 Damien: _"think of something outstanding for kaiku. something which will make
@@ -3269,11 +3305,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
