@@ -16,6 +16,48 @@ Status key:
 
 ---
 
+## The planter guide, rewritten to rank (15 September)
+
+Damien: _"we need to optimize the title for seo to rank number 1. add multiple
+links to products in the text. images and buttons for other categories at the
+top. if it £4 a sale it earns us conversion data for free"_, after
+_"BEST planter buying guide + 25 unique planters 2026 as our title"_.
+
+- [x] **`/learn/choosing-a-planter` rewritten** by
+      `scripts/rewrite-planter-guide.ts`. **1,528 words** (was 971).
+- [x] **Title.** "What size planter do you need?" → **"Planter buying guide
+      2026: what size pot you need, and 25 we would choose."** Leads on the
+      term, keeps the size question inside it, and promises 25 planters that
+      the page actually measures. `metaTitle` 49 chars, `metaDescription` 146.
+- [x] **31 product links inside the sentences.** The guide named eight planters
+      and linked to none of them — the grid at the foot was the only route to a
+      product. This needed a new `inlineLink` annotation: the block's default
+      annotation is named `link`, which collides with the navigation object
+      (label + reference picker, no `href`), so Studio would have handed the
+      editor the wrong form. Nothing in the dataset used an annotation yet, so
+      it was named unambiguously instead of discovered later.
+- [x] **Six category buttons above the fold** — planters, garden furniture,
+      garden lighting, water features, vases, privacy screens.
+- [x] **25 planters measured**, in one table: widest point, height, price, and
+      **the nursery pot each one takes** — width less 4cm, rounded DOWN to a
+      size plants are actually sold in. Nobody else publishes this. Plant
+      stands, vases and faux plants in the same category are excluded: a stand
+      does not take a nursery pot.
+- [x] **Every figure read from the catalogue at write time**, never typed in.
+      Re-running the script refreshes the table after a repricing, which is how
+      the prices stay true.
+- [x] **Two FAQs added** (7 total): fiddle leaf fig sizing, and stopping a tall
+      planter blowing over. The second resolves a contradiction in the old
+      copy — rule five said fill the base with something light, which is right
+      indoors and wrong in wind.
+- [!] **Five image spaces with written briefs**, waiting on Damien. The opening
+  group shot, a drainage hole with the gap under the base, a frost-split
+  pot, a pair flanking a front door, and a planter beside a 12cm nursery
+  pot with a tape in frame. The last two are the ones no competing article
+  has.
+
+---
+
 ## Images in article bodies never worked — and now do (15 September)
 
 Damien: _"finish the guide rewrite and make sure there's clear placeholders for
@@ -3334,11 +3376,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

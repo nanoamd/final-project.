@@ -71,6 +71,26 @@ export const portableTextComponents: PortableTextComponents = {
     strong: ({ children }) => (
       <strong className="text-ink font-semibold">{children}</strong>
     ),
+    /**
+     * A link inside a sentence.
+     *
+     * Registered under both names. `inlineLink` is what the schema now writes;
+     * `link` is Sanity's default annotation name, which any block authored
+     * before the schema was pinned down would carry. Both read `href`, so one
+     * renderer serves both and neither can fall through to unstyled text.
+     */
+    inlineLink: ({ value, children }) => (
+      <a
+        href={value?.href}
+        className="text-brass underline underline-offset-2"
+        target={value?.href?.startsWith("http") ? "_blank" : undefined}
+        rel={
+          value?.href?.startsWith("http") ? "noopener noreferrer" : undefined
+        }
+      >
+        {children}
+      </a>
+    ),
     link: ({ value, children }) => (
       <a
         href={value?.href}

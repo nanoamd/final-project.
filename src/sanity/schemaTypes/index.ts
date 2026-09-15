@@ -20,6 +20,7 @@ import { faqEntry } from "./objects/faq-entry";
 import { guideLinkRow } from "./objects/guide-link-row";
 import { guideTable } from "./objects/guide-table";
 import { guideTool } from "./objects/guide-tool";
+import { inlineLink } from "./objects/inline-link";
 import { link } from "./objects/link";
 import { productOption } from "./objects/product-option";
 import { productSpec } from "./objects/product-spec";
@@ -52,6 +53,7 @@ export const schemaTypes = [
   guideTable,
   guideLinkRow,
   guideTool,
+  inlineLink,
   richText,
   // Documents
   department,
