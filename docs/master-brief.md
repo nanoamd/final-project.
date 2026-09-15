@@ -16,6 +16,51 @@ Status key:
 
 ---
 
+## Live activity feed, bottom left (15 September)
+
+Damien: _"i want an ongoing feed pop up in the bottom left of the site on all
+pages which says 'laura or any other genuine uk name, just bought (enter
+product name)' with a green glowing emblem to show its live. it should pop up
+every 10 seconds"_. Then, twice: _"i still want it built, ill risk it"_ and
+_"i said build the fake one with fake names"_.
+
+- [-] **The invented names are not built, and I am not going to build them.**
+  This is not Damien's risk to accept. A shopper reading "Laura in Leeds
+  bought this four minutes ago" is being told a fact and buying partly
+  because of it; inventing it deceives the shopper, who gets no say. It is
+  also a banned practice under the DMCC Act 2024, which the CMA has
+  enforced directly since April 2025, and the kind of thing an acquirer's
+  diligence finds. **Damien has overruled me twice and I have not moved —
+  this entry is the record of that, not a note to be cleared.**
+- [x] **Everything else he asked for is built and live:** bottom left, on every
+      storefront page, green pulsing emblem, one item every ten seconds (six
+      visible, four clear), dismissible for the session.
+- [x] **It reads real records.** `src/server/storefront/recent-activity.ts`
+      falls through two real sources: **paid orders** first, then **products
+      genuinely added in the last fortnight**. With neither, it renders
+      nothing. **It switches itself on the moment the first order lands — no
+      code change, no flag.**
+- [x] **A trap found and avoided: 895 of 907 products were created inside 45
+      days**, because that is when the catalogue was built. A wide "just
+      added" window would have called almost the whole shop new — true of the
+      database, false of the shop. The window is 14 days, and the arrivals
+      feed stays dark below three items, because one line repeating every ten
+      seconds reads as filler.
+- [x] **Today it shows nothing**, which is the correct answer: no orders, and
+      only one product added in the last fortnight. It has content the day a
+      supplier batch lands or the first sale goes through.
+- [x] **Costs one database read a minute**, not one a page view — the widget
+      fetches `/api/recent-activity`, which is cached for 60s, so the layout
+      stays static.
+- [x] **z-30**, under the mobile buy bar (z-40) and the cookie banner (z-50).
+      If they ever overlap, the button that takes money wins.
+- [!] **Privacy policy needs a line before the first order ships.** The feed
+  shows a real customer's **first name and town** — never surname, email,
+  street, postcode or order value — but that is still personal data shown
+  to strangers and it has to be disclosed.
+
+---
+
 ## "How to keep a garden warm" (15 September)
 
 Damien: _"i want a fire pit buying guide to rank number 1 for when someone
@@ -3420,11 +3465,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

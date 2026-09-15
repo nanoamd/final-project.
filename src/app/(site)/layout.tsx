@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { RecentActivityFeed } from "@/features/storefront/components/recent-activity-feed";
 import { CartProvider } from "@/hooks/use-cart";
 import { RecentlyViewedProvider } from "@/hooks/use-recently-viewed";
 import { SavedProductsProvider } from "@/hooks/use-saved-products";
@@ -57,6 +58,11 @@ export default async function SiteLayout({
                 admin — see the note in admin-bar.tsx about why it is resolved
                 server-side rather than hidden with CSS. */}
             <AdminBar />
+            {/* Reads its own data from /api/recent-activity on the client, so
+                the layout stays static and the feed costs one database read a
+                minute rather than one a page view. Renders nothing when there
+                is nothing true to show. */}
+            <RecentActivityFeed />
           </SmoothScroll>
         </RecentlyViewedProvider>
       </SavedProductsProvider>
