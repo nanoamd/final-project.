@@ -16,6 +16,50 @@ Status key:
 
 ---
 
+## "How to keep a garden warm" (15 September)
+
+Damien: _"i want a fire pit buying guide to rank number 1 for when someone
+searches how to keep a garden warm"_.
+
+- [x] **`/learn/how-to-keep-a-garden-warm` published** by
+      `scripts/write-garden-warmth-guide.ts`. **1,694 words, 20 product links,
+      6 links to our own guides, 7 FAQs, 12 product cards, 6 category buttons.**
+- [-] **Not a fire pit guide, deliberately — overrule this if you disagree.**
+  Search that phrase and two intents fight over it: frost protection for
+  plants (fleece, mulch, cloches — we sell none of it) and heating for
+  people. The pages winning the second are retailer listicles —
+  "27 Outdoor Heating Ideas to Keep Your Garden Warm All Year" — covering
+  heaters, fire pits, shelter and textiles together. A fire-pit-only page
+  answers a third of the question. So this covers all four layers, **fire
+  pits get the longest section and the most links**, and the plant reading
+  gets one honest paragraph routing to the two guides that already handle
+  it.
+- [x] **The thing no competitor publishes: what each option costs to run, per
+      hour**, in the first table on the page. Electric 2kW **53p**; 40,000 BTU
+      fire pit table **£2.61–£3.91**; 50,000 BTU **£3.28–£4.92**; 11kW patio
+      heater **£2.77–£4.16**. Electricity at Ofgem's Oct–Dec 2026 cap
+      (26.32p/kWh); propane from 13kg × 13.8kWh/kg against a £40–£60 bottle.
+      **The workings are in the script**, so the figures can be checked and
+      corrected rather than trusted.
+- [x] **It leads on wind, not heat** — a ~50%-permeable screen shelters up to
+      ten times its height downwind, where a solid fence makes turbulence a
+      couple of metres behind it. That makes our cut-out privacy screens the
+      right product for the job rather than a stretch, and it is the cheapest
+      degree of warmth on the page.
+- [x] **Sits above the two existing fire pit guides** rather than competing
+      with them: `/learn/gas-fire-pit-btu-explained` and
+      `/learn/fire-pit-fuel-type` are linked from inside it.
+- [x] **Every guide link is checked to resolve** before publishing, as well as
+      every product and category.
+- [x] **Block builders extracted** to `scripts/lib/guide-blocks.ts`; the
+      planter script now uses them too.
+- [!] **Three image spaces with briefs.** The lit fire pit table at dusk with
+  people round it is the one the search result lives or dies on. The other
+  two are a screen placed to shelter seating, and the glass screen holding
+  a flame upright in wind — an argument no competitor illustrates.
+
+---
+
 ## The planter guide, rewritten to rank (15 September)
 
 Damien: _"we need to optimize the title for seo to rank number 1. add multiple
@@ -3376,11 +3420,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

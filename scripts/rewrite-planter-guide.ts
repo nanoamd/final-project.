@@ -37,6 +37,19 @@
  */
 import { createClient } from "@sanity/client";
 
+import {
+  faq,
+  h2,
+  imageSlot,
+  inlineHrefs,
+  linkRow,
+  p,
+  type Part,
+  table,
+  tool,
+  wordCount,
+} from "./lib/guide-blocks";
+
 const apply = process.argv.includes("--apply");
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (apply && !token) {
@@ -54,102 +67,6 @@ const client = createClient({
 });
 
 const GUIDE_ID = "buying-guide-choosing-a-planter";
-
-/* ------------------------------------------------------------------ blocks */
-
-let seq = 0;
-const k = () => `pg${seq++}`;
-
-/** A run of text, or a run of text that links somewhere. */
-type Part = string | [text: string, href: string];
-
-interface Span {
-  _key: string;
-  _type: "span";
-  marks: string[];
-  text: string;
-}
-interface MarkDef {
-  _key: string;
-  _type: "inlineLink";
-  href: string;
-}
-interface Block {
-  _key: string;
-  _type: "block";
-  style: string;
-  markDefs: MarkDef[];
-  children: Span[];
-}
-
-const block = (style: string, parts: Part[]): Block => {
-  const markDefs: MarkDef[] = [];
-  const children = parts.map((part): Span => {
-    if (typeof part === "string") {
-      return { _key: k(), _type: "span", marks: [], text: part };
-    }
-    const defKey = k();
-    markDefs.push({ _key: defKey, _type: "inlineLink", href: part[1] });
-    return { _key: k(), _type: "span", marks: [defKey], text: part[0] };
-  });
-  return { _key: k(), _type: "block", style, markDefs, children };
-};
-
-const p = (...parts: Part[]) => block("normal", parts);
-const h2 = (text: string) => block("h2", [text]);
-
-/**
- * A reserved space for a picture.
- *
- * No `asset` key at all — the renderer draws nothing without one, and Studio
- * shows the block reading "IMAGE NEEDED —" followed by this brief, sitting in
- * the body exactly where the picture belongs.
- */
-const imageSlot = (alt: string, brief: string, caption?: string) => ({
-  _key: k(),
-  _type: "image",
-  alt,
-  brief,
-  ...(caption ? { caption } : {}),
-});
-
-const table = (caption: string, headers: string[], rows: string[][]) => ({
-  _key: k(),
-  _type: "guideTable",
-  caption,
-  headers,
-  rows: rows.map((cells) => ({
-    _key: k(),
-    _type: "guideTableRow",
-    cells,
-  })),
-});
-
-const tool = (name: string, caption: string) => ({
-  _key: k(),
-  _type: "guideTool",
-  tool: name,
-  caption,
-});
-
-const linkRow = (intro: string, links: [label: string, href: string][]) => ({
-  _key: k(),
-  _type: "guideLinkRow",
-  intro,
-  links: links.map(([label, href]) => ({
-    _key: k(),
-    _type: "guideLink",
-    label,
-    href,
-  })),
-});
-
-const faq = (question: string, answer: string, i: number) => ({
-  _key: `choosing-a-planter-faq-${i}`,
-  _type: "faqEntry",
-  question,
-  answer,
-});
 
 /* ------------------------------------------------------------- the planters */
 
@@ -540,37 +457,37 @@ async function main() {
     faq(
       "What size pot should I repot a plant into?",
       "Two to four centimetres wider in diameter for a small houseplant, five to ten for a large one. Going much bigger surrounds the roots with compost they cannot dry out, and waterlogged compost is what causes root rot after repotting.",
-      0,
+      "choosing-a-planter-faq-0",
     ),
     faq(
       "Do planters need drainage holes?",
       "Outdoors, always — a planter with no holes fills with rainwater and drowns the plant over a few weeks. Indoors you can use a planter with no holes as a cover pot, keeping the plant in its nursery pot inside it and lifting it out to water.",
-      1,
+      "choosing-a-planter-faq-1",
     ),
     faq(
       "Can ceramic planters stay outside in winter?",
       "Only if they are described as frost-proof. Water soaks into porous ceramic, freezes and splits the pot from within, and the damage builds up over several winters before it shows. High-fired glazed stoneware generally survives; low-fired terracotta generally does not.",
-      2,
+      "choosing-a-planter-faq-2",
     ),
     faq(
       "How much compost does a large planter take?",
       "Far more than it looks. A 30cm planter takes roughly 15 litres, a 40cm one around 30, and a 60cm one over a hundred, because volume rises with the square of the radius. Filling the bottom third of anything over 40cm with something inert saves a bag and keeps the planter movable.",
-      3,
+      "choosing-a-planter-faq-3",
     ),
     faq(
       "Should a planter be tall or wide?",
       "Match it to the roots. Herbs, succulents and bedding are shallow-rooted and do better in a wide low bowl. Shrubs and small trees want at least 40cm of depth, which also makes the planter much harder to blow over.",
-      4,
+      "choosing-a-planter-faq-4",
     ),
     faq(
       "What size planter does a large indoor plant like a fiddle leaf fig need?",
       "Most are sold in a 24cm or 27cm nursery pot, so the planter you want is 30–35cm at its widest and at least 35cm deep. That is around 25 to 30 litres of compost. Depth matters more than width here: a tall plant in a shallow bowl goes over, and a fig that has gone over once rarely looks the same again.",
-      5,
+      "choosing-a-planter-faq-5",
     ),
     faq(
       "How do I stop a tall planter blowing over?",
       "Ballast, not stakes. Fill the bottom third with gravel or rubble rather than the light inert fill you would use indoors, and keep the widest point at least a third of the height. A planter that is narrow, tall and full of light compost is a sail with a plant on top.",
-      6,
+      "choosing-a-planter-faq-6",
     ),
   ];
 
@@ -596,16 +513,10 @@ async function main() {
 
   /* -------------------------------------------------------------- reporting */
 
-  const words = body
-    .filter((b): b is Block => b._type === "block")
-    .flatMap((b) => b.children.map((c) => c.text))
-    .join(" ")
-    .split(/\s+/)
-    .filter(Boolean).length;
-  const productLinks = body
-    .filter((b): b is Block => b._type === "block")
-    .flatMap((b) => b.markDefs)
-    .filter((d) => d.href.startsWith("/shop/planters/")).length;
+  const words = wordCount(body);
+  const productLinks = inlineHrefs(body).filter((h) =>
+    h.startsWith("/shop/planters/"),
+  ).length;
   const imageSlots = body.filter((b) => b._type === "image").length;
 
   console.log(`\n${patch.title}\n`);
@@ -643,10 +554,10 @@ async function main() {
   if (failed) process.exit(1);
 
   console.log("  Image briefs, for whoever takes the photographs:\n");
-  for (const slot of body.filter(
-    (b): b is ReturnType<typeof imageSlot> => b._type === "image",
-  )) {
-    console.log(`    - ${slot.brief}\n`);
+  for (const slot of body) {
+    if (slot._type === "image") {
+      console.log(`    - ${(slot as { brief: string }).brief}\n`);
+    }
   }
 
   if (!apply) return console.log("Dry run — re-run with --apply.");
