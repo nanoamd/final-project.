@@ -29,17 +29,18 @@ const VISIBLE_MS = 6000;
 const HIDDEN_MS = 4000;
 const DISMISS_KEY = "kaiku:activity-feed-dismissed";
 
-/** "4 minutes ago". Coarse on purpose — precision here reads as surveillance. */
-function ago(iso: string): string {
-  const seconds = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
-  const minutes = Math.round(seconds / 60);
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-  const days = Math.round(hours / 24);
-  return `${days} day${days === 1 ? "" : "s"} ago`;
-}
+/**
+ * There is deliberately no timestamp on the card.
+ *
+ * Damien asked for the time removed entirely rather than made vaguer, and that
+ * is the better of the two anyway. A relative time is the part of a feed like
+ * this that most often turns into a lie — "4 minutes ago" is a claim about
+ * right now, and it stays on screen whether or not it is still true. Saying
+ * nothing about when makes no claim at all, so the sentence is only ever as
+ * true as the record behind it.
+ *
+ * `at` is still carried on the item, because the feed is ordered by it.
+ */
 
 /**
  * Whether this visitor closed the feed, held outside React.
@@ -172,7 +173,6 @@ export function RecentActivityFeed() {
               item.product
             )}
           </p>
-          <p className="text-muted mt-0.5 text-[11px]">{ago(item.at)}</p>
         </div>
 
         <button

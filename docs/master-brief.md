@@ -16,6 +16,44 @@ Status key:
 
 ---
 
+## Three guides for categories that had none (15 September)
+
+Damien: _"i want intensive compounding. do some seo work overnight"_, and
+_"also remove the 'days ago' from the ... pop up"_.
+
+- [x] **Audited all 49 categories first, and the assumption was wrong.** Page
+      copy is fine — every stocked category has 330–780 characters of intro and
+      four FAQs. The actual gap: **12 stocked categories had no buying guide
+      pointing at them**, so no editorial link, no long-tail entry, and nothing
+      in the new sidebar. **Now 9.**
+- [x] **`/learn/what-size-kitchen-storage-jar`** — 1,106 words. Jars are sold
+      in millilitres and shopping is done in kilograms, and nothing converts
+      one to the other. A 1kg bag of rice needs ~1.2 litres; the same weight of
+      penne needs ~2.9, because bulk density runs 0.85 against 0.35. Spaghetti
+      is 25–26cm and the tallest jar is 22.2cm, so it does not fit at all.
+- [x] **`/learn/how-many-bathroom-accessories-do-you-need`** — 1,106 words.
+      **A 500ml dispenser empties a 500ml refill exactly; a 300ml leaves 200ml
+      on the shelf.** Plus how long each capacity lasts, the 8cm-footprint
+      problem on a pedestal basin, and hard water as the thing that actually
+      ends a dispenser's life.
+- [x] **`/learn/what-size-hurricane-lantern`** — 1,156 words. 2–3cm of air
+      around the candle, never fill past two thirds of the height, and the
+      first burn sets the pool width permanently. Candle diameter matched to
+      lantern opening in a table.
+- [x] **The length guard earned its place again.** First drafts came out at
+      639, 628 and 675 words — the same fault as the September guides — and the
+      script refused to publish. Expanded to 1,106–1,156 before it would.
+- [x] **6, 9 and 9 product cards; 6, 9 and 10 inline links; 5 buttons and 2
+      image briefs each.** Each also feeds the sidebar, so all 41 guides gain
+      links from these three.
+- [x] **Timestamp removed from the activity feed**, as asked — not made
+      vaguer, removed. A relative time is the part of a feed like this most
+      likely to become untrue: "4 minutes ago" is a claim about right now that
+      stays on screen after it stops being true. Saying nothing about when
+      makes no claim at all.
+
+---
+
 ## Articles now link to each other — the sidebar (15 September)
 
 Damien: _"the blogs should have more links on the left side of the page, like
@@ -3710,11 +3748,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
