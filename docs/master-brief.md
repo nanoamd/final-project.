@@ -16,6 +16,78 @@ Status key:
 
 ---
 
+## Hill Interiors rebuilt from their own dropship feed (15 September)
+
+Damien supplied `HillInteriorsStock.csv`, `HillInteriorsDropship-2.csv`, two
+Dropbox asset folders and Hill's full delivery terms, and asked for _"the same
+as we did with premier housewares yesterday with the pricing, make as many
+promotable competitive products as possible"_.
+
+### Three things the feeds settled, before any repricing was possible
+
+- [x] **The dropship price is exactly 1.16x the stock price** — min, median and
+      max all 1.16 across 1,790 rows. Kaiku dropships, so the dropship column
+      is the one that counts. Any cost taken from the stock list understates
+      what Kaiku pays by 16%.
+- [x] **Hill quote ex VAT.** Damien's own Provence invoice settles it: £1,160
+      goods + £59.99 delivery, **VAT £244.00** — 20% on goods _and_ carriage.
+      True cost is feed price × 1.2, carriage band × 1.2.
+- [!] **384 of 615 Hill products held an EX-VAT cost.** Their recorded cost was
+  the dropship price with no VAT on it, so **every margin tool in this repo
+  has been reading them 20% cheaper than they are.** 155 were already
+  correct. The rest matched neither — Hill have moved prices since the
+  costs were captured, in both directions. Same class of fault as the
+  September VAT bookkeeping bug, which is why cost is now **rebuilt from
+  the feed** rather than adjusted: a stored number of unknown provenance is
+  not a base to build on.
+
+### The reprice
+
+`scripts/reprice-hill-from-dropship-feed.ts` — **410 repriced, cost corrected
+on 270, carriage on 288.**
+
+- [x] **Priced 5% under Hill's RRP** where margin allows, never above it. Hill
+      is a wholesaler, so the same goods sit on dozens of UK sites at RRP; a
+      visible saving beats a price match, and listing above RRP teaches a
+      shopper not to come back. Where 5% under will not clear 20%, the price
+      rises only as far as it must.
+- [x] **194 in stock and active; 108 of them promotable** — 23 strong, 84
+      viable, 1 cash. Margin across sellable: min 20.9%, **median 30.8%**, max
+      40.2%. Best per sale: Sorelle Two Seater Sofa keeps **£503.94 at 36.6%**
+      (£1,378 against RRP £1,450).
+- [-] **178 cannot clear 17% even at Hill's own RRP, and were left alone.**
+  Carriage is why: a Luxe candle at RRP £15 costs £8.35 + £8.39 carriage,
+  which is **minus 14.4%**. This confirms
+  `hill-interiors-competitor-prices.md` — Kaiku works from about £70 up and
+  cannot compete below it on solo orders.
+- [-] **Carriage charged per item, knowingly pessimistic.** Hill band the whole
+  consignment, so £6.99 covers everything to 10kg in one parcel. Pricing on
+  the optimistic reading means losing money on exactly the orders easiest
+  to win, so the per-item reading stands and the consequence — small items
+  are not promotable — is reported rather than hidden.
+- [!] **694 of 1,790 feed rows have zero stock and 388 are status DRD.** Stock
+  is a point-in-time CSV, so it rots. This is the argument for the hosted
+  feed URL in `docs/external-data-requirements.md` rather than another
+  export.
+- [ ] **The two Dropbox asset folders are not yet pulled in.** Folder shares
+      need a real download rather than a fetch, and the feed already carries up
+      to five image URLs per product on Hill's own CDN, which may make them
+      unnecessary.
+
+### Marketplaces
+
+- [x] **eBay and Amazon recorded on Hill Interiors, Furniture100, Furniture To
+      Go and Aosom** (`scripts/set-marketplace-permissions.ts`). Seven other
+      suppliers stay not-permitted, which the schema treats as forbidden rather
+      than unknown — the right default when a wrong "yes" closes a trade
+      account.
+- [!] **The source is Damien's word, not the suppliers' own terms**, and
+  `marketplacePolicySource` says so on each. A marketplace takedown asks
+  where the permission is in writing. Upgrade each to a forwarded email
+  before the first listing.
+
+---
+
 ## Furniture100 added, and new products now lead their category (15 September)
 
 Damien: _"upload some furniture100 products as they accepted me"_, then
@@ -3544,11 +3616,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
