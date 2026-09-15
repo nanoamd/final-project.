@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { WallArtSizeCalculator } from "@/components/shared/wall-art-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getProductsByCategory } from "@/lib/sanity/queries";
+import { getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default async function WallArtSizeCalculatorPage() {
-  const products = await getProductsByCategory("wall-art", { limit: 8 });
+  const products = await getToolProducts("wall-art", { limit: 8 });
 
   return (
     <ToolPage

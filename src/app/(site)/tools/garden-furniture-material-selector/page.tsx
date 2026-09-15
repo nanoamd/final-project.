@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { FurnitureMaterialSelector } from "@/components/shared/furniture-material-selector";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getProductsByCategory } from "@/lib/sanity/queries";
+import { getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default async function GardenFurnitureMaterialSelectorPage() {
-  const products = await getProductsByCategory("garden-furniture", {
+  const products = await getToolProducts("garden-furniture", {
     limit: 8,
   });
 

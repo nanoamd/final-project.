@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { DiningSpaceCalculator } from "@/components/shared/dining-space-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getProductsByCategory } from "@/lib/sanity/queries";
+import { getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,7 +16,7 @@ export const metadata: Metadata = buildMetadata({
 
 /**
  * The indoor sibling of /tools/dining-set-size-calculator, which only ever
- * matched against garden furniture stock (getProductsByCategory("garden-
+ * matched against garden furniture stock (getToolProducts("garden-
  * furniture", ...)) — checked directly rather than assumed, since building
  * this without checking would have recreated the exact "two pages
  * competing for one query" problem flagged elsewhere on this pass. Same
@@ -25,7 +25,7 @@ export const metadata: Metadata = buildMetadata({
  * copy and the matched stock differ.
  */
 export default async function DiningTableSizeCalculatorPage() {
-  const products = await getProductsByCategory("kitchen-furniture", {
+  const products = await getToolProducts("kitchen-furniture", {
     limit: 8,
   });
 

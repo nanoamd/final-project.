@@ -21,6 +21,7 @@ export {
   getProductsBySlugs,
   getProductsBySupplier,
   getRelatedProducts,
+  getToolProducts,
   getTotalProductCount,
   LISTING_QUERY_CEILING,
   searchProducts,

@@ -195,6 +195,14 @@ export async function GET() {
         )
         .join("\n    ")
     }
+    ${
+      /* custom_label_0 is how a Performance Max campaign is pointed at the
+         products that actually pay. Left to itself an automated campaign buys
+         the cheapest clicks, which are the 707 products making nothing. */
+      product.promotionTier
+        ? `<g:custom_label_0>${escapeXml(product.promotionTier)}</g:custom_label_0>`
+        : ""
+    }
     ${handling ? `<g:min_handling_time>${handling.min}</g:min_handling_time>` : ""}
     ${handling ? `<g:max_handling_time>${handling.max}</g:max_handling_time>` : ""}
   </item>`;

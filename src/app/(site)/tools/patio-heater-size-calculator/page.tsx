@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PatioHeatCalculator } from "@/components/shared/patio-heat-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getProductsByCategory } from "@/lib/sanity/queries";
+import { getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default async function PatioHeaterSizeCalculatorPage() {
-  const products = await getProductsByCategory("fire-pits", { limit: 8 });
+  const products = await getToolProducts("fire-pits", { limit: 8 });
 
   return (
     <ToolPage

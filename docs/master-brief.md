@@ -16,6 +16,43 @@ Status key:
 
 ---
 
+## Calculators now sell, and PMax can target (15 September)
+
+Damien: _"what else can we implement to make us rank and stand out"_, and then
+_"we just need to improve our pages and run pmax on the best ones"_.
+
+- [x] **The 15 sizing calculators were recommending the wrong products.** Each
+      called `getProductsByCategory(slug, { limit: 8 })`, which returns the
+      first eight of a category — and since the grid was reordered to open on
+      the cheapest item, that became _the eight cheapest_. The pendant-light
+      calculator worked out a room needs an 80cm fixture and then showed eight
+      £23 table lamps. The planter calculator showed seven products at £23.
+- [x] **`getToolProducts` replaces it.** Only products worth selling are
+      eligible, and the eight are **spread evenly across the price range**
+      rather than taken off the bottom, so a visitor sees an entry point, a
+      middle and a good piece. Falls back to the whole category where a
+      category has too few promotable products to fill the row.
+  - lighting: £23–£43 → **£39, £53, £56, £65, £69, £139, £180, £1,561**
+  - planters: seven at £23 → **£65, £67, £78, £95, £121, £209**
+  - fire pits: £120–£167 → **£129 … £249**, the full range
+- [x] **`promotionTier` added to the product schema and set on all 907** by
+      `scripts/set-promotion-tier.ts` — derived from the real margin, never
+      typed, so it cannot drift from the prices. strong 89, viable 55, cash 56,
+      below 707.
+- [x] **The feed now emits it as `custom_label_0`.** That is the mechanism a
+      Performance Max campaign uses to target the 200 products that pay. Left
+      to itself an automated campaign buys the cheapest clicks, which are
+      exactly the 707 that make nothing — this is the guard against that.
+- [-] **3D models for all 907 products: advised against, and why.** Kaiku is a
+  dropshipper and has never held the goods, so photogrammetry is impossible and
+  modelling is £50–300 each — £45,000 at the low end. It does not help ranking
+  either. And the three `.glb` files already in the repo root are **24MB each**;
+  a model that size on a product page would damage Core Web Vitals, which does
+  affect ranking. Worth doing on the **8 saunas** alone, at £3,263–£6,500 with a
+  genuine spatial question — and SaunaPlunge may already have models.
+
+---
+
 ## The Merchant feed is LIVE — 907 products (14 September)
 
 Damien set `MERCHANT_FEED_ENABLED=true` and redeployed. Verified by fetching
@@ -3184,11 +3221,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

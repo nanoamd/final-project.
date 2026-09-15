@@ -7,7 +7,7 @@ import {
   getCategories,
   getDepartments,
   getProduct,
-  getProductsByCategory,
+  getToolProducts,
 } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -46,7 +46,7 @@ export default async function GardenVisualiserPage({
         slug: c.slug,
         name: c.name,
         departmentSlug: c.departmentSlug ?? "outdoor-living",
-        products: await getProductsByCategory(c.slug),
+        products: await getToolProducts(c.slug),
       })),
   );
 

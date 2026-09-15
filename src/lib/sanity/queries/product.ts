@@ -98,6 +98,7 @@ const PRODUCT_PROJECTION = /* groq */ `{
   weight,
   deliveryLeadTime,
   stockStatus,
+  promotionTier,
   stockQuantity,
   deliveryNotes,
   returnsNotes,
@@ -370,6 +371,34 @@ const PRODUCTS_BY_SUPPLIER_QUERY = /* groq */ `
   [0...$limit]
   ${PRODUCT_PROJECTION}`;
 
+/**
+ * Products for a sizing calculator: worth selling, and spread across the range.
+ *
+ * The calculators used to call `getProductsByCategory(slug, { limit: 8 })`,
+ * which returns the first eight of a category. Since the grid was reordered to
+ * open on the cheapest product, that became "the eight cheapest" — so the
+ * pendant-light calculator worked out that a room needs an 80cm fixture and
+ * then showed eight £23 table lamps.
+ *
+ * Two changes. Only products with a promotionTier worth advertising are
+ * eligible, because a calculator is a sales page and there is no reason to
+ * point it at the 707 products that make nothing. And the selection is spread
+ * evenly across the price range rather than taken off one end, so a visitor
+ * sees an entry point, a middle and a good piece instead of eight items at the
+ * same price.
+ *
+ * Falls back to the whole category when a category has too few promotable
+ * products to fill the row — an empty shelf helps nobody.
+ */
+const TOOL_PRODUCTS_QUERY = /* groq */ `
+*[_type == "product"
+  && defined(slug.current)
+  && (category->slug.current == $categorySlug
+      || $categorySlug in additionalCategories[]->slug.current)
+  && (!$promotableOnly || promotionTier in ["strong", "viable", "cash"])]
+  | order(coalesce(price, 0) asc)
+  ${PRODUCT_PROJECTION}`;
+
 const ALL_PRODUCTS_QUERY = /* groq */ `
 *[_type == "product" && defined(slug.current)]
   | order(_createdAt desc)
@@ -469,6 +498,40 @@ export async function getProductsByCategory(
     [],
   );
   return normalizeProducts(raw);
+}
+
+/**
+ * Picks `limit` products evenly across a sorted list.
+ *
+ * Taking the first N clusters everything at one price. Sampling at even
+ * intervals gives a row that reads as a range: something affordable, something
+ * in the middle, something worth aspiring to.
+ */
+function spreadAcross<T>(items: T[], limit: number): T[] {
+  if (items.length <= limit) return items;
+  const step = (items.length - 1) / (limit - 1);
+  return Array.from({ length: limit }, (_, i) => items[Math.round(i * step)]!);
+}
+
+export async function getToolProducts(
+  categorySlug: string,
+  { limit = 8 }: { limit?: number } = {},
+): Promise<SanityProduct[]> {
+  const promotable = await sanityFetch<RawProduct[]>(
+    TOOL_PRODUCTS_QUERY,
+    { categorySlug, promotableOnly: true },
+    [],
+  );
+  // A thin category would otherwise show two products where eight fit.
+  const source =
+    promotable.length >= limit
+      ? promotable
+      : await sanityFetch<RawProduct[]>(
+          TOOL_PRODUCTS_QUERY,
+          { categorySlug, promotableOnly: false },
+          [],
+        );
+  return normalizeProducts(spreadAcross(source, limit));
 }
 
 export async function getFeaturedProducts(limit = 4): Promise<SanityProduct[]> {
@@ -734,6 +797,12 @@ export interface MerchantFeedProduct {
   extraImages: string[] | null;
   /** Null on the 127 importer-created products that never got one set. */
   stockStatus: string | null;
+  /**
+   * Emitted as `custom_label_0`, so a Performance Max campaign can be pointed
+   * at the 200 products that pay rather than all 907. Derived by
+   * `scripts/set-promotion-tier.ts`; null until that has run.
+   */
+  promotionTier: string | null;
   /** Same string the product page renders; parsed into handling days. */
   deliveryLeadTime: string | null;
   /** Needed to apply the same delivery rule the storefront applies — a
@@ -761,6 +830,7 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   mpn,
   sku,
   stockStatus,
+  promotionTier,
   deliveryLeadTime,
   colourTags,
   materialTags,

@@ -278,6 +278,31 @@ export const product = defineType({
      * be. Use it sparingly — a category where everything is pinned is just an
      * alphabetical grid again, which is the problem this replaced.
      */
+    /**
+     * Which promotion tier the product earns on its own margin.
+     *
+     * Derived, never typed: `scripts/set-promotion-tier.ts` recomputes it from
+     * price, cost, carriage and card fees. Two things read it and both matter.
+     *
+     * The Merchant feed emits it as `custom_label_0`, which is how a Performance
+     * Max campaign can be pointed at the products that pay rather than at all
+     * 907. Without it an automated campaign finds the cheapest clicks, which are
+     * the 707 products that make nothing, and spends the budget there.
+     *
+     * The sizing calculators read it too. A calculator that works out you need
+     * an 80cm pendant should not then show the eight cheapest table lamps in the
+     * catalogue, which is what a plain category query returns.
+     */
+    defineField({
+      name: "promotionTier",
+      title: "Promotion tier (derived)",
+      type: "string",
+      group: "commerce",
+      readOnly: true,
+      options: { list: ["strong", "viable", "cash", "below"] },
+      description:
+        "Set by scripts/set-promotion-tier.ts from the real margin. strong = 35%+ and £25+. viable = 30%+ and £20+. cash = £250+ and 15%+. below = not worth advertising.",
+    }),
     defineField({
       name: "displayOrder",
       title: "Pin to front of category (1 = first)",
