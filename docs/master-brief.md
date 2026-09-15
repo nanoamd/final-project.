@@ -119,10 +119,14 @@ on 270, carriage on 288.**
 ### Marketplaces
 
 - [x] **eBay and Amazon recorded on Hill Interiors, Furniture100, Furniture To
-      Go and Aosom** (`scripts/set-marketplace-permissions.ts`). Seven other
-      suppliers stay not-permitted, which the schema treats as forbidden rather
-      than unknown — the right default when a wrong "yes" closes a trade
-      account.
+      Go, Aosom and D.I. Designs** (`scripts/set-marketplace-permissions.ts`).
+      Six other suppliers stay not-permitted, which the schema treats as
+      forbidden rather than unknown — the right default when a wrong "yes"
+      closes a trade account.
+- [x] **D.I. Designs added after Damien flagged the omission**, which brought
+      **54 more products into the listing sheet (231 now)** and, better,
+      carriage verified on 50 of them. Their cheap end starts at £215, so they
+      are money per sale rather than velocity.
 - [!] **The source is Damien's word, not the suppliers' own terms**, and
   `marketplacePolicySource` says so on each. A marketplace takedown asks
   where the permission is in writing. Upgrade each to a forwarded email
@@ -3658,11 +3662,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

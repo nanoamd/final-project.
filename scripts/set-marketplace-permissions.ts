@@ -50,6 +50,7 @@ const PERMISSIONS: { match: string; marketplaces: string[] }[] = [
   { match: "Furniture100", marketplaces: ["eBay", "Amazon"] },
   { match: "Furniture To Go", marketplaces: ["eBay", "Amazon"] },
   { match: "Aosom", marketplaces: ["eBay", "Amazon"] },
+  { match: "D.I. Designs", marketplaces: ["eBay", "Amazon"] },
 ];
 
 interface Supplier {

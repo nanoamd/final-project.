@@ -1,36 +1,89 @@
 supplier,category,title,sku,gtin,sitePrice,landedCost,carriageKnown,photos,tier,rrp,stock,mineBay,keepeBay,minOnBuy,keepOnBuy,vsRrp,viableOnEbayUnderRrp
+D.I. Designs,living-room-storage,Abberley Black Oak Sideboard,SB-02,,1163,930,yes,5,below,,,1421,284.75,1339,268.2,,yes
+D.I. Designs,living-room-storage,Hampton Ivory Shagreen Chest of Drawers,COD-04I,,1190,930,yes,5,below,,,1421,284.75,1339,268.2,,yes
+D.I. Designs,sofas,Candover Neutral Upholstered Sofa,SO-02,,1148,918,NO — margin overstated,6,below,,,1402,280.51,1322,264.99,,yes
+D.I. Designs,sofas,Wadborough 3 Seater Sofa in Neutral,SO-06,,1119,895,yes,4,below,,,1367,273.59,1289,258.45,,yes
+D.I. Designs,tv-units,Hampton Ivory Shagreen TV Unit,TV-04I,,1095,870,NO — margin overstated,8,below,,,1329,266.1,1253,251.24,,yes
 Hill Interiors,sofas,Sorelle Two Seater Sofa with Cushions,24370,5050140437087,1378,853.19,yes,5,strong,1450,17,1303,260.67,1228,245.67,10.1,yes
+D.I. Designs,living-room-storage,Broadway Oak Chest of Drawers,COD-05,,1150,846,yes,5,cash,,,1292,258.46,1218,243.91,,yes
+D.I. Designs,living-room-storage,Charlton Ribbed Walnut Chest of Drawers,COD-03,,1100,846,yes,8,below,,,1292,258.46,1218,243.91,,yes
+D.I. Designs,sofas,Himbleton Green 3 Seater Sofa,SO-03G,,1090,834,yes,9,below,,,1274,255.07,1201,240.7,,yes
+D.I. Designs,living-room-storage,Huddington Black Sideboard,SB-06,,1050,810,yes,5,below,,,1237,247.44,1166,233.37,,yes
+D.I. Designs,coffee-tables,Bentley Coffee Table in Oak,KK-CT-BEN-OAK-001,,998,798,yes,4,below,,,1219,244.04,1149,230.16,,yes
 Hill Interiors,shelving,Light Up Bookcase,24652,5050140465288,1188,779.99,yes,5,viable,1250,40,1192,238.97,1123,224.89,4.6,yes
+D.I. Designs,coffee-tables,Elmley Coffee Table in Ivory,KK-CT-ELM-IVY-001,,893,714,yes,5,below,,,1091,218.6,1028,205.86,,yes
+D.I. Designs,desks,Charlton Ribbed Walnut Desk,D-11,,980,708,yes,8,cash,,,1082,216.91,1019,203.81,,yes
 Aosom,garden-furniture,"7-Piece Rattan Sofa Set with Fire Pit Table, Grey",860-290V70GY,,937.98,691.55,yes,4,below,,,1057,211.99,996,199.67,,yes
+D.I. Designs,living-room-storage,Easton 2 Drawer Chest of Drawers,COD-07,,890,690,NO — margin overstated,4,below,,,1054,210.97,994,199.43,,yes
+D.I. Designs,console-tables,Elmley Ivory Console Table,CO-07I,,863,690,yes,5,below,,,1054,210.97,994,199.43,,yes
+D.I. Designs,console-tables,Hampton Brown Shagreen Console Table,CO-14BR,,829,642,yes,6,below,,,981,196.55,925,185.68,,yes
 Aosom,garden-furniture,"All-Season Rattan Sofa Set with 50,000 BTU Fire Table, Grey",860-290V70GG,,863.29,633.54,yes,4,below,,,968,193.9,912,182.5,,yes
+D.I. Designs,living-room-storage,Abberley White Chest of Drawers,COD-08W,,773,618,yes,6,below,,,944,188.92,890,178.35,,yes
+D.I. Designs,desks,Abberley White Desk,D-12W,,758,606,yes,5,below,,,926,185.53,873,175.14,,yes
 Hill Interiors,shelving,Large Black Multi Shelf Unit,22714,5050140271483,950,588.71,yes,4,strong,1000,40,900,180.59,848,170.05,10,yes
 Aosom,garden-furniture,"L-Shaped 8-Seater Aluminium Garden Dining Set with Bench, Grey",84B-815V70,,805.09,575.3,yes,4,below,,,879,176.05,829,166.46,,yes
+D.I. Designs,console-tables,Bentley Grey Aged Oak Console Table,CO-08,,713,570,yes,4,below,,,871,174.5,821,164.6,,yes
 Aosom,garden-furniture,"6-Piece Rattan Corner Sofa Set with Glass-Top Table, Grey",860-146V70,,718.76,534.43,yes,4,below,,,817,163.91,770,154.52,,yes
+D.I. Designs,sofas,Mickleton Cream Chenille Armchair,CC-05C,,668,534,yes,4,below,,,816,163.48,769,154.06,,yes
+D.I. Designs,coffee-tables,Witley Coffee Table,KK-CT-WIT-OAK-001,,655,524,yes,4,below,,,801,160.66,755,151.52,,yes
+D.I. Designs,living-room-storage,Grafton Black Chest of Drawers,COD-06,,670,525,yes,4,below,,,802,160.51,756,151.42,,yes
+D.I. Designs,console-tables,Berkeley White Console Table,CO-15,,680,510,yes,9,below,,,779,155.84,735,147.63,,yes
+D.I. Designs,bathroom-mirrors,Hampton Ivory Octagonal Wall Mirror,MI-05I,,623,498,yes,4,below,,,761,152.45,717,143.52,,yes
+D.I. Designs,console-tables,Abberley One Drawer Black Console Table,CO-02,,608,486,yes,5,below,,,743,149.06,700,140.3,,yes
+D.I. Designs,console-tables,Grafton Black Console Table,CO-13,,594,475,yes,4,below,,,726,145.53,684,136.98,,yes
+D.I. Designs,bedside-tables,Hampton Grey Bedside Table,BT-11,,593,474,yes,4,below,,,724,144.82,683,137.09,,yes
 Aosom,garden-furniture,"5-Piece Aluminium Garden Sofa Set with Glass-Top Table, Grey",84G-462V00CG,,598.48,472.02,yes,4,below,,,721,144.24,680,136.38,,yes
+D.I. Designs,bedside-tables,Hampton Ivory Round Bedside Table,BT-19I,,563,450,yes,4,below,,,688,138.04,648,129.76,,yes
+D.I. Designs,sofas,Kington Grey Club Chair,CC-06G,,563,450,yes,6,below,,,688,138.04,648,129.76,,yes
+D.I. Designs,side-tables,Leckford Ribbed Black Oak Occasional Table,OT-01,,563,450,yes,9,below,,,688,138.04,648,129.76,,yes
+D.I. Designs,coffee-tables,Abberley Coffee Table in Brown,KK-CT-ABB-BRN-001,,555,444,yes,5,below,,,679,136.35,640,128.6,,yes
+D.I. Designs,living-room-storage,Alton White Chest of Drawers,COD-12W,,589,438,yes,5,below,,,670,134.65,631,126.55,,yes
+D.I. Designs,side-tables,Hampton Ivory Shagreen Nest of Tables,NT-01I,,548,438,yes,5,below,,,670,134.65,631,126.55,,yes
 Hill Interiors,living-room-storage,Delphine Collection Sliding Glass Dresser Top,24658,5050140465882,713,435.59,yes,5,strong,750,4,666,133.64,628,126.27,11.2,yes
+D.I. Designs,bedside-tables,Hampton Ivory Square Bedside Table,BT-14I,,533,426,yes,6,below,,,651,130.4,614,123.33,,yes
+D.I. Designs,side-tables,Elmley Grey End Table,ET-01,,518,414,yes,4,below,,,633,127.02,596,119.22,,yes
 Aosom,garden-furniture,"5-Piece Rattan Garden Set with Gas Fire Pit Table, Grey",860-335V70GY,,589.75,412.55,yes,4,below,,,631,126.75,594,118.88,,yes
+D.I. Designs,bedside-tables,Broadway Oak Bedside Table,BT-09,,495,396,yes,5,below,,,605,121.07,571,114.85,,yes
+D.I. Designs,bathroom-mirrors,Hampton Ivory Shagreen Square Wall Mirror,MI-01I,,495,396,yes,4,below,,,605,121.07,571,114.85,,yes
+D.I. Designs,console-tables,Five Black Console Table,CO-03,,488,390,yes,3,below,,,596,119.38,562,112.79,,yes
+D.I. Designs,coffee-tables,Crofton White Marble Coffee Table,KK-CT-CRO-WHT-001,,449,355,yes,4,below,,,543,109.06,512,103.04,,yes
+D.I. Designs,bedside-tables,Charlton Ribbed Walnut 2 Drawer Bedside Table,BT-06,,443,354,yes,7,below,,,541,108.36,510,102.25,,yes
 Aosom,garden-furniture,"6-Piece Rattan Garden Sofa Set with Washable Covers, Grey",84G-547V70LR,,559,350.24,yes,4,strong,,,536,107.84,505,101.53,,yes
 Hill Interiors,sofas,Vellis Blue Wingback Armchair,24373,,570,352.07,yes,5,strong,600,5,538,107.72,507,101.5,10.3,yes
+D.I. Designs,console-tables,Alton White Console Table,CO-17W,,420,336,NO — margin overstated,5,below,,,514,103.27,484,96.98,,yes
 Hill Interiors,sofas,Avia Mist Armchair,24489,5050140448984,570,332.15,yes,5,strong,600,12,508,101.99,479,96.35,15.3,yes
 Aosom,garden-furniture,6-Seater Garden Dining Set with Stackable Chairs,83A-218V00ND,,465,328.52,yes,4,below,,,502,100.49,473,94.62,,yes
+D.I. Designs,bedside-tables,Abberley White Bedside Table,BT-13W,,399,318,yes,6,below,,,486,97.33,458,91.71,,yes
 Aosom,garden-furniture,"7-Seater Rattan Sofa Set with Glass-Top Table, Dark Blue",860-015V70GG,,489,316.09,yes,4,viable,,,483,96.68,456,91.83,,yes
+D.I. Designs,coffee-tables,Overbury Coffee Table in Chocolate Brown,KK-CT-OVB-BRN-001,,409,310,yes,4,below,,,474,95.07,447,89.87,,yes
 Aosom,garden-furniture,"6-Piece Aluminium Sectional Garden Sofa Set, Grey",84B-656,,420.97,295.24,yes,4,below,,,452,91.02,426,85.83,,yes
+D.I. Designs,coffee-tables,Pershore Rectangular Aged Oak Coffee Table,KK-CT-PER-OAK-001,,720,295,yes,5,strong,,,451,90.41,425,85.17,,yes
 Aosom,garden-furniture,"8-Seater Rattan Corner Dining Set with Footstool, Black",860-025,,425.82,295.01,yes,4,below,,,451,90.4,425,85.17,,yes
+D.I. Designs,bedside-tables,Berkeley Black 1 Drawer Bedside Table,BT-08B,,395,285,yes,9,below,,,436,87.58,411,82.65,,yes
+D.I. Designs,bedside-tables,Grafton Black Bedside Table,BT-05,,375,285,yes,4,below,,,436,87.58,411,82.65,,yes
+D.I. Designs,side-tables,Neatham End Table,ET-06,,357,285,yes,4,below,,,436,87.58,411,82.65,,yes
 Aosom,garden-furniture,"5-Seater Aluminium Garden Sofa Set, Grey",860-053,,387.02,274.85,yes,4,below,,,420,84.05,396,79.37,,yes
 Hill Interiors,living-room-storage,Contour Collection 2 Drawer 2 Door Sideboard,24332,5050140433287,428,269.51,yes,5,strong,450,31,412,82.55,389,78.45,8.4,yes
 Hill Interiors,coffee-tables,Serene Rattan Coffee Table,23900,,428,269.51,yes,5,strong,450,16,412,82.55,389,78.45,8.4,yes
+D.I. Designs,side-tables,Abberley White End Table,ET-04W,,330,264,yes,5,below,,,404,81.22,381,76.79,,yes
 Hill Interiors,garden-furniture,Capri Collection Outdoor Foot Stool,22954,5050140295489,418,258.95,yes,5,strong,440,1,396,79.43,373,74.69,10,yes
 Hill Interiors,garden-furniture,Provence Collection Outdoor Bistro Table,24515,5050140451588,399,251.99,yes,4,strong,420,17,386,77.84,363,72.69,8.1,yes
 Hill Interiors,sofas,Zephra White Armchair,24367,,390,248.63,yes,5,viable,410,33,380,76.07,359,72.48,7.3,yes
 Hill Interiors,garden-furniture,Amalfi Collection Outdoor Bistro Table With Wood Top,23905,5050140390580,390,245.03,yes,5,strong,410,1,375,75.4,353,70.71,8.5,yes
+D.I. Designs,side-tables,Grafton Black End Table,ET-24,,300,235,yes,4,below,,,360,72.6,339,68.21,,yes
 Hill Interiors,garden-furniture,Capri Collection Outdoor Dining Chair,22951,5050140295182,361,234.71,yes,5,viable,380,13,359,72.03,338,67.6,5.5,yes
 Hill Interiors,shelving,Saltaire Collection 3-Shelf Unit,24542,5050140310588,380,233.99,yes,2,strong,,,358,71.9,337,67.42,,yes
+D.I. Designs,side-tables,Norton Black Square End Table,ET-08,,299,220,yes,4,below,,,337,67.94,317,63.52,,yes
 Hill Interiors,garden-furniture,Provence Collection Outdoor Dining Chair,23904,5050140390481,352,217.19,yes,4,strong,370,53,332,66.47,313,62.75,10.3,yes
 Hill Interiors,sofas,Rutland Rectangular Bench,23981,,323,212.87,yes,5,viable,340,2,326,65.66,307,61.69,4.1,yes
 Hill Interiors,kitchen-lighting,Solara Orb Pendant Ceiling Light,24456,5050140445686,333,210.23,yes,5,strong,350,5,322,64.88,303,60.75,8,yes
+D.I. Designs,lighting,Large Round Gesso Table Lamp,LA-03,,290,210,yes,7,below,,,321,64.25,303,60.98,,yes
 Hill Interiors,side-tables,Rutland Side Table,23983,,304,192.95,yes,5,viable,320,19,295,59.07,278,55.66,7.8,yes
+D.I. Designs,lighting,Large Ribbed Gesso Table Lamp,LA-04,,238,190,yes,6,below,,,291,58.61,274,55.03,,yes
 Hill Interiors,shelving,Large Circular Silver Wall Hanging Multi Shelf,18772,5050140877296,295,182.39,yes,4,strong,310,1,279,55.96,263,52.8,10,yes
 Hill Interiors,bedside-tables,Serene Three Drawer Bedside Table,23895,,295,182.39,yes,5,strong,310,15,279,55.96,263,52.8,10,yes
+D.I. Designs,lighting,Bamboo Gesso Table Lamp,LA-05,,219,175,yes,7,below,,,268,53.94,253,51.23,,yes
+D.I. Designs,lighting,Small Rectangular Gesso Table Lamp,LA-01,,219,175,yes,7,below,,,268,53.94,253,51.23,,yes
 Aosom,outdoor-kitchens,"4+1 Burner Gas Barbecue with Side Table, Black",846-195V70BK,,252,171.61,yes,4,viable,,,263,53.05,248,50.15,,yes
 Aosom,pergolas,"Metal Pergola with Sliding Canopy and Curtains, Grey",84C-441V00LG,,261,168.7,NO — margin overstated,5,viable,,,258,51.69,244,49.48,,yes
 Hill Interiors,side-tables,Haldon Collection Large 1 Drawer Lamp Table,24912,5050140491287,257,165.11,yes,5,viable,270,23,253,51,238,47.7,6.3,yes
@@ -43,6 +96,7 @@ Aosom,pergolas,"Steel Pergola with Retractable Canopy, Khaki",84C-470V02KK,,221,
 Hill Interiors,side-tables,Serene One Drawer Side Table,23894,,238,147.59,yes,5,strong,250,60,226,45.44,213,42.85,9.6,yes
 Hill Interiors,candles-and-lanterns,Set Of Three Wooden Lanterns With Archway Design,17461,5050140746196,219,144.23,yes,6,viable,230,67,221,44.52,208,41.73,3.9,yes
 Aosom,beds,"5ft King Bed Frame with Hydraulic Storage and LED Lighting, Grey",83D-185V03CG,,263,140.77,NO — margin overstated,4,strong,,,216,43.71,203,40.71,,yes
+D.I. Designs,bedside-tables,Chilworth Grey Bedside Table,BT-32G,,179,140,yes,4,below,,,215,43.63,202,40.59,,yes
 Aosom,outdoor-kitchens,"Five-Burner Steel Gas Barbecue with Thermometer, Black",846-136V70BK,,198,139.52,yes,4,below,,,214,43.25,202,41.07,,yes
 Aosom,beds,Metal High Sleeper Bunk Bed with Desk,83D-299V70GY,,229,135,NO — margin overstated,4,strong,,,207,41.78,195,39.33,,yes
 Aosom,fire-pits,"14.5kW Rattan Gas Fire Pit Dining Table, Grey",867-123V00GY,,193.02,135.17,NO — margin overstated,4,below,,,207,41.62,195,39.16,,yes
