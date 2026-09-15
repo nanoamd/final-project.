@@ -16,6 +16,41 @@ Status key:
 
 ---
 
+## Mercia outdoor kitchens — one live, two on one question (15 September)
+
+Damien: _"upload the mercia garden kitchen products"_.
+
+- [x] **`Ultimate Trent Outdoor Kitchen` published** at **£1,495** —
+      `scripts/price-and-publish-mercia-kitchens.ts`. Trade £1,098. Keeps
+      £374 (25%) if carriage is free, **£299 (20%) even with £75 of pallet
+      carriage**, so no answer from Mercia can wreck it. It is the catalogue's
+      first four-figure outdoor kitchen and the premium anchor that category
+      had nothing of.
+- [~] **£1,495 is £4.99 under Mercia's own RRP, which is a price match, not a
+  reason to buy here.** Published anyway because it is reversible and the
+  category needed an anchor, but **it wants repricing to about £1,399 —
+  a real £100 undercut — the moment carriage is confirmed free.**
+- [!] **Trent Outdoor Kitchen held.** Trade £804, Mercia RRP £999.99. The 20%
+  floor needs **£1,025 even with free carriage** — above Mercia's own
+  retail price. Listing above the supplier is how a shopper learns to skip
+  you. Needs either the 17% floor applied (£987, just under RRP) or a
+  better trade price.
+- [!] **Pressure Treated BBQ Table held.** Trade £264, RRP £349.99. Clears 17%
+  only while carriage stays under **£21.04**, and a palletised table is not
+  a £21 delivery.
+- [!] **One question unblocks both:** what does kerbside pallet delivery cost
+  Kaiku on a Mercia dropship order? Mercia advertise an "extensive UK
+  delivery network" and publish no rates.
+- [x] **Priced by carriage headroom rather than by hope.** The script asks how
+      much carriage each product can absorb at RRP and still clear its floor,
+      and publishes only what survives the pessimistic end. Re-running it after
+      carriage is recorded reprices all three.
+- [-] **Metal sheds deliberately not touched.** `import-mercia-metal-sheds.ts`
+  already found two of three miss the floor at the market price, and the
+  price that would clear it sits above every retailer selling them.
+
+---
+
 ## Live activity feed, bottom left (15 September)
 
 Damien: _"i want an ongoing feed pop up in the bottom left of the site on all
@@ -3465,11 +3500,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

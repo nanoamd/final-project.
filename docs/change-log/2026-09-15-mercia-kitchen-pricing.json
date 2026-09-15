@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-09-15T17:21:18.661Z",
+  "carriageStress": 75,
+  "publish": [
+    {
+      "draftId": "drafts.mercia-ultimate-trent-outdoor-kitchen",
+      "publishedId": "mercia-ultimate-trent-outdoor-kitchen",
+      "title": "Ultimate Trent Outdoor Kitchen",
+      "slug": "ultimate-trent-outdoor-kitchen",
+      "cost": 1098,
+      "rrp": 1499.99,
+      "price": 1495,
+      "floor": 0.2,
+      "netIfCarriageFree": 374.38,
+      "marginIfCarriageFree": 25,
+      "netAtStress": 299.38,
+      "marginAtStress": 20,
+      "undercutsRrpBy": 4.99,
+      "carriageHeadroom": 79.29
+    }
+  ],
+  "hold": [
+    {
+      "title": "Trent Outdoor Kitchen",
+      "cost": 804,
+      "rrp": 999.99,
+      "floor": 0.2,
+      "priceIfCarriageFree": 1025,
+      "clearsFloorAtRrp": false,
+      "carriageHeadroom": -19.21,
+      "reason": "even with FREE carriage the 20% floor needs £1025, which is above Mercia's own £999.99"
+    },
+    {
+      "title": "Pressure Treated BBQ Table",
+      "cost": 264,
+      "rrp": 349.99,
+      "floor": 0.17,
+      "priceIfCarriageFree": 325,
+      "clearsFloorAtRrp": true,
+      "carriageHeadroom": 21.04,
+      "reason": "clears the floor only while carriage stays under £21.04, and Mercia have not stated it"
+    }
+  ]
+}
