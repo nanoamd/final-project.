@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ArticleDetail } from "@/features/storefront/components/content/article-detail";
-import { getPost, getPosts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getPost, getPosts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /**
@@ -48,6 +48,15 @@ export default async function JournalArticlePage({
   const post = await getPost(slug);
   if (!post) notFound();
 
+  // A post has no category reference, so the rail leans on shared products
+  // and recency rather than a category match.
+  const sidebar = await getArticleSidebar({
+    slug,
+    productSlugs: (post.relatedProducts ?? [])
+      .map((product) => product.slug)
+      .filter(Boolean),
+  });
+
   return (
     <ArticleDetail
       eyebrowLabel="The Journal"
@@ -58,6 +67,7 @@ export default async function JournalArticlePage({
       publishedAt={post.publishedAt}
       body={post.body}
       relatedProducts={post.relatedProducts}
+      sidebar={sidebar}
     />
   );
 }

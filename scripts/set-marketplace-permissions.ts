@@ -1,9 +1,15 @@
 /**
  * Records which suppliers permit marketplace listing.
  *
- * Damien, across two messages: _"furniture 100 and furniture to go allow it"_,
- * then of Hill Interiors _"they also allow dropshipping on ebay and amazon
- * along with furniture 100 and furniture to go"_, then _"and aosom"_.
+ * Damien: _"furniture 100 and furniture to go allow it"_, then of Hill
+ * Interiors _"they also allow dropshipping on ebay and amazon along with
+ * furniture 100 and furniture to go"_, then _"you forget di designs too"_.
+ *
+ * AOSOM WAS HERE AND IS NOT ANY MORE. A one-line "and aosom" arrived straight
+ * after the Hill message and was read as adding them. Damien corrected it:
+ * _"i never said we can sell them on ebay"_. Removed, and worth leaving the
+ * scar in the comment — this is the exact field where an inferred yes is
+ * expensive, and it was inferred rather than stated.
  *
  * So four suppliers, eBay and Amazon on each. The schema treats an unticked
  * marketplace as forbidden rather than unknown, which is the right default: a
@@ -49,7 +55,6 @@ const PERMISSIONS: { match: string; marketplaces: string[] }[] = [
   { match: "Hill Interiors", marketplaces: ["eBay", "Amazon"] },
   { match: "Furniture100", marketplaces: ["eBay", "Amazon"] },
   { match: "Furniture To Go", marketplaces: ["eBay", "Amazon"] },
-  { match: "Aosom", marketplaces: ["eBay", "Amazon"] },
   { match: "D.I. Designs", marketplaces: ["eBay", "Amazon"] },
 ];
 
@@ -96,6 +101,16 @@ async function main() {
     `\n  ${untouched.length} suppliers left as not-permitted: ${untouched.map((s) => s.name).join(", ")}\n`,
   );
 
+  // Anything carrying a permission that is no longer in PERMISSIONS has it
+  // taken away. Without this the list only ever grows: Aosom was set and then
+  // corrected, and a script that cannot revoke would have left them permitted
+  // for good. This file is the source of truth, so it has to be able to say no.
+  const revoke = untouched.filter((s) => s.marketplacesAllowed?.length);
+  if (revoke.length)
+    console.log(
+      `  Revoking a permission previously set on: ${revoke.map((s) => s.name).join(", ")}\n`,
+    );
+
   if (!apply) return console.log("Dry run — re-run with --apply.");
   for (const { supplier, marketplaces } of plan)
     await client
@@ -105,7 +120,12 @@ async function main() {
         marketplacePolicySource: SOURCE,
       })
       .commit();
-  console.log(`Set on ${plan.length} suppliers.`);
+  for (const supplier of revoke)
+    await client
+      .patch(supplier._id)
+      .unset(["marketplacesAllowed", "marketplacePolicySource"])
+      .commit();
+  console.log(`Set on ${plan.length} suppliers, revoked on ${revoke.length}.`);
 }
 
 main().catch((error: unknown) => {

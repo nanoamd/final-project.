@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 
 import { FaqJsonLd } from "@/components/shared/json-ld";
 import { ArticleDetail } from "@/features/storefront/components/content/article-detail";
-import { getBuyingGuide, getBuyingGuides } from "@/lib/sanity/queries";
+import {
+  getArticleSidebar,
+  getBuyingGuide,
+  getBuyingGuides,
+} from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /**
@@ -56,6 +60,14 @@ export default async function BuyingGuidePage({
       Boolean(faq?.question?.trim() && faq?.answer?.trim()),
   );
 
+  const sidebar = await getArticleSidebar({
+    slug,
+    categorySlug: guide.relatedCategory?.slug,
+    productSlugs: (guide.relatedProducts ?? [])
+      .map((product) => product.slug)
+      .filter(Boolean),
+  });
+
   return (
     <>
       {faqs.length ? <FaqJsonLd faqs={faqs} /> : null}
@@ -70,6 +82,7 @@ export default async function BuyingGuidePage({
         relatedCategory={guide.relatedCategory}
         relatedProducts={guide.relatedProducts}
         faqs={faqs}
+        sidebar={sidebar}
       />
     </>
   );

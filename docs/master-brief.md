@@ -16,6 +16,44 @@ Status key:
 
 ---
 
+## Articles now link to each other — the sidebar (15 September)
+
+Damien: _"the blogs should have more links on the left side of the page, like
+a dropdown list of related stuff for buying guides tools, comparisons blogs
+etc, they should all be highlighted orange"_, and _"i want intensive
+compounding. do some seo work overnight"_.
+
+- [x] **A left rail on all 38 guides and 3 journal posts**
+      (`article-sidebar.tsx`, `queries/article-sidebar.ts`). Groups: more on
+      this category, related guides, calculators, from the journal, shop. Links
+      in the burnt-orange accent, as asked.
+- [x] **Why this is the compounding one.** 38 guides, 3 posts and 17 tools, and
+      almost none of them linked to each other. Every article was a dead end —
+      one route onward, the product grid at the foot. Internal links are how
+      authority moves between pages and how a crawler reaches pages nobody
+      links to, which is the likely shape of the **626 "discovered, not
+      indexed"** URLs. Every article now carries **13–19 internal links where
+      it had none**, and every future article gains links from all its
+      siblings on publish.
+- [x] **Built on `<details>`/`<summary>`, not a React accordion.** No
+      JavaScript to open, keyboard and screen-reader semantics free, and —
+      the point — **the links inside a closed group are still in the HTML**, so
+      a crawler follows them whether or not anyone clicks. An accordion that
+      mounts on click would put the whole purpose behind an interaction.
+- [x] **Relatedness in order of strength:** guides sharing the category, then
+      guides linking to any of the same products, then recent guides to fill.
+      Checked across all 38: **zero end up with an empty sidebar.**
+- [x] **Article first on mobile.** The rail is written after the body and moved
+      left with `order` only from `lg` up, so a phone reader who tapped a
+      search result gets the answer, not a list of other things to read. Sticky
+      on desktop, because a guide runs long and links that scroll away stop
+      being links.
+- [x] **Tools registry extracted** to `src/lib/content/tools.ts`. The /tools
+      page and the sidebar now read one list; a second copy would drift the
+      moment a tool was renamed.
+
+---
+
 ## The marketplace listing sheet (15 September)
 
 Damien: _"give me a list of the best 10 products to list to ebay"_, then
@@ -119,14 +157,24 @@ on 270, carriage on 288.**
 ### Marketplaces
 
 - [x] **eBay and Amazon recorded on Hill Interiors, Furniture100, Furniture To
-      Go, Aosom and D.I. Designs** (`scripts/set-marketplace-permissions.ts`).
-      Six other suppliers stay not-permitted, which the schema treats as
-      forbidden rather than unknown — the right default when a wrong "yes"
-      closes a trade account.
-- [x] **D.I. Designs added after Damien flagged the omission**, which brought
-      **54 more products into the listing sheet (231 now)** and, better,
-      carriage verified on 50 of them. Their cheap end starts at £215, so they
-      are money per sale rather than velocity.
+      Go and D.I. Designs** (`scripts/set-marketplace-permissions.ts`). Seven
+      other suppliers stay not-permitted, which the schema treats as forbidden
+      rather than unknown — the right default when a wrong "yes" closes a trade
+      account.
+- [!] **Aosom was set, and was wrong.** A one-line _"and aosom"_ arrived
+  straight after the Hill message and I read it as adding them. Damien:
+  _"i never said we can sell them on ebay"_. **Revoked**, and the script
+  now revokes as well as grants — without that the list could only ever
+  grow. This is the exact field where an inferred yes is expensive, and it
+  was inferred rather than stated.
+- [x] **D.I. Designs added after Damien flagged the omission** — 54 products,
+      carriage verified on 50. Their cheap end starts at £215, so they are
+      money per sale rather than velocity.
+- [x] **Sheet is 128 products** after Aosom came out: 74 Hill, 54 D.I.
+      Designs. Only 4 now lack carriage, against 85 before.
+- [!] **Furniture100 and Furniture To Go are the two Damien most wants listed
+  and both have zero priced products.** Nothing can be worked out for them
+  until the trade price exports land.
 - [!] **The source is Damien's word, not the suppliers' own terms**, and
   `marketplacePolicySource` says so on each. A marketplace takedown asks
   where the permission is in writing. Upgrade each to a forwarded email
@@ -3662,11 +3710,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

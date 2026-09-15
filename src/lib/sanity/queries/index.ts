@@ -1,3 +1,8 @@
+export type {
+  ArticleSidebarData,
+  SidebarLink,
+} from "@/lib/sanity/queries/article-sidebar";
+export { getArticleSidebar } from "@/lib/sanity/queries/article-sidebar";
 export {
   getBuyingGuide,
   getBuyingGuides,

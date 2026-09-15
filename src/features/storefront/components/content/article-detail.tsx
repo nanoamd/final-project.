@@ -7,12 +7,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
+import type { ArticleSidebarData } from "@/lib/sanity/queries";
 import type {
   SanityAuthor,
   SanityRelatedProductRef,
 } from "@/types/sanity-content";
 
 import { articlePortableTextComponents } from "./article-portable-text";
+import { ArticleSidebar } from "./article-sidebar";
 
 /** Shared detail view for a /journal/[slug] post or /learn/[slug] buying guide. */
 export function ArticleDetail({
@@ -26,6 +28,7 @@ export function ArticleDetail({
   relatedCategory,
   relatedProducts,
   faqs,
+  sidebar,
 }: {
   eyebrowLabel: string;
   backHref: string;
@@ -37,6 +40,8 @@ export function ArticleDetail({
   relatedCategory?: { slug: string; name: string } | null;
   relatedProducts?: SanityRelatedProductRef[];
   faqs?: { question: string; answer: string }[];
+  /** Related reading for the left rail. Absent on pages that have none. */
+  sidebar?: ArticleSidebarData | null;
 }) {
   // A reference is only useful if it resolves to a URL, and the URL needs the
   // category segment. Anything missing one is dropped rather than linked to a path
@@ -83,21 +88,42 @@ export function ArticleDetail({
         </Container>
       ) : null}
 
-      <Container className="py-14">
-        <div className="mx-auto max-w-2xl">
-          <PortableText
-            value={body}
-            components={articlePortableTextComponents}
-          />
+      {/*
+        Two columns from `lg` up, one below it.
 
-          {relatedCategory ? (
-            <div className="border-line mt-10 border-t pt-10">
-              <AppLink
-                href={`/shop/${relatedCategory.slug}`}
-                className={buttonVariants({ className: "w-fit" })}
-              >
-                Shop {relatedCategory.name} →
-              </AppLink>
+        The sidebar is written after the body in the DOM and pulled to the left
+        with `order` on desktop, so on a phone the article still comes first —
+        a reader who tapped a search result wants the answer, not a list of
+        other things to read. The rail sticks to the viewport on desktop
+        because a guide runs long and links that scroll away stop being links.
+      */}
+      <Container className="py-14">
+        <div className="mx-auto flex max-w-2xl flex-col gap-14 lg:max-w-5xl lg:flex-row lg:items-start lg:gap-12">
+          <div className="min-w-0 lg:order-2 lg:max-w-2xl lg:flex-1">
+            <PortableText
+              value={body}
+              components={articlePortableTextComponents}
+            />
+
+            {relatedCategory ? (
+              <div className="border-line mt-10 border-t pt-10">
+                <AppLink
+                  href={`/shop/${relatedCategory.slug}`}
+                  className={buttonVariants({ className: "w-fit" })}
+                >
+                  Shop {relatedCategory.name} →
+                </AppLink>
+              </div>
+            ) : null}
+          </div>
+
+          {sidebar ? (
+            <div className="lg:sticky lg:top-24 lg:order-1 lg:w-60 lg:shrink-0 lg:self-start">
+              <ArticleSidebar
+                sidebar={sidebar}
+                categorySlug={relatedCategory?.slug}
+                categoryName={relatedCategory?.name}
+              />
             </div>
           ) : null}
         </div>
