@@ -16,6 +16,54 @@ Status key:
 
 ---
 
+## "Does it fit?" — the differentiator, half built (15 September)
+
+Damien: _"think of something outstanding for kaiku. something which will make
+us the best. the most unique."_
+
+- [x] **`src/lib/catalog/room-fit.ts` with 12 tests.** A shopper enters their
+      room once; every product then answers **"will this fit?"** directly
+      instead of printing a dimensions table and leaving them to do the
+      arithmetic. **896 of 907 products already carry full dimensions**, so the
+      data cost is zero.
+- [x] **Why this one and not 3D:** no UK retailer answers the question
+      per-product; it makes "the UK's most helpful home store" a fact rather
+      than a claim; and **wrong size is the commonest furniture return**, which
+      costs Kaiku roughly £700 on a £1,000 item. A shopper told "15cm too deep
+      for your alcove" before buying is a return that never happens.
+- [x] **Conservative by design.** A wrong "fits" costs far more than a wrong
+      "tight", so anything marginal reads as tight. Units are converted
+      explicitly and an **unrecognised unit returns unknown rather than
+      assuming centimetres** — a silent mismatch would produce a confident
+      wrong answer, the one outcome this cannot afford.
+- [x] **A flaw found by running it over the real catalogue, then fixed.** The
+      first version answered "fits" on **877 of 907** products, which made the
+      answer worthless, and said "fits your living room, leaving 250cm to walk
+      past" on a candle holder. It now stays silent below 80cm. In a small flat
+      lounge it speaks about 490 products: 450 fit, **17 tight, 23 too big**.
+      With a 95cm alcove, **98 too big**. That is information.
+- [x] **A second bug caught by the tests**: the size threshold ran before the
+      no-measurements check, so a product in an unrecognised unit was silently
+      "too small to matter" instead of "unknown". Order corrected.
+- [!] **NOT category-aware, and it must be before it goes on a page.** Running
+  it over the catalogue shows the gap plainly: a **gazebo is measured against
+  an indoor ceiling**, and a **wall clock is told it will not fit an alcove** it
+  was never going to sit in. Floor-space and alcove checks only apply to
+  floor-standing furniture; the ceiling check only to indoor pieces. Which
+  categories are which is a merchandising judgement, so it is left for Damien
+  rather than guessed.
+- [ ] **Still to build:** the room-entry UI, per-viewer storage, the product
+      page component, and a "fits my room" filter on category grids.
+
+### Corrected from my own earlier suggestion
+
+- [-] **HowTo structured data: advised, then withdrawn.** Google deprecated
+  HowTo rich results, and FAQ rich results are now limited to health and
+  government sites. The markup would be valid and produce nothing. Kaiku's
+  structured data is already at its useful ceiling.
+
+---
+
 ## Calculators now sell, and PMax can target (15 September)
 
 Damien: _"what else can we implement to make us rank and stand out"_, and then
@@ -3221,11 +3269,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
