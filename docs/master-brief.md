@@ -16,6 +16,50 @@ Status key:
 
 ---
 
+## Furniture100 added, and new products now lead their category (15 September)
+
+Damien: _"upload some furniture100 products as they accepted me"_, then
+_"furniture 100 and furniture to go allow it"_ on marketplaces, then
+_"also put all new products at the top of the list"_.
+
+- [x] **Furniture100 supplier record created** (`supplier-furniture100`).
+      Trading name of **Swift28 Ltd**. UK online furniture boutique with a
+      dropship programme — accent and lounge chairs, dining chairs, bar stools,
+      office chairs, sofas, tables, lighting. All of it from their public
+      pages.
+- [-] **Their login was offered and deliberately not used.** Damien pasted the
+  trade account email and password. They are not in the repo, not in any
+  script, and were not used to fetch anything. Automated login to a
+  supplier portal is the same category as defeating bot protection — a
+  standing constraint — and it is how a newly approved account gets
+  closed. **The password is in the session transcript and should be
+  changed.**
+- [!] **No Furniture100 products yet.** Trade prices are behind the account
+  login. Damien exports the price list; `import-supplier-products.ts --csv`
+  takes it directly.
+- [!] **Carriage unknown, and deliberately left absent rather than guessed.**
+  Their public "free UK delivery on every order" is a RETAIL promise;
+  whether dropship carriage is included for a trade partner has not been
+  asked. `shippingRule` has a required `kind` with no "unknown" option, so
+  the honest representation is no rule at all — which
+  `audit-supplier-readiness.ts` already reads as BLOCKED.
+- [x] **`marketplacesAllowed: ["eBay"]` set on Furniture100 and Furniture To
+      Go**, on Damien's confirmation. **Amazon left off both** — he said it
+      "will become some extra work to become compliant", which is not the same
+      as done. Worth getting the eBay permission in writing before the first
+      listing.
+- [x] **`scripts/pin-new-arrivals.ts`** puts newly published products at the
+      front of their category, then expires them. Two things make it safe to
+      re-run: it judges "new" by the PUBLISHED document's `_createdAt` over a
+      **7-day** window — 895 of 907 products were created inside 45 days
+      because that is when the catalogue was built, so a generous window would
+      pin almost the whole shop — and it records what it pinned in
+      `docs/change-log/pinned-new-arrivals.json`, unpinning only those ids.
+      **Hand-set pins are never touched.** Capped at 4 per category, so the
+      cheapest-first run underneath survives.
+
+---
+
 ## Mercia outdoor kitchens — one live, two on one question (15 September)
 
 Damien: _"upload the mercia garden kitchen products"_.
@@ -3500,11 +3544,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
