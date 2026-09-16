@@ -67,7 +67,33 @@ blockers and leaves the other exactly where it was.
 - [!] **Request indexing** for the rewritten URLs in Search Console. Damien's
   account, two minutes, and nothing ranks until the pages are indexed —
   626 are still "Discovered – not indexed"
-- [!] **Links.** Still the binding constraint. Outreach drafted separately
+- [!] **Links.** Still the binding constraint. The outreach pack is written:
+  [`docs/link-outreach.md`](link-outreach.md) — 24 named targets with real
+  URLs across three tiers, the email text for each tier, and the five things
+  not to do. **Damien sends them**, from his own address, as himself
+
+### The outreach pack (16 September)
+
+Tier 1 is suppliers, and it is first because the relationship already exists and
+a stockist listing is something a supplier has a reason to say yes to. Hill
+Interiors runs a live stockist locator at hill-interiors.com/stockists. Caveat
+recorded rather than glossed: the results come through a JavaScript postcode
+lookup, so I could not confirm from the page whether a listing carries a
+clickable link. Worth the email either way — it costs one message and it sends
+real customers.
+
+Tier 2 is calculator and resource aggregators, because 17 free tools with no
+sign-up is what those sites exist to list. Four UK ones checked
+(materialcalculator.co.uk, homecalc.uk, tradecalculator.co.uk, less.co.uk), all
+building and DIY focused, with furniture sizing as the visible gap. The best fit
+is kvistdesign.co.uk, a UK studio that has already published a free-tools
+roundup.
+
+Tier 3 is UK interior blogs, from Vuelio's top-ten list — ten named, each
+matched to the tool that suits what they write about.
+
+Expected return is stated honestly in the pack: five to ten links from
+twenty-five emails, nothing visible before the new year.
 
 ---
 
@@ -417,11 +443,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                              | --- | --- | --- |
-                                              | /shop/lighting | 2,175KB | **455KB** |
-                                              | /shop/planters | 1,098KB | **290KB** |
-                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                  | --- | --- | --- |
+                                                  | /shop/lighting | 2,175KB | **455KB** |
+                                                  | /shop/planters | 1,098KB | **290KB** |
+                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4173,11 +4199,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
