@@ -62,7 +62,7 @@ const DEAD_WORDS =
 function titleCase(s: string) {
   return s
     .split(" ")
-    .map((w) => (w.length > 2 ? w[0].toUpperCase() + w.slice(1) : w))
+    .map((w) => (w.length > 2 ? w.charAt(0).toUpperCase() + w.slice(1) : w))
     .join(" ");
 }
 
@@ -150,9 +150,9 @@ async function main() {
     rows.push(Object.fromEntries(header.map((h, i) => [h, cells[i] ?? ""])));
   }
 
-  const num = (v: string) => {
+  const num = (v: string | undefined) => {
     const n = Number(v);
-    return Number.isFinite(n) ? n : null;
+    return v !== undefined && v !== "" && Number.isFinite(n) ? n : null;
   };
 
   const selected = rows.filter((r) => {
@@ -184,7 +184,7 @@ async function main() {
     unmatched = 0;
 
   selected.forEach((r, i) => {
-    const key = r.title
+    const key = (r.title ?? "")
       .replace(/^(Hill Interior|D\.I\. Designs)\s+/i, "")
       .toLowerCase()
       .trim();
@@ -200,17 +200,17 @@ async function main() {
     if (isThin) thin++;
     out.push([
       String(i + 1),
-      r.keepeBay,
-      r.mineBay,
-      r.sitePrice,
+      r.keepeBay ?? "",
+      r.mineBay ?? "",
+      r.sitePrice ?? "",
       r.stock || "-",
-      r.photos,
+      r.photos ?? "0",
       `"${title.replace(/"/g, "'")}"`,
       String(title.length),
       isThin ? "YES — too little stored detail, finish by hand" : "",
       r.sku || "",
       p.slug,
-      `"${r.title.replace(/"/g, "'")}"`,
+      `"${(r.title ?? "").replace(/"/g, "'")}"`,
     ]);
   });
 
@@ -226,7 +226,7 @@ async function main() {
   console.log(`  ${thin} titles need finishing by hand\n`);
   for (const row of out.slice(1, 11))
     console.log(
-      `  £${row[1].padStart(4)}  ${row[7].padStart(2)}ch  ${row[6].slice(1, 62)}`,
+      `  £${(row[1] ?? "").padStart(4)}  ${(row[7] ?? "").padStart(2)}ch  ${(row[6] ?? "").slice(1, 62)}`,
     );
   console.log(`\n  -> docs/change-log/2026-09-16-ebay-listing-pack.csv`);
 }

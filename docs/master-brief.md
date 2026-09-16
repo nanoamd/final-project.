@@ -99,7 +99,38 @@ problem wearing a technical costume.
 - [!] Requesting indexing needs Damien's Search Console. There is no API for it —
   Google's Indexing API only covers job postings and broadcast events
 
-### eBay: 101 of 128 products are priced above our own website
+### eBay — CORRECTED. The 13% fee does not exist
+
+> **Damien, 16 September:** _"There is no 13% fee on eBay. It's just 35p for
+> every listing over 300 listings."_
+>
+> He is right. `build-marketplace-listing-sheet.ts` had `{ name: "eBay", fee:
+0.13 }` hard-coded, and **every conclusion below was computed from it**. eBay
+> UK removed final value fees for private sellers in October 2024: no
+> commission, just an insertion fee past the free monthly allowance.
+>
+> Recomputed with `fee: 0`:
+>
+> |                                       | Wrong (13%) | Correct (0% + 35p) |
+> | ------------------------------------- | ----------: | -----------------: |
+> | eBay floor at or below our site price |          27 |             **83** |
+> | eBay floor above our site price       |         101 |             **45** |
+> | Median premium on those still above   |        +16% |          **+2.0%** |
+>
+> So the marketplace is broadly viable, the upload list is 83 rather than 27,
+> and **"the listings are uncompetitive by construction" was wrong.** What is
+> actually costing the clicks is still open — price against competitors rather
+> than against our own site, the lead image, or zero seller feedback, which is a
+> real and large effect on a new eBay account. I am not going to name a cause
+> without seeing the live listings and what they sit next to.
+>
+> The script now carries both fee models, because which applies is an account
+> question. **If eBay reclassifies the account as a business** — it does that to
+> accounts trading like one — the 12.8% final value fee applies and **100 of 128
+> products go above our own site price overnight, needing a median +£53.** Worth
+> knowing before it happens rather than after.
+
+### The original, wrong finding, left for the record
 
 The 0.1% click-through rate reads like a title problem. It is not one.
 
@@ -133,7 +164,9 @@ products do not carry enough stored detail to fill the title, and padding them
 with filler would be worse than leaving the space for Damien to fill knowing
 what buyers actually type.
 
-- [x] `scripts/build-ebay-listing-pack.ts` and the 27-product pack
+- [x] Fee model corrected; both private and business rates now computed
+- [x] `scripts/build-ebay-listing-pack.ts` regenerated — **83 products**, cash
+      profit to £238, all with live stock
 - [-] The other 101 deliberately not prepared — listing them is work that cannot
   convert while the price is above our own site
 - [ ] 12 products earn under £10 a sale at the eBay floor. After handling,
@@ -641,11 +674,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                              | --- | --- | --- |
-                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                  | --- | --- | --- |
+                                                                  | /shop/lighting | 2,175KB | **455KB** |
+                                                                  | /shop/planters | 1,098KB | **290KB** |
+                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4397,11 +4430,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

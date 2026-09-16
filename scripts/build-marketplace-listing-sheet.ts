@@ -6,13 +6,28 @@
  * almost nothing until it sells, so the question per product is not "is this
  * the best" but "does this clear the floor once the marketplace takes its cut".
  *
- * THE FEE IS THE WHOLE STORY. eBay takes about 13% of the sale in home and
- * garden, against roughly 9% on OnBuy. On a product keeping 30% on Kaiku's own
- * site, 13% is nearly half the margin, which is why a price that works here
- * does not automatically work there. So this does not reuse the site price: it
- * computes, per product and per marketplace, the LOWEST price that still keeps
- * the floor after that marketplace's fee, the card fee, the trade cost and
- * carriage.
+ * THE FEE MODEL, CORRECTED 16 SEPTEMBER. This script previously charged eBay a
+ * flat 13% and every conclusion drawn from it was wrong.
+ *
+ * Damien: _"There is no 13% fee on eBay. It's just 35p for every listing over
+ * 300 listings"_ — which is eBay UK's private-seller position since October
+ * 2024: **no final value fee**, and an insertion fee only past the free monthly
+ * allowance. On that basis a marketplace listing costs pence, not a share of
+ * the sale, and the "which products can afford the fee" question mostly
+ * disappears.
+ *
+ * Both models are computed, because they give very different answers and which
+ * one applies is an account-status question rather than a pricing one:
+ *
+ *   PRIVATE  0% commission + a flat insertion fee. What Damien pays today.
+ *   BUSINESS ~12.8% final value fee. What a business-registered account pays.
+ *
+ * Worth knowing rather than worth worrying about: eBay's fee exemption is for
+ * private sellers, and it does reclassify accounts that trade like a business.
+ * If that happens the BUSINESS column is what the catalogue is worth overnight,
+ * so it is carried in the sheet rather than discovered later.
+ *
+ * OnBuy's ~9% is unchanged and still a percentage.
  *
  * TWO WARNINGS CARRIED IN THE OUTPUT RATHER THAN LEFT IN A CHAT MESSAGE.
  *
@@ -55,15 +70,21 @@ const FLOOR = 0.2;
  * move, and they vary by category within each site.
  */
 const MARKETPLACES = [
-  { name: "eBay", fee: 0.13 },
-  { name: "OnBuy", fee: 0.09 },
+  // eBay private seller: no final value fee, just the insertion fee past the
+  // free allowance. `listingFee` is per listing, not per sale, so it is a fixed
+  // cost rather than a rate.
+  { name: "eBay", fee: 0, listingFee: 0.35 },
+  // What the same catalogue is worth if the account is reclassified as a
+  // business. Carried so the number is known before it is needed.
+  { name: "eBayBusiness", fee: 0.128, listingFee: 0 },
+  { name: "OnBuy", fee: 0.09, listingFee: 0 },
 ];
 
 /** Hill stock, as at the CSV export. Absent for everyone else. */
 const HILL_REPRICE = "docs/change-log/2026-09-15-hill-dropship-reprice.json";
 
-const minPrice = (landed: number, fee: number) =>
-  Math.ceil((landed + CARD_FIXED) / (1 - CARD_RATE - fee - FLOOR));
+const minPrice = (landed: number, fee: number, listingFee = 0) =>
+  Math.ceil((landed + CARD_FIXED + listingFee) / (1 - CARD_RATE - fee - FLOOR));
 
 interface Row {
   title: string;
@@ -132,9 +153,14 @@ async function main() {
     };
     let anyViable = false;
     for (const m of MARKETPLACES) {
-      const p = minPrice(landed, m.fee);
+      const p = minPrice(landed, m.fee, m.listingFee ?? 0);
       entry[`min${m.name}`] = p;
-      const keep = p - landed - (p * CARD_RATE + CARD_FIXED) - p * m.fee;
+      const keep =
+        p -
+        landed -
+        (p * CARD_RATE + CARD_FIXED) -
+        p * m.fee -
+        (m.listingFee ?? 0);
       entry[`keep${m.name}`] = Number(keep.toFixed(2));
       if (!feedRow || p <= feedRow.rrp) anyViable = true;
     }
@@ -206,12 +232,14 @@ async function main() {
     );
   }
 
-  // What OnBuy's lower fee actually buys is a LOWER PRICE at the same margin,
-  // not more cash. Comparing cash kept at each marketplace's own minimum price
-  // makes OnBuy look worse, because both are pinned to the same 20% and 20% of
-  // a smaller number is less money. The competitive edge is the price gap.
+  // REVERSED 16 SEPTEMBER. This used to read "OnBuy's lower fee buys a cheaper
+  // listing", which was true only while eBay was modelled at 13%. On the
+  // private-seller rate eBay charges no commission at all, so eBay is now the
+  // cheaper shelf and OnBuy's 9% is the one costing a higher price at the same
+  // margin. The comparison is still worth printing; the direction is the
+  // opposite of what it was.
   console.log(
-    "\n  OnBuy's lower fee buys a cheaper listing at the same 20% margin:",
+    "\n  eBay vs OnBuy at the same 20% margin (negative = OnBuy must charge MORE):",
   );
   const gaps = out
     .map((r) => Number(r.mineBay) - Number(r.minOnBuy))
