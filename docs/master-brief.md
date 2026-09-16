@@ -151,8 +151,20 @@ rate to declare elsewhere and inventing one would invite orders we cannot fill.
 
 - [x] `<g:shipping>` on all 908 items, verified in the build output
 - [!] Deploy, then **Update** the source again. 666 should clear
-- [ ] 669 ingested of 908 sent — **239 unaccounted for.** Worth reading once the
-      shipping disapprovals clear, because right now they are drowned out
+- [x] **The 239 found: `g:id` over 50 characters on 227 products.** Damien
+      guessed unpublished products; it was not that — the feed's query excludes
+      drafts. Google caps `id` at 1-50 characters, and 227 of our slugs are
+      longer (`set-of-three-wooden-lanterns-with-traditional-cross-section` is
+      59). 908 - 227 = 681 against the 669 ingested
+- [x] **`g:id` is now the SKU.** Truncating the slug was the obvious fix and the
+      wrong one — cut at 50,
+      `freska-ribbed-round-glass-jar-with-acacia-wood-lid-1100ml` collides with
+      its 800ml sibling, and two products sharing an id is worse than one being
+      rejected. The SKU was already there and already right: 908 present, 908
+      distinct, longest 26 characters. It is also what purchase orders use, so a
+      Merchant Center row now reconciles without a lookup.
+      Verified in the build: **908 items, 908 ids, 0 over 50, 0 duplicates,
+      longest 26, 908 shipping blocks**
 - [-] Not fixed in Merchant Center's shipping settings instead. Both work; the
   feed keeps the answer in the repo rather than in a console nobody
   remembers changing
@@ -918,11 +930,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                  | --- | --- | --- |
-                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                      | --- | --- | --- |
+                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4674,11 +4686,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -24,6 +24,34 @@ import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
+ * The item's `id`, which is the SKU rather than the slug.
+ *
+ * Google caps `id` at 50 characters. **227 of our 908 slugs are longer** —
+ * `set-of-three-wooden-lanterns-with-traditional-cross-section` is 59 — so the
+ * first successful fetch ingested 669 of 908 and the shortfall was almost
+ * exactly those 227.
+ *
+ * Truncating the slug was the obvious fix and the wrong one: cutting at 50
+ * characters collides
+ * `freska-ribbed-round-glass-jar-with-acacia-wood-lid-1100ml` with its 800ml
+ * sibling, and two products sharing an `id` is worse than one being rejected.
+ *
+ * The SKU is already what we need and was sitting there: **908 products, 908
+ * present, 908 distinct, longest 26 characters.** It is also the identifier the
+ * rest of the business uses, so a Merchant Center row now reconciles against a
+ * purchase order without a lookup.
+ *
+ * The slug stays as the fallback for anything that somehow has no SKU, still
+ * truncated to 50 so a long one degrades to rejected-by-Google rather than
+ * silently colliding.
+ */
+function feedId(product: { sku: string | null; slug: string }): string {
+  const sku = product.sku?.trim();
+  if (sku && sku.length <= 50) return sku;
+  return product.slug.slice(0, 50);
+}
+
+/**
  * Shipping, declared per item rather than left to account settings.
  *
  * The feed sent handling time and no `g:shipping` at all. Merchant Center needs
@@ -94,8 +122,10 @@ function productType(product: {
 
 /**
  * Google Merchant Center product feed (RSS 2.0 + the `g:` shopping
- * namespace). Configure this URL as a "Scheduled fetch" in Merchant Center:
- * `https://www.kaikuhome.com/api/feeds/google-merchant`.
+ * namespace). Point Merchant Center's scheduled fetch at
+ * **`https://www.kaikuhome.com/google-merchant.xml`** — the `/api/` path still
+ * serves the same bytes, but robots.txt disallowed `/api/` for years and a
+ * future edit to that list would silently break the fetch again.
  */
 export async function buildMerchantFeedResponse(): Promise<Response> {
   /**
@@ -168,7 +198,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
       );
 
       return `  <item>
-    <g:id>${escapeXml(product.slug)}</g:id>
+    <g:id>${escapeXml(feedId(product))}</g:id>
     <title>${escapeXml(
       // Not the page's title. A <title> tag is cut off past ~60 characters
       // and these names average 51; a feed title allows 150. See feed-title.ts.
