@@ -376,18 +376,52 @@ Feed sends 908 rows.
   99  single image
 ```
 
-So roughly **400 items are being rejected for reasons not visible in our data**.
-The candidates are policy disapprovals, landing-page or price mismatches, items
-still pending review, or an incomplete fetch. Which one it is, is in Merchant
-Center's Diagnostics tab and nowhere else.
+> ## RESOLVED 17 September, and nothing was being rejected
+>
+> Damien sent the Merchant Center product screen. It reads:
+>
+> | Total products | Provided by you | More found by Google | Not showing |
+> | -------------: | --------------: | -------------------: | ----------: |
+> |            524 |           **0** |                  524 |           7 |
+>
+> **"Provided by you: 0."** The feed has never been connected. Every one of
+> those 524 is `More found by Google` — Google's own crawl of the website — and
+> their IDs prove it: Merchant Center holds `kk-beds-hannah-004`, while our feed
+> emits `glass-candle-holder`. Different scheme, different source.
+>
+> The feed itself is fine. `https://www.kaikuhome.com/api/feeds/google-merchant`
+> answers 200 with 1.7MB and **908 `<item>` elements** in under a second.
+>
+> So there is no 400-product rejection and never was. **Nothing is disapproved —
+> only 7 of 524 are not showing.** The gap is simply that Google's crawler found
+> 524 of the 908 product pages by itself, and the feed we built has never been
+> added as a product source.
+>
+> **My error, twice over.** The ledger heading "The Merchant feed is LIVE — 907
+> products" recorded the _route_ going live and I read it as the feed being
+> connected. Then I told Damien ~400 products were "rejected for reasons not
+> visible in our data" — invented from the gap between two numbers that were
+> never measuring the same thing.
+>
+> **The fix is two minutes:** Merchant Center → Manage product sources → Add
+> product source → scheduled fetch → the feed URL above.
+>
+> What it buys: **384 more products**, plus data Google's crawler cannot reliably
+> infer — GTINs on 729 products, brand, `product_type`, colour, material,
+> availability and handling time. And updates on our schedule rather than
+> whenever the crawler returns.
+>
+> One thing to expect: the feed's `g:id` (`glass-candle-holder`) differs from the
+> crawled IDs (`kk-beds-hannah-004`). Google reconciles on the landing-page URL,
+> so the two should merge rather than duplicate, but it is worth checking the
+> total a day after connecting.
 
 - [x] `scripts/audit-merchant-feed.ts` — read-only, no token, reruns the check
 - [x] The "907 products" heading corrected in place rather than quietly edited
-- [!] **Connect Merchant Center to Windsor, or send the Diagnostics screen.**
-  ~400 products cannot appear in a free listing or a Shopping ad, and that
-  is a bigger hole in the first-sale plan than anything in the SEO work
+- [x] Cause found: the feed was never added as a product source
+- [!] **Add the feed URL as a product source.** Two minutes, +384 products
 - [ ] 99 products have a single image — not a disapproval, but a Shopping tile
-      with no second shot converts worse. Worth fixing once the 400 is understood
+      with no second shot converts worse
 
 ---
 
@@ -818,11 +852,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                  | --- | --- | --- |
-                                                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                                                      | --- | --- | --- |
+                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4574,11 +4608,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
