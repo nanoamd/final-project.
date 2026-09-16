@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CoffeeTableSizeCalculator } from "@/components/shared/coffee-table-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function CoffeeTableSizeCalculatorPage() {
   const products = await getToolProducts("coffee-tables", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "coffee-table-size-calculator",
+    categorySlug: "coffee-tables",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -116,6 +121,8 @@ export default async function CoffeeTableSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="coffee-tables"
       productsHeading="Coffee tables in stock"
       guides={[
         {

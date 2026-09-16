@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { VaseSizeCalculator } from "@/components/shared/vase-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function VaseSizeCalculatorPage() {
   const products = await getToolProducts("vases", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "vase-size-calculator",
+    categorySlug: "vases",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -126,6 +131,8 @@ export default async function VaseSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="vases"
       productsHeading="Vases, with their heights"
       guides={[
         {

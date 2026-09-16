@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { FurnitureMaterialSelector } from "@/components/shared/furniture-material-selector";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -17,6 +17,11 @@ export const metadata: Metadata = buildMetadata({
 export default async function GardenFurnitureMaterialSelectorPage() {
   const products = await getToolProducts("garden-furniture", {
     limit: 8,
+  });
+  const sidebar = await getArticleSidebar({
+    slug: "garden-furniture-material-selector",
+    categorySlug: "garden-furniture",
+    productSlugs: products.map((p) => p.slug),
   });
 
   return (
@@ -57,6 +62,8 @@ export default async function GardenFurnitureMaterialSelectorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="garden-furniture"
       productsHeading="Garden furniture in stock"
     >
       <FurnitureMaterialSelector />

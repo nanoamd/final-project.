@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PatioHeatCalculator } from "@/components/shared/patio-heat-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function PatioHeaterSizeCalculatorPage() {
   const products = await getToolProducts("fire-pits", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "patio-heater-size-calculator",
+    categorySlug: "fire-pits",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -59,6 +64,8 @@ export default async function PatioHeaterSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="fire-pits"
       productsHeading="Fire pits and patio heaters in stock"
     >
       <PatioHeatCalculator />

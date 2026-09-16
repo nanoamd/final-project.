@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { BedSizeCalculator } from "@/components/shared/bed-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function BedSizeCalculatorPage() {
   const products = await getToolProducts("beds", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "bed-size-calculator",
+    categorySlug: "beds",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -54,6 +59,8 @@ export default async function BedSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="beds"
       productsHeading="Beds currently in stock"
       guides={[
         {

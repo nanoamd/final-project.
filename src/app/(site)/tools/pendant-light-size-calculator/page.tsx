@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PendantLightCalculator } from "@/components/shared/pendant-light-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function PendantLightSizeCalculatorPage() {
   const products = await getToolProducts("lighting", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "pendant-light-size-calculator",
+    categorySlug: "lighting",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -126,6 +131,8 @@ export default async function PendantLightSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="lighting"
       productsHeading="Lighting in stock"
       guides={[
         {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { PlanterSizeCalculator } from "@/components/shared/planter-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function PlanterSizeCalculatorPage() {
   const products = await getToolProducts("planters", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "planter-size-calculator",
+    categorySlug: "planters",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -59,6 +64,8 @@ export default async function PlanterSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="planters"
       productsHeading="Planters in stock"
     >
       <PlanterSizeCalculator />

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { TvUnitSizeCalculator } from "@/components/shared/tv-unit-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function TvUnitSizeCalculatorPage() {
   const products = await getToolProducts("tv-units", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "tv-unit-size-calculator",
+    categorySlug: "tv-units",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -119,6 +124,8 @@ export default async function TvUnitSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="tv-units"
       productsHeading="TV units currently in stock"
       guides={[
         {

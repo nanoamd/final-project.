@@ -2,7 +2,9 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { ArticleSidebar } from "@/features/storefront/components/content/article-sidebar";
 import { formatPrice } from "@/lib/format";
+import type { ArticleSidebarData } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
 export interface ToolFaq {
@@ -51,6 +53,19 @@ export interface ToolPageProps {
   productsHeading?: string;
   /** Further reading, by slug and title — buying guides live at /learn/<slug>. */
   guides?: { slug: string; title: string }[];
+  /**
+   * The rail of related links, the same one every guide carries.
+   *
+   * It was built for `/learn` and `/journal` because the brief said blogs, and
+   * the tool pages never got it — which was backwards. Damien: _"theres not many
+   * links in these pages... i cant see the dropdown bars etc on the left"_. He
+   * was right: a tool page carried 18 internal links against a guide's 28, and
+   * the tools are the pages being pushed to rank.
+   */
+  sidebar?: ArticleSidebarData | null;
+  /** The category the rail and its tool list key off, e.g. `coffee-tables`. */
+  sidebarCategorySlug?: string | null;
+  sidebarCategoryName?: string | null;
 }
 
 /**
@@ -73,6 +88,9 @@ export function ToolPage({
   products = [],
   productsHeading,
   guides = [],
+  sidebar,
+  sidebarCategorySlug,
+  sidebarCategoryName,
 }: ToolPageProps) {
   return (
     <>
@@ -85,116 +103,143 @@ export function ToolPage({
       />
       {faqs.length ? <FaqJsonLd faqs={faqs} /> : null}
 
-      <Container width="narrow" className="py-20 md:py-28">
-        <Eyebrow>Tools</Eyebrow>
-        <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
-          {heading}
-        </h1>
-        <p className="text-muted mt-6 max-w-lg text-[15px] leading-relaxed">
-          {intro}
-        </p>
+      <Container className="py-20 md:py-28">
+        {/* `narrow` (max-w-3xl) had no room for a rail beside the content, so
+            the container widens and the reading width is re-imposed here —
+            max-w-2xl alone until `lg`, where the second column appears. */}
+        <div className="mx-auto max-w-2xl lg:max-w-5xl">
+          <Eyebrow>Tools</Eyebrow>
+          <h1 className="font-display text-ink mt-3 text-4xl leading-[1.05] tracking-tight text-balance sm:text-5xl">
+            {heading}
+          </h1>
+          <p className="text-muted mt-6 max-w-lg text-[15px] leading-relaxed">
+            {intro}
+          </p>
 
-        <div className="mt-12">{children}</div>
+          {/* Two columns from `lg`, and the rail is written AFTER the content
+            then pulled left with `order` — so on a phone the calculator comes
+            first. Someone who tapped a search result wants the answer, not a
+            list of other pages. The rail sticks on desktop because these pages
+            now run to two thousand words and links that scroll away stop being
+            links. Same arrangement as a guide, for the same reasons. */}
+          <div className="mt-12 flex flex-col gap-14 lg:flex-row lg:items-start lg:gap-12">
+            <div className="min-w-0 lg:order-2 lg:flex-1">
+              <div>{children}</div>
 
-        <section className="border-line mt-16 border-t pt-10">
-          <h2 className="font-display text-ink text-2xl tracking-tight">
-            {method.heading}
-          </h2>
-          <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
-            {method.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 40)}
-                className="text-muted text-[15px] leading-relaxed"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </section>
-
-        {(sections ?? []).map((section) => (
-          <section
-            key={section.heading}
-            className="border-line mt-14 border-t pt-10"
-          >
-            <h2 className="font-display text-ink text-2xl tracking-tight">
-              {section.heading}
-            </h2>
-            <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
-              {section.paragraphs.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 40)}
-                  className="text-muted text-[15px] leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </section>
-        ))}
-
-        {faqs.length ? (
-          <section className="border-line mt-14 border-t pt-10">
-            <h2 className="font-display text-ink text-2xl tracking-tight">
-              Common questions
-            </h2>
-            <dl className="mt-6 flex max-w-[68ch] flex-col gap-7">
-              {faqs.map((faq) => (
-                <div key={faq.question}>
-                  <dt className="text-ink text-[15px] font-medium">
-                    {faq.question}
-                  </dt>
-                  <dd className="text-muted mt-2 text-[15px] leading-relaxed">
-                    {faq.answer}
-                  </dd>
+              <section className="border-line mt-16 border-t pt-10">
+                <h2 className="font-display text-ink text-2xl tracking-tight">
+                  {method.heading}
+                </h2>
+                <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
+                  {method.paragraphs.map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 40)}
+                      className="text-muted text-[15px] leading-relaxed"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
-              ))}
-            </dl>
-          </section>
-        ) : null}
+              </section>
 
-        {products.length ? (
-          <section className="border-line mt-14 border-t pt-10">
-            <h2 className="font-display text-ink text-2xl tracking-tight">
-              {productsHeading ?? "The products this applies to"}
-            </h2>
-            <ul className="mt-6 flex flex-col gap-3">
-              {products.slice(0, 8).map((product) => (
-                <li key={product.slug}>
-                  <AppLink
-                    href={`/shop/${product.category}/${product.slug}`}
-                    className="border-line hover:border-ink flex items-baseline justify-between gap-4 rounded-lg border px-4 py-3 transition-colors"
-                  >
-                    <span className="text-ink text-[15px]">{product.name}</span>
-                    <span className="text-muted shrink-0 text-[13px]">
-                      {formatPrice(product.price)}
-                    </span>
-                  </AppLink>
-                </li>
+              {(sections ?? []).map((section) => (
+                <section
+                  key={section.heading}
+                  className="border-line mt-14 border-t pt-10"
+                >
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    {section.heading}
+                  </h2>
+                  <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
+                    {section.paragraphs.map((paragraph) => (
+                      <p
+                        key={paragraph.slice(0, 40)}
+                        className="text-muted text-[15px] leading-relaxed"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </section>
               ))}
-            </ul>
-          </section>
-        ) : null}
 
-        {guides.length ? (
-          <section className="border-line mt-14 border-t pt-10">
-            <h2 className="font-display text-ink text-2xl tracking-tight">
-              Read next
-            </h2>
-            <ul className="mt-6 flex flex-col gap-3">
-              {guides.map((guide) => (
-                <li key={guide.slug}>
-                  <AppLink
-                    href={`/learn/${guide.slug}`}
-                    className="text-ink hover:text-brass text-[15px] underline underline-offset-4 transition-colors"
-                  >
-                    {guide.title}
-                  </AppLink>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
+              {faqs.length ? (
+                <section className="border-line mt-14 border-t pt-10">
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    Common questions
+                  </h2>
+                  <dl className="mt-6 flex max-w-[68ch] flex-col gap-7">
+                    {faqs.map((faq) => (
+                      <div key={faq.question}>
+                        <dt className="text-ink text-[15px] font-medium">
+                          {faq.question}
+                        </dt>
+                        <dd className="text-muted mt-2 text-[15px] leading-relaxed">
+                          {faq.answer}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              ) : null}
+
+              {products.length ? (
+                <section className="border-line mt-14 border-t pt-10">
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    {productsHeading ?? "The products this applies to"}
+                  </h2>
+                  <ul className="mt-6 flex flex-col gap-3">
+                    {products.slice(0, 8).map((product) => (
+                      <li key={product.slug}>
+                        <AppLink
+                          href={`/shop/${product.category}/${product.slug}`}
+                          className="border-line hover:border-ink flex items-baseline justify-between gap-4 rounded-lg border px-4 py-3 transition-colors"
+                        >
+                          <span className="text-ink text-[15px]">
+                            {product.name}
+                          </span>
+                          <span className="text-muted shrink-0 text-[13px]">
+                            {formatPrice(product.price)}
+                          </span>
+                        </AppLink>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+
+              {guides.length ? (
+                <section className="border-line mt-14 border-t pt-10">
+                  <h2 className="font-display text-ink text-2xl tracking-tight">
+                    Read next
+                  </h2>
+                  <ul className="mt-6 flex flex-col gap-3">
+                    {guides.map((guide) => (
+                      <li key={guide.slug}>
+                        <AppLink
+                          href={`/learn/${guide.slug}`}
+                          className="text-ink hover:text-brass text-[15px] underline underline-offset-4 transition-colors"
+                        >
+                          {guide.title}
+                        </AppLink>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+            </div>
+
+            {sidebar ? (
+              <div className="lg:sticky lg:top-24 lg:order-1 lg:w-60 lg:shrink-0 lg:self-start">
+                <ArticleSidebar
+                  sidebar={sidebar}
+                  categorySlug={sidebarCategorySlug ?? undefined}
+                  categoryName={sidebarCategoryName ?? undefined}
+                />
+              </div>
+            ) : null}
+          </div>
+        </div>
       </Container>
     </>
   );

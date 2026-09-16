@@ -115,6 +115,49 @@ is the one not to act on.
 
 ---
 
+## The tool pages never got the sidebar (17 September)
+
+Damien: _"theres not many links in these pages, have you even done anything to
+them, i cant see the dropdown bars etc on the left."_
+
+He is right, and it was my omission. Measured on the live pages:
+
+|                                       | dropdowns | internal links |
+| ------------------------------------- | --------: | -------------: |
+| `/tools/coffee-table-size-calculator` |     **0** |             18 |
+| `/learn/coffee-table-size-guide`      |         5 |             28 |
+
+The rail was built on 15 September against the brief _"the blogs should have
+more links on the left side"_ — so it went on `/learn` and `/journal` and
+nowhere else. Backwards, because **the tool pages are the ones being pushed to
+rank**, and they were the ones with fewest links.
+
+### Now on all 14 tool pages with a category
+
+Same component, same arrangement as a guide: two columns from `lg`, the rail
+written after the content and pulled left with `order` so a phone still shows
+the calculator first, sticky on desktop because these pages now run to two
+thousand words and a link that scrolls away stops being a link.
+
+`Container width="narrow"` (max-w-3xl) had no room for a 240px rail beside the
+text, so the container widens and the reading measure is re-imposed on an inner
+wrapper — the heading and intro sit exactly where they did.
+
+Verified in the build:
+
+```
+coffee-table-size-calculator   5 dropdowns   31 links  (was 0 / 18)
+mirror-size-calculator         5 dropdowns   27 links
+sofa-size-calculator           5 dropdowns   29 links
+```
+
+- [x] 14 tool pages carry the rail
+- [-] Four skipped — cold plunge, contrast therapy, garden visualiser and sauna
+  take no category, so there is nothing for the rail to key off. Forcing one
+  would mean sending a sauna reader to coffee tables
+
+---
+
 ## Two Google-category bugs, and the limit of what I can fix blind (17 September)
 
 Damien: 666 not showing became **100** after the shipping and `g:id` fixes.
@@ -979,11 +1022,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                          | --- | --- | --- |
-                                                                                                          | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                          | /shop/planters | 1,098KB | **290KB** |
-                                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                          | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                              | --- | --- | --- |
+                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4735,11 +4778,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

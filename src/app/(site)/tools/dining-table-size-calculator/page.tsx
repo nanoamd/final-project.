@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { DiningSpaceCalculator } from "@/components/shared/dining-space-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -27,6 +27,11 @@ export const metadata: Metadata = buildMetadata({
 export default async function DiningTableSizeCalculatorPage() {
   const products = await getToolProducts("kitchen-furniture", {
     limit: 8,
+  });
+  const sidebar = await getArticleSidebar({
+    slug: "dining-table-size-calculator",
+    categorySlug: "kitchen-furniture",
+    productSlugs: products.map((p) => p.slug),
   });
 
   return (
@@ -135,6 +140,8 @@ export default async function DiningTableSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="kitchen-furniture"
       productsHeading="Dining tables in stock"
       guides={[
         {

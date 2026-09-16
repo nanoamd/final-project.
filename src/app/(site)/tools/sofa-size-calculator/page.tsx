@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { SofaSizeCalculator } from "@/components/shared/sofa-size-calculator";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
-import { getToolProducts } from "@/lib/sanity/queries";
+import { getArticleSidebar, getToolProducts } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -16,6 +16,11 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function SofaSizeCalculatorPage() {
   const products = await getToolProducts("sofas", { limit: 8 });
+  const sidebar = await getArticleSidebar({
+    slug: "sofa-size-calculator",
+    categorySlug: "sofas",
+    productSlugs: products.map((p) => p.slug),
+  });
 
   return (
     <ToolPage
@@ -119,6 +124,8 @@ export default async function SofaSizeCalculatorPage() {
         },
       ]}
       products={products}
+      sidebar={sidebar}
+      sidebarCategorySlug="sofas"
       productsHeading="Sofas currently in stock"
       guides={[
         {
