@@ -16,6 +16,50 @@ Status key:
 
 ---
 
+## Every title and description in range (16 September)
+
+Damien: _"I want the titles and descriptions good enough to rank at 1 for
+every page on the site"_.
+
+- [-] **Said plainly: a title cannot deliver position 1, and a meta
+  description is not a ranking factor at all.** This site's own data is the
+  proof — the coffee table guide has a good title and sits at position 85,
+  and the tools sit at 73–80 for their own terms. What a title and
+  description do is earn the click once a page ranks, which is the
+  difference between 2% and 5% of the same impressions. Worth doing, and
+  not what was asked for.
+- [x] **Audited all 1,003 indexable pages first**, and most of the premise was
+      already handled: **zero duplicate titles, zero duplicate descriptions,
+      every one hand-written.** 105 had a length defect and nothing else did.
+- [x] **96 fixed by rule** (`fix-thin-product-metadata.ts`): 78 descriptions
+      under 70 characters, 19 titles under 30, and trims. A snippet is about
+      155 characters and "A wall clock in grey metal, 49cm across and 1.21kg."
+      spends 51 of them, giving a searcher nothing to choose on.
+- [x] **The supplier `tagline` was deliberately not used**, though all 78
+      carried one. "Elevate your space with timeless elegance" is the marketing
+      filler this catalogue spent weeks removing; putting it in the snippet
+      would have undone that. **Availability and delivery went in instead** —
+      true, durable, and what a shopper comparing two results actually weighs.
+- [x] **Prices deliberately left out.** 410 Hill products were repriced
+      yesterday, and a snippet quoting a price Google cached last month is
+      worse than one quoting none.
+- [x] **A first pass put "Accessories" in the title** — the category titles are
+      generic because they nest under departments. Now derived from the slug,
+      so `bathroom-accessories` gives "Bathroom Accessories", which is the term
+      people search.
+- [x] **9 written by hand** (`fix-last-long-metadata.ts`) where no rule was
+      safe: six products whose NAME is over 60 characters, two guide titles one
+      character over, one description at 391. Each keeps every identifying word
+      and drops only padding Google was truncating anyway. **The product
+      `title` is untouched** — the standing constraint is about the name a
+      customer sees, and `seo.metaTitle` is a separate field.
+- [x] **A data artefact fixed in passing:** `"2.75m\9ft"` carried a stray
+      backslash and was being rendered to searchers.
+- [x] **Final audit: 1,003 pages, 0 over, 0 under, 0 empty, 0 duplicates**,
+      across products, categories, guides and posts.
+
+---
+
 ## Brand search, and a correction I had to make mid-task (16 September)
 
 Damien: _"I want thousands of monthly visitors within 12 months"_, then
@@ -150,11 +194,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                  | --- | --- | --- |
-                  | /shop/lighting | 2,175KB | **455KB** |
-                  | /shop/planters | 1,098KB | **290KB** |
-                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                  | /shop/all | 12.79MB | **2.94MB** |
+                      | --- | --- | --- |
+                      | /shop/lighting | 2,175KB | **455KB** |
+                      | /shop/planters | 1,098KB | **290KB** |
+                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -3906,11 +3950,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
