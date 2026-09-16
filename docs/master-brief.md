@@ -16,6 +16,61 @@ Status key:
 
 ---
 
+## The winnable cluster, built out (16 September)
+
+Damien: _"Your saying we can rank number 1 for some things so make it happen"_.
+
+### The on-page half, which is the half I can do
+
+Six more tool pages brought up to the depth the ranking pages on those SERPs
+actually run at. Before and after, from the built HTML:
+
+| Page                          | Was |       Now |
+| ----------------------------- | --: | --------: |
+| mirror-size-calculator        | 779 | **2,219** |
+| pendant-light-size-calculator | 808 | **2,029** |
+| vase-size-calculator          | 785 | **2,020** |
+| sofa-size-calculator          | 700 | **1,988** |
+| dining-table-size-calculator  | 736 | **1,980** |
+| tv-unit-size-calculator       | 663 | **1,942** |
+
+With the coffee table (2,102) and wall clock (1,685) pages, the whole winnable
+cluster from the target list now runs 1,685 to 2,219 words, 7-8 `h2`s and 7-10
+FAQs each, against 636-873 words and 3-4 `h2`s before.
+
+### What went in, and why it is not padding
+
+Each page now answers the cluster rather than one query. The additions are the
+questions the SERP shows people actually asking and the thin version could not
+match: how to measure, the variant positions (a mirror over a fireplace, a
+pendant over an island, a TV above a hearth), the shape decision, and the
+practical failure mode — getting a sofa round a hall turn, fixing a heavy mirror
+into plasterboard, whether the chair arms clear the table apron.
+
+The sofa page's "measure the route, not the room" section is the clearest case:
+it is the single most common reason a sofa is returned, and the page did not
+mention it.
+
+- [x] Six winnable-cluster tool pages rewritten to competitive depth
+- [x] Build clean, lint clean, 244 pages generated
+- [-] The other nine tools left thin on purpose — cold plunge, sauna, patio
+  heater, planter and the rest. Their SERPs were not checked and their terms
+  are not on the winnable list, so depth there is effort spent where the
+  evidence is not
+
+### The half I cannot do, stated plainly
+
+None of this ranks without links, and I said so before doing it. The pages were
+too thin to rank even with links; now they are not. That removes one of the two
+blockers and leaves the other exactly where it was.
+
+- [!] **Request indexing** for the rewritten URLs in Search Console. Damien's
+  account, two minutes, and nothing ranks until the pages are indexed —
+  626 are still "Discovered – not indexed"
+- [!] **Links.** Still the binding constraint. Outreach drafted separately
+
+---
+
 ## Which UK terms we can actually win (16 September)
 
 Damien agreed to me finding the terms with real UK volume and real competition
@@ -362,11 +417,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                          | --- | --- | --- |
-                                          | /shop/lighting | 2,175KB | **455KB** |
-                                          | /shop/planters | 1,098KB | **290KB** |
-                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                          | /shop/all | 12.79MB | **2.94MB** |
+                                              | --- | --- | --- |
+                                              | /shop/lighting | 2,175KB | **455KB** |
+                                              | /shop/planters | 1,098KB | **290KB** |
+                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4118,11 +4173,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
