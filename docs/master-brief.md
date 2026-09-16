@@ -16,6 +16,41 @@ Status key:
 
 ---
 
+## The tool pages had nothing to rank with (16 September)
+
+Damien: _"Clock size also isn't true I just searched how to measure clock size
+and I don't appear at all. Don't use the existing pattern if it's not good. We
+need to rank 1."_
+
+- [!] **He was right and my number was misleading.** I reported the wall clock
+  calculator at "position 10" for "how to measure clock size". That average
+  rested on **one impression in thirty days** — a single appearance, ever.
+  Quoting it as a ranking was wrong, and he caught it by simply searching.
+- [!] **The page could not rank for that query, because it does not answer
+  it.** "How to measure clock size" is about measuring a clock you have.
+  The page only answered "what size clock should I buy". Different intent,
+  no matching content, so no amount of title work would have helped.
+- [!] **And it was thin: ~450 words of its own content** under two headings,
+  against guides that run 1,100–1,600. A 450-word page does not outrank a
+  1,500-word one.
+- [x] **`ToolPage` gained a `sections` prop.** `method` was a single block, so
+      a tool page could only ever answer one shape of question. Sections each
+      carry their own `h2`, which is what a query matches against, so a page
+      can cover the cluster rather than one query in it.
+- [x] **The wall clock page rewritten: ~450 → ~1,370 words**, four headed
+      sections, seven FAQs. New sections: **how to measure a wall clock**
+      (diameter across the widest point, frame included, not the dial —
+      the thing the query actually asks), **common sizes and what each
+      suits**, and **the three ways it goes wrong**.
+- [x] **Title and description rewritten to the query**, not to the tool:
+      "Wall Clock Size Guide: How to Measure & What Size | Kaiku" (57), and a
+      description that leads on the answer — clock size is the whole clock,
+      frame included.
+- [ ] **Sixteen more tool pages need the same treatment.** The clock page is
+      the pattern; the rest still carry ~450 words and answer one query each.
+
+---
+
 ## Every title and description in range (16 September)
 
 Damien: _"I want the titles and descriptions good enough to rank at 1 for
@@ -194,11 +229,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                      | --- | --- | --- |
-                      | /shop/lighting | 2,175KB | **455KB** |
-                      | /shop/planters | 1,098KB | **290KB** |
-                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                      | /shop/all | 12.79MB | **2.94MB** |
+                          | --- | --- | --- |
+                          | /shop/lighting | 2,175KB | **455KB** |
+                          | /shop/planters | 1,098KB | **290KB** |
+                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -3950,11 +3985,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

@@ -29,6 +29,21 @@ export interface ToolPageProps {
    * which is roughly forty words — nothing to rank, and nothing to believe.
    */
   method: { heading: string; paragraphs: string[] };
+  /**
+   * Further sections, each with its own heading.
+   *
+   * `method` alone gave a tool page roughly 450 words of its own content, and
+   * that is not enough to rank against a 1,500-word article — Damien checked
+   * "how to measure clock size" by hand and found the site nowhere, which is
+   * the honest test. Worse, a single block can only answer one shape of
+   * question: the clock page explained what size to BUY and said nothing about
+   * how to MEASURE one, so a whole cluster of real queries had nothing on the
+   * page to match.
+   *
+   * Sections fix both. Each gets an `h2`, which is what a query matches
+   * against, and the page can cover the cluster rather than one query in it.
+   */
+  sections?: { heading: string; paragraphs: string[] }[];
   /** Answered on the page and emitted as FAQPage schema, so they can win the rich result. */
   faqs: ToolFaq[];
   /** Real products the tool is about, so the page passes link equity into stock. */
@@ -53,6 +68,7 @@ export function ToolPage({
   path,
   children,
   method,
+  sections,
   faqs,
   products = [],
   productsHeading,
@@ -95,6 +111,27 @@ export function ToolPage({
             ))}
           </div>
         </section>
+
+        {(sections ?? []).map((section) => (
+          <section
+            key={section.heading}
+            className="border-line mt-14 border-t pt-10"
+          >
+            <h2 className="font-display text-ink text-2xl tracking-tight">
+              {section.heading}
+            </h2>
+            <div className="mt-5 flex max-w-[68ch] flex-col gap-4">
+              {section.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-muted text-[15px] leading-relaxed"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </section>
+        ))}
 
         {faqs.length ? (
           <section className="border-line mt-14 border-t pt-10">
