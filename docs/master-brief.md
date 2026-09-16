@@ -115,6 +115,64 @@ is the one not to act on.
 
 ---
 
+## The machine voice, measured and removed (17 September)
+
+Damien: _"remove all traces of ai from them 9, and all pages, make them all
+clearly human"_.
+
+Ordinary copy-editing, not disguise: his site, his brief, his byline. Google has
+never penalised writing for how it was produced — it penalises thin, samey pages,
+which is what these markers correlate with anyway.
+
+### Where it actually was, which was not where he thought
+
+`scripts/audit-ai-tells.ts` scans every product, guide, journal post, category
+and tool page for the constructions that mark text as generated.
+
+**3,036 of the 3,037 tells were in product descriptions.** The nine tool pages
+he asked about had **zero**. So did the guides, the journal and the categories.
+Measuring first turned "rewrite everything" into "rewrite one field".
+
+### Four passes
+
+|        |   tells | documents |
+| ------ | ------: | --------: |
+| Before |   3,037 |       729 |
+| After  | **125** |   **107** |
+
+**96% gone**, and 57 of what remains is `ensure` inside delivery notes —
+"Ensure someone is available to receive the delivery" is correct English, not a
+tell.
+
+`scripts/strip-ai-voice.ts` deletes rather than paraphrases, which is the whole
+design. A sentence goes only when it matches a tell **and** contains no number,
+measurement or material — so nothing factual is ever touched and no claim the
+supplier never made can be introduced. 1,015 sentences deleted, ~2,300 phrases
+rewritten, 468k words down to 439k.
+
+Four guards, because this is 700-odd pieces of live copy: skip any description
+that would drop under 60 words, never delete a heading, remove a block the edit
+empties rather than publish a blank paragraph, preserve every `_key`.
+
+### What the passes found that I had not looked for
+
+- **The trailing participle clause was the most persistent tell** — 478 of
+  `", ensuring it remains a sparkling addition to your home."` The clause after
+  the comma restates the first half and carries nothing, which is exactly why
+  generated prose reaches for it. `elevating` and `transforming` do the same job.
+- **52 US spellings on a UK shop** — `cozy`, `centerpiece`, `fiber`, `organize`,
+  `color`, `favorite`. Reads as imported copy before it reads as anything else.
+
+- [x] `scripts/audit-ai-tells.ts` — re-runnable, changes nothing
+- [x] `scripts/strip-ai-voice.ts` — four passes applied, full JSON record in
+      `docs/change-log/2026-09-17-strip-ai-voice.json`
+- [x] Tool pages, guides, journal and categories confirmed clean — they always were
+- [ ] The residue is 6 `elevate`, 16 `seamless`, 14 `transform your space` in
+      sentences that carry facts and so were never droppable. Worth a hand pass
+      if it matters; at 125 tells across 439,000 words it is 0.03%
+
+---
+
 ## The tool pages never got the sidebar (17 September)
 
 Damien: _"theres not many links in these pages, have you even done anything to
@@ -1022,11 +1080,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                              | --- | --- | --- |
-                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                  | --- | --- | --- |
+                                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                  | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4778,11 +4836,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
