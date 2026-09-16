@@ -72,6 +72,77 @@ follows. That second-order effect is worth more than the traffic.
 
 ---
 
+## Indexing has no technical fault, and eBay's problem is price (16 September)
+
+Damien: _"Action it all then. And get the pages indexed"_.
+
+### Indexing: audited end to end, nothing is broken
+
+I could not find a fault, and that is the finding.
+
+| Check              | Result                                                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| robots.txt         | Clean. Only /studio, /admin, /api, /cart, /account, /checkout, /search, /compare disallowed                               |
+| `noindex` meta     | None on home, category or tool pages                                                                                      |
+| Canonicals         | Correct and self-referencing on every page checked                                                                        |
+| Response time      | TTFB 0.39-0.65s live                                                                                                      |
+| Crawl reachability | Every product server-rendered in its category HTML — 137 of 138 lighting products linked, no pagination or load-more trap |
+| Sitemap            | 1,030 URLs, real `_updatedAt` dates rather than build times, no duplicate listing routes                                  |
+
+**"Discovered – currently not indexed" means Google knows the URL and has chosen
+not to spend crawl on it.** On a seven-week-old domain with zero backlinks and
+1,030 URLs, that is a crawl-budget decision, not a bug. It is the authority
+problem wearing a technical costume.
+
+- [x] Full technical indexing audit — no fault found
+- [-] **Do not pay for a technical SEO audit.** There is nothing for one to find
+- [!] Requesting indexing needs Damien's Search Console. There is no API for it —
+  Google's Indexing API only covers job postings and broadcast events
+
+### eBay: 101 of 128 products are priced above our own website
+
+The 0.1% click-through rate reads like a title problem. It is not one.
+
+eBay takes about 13%, so holding the same margin means charging more there than
+here. Across the marketplace sheet, **101 of 128 products have to be listed at
+roughly 16% above kaikuhome.com**, peaking at +24%:
+
+```
++24%  site £33   eBay min £41   Tristan Mirror And Wood 5X7 Frame
++24%  site £29   eBay min £36   Seville Collection Lebes Planter
++22%  site £330  eBay min £404  Abberley White End Table
+```
+
+A buyer comparing a £41 frame on eBay against the same frame at £33 on our own
+site does not click. **The listings are uncompetitive by construction and no
+title rewrite fixes that.**
+
+### So the upload list is 27, not 128
+
+`scripts/build-ebay-listing-pack.ts` selects the products where the eBay floor
+lands at or below our own site price — the ones fees do not price out — and
+writes an upload pack. Cash profit £31 to £261 each, all with live stock.
+
+Titles are rebuilt from stored attributes rather than the supplier's naming:
+eBay gives 80 characters and Cassini keyword-matches them, so "Hill Interior
+Contour Collection" is 31 characters of brand nobody searches. Colour, material
+and size go in front instead.
+
+**17 of the 27 came out under 45 characters** and are flagged `needsWork`. Those
+products do not carry enough stored detail to fill the title, and padding them
+with filler would be worse than leaving the space for Damien to fill knowing
+what buyers actually type.
+
+- [x] `scripts/build-ebay-listing-pack.ts` and the 27-product pack
+- [-] The other 101 deliberately not prepared — listing them is work that cannot
+  convert while the price is above our own site
+- [ ] 12 products earn under £10 a sale at the eBay floor. After handling,
+      packaging and return risk that is not worth doing, and they should come
+      off the marketplace plan entirely
+- [!] Damien uploads them. I have no eBay access
+
+---
+
 ## Merchant Center holds ~500 of 908, and a rule about "ranking" (16 September)
 
 Damien: _"We have 500 products on merchant centre not 900. I also don't know why
@@ -570,11 +641,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                          | --- | --- | --- |
-                                                          | /shop/lighting | 2,175KB | **455KB** |
-                                                          | /shop/planters | 1,098KB | **290KB** |
-                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                          | /shop/all | 12.79MB | **2.94MB** |
+                                                              | --- | --- | --- |
+                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4326,11 +4397,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
