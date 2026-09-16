@@ -115,6 +115,55 @@ is the one not to act on.
 
 ---
 
+## Two Google-category bugs, and the limit of what I can fix blind (17 September)
+
+Damien: 666 not showing became **100** after the shipping and `g:id` fixes.
+
+### What I ruled out on the remaining 100, with evidence
+
+| Theory                  | Test                       | Result                                                  |
+| ----------------------- | -------------------------- | ------------------------------------------------------- |
+| Landing pages broken    | 30 sampled                 | all 200                                                 |
+| Feed price ≠ page price | 30 compared                | all match — the flags were `898.00` vs `898`            |
+| Missing required fields | all 908                    | zero                                                    |
+| Duplicate `g:id`        | all 908                    | zero                                                    |
+| `g:id` over 50 chars    | all 908                    | zero                                                    |
+| Missing shipping        | all 908                    | zero                                                    |
+| Images too small        | fetched one 330×330 source | **delivered 1200×1200** — Sanity upscales, so it passes |
+
+**The cause of the 100 is not determinable from our data, and I stopped
+guessing.** Three candidates remain and only Merchant Center's own issue name
+separates them: 728 products carry a GTIN while declaring brand "Kaiku" (those
+barcodes belong to the manufacturer, not us), 99 have a single image, and 21 had
+no Google category. Products → Needs attention names it; nothing here can.
+
+### Two real bugs found and fixed on the way
+
+**`\bchair\b` cannot match inside "Armchair."** There is no word boundary
+between "arm" and "chair", so "Java Natural Rattan With Black Metal Armchair"
+came out with no Google category at all. One missing word in one regex.
+
+**The Reclaimed Collection is a department, not a product type.** Twenty
+products sat in a slug that appears in neither category map, because the
+collection genuinely spans sideboards, dining tables, coffee tables, TV stands,
+bedside tables, chests, shelving and a beer barrel. Added seven title rules,
+most specific first.
+
+**Five are deliberately left unmapped** — the beer barrel table, the storage
+stool, the plant stands, the storage tub and the crates. Nothing in Google's
+taxonomy fits them cleanly, and this file's own rule is that a null beats a
+confident mistake.
+
+- [x] Missing Google category: **21 → 5**, verified in the built feed
+- [x] Existing taxonomy tests still pass (8/8)
+- [!] **Send the issue name from Products → Needs attention.** It is the only
+  thing that identifies the remaining 100
+- [ ] 105 products have source images under 800×800 — three are 330×330, a batch
+      of lamps are 439×659. Sanity upscales them so Google accepts them, but a
+      soft Shopping tile converts worse than a sharp one
+
+---
+
 ## The feed is in — and every item was missing shipping (17 September)
 
 The Merchant Center source finally fetched. **"Provided by you" went 0 -> 669.**
@@ -930,11 +979,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                      | --- | --- | --- |
-                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                          | --- | --- | --- |
+                                                                                                          | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                          | /shop/planters | 1,098KB | **290KB** |
+                                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4686,11 +4735,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

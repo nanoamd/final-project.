@@ -139,12 +139,62 @@ const BY_TITLE_WITHIN_CATEGORY: Record<
 > = {
   "kitchen-furniture": [
     {
-      match: /\bdining chair|\bchair\b|\bstool\b|\bbench\b|\bseat\b/i,
+      // `armchair` is spelled out because `\bchair\b` cannot match inside it —
+      // there is no word boundary between "arm" and "chair". That one missing
+      // word left "Java Natural Rattan With Black Metal Armchair" with no
+      // Google category at all.
+      match:
+        /\bdining chair|\barmchair\b|\bchair\b|\bstool\b|\bbench\b|\bseat\b/i,
       path: "Furniture > Chairs > Kitchen & Dining Room Chairs",
     },
     {
       match: /\bdining table|\btable\b/i,
       path: "Furniture > Tables > Kitchen & Dining Room Tables",
+    },
+  ],
+  /**
+   * The Reclaimed Collection is a department, not a product type.
+   *
+   * Twenty products sat in it with no Google category, because the slug is in
+   * neither map and the collection genuinely spans sideboards, dining tables,
+   * coffee tables, TV stands, bedside tables, chests, shelving and a beer
+   * barrel. There is no single path that is true of all of them.
+   *
+   * Ordered most specific first. Five products are deliberately left to fall
+   * through — the beer barrel table, the storage stool, the plant stands and
+   * the storage tub and crates. Nothing in Google's taxonomy fits them
+   * cleanly, and this file's own rule is that a null beats a confident
+   * mistake: Google classifies it itself rather than being told something
+   * wrong.
+   */
+  "rustic-reclaimed-furniture": [
+    {
+      match: /\bcoffee table\b/i,
+      path: "Furniture > Tables > Accent Tables > Coffee Tables",
+    },
+    {
+      match: /\btv stand\b|\bmedia unit\b|\btv unit\b/i,
+      path: "Furniture > Cabinets & Storage > Media Storage Cabinets & Racks",
+    },
+    {
+      match: /\bbedside table\b|\bside table\b/i,
+      path: "Furniture > Tables > Accent Tables > End Tables",
+    },
+    {
+      match: /\bconsole table\b|\bsideboard\b/i,
+      path: "Furniture > Tables > Accent Tables > Sofa Tables",
+    },
+    {
+      match: /\bdining table\b/i,
+      path: "Furniture > Tables > Kitchen & Dining Room Tables",
+    },
+    {
+      match: /\bshelf\b|\bshelving\b|\bdisplay unit\b|\bdisplay stand\b/i,
+      path: "Furniture > Shelving",
+    },
+    {
+      match: /\bchest of\b.*\bdrawers\b/i,
+      path: "Furniture > Cabinets & Storage",
     },
   ],
 };
