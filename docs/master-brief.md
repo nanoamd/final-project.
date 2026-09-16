@@ -72,6 +72,45 @@ follows. That second-order effect is worth more than the traffic.
 
 ---
 
+## The bulk upload is gated behind one sale (17 September)
+
+Damien: _"there is no upload button on reports"_.
+
+There is not, and it is not a setting. From eBay UK's own help page: **"Business
+sellers are automatically opted in to Seller Hub. Private sellers just need to
+have made at least one sale to get access."**
+
+He has no sales. So the tool that would list 127 products needs a sale, and the
+sale needs listings — a genuine chicken-and-egg, and the answer is to list a few
+by hand rather than to look for a setting that is not there.
+
+This also explains the category IDs. I could not fetch them because eBay returns
+403 to automated requests on its search and category pages, which is bot
+protection and not something to work around. But **listing eight by hand
+produces most of the nineteen IDs as a side effect** — eBay suggests the
+category, and the ID is in the URL.
+
+### `docs/ebay-first-eight.md`
+
+The eight cheapest products with real stock behind them, copy-paste ready:
+price, quantity, SKU, EAN, brand, colour, material, description and photo URLs.
+£40 to £58, five of each.
+
+Cheapest rather than most profitable, on purpose. The £1,400 sideboards are
+worth £238 each and will not sell to an account with no feedback. A £40 vase
+might sell this week, and this week it is worth more, because it unlocks both
+the Upload tab and the feedback that makes the expensive stock sellable.
+
+- [x] `docs/ebay-first-eight.md` — eight listings, ready to type
+- [!] **List them, and write down the eBay category ID for each** as you go. That
+  is the nineteen-ID problem solving itself
+- [ ] Once one sells: Reports > Upload appears, fill `EBAY_CATEGORY_IDS`, run
+      `build-ebay-file-exchange.ts`, upload 127 in one go
+- [-] The eBay API would bypass the gate entirely, but it needs a developer
+  account and OAuth — more work than making one sale
+
+---
+
 ## Bulk eBay upload, and who is actually permitted (16 September)
 
 Damien: _"How can we import all products to eBay in one go rather than manually
@@ -736,11 +775,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                      | --- | --- | --- |
-                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                          | --- | --- | --- |
+                                                                          | /shop/lighting | 2,175KB | **455KB** |
+                                                                          | /shop/planters | 1,098KB | **290KB** |
+                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4492,11 +4531,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
