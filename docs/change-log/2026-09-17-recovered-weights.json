@@ -1,0 +1,2615 @@
+{
+  "generatedAt": "2026-09-16T20:00:12.947Z",
+  "applied": [
+    {
+      "slug": "emery-matt-black-wire-tall-basket",
+      "kg": 4.11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.11 kg\""
+    },
+    {
+      "slug": "emery-matt-black-wire-basket",
+      "kg": 3.89,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 3.89 kg\""
+    },
+    {
+      "slug": "vertex-copper-plated-basket",
+      "kg": 6.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 6.1 kg\""
+    },
+    {
+      "slug": "vertex-rectangular-basket",
+      "kg": 2.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.8 kg\""
+    },
+    {
+      "slug": "vertex-hexagonal-basket",
+      "kg": 4.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.3 kg\""
+    },
+    {
+      "slug": "carlotta-purple-mirrored-glass-wall-mirror",
+      "kg": 33,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 33 kg\""
+    },
+    {
+      "slug": "mize-black-plastic-frame-over-door-mirror",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 15 kg\""
+    },
+    {
+      "slug": "wardell-illuminated-wall-mirror",
+      "kg": 9.45,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.45 kg\""
+    },
+    {
+      "slug": "blossom-wall-mirror",
+      "kg": 7.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7.5 kg\""
+    },
+    {
+      "slug": "cassini-tri-fold-white-led-table-mirror",
+      "kg": 5.6,
+      "tier": "HIGH",
+      "from": "\"Weight: 5.6 kg\""
+    },
+    {
+      "slug": "cassini-tri-fold-black-led-table-mirror",
+      "kg": 5.6,
+      "tier": "HIGH",
+      "from": "\"Weight: 5.6 kg\""
+    },
+    {
+      "slug": "aleki-extra-large-bamboo-chopping-and-serving-board",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "\"Weight: 15 kg\""
+    },
+    {
+      "slug": "aleki-large-bamboo-chopping-and-serving-board",
+      "kg": 11.5,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 11.5 kg\""
+    },
+    {
+      "slug": "freska-ribbed-round-glass-jar-with-acacia-wood-lid-1100ml",
+      "kg": 5.44,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 5.44 kg\""
+    },
+    {
+      "slug": "freska-set-of-five-ribbed-round-clear-glass-jars-with-acacia-wood-lids",
+      "kg": 7.2,
+      "tier": "HIGH",
+      "from": "\"Weight: 7.2 kg\""
+    },
+    {
+      "slug": "zircon-large-planter",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 10 kg\""
+    },
+    {
+      "slug": "lentigo-set-of-two-white-planters",
+      "kg": 8.9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.9 kg\""
+    },
+    {
+      "slug": "avento-set-of-three-black-finish-planters",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10 kg\""
+    },
+    {
+      "slug": "asher-two-tier-black-plant-stand",
+      "kg": 2.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.6 kg\""
+    },
+    {
+      "slug": "asher-two-tier-grey-plant-stand",
+      "kg": 2.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.6 kg\""
+    },
+    {
+      "slug": "alden-black-floor-standing-planter",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.5 kg (empty)\""
+    },
+    {
+      "slug": "cassini-chrome-large-swivel-mirror",
+      "kg": 5.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.2 kg\""
+    },
+    {
+      "slug": "canyon-black-tumbler",
+      "kg": 2.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.3 kg (carton weight)\""
+    },
+    {
+      "slug": "canyon-black-toothbrush-holder",
+      "kg": 1.75,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.75 kg\""
+    },
+    {
+      "slug": "canyon-grey-300ml-lotion-dispenser",
+      "kg": 1.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 1.1 kg\""
+    },
+    {
+      "slug": "canyon-white-300ml-lotion-dispenser",
+      "kg": 1.1,
+      "tier": "HIGH",
+      "from": "\"Weight: 1.1 kg\""
+    },
+    {
+      "slug": "canyon-300-ml-black-lotion-dispenser",
+      "kg": 1.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.1 kg\""
+    },
+    {
+      "slug": "canyon-white-lotion-dispenser-500ml",
+      "kg": 1.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.5 kg\""
+    },
+    {
+      "slug": "canyon-white-soap-dish",
+      "kg": 2.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 2.8 kg\""
+    },
+    {
+      "slug": "destini-60cm-dia-classical-black-wall-clock",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "\"Weighing 8.5 kilograms\""
+    },
+    {
+      "slug": "verdian-multi-coloured-circles-diy-wall-clock",
+      "kg": 5.7,
+      "tier": "HIGH",
+      "from": "\"weighs 5.7 kg\""
+    },
+    {
+      "slug": "tortora-red-glass-and-black-numbers-wall-clock",
+      "kg": 6.35,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 6.35 kg\""
+    },
+    {
+      "slug": "romero-33cm-dia-blue-cutlery-metal-wall-clock",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.5 kg\""
+    },
+    {
+      "slug": "romero-33cm-dia-hot-pink-cutlery-metal-wall-clock",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "\"weighs 3.5kg\""
+    },
+    {
+      "slug": "maddox-cream-metal-white-face-wall-clock",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.5 kg\""
+    },
+    {
+      "slug": "cheston-white-antique-finish-wall-clock",
+      "kg": 2.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.4 kg\""
+    },
+    {
+      "slug": "vitus-80cm-dia-black-and-gold-metal-wall-clock",
+      "kg": 2.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.6 kg\""
+    },
+    {
+      "slug": "baillie-40cm-dia-rose-gold-and-mirror-wall-clock",
+      "kg": 11.57,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11.57 kg\""
+    },
+    {
+      "slug": "yaxi-91cm-dia-wall-clock",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "\"Weighing 7 kg\""
+    },
+    {
+      "slug": "elko-oval-wall-clock-with-dark-grey-finish",
+      "kg": 11.3,
+      "tier": "HIGH",
+      "from": "\"weighs 11.3 kg\""
+    },
+    {
+      "slug": "elko-16cm-dia-pink-finish-embossed-effect-wall-clock",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 10 kg\""
+    },
+    {
+      "slug": "beauly-60cm-dia-metal-wall-clock-with-gold-finish",
+      "kg": 3.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.4 kg\""
+    },
+    {
+      "slug": "vitus-60cm-dia-large-wall-clock",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "vitus-56cm-dia-gold-finish-wall-clock",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.5 kg\""
+    },
+    {
+      "slug": "vitus-60cm-dia-large-wooden-wall-clock",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 14 kg\""
+    },
+    {
+      "slug": "gala-black-glass-vanity-mirror-with-drawers",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "vermont-white-wash-round-dining-table-with-4-chairs-set",
+      "kg": 100,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 100 kg\""
+    },
+    {
+      "slug": "westbury-oak-wood-veneer-media-unit",
+      "kg": 24,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 24 kg\""
+    },
+    {
+      "slug": "black-garden-chair",
+      "kg": 11.8,
+      "tier": "HIGH",
+      "from": "\"Weight: 11.8 kg\""
+    },
+    {
+      "slug": "urban-white-floor-standing-mirror",
+      "kg": 9.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 9.5 kg\""
+    },
+    {
+      "slug": "selby-natural-tropical-hevea-wood-square-plant-stand",
+      "kg": 5.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.8 kg\""
+    },
+    {
+      "slug": "lyon-grey-oak-wood-and-rattan-cross-back-dining-chair",
+      "kg": 13,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 13 kg\""
+    },
+    {
+      "slug": "lyon-black-oak-wood-and-rattan-dining-chair",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14 kg\""
+    },
+    {
+      "slug": "lagom-grey-wash-natural-rattan-chair",
+      "kg": 100,
+      "tier": "HIGH",
+      "from": "spec \"Weight capacity: 100 kg\""
+    },
+    {
+      "slug": "lagom-white-washed-natural-rattan-chair",
+      "kg": 100,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 100 kg\""
+    },
+    {
+      "slug": "lagom-black-natural-rattan-and-iron-black-chair",
+      "kg": 100,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 100 kg\""
+    },
+    {
+      "slug": "lagom-natural-rattan-and-black-iron-chair",
+      "kg": 5.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 5.2 kg\""
+    },
+    {
+      "slug": "maka-grey-natural-rattan-stool",
+      "kg": 2.72,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.72 kg\""
+    },
+    {
+      "slug": "rowan-two-seater-natural-and-silver-woven-bamboo-small-sofa",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7 kg\""
+    },
+    {
+      "slug": "rowan-two-seater-natural-and-black-woven-bamboo-small-sofa",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "hayton-black-velvet-sofa-bed",
+      "kg": 44.6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 44.6 kg\""
+    },
+    {
+      "slug": "hatton-grey-velvet-sofa-bed",
+      "kg": 50,
+      "tier": "HIGH",
+      "from": "spec \"Shipping Carton Weight: 50 kg\""
+    },
+    {
+      "slug": "hannah-grey-ottoman-king-bed",
+      "kg": 17.5,
+      "tier": "HIGH",
+      "from": "\"Weight: 17.5 kg\""
+    },
+    {
+      "slug": "hannah-mink-velvet-ottoman-king-bed",
+      "kg": 17.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 17.5 kg\""
+    },
+    {
+      "slug": "hansa-three-seat-black-velvet-sofa",
+      "kg": 46,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 46 kg\""
+    },
+    {
+      "slug": "helia-3-seat-olive-velvet-sofa",
+      "kg": 57.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57.5 kg\""
+    },
+    {
+      "slug": "helia-3-seat-blue-velvet-sofa",
+      "kg": 57.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57.5 kg\""
+    },
+    {
+      "slug": "weston-round-marble-effect-dining-table-with-6-chairs-set",
+      "kg": 52.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 52.3 kg\""
+    },
+    {
+      "slug": "westford-rectangle-dining-table-with-6-chairs-set",
+      "kg": 71.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 71.4 kg\""
+    },
+    {
+      "slug": "wimslow-smoked-glass-dining-table-with-6-chairs-set",
+      "kg": 68.9,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 68.9 kg\""
+    },
+    {
+      "slug": "maka-natural-croco-rattan-stool",
+      "kg": 2.7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 2.7 kg\""
+    },
+    {
+      "slug": "goa-brown-rattan-hanging-chair",
+      "kg": 29.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 29.3 kg\""
+    },
+    {
+      "slug": "bradbury-natural-oak-veneer-desk-wth-1-drawer",
+      "kg": 20,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 20 kg\""
+    },
+    {
+      "slug": "bradbury-light-oak-veneer-desk-with-1-drawer",
+      "kg": 20,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 20 kg\""
+    },
+    {
+      "slug": "bradbury-dark-oak-effect-open-wardrobe",
+      "kg": 27.4,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 27.4 kg\""
+    },
+    {
+      "slug": "bradbury-natural-oak-effect-open-wardrobe",
+      "kg": 27.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 27.4 kg\""
+    },
+    {
+      "slug": "rowan-natural-and-black-woven-bamboo-chair-and-stool-set",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7 kg\""
+    },
+    {
+      "slug": "laxton-light-oak-effect-desk",
+      "kg": 13.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.4 kg\""
+    },
+    {
+      "slug": "laxton-light-oak-effect-desk-with-shelves",
+      "kg": 18.5,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 18.5 kg\""
+    },
+    {
+      "slug": "laxton-3-tier-light-oak-effect-shelving-unit",
+      "kg": 16.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 16.5 kg\""
+    },
+    {
+      "slug": "laxton-5-tier-light-oak-effect-shelving-unit",
+      "kg": 28.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 28.4kg\""
+    },
+    {
+      "slug": "hatton-green-velvet-sofa-bed",
+      "kg": 50,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 50 kg\""
+    },
+    {
+      "slug": "veneto-midnight-velvet-curved-dining-chair",
+      "kg": 10.14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.14 kg\""
+    },
+    {
+      "slug": "lombok-rustic-chevron-and-black-frame-media-unit",
+      "kg": 30,
+      "tier": "HIGH",
+      "from": "\"weight of 30 kg\""
+    },
+    {
+      "slug": "heritage-large-black-two-tier-wooden-bookshelf",
+      "kg": 21,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 21 kg\""
+    },
+    {
+      "slug": "arles-water-hyacinth-wall-shelf",
+      "kg": 9.2,
+      "tier": "HIGH",
+      "from": "\"Weight: 9.2 kg\""
+    },
+    {
+      "slug": "arles-3-tier-water-hyacinth-storage-caddy",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.4 kg\""
+    },
+    {
+      "slug": "laila-large-white-round-dining-table",
+      "kg": 23,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 23 kg\""
+    },
+    {
+      "slug": "hasna-three-seat-black-velvet-sofa",
+      "kg": 40,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 40 kg\""
+    },
+    {
+      "slug": "mataram-natural-rattan-table",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.5 kg\""
+    },
+    {
+      "slug": "mataram-natural-rattan-rectangular-coffee-table",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.5 kg\""
+    },
+    {
+      "slug": "depok-small-rattan-planter-with-metal-stand",
+      "kg": 1.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.3 kg\""
+    },
+    {
+      "slug": "depok-large-rattan-planter-with-metal-stand",
+      "kg": 1.6,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 1.6 kg\""
+    },
+    {
+      "slug": "depok-rattan-coffee-table-with-cross-metal-base",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.5kg\""
+    },
+    {
+      "slug": "depok-rattan-side-table-with-metal-legs",
+      "kg": 20,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 20 kg\""
+    },
+    {
+      "slug": "depok-rattan-round-coffee-table-with-cross-metal-legs",
+      "kg": 4.3,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 4.3 kg\""
+    },
+    {
+      "slug": "depok-rattan-and-metal-square-side-table",
+      "kg": 3.1,
+      "tier": "HIGH",
+      "from": "\"Weight: 3.1 kg\""
+    },
+    {
+      "slug": "depok-rattan-and-metal-coffee-table",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.4 kg\""
+    },
+    {
+      "slug": "lagom-black-natural-rattan-dining-chair",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8 kg\""
+    },
+    {
+      "slug": "lagom-natural-rattan-dining-chair",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8 kg\""
+    },
+    {
+      "slug": "avento-set-of-two-round-black-plant-stands",
+      "kg": 4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4 kg\""
+    },
+    {
+      "slug": "miami-black-rattan-3-piece-patio-set-seat",
+      "kg": 35.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 35.5 kg\""
+    },
+    {
+      "slug": "addison-warm-white-metal-fluted-glass-door-media-unit",
+      "kg": 38,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 38 kg\""
+    },
+    {
+      "slug": "maxwell-stone-chenille-curved-swivel-dining-chair",
+      "kg": 12.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 12.2 kg\""
+    },
+    {
+      "slug": "goa-black-rattan-effect-double-hanging-chair",
+      "kg": 34,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 34 kg\""
+    },
+    {
+      "slug": "goa-white-rattan-effect-hanging-chair",
+      "kg": 27,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 27 kg\""
+    },
+    {
+      "slug": "goa-white-rattan-effect-hanging-chair-with-grey-cushions",
+      "kg": 27,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 27 kg\""
+    },
+    {
+      "slug": "goa-black-rattan-effect-double-hanging-chair-with-grey-cushions",
+      "kg": 35,
+      "tier": "HIGH",
+      "from": "\"Weight: 35 kg\""
+    },
+    {
+      "slug": "leyna-chrome-base-floor-lamp",
+      "kg": 11.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 11.1 kg\""
+    },
+    {
+      "slug": "morano-8-bulb-champagne-glass-chandelier",
+      "kg": 9.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 9.4 kg\""
+    },
+    {
+      "slug": "morano-8-bulb-red-crystal-glass-chandelier",
+      "kg": 9.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.4 kg\""
+    },
+    {
+      "slug": "large-leni-black-and-gold-pendant-light",
+      "kg": 1.64,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.64 kg\""
+    },
+    {
+      "slug": "lenno-large-gold-pendant-light",
+      "kg": 1.86,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 1.86 kg\""
+    },
+    {
+      "slug": "revive-gold-finish-metal-floor-lamp",
+      "kg": 6.48,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6.48 kg\""
+    },
+    {
+      "slug": "revive-two-light-gold-finish-floor-lamp",
+      "kg": 10.7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.7 kg\""
+    },
+    {
+      "slug": "wyra-chrome-gold-frame-pendant-light",
+      "kg": 1.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.8 kg\""
+    },
+    {
+      "slug": "wyra-black-finish-frame-pendant-light",
+      "kg": 1.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.8 kg\""
+    },
+    {
+      "slug": "stockholm-shiny-brass-tapered-floor-lamp",
+      "kg": 6.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 6.4 kg\""
+    },
+    {
+      "slug": "stockholm-chrome-finish-tapered-floor-lamp",
+      "kg": 6.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6.4 kg\""
+    },
+    {
+      "slug": "stockholm-chrome-adjustable-floor-lamp",
+      "kg": 5.02,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 5.02 kg\""
+    },
+    {
+      "slug": "helvetia-clear-crystal-table-lamp-with-chrome-base",
+      "kg": 6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6 kg\""
+    },
+    {
+      "slug": "hexum-black-crystal-glass-table-lamp",
+      "kg": 3.6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3.6 kg\""
+    },
+    {
+      "slug": "heidy-green-glass-table-lamp-with-white-shade",
+      "kg": 1.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 1.8 kg\""
+    },
+    {
+      "slug": "sellis-clear-glass-and-black-metal-table-lamp",
+      "kg": 3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3 kg\""
+    },
+    {
+      "slug": "circle-design-natural-frame-wall-art",
+      "kg": 16.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 16.4 kg\""
+    },
+    {
+      "slug": "framed-labrador-wall-art",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.5 kg\""
+    },
+    {
+      "slug": "abstract-blue-2-framed-wall-art",
+      "kg": 4.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.2 kg\""
+    },
+    {
+      "slug": "framed-butterfly-wall-art",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5 kg\""
+    },
+    {
+      "slug": "city-framed-london-wall-art",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "fiori-mixed-succulents-in-wood-wall-planter",
+      "kg": 13.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.7 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-warm-sand-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-poppy-seed-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-dusty-turquoise-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-navy-blue-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-peach-pink-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-mustard-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.24 kg\""
+    },
+    {
+      "slug": "thread-and-loom-6-piece-lilac-towel-set",
+      "kg": 10.24,
+      "tier": "HIGH",
+      "from": "\"Weight: 10.24 kg\""
+    },
+    {
+      "slug": "hampstead-white-media-unit-with-oak-wood-top",
+      "kg": 55.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 55.2 kg\""
+    },
+    {
+      "slug": "kensington-townhouse-grey-wash-and-antique-black-media-unit",
+      "kg": 65,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 65 kg\""
+    },
+    {
+      "slug": "kensington-townhouse-grey-wash-and-antique-black-sideboard",
+      "kg": 88.5,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 88.5 kg\""
+    },
+    {
+      "slug": "chiswick-oak-wood-side-table",
+      "kg": 18,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 18 kg\""
+    },
+    {
+      "slug": "kensington-townhouse-brown-and-white-hair-on-leather-side-table",
+      "kg": 17,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 17 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-wingback-chair",
+      "kg": 100,
+      "tier": "HIGH",
+      "from": "spec \"Max Weight Capacity: 100 kg\""
+    },
+    {
+      "slug": "ulmus-grey-elm-wood-4-tier-bookshelf",
+      "kg": 60.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 60.4 kg\""
+    },
+    {
+      "slug": "lyon-beige-linen-dining-chair",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 14 kg\""
+    },
+    {
+      "slug": "lyon-natural-oak-wood-round-dining-table",
+      "kg": 58,
+      "tier": "HIGH",
+      "from": "\"Weight: 58 kg\""
+    },
+    {
+      "slug": "lyon-linen-dining-chair-with-oak-wood-whitewash-finish",
+      "kg": 23.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 23.5 kg\""
+    },
+    {
+      "slug": "loire-white-double-bed",
+      "kg": 118,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 118 kg\""
+    },
+    {
+      "slug": "loire-white-kingsize-bed",
+      "kg": 126,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 126 kg\""
+    },
+    {
+      "slug": "loire-plant-stand",
+      "kg": 6,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 6 kg\""
+    },
+    {
+      "slug": "opus-3-seat-rope-woven-sofa-with-grey-cushions",
+      "kg": 160,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 160 kg\""
+    },
+    {
+      "slug": "opus-woven-rope-armchair",
+      "kg": 12,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 12 kg\""
+    },
+    {
+      "slug": "opus-3-seater-woven-rope-sofa",
+      "kg": 26,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 26 kg\""
+    },
+    {
+      "slug": "opus-woven-rope-footstool",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "\"weighing 5kg\""
+    },
+    {
+      "slug": "opus-woven-rope-2-seater-sofa-with-grey-cushions",
+      "kg": 45,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 45 kg\""
+    },
+    {
+      "slug": "opus-grey-woven-rope-and-stone-round-coffee-table",
+      "kg": 33,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 33 kg\""
+    },
+    {
+      "slug": "hoffmann-black-mirrored-glass-and-nickel-finish-plant-stand",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7 kg\""
+    },
+    {
+      "slug": "marwar-mango-wood-and-leather-sideboard",
+      "kg": 46,
+      "tier": "HIGH",
+      "from": "spec \"Carton weight: 46 kg\""
+    },
+    {
+      "slug": "marwar-mango-wood-and-leather-media-unit",
+      "kg": 43,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 43 kg\""
+    },
+    {
+      "slug": "marwar-mango-wood-sideboard",
+      "kg": 52,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 52 kg\""
+    },
+    {
+      "slug": "nandri-slatted-teak-wood-bench",
+      "kg": 15.9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 15.9 kg\""
+    },
+    {
+      "slug": "midas-recycled-elm-wood-4-door-sideboard",
+      "kg": 96,
+      "tier": "HIGH",
+      "from": "spec \"Carton weight: 96 kg\""
+    },
+    {
+      "slug": "kyra-grey-wash-elm-wood-wardrobe",
+      "kg": 70.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 70.80 kg\""
+    },
+    {
+      "slug": "boho-mango-wood-with-bone-inlay-console-table",
+      "kg": 33.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 33.2 kg\""
+    },
+    {
+      "slug": "boho-patterned-mango-wood-2-door-sideboard-with-drawers",
+      "kg": 50.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 50.1 kg\""
+    },
+    {
+      "slug": "lovina-wood-and-natural-rattan-lounge-chair",
+      "kg": 9.01,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 9.01 kg\""
+    },
+    {
+      "slug": "lovina-white-rattan-effect-dining-chair",
+      "kg": 8.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8.3 kg\""
+    },
+    {
+      "slug": "pasadena-wendi-wall-mirror",
+      "kg": 18.9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 18.9 kg\""
+    },
+    {
+      "slug": "jacen-silver-metal-frame-round-wall-mirror",
+      "kg": 13.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.5 kg\""
+    },
+    {
+      "slug": "meissa-gold-finish-pendant-wall-mirror",
+      "kg": 5.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.5 kg\""
+    },
+    {
+      "slug": "ginnette-wall-mirror",
+      "kg": 13,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13 kg\""
+    },
+    {
+      "slug": "gavri-wall-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 11 kg\""
+    },
+    {
+      "slug": "ruta-wall-mirror",
+      "kg": 21.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 21.6 kg\""
+    },
+    {
+      "slug": "riva-wall-mirror",
+      "kg": 17.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 17.7 kg\""
+    },
+    {
+      "slug": "relic-rectangular-wall-mirror",
+      "kg": 36,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 36 kg\""
+    },
+    {
+      "slug": "descartes-square-window-pane-wall-mirror",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "leonov-small-nickel-finish-wall-mirror",
+      "kg": 5.45,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.45 kg\""
+    },
+    {
+      "slug": "riza-wall-mirror-with-decorative-crown",
+      "kg": 13.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.2 kg\""
+    },
+    {
+      "slug": "riza-3d-hexagonal-wall-mirror",
+      "kg": 11.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11.5 kg\""
+    },
+    {
+      "slug": "riza-large-panelled-wall-mirror",
+      "kg": 41,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 41 kg\""
+    },
+    {
+      "slug": "riza-square-and-tiled-design-wall-mirror",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.4 kg\""
+    },
+    {
+      "slug": "riza-arched-antique-wall-mirror",
+      "kg": 21.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 21.7 kg\""
+    },
+    {
+      "slug": "satara-cream-finish-mango-wood-square-wall-mirror",
+      "kg": 21,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 21 kg\""
+    },
+    {
+      "slug": "trento-double-ring-design-wall-mirror",
+      "kg": 12,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 12 kg\""
+    },
+    {
+      "slug": "kensington-townhouse-rectangular-mirror",
+      "kg": 19,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 19 kg\""
+    },
+    {
+      "slug": "templar-nickel-and-bronze-finish-wall-mirror",
+      "kg": 13.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.6 kg\""
+    },
+    {
+      "slug": "almora-acacia-wood-wall-mirror",
+      "kg": 25.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 25.4 kg\""
+    },
+    {
+      "slug": "marseille-gold-bevelled-edge-wall-mirror",
+      "kg": 25,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 25 kg\""
+    },
+    {
+      "slug": "cristi-silver-finish-wall-mirror",
+      "kg": 11.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 11.5 kg\""
+    },
+    {
+      "slug": "revenna-clear-wall-mirror",
+      "kg": 20.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 20.6 kg\""
+    },
+    {
+      "slug": "remo-dual-lined-wall-mirror",
+      "kg": 20,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 20 kg\""
+    },
+    {
+      "slug": "avelino-silver-frame-wall-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "\"Weighing 11 kg\""
+    },
+    {
+      "slug": "avelino-illuminated-led-silver-round-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11 kg\""
+    },
+    {
+      "slug": "avelino-illuminated-led-gold-oval-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11 kg\""
+    },
+    {
+      "slug": "avelino-illuminated-led-silver-oval-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 11 kg\""
+    },
+    {
+      "slug": "relic-petrified-wood-tile-small-round-mirror",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11 kg\""
+    },
+    {
+      "slug": "trento-small-square-black-metal-frame-round-insert-wall-mirror",
+      "kg": 7.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7.1 kg\""
+    },
+    {
+      "slug": "descartes-black-frame-wall-mirror",
+      "kg": 13.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.4 kg\""
+    },
+    {
+      "slug": "terni-gold-finish-wall-mirror",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8 kg\""
+    },
+    {
+      "slug": "palu-rectangular-black-wall-mirror-with-shell-inlay",
+      "kg": 12.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 12.8 kg\""
+    },
+    {
+      "slug": "leonov-medium-gold-finish-wall-mirror",
+      "kg": 9.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.6 kg\""
+    },
+    {
+      "slug": "silva-large-oak-effect-silver-wall-mirror",
+      "kg": 17.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 17.5 kg\""
+    },
+    {
+      "slug": "jensen-rectangular-silver-wall-mirror",
+      "kg": 19.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 19.5 kg\""
+    },
+    {
+      "slug": "josie-silver-round-wall-mirror",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 10 kg\""
+    },
+    {
+      "slug": "dimaro-antique-grey-wall-mirror",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 15 kg\""
+    },
+    {
+      "slug": "darnell-small-black-geometric-planter-with-legs",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5 kg\""
+    },
+    {
+      "slug": "darnell-large-black-geometric-planter-with-legs",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 5 kg\""
+    },
+    {
+      "slug": "darnell-small-greyt-faceted-planter",
+      "kg": 9.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.8 kg\""
+    },
+    {
+      "slug": "darnell-small-white-finish-rounded-planter",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3.5 kg\""
+    },
+    {
+      "slug": "darnell-medium-grey-speckled-planter",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "\"weight of 5 kg\""
+    },
+    {
+      "slug": "darnell-large-grey-speckled-planter",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "\"weight of 7 kg\""
+    },
+    {
+      "slug": "darnell-small-white-planter",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11 kg\""
+    },
+    {
+      "slug": "darnell-white-and-black-small-planter",
+      "kg": 7.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7.2 kg\""
+    },
+    {
+      "slug": "darnell-white-and-black-large-planter",
+      "kg": 6.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 6.5 kg\""
+    },
+    {
+      "slug": "darnell-small-chevron-planter",
+      "kg": 12.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 12.8 kg\""
+    },
+    {
+      "slug": "darnell-small-black-and-white-finish-planter",
+      "kg": 12.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 12.7 kg.\""
+    },
+    {
+      "slug": "darnell-large-black-and-white-finish-planter",
+      "kg": 5.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight (kg): 5.4 kg\""
+    },
+    {
+      "slug": "darnell-large-face-planter",
+      "kg": 5.2,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 5.2 kg\""
+    },
+    {
+      "slug": "kiso-black-large-stoneware-planter",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10 kg\""
+    },
+    {
+      "slug": "yuri-small-ceramic-planter",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 15 kg\""
+    },
+    {
+      "slug": "yuri-white-and-gold-spotted-planter",
+      "kg": 18,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 18 kg\""
+    },
+    {
+      "slug": "yuri-large-terracotta-gold-spotted-planter",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14 kg\""
+    },
+    {
+      "slug": "yana-large-cream-textured-ceramic-planter",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14 kg\""
+    },
+    {
+      "slug": "hira-medium-blue-ribbed-glass-bottle",
+      "kg": 16,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 16 kg (carton weight)\""
+    },
+    {
+      "slug": "herbie-green-and-gold-large-glass-vase",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10 kg\""
+    },
+    {
+      "slug": "deomali-black-finish-large-bottle-vase",
+      "kg": 14.9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14.9 kg\""
+    },
+    {
+      "slug": "darnell-natural-and-black-planter",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.4 kg\""
+    },
+    {
+      "slug": "darnell-round-natural-and-black-vase",
+      "kg": 3.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.3 kg (empty)\""
+    },
+    {
+      "slug": "darnell-natural-and-black-planter-with-angular-legs",
+      "kg": 9.4,
+      "tier": "HIGH",
+      "from": "\"weighs 9.4 kg\""
+    },
+    {
+      "slug": "darnell-natural-and-black-tapered-planter",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.4 kg\""
+    },
+    {
+      "slug": "darnell-brown-textured-planter",
+      "kg": 4.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.4 kg\""
+    },
+    {
+      "slug": "darnell-round-brown-vase",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.5 kg (empty)\""
+    },
+    {
+      "slug": "darnell-brown-planter-with-angular-legs",
+      "kg": 9.6,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 9.6 kg\""
+    },
+    {
+      "slug": "darnell-round-brown-planter-with-angular-legs",
+      "kg": 5.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.1 kg\""
+    },
+    {
+      "slug": "darnell-small-natural-face-planter",
+      "kg": 9.9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.9 kg\""
+    },
+    {
+      "slug": "darnell-large-natural-face-planter",
+      "kg": 7.3,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 7.3 kg\""
+    },
+    {
+      "slug": "darnell-large-rustic-face-planter",
+      "kg": 7.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7.3 kg\""
+    },
+    {
+      "slug": "jada-large-planter",
+      "kg": 6.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 6.6 kg\""
+    },
+    {
+      "slug": "jada-large-abstract-planter",
+      "kg": 15.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 15.2 kg\""
+    },
+    {
+      "slug": "jada-small-abstract-planter",
+      "kg": 12.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: Cart Weight: 12.1 kg\""
+    },
+    {
+      "slug": "jada-large-abstract-vase",
+      "kg": 8.53,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8.53 kg\""
+    },
+    {
+      "slug": "jada-large-striped-planter",
+      "kg": 11.4,
+      "tier": "HIGH",
+      "from": "\"weighs 11.4 kg\""
+    },
+    {
+      "slug": "cayden-small-smoked-black-and-silver-vase",
+      "kg": 6.7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6.7 kg\""
+    },
+    {
+      "slug": "arlo-large-engraved-natural-and-black-wooden-planter",
+      "kg": 17.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 17.8 kg\""
+    },
+    {
+      "slug": "arlo-small-natural-wooden-planter",
+      "kg": 4.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.5 kg (empty)\""
+    },
+    {
+      "slug": "arlo-large-natural-wooden-planter",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 8.5 kg\""
+    },
+    {
+      "slug": "arlo-large-wooden-black-ombre-planter",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8.5 kg\""
+    },
+    {
+      "slug": "arlo-large-brown-and-natural-wooden-planter",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "spec \"Empty Weight: 5 kg\""
+    },
+    {
+      "slug": "tundra-black-and-white-earthenware-planter",
+      "kg": 3.4,
+      "tier": "HIGH",
+      "from": "\"weight of 3.4 kg\""
+    },
+    {
+      "slug": "sanai-white-cotton-mache-large-planter",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8 kg\""
+    },
+    {
+      "slug": "sanai-black-cotton-mache-large-planter",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8 kg\""
+    },
+    {
+      "slug": "sabia-green-and-gold-three-tiered-plant-stand",
+      "kg": 5.32,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 5.32 kg\""
+    },
+    {
+      "slug": "sabia-green-and-gold-two-tiered-plant-stand",
+      "kg": 3.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.5 kg\""
+    },
+    {
+      "slug": "quackpot-duck-feet-small-plant-stand",
+      "kg": 5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5 kg\""
+    },
+    {
+      "slug": "quackpot-duck-feet-large-plant-stand",
+      "kg": 3.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.6 kg\""
+    },
+    {
+      "slug": "hampstead-black-finish-large-pendant-light-with-hints-of-gold",
+      "kg": 16.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 16.1 kg\""
+    },
+    {
+      "slug": "antler-nickel-finish-and-black-4-shade-chandelier",
+      "kg": 9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9 kg\""
+    },
+    {
+      "slug": "relic-onyx-stone-floor-lamp",
+      "kg": 25,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 25 kg\""
+    },
+    {
+      "slug": "venice-nickel-plated-tapered-chandelier",
+      "kg": 4.8,
+      "tier": "HIGH",
+      "from": "\"Weight: 4.8 kg\""
+    },
+    {
+      "slug": "lustra-small-nickel-painted-chandelier",
+      "kg": 20.9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 20.9 kg\""
+    },
+    {
+      "slug": "mano-gold-floor-lamp",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10 kg\""
+    },
+    {
+      "slug": "abira-gold-finish-adjustable-8-arm-statement-pendant-light",
+      "kg": 5.5,
+      "tier": "HIGH",
+      "from": "\"Weight: 5.5 kg\""
+    },
+    {
+      "slug": "abira-silver-finish-adjustable-5-arm-statement-pendant-light",
+      "kg": 4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4 kg\""
+    },
+    {
+      "slug": "hubert-nickel-finish-arc-floor-lamp",
+      "kg": 23,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 23 kg\""
+    },
+    {
+      "slug": "skye-nickel-finish-rectangular-floor-lamp",
+      "kg": 14.48,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14.48 kg\""
+    },
+    {
+      "slug": "salasco-3-tier-nickel-finish-chandelier-38cm",
+      "kg": 13.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.7 kg\""
+    },
+    {
+      "slug": "salasco-black-finish-3-tiered-glass-chandelier",
+      "kg": 25.5,
+      "tier": "HIGH",
+      "from": "spec \"Total Weight: 25.5 kg\""
+    },
+    {
+      "slug": "alexis-nickel-finish-8-bulb-round-statement-pendant-light",
+      "kg": 23.4,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 23.4 kg\""
+    },
+    {
+      "slug": "newton-brass-finish-floor-lamp",
+      "kg": 6.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6.2 kg\""
+    },
+    {
+      "slug": "karli-3-tier-glass-statement-pendant-light",
+      "kg": 24.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 24.1 kg\""
+    },
+    {
+      "slug": "karter-chrome-finish-floor-lamp-with-three-lights",
+      "kg": 9.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.1 kg\""
+    },
+    {
+      "slug": "trieste-large-angular-pendant-light",
+      "kg": 3.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3.4 kg\""
+    },
+    {
+      "slug": "trieste-large-rectangular-pendant-light",
+      "kg": 3.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.6 kg\""
+    },
+    {
+      "slug": "palu-natural-white-and-amber-shell-large-pendant-shade",
+      "kg": 3.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3.2 kg\""
+    },
+    {
+      "slug": "orko-brass-and-black-16-bulb-statement-pendant-light",
+      "kg": 10.17,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 10.17 kg\""
+    },
+    {
+      "slug": "orbo-gold-and-frosted-glass-statement-pendant-light",
+      "kg": 2.95,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.95 kg\""
+    },
+    {
+      "slug": "enola-large-ribbed-smoked-glass-table-lamp",
+      "kg": 5.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 5.3 kg\""
+    },
+    {
+      "slug": "babylon-large-8-light-pendant-light",
+      "kg": 26.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 26.2 kg\""
+    },
+    {
+      "slug": "babylon-6-bulb-crystal-chandelier",
+      "kg": 9,
+      "tier": "HIGH",
+      "from": "\"Weight: 9 kg\""
+    },
+    {
+      "slug": "babylon-six-bulb-black-crystal-chandelier",
+      "kg": 10,
+      "tier": "HIGH",
+      "from": "spec \"Product weight: 10 kg\""
+    },
+    {
+      "slug": "babylon-six-bulb-chrome-chandelier",
+      "kg": 14.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14.3 kg\""
+    },
+    {
+      "slug": "babylon-four-bulb-antique-gold-chandelier",
+      "kg": 8.9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.9 kg\""
+    },
+    {
+      "slug": "newton-gold-finish-metal-shade-floor-lamp",
+      "kg": 15.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 15.1 kg\""
+    },
+    {
+      "slug": "abira-black-marble-and-brass-5-bulb-floor-lamp",
+      "kg": 27,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 27 kg\""
+    },
+    {
+      "slug": "abira-black-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "kg": 27,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 27 kg\""
+    },
+    {
+      "slug": "yara-matt-black-12-bulb-statement-pendant-light",
+      "kg": 17.3,
+      "tier": "HIGH",
+      "from": "\"Weight: 17.3 kg\""
+    },
+    {
+      "slug": "hutchinson-clear-crystal-table-lamp-with-black-metal",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 7 kg\""
+    },
+    {
+      "slug": "hutchinson-clear-crystal-floor-lamp-with-black-metal",
+      "kg": 17,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 17 kg\""
+    },
+    {
+      "slug": "hanah-black-snake-leather-effect-table-lamp-with-chrome-base",
+      "kg": 4.2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 4.2 kg\""
+    },
+    {
+      "slug": "hanah-black-snake-leather-effect-floor-lamp-with-chrome-base-and-black-shade",
+      "kg": 8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 8 kg\""
+    },
+    {
+      "slug": "atkins-nickel-finish-floor-lamp-with-white-shade",
+      "kg": 7.4,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7.4 kg\""
+    },
+    {
+      "slug": "equipoise-black-and-brass-finish-floor-lamp-with-marble-base",
+      "kg": 14.3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 14.3 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp",
+      "kg": 2.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.5 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-papier-mache-table-lamp-with-geometric-lines",
+      "kg": 4.2,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 4.2 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-curved-stripe-papier-mache-table-lamp",
+      "kg": 4.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.2 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-stripe-papier-mache-table-lamp-with-dome-shade",
+      "kg": 3.9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.9 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-stripe-papier-mache-domed-floor-lamp",
+      "kg": 13,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 13 kg\""
+    },
+    {
+      "slug": "carta-black-and-white-polka-dot-papier-mache-table-lamp",
+      "kg": 3.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.7 kg\""
+    },
+    {
+      "slug": "carta-oatmeal-etched-linear-design-papier-mache-domed-table-lamp",
+      "kg": 3.9,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.9 kg\""
+    },
+    {
+      "slug": "carta-black-etched-linear-design-papier-mache-table-lamp",
+      "kg": 3.9,
+      "tier": "HIGH",
+      "from": "\"Weight: 3.9 kg\""
+    },
+    {
+      "slug": "batu-set-of-2-natural-rattan-baskets",
+      "kg": 2.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 2.5 kg\""
+    },
+    {
+      "slug": "astratto-abstract-wall-art",
+      "kg": 13.6,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.6 kg\""
+    },
+    {
+      "slug": "astratto-natural-textured-canvas-wall-art",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 14 kg\""
+    },
+    {
+      "slug": "kendari-black-leather-and-teak-wood-chair",
+      "kg": 9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 9 kg\""
+    },
+    {
+      "slug": "hazel-natural-oak-wood-and-grey-fur-dining-chair",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 7 kg\""
+    },
+    {
+      "slug": "tamzin-blue-velvet-curved-back-dining-chair",
+      "kg": 26.3,
+      "tier": "HIGH",
+      "from": "\"Weight: 26.3 kg\""
+    },
+    {
+      "slug": "tamzin-dark-grey-leather-effect-curved-dining-chair",
+      "kg": 13.7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 13.7 kg\""
+    },
+    {
+      "slug": "kempton-grey-shagreen-effect-and-walnut-veneer-media-unit",
+      "kg": 61,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 61 kg\""
+    },
+    {
+      "slug": "milan-grey-wash-recycled-elm-wood-4-door-sideboard",
+      "kg": 70,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 70 kg\""
+    },
+    {
+      "slug": "deskey-grey-shagreen-effect-media-unit",
+      "kg": 75,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 75 kg\""
+    },
+    {
+      "slug": "ulmus-black-elm-wood-dining-table",
+      "kg": 66.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 66.2 kg\""
+    },
+    {
+      "slug": "ulmus-black-elm-wood-sideboard",
+      "kg": 107.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 107.5 kg\""
+    },
+    {
+      "slug": "ulmus-black-elm-wood-coffee-table",
+      "kg": 35.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 35.1 kg\""
+    },
+    {
+      "slug": "corso-black-bedside-table-with-rattan-drawer",
+      "kg": 9.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart weight: 9.5 kg\""
+    },
+    {
+      "slug": "surina-3-seat-stone-fabric-sofa",
+      "kg": 57.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57.80 kg\""
+    },
+    {
+      "slug": "lena-oak-veneer-round-side-table-with-brushed-gold-legs",
+      "kg": 16,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 16 kg\""
+    },
+    {
+      "slug": "lena-oak-veneer-rectangular-side-table-with-brushed-gold-legs",
+      "kg": 9.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 9.70 kg\""
+    },
+    {
+      "slug": "luxor-grey-wash-recycled-pine-wood-4-door-sideboard",
+      "kg": 82,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 82 kg\""
+    },
+    {
+      "slug": "luxor-grey-wash-recycled-pine-wood-console-table-with-drawers",
+      "kg": 31.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 31.50 kg\""
+    },
+    {
+      "slug": "lyon-washed-grey-oak-wood-and-glass-dining-table",
+      "kg": 84,
+      "tier": "HIGH",
+      "from": "\"Weight: 84 kg\""
+    },
+    {
+      "slug": "trento-round-rattan-and-antique-gold-finish-side-table",
+      "kg": 6,
+      "tier": "HIGH",
+      "from": "\"Weight: 6 kg\""
+    },
+    {
+      "slug": "trento-round-rattan-and-antique-gold-finish-coffee-table",
+      "kg": 9.26,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 9.26 kg\""
+    },
+    {
+      "slug": "batu-large-black-rattan-wall-shelf",
+      "kg": 4.7,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 4.7 kg\""
+    },
+    {
+      "slug": "batu-set-of-2-natural-rattan-side-tables",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.5 kg\""
+    },
+    {
+      "slug": "batu-set-of-2-black-rattan-side-tables",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.5 kg\""
+    },
+    {
+      "slug": "jakara-natural-finish-carved-media-unit",
+      "kg": 52,
+      "tier": "HIGH",
+      "from": "spec \"Carton weight: 52 kg\""
+    },
+    {
+      "slug": "jakara-black-finish-carved-media-unit",
+      "kg": 50.36,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 50.36 kg\""
+    },
+    {
+      "slug": "ralph-three-seat-mink-velvet-sofa",
+      "kg": 59,
+      "tier": "HIGH",
+      "from": "\"Weight: 59 kg\""
+    },
+    {
+      "slug": "boho-black-and-white-two-drawer-console-table",
+      "kg": 24.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 24.3 kg\""
+    },
+    {
+      "slug": "moda-black-faux-marble-rectangular-dining-table",
+      "kg": 108,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 108 kg\""
+    },
+    {
+      "slug": "simla-acacia-wood-media-unit",
+      "kg": 59.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 59.2 kg\""
+    },
+    {
+      "slug": "surati-sheesham-and-acacia-wood-media-unit",
+      "kg": 40,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 40 kg\""
+    },
+    {
+      "slug": "sarter-black-mango-wood-chest-of-4-drawers",
+      "kg": 48.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 48.3 kg\""
+    },
+    {
+      "slug": "boho-two-drawer-bedside-table-in-mango-wood",
+      "kg": 16.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 16.1 kg\""
+    },
+    {
+      "slug": "arti-mango-wood-and-brass-effect-media-unit",
+      "kg": 32.9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 32.9 kg\""
+    },
+    {
+      "slug": "opus-grey-woven-rope-three-seater-sofa-with-cushions",
+      "kg": 34,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 34 kg\""
+    },
+    {
+      "slug": "opus-woven-rope-chaise-longue-with-cushions",
+      "kg": 36,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 36 kg\""
+    },
+    {
+      "slug": "opus-linen-fabric-and-woven-rope-3-seat-sofa",
+      "kg": 40,
+      "tier": "HIGH",
+      "from": "\"Weight: 40 kg\""
+    },
+    {
+      "slug": "opus-rope-woven-longue-bench-with-cushions",
+      "kg": 33,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 33 kg\""
+    },
+    {
+      "slug": "cebu-elm-wood-and-rattan-dining-chair",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 15 kg\""
+    },
+    {
+      "slug": "grenoble-brushed-brass-multi-tier-shelving-unit",
+      "kg": 35.5,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 35.5 kg\""
+    },
+    {
+      "slug": "manado-black-natural-rattan-and-teak-chair",
+      "kg": 6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6 kg\""
+    },
+    {
+      "slug": "manado-relax-natural-rattan-chair",
+      "kg": 7,
+      "tier": "HIGH",
+      "from": "spec \"Product Weight: 7 kg\""
+    },
+    {
+      "slug": "manado-natural-rattan-sofa-with-cushions",
+      "kg": 13,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 13 kg\""
+    },
+    {
+      "slug": "manado-natural-rattan-long-bench-with-cushion",
+      "kg": 9,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 9 kg\""
+    },
+    {
+      "slug": "manado-natural-rattan-bean-shaped-bench-with-cream-cushion",
+      "kg": 6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 6 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-scalloped-accent-chair",
+      "kg": 12,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 12 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-flared-back-chair",
+      "kg": 12,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 12 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-peacock-accent-chair",
+      "kg": 110,
+      "tier": "HIGH",
+      "from": "\"weight of 110 kg\""
+    },
+    {
+      "slug": "java-black-rattan-peacock-accent-chair",
+      "kg": 110,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 110 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-round-chair",
+      "kg": 110,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 110 kg\""
+    },
+    {
+      "slug": "java-white-natural-rattan-curved-chair",
+      "kg": 110,
+      "tier": "HIGH",
+      "from": "spec \"Weight Capacity: 110 kg\""
+    },
+    {
+      "slug": "lyon-rattan-and-oak-wood-2-door-wardrobe",
+      "kg": 80,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 80 kg\""
+    },
+    {
+      "slug": "lyon-rattan-and-oak-wood-4-door-sideboard",
+      "kg": 80,
+      "tier": "HIGH",
+      "from": "\"weight: 80 kg\""
+    },
+    {
+      "slug": "parkside-oak-wood-round-dining-table",
+      "kg": 58.51,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 58.51 kg\""
+    },
+    {
+      "slug": "parkside-dark-oak-wood-round-dining-table",
+      "kg": 68.61,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 68.61 kg\""
+    },
+    {
+      "slug": "parkside-grey-fabric-super-kingsize-bed",
+      "kg": 86.67,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 86.67 kg\""
+    },
+    {
+      "slug": "siena-black-and-natural-oak-wood-three-door-sideboard",
+      "kg": 63,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 63 kg\""
+    },
+    {
+      "slug": "sabrina-three-seat-grey-velvet-sofa",
+      "kg": 51.4,
+      "tier": "HIGH",
+      "from": "\"Weight: 51.4 kg\""
+    },
+    {
+      "slug": "siena-three-seat-midnight-velvet-sofa",
+      "kg": 57.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57.5 kg\""
+    },
+    {
+      "slug": "imperia-ceramic-marble-effect-round-dining-table",
+      "kg": 46.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 46.1 kg\""
+    },
+    {
+      "slug": "naro-mango-wood-and-gold-tip-legs-side-table",
+      "kg": 8.6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.6 kg\""
+    },
+    {
+      "slug": "naro-mango-wood-and-gold-finish-console-table",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14 kg\""
+    },
+    {
+      "slug": "naro-mango-wood-and-gold-finishing-coffee-table",
+      "kg": 18,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 18 kg\""
+    },
+    {
+      "slug": "spezia-grey-marble-top-media-unit",
+      "kg": 103.5,
+      "tier": "HIGH",
+      "from": "spec \"Product weight: 103.5 kg\""
+    },
+    {
+      "slug": "saronno-grey-marble-top-media-unit",
+      "kg": 54.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 54.5 kg\""
+    },
+    {
+      "slug": "obra-cream-mother-of-pearl-console-table",
+      "kg": 15,
+      "tier": "HIGH",
+      "from": "\"weighing 15kg\""
+    },
+    {
+      "slug": "java-natural-rattan-with-black-metal-armchair",
+      "kg": 8.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 8.5kg\""
+    },
+    {
+      "slug": "java-natural-rattan-round-back-accent-chair",
+      "kg": 7.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7.5 kg\""
+    },
+    {
+      "slug": "azalea-round-white-marble-top-dining-table",
+      "kg": 39.81,
+      "tier": "HIGH",
+      "from": "spec \"Carton weight: 39.81 kg\""
+    },
+    {
+      "slug": "brando-acacia-wood-effect-dining-table",
+      "kg": 57.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57.5 kg\""
+    },
+    {
+      "slug": "nashik-three-drawer-acacia-media-unit",
+      "kg": 43,
+      "tier": "HIGH",
+      "from": "spec \"Cart weight: 43 kg\""
+    },
+    {
+      "slug": "nashik-three-drawer-acacia-side-table",
+      "kg": 22.9,
+      "tier": "HIGH",
+      "from": "\"Weight: 22.9 kg\""
+    },
+    {
+      "slug": "nashik-large-acacia-sideboard",
+      "kg": 76.3,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 76.3 kg\""
+    },
+    {
+      "slug": "salem-4-door-mango-wood-sideboard",
+      "kg": 90.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 90.5 kg\""
+    },
+    {
+      "slug": "kochi-black-mango-wood-side-table-with-3-drawers",
+      "kg": 14.6,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14.6 kg\""
+    },
+    {
+      "slug": "gaya-mango-wood-chest-of-5-drawers",
+      "kg": 40.9,
+      "tier": "HIGH",
+      "from": "spec \"Carton weight: 40.9 kg\""
+    },
+    {
+      "slug": "corra-white-marble-side-table-with-column-base",
+      "kg": 7.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 7.1 kg\""
+    },
+    {
+      "slug": "corra-side-table-with-black-marble-top",
+      "kg": 10.42,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 10.42 kg\""
+    },
+    {
+      "slug": "java-natural-rattan-bar-chair",
+      "kg": 8.2,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 8.2 kg\""
+    },
+    {
+      "slug": "cebu-white-wash-elm-wood-dining-chair",
+      "kg": 11,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 11 kg\""
+    },
+    {
+      "slug": "cebu-grey-wash-elm-wood-dining-chair",
+      "kg": 11.2,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 11.2 kg\""
+    },
+    {
+      "slug": "ordona-cream-linen-3-seater-curved-sofa",
+      "kg": 89,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 89 kg\""
+    },
+    {
+      "slug": "avignon-3-seat-textured-fabric-cream-sofa",
+      "kg": 57,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 57 kg\""
+    },
+    {
+      "slug": "troyes-cream-three-seat-right-chaise-sofa",
+      "kg": 81,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 81 kg\""
+    },
+    {
+      "slug": "troyes-cream-three-seat-left-chaise-sofa",
+      "kg": 81,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 81 kg\""
+    },
+    {
+      "slug": "troyes-grey-three-seat-right-chaise-sofa",
+      "kg": 81,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 81 kg\""
+    },
+    {
+      "slug": "troyes-grey-three-seat-left-chaise-sofa",
+      "kg": 81,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 81 kg\""
+    },
+    {
+      "slug": "azalea-large-black-conical-base-round-dining-table",
+      "kg": 33.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 33.5 kg\""
+    },
+    {
+      "slug": "perdoba-cream-textured-linen-dining-chair-with-black-metal-frame",
+      "kg": 14,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 14 kg\""
+    },
+    {
+      "slug": "persolo-mango-wood-live-edge-black-metal-legs-dining-table",
+      "kg": 60.46,
+      "tier": "HIGH",
+      "from": "spec \"Carton Weight: 60.46 kg\""
+    },
+    {
+      "slug": "palermo-round-travertine-top-large-coffee-table",
+      "kg": 40.25,
+      "tier": "HIGH",
+      "from": "\"Weight: 40.25 kg\""
+    },
+    {
+      "slug": "torello-boucle-fabric-and-mango-wood-dining-chair",
+      "kg": 12.5,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight (kg): 12.5 kg\""
+    },
+    {
+      "slug": "palermo-travertine-top-and-brown-acacia-wood-console-table",
+      "kg": 30,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 30 kg\""
+    },
+    {
+      "slug": "babel-round-travertine-and-mango-wood-side-table",
+      "kg": 12.4,
+      "tier": "HIGH",
+      "from": "\"Weight: 12.4 kg\""
+    },
+    {
+      "slug": "babel-travertine-and-mango-wood-curved-console-table",
+      "kg": 54,
+      "tier": "HIGH",
+      "from": "\"weighing 54kg\""
+    },
+    {
+      "slug": "babel-travertine-and-mango-wood-2-door-curved-sideboard",
+      "kg": 84,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 84 kg\""
+    },
+    {
+      "slug": "babel-travertine-and-mango-wood-curved-media-unit",
+      "kg": 70,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 70 kg\""
+    },
+    {
+      "slug": "barto-round-mango-wood-carved-ridged-side-table-and-stool",
+      "kg": 16.1,
+      "tier": "HIGH",
+      "from": "\"Weight: 16.1 kg\""
+    },
+    {
+      "slug": "barto-round-black-mango-wood-carved-ridge-side-table-and-stool",
+      "kg": 16.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 16.1 kg\""
+    },
+    {
+      "slug": "barola-round-brown-marble-and-mango-wood-carved-side-table",
+      "kg": 13.8,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 13.8 kg\""
+    },
+    {
+      "slug": "barola-round-brown-marble-and-mango-wood-carved-tiered-side-table",
+      "kg": 13.8,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 13.8 kg\""
+    },
+    {
+      "slug": "allegra-champagne-finish-soap-dish",
+      "kg": 2.3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 2.3 kg\""
+    },
+    {
+      "slug": "allegra-champagne-finish-toothbrush-holder",
+      "kg": 2,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2 kg\""
+    },
+    {
+      "slug": "allegra-champagne-finish-bathroom-jar",
+      "kg": 3.1,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3.1 kg\""
+    },
+    {
+      "slug": "allegra-champagne-finish-tissue-box",
+      "kg": 3.1,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3.1 kg\""
+    },
+    {
+      "slug": "allegra-etched-metallic-bathroom-tray",
+      "kg": 2.5,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.5 kg\""
+    },
+    {
+      "slug": "allegra-hammered-effect-soap-dispenser",
+      "kg": 2.7,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 2.7 kg\""
+    },
+    {
+      "slug": "allegra-brown-glass-soap-dispenser",
+      "kg": 3,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 3 kg\""
+    },
+    {
+      "slug": "allegra-brown-glass-bathroom-tumbler",
+      "kg": 3,
+      "tier": "HIGH",
+      "from": "spec \"Cart Weight: 3 kg\""
+    },
+    {
+      "slug": "sika-white-marble-and-gold-floor-lamp",
+      "kg": 22,
+      "tier": "HIGH",
+      "from": "spec \"Weight: 22 kg\""
+    },
+    {
+      "slug": "easton-2-drawer-chest-of-drawers",
+      "kg": 55,
+      "tier": "HIGH",
+      "from": "spec \"Packed weight: 55kg\""
+    },
+    {
+      "slug": "vertex-square-basket",
+      "kg": 4.2,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "lentigo-set-of-two-natural-planters",
+      "kg": 7.5,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "verdian-red-heart-diy-wall-clock",
+      "kg": 8.2,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "lagom-black-natural-rattan-chair-with-iron-legs",
+      "kg": 100,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "lagom-curved-black-natural-rattan-chair",
+      "kg": 100,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "hannah-mink-velvet-ottoman-double-bed",
+      "kg": 100,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "wimslow-blacktempered-glass-dining-table-with-6-chairs",
+      "kg": 50,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "morano-6-bulb-smoked-crystal-glass-chandelier",
+      "kg": 8.4,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "wyra-champagne-gold-frame-pendant-light",
+      "kg": 1.8,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "hampstead-white-and-oak-wood-coffee-table-with-drawers",
+      "kg": 100,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "lyon-grey-finish-oak-wood-dining-table",
+      "kg": 100,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "darnell-large-black-finish-planter",
+      "kg": 9.1,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "darnell-large-chevron-planter",
+      "kg": 5.3,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "yuri-large-ceramic-planter",
+      "kg": 14,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "yana-small-cream-textured-ceramic-planter",
+      "kg": 12,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "darnell-small-rustic-face-planter",
+      "kg": 9.9,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "arlo-small-wooden-black-ombre-planter",
+      "kg": 4.5,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "salasco-2-tier-nickel-finish-glass-chandelier",
+      "kg": 16.3,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "abira-white-marble-and-nickel-finish-5-bulb-floor-lamp",
+      "kg": 27,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "saira-carved-mango-wood-4-door-sideboard",
+      "kg": 20,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "java-black-rattan-round-back-accent-chair",
+      "kg": 110,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    },
+    {
+      "slug": "fusion-two-drawers-with-bone-inlay-console-table",
+      "kg": 27.8,
+      "tier": "MEDIUM",
+      "from": "single figure in copy"
+    }
+  ],
+  "ambiguous": [
+    {
+      "slug": "babylon-large-black-12-light-pendant-light",
+      "from": "2 different figures: 43.3, 43"
+    }
+  ]
+}
