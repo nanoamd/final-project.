@@ -72,6 +72,49 @@ follows. That second-order effect is worth more than the traffic.
 
 ---
 
+## Full listing-prep sheet, with costs and every eBay field (17 September)
+
+Damien: _"give me a list with there cost prices, descriptions titles and every
+other bit of info ebay requires"_.
+
+`scripts/build-listing-prep-sheet.ts` -> `docs/change-log/2026-09-17-listing-prep-under-100.csv`
+
+**303 rows, 36 columns.** Ten internal columns prefixed `_` (cost, carriage,
+profit, margin %, supplier, supplier SKU, permission, stock, photo count) then
+every field eBay asks for: 80-character title, HTML description built from
+stored facts, condition, price, quantity, format, duration, location, postcode,
+handling time derived from the stated lead time, SKU, EAN, MPN, and item
+specifics for brand, colour, material, room, style, all three dimensions,
+weight, plus every photo URL.
+
+**The cost columns must not be uploaded.** They are prefixed and grouped at the
+front so they delete in one go. `build-ebay-file-exchange.ts` remains the file
+eBay actually reads and carries no cost data at all.
+
+### What the sheet exposes
+
+|                                         |         |
+| --------------------------------------- | ------: |
+| Marketplace-permitted                   |  **58** |
+| Need a supplier ask first               | **245** |
+| Carriage confirmed                      |      86 |
+| Margin overstated (no carriage)         | **217** |
+| No EAN — limits eBay catalogue matching |      42 |
+| No weight — needed for postage          | **170** |
+| Fewer than 2 photographs                |      28 |
+
+The top row by margin is an Aosom product at 85.5% — and it is `NOT PERMITTED`
+with carriage unknown. That is the sheet working: the highest number on the page
+is the one not to act on.
+
+- [x] `scripts/build-listing-prep-sheet.ts`, 303 rows, 36 columns
+- [ ] **170 products have no weight.** eBay calculates postage from it, and
+      without it the shipping is guessed. Worth a pass
+- [ ] 42 have no EAN, which stops eBay matching them to its catalogue
+- [!] 245 of 303 need a supplier permission before they can be listed at all
+
+---
+
 ## The bulk upload is gated behind one sale (17 September)
 
 Damien: _"there is no upload button on reports"_.
@@ -775,11 +818,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                          | --- | --- | --- |
-                                                                          | /shop/lighting | 2,175KB | **455KB** |
-                                                                          | /shop/planters | 1,098KB | **290KB** |
-                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                          | /shop/all | 12.79MB | **2.94MB** |
+                                                                              | --- | --- | --- |
+                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4531,11 +4574,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
