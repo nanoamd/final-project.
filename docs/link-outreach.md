@@ -247,6 +247,62 @@ volume that makes it spam, not the format.
 
 ---
 
+## "If I get 20 links, where will I rank?"
+
+No one can answer that with a position, and anyone who gives you a number is
+guessing. What can be said honestly is what 20 links makes possible and what it
+does not.
+
+### 20 links is not 20 links
+
+From the tiers above, a realistic 20 breaks down roughly as:
+
+- **6-8 nofollow** — the newspaper, most directories, some blogs. These pass no
+  ranking signal at all.
+- **8-10 low-value but real** — supplier stockist listings, a trade body, a
+  local sponsor. Each one is a small trust signal; none moves a term.
+- **2-4 genuinely good** — an interiors blog with its own traffic, a followed
+  link from a journalist request.
+
+So 20 links is about **3 to 5 that actually do anything**. That is the normal
+distribution, not pessimism.
+
+### The constraint nobody can buy past: the site is seven weeks old
+
+Oldest product 26 July 2026, repo from 13 August. Google is measurably cautious
+with new domains — not a formal penalty, but the observed lag is real and it is
+months, not weeks. A seven-week-old domain does not reach position 1 on a
+contested term with 20 links, however good the page is.
+
+### What 20 links realistically buys, by type of term
+
+| Term type     | Example                                      | Today   | With ~20 links, 6 months                                                                           |
+| ------------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| **Head**      | `coffee table size guide`                    | 85      | **20-45.** Page 2-4. Not page 1 — the sites there have years of age and far more referring domains |
+| **Long tail** | `what size coffee table for a 2 seater sofa` | nowhere | **Page 1 is genuinely achievable.** Almost nothing competes, and the content now exists to match   |
+| **Product**   | `teak corner shelf`                          | 22      | **Still nowhere.** eBay, Etsy and Wayfair are not beatable at this scale                           |
+
+**The long tail is the good news, not the consolation prize.** Someone typing
+"what size coffee table for a 2 seater sofa" is far closer to buying than
+someone typing "coffee table size guide". Lower volume, much higher intent, and
+it is the traffic a shop this size can actually convert.
+
+### Timing
+
+Links take two to eight weeks to be crawled and counted, then months to be
+reflected in position. Twenty links acquired in October show up properly around
+January to March.
+
+### What would make this answer tighter
+
+A backlink tool. With Ahrefs or Semrush I could count the referring domains of
+the sites currently beating you and say "they have N, you have 0, 20 puts you
+in the same band". Without one, the table above is reasoned from SERP
+composition and site age rather than measured. Ahrefs Webmaster Tools is free
+but only shows your own site, which does not answer this question.
+
+---
+
 ## What to expect
 
 Honest numbers, not encouragement.
