@@ -18,7 +18,25 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: "/",
+      /**
+       * `/api/feeds/` is allowed back, and it is not a loosening.
+       *
+       * `Disallow: /api/` blocked `/api/feeds/google-merchant`, and Merchant
+       * Center's scheduled fetch obeys robots.txt. So the feed was configured
+       * as a product source, answered 200 with 908 items to anything that
+       * asked, and was refused to the one client that mattered — which is why
+       * Merchant Center read **"Provided by you: 0"** while holding 524
+       * products it had crawled off the site by itself.
+       *
+       * Per RFC 9309 the longest matching rule wins, so `/api/feeds/` (11
+       * characters) beats `/api/` (5) and the rest of `/api/` stays blocked.
+       * Listing it before the disallow is for humans reading the file; the
+       * spec does not care about order.
+       *
+       * Nothing under `/api/feeds/` is private: it is a product catalogue we
+       * are actively trying to get indexed.
+       */
+      allow: ["/", "/api/feeds/"],
       disallow: [
         "/studio",
         "/admin",

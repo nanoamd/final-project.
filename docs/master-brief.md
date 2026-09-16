@@ -419,7 +419,16 @@ Feed sends 908 rows.
 - [x] `scripts/audit-merchant-feed.ts` — read-only, no token, reruns the check
 - [x] The "907 products" heading corrected in place rather than quietly edited
 - [x] Cause found: the feed was never added as a product source
-- [!] **Add the feed URL as a product source.** Two minutes, +384 products
+- [x] **ROOT CAUSE FOUND — robots.txt was blocking the feed.** Damien: _"weve
+      already done this"_ — the source was configured all along. `Disallow:
+    /api/` blocked `/api/feeds/google-merchant`, and Merchant Center's
+      scheduled fetch obeys robots.txt, so every fetch was refused before it
+      started. The feed answered 200 with 908 items to everything except the one
+      client that mattered. Fixed in `src/app/robots.ts` with `Allow:
+    /api/feeds/` — longest match wins under RFC 9309, so the rest of `/api/`
+      stays blocked
+- [!] **Deploy, then press Fetch now** on the existing product source. Nothing
+  else to configure — it was never a setup problem
 - [ ] 99 products have a single image — not a disapproval, but a Shopping tile
       with no second shot converts worse
 
@@ -852,11 +861,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                      | --- | --- | --- |
-                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                          | --- | --- | --- |
+                                                                                          | /shop/lighting | 2,175KB | **455KB** |
+                                                                                          | /shop/planters | 1,098KB | **290KB** |
+                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4608,11 +4617,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
