@@ -16,6 +16,51 @@ Status key:
 
 ---
 
+## The real baseline is 297 UK impressions, not 2,500 (16 September)
+
+Damien: _"No I don't ffs I don't appear at all for beer barrel stool"_ — after
+being told the site ranked first for it.
+
+### He was right, and the reason matters more than the error
+
+- [!] **Every impression for "beer barrel stool" was Germany and the
+  Netherlands.** Four days in early September, desktop, **zero UK
+  impressions**. The site has never appeared for that query in Britain, so
+  of course he could not find it.
+- [!] **Only 22% of this site's search visibility is UK.** Last 30 days:
+
+      | Market | Impressions | Clicks |
+      | --- | --- | --- |
+      | **United Kingdom** | **297** | **22** |
+      | Netherlands | 197 | 0 |
+      | Germany | 181 | 1 |
+      | United States | 175 | 2 |
+      | Denmark | 51 | 0 |
+      | India | 50 | 1 |
+      | Everything else | ~400 | ~3 |
+
+- [!] **THE BASELINE FOR EVERY TARGET IS THE UK NUMBER: 297 impressions and 22
+  clicks a month.** Not the ~2,500 impressions and ~60 clicks quoted
+  earlier in this session. Anything measured against the global figure is
+  measuring a market Kaiku cannot serve — **Hill Interiors state they
+  cannot dropship to the EU at all**, so the Netherlands and Germany, the
+  two largest sources after the UK, are unfulfillable.
+
+### Three misreadings in a row, from the same mistake
+
+- [!] **"/tools at position 5 with no clicks — a title problem."** Wrong. The
+  average was inflated by brand junk; the real terms sit at 73–80.
+- [!] **"The clock page is at position 10 for 'how to measure clock size'."**
+  Wrong. That was **one impression in thirty days**, not a ranking.
+- [!] **"You already rank #1 for beer barrel stool."** Wrong. Germany and the
+  Netherlands only.
+- [x] **All three are the same error: quoting a Search Console average without
+      splitting it.** The rule from here: **no position is reported without
+      breaking it down by country and search type first.** An average over five
+      impressions across two foreign countries is not a ranking.
+
+---
+
 ## The tool pages had nothing to rank with (16 September)
 
 Damien: _"Clock size also isn't true I just searched how to measure clock size
@@ -229,11 +274,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                          | --- | --- | --- |
-                          | /shop/lighting | 2,175KB | **455KB** |
-                          | /shop/planters | 1,098KB | **290KB** |
-                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                          | /shop/all | 12.79MB | **2.94MB** |
+                              | --- | --- | --- |
+                              | /shop/lighting | 2,175KB | **455KB** |
+                              | /shop/planters | 1,098KB | **290KB** |
+                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -3985,11 +4030,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
