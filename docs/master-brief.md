@@ -115,6 +115,50 @@ is the one not to act on.
 
 ---
 
+## The feed is in — and every item was missing shipping (17 September)
+
+The Merchant Center source finally fetched. **"Provided by you" went 0 -> 669.**
+Then 666 of those 669 came back **"Not showing on Google"**.
+
+### Cause: the feed declared no shipping at all
+
+`<g:shipping>` count in the live feed: **0**. It sent handling time and nothing
+else. Merchant Center needs shipping from one of two places — the feed, or the
+account's shipping settings — and with neither it disapproves everything. 669 in,
+666 immediately not showing, is exactly that shape.
+
+Ruled out first, so this is not another guess:
+
+| Checked        | Result                                                                                                                                                                                   |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Image URLs     | 200, `image/jpeg`, real bytes on all three sampled                                                                                                                                       |
+| Feed itself    | 200, 1.7MB, 908 items, `application/xml`, 0.78s                                                                                                                                          |
+| Fields present | id, title, price, availability, brand, gtin, sku, condition, colour, material, product_type, google_product_category, image_link, additional_image_link, handling time — **no shipping** |
+
+### Fixed in the feed rather than in account settings
+
+Every item now carries GB / Free UK delivery / 0.00 GBP. Verified in a build
+with the feed enabled: **908 items, 908 shipping blocks.**
+
+£0.00 is not an optimistic rounding. "Free UK delivery" is the claim on the
+cart, the product summary, the delivery tab and the homepage, and checkout adds
+no shipping line — confirmed in the code before writing it. A feed that
+disagreed with its own landing page is the mismatch Merchant Center suspends
+accounts over.
+
+GB only, deliberately: Hill Interiors cannot dropship to the EU, so there is no
+rate to declare elsewhere and inventing one would invite orders we cannot fill.
+
+- [x] `<g:shipping>` on all 908 items, verified in the build output
+- [!] Deploy, then **Update** the source again. 666 should clear
+- [ ] 669 ingested of 908 sent — **239 unaccounted for.** Worth reading once the
+      shipping disapprovals clear, because right now they are drowned out
+- [-] Not fixed in Merchant Center's shipping settings instead. Both work; the
+  feed keeps the answer in the repo rather than in a console nobody
+  remembers changing
+
+---
+
 ## The bulk upload is gated behind one sale (17 September)
 
 Damien: _"there is no upload button on reports"_.
@@ -421,11 +465,11 @@ Feed sends 908 rows.
 - [x] Cause found: the feed was never added as a product source
 - [x] **ROOT CAUSE FOUND — robots.txt was blocking the feed.** Damien: _"weve
       already done this"_ — the source was configured all along. `Disallow:
-  /api/` blocked `/api/feeds/google-merchant`, and Merchant Center's
+/api/` blocked `/api/feeds/google-merchant`, and Merchant Center's
       scheduled fetch obeys robots.txt, so every fetch was refused before it
       started. The feed answered 200 with 908 items to everything except the one
       client that mattered. Fixed in `src/app/robots.ts` with `Allow:
-  /api/feeds/` — longest match wins under RFC 9309, so the rest of `/api/`
+/api/feeds/` — longest match wins under RFC 9309, so the rest of `/api/`
       stays blocked
 - [x] **New feed URL that no rule has ever touched.** Damien: _"its not doing
       anything. make a new feed"_ — right, because Google caches robots.txt for up
@@ -874,11 +918,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                              | --- | --- | --- |
-                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                  | --- | --- | --- |
+                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                  | /shop/planters | 1,098KB | **290KB** |
+                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4630,11 +4674,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

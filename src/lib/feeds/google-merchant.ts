@@ -23,6 +23,31 @@ import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
+/**
+ * Shipping, declared per item rather than left to account settings.
+ *
+ * The feed sent handling time and no `g:shipping` at all. Merchant Center needs
+ * shipping from one of two places — the feed, or the account's shipping
+ * settings — and with neither it disapproves the lot. The first successful
+ * fetch bore that out: 669 products ingested and 666 immediately "Not showing
+ * on Google".
+ *
+ * £0.00 is not a guess and not an optimistic rounding. "Free UK delivery" is
+ * the site-wide claim on the cart, the product summary, the delivery tab and
+ * the homepage, and checkout adds no shipping line. Declaring anything else
+ * here would be the feed disagreeing with the landing page, which is the
+ * mismatch Merchant Center suspends accounts over.
+ *
+ * GB only, deliberately. Hill Interiors cannot dropship to the EU at all, so
+ * there is no rate to declare for anywhere else and inventing one would invite
+ * orders that cannot be fulfilled.
+ */
+const SHIPPING_ELEMENT = `<g:shipping>
+      <g:country>GB</g:country>
+      <g:service>Free UK delivery</g:service>
+      <g:price>0.00 GBP</g:price>
+    </g:shipping>`;
+
 function escapeXml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
@@ -216,6 +241,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
     }
     ${handling ? `<g:min_handling_time>${handling.min}</g:min_handling_time>` : ""}
     ${handling ? `<g:max_handling_time>${handling.max}</g:max_handling_time>` : ""}
+    ${SHIPPING_ELEMENT}
   </item>`;
     })
     .join("\n");
