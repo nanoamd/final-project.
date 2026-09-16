@@ -22,6 +22,24 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.name,
+    /**
+     * The names people actually search, because "Kaiku" alone is contested.
+     *
+     * Search Console, last 30 days: the query "kaiku" returns this site at
+     * **position 17** — Kaiku is a Finnish dairy brand and a Spanish drinks
+     * company, and both outrank a two-month-old shop. The domain is
+     * kaikuhome.com and "Kaiku Home" is what someone who half-remembers the
+     * name will type, so both belong here. `alternateName` is how an entity
+     * tells Google which strings refer to it.
+     *
+     * This is a signal, not a fix. What actually resolves a contested brand
+     * name is `sameAs` — profiles on other sites that Google already trusts,
+     * all pointing back here. There are none yet, and inventing URLs for
+     * profiles that do not exist would be worse than omitting the property.
+     * The moment the Pinterest and eBay accounts exist, they go in `sameAs`
+     * and this becomes a real answer instead of half of one.
+     */
+    alternateName: ["Kaiku Home", "kaikuhome", "Kaiku Home Store"],
     // The trader's own name, because Kaiku is a sole trader rather than a company.
     legalName: siteConfig.legalName,
     url: siteConfig.url,
@@ -48,24 +66,29 @@ export function OrganizationJsonLd() {
 }
 
 /**
- * Sitewide WebSite + SearchAction schema — tells Google the site has an
- * internal search it can offer as a sitelinks searchbox. Rendered once in
- * the root layout, alongside OrganizationJsonLd.
+ * Sitewide WebSite schema, rendered once in the root layout alongside
+ * OrganizationJsonLd.
+ *
+ * `alternateName` for the same reason it is on the Organization: "Kaiku" is
+ * contested and "Kaiku Home" is what people type.
+ *
+ * THE SEARCHACTION IS GONE, and that is a fix rather than a removal. It
+ * declared a sitelinks searchbox pointing at `/search?q=`, and `/search` is
+ * disallowed in robots.txt — deliberately, because it is the one route that
+ * cannot be prerendered and a bot walking query strings pays for a serverless
+ * invocation each time. Google cannot offer a searchbox it is forbidden to
+ * crawl, so the markup was never going to do anything except assert something
+ * untrue about the site. Either the searchbox is crawlable or it is not
+ * claimed; it is not crawlable, so it is not claimed.
  */
 export function WebsiteJsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: siteConfig.name,
+    alternateName: ["Kaiku Home", "kaikuhome", "Kaiku Home Store"],
     url: siteConfig.url,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+    publisher: { "@type": "Organization", name: siteConfig.name },
   };
   return (
     <script

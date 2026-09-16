@@ -16,6 +16,61 @@ Status key:
 
 ---
 
+## Brand search, and a correction I had to make mid-task (16 September)
+
+Damien: _"I want thousands of monthly visitors within 12 months"_, then
+_"get this done"_.
+
+### What the live Search Console data actually says
+
+- [x] **Last 30 days: ~2,500 impressions, ~60 clicks.** The trend is real:
+      August averaged 20 impressions a day, September is averaging 82. The
+      Merchant feed and the new content are landing.
+- [!] **The largest single query is
+  `"saunaplunge yorkshire cabin 2-person outdoor infrared sauna | kaiku"`
+  — 271 impressions, position 1, zero clicks.** That is a product title
+  with the suffix, not demand. Hundreds of /shop rows are this shape:
+  position 1, one or two impressions, no clicks. It inflates the totals
+  and means nothing.
+- [!] **Kaiku ranks 17th for "kaiku".** Kaiku is a Finnish dairy brand and a
+  Spanish drinks company, and both outrank a two-month-old shop.
+
+### A claim I made and then had to withdraw
+
+- [-] **I told Damien /tools was "111 impressions at position 5 with zero
+  clicks — a title problem". It is not.** That average was inflated by
+  brand and junk queries ("kaiku design", "kaiku height in feet"). Pulling
+  the per-query data shows the tools sit at **position 73–80** for the
+  terms they are built for — "dining table size calculator" at 79.5.
+  Rewriting titles would have changed nothing. Corrected before any work
+  was done on it, which is the only reason it cost nothing.
+
+### What was actually fixed
+
+- [x] **`alternateName: ["Kaiku Home", "kaikuhome", "Kaiku Home Store"]`** on
+      both Organization and WebSite schema. The domain is kaikuhome.com and
+      "Kaiku Home" is what someone half-remembering the name types.
+- [x] **The SearchAction is removed, and that is a fix.** It declared a
+      sitelinks searchbox pointing at `/search?q=`, and `/search` is
+      disallowed in robots.txt on purpose. Google cannot offer a searchbox it
+      is forbidden to crawl, so the markup asserted something untrue. Either
+      the searchbox is crawlable or it is not claimed.
+- [!] **`sameAs` is the property that would actually resolve a contested brand
+  name, and it cannot be written yet.** It lists profiles on sites Google
+  already trusts, all pointing back here. There are none. Inventing URLs
+  for profiles that do not exist would be worse than omitting it. **The
+  day the Pinterest and eBay accounts exist, they go in `sameAs`** and
+  this becomes a real answer rather than half of one.
+
+### The honest constraint on "thousands a month"
+
+- [!] **It is not content quality and it is not technical — it is links.** The
+  coffee table guide is well written, structured and internally linked,
+  and sits at **position 85**. The tools sit at 73–80. That gap is
+  authority, and no amount of writing closes it alone.
+
+---
+
 ## Closing the editorial-link tail (16 September)
 
 Continuing the overnight SEO work.
@@ -95,11 +150,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-              | --- | --- | --- |
-              | /shop/lighting | 2,175KB | **455KB** |
-              | /shop/planters | 1,098KB | **290KB** |
-              | /shop/garden-furniture | 1,177KB | **259KB** |
-              | /shop/all | 12.79MB | **2.94MB** |
+                  | --- | --- | --- |
+                  | /shop/lighting | 2,175KB | **455KB** |
+                  | /shop/planters | 1,098KB | **290KB** |
+                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -3851,11 +3906,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
