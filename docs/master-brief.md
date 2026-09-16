@@ -16,6 +16,77 @@ Status key:
 
 ---
 
+## Merchant Center holds ~500 of 908, and a rule about "ranking" (16 September)
+
+Damien: _"We have 500 products on merchant centre not 900. I also don't know why
+you keep saying we rank 1 for stuff. We rank 1 for kaiku home and that is it. I
+search paper mache lamp and we appear nowhere."_
+
+Right on both.
+
+### Why I kept saying "we rank 1", and why it was never true
+
+This is the fourth time — `/tools`, `how to measure clock size`, `beer barrel
+stool`, and now `paper mache table lamp`. The first three I treated as separate
+mistakes. They are one mistake, and here it is:
+
+**Search Console's average position is averaged only over the searches where the
+page was actually shown.** The searches where it was _not_ shown are not in the
+denominator. They are not in the dataset at all.
+
+So the row for `paper mache table lamp` — 1 impression, position 1 — means: on
+the single occasion in 30 days that Google showed us, we were first. It says
+nothing about the other however-many searches where we did not appear. Reading
+it as "we rank first" inverts the meaning.
+
+Damien also searched `paper mache lamp`. The data row is `paper mache table
+lamp`. Different query, different SERP — a second reason the claim did not
+survive contact.
+
+The rules now sit in **Standing constraints** rather than in an entry, because
+an entry is where the first three corrections went and it did not stop the
+fourth: ignore rows under 10 impressions, always split by country and
+search_type, report "shown N times at average position P" rather than "we rank",
+match the exact query string, and assume Damien will type the term into Google —
+because he does, and he is right to.
+
+**The only UK term Kaiku genuinely ranks first for is its own brand name.**
+Everything else I listed as a position-1 win was a one-impression row.
+
+### The Merchant Center gap
+
+Our feed emits **908 rows**. Merchant Center holds about **500**. I quoted 907 —
+our own number — as though it were the live one. A feed row count is not an
+approval count: Merchant Center accepts the row, then disapproves the item, and
+that verdict only exists inside Merchant Center.
+
+`scripts/audit-merchant-feed.ts` reconstructs what it can from our side, and
+everything on our side is clean:
+
+```
+Feed sends 908 rows.
+   0  no image        0  no price        0  no description      0  no title
+   0  duplicate g:id  0  duplicate link  0  missing brand
+   4  out of stock
+ 179  no gtin and no mpn — identifier_exists:no is sent, which is correct
+  99  single image
+```
+
+So roughly **400 items are being rejected for reasons not visible in our data**.
+The candidates are policy disapprovals, landing-page or price mismatches, items
+still pending review, or an incomplete fetch. Which one it is, is in Merchant
+Center's Diagnostics tab and nowhere else.
+
+- [x] `scripts/audit-merchant-feed.ts` — read-only, no token, reruns the check
+- [x] The "907 products" heading corrected in place rather than quietly edited
+- [!] **Connect Merchant Center to Windsor, or send the Diagnostics screen.**
+  ~400 products cannot appear in a free listing or a Shopping ad, and that
+  is a bigger hole in the first-sale plan than anything in the SEO work
+- [ ] 99 products have a single image — not a disapproval, but a Shopping tile
+      with no second shot converts worse. Worth fixing once the 400 is understood
+
+---
+
 ## The winnable cluster, built out (16 September)
 
 Damien: _"Your saying we can rank number 1 for some things so make it happen"_.
@@ -443,11 +514,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                  | --- | --- | --- |
-                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                      | --- | --- | --- |
+                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4199,11 +4270,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -6227,6 +6298,31 @@ more than once.
 - Nothing that defeats a supplier's bot protection (Aosom/Akamai, D.I. Designs
   CAPTCHA). I have refused this and will keep refusing it.
 - Prefer short numbered step-by-step instructions when you have to do something.
+- **Never say Kaiku "ranks" for a term.** Search Console's average position is
+  averaged only across the searches where the page was _actually shown_. The
+  searches where it was not shown are not in the denominator — they are not in
+  the data at all. So a row reading `1 impression, position 1` means "on the one
+  occasion we appeared, we were first", **not** "we appear". Damien has caught
+  this four times (`/tools`, `how to measure clock size`, `beer barrel stool`,
+  `paper mache table lamp`) and he was right every time.
+
+  The rules that follow from it, which are not optional:
+
+  1. **Ignore any row under 10 impressions.** Below that the position figure is
+     a sample of one or two and carries no information.
+  2. **Always split by country and `search_type` first.** The country value is
+     `United Kingdom of Great Britain and Northern Ireland`; filtering on
+     `"United Kingdom"` silently returns nothing.
+  3. **Report it as "shown N times, average position P"** — never as "we rank".
+  4. **Match the exact query string.** `paper mache table lamp` and `paper mache
+lamp` are different searches with different results.
+  5. If a claim can be checked by typing the term into Google, assume Damien
+     will, and check it first.
+
+- **A feed row count is not a Merchant Center count.** The feed emits 908 rows;
+  Merchant Center holds ~500. Merchant Center accepts a row and then disapproves
+  the item, and that is only visible inside Merchant Center. Never quote the
+  feed's own number as if it were the live one.
 
 ---
 
