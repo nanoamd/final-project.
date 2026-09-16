@@ -421,14 +421,27 @@ Feed sends 908 rows.
 - [x] Cause found: the feed was never added as a product source
 - [x] **ROOT CAUSE FOUND — robots.txt was blocking the feed.** Damien: _"weve
       already done this"_ — the source was configured all along. `Disallow:
-    /api/` blocked `/api/feeds/google-merchant`, and Merchant Center's
+  /api/` blocked `/api/feeds/google-merchant`, and Merchant Center's
       scheduled fetch obeys robots.txt, so every fetch was refused before it
       started. The feed answered 200 with 908 items to everything except the one
       client that mattered. Fixed in `src/app/robots.ts` with `Allow:
-    /api/feeds/` — longest match wins under RFC 9309, so the rest of `/api/`
+  /api/feeds/` — longest match wins under RFC 9309, so the rest of `/api/`
       stays blocked
-- [!] **Deploy, then press Fetch now** on the existing product source. Nothing
-  else to configure — it was never a setup problem
+- [x] **New feed URL that no rule has ever touched.** Damien: _"its not doing
+      anything. make a new feed"_ — right, because Google caches robots.txt for up
+      to 24 hours, so the blocking copy was almost certainly still the one it held.
+      The feed now also serves from
+      **`https://www.kaikuhome.com/google-merchant.xml`**, at the site root. Three
+      things that buys: no robots cache to wait on, no reliance on an `Allow:`
+      override beating a `Disallow:` that a later edit could quietly undo, and a
+      `.xml` extension some fetchers want and none object to
+- [x] The builder moved to `src/lib/feeds/google-merchant.ts`. A route module
+      cannot re-export another route's handler — the build rejects it — and copying
+      the builder would have given two feeds that disagree the first time a field
+      changed. Both routes are now three lines over one implementation, and
+      `/api/feeds/google-merchant` keeps working
+- [!] **Point the Merchant Center source at `/google-merchant.xml`** and press
+  Fetch now. Expect 908 items read
 - [ ] 99 products have a single image — not a disapproval, but a Shopping tile
       with no second shot converts worse
 
@@ -861,11 +874,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                          | --- | --- | --- |
-                                                                                          | /shop/lighting | 2,175KB | **455KB** |
-                                                                                          | /shop/planters | 1,098KB | **290KB** |
-                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                          | /shop/all | 12.79MB | **2.94MB** |
+                                                                                              | --- | --- | --- |
+                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4617,11 +4630,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
