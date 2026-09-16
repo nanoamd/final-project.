@@ -16,6 +16,62 @@ Status key:
 
 ---
 
+## Local press, pitched on the founder rather than the shop (16 September)
+
+Damien: _"I could make it more personalised to target my struggle with starting
+a business for years and now it's finally begun. How im a 20 year old with
+massive aspirations"_.
+
+He is right, and it is a better angle than the one I suggested. Local papers run
+people. A named 20-year-old who has tried and failed several times gets printed;
+"Bourne End shop launches website" does not.
+
+[`docs/press-pitch.md`](press-pitch.md) has the targets, the pitch email, the
+quotes to have ready, and what kills a pitch.
+
+### What I told him he has to decide first
+
+- **It is permanent and it is about him.** Name, age and photograph become
+  searchable and stay searchable. Worth deciding on purpose.
+- **Do not overstate the trading.** The site, the Merchant feed and eBay are all
+  live and the first sale has not landed. Dressing that up is a correction
+  waiting to happen, and the honest version is the better story anyway — "I have
+  just launched and it is terrifying" runs; "successful young entrepreneur" with
+  no sales falls apart on the first question.
+
+### Targets
+
+Bourne End, SL8, so: **Bucks Free Press** (Newsquest) and the **Maidenhead
+Advertiser** (Baylis, independent — independents link out more often than group
+titles). Marlow Free Press shares the Newsquest newsroom, so one or the other,
+not both.
+
+On the link value: Newsquest generally `nofollow`s outbound commercial links.
+**Not confirmed for these titles** — their pages are JavaScript-rendered and the
+article-level check failed, so it is the general pattern rather than a checked
+fact. Recorded as unconfirmed.
+
+### The honest number, since he asked
+
+**20 to 80 click-throughs over two or three days, then nothing, and no sales.**
+A local business story does low hundreds to a couple of thousand pageviews, and
+outbound CTR runs 1-3%. It is curiosity traffic from neighbours, not shoppers.
+
+The value is the named brand mention — which matters more than usual here,
+because "Kaiku" is contested by a Basque dairy group and a Finnish health app —
+and the line "as featured in the Bucks Free Press" in every blogger email that
+follows. That second-order effect is worth more than the traffic.
+
+- [x] Pitch, targets, quotes and anti-patterns written
+- [!] **Damien fills the `[FILL]` gaps and sends it.** They are the specifics —
+  which attempts failed, at what age, for how much — and they are the entire
+  difference between a reply and no reply. A vague "years of struggle" from
+  a 20-year-old reads as padding; "three attempts since I was 16, here is
+  what each one was" does not
+- [!] Decide on being named and photographed before sending
+
+---
+
 ## Merchant Center holds ~500 of 908, and a rule about "ranking" (16 September)
 
 Damien: _"We have 500 products on merchant centre not 900. I also don't know why
@@ -514,11 +570,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                      | --- | --- | --- |
-                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                          | --- | --- | --- |
+                                                          | /shop/lighting | 2,175KB | **455KB** |
+                                                          | /shop/planters | 1,098KB | **290KB** |
+                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4270,11 +4326,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
