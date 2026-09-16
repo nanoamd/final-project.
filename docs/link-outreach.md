@@ -143,6 +143,89 @@ the bin — along with your address.
 
 ---
 
+## Tier 4 — Journalist request services. Free, daily, and the best links on this page.
+
+Reporters post what they need and you answer. The links come from national
+titles rather than blogs, and it costs nothing but the time to reply.
+
+| Where                               | Cost      | Note                                                                                                                                 |
+| ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **#journorequest** on X and Bluesky | Free      | The UK one that actually works. Homes, interiors and small-business requests daily. Search the hashtag, filter to the last 24 hours. |
+| **Qwoted**                          | Free tier | Set alerts for home, interiors, retail, small business.                                                                              |
+| **Featured.com**                    | Free tier | HARO's successor. Slower, lower hit rate, still free.                                                                                |
+| **SourceBottle**                    | Free      | Weaker UK coverage than the others.                                                                                                  |
+| ResponseSource                      | Paid      | The established UK service. Only worth it once the free ones are working.                                                            |
+
+**You have two things reporters want**, and they are different pitches. As a
+shop owner you can comment on homeware, interiors, dropshipping and retail. As a
+20-year-old founder you can comment on young entrepreneurship, side hustles and
+starting out — see `docs/press-pitch.md`.
+
+**How to answer, because most people do it badly:**
+
+1. **Speed beats quality.** Reply in the first hour. A good answer sent on day
+   two loses to an adequate one sent in twenty minutes.
+2. **Answer the question asked.** Not the question you wish they had asked.
+3. **Three to five sentences.** They want a quote, not an essay.
+4. **Say something specific and checkable.** "We have 900 products and I have
+   never had a customer measure their floor before buying a coffee table" is
+   usable. "We are passionate about quality" is not.
+5. **Sign off with name, title and URL.** That is the link, and you never ask
+   for it.
+
+Expect one in ten to fifteen responses to be used. Answer three a day and that
+is a link or two a month from titles you could not otherwise reach.
+
+---
+
+## Tier 5 — Your own data
+
+You hold something most small shops do not: **895 products with real
+dimensions, prices, materials and categories.** That is a dataset, and
+journalists link to datasets. It is the highest-ceiling item on this page.
+
+The honest caveat: it is _your_ catalogue, not the UK market, so any claim has
+to be framed as "across 900 products we sell" rather than "British furniture
+is". Overstate the sample and a journalist who checks will not come back.
+
+Worth testing before committing to it — the finding has to be real, and if the
+data does not support one, there is no story.
+
+---
+
+## Tier 6 — Cheap, small, and real
+
+None of these move the needle alone. Together they are a weekend and a floor
+under everything else.
+
+- **Competitor backlink mining.** Find who links to the sites beating you and
+  pitch the same pages. Highest precision method there is. Free version:
+  search `"funky chunky furniture" -site:funky-chunky-furniture.co.uk` and work
+  the results. Ahrefs Webmaster Tools is free but only shows your own site.
+- **Gifting to interiors bloggers.** Send a mirror or a vase to someone on the
+  Tier 3 list for an honest review. Costs you trade price. **Must be disclosed
+  by them** — and never ask for a positive review, only an honest one.
+- **"Best of" roundups.** Email the authors of existing posts like "best UK
+  garden furniture" and ask to be considered. Lower hit rate than Tier 2,
+  same effort.
+- **BIRA** (British Independent Retailers Association) and similar trade bodies
+  list members. Check the directory links out before paying for membership.
+- **Local sponsorship.** A junior football kit or a village fete usually comes
+  with a link from the club's site. Cheap, genuine, and local.
+- **Google Business Profile.** Not a link, but it is how Google confirms you are
+  a real business with a real address. Free, and you do not have one.
+- **Business awards.** Entry lists and shortlists usually link. Ties directly to
+  the founder story in `docs/press-pitch.md`.
+- **Broken link building.** Find dead tool links on interiors resource pages and
+  offer yours as the replacement. Slow, but the reply rate is high because you
+  are pointing out a fault on their page.
+
+**Worth knowing:** Reddit, Pinterest and most forums are `nofollow`, so they
+pass no ranking signal. They are worth doing for traffic and discovery — Pinterest
+especially for homeware — but do not count them as links.
+
+---
+
 ## What not to do
 
 Every one of these will cost more than it returns, and some carry a penalty risk:
