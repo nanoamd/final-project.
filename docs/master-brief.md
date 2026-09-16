@@ -81,8 +81,17 @@ traffic would not convert. `[-]`
 - [x] UK/web-only keyword and SERP analysis, written up with the SERP for each
       candidate read rather than assumed
 - [x] Baseline corrected from 297 (all search types) to 105 web / 47 real intent
-- [ ] **No coffee table size calculator exists** — eleven sizing tools on the
-      site and none for the one topic carrying 53% of real UK demand
+- [x] **Coffee table size calculator built** — `/tools/coffee-table-size-calculator`,
+      2,102 words, 8 `h2`s, FAQPage schema with 8 questions, 8 real coffee
+      tables linked, 11 unit tests. Eighteen sizing tools now, and the one
+      topic carrying 53% of real UK demand finally has one
+- [x] The guide already at position 85 (`/learn/coffee-table-size-guide`) links
+      into the calculator through the article sidebar, and the calculator links
+      back to it — the two are an intent pair, not duplicates
+- [ ] **Watch for cannibalisation.** Two pages now target coffee table sizing.
+      Titles and `h1`s are deliberately different (the guide reads "what size
+      for your sofa", the tool "will it fit"), but if Search Console shows them
+      swapping for the same query in 6-8 weeks, consolidate into the tool
 - [-] `plant pot sizes` deprioritised: nursery authority on page one, and the
   intent is nursery pots, not the decorative planters we sell
 
@@ -346,11 +355,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                  | --- | --- | --- |
-                                  | /shop/lighting | 2,175KB | **455KB** |
-                                  | /shop/planters | 1,098KB | **290KB** |
-                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                  | /shop/all | 12.79MB | **2.94MB** |
+                                      | --- | --- | --- |
+                                      | /shop/lighting | 2,175KB | **455KB** |
+                                      | /shop/planters | 1,098KB | **290KB** |
+                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4102,11 +4111,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

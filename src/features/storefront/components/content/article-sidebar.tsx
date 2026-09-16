@@ -39,7 +39,11 @@ const TOOLS_BY_CATEGORY: Record<string, string[]> = {
   "wall-art": ["/tools/wall-art-size-calculator"],
   "wall-clocks": ["/tools/wall-clock-size-calculator"],
   "kitchen-furniture": ["/tools/dining-table-size-calculator"],
-  "coffee-tables": ["/tools/sofa-size-calculator"],
+  "coffee-tables": [
+    "/tools/coffee-table-size-calculator",
+    "/tools/sofa-size-calculator",
+  ],
+  "side-tables": ["/tools/coffee-table-size-calculator"],
   "garden-furniture": [
     "/tools/dining-set-size-calculator",
     "/tools/garden-furniture-material-selector",

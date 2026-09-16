@@ -6,7 +6,7 @@
  * would drift the moment a tool is renamed, and a guide linking to a tool that
  * has moved is worse than a guide linking to no tool at all.
  *
- * Grouped, because there are seventeen and a flat list of seventeen reads as a
+ * Grouped, because there are eighteen and a flat list of eighteen reads as a
  * dump. Ordered within each group by how often the question gets asked rather
  * than by when the tool was built.
  */
@@ -25,6 +25,12 @@ export const TOOL_GROUPS = [
         title: "Will the dining table fit?",
         description:
           "The indoor version — enter your dining room and get the largest table that fits, and what it will really seat.",
+      },
+      {
+        href: "/tools/coffee-table-size-calculator",
+        title: "What size coffee table, and will it fit?",
+        description:
+          "Length, depth and height from your sofa — and a check that the table still leaves you somewhere to walk past it.",
       },
       {
         href: "/tools/bed-size-calculator",
