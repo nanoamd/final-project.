@@ -5,6 +5,7 @@ import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
 import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
 import { EMPTY_QUERY } from "@/lib/catalog/shop-query";
+import { toolsForCategory } from "@/lib/content/tools";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import {
@@ -225,7 +226,8 @@ function CategoryContent({ category }: { category?: SanityCategory | null }) {
   );
   const stocked = relatedAll.filter((c) => c.stocked !== false);
   const related = stocked.length ? stocked : null;
-  if (!guide && !faqs && !related) return null;
+  const tools = toolsForCategory(category?.slug);
+  if (!guide && !faqs && !related && !tools.length) return null;
 
   return (
     <div className="border-line mt-16 border-t pt-12">
@@ -277,6 +279,41 @@ function CategoryContent({ category }: { category?: SanityCategory | null }) {
               }),
             }}
           />
+        </section>
+      ) : null}
+
+      {/* The route from a listing into the calculator that sizes it.
+       *
+       * Added because the coffee table tool shipped with almost no internal
+       * links: /tools, the sitemap, and the sidebar on guides in the same
+       * category. A listing page is one of the most crawled pages on the
+       * site and linked to none of the tools at all, which is a wasted
+       * signal on a site with a six-hundred-page indexing backlog.
+       *
+       * It earns its place commercially as well. Size is the thing that
+       * stops a furniture order — "will it fit" is the question behind most
+       * abandoned baskets in this category — and answering it at the point
+       * of browsing is worth more than answering it in a guide nobody
+       * reached. Categories with no calculator that fits render nothing. */}
+      {tools.length ? (
+        <section className="mb-12">
+          <h2 className="font-display mb-2 text-2xl tracking-tight">
+            Work out the size first
+          </h2>
+          <p className="text-graphite mb-5 max-w-[68ch] text-[15px] leading-relaxed">
+            Free, no sign-up, and it uses your own measurements.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {tools.map((tool) => (
+              <AppLink
+                key={tool.href}
+                href={tool.href}
+                className="border-line text-ink hover:border-ink/50 rounded-lg border px-4 py-2.5 text-[14px] transition-colors"
+              >
+                {tool.title}
+              </AppLink>
+            ))}
+          </div>
         </section>
       ) : null}
 

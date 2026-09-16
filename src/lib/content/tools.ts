@@ -143,3 +143,82 @@ export const TOOL_GROUPS = [
 
 export type ToolGroup = (typeof TOOL_GROUPS)[number];
 export type Tool = ToolGroup["tools"][number];
+
+/**
+ * Tools whose calculator answers the question a category raises.
+ *
+ * One copy, read from two places: the rail down the side of a guide, and the
+ * "Work out the size first" block under a category listing. It lived in the
+ * sidebar until the listing pages needed it too, and a second copy would have
+ * drifted the first time a tool was renamed.
+ *
+ * A category not listed here has no calculator that fits it. That is a real
+ * answer rather than a gap to fill with the nearest one — a shopper sent to a
+ * tool that does not answer their question trusts the next one less.
+ */
+export const TOOLS_BY_CATEGORY: Record<string, string[]> = {
+  planters: ["/tools/planter-size-calculator"],
+  vases: ["/tools/vase-size-calculator"],
+  mirrors: ["/tools/mirror-size-calculator"],
+  "bedroom-mirrors": ["/tools/mirror-size-calculator"],
+  "bathroom-mirrors": ["/tools/mirror-size-calculator"],
+  lighting: [
+    "/tools/pendant-light-size-calculator",
+    "/tools/wall-art-size-calculator",
+  ],
+  "kitchen-lighting": ["/tools/pendant-light-size-calculator"],
+  "garden-lighting": ["/tools/pendant-light-size-calculator"],
+  "living-room-lighting": ["/tools/pendant-light-size-calculator"],
+  "bedroom-lighting": ["/tools/pendant-light-size-calculator"],
+  beds: ["/tools/bed-size-calculator"],
+  sofas: ["/tools/sofa-size-calculator"],
+  "tv-units": ["/tools/tv-unit-size-calculator"],
+  "wall-art": ["/tools/wall-art-size-calculator"],
+  "wall-clocks": ["/tools/wall-clock-size-calculator"],
+  "kitchen-furniture": ["/tools/dining-table-size-calculator"],
+  "coffee-tables": [
+    "/tools/coffee-table-size-calculator",
+    "/tools/sofa-size-calculator",
+  ],
+  "side-tables": ["/tools/coffee-table-size-calculator"],
+  "console-tables": ["/tools/mirror-size-calculator"],
+  "bedside-tables": ["/tools/bed-size-calculator"],
+  "garden-furniture": [
+    "/tools/dining-set-size-calculator",
+    "/tools/garden-furniture-material-selector",
+  ],
+  "fire-pits": ["/tools/patio-heater-size-calculator"],
+  pergolas: ["/tools/garden-visualiser"],
+  "outdoor-saunas": ["/tools/sauna-size-calculator"],
+  "indoor-saunas": ["/tools/sauna-size-calculator"],
+  "cold-plunges": [
+    "/tools/cold-plunge-size-calculator",
+    "/tools/contrast-therapy-planner",
+  ],
+};
+
+export interface ToolLink {
+  title: string;
+  href: string;
+}
+
+/**
+ * Every tool as a plain link.
+ *
+ * `TOOL_GROUPS` is `as const`, so each group's `tools` is a tuple of literal
+ * types rather than an array of a shared shape — useful where the registry is
+ * rendered, useless for looking a tool up by href, and enough to make a
+ * `.find()` over the union fail to typecheck. Widening once here is clearer
+ * than casting at every use.
+ */
+export const ALL_TOOLS: ToolLink[] = TOOL_GROUPS.flatMap((group) =>
+  group.tools.map((tool) => ({ title: tool.title, href: tool.href })),
+);
+
+/** The tools that fit a category, in the order they were listed. Empty when none do. */
+export function toolsForCategory(categorySlug?: string | null): ToolLink[] {
+  const wanted = categorySlug ? (TOOLS_BY_CATEGORY[categorySlug] ?? []) : [];
+  return wanted
+    .map((href) => ALL_TOOLS.find((tool) => tool.href === href))
+    .filter((tool): tool is ToolLink => Boolean(tool));
+}

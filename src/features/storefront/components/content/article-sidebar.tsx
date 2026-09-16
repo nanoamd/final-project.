@@ -1,5 +1,5 @@
 import { AppLink } from "@/components/ui/app-link";
-import { TOOL_GROUPS } from "@/lib/content/tools";
+import { ALL_TOOLS, toolsForCategory } from "@/lib/content/tools";
 import type { ArticleSidebarData, SidebarLink } from "@/lib/sanity/queries";
 
 /**
@@ -20,62 +20,8 @@ import type { ArticleSidebarData, SidebarLink } from "@/lib/sanity/queries";
  * rest, so the rail is useful at a glance without becoming a wall.
  */
 
-/** Tools whose calculator answers the question a category's guides ask. */
-const TOOLS_BY_CATEGORY: Record<string, string[]> = {
-  planters: ["/tools/planter-size-calculator"],
-  vases: ["/tools/vase-size-calculator"],
-  mirrors: ["/tools/mirror-size-calculator"],
-  "bedroom-mirrors": ["/tools/mirror-size-calculator"],
-  "bathroom-mirrors": ["/tools/mirror-size-calculator"],
-  lighting: [
-    "/tools/pendant-light-size-calculator",
-    "/tools/wall-art-size-calculator",
-  ],
-  "kitchen-lighting": ["/tools/pendant-light-size-calculator"],
-  "garden-lighting": ["/tools/pendant-light-size-calculator"],
-  beds: ["/tools/bed-size-calculator"],
-  sofas: ["/tools/sofa-size-calculator"],
-  "tv-units": ["/tools/tv-unit-size-calculator"],
-  "wall-art": ["/tools/wall-art-size-calculator"],
-  "wall-clocks": ["/tools/wall-clock-size-calculator"],
-  "kitchen-furniture": ["/tools/dining-table-size-calculator"],
-  "coffee-tables": [
-    "/tools/coffee-table-size-calculator",
-    "/tools/sofa-size-calculator",
-  ],
-  "side-tables": ["/tools/coffee-table-size-calculator"],
-  "garden-furniture": [
-    "/tools/dining-set-size-calculator",
-    "/tools/garden-furniture-material-selector",
-  ],
-  "fire-pits": ["/tools/patio-heater-size-calculator"],
-  pergolas: ["/tools/garden-visualiser"],
-  "outdoor-saunas": ["/tools/sauna-size-calculator"],
-  "indoor-saunas": ["/tools/sauna-size-calculator"],
-  "cold-plunges": [
-    "/tools/cold-plunge-size-calculator",
-    "/tools/contrast-therapy-planner",
-  ],
-};
-
-/**
- * Flattened to plain links up front.
- *
- * `TOOL_GROUPS` is `as const`, so each group's `tools` is a tuple of literal
- * types rather than an array of a shared shape — useful where the registry is
- * rendered, useless for looking a tool up by href, and enough to make a
- * `.find()` over the union fail to typecheck. Widening once here is clearer
- * than casting at every use.
- */
-const ALL_TOOLS: SidebarLink[] = TOOL_GROUPS.flatMap((group) =>
-  group.tools.map((tool) => ({ title: tool.title, href: tool.href })),
-);
-
 function toolsFor(categorySlug?: string | null): SidebarLink[] {
-  const wanted = categorySlug ? (TOOLS_BY_CATEGORY[categorySlug] ?? []) : [];
-  const matched = wanted
-    .map((href) => ALL_TOOLS.find((tool) => tool.href === href))
-    .filter((tool): tool is SidebarLink => Boolean(tool));
+  const matched = toolsForCategory(categorySlug);
   // Every article gets a route into the tools even when its category has no
   // obvious calculator — an empty group would just be a heading.
   return matched.length ? matched : ALL_TOOLS.slice(0, 4);

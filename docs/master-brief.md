@@ -88,6 +88,13 @@ traffic would not convert. `[-]`
 - [x] The guide already at position 85 (`/learn/coffee-table-size-guide`) links
       into the calculator through the article sidebar, and the calculator links
       back to it — the two are an intent pair, not duplicates
+- [x] **Listing pages now link into the tools.** The calculator shipped with
+      almost no internal links, and the coffee-tables listing — one of the most
+      crawled pages on the site — linked to no tool at all. `TOOLS_BY_CATEGORY`
+      moved out of the article sidebar into `lib/content/tools.ts` so there is
+      one copy, and a "Work out the size first" block now renders on the 26 of
+      50 listings that have a calculator that genuinely fits. Inbound internal
+      links to the coffee table tool: 23 pages
 - [ ] **Watch for cannibalisation.** Two pages now target coffee table sizing.
       Titles and `h1`s are deliberately different (the guide reads "what size
       for your sofa", the tool "will it fit"), but if Search Console shows them
@@ -355,11 +362,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                      | --- | --- | --- |
-                                      | /shop/lighting | 2,175KB | **455KB** |
-                                      | /shop/planters | 1,098KB | **290KB** |
-                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                      | /shop/all | 12.79MB | **2.94MB** |
+                                          | --- | --- | --- |
+                                          | /shop/lighting | 2,175KB | **455KB** |
+                                          | /shop/planters | 1,098KB | **290KB** |
+                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4111,11 +4118,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
