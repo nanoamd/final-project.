@@ -16,6 +16,40 @@ Status key:
 
 ---
 
+## Closing the editorial-link tail (16 September)
+
+Continuing the overnight SEO work.
+
+- [x] **Measured the link graph in both directions first.** Product pages
+      already link back to guides — a live fetch of a planter page found 2
+      guide links and 1 tool link — so the graph was two-way, not one-way.
+      **Of 908 live products, 298 are named by a guide directly and 584 are
+      reachable through a guide on their category. 26 had no editorial link of
+      any kind.**
+- [x] **`/learn/bathroom-or-bedroom-mirror`** — 1,134 words, 11 products, 11
+      inline links. Bathroom and bedroom mirrors are stocked separately and
+      bought as separate decisions, and no competing article treats them that
+      way. A bedroom mirror needs **140cm of glass** to show a whole outfit; a
+      bathroom one needs sealed edges to survive steam and has to light a face
+      **from the front, not the ceiling**. Covers the desilvering failure, the
+      160cm centring rule, and hanging weight into plasterboard.
+- [x] **`/learn/garden-privacy-screens-how-many`** — 1,111 words, 8 products.
+      Every panel is the same 122 x 198cm, so size is not the question. How
+      many, where they stand, and the wind physics: **half-open shelters up to
+      ten times its height downwind where solid makes turbulence two metres
+      back.** Also the 2m boundary rule, climbing plants, and the point most
+      buyers miss — a 198cm screen does nothing about a first-floor window.
+- [x] **Both link to the guides that already cover adjacent ground**, and the
+      script refuses to publish if a `/learn/` link does not resolve.
+- [x] **26 products with no editorial link → 12. Stocked categories with no
+      guide: 12 → 7. Guides: 38 → 43.** The remaining 12 are essential oils and
+      salt plates (6), outdoor kitchens (3) and Christmas (3) — too thin to
+      carry a guide honestly.
+- [x] **The length guard fired on both first drafts again** (874 and 767
+      words). Expanded to 1,134 and 1,111 before it would publish.
+
+---
+
 ## Why the pages are not being indexed (15 September)
 
 Damien: _"discover why our pages arent getting indexed"_. 626 URLs sit in
@@ -61,11 +95,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-          | --- | --- | --- |
-          | /shop/lighting | 2,175KB | **455KB** |
-          | /shop/planters | 1,098KB | **290KB** |
-          | /shop/garden-furniture | 1,177KB | **259KB** |
-          | /shop/all | 12.79MB | **2.94MB** |
+              | --- | --- | --- |
+              | /shop/lighting | 2,175KB | **455KB** |
+              | /shop/planters | 1,098KB | **290KB** |
+              | /shop/garden-furniture | 1,177KB | **259KB** |
+              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -3817,11 +3851,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
