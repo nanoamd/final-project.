@@ -72,6 +72,68 @@ follows. That second-order effect is worth more than the traffic.
 
 ---
 
+## Bulk eBay upload, and who is actually permitted (16 September)
+
+Damien: _"How can we import all products to eBay in one go rather than manually
+doing all of them?"_ and _"what other suppliers do I have that allow it"_.
+
+### Who is permitted, read from the records rather than recalled
+
+| Supplier               | Live products | Recorded permission                              |
+| ---------------------- | ------------: | ------------------------------------------------ |
+| Hill Interiors         |           140 | eBay, Amazon                                     |
+| **D.I. Designs**       |        **54** | **eBay, Amazon — approved and not being used**   |
+| Furniture100           |             0 | eBay, Amazon — nothing live                      |
+| Furniture To Go        |             0 | eBay, Amazon — 9 drafts, blocked on trade prices |
+| **Premier Housewares** |       **546** | **none recorded — never asked**                  |
+| AW Dropship            |            56 | none recorded                                    |
+| Aosom                  |           103 | **not permitted**                                |
+
+Only **194 of 908** products are cleared. Premier Housewares is 60% of the
+catalogue and nobody has ever asked them — the cheapest unlock available.
+
+**The permission says "eBay, Amazon", not "marketplaces".** ManoMano, B&Q, The
+Range, Wayfair and the rest each need a fresh ask. And the source note still
+reads _"confirmed in conversation, not yet quoted from the supplier's own
+written terms"_, which is what a takedown notice asks for.
+
+### No listing tool needed
+
+`scripts/build-ebay-file-exchange.ts` writes eBay's own File Exchange CSV from
+Sanity. **127 listings**, validated at 21 columns with no ragged rows, carrying
+real GTINs, CDN image URLs, dimensions, colour, material and Kaiku's SKU as the
+CustomLabel so an eBay order reconciles back to the site.
+
+Two things it refuses to guess:
+
+- **eBay category IDs.** Listing 127 products into the wrong category is worse
+  than listing none. The file writes `FILL-<category>` and is rejected on upload
+  until the 19 IDs are filled in `EBAY_CATEGORY_IDS` — one value per category,
+  covering every product in it.
+- **Business policy names**, which are set up once inside eBay.
+
+Quantity is capped at 5 regardless of feed stock: this is dropship, and a
+cancelled order on a new account is worse than no order.
+
+### The join key trap, recorded because it cost a run
+
+The first run matched **8 products out of 194**.
+`build-marketplace-listing-sheet.ts` writes `coalesce(supplierSku, sku)`, so the
+sheet holds Hill's `24370` and D.I.'s `SB-02` — the codes you order against.
+Sanity's own `sku` is `KK-CAND-GLASS-WHT-001`, and 193 of 194 carry that form.
+The generator now queries both: supplier code to find the price, Kaiku's own for
+eBay's CustomLabel.
+
+- [x] `scripts/build-ebay-file-exchange.ts`, 127 listings, CSV validated
+- [!] **19 eBay category IDs** — the one manual step, then the file uploads
+- [!] Three business policies set up in eBay, names pasted into the script
+- [!] Ask Premier Housewares and AW Dropship about marketplace permission —
+  602 products between them
+- [!] Upgrade all four existing permissions from "said so in conversation" to a
+  forwarded email
+
+---
+
 ## Indexing has no technical fault, and eBay's problem is price (16 September)
 
 Damien: _"Action it all then. And get the pages indexed"_.
@@ -674,11 +736,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                  | --- | --- | --- |
-                                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                                      | --- | --- | --- |
+                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4430,11 +4492,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
