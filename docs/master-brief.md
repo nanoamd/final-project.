@@ -16,6 +16,78 @@ Status key:
 
 ---
 
+## Which UK terms we can actually win (16 September)
+
+Damien agreed to me finding the terms with real UK volume and real competition
+rather than guessing at topics again. Full working in
+[`docs/uk-keyword-targets.md`](uk-keyword-targets.md).
+
+### A filter bug that would have hidden everything
+
+Search Console's country value is `United Kingdom of Great Britain and Northern
+Ireland`. Filtering on `"United Kingdom"` returns an **empty result set with no
+error** — it looks exactly like a site with no UK traffic. Recorded here because
+the next person to run this query will hit it.
+
+### The baseline is 105, not 297
+
+Yesterday's entry says 297 UK impressions a month. That was UK across **all**
+search types. UK on **web** is **105 impressions and 3 clicks** in 30 days, and
+once brand (47), our own page titles queried verbatim (9) and junk (2) come out,
+**47 impressions a month are real product or topic intent**. The 297 figure
+stands for all-search-types; 47 is the number that matters.
+
+### 53% of real UK demand is one topic
+
+Twenty-five of those 47 impressions are coffee table sizing — `coffee table size
+guide` (17 imps, position 85.8), `size coffee table` (4, 58.5), `coffee table
+sizes` (3, 87), `coffee table size` (1, 98). Nothing else on the site is within
+an order of magnitude.
+
+### The striking-distance band is the trap
+
+Every UK term at position 20–60 is a product term, and every product SERP I read
+is eBay, Etsy and Wayfair category pages. `teak wood corner shelf` at 22 looks
+like the best opportunity on a position report and is the least reachable thing
+in the dataset. The band that looks closest is worth least.
+
+### What is winnable, and why
+
+UK "what size / how high / how many" homeware questions are held by **Shopify
+blogs from retailers our own size** — Funky Chunky Furniture, FCI London, Willow
+& Kole, Tribesigns, Petalwood, one Chinese mirror factory. No national
+publisher, no John Lewis. It is the only class of term where zero backlinks is
+not disqualifying, and a calculator beats a blog post on the same question.
+
+### Two things I got wrong, recorded
+
+- **`how to keep a garden warm` was a bad target.** I wrote a 1,694-word guide
+  for it on 15 September without reading the SERP. Page one is Gardening Know
+  How, LoveProperty, Goodhomes and AOL. The guide stays; it is not a traffic
+  plan.
+- **`kaiku` at position 36 is not a fault.** The word belongs to a Basque dairy
+  group, a Finnish oncology app, a Spanish cycling team and a Spotify artist.
+  `kaiku home` and `kaikuhome` are the brand terms; the bare word never will be.
+
+### `kaikoo` — deliberately not pursued
+
+34 UK impressions a month at positions 33–42 come from people searching
+**`kaikoo`**, a different British furniture brand. We surface for it by accident.
+I am not building content to intercept another company's brand searches, and the
+traffic would not convert. `[-]`
+
+### The gap it exposes
+
+- [x] UK/web-only keyword and SERP analysis, written up with the SERP for each
+      candidate read rather than assumed
+- [x] Baseline corrected from 297 (all search types) to 105 web / 47 real intent
+- [ ] **No coffee table size calculator exists** — eleven sizing tools on the
+      site and none for the one topic carrying 53% of real UK demand
+- [-] `plant pot sizes` deprioritised: nursery authority on page one, and the
+  intent is nursery pots, not the decorative planters we sell
+
+---
+
 ## The real baseline is 297 UK impressions, not 2,500 (16 September)
 
 Damien: _"No I don't ffs I don't appear at all for beer barrel stool"_ — after
@@ -274,11 +346,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                              | --- | --- | --- |
-                              | /shop/lighting | 2,175KB | **455KB** |
-                              | /shop/planters | 1,098KB | **290KB** |
-                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                              | /shop/all | 12.79MB | **2.94MB** |
+                                  | --- | --- | --- |
+                                  | /shop/lighting | 2,175KB | **455KB** |
+                                  | /shop/planters | 1,098KB | **290KB** |
+                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4030,11 +4102,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
