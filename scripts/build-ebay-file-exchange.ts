@@ -12,11 +12,22 @@
  * TWO THINGS THIS SCRIPT WILL NOT GUESS.
  *
  *   **eBay category IDs.** Every listing needs one and there is no safe way to
- *   infer it. Listing 194 products into the wrong category is worse than
+ *   infer it. Listing 127 products into the wrong category is worse than
  *   listing none: eBay suppresses or removes them and it counts against the
  *   account. So the CSV writes `FILL-<category>` and the upload FAILS LOUDLY
- *   until Damien fills the mapping in `EBAY_CATEGORY_IDS` below. That is about
- *   twenty values, entered once, covering all 194 products.
+ *   until the mapping in `EBAY_CATEGORY_IDS` below is filled.
+ *
+ *   Getting them is one download, not nineteen lookups. eBay returns 403 to
+ *   automated requests on both its search and its category pages, so the list
+ *   has to come from inside the seller account:
+ *
+ *     Seller Hub > Reports > Upload > Get template
+ *       Source: Listings   Type: Create new listings template
+ *
+ *   ("File Exchange" is the old name — eBay folded it into Seller Hub Reports.)
+ *   Save it to `docs/change-log/ebay-categories.csv` and run
+ *   `scripts/map-ebay-categories.ts`, which proposes all nineteen for
+ *   confirmation.
  *
  *   **Business policy names.** Shipping, returns and payment are set up once in
  *   eBay and referenced by name. The names below are placeholders.
