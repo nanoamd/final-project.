@@ -1,5 +1,17 @@
 # The products worth listing, ranked by how few shops sell them
 
+> **Superseded in scope, 17 September.** Damien: _"we have much more furniture
+> products than this."_ Correct — this page was built from the 128-row
+> marketplace sheet, which was already filtered to promotable stock with
+> confirmed carriage. The real figure is **409 published furniture products, 97
+> of them listable today**. See
+> `docs/change-log/2026-09-17-furniture-ebay-ranked.csv` and
+> `scripts/rank-furniture-for-ebay.ts`.
+>
+> The seven hand-verified retailer counts below still stand, and the three
+> highest-profit permitted products are not in them — they are Hill's outdoor
+> sets, which the old sheet had filtered out.
+
 Damien: _"a list of products... most likely to sell organically on ebay and make
 the most money with 0 retailers selling the same product on ebay."_
 
