@@ -115,6 +115,53 @@ is the one not to act on.
 
 ---
 
+## Google Customer Reviews, for the star rating we do not have (21 September)
+
+Damien sent the Customer Reviews setup screen: _"add it"_.
+
+This is the mechanism that puts a star rating on a Shopping tile, and its
+absence is a real reason nobody clicks. Google Shopping puts the same product
+from several merchants side by side; the tile with stars takes the click from
+the tile without them. We have no ratings and cannot get any until buyers are
+asked.
+
+### What was built
+
+`GoogleCustomerReviews` renders the opt-in on `/checkout/success`, with real
+order data rather than the placeholders in Google's snippet:
+
+| Field                     | Source                                                                                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `merchant_id`             | 5837554079                                                                                                                                                         |
+| `order_id`                | The Stripe session id — the same one `TrackPurchase` uses, so GA4, Meta and Google all name the order identically                                                  |
+| `email`                   | `customer_details.email` from the session                                                                                                                          |
+| `delivery_country`        | Read from the session's shipping address, falling back to GB. We sell UK-only today, but a hard-coded "GB" would silently mis-time the survey the day that changes |
+| `estimated_delivery_date` | Computed — see below                                                                                                                                               |
+| `products`                | GTINs, looked up from the slugs Stripe carries in each line's metadata                                                                                             |
+
+**The delivery date is computed, not guessed.** It takes the longest lead time
+in the basket, uses its upper bound and adds three working days for the carrier.
+The survey has to land after the goods do: asking a week early reads as a shop
+that does not know where its own order is, and asking late costs nothing.
+
+**The GTINs matter more than they look.** A review with a GTIN attaches to the
+product as well as to the shop, so it can show on any merchant's listing of that
+item — including ours, on the Shopping tile that currently has no stars.
+
+Renders only when an order id and email are both present. Google rejects the
+call without them, and a half-filled survey request is worse than none.
+`afterInteractive`, because the badge must not delay the thank-you a buyer is
+waiting to see.
+
+- [x] `src/features/storefront/components/analytics/google-customer-reviews.tsx`
+- [x] Wired into the confirmation page; verified in the built client chunk
+- [!] **Damien completes the opt-in in Merchant Center** — the code is live but
+  Google has to verify the integration before surveys send
+- [ ] It only fires on an order. With no sales yet, nothing happens until the
+      first one — which is the same bottleneck as everything else
+
+---
+
 ## The machine voice, measured and removed (17 September)
 
 Damien: _"remove all traces of ai from them 9, and all pages, make them all
@@ -1080,11 +1127,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                  | --- | --- | --- |
-                                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                      | --- | --- | --- |
+                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4836,11 +4883,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
