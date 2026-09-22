@@ -32,6 +32,11 @@ import { dirname } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 
+import {
+  type AbandonedLineItem,
+  mapAbandonedLineItems,
+} from "@/lib/commerce/abandoned-checkout";
+
 const apply = process.argv.includes("--apply");
 
 function flag(name: string): string | undefined {
@@ -67,18 +72,11 @@ if (since && (createdAfter === null || Number.isNaN(createdAfter))) {
   process.exit(1);
 }
 
-interface LineItem {
-  slug: string | null;
-  name: string | null;
-  quantity: number | null;
-  unit_amount: number | null;
-}
-
 interface Lead {
   stripe_session_id: string;
   email: string | null;
   amount_total: number | null;
-  line_items: LineItem[] | null;
+  line_items: AbandonedLineItem[] | null;
   created_at: string;
 }
 
@@ -104,24 +102,12 @@ async function main() {
     if (session.status !== "expired") continue;
     expired += 1;
 
-    let lineItems: LineItem[] | null = null;
+    let lineItems: AbandonedLineItem[] | null = null;
     try {
       const full = await stripe.checkout.sessions.retrieve(session.id, {
         expand: ["line_items.data.price.product"],
       });
-      lineItems = (full.line_items?.data ?? []).map((line) => {
-        const product = line.price?.product;
-        const meta =
-          product && typeof product !== "string" && !product.deleted
-            ? product.metadata
-            : undefined;
-        return {
-          slug: meta?.slug ?? null,
-          name: line.description ?? null,
-          quantity: line.quantity ?? null,
-          unit_amount: line.price?.unit_amount ?? null,
-        };
-      });
+      lineItems = mapAbandonedLineItems(full.line_items?.data ?? []);
     } catch (error) {
       console.error(`  could not expand ${session.id}:`, error);
     }

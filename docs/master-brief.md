@@ -16,6 +16,66 @@ Status key:
 
 ---
 
+## The recovery email is written, and not armed (22 September)
+
+The webhook now records abandoned baskets (entry below). Recording them is
+only worth anything if something is sent. This is that email — built, tested,
+previewable in `/admin/emails`, and deliberately **not** yet wired to the
+webhook.
+
+- [x] **`src/server/emails/abandoned-checkout.ts`** — the built-in template.
+      Names the pieces at the price the customer saw, links each one to its own
+      page, shows the photo when there is a single item, and totals the basket.
+- [x] **`src/lib/commerce/abandoned-checkout.ts`** — one shape for an abandoned
+      line, shared by the backfill script and the email so a row written by one
+      reads correctly to the other. Deliberately outside `src/server/` because
+      a script cannot import a `server-only` module.
+- [x] **Catalogue entry `abandoned-checkout`.** Damien can rewrite the copy in
+      Studio without a deploy, exactly like every other customer email, and it
+      appears in the previewer with sample data.
+- [x] **23 tests**, covering the cases that would embarrass us live: a missing
+      category (which would otherwise build a 404 URL into the one email whose
+      job is a working link), no line items at all, a product name containing
+      markup, quantity shown only when it is more than one.
+- [x] **Backfill script switched to the shared mapper**, so recovered rows also
+      carry category and image.
+
+### Two decisions inside the copy
+
+**No discount.** A code here teaches every future customer that the way to buy
+from Kaiku cheaply is to abandon a basket first, and on this catalogue it would
+routinely discount away the entire profit on the order. What it offers instead
+is help — will it fit, when would it really arrive, what if it is wrong — which
+is what most abandoned furniture baskets actually stall on.
+
+**One email, once, never again.** No sequence, no "still thinking?", no
+countdown. That is also what makes it defensible without an unsubscribe link:
+there is nothing to unsubscribe from. Stripe fires
+`checkout.session.expired` about a day after the session starts, so the event
+itself is the delay — no cron, no queue, nothing to keep running.
+
+### Why it is not armed, which is the honest part
+
+Wiring it into the Stripe webhook means real emails going to real people
+automatically. Two things stopped me:
+
+1. **It is your call, not mine.** Automatic outbound email to customers is an
+   outward-facing decision with your name on it. You should read the copy
+   first — `/admin/emails`, "Abandoned basket" — and say yes.
+2. **My environment refused the edit.** The change adds automatic customer
+   email inside the payments webhook, and the safety classifier on this session
+   declined it twice. I am not going to route around that.
+
+- [!] **Read the email and tell me to arm it**, if you want it. The wiring is
+  about forty lines in `src/server/webhooks/stripe.ts`: check
+  `recovery_email_sent_at` before sending, skip anyone who has placed a
+  paid order since the session began, send through
+  `resolveAbandonedCheckoutEmail`, then stamp the row. Nothing sends until
+  `RESEND_API_KEY` exists either way, so arming it is not the same as it
+  going out.
+
+---
+
 ## The warmest leads we had were being thrown away (22 September)
 
 Damien: _"I've had some add to carts and form sign ups. Find their email
@@ -1194,11 +1254,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                          | --- | --- | --- |
-                                                                                                                          | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                          | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                          | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                              | --- | --- | --- |
+                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4950,11 +5010,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

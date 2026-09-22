@@ -11,12 +11,19 @@ import {
 import { EMAIL_KINDS, type EmailKind } from "@/lib/emails/catalogue";
 import { getAuthorizedAdmin } from "@/server/auth/admin";
 import {
+  type AbandonedCheckoutData,
+  buildAbandonedCheckoutEmail,
+  summariseBasket,
+} from "@/server/emails/abandoned-checkout";
+import {
   buildContactReceivedEmail,
   buildQuoteReceivedEmail,
   buildReturnRequestedEmail,
 } from "@/server/emails/form-acknowledgements";
+import { formatMoney } from "@/server/emails/format";
 import { buildNewsletterWelcomeEmail } from "@/server/emails/newsletter-welcome";
 import {
+  resolveAbandonedCheckoutEmail,
   resolveConfirmationEmail,
   resolveFormEmail,
   resolveSecondOrderOfferEmail,
@@ -86,13 +93,47 @@ const SAMPLE_SECOND_ORDER_OFFER = {
   siteUrl,
 };
 
+/**
+ * Sample data for the abandoned basket.
+ *
+ * Two lines rather than one, deliberately: the single-item version of this
+ * email links straight to the product and leads with its photo, which is the
+ * easy case. The multi-item version is the one whose table has to hold up, so
+ * it is the one worth being able to look at.
+ */
+const SAMPLE_ABANDONED_CHECKOUT: AbandonedCheckoutData = {
+  customerName: SAMPLE_ORDER.customerName,
+  items: [
+    {
+      slug: "sorelle-3-seater-sofa",
+      category: "sofas",
+      name: "Sorelle 3 Seater Sofa — Oatmeal",
+      quantity: 1,
+      unit_amount: 129900,
+      image: null,
+    },
+    {
+      slug: "arden-oak-coffee-table",
+      category: "coffee-tables",
+      name: "Arden Oak Coffee Table",
+      quantity: 1,
+      unit_amount: 32500,
+      image: null,
+    },
+  ],
+  amountTotal: 162400,
+  siteUrl,
+};
+
 /** Resolves one catalogue entry into a preview, or `null` if it cannot send. */
 async function previewFor(kind: EmailKind): Promise<EmailPreview | null> {
   const base = { key: kind.key, label: kind.label, when: kind.when };
 
-  // Two emails share trigger: "payment" now, so the trigger alone cannot pick
-  // the builder — see resolve-email.ts for why each still goes through its
-  // own resolver rather than one shared branch.
+  // The trigger alone cannot pick the builder: two emails share
+  // trigger: "payment", and the abandoned basket has a trigger all of its own
+  // with data no other email carries. So these three are matched by key — see
+  // resolve-email.ts for why each still goes through its own resolver rather
+  // than one shared branch.
   if (kind.key === "order-confirmation") {
     const { built, source } = await resolveConfirmationEmail(SAMPLE_ORDER);
     return { ...base, ...built, source };
@@ -108,6 +149,23 @@ async function previewFor(kind: EmailKind): Promise<EmailPreview | null> {
         shopUrl: `${siteUrl}/shop`,
       },
       () => buildSecondOrderOfferEmail(SAMPLE_SECOND_ORDER_OFFER),
+    );
+    return { ...base, ...built, source };
+  }
+
+  if (kind.key === "abandoned-checkout") {
+    const { built, source } = await resolveAbandonedCheckoutEmail(
+      {
+        customerName: SAMPLE_ABANDONED_CHECKOUT.customerName ?? "there",
+        itemSummary: summariseBasket(SAMPLE_ABANDONED_CHECKOUT.items),
+        basketTotal: formatMoney(
+          SAMPLE_ABANDONED_CHECKOUT.amountTotal ?? 0,
+          "gbp",
+        ),
+        returnUrl: `${siteUrl}/cart`,
+        shopUrl: `${siteUrl}/shop`,
+      },
+      () => buildAbandonedCheckoutEmail(SAMPLE_ABANDONED_CHECKOUT),
     );
     return { ...base, ...built, source };
   }

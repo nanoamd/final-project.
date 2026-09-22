@@ -22,7 +22,9 @@ export type EmailTrigger =
   /** Sent when an order reaches a stage in the admin workflow. */
   | "stage"
   /** Sent when someone submits a form or signs up. */
-  | "form";
+  | "form"
+  /** Sent when a started checkout expires without being paid. */
+  | "abandonment";
 
 export interface EmailKind {
   /** The `emailTemplate.key` value. Never change one — templates key off it. */
@@ -48,6 +50,12 @@ export const EMAIL_KINDS: readonly EmailKind[] = [
     label: "Second order offer",
     when: "After a customer's first paid order — a thank-you carrying a 10% code for their next order, £100 minimum.",
     trigger: "payment",
+  },
+  {
+    key: "abandoned-checkout",
+    label: "Abandoned basket",
+    when: "Once, about a day after someone starts checkout and does not finish. There is no follow-up after it.",
+    trigger: "abandonment",
   },
   {
     key: "order-in-production",

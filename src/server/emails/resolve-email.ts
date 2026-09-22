@@ -152,6 +152,29 @@ export async function resolveSecondOrderOfferEmail(
 }
 
 /**
+ * The abandoned-basket email, sent once when a checkout session expires — see
+ * `server/emails/abandoned-checkout.ts` for why it is one email with no
+ * sequence behind it and no discount in it.
+ *
+ * Routed through the generic resolver so Damien can rewrite the copy in Studio
+ * without a deploy. A Studio template gets {{customerName}}, {{itemSummary}},
+ * {{basketTotal}}, {{returnUrl}} and {{shopUrl}}; the built-in version is
+ * richer than any of those, because it renders the basket as a proper table
+ * with images and links, so the fallback is the better email and the template
+ * exists for changing the voice rather than the structure.
+ */
+export async function resolveAbandonedCheckoutEmail(
+  variables: EmailVariables,
+  fallback: () => BuiltEmail,
+): Promise<ResolvedEmail> {
+  return resolveFormEmail({
+    templateKey: "abandoned-checkout",
+    variables,
+    fallback,
+  });
+}
+
+/**
  * A form acknowledgement — newsletter, quote, contact. There is no order behind
  * it, so the variables are whatever the form collected.
  */
