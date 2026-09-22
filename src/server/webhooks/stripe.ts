@@ -63,8 +63,78 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
       break;
     }
     case "checkout.session.expired": {
+      /**
+       * An expired session is the warmest lead this site produces.
+       *
+       * Somebody chose a product, went to pay, typed their email and stopped.
+       * Stripe captured that email; we were logging the session id and throwing
+       * the rest away. `abandoned_checkouts` has existed since migration 0003
+       * for exactly this, and migration 0003's own comment calls it "the
+       * one-insert upgrade that turns that into money". This is that insert.
+       *
+       * Line items are fetched rather than read off the event: Stripe does not
+       * expand them on `checkout.session.expired`, so without this call the
+       * lead says someone abandoned £240 of something unspecified. Knowing WHAT
+       * they nearly bought is most of the value of knowing they nearly bought.
+       *
+       * Every failure here is swallowed. This is a lead-capture nicety hanging
+       * off a webhook whose real job is payments, and it must never be the
+       * reason Stripe sees a 500 and retries.
+       */
       const session = event.data.object;
-      console.log(`[stripe] checkout expired: session=${session.id}`);
+      const email = session.customer_details?.email ?? null;
+      console.log(
+        `[stripe] checkout expired: session=${session.id} email=${email ?? "none"}`,
+      );
+
+      try {
+        let lineItems: unknown = null;
+        try {
+          const full = await getStripe().checkout.sessions.retrieve(
+            session.id,
+            {
+              expand: ["line_items.data.price.product"],
+            },
+          );
+          lineItems = (full.line_items?.data ?? []).map((line) => {
+            const product = line.price?.product;
+            const meta =
+              product && typeof product !== "string" && !product.deleted
+                ? product.metadata
+                : undefined;
+            return {
+              slug: meta?.slug ?? null,
+              name: line.description,
+              quantity: line.quantity,
+              unit_amount: line.price?.unit_amount ?? null,
+            };
+          });
+        } catch (error) {
+          console.error(
+            "[stripe] expired session: could not expand line items:",
+            error,
+          );
+        }
+
+        // Upsert on the session id — Stripe can redeliver a webhook, and a
+        // duplicated lead is a duplicated recovery email to the same person.
+        const { error } = await createAdminClient()
+          .from("abandoned_checkouts")
+          .upsert(
+            {
+              stripe_session_id: session.id,
+              email,
+              amount_total: session.amount_total ?? null,
+              line_items: lineItems,
+            },
+            { onConflict: "stripe_session_id" },
+          );
+        if (error) {
+          console.error("[stripe] failed to record abandoned checkout:", error);
+        }
+      } catch (error) {
+        console.error("[stripe] abandoned checkout capture failed:", error);
+      }
       break;
     }
     default:

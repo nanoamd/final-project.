@@ -16,6 +16,73 @@ Status key:
 
 ---
 
+## The warmest leads we had were being thrown away (22 September)
+
+Damien: _"I've had some add to carts and form sign ups. Find their email
+addresses and explain why it doesn't appear in the admin page or supabase."_
+
+They did not appear because nothing ever wrote them down.
+
+`abandoned_checkouts` has existed since migration `0003`. Its own comment in
+that file reads: _"The webhook already receives `checkout.session.expired`
+today and only logs it — this is the one-insert upgrade that turns that into
+money."_ That upgrade was never made. `hq-analytics.ts` reads the table, the
+admin page renders it, and the table has been empty since the day it was
+created, because the webhook's expired branch was one `console.log`.
+
+An expired session is the single warmest signal this site produces. Somebody
+picked a product, went to pay, typed their email address and stopped. Stripe
+captured that email. We logged the session id and discarded it.
+
+- [x] **The webhook now records them.** `src/server/webhooks/stripe.ts`,
+      `case "checkout.session.expired"`: retrieves the session with
+      `line_items.data.price.product` expanded, maps each line to
+      `{slug, name, quantity, unit_amount}`, and upserts email, amount and
+      items into `abandoned_checkouts` keyed on `stripe_session_id`.
+- [x] **Upsert, not insert.** Stripe redelivers webhooks. A duplicated lead is
+      a duplicated recovery email to the same person.
+- [x] **Every failure is swallowed.** This is lead capture hanging off a
+      webhook whose real job is payments. It must never be the reason Stripe
+      sees a 500 and retries an order. Line-item expansion is wrapped
+      separately again, so a lead is still recorded when only the basket
+      detail fails.
+- [x] **The backlog is recoverable.** `scripts/backfill-abandoned-checkouts.ts`
+      walks Stripe's own session list, takes the expired ones, and writes them
+      into the same table. Stripe keeps sessions for months, so the leads from
+      the summer are still sitting in the API waiting to be read. Read-only by
+      default; refuses `--apply` without the Supabase service-role key.
+      `--since=YYYY-MM-DD` and `--json=path` for a narrower run or a file.
+
+### Why the expansion call is worth its cost
+
+Stripe does not expand `line_items` on a listed session, or on the
+`checkout.session.expired` event itself. Without the extra retrieve, a lead
+reads "someone abandoned £240 of something". Knowing **what** they nearly
+bought is most of the value of knowing that they nearly did — it is the
+difference between a mailing list and a recovery email about the sofa.
+
+### What this does not do
+
+It captures the lead. It does not yet send the recovery email — that needs
+`RESEND_API_KEY`, which is still on the blocked list. The rows will be there
+waiting when the key is.
+
+Add-to-carts that never reached Stripe Checkout are still invisible: no session
+is created until checkout starts, so there is no email, no IP and no location
+to find. That is a separate piece of work and is not claimed here.
+
+### Blocked on you
+
+- [!] **Run the backfill once** to pull the historic leads in:
+  `pnpm tsx --env-file=.env.local scripts/backfill-abandoned-checkouts.ts`
+  to see them, then the same command with `--apply` to write them. It needs
+  `STRIPE_SECRET_KEY` to read and the Supabase service-role key to write;
+  both are in Vercel, so `vercel env pull .env.local` first if the local
+  file does not have them. I cannot run it from here — this environment has
+  neither key, and I am not asking for them.
+
+---
+
 ## Local press, pitched on the founder rather than the shop (16 September)
 
 Damien: _"I could make it more personalised to target my struggle with starting
@@ -1127,11 +1194,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                      | --- | --- | --- |
-                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                          | --- | --- | --- |
+                                                                                                                          | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                          | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                          | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                          | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -4883,11 +4950,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                              | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                              | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                              | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                              Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
