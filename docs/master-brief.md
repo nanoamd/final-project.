@@ -16,6 +16,69 @@ Status key:
 
 ---
 
+## UK impressions tripled in the second half of September (22 September)
+
+Pulled fresh from Search Console rather than recalled. **UK, `search_type` =
+`web`, daily series** — which is the one cut of this data that is complete,
+because Google anonymises the query and page breakdowns but not the totals.
+
+| Window          | Impressions | Clicks |   CTR |
+| --------------- | ----------: | -----: | ----: |
+| 1–10 September  |         130 |     16 | 12.3% |
+| 11–20 September |         386 |     11 |  2.8% |
+
+The last three days in the data are 69, 57 and 69 impressions — around five
+times the early-September daily rate.
+
+**What that is, and what it is not.** Impressions roughly tripled; clicks did
+not move. That is the shape of appearing for more searches at worse positions,
+not of demand arriving. It is consistent with the indexing and feed work
+landing, and it is too early and too small to call a trend. Nobody should read
+it as sales coming.
+
+### The breakdown cannot attribute it, and saying so is the point
+
+The named queries account for **104 of those 516 UK impressions**. The rest are
+anonymised by Google — routine for a site this size, and it means any statement
+of the form "the rise came from X" would be invented. Applying the standing
+10-impression floor, exactly two UK queries qualify for the whole of 1–20
+September:
+
+| Query                                                                  | Shown | Avg position |
+| ---------------------------------------------------------------------- | ----: | -----------: |
+| `kaiku`                                                                |    12 |         17.5 |
+| `saunaplunge yorkshire cabin 2-person outdoor infrared sauna \| kaiku` |    10 |            1 |
+
+The second is someone typing a page title verbatim, which is not demand. Every
+other UK query in the period sits between 1 and 8 impressions, including all
+the coffee-table and plant-pot sizing terms the tool pages target — they are
+appearing, at positions 38 to 100, and that is all that can honestly be said.
+
+### Most of the traffic is not sellable
+
+All countries, web, 1–20 September: **2,463 impressions, 38 clicks.** The UK is
+**516 of them — 21%.** The next three are the United States (513), the
+Netherlands (288) and Germany (251). The feed offers GB shipping only, so three
+quarters of the impressions are people who could not buy if they wanted to.
+Nothing is wrong and nothing needs fixing; it matters because the headline
+impression number looks four times better than the number that can convert, and
+the headline is the one Search Console shows first.
+
+### `kaikoo`, still not pursued
+
+Four spellings of it (`kaikoo furniture`, `kaikoo grey furniture`, `kaikoo
+brushed furniture`, `kaikoo cushions`) total 22 impressions at positions 30–52.
+That remains the other brand's demand, and the entry that declined to chase it
+still stands.
+
+### Month-over-month deliberately not claimed
+
+July and August come back from this source as single aggregated rows, not daily
+ones. A month-over-month figure built on that would be comparing a complete
+month against a partial one, so it is not stated here at all.
+
+---
+
 ## The leads are now named, not counted (22 September)
 
 Damien: _"I've had some add to carts and form sign ups. Find their email
@@ -1291,11 +1354,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                  | --- | --- | --- |
-                                                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                  | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                      | --- | --- | --- |
+                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5047,11 +5110,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -7087,9 +7150,21 @@ more than once.
 
   1. **Ignore any row under 10 impressions.** Below that the position figure is
      a sample of one or two and carries no information.
-  2. **Always split by country and `search_type` first.** The country value is
-     `United Kingdom of Great Britain and Northern Ireland`; filtering on
-     `"United Kingdom"` silently returns nothing.
+  2. **Always split by country and `search_type` first.** In the Windsor
+     Search Console connector there are **two** country fields and they do not
+     hold the same string:
+
+     | Field         | Value                                                  |
+     | ------------- | ------------------------------------------------------ |
+     | `country`     | `United Kingdom`                                       |
+     | `countryname` | `United Kingdom of Great Britain and Northern Ireland` |
+
+     Filter on **`country`**, group on either. Filtering `country` with the
+     long form silently returns `[]` — no error, no warning, just an empty
+     result that reads exactly like "no UK traffic". Both halves of this have
+     now cost a run: first the long form when the short one was needed, then
+     the short one when the long one was. Check which field you are filtering.
+
   3. **Report it as "shown N times, average position P"** — never as "we rank".
   4. **Match the exact query string.** `paper mache table lamp` and `paper mache
 lamp` are different searches with different results.
