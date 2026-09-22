@@ -16,6 +16,43 @@ Status key:
 
 ---
 
+## The leads are now named, not counted (22 September)
+
+Damien: _"I've had some add to carts and form sign ups. Find their email
+addresses."_
+
+The admin analytics page had an "Abandoned checkouts" panel showing four
+numbers: count, value, with email, recovered. Nothing else. So even once the
+rows exist, the page could say _"3 baskets, £1,847, 2 with an email"_ and give
+no way to find out who those two people were. **A lead you cannot email is not
+a lead.**
+
+- [x] **`getAnalytics` now returns the rows themselves**, newest first, capped
+      at 50 — who, what they nearly bought, what it was worth, when, whether a
+      recovery email has already gone out. Past 50 this stops being a list of
+      people to write to and becomes a report, which is a different page.
+- [x] **A "Who abandoned a basket" panel** on `/admin/analytics`, full width so
+      the basket contents fit. The address is a `mailto:` link with the subject
+      already filled in, so writing to somebody takes a click rather than a
+      database query.
+- [x] **`describeLineItems` is defensive about the jsonb.** That column is
+      written by two things — the webhook live, the backfill script for the
+      historic rows — and older rows may predate fields newer ones carry. An
+      admin panel is not the place to discover that, so an unreadable item is
+      skipped and the row still shows its email and its value, which is the
+      part worth acting on.
+
+### Why a by-hand email is the right first move anyway
+
+The automatic recovery email is written but not armed (entry above), and for
+the number of leads this shop currently produces that is not the constraint it
+looks like. A note actually written by the founder — naming the piece, offering
+to answer the question that stopped them — converts better than anything
+automated, and at this volume it costs ten minutes a week. The automation is
+worth having when the volume makes hand-writing impossible. That is not today.
+
+---
+
 ## The recovery email is written, and not armed (22 September)
 
 The webhook now records abandoned baskets (entry below). Recording them is
@@ -1254,11 +1291,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                              | --- | --- | --- |
-                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                  | --- | --- | --- |
+                                                                                                                                  | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                  | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                  | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                  | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5010,11 +5047,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                      | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                      | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                      Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively

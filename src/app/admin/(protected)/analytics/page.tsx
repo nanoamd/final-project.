@@ -1,7 +1,11 @@
 import Link from "next/link";
 
 import { formatPriceExact } from "@/lib/format";
-import { getAnalytics, type Period } from "@/server/actions/hq-analytics";
+import {
+  type AbandonedLead,
+  getAnalytics,
+  type Period,
+} from "@/server/actions/hq-analytics";
 
 const PERIODS: { key: Period; label: string }[] = [
   { key: "7d", label: "7D" },
@@ -189,6 +193,13 @@ export default async function AdminAnalyticsPage({
           </dl>
         </section>
       </div>
+
+      <section className="hq-panel">
+        <div className="hq-panel-head">
+          <span>Who abandoned a basket</span>
+        </div>
+        <AbandonedLeads leads={data.abandoned.leads} />
+      </section>
     </div>
   );
 }
@@ -323,6 +334,81 @@ function ProductsPanel({
         </ul>
       )}
     </section>
+  );
+}
+
+/**
+ * The abandoned baskets themselves, with the address on each one.
+ *
+ * The panel above it used to be four counters, which is how "3 baskets worth
+ * £1,847" became a fact nobody could do anything about. These are the people:
+ * what they nearly bought, what it was worth, and a mailto link that opens a
+ * reply already addressed to them. For a handful of leads a hand-written note
+ * from the founder beats anything automated, and this is what makes writing
+ * one take ten seconds rather than a database query.
+ */
+function AbandonedLeads({ leads }: { leads: AbandonedLead[] }) {
+  if (leads.length === 0) {
+    return (
+      <p className="px-2.5 py-4 text-[12px]" style={{ color: "var(--hq-dim)" }}>
+        No abandoned baskets recorded in this period. Anything from before this
+        was being recorded is still in Stripe — run
+        scripts/backfill-abandoned-checkouts.ts to pull it in.
+      </p>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse text-[12px]">
+        <thead>
+          <tr style={{ borderBottom: "1px solid var(--hq-line)" }}>
+            <Th>Who</Th>
+            <Th>Nearly bought</Th>
+            <Th align="right">Value</Th>
+            <Th align="right">When</Th>
+          </tr>
+        </thead>
+        <tbody>
+          {leads.map((lead) => (
+            <tr key={lead.sessionId} className="hq-row">
+              <Td>
+                {lead.email ? (
+                  <a
+                    href={`mailto:${lead.email}?subject=${encodeURIComponent(
+                      "Your Kaiku basket",
+                    )}`}
+                    style={{ color: "var(--hq-accent)" }}
+                  >
+                    {lead.email}
+                  </a>
+                ) : (
+                  <span style={{ color: "var(--hq-dim)" }}>no email given</span>
+                )}
+                {lead.recovered ? (
+                  <span className="ml-1.5" style={{ color: "var(--hq-up)" }}>
+                    recovered
+                  </span>
+                ) : lead.recoveryEmailSentAt ? (
+                  <span className="ml-1.5" style={{ color: "var(--hq-dim)" }}>
+                    emailed
+                  </span>
+                ) : null}
+              </Td>
+              <Td dim>{lead.items.length > 0 ? lead.items.join(", ") : "—"}</Td>
+              <Td align="right" mono>
+                {lead.amountTotal === null
+                  ? "—"
+                  : formatPriceExact(lead.amountTotal / 100)}
+              </Td>
+              <Td align="right" mono dim>
+                {lead.createdAt.slice(0, 10)}
+              </Td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

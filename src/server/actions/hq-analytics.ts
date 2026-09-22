@@ -46,8 +46,31 @@ export interface AnalyticsData {
     withEmail: number;
     recovered: number;
     recoveredValue: number;
+    /** The leads themselves, newest first — see `AbandonedLead`. */
+    leads: AbandonedLead[];
   };
   customers: { new: number; returning: number };
+}
+
+/**
+ * One abandoned basket, named.
+ *
+ * The panel used to show four counters and nothing else, which is how "you
+ * have 3 leads worth £1,847" became a fact nobody could act on: there was no
+ * way to find out who they were. A lead you cannot email is not a lead. These
+ * are the rows, so the addresses can be written to by hand — which for a
+ * handful of baskets is both possible and better than an automated send.
+ */
+export interface AbandonedLead {
+  sessionId: string;
+  email: string | null;
+  amountTotal: number | null;
+  /** What was in the basket, already flattened for display. */
+  items: string[];
+  createdAt: string;
+  recovered: boolean;
+  /** Set once the recovery email has gone out, so nobody sends a second. */
+  recoveryEmailSentAt: string | null;
 }
 
 export interface ProductRow {
@@ -80,6 +103,7 @@ const EMPTY: AnalyticsData = {
     withEmail: 0,
     recovered: 0,
     recoveredValue: 0,
+    leads: [],
   },
   customers: { new: 0, returning: 0 },
 };
@@ -183,8 +207,11 @@ export async function getAnalytics(
 
   const { data: abandonedRows } = await admin
     .from("abandoned_checkouts")
-    .select("email, amount_total, recovered_order_id, created_at")
+    .select(
+      "stripe_session_id, email, amount_total, line_items, recovered_order_id, recovery_email_sent_at, created_at",
+    )
     .gte("created_at", start.toISOString())
+    .order("created_at", { ascending: false })
     .limit(5000);
 
   const abandonedList = abandonedRows ?? [];
@@ -198,6 +225,17 @@ export async function getAnalytics(
       (sum, a) => sum + (a.amount_total ?? 0),
       0,
     ),
+    // Capped at 50. Past that this stops being a list of people to write to
+    // and becomes a report, and a report is a different page.
+    leads: abandonedList.slice(0, 50).map((row): AbandonedLead => ({
+      sessionId: row.stripe_session_id,
+      email: row.email,
+      amountTotal: row.amount_total,
+      items: describeLineItems(row.line_items),
+      createdAt: row.created_at,
+      recovered: Boolean(row.recovered_order_id),
+      recoveryEmailSentAt: row.recovery_email_sent_at ?? null,
+    })),
   };
 
   const customers = await newVsReturning(admin, currentRows, start);
@@ -213,6 +251,35 @@ export async function getAnalytics(
     abandoned,
     customers,
   };
+}
+
+/**
+ * Turns the stored `line_items` jsonb into lines a person can read.
+ *
+ * Defensive on purpose. The column is written by two things — the Stripe
+ * webhook live, and `scripts/backfill-abandoned-checkouts.ts` for the rows
+ * Stripe still holds from before it did — and older rows may predate fields
+ * that later ones carry. An admin panel is not the place to discover that:
+ * anything unreadable is skipped, and a row with no readable items still
+ * shows its email and its value, which is the part worth acting on.
+ */
+function describeLineItems(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  const lines: string[] = [];
+  for (const entry of value) {
+    if (!entry || typeof entry !== "object") continue;
+    const item = entry as Record<string, unknown>;
+    const name =
+      typeof item.name === "string" && item.name.trim()
+        ? item.name.trim()
+        : typeof item.slug === "string" && item.slug.trim()
+          ? item.slug.trim()
+          : null;
+    if (!name) continue;
+    const quantity = typeof item.quantity === "number" ? item.quantity : 1;
+    lines.push(quantity > 1 ? `${quantity} × ${name}` : name);
+  }
+  return lines;
 }
 
 function summarise(rows: FlatRow[]): Money {
