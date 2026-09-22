@@ -16,6 +16,78 @@ Status key:
 
 ---
 
+## Two things this ledger said were blocked are not (22 September)
+
+Checked against Vercel and public DNS rather than recalled. Both had been
+sitting in _Blocked on you_ for over a month, and planning around a constraint
+that no longer exists is worse than having the constraint.
+
+### Email is live, and has been since 20 August
+
+`RESEND_API_KEY` and `RESEND_FROM_EMAIL` are both set on production and
+preview — created 20 August at 18:36. The row in _Blocked on you_ still said
+"a buyer pays and receives nothing", which stopped being true a month ago.
+
+The DNS is complete too, which is the half that actually decides whether an
+email arrives rather than merely leaves:
+
+| Record                            | Value                                         |
+| --------------------------------- | --------------------------------------------- |
+| `resend._domainkey.kaikuhome.com` | DKIM public key, present                      |
+| `send.kaikuhome.com` TXT          | `v=spf1 include:amazonses.com ~all`           |
+| `send.kaikuhome.com` MX           | `feedback-smtp.eu-west-1.amazonses.com`       |
+| `_dmarc.kaikuhome.com`            | `v=DMARC1; p=none;`                           |
+| `kaikuhome.com` MX                | ProtonMail, untouched — receiving still works |
+
+That is Resend's subdomain setup done properly: the Return-Path sits on
+`send.kaikuhome.com`, so SPF aligns there while the root record stays
+ProtonMail's. **Order confirmations send. Contact acknowledgements send. The
+newsletter welcome sends.** Nothing is theoretical any more.
+
+One thing worth doing eventually, and not by me: the DMARC record has no `rua=`
+address, so nobody receives the aggregate reports. `p=none` is right while
+establishing, but without reports there is no way to see a failure.
+
+### The shop is served from the working branch
+
+`kaikuhome.com` and `www.kaikuhome.com` resolve to a production deployment
+built from **`claude/kaiku-home-continue-v94z7g`** — commit `ef5d72d`, ready at
+20:17 today. Row 0 of _Blocked on you_ has said "still worth doing: point
+Production Branch at `main`" since 12 August.
+
+It is worth more than that row implies. **Every push to this branch is live on
+the shop in about ninety seconds** — no merge, no review, no staging. That is
+convenient and it is why the August work went live at all, but it means there
+is nowhere to put something unfinished, and a mistake is in front of customers
+before anyone reads it.
+
+### Why these two together changed a decision made earlier today
+
+The abandoned-basket recovery email was written and left unarmed. I justified
+that partly on the grounds that nothing could send without `RESEND_API_KEY`
+anyway — which was wrong, and this is the check that caught it. Arming that
+email would have put real messages in front of real customers on the next
+expired checkout, deployed straight to production by the push that armed it.
+Reading the copy before saying yes is the entire safeguard, not a formality.
+
+### And one suspicion cleared
+
+_Blocked on you_ row 5 suspected the Sanity write token had been rotated or
+revoked, and that this explained no form captures since 6 August. **The token
+authenticates.** It is present in Vercel on production and preview, the write
+client is constructed correctly, and the contact form and newsletter write to
+the same document types the admin reads back.
+
+So there is no token bug. The last newsletter sign-up and the last contact
+submission are both dated 6 August, and on 38 clicks in twenty days the far
+likelier explanation is that nobody has sent one. Recorded because "the token
+is broken" was about to become a fact by repetition.
+
+The token should still be rotated. It was pasted into a chat in plaintext, and
+a working compromised token is worse than a broken one, not better.
+
+---
+
 ## UK impressions tripled in the second half of September (22 September)
 
 Pulled fresh from Search Console rather than recalled. **UK, `search_type` =
@@ -170,9 +242,14 @@ automatically. Two things stopped me:
   about forty lines in `src/server/webhooks/stripe.ts`: check
   `recovery_email_sent_at` before sending, skip anyone who has placed a
   paid order since the session began, send through
-  `resolveAbandonedCheckoutEmail`, then stamp the row. Nothing sends until
-  `RESEND_API_KEY` exists either way, so arming it is not the same as it
-  going out.
+  `resolveAbandonedCheckoutEmail`, then stamp the row.
+
+  **Corrected the same day.** I wrote here that arming it was safe because
+  nothing could send without `RESEND_API_KEY`. That was wrong: the key has been
+  set on production since 20 August and the sending domain's DNS is complete.
+  Arming it means real email to real customers on the next expired checkout.
+  That does not change the recommendation — it makes reading the copy first the
+  whole point rather than a formality.
 
 ---
 
@@ -223,9 +300,10 @@ difference between a mailing list and a recovery email about the sofa.
 
 ### What this does not do
 
-It captures the lead. It does not yet send the recovery email — that needs
-`RESEND_API_KEY`, which is still on the blocked list. The rows will be there
-waiting when the key is.
+It captures the lead. It does not send the recovery email — that is a separate
+commit, deliberately not wired up. I first wrote here that the send was blocked
+on `RESEND_API_KEY` anyway; that was wrong, and checking rather than recalling
+is what corrected it. The key has been live since 20 August.
 
 Add-to-carts that never reached Stripe Checkout are still invisible: no session
 is created until checkout starts, so there is no email, no IP and no location
@@ -1354,11 +1432,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                      | --- | --- | --- |
-                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                              | --- | --- | --- |
+                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5110,11 +5188,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -7182,15 +7260,15 @@ lamp` are different searches with different results.
 
 Ranked by what it costs to leave undone.
 
-| #   | Item                              | Why it blocks everything                                                                                                                                                                                                                                                                                 |
-| --- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | ~~Get the work live~~             | **Done 12 August, 23:5x.** Vercel's Production Branch is `claude/init-production-codebase-phv4c7`, last pushed 9 August. Fast-forwarded it; kaikuhome.com now serves the current work. **Still worth doing: point Production Branch at `main`** so this cannot recur                                     |
-| 1   | ~~Merge the branch to `main`~~    | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                                                                                                                                             |
-| 2   | ~~Stripe live keys~~              | **Done 19 August.** Live keys and the webhook are set, verified against the deployed site. A real card has been charged                                                                                                                                                                                  |
-| 3   | **`RESEND_API_KEY`**              | A buyer pays and receives nothing. This is exactly what happened on the 19 August order. Eight customer emails are now built and previewable at `/admin/emails`, and none of them can leave the building. Verify a sending domain in Resend, then set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in Vercel |
-| 4   | ~~One real test order~~           | **Done 19 August — £19.00, £18.51 net.** Payment and webhook worked. Two faults it exposed are fixed below; the email did not send, which is row 3                                                                                                                                                       |
-| 5   | **Rotate the Sanity write token** | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                                                                                                                                           |
-| 6   | ~~Companies House number~~        | **Not needed — resolved.** Kaiku trades as a sole trader, so there is no company number to publish. `companyDetails` carries the trader name, geographic address and contact details, which is what the law requires of a sole trader selling online.                                                    |
+| #   | Item                                  | Why it blocks everything                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | **Point Production Branch at `main`** | **Verified against Vercel on 22 September and it still has not been done.** `kaikuhome.com` and `www.kaikuhome.com` are served by a production deployment built from **`claude/kaiku-home-continue-v94z7g`** — the working branch. Every push to it is live on the shop in about ninety seconds, with no merge, no review and no staging step in between. That is how the work got live in August and it is why nothing since has needed a merge, but it also means there is no safe place to put anything unfinished |
+| 1   | ~~Merge the branch to `main`~~        | **Done 12 August.** `main` was at 17 July; it is now at the current work. See the note below                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 2   | ~~Stripe live keys~~                  | **Done 19 August.** Live keys and the webhook are set, verified against the deployed site. A real card has been charged                                                                                                                                                                                                                                                                                                                                                                                               |
+| 3   | ~~`RESEND_API_KEY`~~                  | **Done 20 August, and this row was a month stale — checked against Vercel and DNS on 22 September.** `RESEND_API_KEY` and `RESEND_FROM_EMAIL` are both set on production and preview. DNS is complete too: DKIM at `resend._domainkey`, SPF `v=spf1 include:amazonses.com ~all` and the Amazon SES feedback MX on `send.kaikuhome.com`, DMARC `p=none` on the root, ProtonMail left in place for receiving. **Email is live.** A buyer now gets their confirmation, and anything else wired to send, sends            |
+| 4   | ~~One real test order~~               | **Done 19 August — £19.00, £18.51 net.** Payment and webhook worked. Two faults it exposed are fixed below; the email did not send, which is row 3                                                                                                                                                                                                                                                                                                                                                                    |
+| 5   | **Rotate the Sanity write token**     | The live token was pasted into this chat in plaintext. Treat it as compromised                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 6   | ~~Companies House number~~            | **Not needed — resolved.** Kaiku trades as a sole trader, so there is no company number to publish. `companyDetails` carries the trader name, geographic address and contact details, which is what the law requires of a sole trader selling online.                                                                                                                                                                                                                                                                 |
 
 | 7 | **Run migration `0005`** | `supabase/migrations/0005_order_numbers.sql`, in Supabase → SQL Editor → New query. Until it runs there is no `order_number` column, so every order stays labelled by its UUID — the thing you said was unusable. Safe to re-run; it backfills the orders you already have |
 
@@ -9577,12 +9655,14 @@ supplier's own page for that product without waiting on anybody.
   purchases. Audited 19 August: checkout now requires an account, so an order
   can no longer exist without one to appear in. Order history and the tracking
   page both show the readable order number. Saved details are still not built.
-- [~] **Email system** — welcome, order confirmation, payment confirmation,
-  shipping update, delivery notification, abandoned basket, account
-  creation, follow-up. Eight are built, editable in Studio, and previewable
-  and test-sendable from `/admin/emails`. Abandoned basket and the 10%-off
-  follow-up are not built. Every one of them is still blocked on
-  `RESEND_API_KEY` — nothing has ever actually sent.
+- [x] **Email system** — welcome, order confirmation, payment confirmation,
+      shipping update, delivery notification, abandoned basket, account
+      creation, follow-up. Fourteen are built, editable in Studio, and previewable
+      and test-sendable from `/admin/emails`. The 10%-off follow-up ships as
+      "Second order offer"; abandoned basket was added 22 September and is the one
+      that is **built but not wired to its trigger** — see the entry at the top.
+      `RESEND_API_KEY` was set on 20 August and the sending domain's DNS is
+      complete, so these are no longer theoretical: what is wired, sends.
 - [ ] **10% off second order for creating an account** — framed as joining the
       Kaiku community, not as a hard sell.
 - [~] **Product badges** — new arrival, low stock, limited availability, popular
