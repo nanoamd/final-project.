@@ -65,10 +65,19 @@ appeared, 1–22 September, United Kingdom only:
 | `MERCHANT_LISTINGS` |          40 |     10 | **25%** |         1.63 |
 | `PRODUCT_SNIPPETS`  |         174 |      6 |    3.4% |        20.56 |
 
-**Every merchant-listing click on this site is British, and one in four
-impressions becomes a click.** That is not a broken channel, or a badly written
-product page, or a shop nobody trusts. It is the best-performing thing Kaiku
-has, and there is simply not much of it yet.
+**Every merchant-listing click on this site is British.** That part holds.
+
+> **Correction.** This document originally read "one in four impressions
+> becomes a click" and planned against 25% as a rate. The aggregate is real —
+> 40 impressions, 10 clicks — but broken down by query it is nine
+> single-impression rows, which this project's own standing rule says to
+> ignore. One impression and one click is one event, not a 100% click-through
+> rate. The true rate is unknown and the sample is small.
+
+And the country split underneath it is the real story. Of 613 merchant-listing
+impressions in the same period, **the UK is 40 — 6.5%.** The Netherlands took
+282 and Germany 237, with no clicks between them, on a feed that declares GB
+shipping and nothing else. See the ledger entry for 23 September.
 
 That reframes the problem again, and this time upwards: the product pages
 convert attention at a rate most shops would take. **What is missing is volume,

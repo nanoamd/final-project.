@@ -16,6 +16,88 @@ Status key:
 
 ---
 
+## 85% of the Shopping impressions go to countries we cannot ship to (23 September)
+
+Damien: _"find something that should make us expect 10 clicks a day."_
+
+This is the closest thing to it, and it is a setting rather than a piece of
+work. Search Console, `search_appearance = MERCHANT_LISTINGS`, 1–22 September:
+
+| Country            | Impressions | Clicks |
+| ------------------ | ----------: | -----: |
+| **United Kingdom** |      **40** | **10** |
+| Netherlands        |         282 |      0 |
+| Germany            |         237 |      0 |
+| Everywhere else    |          54 |      0 |
+| **Total**          |     **613** | **10** |
+
+**The UK is 6.5% of the Shopping impressions. The Netherlands and Germany are
+85% between them, and they have produced no clicks at all.** Every click this
+channel has ever earned is British.
+
+The feed declares `<g:shipping><g:country>GB</g:country></g:shipping>` and
+nothing else, because Hill Interiors cannot dropship to the EU. So a shop that
+can only deliver to Great Britain is spending six impressions in seven on
+people who cannot buy from it.
+
+### What to check, and it is one screen
+
+Merchant Center → the feed → its **target country and feed label**. That is the
+"Enter feed label" dialog from 17 September. If it is set to anything other
+than the United Kingdom, or to more than the United Kingdom, that is the whole
+explanation: Google serves free listings into the countries the feed is
+configured for, and it has been serving these into the Netherlands and Germany.
+
+Some of the German and Dutch volume is the title-scraper traffic recorded
+above — 153 impressions of it. That still leaves around 370 real impressions
+being served where they cannot convert.
+
+### The arithmetic, honestly
+
+Redirecting the whole 613 to the UK would give **28 UK Shopping impressions a
+day instead of 1.8**. What that is worth depends on a click rate this data
+cannot pin down (see the correction below): somewhere between one and seven
+clicks a day from Shopping alone.
+
+So it is not, by itself, ten clicks a day. It is the largest single
+misallocation found so far, it costs nothing but a settings change, and it
+makes every feed improvement worth roughly fifteen times more than it is worth
+today. Fixing the data while the audience is wrong is filling a bucket with a
+hole in it.
+
+### Correction: the 25% click-through rate is not a rate to plan with
+
+Earlier today this ledger said UK merchant listings convert at 25% — 40
+impressions, 10 clicks — and used it to claim that forty UK impressions a day
+would be ten clicks a day.
+
+The aggregate is real. The extrapolation is not. Broken down by query, the
+named UK merchant-listing rows are:
+
+```
+lean to pergola                                1 impression   1 click
+solar floor lamp                               1 impression   1 click
+yes please                                     1 impression   1 click
+camden collection round side table             1 impression   0 clicks
+computer desk with drawers and printer space   1 impression   0 clicks
+etched mirror wall art                         1 impression   0 clicks
+hexagonal mirrors                              1 impression   0 clicks
+paper mache table lamp                         1 impression   0 clicks
+wood arched window mirror                      2 impressions  0 clicks
+```
+
+**Single-impression rows, which this ledger's own standing rule says to
+ignore.** "One impression, one click" is one event, not a 100% click-through
+rate, and a rate assembled from nine of them is not something to forecast
+against. The honest statement is: 40 UK impressions produced 10 clicks over
+three weeks, the sample is small, and the true rate is unknown.
+
+That is the fourth correction today. The pattern in all four is the same — a
+number that looked decisive until the query behind it was checked — and it is
+the reason the rule about checking exists.
+
+---
+
 ## The brand/GTIN contradiction, fixed from the barcodes (23 September)
 
 Damien: _"fix brand an gtin issue then."_
@@ -1519,11 +1601,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                              | --- | --- | --- |
-                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                      | --- | --- | --- |
+                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5275,11 +5357,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
