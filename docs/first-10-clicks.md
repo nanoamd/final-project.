@@ -35,6 +35,42 @@ clicks in fifteen days.** Roughly **7 UK impressions a day**, not 300. The other
 293 are the United States, the Netherlands, Germany and India, looking at pages
 about how to measure a vase, on a shop that delivers to Great Britain only.
 
+### At least 239 of those impressions are not people
+
+Found while checking a different claim, and it is the more useful half of this
+page. Filtering the same fifteen days to queries containing `| kaiku`:
+
+| Query (the page's own `<title>`, verbatim)                             | Impressions | Clicks |
+| ---------------------------------------------------------------------- | ----------: | -----: |
+| `saunaplunge yorkshire cabin 2-person outdoor infrared sauna \| kaiku` |         182 |      0 |
+| `five-tier cascading fountain with led lights, rustic brown \| kaiku`  |          34 |      0 |
+| `saunaplunge dales glow 2 person indoor infrared sauna \| kaiku`       |          20 |      0 |
+| `computer desk with hutch shelf, black \| kaiku`                       |           3 |      0 |
+| **Total**                                                              |     **239** |  **0** |
+
+Every one at average position 1. **No human types a search containing a pipe
+character and a brand suffix** — that is a page title being looked up verbatim,
+which is what price-comparison and catalogue scrapers do. The geography says the
+same thing: 153 of the 239 are Germany and the Netherlands, on one product.
+
+Three consequences, all of which matter for reading any future report:
+
+1. **The impression count is inflated and the click-through rate is
+   correspondingly deflated.** About 9% of all impressions in this window are
+   robotic, and because they all sit at position 1 with no clicks, they drag the
+   site's average CTR down while making its average position look healthy.
+2. **It explains the Netherlands and Germany.** Those two countries showed 539
+   impressions between them in the last report. At least 153 are this one
+   pattern.
+3. **A page at "position 1 with no clicks" is not necessarily a click-through
+   problem.** It is worth checking which query produced the impressions before
+   concluding anything — which is how this was found, after a wrong conclusion
+   about a slug had already been written down.
+
+Nothing needs fixing here. Scrapers are not an attack and blocking them would
+cost more than it saves. It needs knowing, so that the next person reading a
+300-impression day understands what a good part of it is.
+
 ### What follows from that, and it is the whole plan
 
 Ten clicks a day from the UK needs roughly **200–300 UK impressions a day** at a
@@ -100,7 +136,7 @@ product code already stored**. Writing that into `mpn` removes
 `identifier_exists: no` from 162 items and gives Google something to match on.
 Blocked behind item 1, because MPN is only meaningful next to the right brand.
 
-### 4. Fix two malformed slugs, one of which is costing clicks right now
+### 4. Fix two malformed slugs — cosmetic, and here is the correction
 
 ```
 /shop/indoor-saunas/saunaplunge-tm-dales-glow-2-person-indoor-infrared-sauna-or-kaiku
@@ -108,12 +144,19 @@ Blocked behind item 1, because MPN is only meaningful next to the right brand.
 ```
 
 The "™" became `-tm-` and the "|" became `-or-`. Every sibling sauna has a clean
-slug, so these two were generated before the rule was fixed.
+slug, so these two were generated before the rule was fixed. Worth repairing,
+with a 301 through `src/lib/seo/retired-urls.ts`.
 
-The first one took **44 impressions at average position 1 and zero clicks** in
-fifteen days. A URL reading `...-tm-...-or-kaiku` is shown in the search result
-above the title, at exactly the moment someone decides whether to trust the
-link. Needs a slug change plus a 301 through `src/lib/seo/retired-urls.ts`.
+**I first wrote here that the sauna slug was costing clicks — 44 impressions at
+position 1 with none — and that was wrong.** Checking which query produced them
+showed all 44 came from `saunaplunge dales glow 2 person indoor infrared sauna |
+kaiku`, out of Germany, the Netherlands and France. That is the page's own
+`<title>`, pipe and brand suffix included. No person types that. It got no
+clicks because nothing human ever saw it. See the section below — it turned out
+to be the more useful finding of the two.
+
+So: fix the slugs because a broken URL is worth not having, not because they are
+losing anybody.
 
 ### 5. Shorten the 66 slugs truncated mid-word at 90 characters
 

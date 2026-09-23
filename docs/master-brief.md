@@ -1432,11 +1432,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                              | --- | --- | --- |
-                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                      | --- | --- | --- |
+                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5188,11 +5188,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
@@ -7248,6 +7248,15 @@ more than once.
 lamp` are different searches with different results.
   5. If a claim can be checked by typing the term into Google, assume Damien
      will, and check it first.
+  6. **A query containing `| kaiku` is a scraper, not a person.** Nobody types a
+     pipe character and a brand suffix; that is a page's own `<title>` being
+     looked up verbatim by a price-comparison crawler. 239 such impressions in
+     the fifteen days to 22 September, all at average position 1, all with zero
+     clicks, 153 of them from Germany and the Netherlands on one product. They
+     inflate impressions, deflate CTR, and flatter average position. **Before
+     concluding anything from a "position 1, no clicks" row, look at the query
+     that produced it** — a wrong conclusion about a slug had already been
+     written down before this check was run.
 
 - **A feed row count is not a Merchant Center count.** The feed emits 908 rows;
   Merchant Center holds ~500. Merchant Center accepts a row and then disapproves
