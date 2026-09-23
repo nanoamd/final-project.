@@ -1601,11 +1601,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                      | --- | --- | --- |
-                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                              | --- | --- | --- |
+                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -2097,7 +2097,18 @@ images"_, with House & Garden's coffee table article as the shape to match.
       writing, so a guide cannot publish with a broken link.
 - [!] **Images are Damien's, as agreed.** Both guides have none, along with the
   other 35 and all 3 journal posts. **Zero images across all site content** is
-  the largest remaining content gap and it blocks Pinterest entirely.
+  the largest remaining content gap.
+
+  **Correction, 23 September: it does not block Pinterest.** That claim
+  conflated editorial images with product ones. Pinterest sells things by
+  pinning _products_, and there are 908 of those with supplier photography,
+  809 of them with more than one shot. More to the point, Pinterest catalogues
+  ingest the Google Shopping schema — the same RSS with the `g:` namespace
+  that `/google-merchant.xml` already serves. Checked against Pinterest's
+  required fields: id, title, description, link, image_link, price and
+  availability are present on all 908. **Pinterest needs one URL pasted into
+  it, not a photography project.**
+
 - [!] **The byline is still "Kaiku Editorial" with no photo.** House & Garden
   ranks partly on "Furniture designer Tom Faulkner". A named founder with a
   photo is worth more than another guide.
@@ -5357,11 +5368,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
