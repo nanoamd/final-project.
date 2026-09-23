@@ -80,7 +80,24 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang="en"
+      /**
+       * `en-GB`, not `en`.
+       *
+       * This shop ships to Great Britain and nowhere else — the feed declares
+       * GB shipping only, because Hill Interiors cannot dropship to the EU.
+       * Yet 85% of its Shopping impressions in September were served to the
+       * Netherlands and Germany, and produced no clicks, because nobody there
+       * can buy anything.
+       *
+       * A bare `en` says "English" and leaves the region to be inferred. The
+       * regional subtag is one of the signals Google uses to decide which
+       * country's results a page belongs in, it is free, and it is simply
+       * true. It will not on its own override a target country set wrongly in
+       * Merchant Center — that is a settings screen, not a markup problem —
+       * but every signal the site itself controls should at least agree with
+       * where the products can actually go.
+       */
+      lang="en-GB"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="bg-canvas text-ink flex min-h-full flex-col font-sans">

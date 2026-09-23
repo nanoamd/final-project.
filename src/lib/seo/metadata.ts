@@ -80,6 +80,10 @@ export function buildMetadata({
       title: fullTitle,
       description,
       url,
+      // British English, stated rather than left to be inferred. The shop
+      // delivers to Great Britain only, and every locale signal the site
+      // controls should say so — see the note on `lang` in app/layout.tsx.
+      locale: "en_GB",
       images: [{ url: ogImage }],
     },
     twitter: {

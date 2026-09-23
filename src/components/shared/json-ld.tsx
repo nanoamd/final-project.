@@ -57,6 +57,16 @@ export function OrganizationJsonLd() {
       postalCode: companyDetails.address.postcode,
       addressCountry: "GB",
     },
+    /**
+     * The market this business actually serves.
+     *
+     * An address in Buckinghamshire says where the trader is; it does not say
+     * where it will sell to, and a shop can be British and ship worldwide.
+     * This one cannot: delivery is Great Britain only. Stating it costs
+     * nothing and it is the entity-level counterpart of the per-offer
+     * `eligibleRegion` on every product.
+     */
+    areaServed: { "@type": "Country", name: "GB" },
   };
   return (
     <script
@@ -338,6 +348,22 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
       itemCondition: "https://schema.org/NewCondition",
       shippingDetails: shippingDetailsFor(handlingDays(product.deliveryWindow)),
       hasMerchantReturnPolicy: RETURN_POLICY,
+      /**
+       * Where this offer is valid at all.
+       *
+       * `shippingDetails.shippingDestination` already said GB, but that reads
+       * as "here is the GB rate" rather than "GB is the only place this can
+       * be bought", and Google is entitled to assume other destinations exist
+       * at rates we simply have not quoted. `eligibleRegion` is the property
+       * that closes the offer off.
+       *
+       * Not pedantry: in September, 519 of 613 Shopping impressions were
+       * served to the Netherlands and Germany — 85% — and produced no clicks,
+       * on a shop that cannot deliver to either. The cause is most likely the
+       * feed's target country in Merchant Center, which no markup can
+       * override. This makes the page stop implying otherwise.
+       */
+      eligibleRegion: { "@type": "Country", name: "GB" },
     },
     ...(product.rating && product.reviewCount
       ? {
