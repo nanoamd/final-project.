@@ -20,6 +20,7 @@ import {
 } from "@/lib/catalog/delivery";
 import { feedTitle } from "@/lib/catalog/feed-title";
 import { googleProductCategory } from "@/lib/catalog/google-product-category";
+import { resolveIdentity } from "@/lib/catalog/manufacturer-brand";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -83,25 +84,6 @@ function escapeXml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
-}
-
-/**
- * Own-brand products have no manufacturer barcode, and Google will not accept
- * that silently: an item with no `gtin` and no `mpn` is disapproved with
- * "Missing value: GTIN" unless the feed states outright that no identifier
- * exists. 20 of 45 products were in that position — 44% of the catalogue, all
- * rejected, with nothing on the site to indicate it.
- *
- * Declaring `identifier_exists: no` is the documented way to say "this product
- * genuinely has no barcode", which is true of anything sold under our own name.
- * It must NOT be set on a product that does have one, so it is keyed off the
- * absence of both fields rather than applied everywhere.
- */
-function identifierExists(product: {
-  gtin: string | null;
-  mpn: string | null;
-}): boolean {
-  return Boolean(product.gtin ?? product.mpn);
 }
 
 /**
@@ -184,6 +166,12 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
       const link = `${siteUrl}/shop/${product.category}/${product.slug}`;
       const priceValue = `${product.price.toFixed(2)} ${(product.currency || "GBP").toUpperCase()}`;
       const type = productType(product);
+      // Who actually made it, read from the barcode's GS1 company prefix
+      // rather than from our own brand field. 728 items were declaring brand
+      // "Kaiku" beside a GTIN registered to Hill Interiors, Premier Housewares
+      // or Ancient Wisdom — a pair Google validates, and a mismatch both risks
+      // disapproval and blocks product matching. See manufacturer-brand.ts.
+      const identity = resolveIdentity(product);
       // The same window the product page states, via the shared rule — a feed
       // that promised a different lead time from the page it links to is
       // exactly the misrepresentation Merchant Center suspends accounts for.
@@ -223,11 +211,11 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
     <g:availability>${googleAvailability(product.stockStatus)}</g:availability>
     <g:price>${priceValue}</g:price>
     <g:condition>new</g:condition>
-    ${product.brand ? `<g:brand>${escapeXml(product.brand)}</g:brand>` : ""}
-    ${product.gtin ? `<g:gtin>${escapeXml(product.gtin)}</g:gtin>` : ""}
-    ${product.mpn ? `<g:mpn>${escapeXml(product.mpn)}</g:mpn>` : ""}
+    ${identity.brand ? `<g:brand>${escapeXml(identity.brand)}</g:brand>` : ""}
+    ${identity.gtin ? `<g:gtin>${escapeXml(identity.gtin)}</g:gtin>` : ""}
+    ${identity.mpn ? `<g:mpn>${escapeXml(identity.mpn)}</g:mpn>` : ""}
     ${product.sku ? `<g:sku>${escapeXml(product.sku)}</g:sku>` : ""}
-    ${identifierExists(product) ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
+    ${identity.identifierExists ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
     ${type ? `<g:product_type>${escapeXml(type)}</g:product_type>` : ""}
     ${
       // Which auction the product competes in. Absent for the few genuinely

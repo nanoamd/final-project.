@@ -1,5 +1,6 @@
 import { companyDetails, siteConfig } from "@/config/site";
 import { handlingDays, schemaOrgAvailability } from "@/lib/catalog/delivery";
+import { resolveIdentity } from "@/lib/catalog/manufacturer-brand";
 import type { StockStatus } from "@/types/sanity-content";
 
 /**
@@ -286,6 +287,24 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
   const width = quantitative(product.width, unitCode);
   const height = quantitative(product.height, unitCode);
 
+  /**
+   * The same brand/GTIN resolution the Merchant feed applies.
+   *
+   * It has to be the same, or the two halves of one product contradict each
+   * other: Google reads this markup and the feed row, and a page claiming
+   * brand "Kaiku" beside a barcode registered to Hill Interiors is the
+   * mismatch whether it arrives by feed or by crawl. See
+   * lib/catalog/manufacturer-brand.ts for how the registrant is decided.
+   *
+   * Nothing visible on the page changes — this is the machine-readable block,
+   * not the copy.
+   */
+  const identity = resolveIdentity({
+    brand: product.brandName ?? null,
+    gtin: product.gtin ?? null,
+    mpn: product.mpn ?? null,
+  });
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -293,10 +312,10 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
     description: product.description,
     ...(images.length ? { image: images } : {}),
     ...(product.sku ? { sku: product.sku } : {}),
-    ...(product.gtin ? { gtin: product.gtin } : {}),
-    ...(product.mpn ? { mpn: product.mpn } : {}),
-    ...(product.brandName
-      ? { brand: { "@type": "Brand", name: product.brandName } }
+    ...(identity.gtin ? { gtin: identity.gtin } : {}),
+    ...(identity.mpn ? { mpn: identity.mpn } : {}),
+    ...(identity.brand
+      ? { brand: { "@type": "Brand", name: identity.brand } }
       : {}),
     // Colour and material are two of the attributes Google matches a query
     // against — "grey glazed vase", "oak console table" — and they were being

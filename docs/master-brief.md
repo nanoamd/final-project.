@@ -16,6 +16,93 @@ Status key:
 
 ---
 
+## The brand/GTIN contradiction, fixed from the barcodes (23 September)
+
+Damien: _"fix brand an gtin issue then."_
+
+728 products were telling Google two things that cannot both be true: that the
+brand is **Kaiku**, and that the item carries a **GTIN registered to somebody
+else**. Google validates that pair. A mismatch risks disapproval, and — the
+part that costs more — it stops the item matching the catalogue entry every
+other retailer lists against, which is how a free listing gets shown for a
+generic product search at all.
+
+### The registrant was readable from the barcode
+
+A GTIN is issued to one company by GS1, and its leading digits are that
+company's prefix. Grouping all 729 GTINs by prefix answered the question
+outright, with no guessing:
+
+| Prefix    | Products | Registrant                                       |
+| --------- | -------: | ------------------------------------------------ |
+| `5018705` |      489 | Premier Housewares                               |
+| `5050140` |      128 | Hill Interiors — every Hill product, one prefix  |
+| `5063227` |       57 | Premier Housewares, second range                 |
+| `5056368` |       43 | Ancient Wisdom                                   |
+| `5055796` |        8 | Ancient Wisdom — confirmed by the product titles |
+| `5056422` |        3 | Ancient Wisdom                                   |
+| `5061121` |        1 | SaunaPlunge                                      |
+
+All seven begin `50`, which is GS1 UK.
+
+**"AW Dropship" is Ancient Wisdom, and that is evidence rather than inference.**
+Eight of their products carry "| Ancient Wisdom |" in the title Damien wrote,
+and those eight sit on prefix `5055796`. The other two prefixes arrive through
+the same supplier account.
+
+### Why the prefix and not the supplier name
+
+"Use the supplier as the brand" is the obvious fix and it is wrong often enough
+to matter — a dropshipper is not a manufacturer. The company prefix is the
+actual registrant, which is the thing Google checks.
+
+### Applied
+
+- [x] **`src/lib/catalog/manufacturer-brand.ts`** — `resolveIdentity()` decides
+      brand, GTIN and `identifier_exists` from the barcode's prefix. 12 tests.
+- [x] **The Merchant feed** emits the resolved values.
+- [x] **The product page's JSON-LD** emits the same ones. It has to: Google
+      reads the markup and the feed row, and a page claiming Kaiku beside a
+      Hill Interiors barcode is the same mismatch arriving by crawl instead of
+      by fetch.
+- [x] **Verified against all 908 products before shipping**: 728 now name the
+      real manufacturer — Premier Housewares 546, Hill Interiors 128, Ancient
+      Wisdom 54 — **0 GTINs dropped**, and the `identifier_exists: no` count is
+      unchanged at 179, so nothing regressed.
+
+### The conservative half
+
+An unrecognised prefix drops the GTIN and declares `identifier_exists: no`
+rather than guessing a brand. Sending a **wrong** brand beside a real barcode
+rebuilds the exact mismatch this removes, so the barcode goes instead. In
+practice every registrant in this catalogue was identified, so that path did
+not fire once — but it is what makes the next supplier safe to add.
+
+### What did not change
+
+**The storefront.** `brand` in Sanity still says Kaiku, the product pages still
+read as a Kaiku shop, and no product name moved. This is what the feed and the
+structured data tell Google about who manufactured the item, which is a
+question of fact. How the shop presents itself is a separate question and still
+Damien's.
+
+### What to expect, honestly
+
+Merchant Center re-fetches on its own schedule, so this lands within a day or
+so and then takes time to re-review. The measurable outcomes, in order of how
+soon they should show:
+
+1. The "not showing" count moves, if the mismatch was the cause. That is the
+   test of the whole theory and it is falsifiable.
+2. Items become eligible to match a product other retailers also list, which is
+   what puts them in a comparison surface rather than only on a bare query.
+
+It may not be the cause of the 136. The issue name from Merchant Center →
+Products → Needs attention still settles that, and it is still ten minutes of
+Damien's time.
+
+---
+
 ## Two things this ledger said were blocked are not (22 September)
 
 Checked against Vercel and public DNS rather than recalled. Both had been
@@ -1432,11 +1519,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                      | --- | --- | --- |
-                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                              | --- | --- | --- |
+                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5188,11 +5275,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
