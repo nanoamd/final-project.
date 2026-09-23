@@ -30,10 +30,49 @@ It is not only the tools. The Yorkshire Cabin sauna page took 209 impressions
 at average position 1.54 — **9 of them in the UK**. `what-size-kitchen-storage-jar`
 took 118 — **1 in the UK**.
 
-**Across every page on the site, the UK produced about 110 impressions and 2
-clicks in fifteen days.** Roughly **7 UK impressions a day**, not 300. The other
-293 are the United States, the Netherlands, Germany and India, looking at pages
-about how to measure a vase, on a shop that delivers to Great Britain only.
+The other impressions are largely the United States, the Netherlands, Germany
+and India, looking at pages about how to measure a vase, on a shop that delivers
+to Great Britain only.
+
+> **Correction, made the same day.** This section first said the UK produced
+> "about 110 impressions and 2 clicks in fifteen days — roughly 7 a day". That
+> was wrong, and wrong in the direction that makes the business look dead.
+>
+> The figure came from a query that included `pagepath`. **Search Console drops
+> most rows once a page dimension is added**, so the page-level table is a
+> sample, not a total, and summing it undercounts badly. Asked without the page
+> dimension, the same filter gives **492 UK impressions and 15 clicks for 8–21
+> September** — roughly **35 UK impressions and 1.1 UK clicks a day**, at a
+> 3.0% click-through rate.
+>
+> That is four times the impressions and seven times the clicks I reported. The
+> per-page facts above are still true — the tool pages really do earn almost
+> nothing in the UK — but the conclusion drawn from them was not. **Never sum a
+> dimensioned Search Console table and call it a total.**
+
+### The UK half is healthy. It is just small
+
+| UK, `search_type = web` | 8–14 Sept | 15–21 Sept |
+| ----------------------- | --------: | ---------: |
+| Impressions             |       149 |        343 |
+| Clicks                  |         9 |          6 |
+
+UK impressions more than doubled week on week. And split by how the result
+appeared, 1–22 September, United Kingdom only:
+
+| Search appearance   | Impressions | Clicks |     CTR | Avg position |
+| ------------------- | ----------: | -----: | ------: | -----------: |
+| `MERCHANT_LISTINGS` |          40 |     10 | **25%** |         1.63 |
+| `PRODUCT_SNIPPETS`  |         174 |      6 |    3.4% |        20.56 |
+
+**Every merchant-listing click on this site is British, and one in four
+impressions becomes a click.** That is not a broken channel, or a badly written
+product page, or a shop nobody trusts. It is the best-performing thing Kaiku
+has, and there is simply not much of it yet.
+
+That reframes the problem again, and this time upwards: the product pages
+convert attention at a rate most shops would take. **What is missing is volume,
+not quality.**
 
 ### At least 239 of those impressions are not people
 
@@ -73,11 +112,60 @@ cost more than it saves. It needs knowing, so that the next person reading a
 
 ### What follows from that, and it is the whole plan
 
-Ten clicks a day from the UK needs roughly **200–300 UK impressions a day** at a
-realistic 3–5% click-through rate. Today there are seven. That is a thirty-fold
-increase, and **no amount of title-tag tuning produces it**, because there is
-almost no UK traffic to tune. The clicks have to come from UK commercial
-surface that does not exist yet.
+Ten clicks a day needs roughly **330 UK impressions a day** at the 3% rate the
+site currently achieves — or **far fewer than that** if more of the mix comes
+through merchant listings, which convert at 25%. At 25%, forty UK merchant-listing
+impressions a day is ten clicks a day.
+
+Today there are about 35 UK impressions a day in total, of which roughly two are
+merchant listings. So the honest gap is **somewhere between 2× and 10×,
+depending which surface carries it** — not the thirty-fold figure this document
+originally claimed, and not a wall.
+
+It is a volume problem on a channel that already converts. That is the best kind
+of problem to have, and it is why the list below leads with the feed.
+
+### What Merchant Center itself says, and it is not "dead"
+
+From Damien's own Merchant Center, Products → Traffic, last 28 days, Traffic:
+All:
+
+| Metric      | Value | Change    |
+| ----------- | ----: | --------- |
+| Impressions | 1,140 | up from 0 |
+| Clicks      |    16 | up from 0 |
+| CTR         |  1.4% | up from 0 |
+
+**Up from zero on all three.** Four weeks ago this channel did not exist,
+because the feed was blocked by the robots.txt rule. It now exists and it is
+producing clicks.
+
+Two things to read carefully before celebrating:
+
+1. **That chart has an "Ads" series as well as "Organic".** The click spikes sit
+   on the orange line. Before treating 16 as an organic number, untick Ads and
+   read what is left. Search Console's organic-only `MERCHANT_LISTINGS` figure
+   is 10 clicks in 22 days, all British, so the organic share is real but
+   smaller than 16.
+2. **1,140 impressions across 908 products in 28 days is about one impression
+   per product every 22 days.** That is the actual constraint. Not price, not
+   copy, not trust — Google is barely showing the catalogue.
+
+### Google has badged 37 products "Low price"
+
+Merchant Center → Promotions → _Which of your products benefit most from
+promotions_ lists **37 products carrying a "Low price" badge**, each with fewer
+than 20 impressions and no clicks.
+
+That badge is Google's own judgement that the item is cheaper than other
+retailers selling the same product. It is worth stating plainly because it
+**contradicts the theory that Kaiku's prices are the problem** — on the products
+Google can actually compare, the price is competitive enough to earn a badge
+that raises click-through.
+
+The reason those 37 earn nothing is the same as everything else here: fewer
+than 20 impressions each. A badge on a listing nobody is shown is worth nothing,
+and fixing distribution turns 37 badges into an advantage.
 
 Three channels can produce it, in order of how fast they can:
 
