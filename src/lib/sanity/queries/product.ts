@@ -892,6 +892,22 @@ export interface MerchantFeedProduct {
   promotionTier: string | null;
   /** Same string the product page renders; parsed into handling days. */
   deliveryLeadTime: string | null;
+  /**
+   * The product page's own copy, flattened out of Portable Text.
+   *
+   * The feed used to send `summary` alone — 181 characters on average against
+   * a 5,000 character allowance, on the field Shopping matches queries
+   * against. See lib/catalog/feed-description.ts.
+   */
+  body: string | null;
+  specs: { label?: string | null; value?: string | null }[] | null;
+  dimensions: {
+    length?: number | null;
+    width?: number | null;
+    height?: number | null;
+  } | null;
+  dimensionUnit: string | null;
+  weight: number | null;
   /** Needed to apply the same delivery rule the storefront applies — a
    * made-to-order supplier's real lead time beats the price band. See
    * src/lib/catalog/delivery.ts. */
@@ -921,6 +937,13 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   deliveryLeadTime,
   colourTags,
   materialTags,
+  // pt::text flattens Portable Text server-side, so the whole page copy
+  // arrives as a plain string without shipping the block structure.
+  "body": pt::text(description),
+  specs,
+  dimensions,
+  dimensionUnit,
+  weight,
   "extraImages": gallery[1...11].asset->url,
   "supplierName": supplier->name
 }`;

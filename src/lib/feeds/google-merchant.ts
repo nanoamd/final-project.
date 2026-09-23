@@ -18,6 +18,7 @@ import {
   googleAvailability,
   handlingDays,
 } from "@/lib/catalog/delivery";
+import { feedDescription } from "@/lib/catalog/feed-description";
 import { feedTitle } from "@/lib/catalog/feed-title";
 import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { resolveIdentity } from "@/lib/catalog/manufacturer-brand";
@@ -197,7 +198,22 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
         categoryName: product.categoryName,
       }),
     )}</title>
-    <description>${escapeXml(product.summary)}</description>
+    <description>${escapeXml(
+      // Not `summary` alone. That averaged 181 characters against Google's
+      // 5,000, while every product already had 645+ characters written for
+      // its page — 7% of the available matching text was reaching the one
+      // field Shopping matches a query against.
+      feedDescription({
+        summary: product.summary,
+        body: product.body,
+        specs: product.specs,
+        dimensions: product.dimensions,
+        dimensionUnit: product.dimensionUnit,
+        weight: product.weight,
+        colours: product.colourTags,
+        materials: product.materialTags,
+      }),
+    )}</description>
     <link>${escapeXml(link)}</link>
     ${
       // feedImage first: a square 1:1 render honouring the hero's tightened crop, so
