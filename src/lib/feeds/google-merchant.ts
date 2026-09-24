@@ -23,6 +23,7 @@ import { feedDescription } from "@/lib/catalog/feed-description";
 import { feedTitle } from "@/lib/catalog/feed-title";
 import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { resolveIdentity } from "@/lib/catalog/manufacturer-brand";
+import { variantGroups } from "@/lib/catalog/variant-group";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -163,6 +164,21 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
 
   const products = await getMerchantFeedProducts();
 
+  /**
+   * Which products are the same thing in another colour or size, worked out
+   * once over the whole catalogue because a family cannot be recognised from
+   * inside a single item. 185 products across 83 families; everything else is
+   * a standalone product and carries no group.
+   */
+  const groups = variantGroups(
+    products.map((product) => ({
+      id: feedId(product),
+      title: product.title,
+      category: product.category,
+      supplier: product.supplierName,
+    })),
+  );
+
   const items = products
     .map((product) => {
       const link = `${siteUrl}/shop/${product.category}/${product.slug}`;
@@ -188,6 +204,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
         } as SanityProduct),
       );
       const backorderDate = availabilityDate(handling);
+      const groupId = groups.get(feedId(product));
 
       return `  <item>
     <g:id>${escapeXml(feedId(product))}</g:id>
@@ -244,6 +261,20 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
     ${identity.gtin ? `<g:gtin>${escapeXml(identity.gtin)}</g:gtin>` : ""}
     ${identity.mpn ? `<g:mpn>${escapeXml(identity.mpn)}</g:mpn>` : ""}
     ${product.sku ? `<g:sku>${escapeXml(product.sku)}</g:sku>` : ""}
+    ${
+      // Variants share an item_group_id so Google shows one product with
+      // options rather than three near-identical listings competing for the
+      // same query. See variant-group.ts.
+      groupId ? `<g:item_group_id>${escapeXml(groupId)}</g:item_group_id>` : ""
+    }
+    ${
+      // 789 products carry a weight and none of it reached the feed. It is
+      // not required while shipping is a flat £0, but it is one of the
+      // attributes Google matches a query against and it is already stored.
+      typeof product.weight === "number" && product.weight > 0
+        ? `<g:shipping_weight>${product.weight} kg</g:shipping_weight>`
+        : ""
+    }
     ${identity.identifierExists ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
     ${type ? `<g:product_type>${escapeXml(type)}</g:product_type>` : ""}
     ${
