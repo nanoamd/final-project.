@@ -907,7 +907,9 @@ export interface MerchantFeedProduct {
     height?: number | null;
   } | null;
   dimensionUnit: string | null;
+  /** Flattened from Sanity's `{value, unit}` object — see the query. */
   weight: number | null;
+  weightUnit: string | null;
   /** Needed to apply the same delivery rule the storefront applies — a
    * made-to-order supplier's real lead time beats the price band. See
    * src/lib/catalog/delivery.ts. */
@@ -942,8 +944,15 @@ const MERCHANT_FEED_QUERY = /* groq */ `
   "body": pt::text(description),
   specs,
   dimensions,
-  dimensionUnit,
-  weight,
+  // Flattened here rather than in TypeScript, because both are objects in
+  // Sanity: weight holds a value and a unit, and the unit for dimensions sits
+  // inside dimensions rather than in a sibling dimensionUnit field.
+  // Projecting the raw documents handed the feed an object where it expected
+  // a number, so the numeric test was false for all 908 products and both
+  // shipping_weight and the description's weight line silently never emitted.
+  "dimensionUnit": dimensions.unit,
+  "weight": weight.value,
+  "weightUnit": weight.unit,
   "extraImages": gallery[1...11].asset->url,
   "supplierName": supplier->name
 }`;

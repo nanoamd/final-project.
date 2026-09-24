@@ -272,7 +272,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
       // not required while shipping is a flat £0, but it is one of the
       // attributes Google matches a query against and it is already stored.
       typeof product.weight === "number" && product.weight > 0
-        ? `<g:shipping_weight>${product.weight} kg</g:shipping_weight>`
+        ? `<g:shipping_weight>${product.weight} ${product.weightUnit || "kg"}</g:shipping_weight>`
         : ""
     }
     ${identity.identifierExists ? "" : "<g:identifier_exists>no</g:identifier_exists>"}
