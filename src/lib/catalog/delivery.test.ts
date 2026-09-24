@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import type { SanityProduct } from "@/types/sanity-content";
 
 import {
+  availabilityDate,
   deliveryWindow,
   googleAvailability,
   handlingDays,
@@ -179,5 +180,43 @@ describe("schemaOrgAvailability", () => {
         equivalent[googleAvailability(status)],
       );
     }
+  });
+});
+
+describe("availabilityDate", () => {
+  // Merchant Center suppressed 123 products for "Missing attribute
+  // [availability_date]" — Google requires it on every backorder item.
+  const noon = new Date("2026-09-24T12:00:00Z");
+
+  it("dates a backorder from the outside of its own handling window", () => {
+    // The maximum, not the minimum: this is a promise the shop has to keep.
+    expect(availabilityDate({ min: 14, max: 21 }, noon)).toBe(
+      "2026-10-15T00:00+0000",
+    );
+  });
+
+  it("uses ISO 8601 with an explicit offset, as Google's examples do", () => {
+    expect(availabilityDate({ min: 2, max: 3 }, noon)).toMatch(
+      /^\d{4}-\d{2}-\d{2}T00:00\+0000$/,
+    );
+  });
+
+  it("crosses a month boundary correctly", () => {
+    expect(availabilityDate({ min: 20, max: 30 }, noon)).toBe(
+      "2026-10-24T00:00+0000",
+    );
+  });
+
+  it("returns null rather than inventing a date it cannot derive", () => {
+    // A guessed date is worse than a missing one: a customer holds you to it.
+    expect(availabilityDate(null, noon)).toBeNull();
+  });
+
+  it("agrees with the handling time the same product advertises", () => {
+    // The two must not disagree — max_handling_time and availability_date are
+    // read together, and a feed that contradicts itself is a disapproval.
+    const handling = handlingDays("3–4 weeks");
+    expect(handling).toEqual({ min: 21, max: 28 });
+    expect(availabilityDate(handling, noon)).toBe("2026-10-22T00:00+0000");
   });
 });

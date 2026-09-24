@@ -14,6 +14,7 @@
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
 import {
+  availabilityDate,
   deliveryWindow,
   googleAvailability,
   handlingDays,
@@ -173,6 +174,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
       // or Ancient Wisdom — a pair Google validates, and a mismatch both risks
       // disapproval and blocks product matching. See manufacturer-brand.ts.
       const identity = resolveIdentity(product);
+      const availability = googleAvailability(product.stockStatus);
       // The same window the product page states, via the shared rule — a feed
       // that promised a different lead time from the page it links to is
       // exactly the misrepresentation Merchant Center suspends accounts for.
@@ -185,6 +187,7 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
             : null,
         } as SanityProduct),
       );
+      const backorderDate = availabilityDate(handling);
 
       return `  <item>
     <g:id>${escapeXml(feedId(product))}</g:id>
@@ -224,7 +227,17 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
         ? `<g:image_link>${escapeXml(product.feedImage || product.image!)}</g:image_link>`
         : ""
     }
-    <g:availability>${googleAvailability(product.stockStatus)}</g:availability>
+    <g:availability>${availability}</g:availability>
+    ${
+      // Google makes availability_date mandatory on backorder and preorder,
+      // and the feed sent `backorder` for 123 products without one — every
+      // one suppressed with "Missing attribute [availability_date]". The date
+      // is today plus this product's own maximum handling days, which is the
+      // outside estimate rather than the earliest we could manage.
+      availability === "backorder" && backorderDate
+        ? `<g:availability_date>${backorderDate}</g:availability_date>`
+        : ""
+    }
     <g:price>${priceValue}</g:price>
     <g:condition>new</g:condition>
     ${identity.brand ? `<g:brand>${escapeXml(identity.brand)}</g:brand>` : ""}

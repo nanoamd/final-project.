@@ -282,3 +282,37 @@ export function deliveryWindow(product: SanityProduct): string {
 export function leadTimeLine(product: SanityProduct): string {
   return `Delivered in ${deliveryWindow(product)}`;
 }
+
+/**
+ * When a backordered item will be available, as Google requires it.
+ *
+ * Merchant Center, 24 September: **"Missing attribute [availability_date] —
+ * 123 products (11.5%)"**. Google's specification makes `availability_date`
+ * mandatory whenever `availability` is `backorder` or `preorder`, and the feed
+ * was sending `backorder` for the 127 products whose `stockStatus` is blank
+ * without ever supplying one. Every one of them was suppressed.
+ *
+ * The date is not invented. It is today plus the **maximum** handling days
+ * already derived from the product's own delivery window — the same number the
+ * feed sends as `max_handling_time` and the same window the product page
+ * prints. Taking the maximum rather than the minimum means the date is the
+ * outside estimate, so it is a promise the shop can keep rather than the
+ * earliest it could conceivably manage.
+ *
+ * Returns `null` when there is no handling window to work from, because a
+ * guessed date on a product nobody can date is worse than the missing
+ * attribute — it is a date a customer would hold us to.
+ *
+ * `from` is injectable so the tests are not a function of the day they run.
+ */
+export function availabilityDate(
+  handling: { min: number; max: number } | null,
+  from: Date = new Date(),
+): string | null {
+  if (!handling) return null;
+  const available = new Date(from);
+  available.setUTCDate(available.getUTCDate() + handling.max);
+  // ISO 8601 with an explicit offset, which is the form Google's own examples
+  // use. A bare date is accepted too, but not by every validator.
+  return `${available.toISOString().slice(0, 10)}T00:00+0000`;
+}
