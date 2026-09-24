@@ -16,6 +16,86 @@ Status key:
 
 ---
 
+## Half an hour on the feed, and two bugs found by looking at the live one (24 September)
+
+Damien: _"Work for half an hour pls"_.
+
+### The feed, before and after today
+
+| Attribute           |   Was |  Now | Note                                  |
+| ------------------- | ----: | ---: | ------------------------------------- |
+| `brand`             | Kaiku | real | 728 items now name the manufacturer   |
+| `description` (avg) |   181 | 1887 | 10× the text Shopping matches against |
+| `availability_date` |     0 |  130 | Google was suppressing 123 for this   |
+| `item_group_id`     |     0 |  185 | 83 variant families, was zero         |
+| `shipping_weight`   |     0 |  784 | the weights were stored all along     |
+
+### `item_group_id` — 185 products in 83 families
+
+Three Canyon soap dishes in black, grey and white were three unrelated
+products as far as Google was concerned, and the four Freska jars were four.
+They competed with each other for the same query rather than pooling into one
+listing with options.
+
+A family is products sharing a category, a supplier, and an identical title
+once colour, finish, material and size words are removed — the attributes
+Google itself permits a group to vary on. The rule is deliberately narrow:
+over-grouping invites a disapproval, under-grouping only costs a grouping we
+never had.
+
+### Bug one, caught before shipping: the id collided
+
+The first version used the family key truncated to Google's 50-character limit
+as the group id. `…::canyon tumbler` and `…::canyon toothbrush holder` both
+became `bathroom-accessories::Premier Housewares::canyon t`, so a tumbler and
+a toothbrush holder were declared the same product in two finishes. So were a
+table lamp and a floor lamp, and the Yorkshire Cabin sauna and the Bronte.
+
+**It is the exact failure the `g:id` comment in the same file already warns
+about** — truncating an identifier to fit a limit collides the things it is
+meant to keep apart. Which is an argument for reading the warnings already
+written down. It hashes the whole key now and there is a regression test named
+after it.
+
+Caught by printing all 83 families and reading them, not by a test.
+
+### Bug two, caught after shipping: the schema was not what the code assumed
+
+`shipping_weight` went out and the live feed still had none of it. The reason:
+**`weight` is not a number in Sanity, it is an object holding a value and a
+unit.** Both the feed and the description builder tested `typeof weight ===
+"number"`, which was false for all 908 products, so `shipping_weight` never
+emitted once and the description's weight line never fired either.
+
+The 501 descriptions that _did_ say "Weight:" were getting it from a spec row
+that happened to carry that label — a coincidence that made a broken thing
+look like a working one.
+
+The same check found a second one: the unit for dimensions sits **inside**
+`dimensions`, not in a sibling `dimensionUnit` field, so that projection was
+null on every product and the description fell back to "cm". Right for 889
+products and wrong for the 2 measured in mm, which were being described an
+order of magnitude too large.
+
+Both are now flattened in the GROQ projection, so the shape is corrected at
+the boundary where it is actually wrong rather than patched in TypeScript.
+
+**Neither bug was findable by unit test.** Both live at the seam between the
+database and the code, where the tests supply the shape the code expects and
+therefore agree with it. Fetching the deployed feed and counting tags is what
+found them, and it is now the last step of any feed change.
+
+### What this does not do
+
+None of it overrides the setting that matters. Merchant Center still reports
+**856 products (80%) suppressed** for "products set to show in countries that
+lack shipping information", and that is a screen in Merchant Center rather
+than anything in this repository. Every improvement above applies to the 20%
+that are currently servable, and becomes roughly five times more valuable the
+day that setting is corrected.
+
+---
+
 ## 85% of the Shopping impressions go to countries we cannot ship to (23 September)
 
 Damien: _"find something that should make us expect 10 clicks a day."_
@@ -1601,11 +1681,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                              | --- | --- | --- |
-                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                                      | --- | --- | --- |
+                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5368,11 +5448,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
