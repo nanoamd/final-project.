@@ -33,12 +33,13 @@ import { updateSession } from "@/lib/supabase/session";
  * matched against the list, since Next's own special-file routes and static
  * assets live at the root and would otherwise need enumerating one by one.
  */
-const ALLOWED_TOP_LEVEL_SEGMENTS = new Set([
+export const ALLOWED_TOP_LEVEL_SEGMENTS = new Set([
   "about",
   "account",
   "admin",
   "api",
   "auth",
+  "blog",
   "cart",
   "checkout",
   "compare",
