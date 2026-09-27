@@ -21,6 +21,7 @@ const STATIC_ROUTES: {
   { path: "/shop", changeFrequency: "daily", tracks: true },
   { path: "/learn", changeFrequency: "weekly", tracks: true },
   { path: "/journal", changeFrequency: "weekly", tracks: true },
+  { path: "/blog", changeFrequency: "weekly" },
   { path: "/tools", changeFrequency: "monthly" },
   /**
    * Every tool, derived rather than listed.

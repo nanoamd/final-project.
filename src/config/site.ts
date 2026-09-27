@@ -194,6 +194,7 @@ export const footerNav: NavGroup[] = [
     children: [
       { label: "Buying Guides", href: "/learn" },
       { label: "Journal", href: "/journal" },
+      { label: "Blog", href: "/blog" },
       { label: "Compare", href: "/compare" },
       { label: "Guided Buying", href: "/guided-buying" },
       { label: "Inspiration", href: "/inspiration" },
