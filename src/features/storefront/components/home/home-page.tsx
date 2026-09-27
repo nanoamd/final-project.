@@ -1,10 +1,11 @@
+import { AfterYouOrder } from "@/features/storefront/components/home/after-you-order";
 import { AiDesignStudio } from "@/features/storefront/components/home/ai-design-studio";
 import { BuyingGuides } from "@/features/storefront/components/home/buying-guides";
 import { CuratedFeaturedProduct } from "@/features/storefront/components/home/curated-featured-product";
-import { CustomerJourney } from "@/features/storefront/components/home/customer-journey";
 import { DesignPhilosophy } from "@/features/storefront/components/home/design-philosophy";
 import { DesignedForLiving } from "@/features/storefront/components/home/designed-for-living";
 import { EditorialJournal } from "@/features/storefront/components/home/editorial-journal";
+import { EveryRoom } from "@/features/storefront/components/home/every-room";
 import { FeaturedCollection } from "@/features/storefront/components/home/featured-collection";
 import { FeaturedProduct } from "@/features/storefront/components/home/featured-product";
 import { FeaturedTransformation } from "@/features/storefront/components/home/featured-transformation";
@@ -18,6 +19,7 @@ import { NewAndNoteworthy } from "@/features/storefront/components/home/new-and-
 import { ShopByCategory } from "@/features/storefront/components/home/shop-by-category";
 import { SupplierStandards } from "@/features/storefront/components/home/supplier-standards";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
+import { WhoYouBuyFrom } from "@/features/storefront/components/home/who-you-buy-from";
 import { WhyKaiku } from "@/features/storefront/components/home/why-kaiku";
 import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
 import { getHomepage } from "@/lib/sanity/queries/homepage";
@@ -75,6 +77,12 @@ export async function HomePage() {
         }}
       />
       <TrustBar items={homepage?.trustBarItems} />
+      {/* Breadth before beauty. A professional review found it took too long to
+          realise Kaiku sells for every room, and the catalogue agrees: 73% of
+          it is indoors while the hero features one of the thirteen saunas.
+          This answers "what do you actually sell" in one glance, before any
+          editorial band gets a chance to imply "garden shop". */}
+      <EveryRoom />
       <FeaturedProduct />
       {/* The category rail and New & Noteworthy read as one white panel between
           the dark hero above and the dark Garden Studio below — pick a room, then
@@ -96,6 +104,13 @@ export async function HomePage() {
           cta: homepage?.gardenStudioCta,
         }}
       />
+      {/* The same review's headline finding: "the site doesn't seem real,
+          someone could order and nothing show up." These two answer it with
+          specifics rather than badges, and they sit here — after the visitor
+          has seen real stock and before the long editorial run — because that
+          is the moment the question actually occurs to somebody. */}
+      <AfterYouOrder />
+      <WhoYouBuyFrom />
       <DesignedForLiving
         headline={homepage?.designedForLivingHeadline}
         cards={homepage?.designedForLivingCards}
@@ -118,10 +133,10 @@ export async function HomePage() {
       <InspirationGallery />
       <BuyingGuides />
       <HomeCategories />
-      {/* 253px on mobile. Desktop keeps it. */}
-      <div className="hidden lg:block">
-        <CustomerJourney />
-      </div>
+      {/* CustomerJourney removed: "Discover / Plan / Choose / Purchase /
+          Deliver / Enjoy" is six abstract verbs that describe every shop ever
+          built and therefore say nothing about this one. AfterYouOrder does
+          its job with facts a visitor can check. */}
       {/* 398px on mobile. Desktop keeps it. */}
       <div className="hidden lg:block">
         <WhyKaiku />
