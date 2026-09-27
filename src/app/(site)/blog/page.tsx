@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 
 import { Container } from "@/components/ui/container";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -41,12 +40,23 @@ import { buildMetadata } from "@/lib/seo/metadata";
  * one URL per article, in the sitemap, and they are what currently earns this
  * site its editorial impressions. Nothing here replaces them.
  *
- * ## Why `afterInteractive`
+ * ## Why a plain `<script defer>` and not `next/script`
  *
- * The script is third-party and renders below the fold. `beforeInteractive`
- * would block this page's own paint on a request to someone else's server;
- * `lazyOnload` would leave the container visibly empty for longer than a
- * reader will wait. `afterInteractive` runs it as soon as the page is usable.
+ * This shipped with `next/script` on `afterInteractive` first, and that was
+ * the wrong call for an embed somebody else has to verify.
+ *
+ * `afterInteractive` injects the tag from the client runtime, so the URL
+ * appears in the server HTML only inside the React payload — **there is no
+ * `<script src>` element to find**. Checked on the deployed page: a search for
+ * the URL matched twice, and a search for a script tag containing it matched
+ * nothing. Holo's "Connect" step fetches this page to confirm the snippet is
+ * present, and a fetch does not run JavaScript, so a verifier would have
+ * looked at a working blog and reported it missing.
+ *
+ * A plain `<script src defer>` in a server component is rendered straight into
+ * the HTML. `defer` already does the only thing `afterInteractive` was buying
+ * — it does not block parsing — so this is both more faithful to the snippet
+ * Holo supplied and more robust to how they check it.
  */
 export const metadata: Metadata = buildMetadata({
   title: "Blog",
@@ -93,7 +103,9 @@ export default function BlogPage() {
        */}
       <div id="holo-blog" className="mt-10 min-h-[420px] sm:mt-12" />
 
-      <Script src={HOLO_EMBED} strategy="afterInteractive" />
+      {/* A real tag, deliberately — it has to exist in the server HTML for
+          Holo's connection check to find it. See the note above. */}
+      <script src={HOLO_EMBED} defer />
     </Container>
   );
 }
