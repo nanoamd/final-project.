@@ -16,6 +16,45 @@ Status key:
 
 ---
 
+## Checked Kaiku's prices against the shops selling the same Hill stock (28 September)
+
+Damien: _"compare it with competitors prices and find me the highest possible
+profit for the best priced products"_.
+
+Hill Interiors is a wholesaler, so the identical product sits on dozens of UK
+retail sites under the same name. Every figure below was read off the live
+retailer page, not a search summary — the summaries were wrong twice, once by
+£400.
+
+| Product          | Kaiku  | Landed | Profit  | Cheapest verified rival        | Position |
+| ---------------- | ------ | ------ | ------- | ------------------------------ | -------- |
+| Sorelle 2 Seater | £1,378 | 853.19 | £524.81 | Olivia's £1,450 · Decor £1,624 | under    |
+| Delphine Top     | £713   | 435.59 | £277.41 | Interia £765 (in stock)        | under    |
+| Ark Chair        | £618   | 387.83 | £230.17 | Olivia's £650 · G Coll. £500   | mixed    |
+| Alto Shelf Unit  | £523   | 300.71 | £222.29 | Interia £535 (in stock)        | under    |
+| Avia Armchair    | £570   | 332.15 | £237.85 | Avoir £533.99                  | **over** |
+| Galaxy Canvas    | £423   | 203.27 | £219.73 | Price Crash £304.95            | **over** |
+| Lennox Console   | £333   | 151.19 | £181.81 | Olivia's £187 (RRP £350)       | **over** |
+
+The pattern is the opposite of the one assumed: **Kaiku is competitive on the
+expensive pieces and badly over the market on the cheap ones.** The four-figure
+sofa carrying £525 of profit is cheaper than every rival found. The £333
+console is nearly double Olivia's.
+
+This is a better explanation of nil conversion than anything in the SEO
+ledger. A shopper comparing the Lennox console finds Kaiku at £333 against
+£187, and no amount of ranking fixes that.
+
+- [x] Seven top-margin products checked against live retail pages
+- [ ] Reprice the three that are over: Galaxy to ~£299 (£95.73 profit),
+      Avia to ~£529 (£196.85), Lennox to ~£185 (£33.81) or drop it
+- [ ] Lead with the four that are already under the market — they need no
+      price change at all, only traffic
+- [!] **Sweep the other 133 Hill products the same way.** Seven is a sample,
+  and three of seven were priced out of the market
+
+---
+
 ## The eBay pack now spans every permitted supplier, and two of them are empty (28 September)
 
 Damien: _"list me the best products from suppliers that allow it including aw
@@ -1778,11 +1817,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                                                      | --- | --- | --- |
-                                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                                                              | --- | --- | --- |
+                                                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5545,11 +5584,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
