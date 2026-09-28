@@ -69,17 +69,32 @@ const client = createClient({
 
 const SUPPLIER_ID = "supplier-hill-interiors";
 
-/** Where the standard courier stops being an option for this catalogue. */
-export const TWO_MAN_FROM_KG = 40;
-
 /**
- * The published bands, lightest first, as `resolveShippingCost` expects.
- * Standard up to 40kg, two-man above — see the header for why.
+ * Two-man at every weight — corrected 28 September, from two invoices.
+ *
+ * The previous version of this file used the standard courier bands up to 40kg
+ * and two-man above, and said in as many words that the 40kg threshold was the
+ * one judgement left in it. The judgement was wrong, and it was wrong in the
+ * direction that flatters the margin. Damien's actual charges:
+ *
+ *   Contour sideboard, 15kg   -> £59.99 inc = £49.99 ex = two-man, up to 35kg
+ *   Sorelle two seater, 39.9kg -> £71.99 inc = £59.99 ex = two-man, 35–60kg
+ *
+ * Under the old rule those were £9.99 and £14.99 ex — understating the landed
+ * cost by £40 and £45 a unit, on every Hill product in the catalogue. That fed
+ * the margin report, the eBay pack and the shop's own pricing.
+ *
+ * A 15kg sideboard going two-man is the point: Hill do not route this catalogue
+ * by weight, they route it by what it is. If a genuinely small item ever does
+ * come by standard courier, it will show up as an invoice that does not match
+ * these bands, and that invoice — not an inference — is what should change them.
+ *
+ * Amounts are ex-VAT, as printed on the rate card. The +VAT pass adds the 20%
+ * Kaiku cannot reclaim, which is why Sanity ends up holding £59.99 rather than
+ * £49.99.
  */
 export const HILL_BANDS: { maxKg: number; amount: number; label: string }[] = [
-  { maxKg: 10, amount: 6.99, label: "standard, up to 10kg" },
-  { maxKg: 20, amount: 9.99, label: "standard, 10–20kg" },
-  { maxKg: 40, amount: 14.99, label: "standard, 20–40kg" },
+  { maxKg: 35, amount: 49.99, label: "two-man, up to 35kg" },
   { maxKg: 60, amount: 59.99, label: "two-man, 35–60kg" },
   { maxKg: 100, amount: 69.99, label: "two-man, 61–100kg" },
   { maxKg: 150, amount: 84.99, label: "two-man, 101–150kg" },
@@ -131,11 +146,14 @@ async function main() {
             "Hill Interiors published rate card. Standard courier: £6.99 to 10kg, " +
             "£9.99 to 20kg, £14.99 to 40kg, £24.99 over 40kg. Two-man (room of " +
             "choice, packaging removed): £49.99 to 35kg, £59.99 to 60kg, £69.99 to " +
-            "100kg, £84.99 to 150kg, £109.99 to 200kg, POA above. These bands use " +
-            "standard up to 40kg and two-man above it, because above 40kg this " +
-            "catalogue is sofas, dining sets and shelf units a single courier will " +
-            "not carry — Hill's own Capri corner set page quotes the £69.99 two-man " +
-            "band. Add £10 for Isle of Man, Isle of Wight, Northern Ireland and the " +
+            "100kg, £84.99 to 150kg, £109.99 to 200kg, POA above. These bands are " +
+            "the TWO-MAN ones at every weight, corrected 28 September from two " +
+            "invoices: a 15kg Contour sideboard charged £49.99 ex and a 39.9kg " +
+            "Sorelle sofa charged £59.99 ex. Hill route this catalogue by what the " +
+            "item is, not by its weight. Both invoices were furniture, so the small " +
+            "decorative range is NOT evidenced — one invoice for a candle or a " +
+            "photo frame should settle whether those go standard instead. " +
+            "Add £10 for Isle of Man, Isle of Wight, Northern Ireland and the " +
             "Scottish Highlands & Islands; two-man is unavailable in BT, HS, IM, " +
             "IV26-99, KA27, KA28, KW, PA15-78, PH19-50, ZE. Kaiku's own trade orders " +
             "are separate: carriage free over £500 by Palletways, £20 between £200 " +

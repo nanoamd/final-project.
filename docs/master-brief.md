@@ -16,6 +16,64 @@ Status key:
 
 ---
 
+## The carriage bands were wrong, and it was my judgement that made them wrong (28 September)
+
+Damien sent two real charges. Neither matched what this repo had stored:
+
+| Product           | kg   | Sanity held        | Actually charged       |
+| ----------------- | ---- | ------------------ | ---------------------- |
+| Contour sideboard | 15   | £11.99 (£9.99 ex)  | **£59.99** (£49.99 ex) |
+| Sorelle sofa      | 39.9 | £17.99 (£14.99 ex) | **£71.99** (£59.99 ex) |
+
+Both land on **two-man** bands. `scripts/fix-hill-interiors-carriage.ts` used
+standard-courier bands up to 40kg and two-man above, and its own header called
+that 40kg threshold "the one judgement left in here". The judgement was wrong,
+and wrong in the direction that flatters the margin — understating landed cost
+by **£49.20 a unit on average across all 140 Hill products**.
+
+That number fed the margin report, the eBay pack, and the shop's own prices.
+Every profit figure this ledger has quoted for a Hill product since 2 September
+is too high by roughly that much.
+
+### The corrected picture, on furniture
+
+| Product           | Now    | True landed | Cheapest verified rival | Margin |
+| ----------------- | ------ | ----------- | ----------------------- | ------ |
+| Sorelle sofa      | £1,378 | £907.19     | £1,450 Olivia's         | 34%    |
+| Delphine top      | £713   | £477.59     | £765 Interia            | 33%    |
+| Alto shelf unit   | £523   | £352.31     | £535 Interia            | 33%    |
+| Ark chair         | £618   | £435.83     | £650 Olivia's           | 29%    |
+| Contour sideboard | £428   | £317.51     | £475 Interia            | 26%    |
+| Oura coffee table | £361   | £275.75     | £380 Tides              | 24%    |
+
+Six products where Kaiku is **already the cheapest in the market and still
+makes 24–34%**. That is the finding worth keeping from today: the furniture
+pricing is not broken.
+
+### Why this is not applied
+
+Under two-man-at-all-weights, **84 of 140 products become loss-making** —
+including a £19 hanging bell landing at £65.56. Hill do not send an 80-gram
+bell by two-person furniture delivery. Both invoices were furniture, and
+extrapolating from a sofa to a tealight holder is the same overreach that
+caused the original bug.
+
+So the script is corrected and left in dry run. It refuses `--apply` without
+`SANITY_API_WRITE_TOKEN`.
+
+- [x] Bands corrected to two-man, with both invoices recorded in the source
+- [x] Stale rule text removed from the `shippingRule` notes it writes
+- [!] **One small-item carriage figure needed** — a candle, a frame, a bell.
+  £6.99 means the small range survives; £49.99 means the catalogue shrinks
+  to furniture
+- [ ] `TWO_MAN_FROM_KG = 40` in `src/lib/suppliers/delivery-zones.ts` drives the
+      customer-facing delivery warning. The 39.9kg Sorelle ships two-man and
+      shows no warning, so a Northern Ireland customer can order a sofa that
+      cannot be delivered
+- [-] Not applied to Sanity — needs the small-item answer first
+
+---
+
 ## Checked Kaiku's prices against the shops selling the same Hill stock (28 September)
 
 Damien: _"compare it with competitors prices and find me the highest possible
@@ -1817,11 +1875,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                                                              | --- | --- | --- |
-                                                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                                                                      | --- | --- | --- |
+                                                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5584,11 +5642,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
