@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ebayTitle } from "./build-ebay-tonight";
+import { ebayTitle, vatWarning } from "./build-ebay-tonight";
 
 describe("ebayTitle", () => {
   const base = {
@@ -55,5 +55,47 @@ describe("ebayTitle", () => {
     });
     expect(out.match(/Grey/g)).toHaveLength(1);
     expect(out.match(/Fabric/g)).toHaveLength(1);
+  });
+});
+
+describe("vatWarning", () => {
+  const base = {
+    costPrice: 100,
+    costPriceVatCorrected: true,
+    shippingCost: 10,
+  };
+
+  it("stays silent when the cost already carries the supplier's VAT", () => {
+    expect(vatWarning(base)).toBeNull();
+  });
+
+  // The whole point of the warning: Hill is corrected, D.I. Designs is not,
+  // and the pack mixes both. Silence on an uncorrected row would put an
+  // ex-VAT cost in a table of inclusive ones.
+  it("warns when the flag is missing, not just when it is false", () => {
+    expect(vatWarning({ ...base, costPriceVatCorrected: null })).toContain(
+      "Cost basis unconfirmed",
+    );
+    expect(vatWarning({ ...base, costPriceVatCorrected: false })).toContain(
+      "Cost basis unconfirmed",
+    );
+  });
+
+  it("sizes the exposure from carriage as well as goods", () => {
+    // Supplier carriage is VATable the same way the goods are, so both
+    // count: 20% of 100 plus 20% of 10.
+    expect(vatWarning({ ...base, costPriceVatCorrected: null })).toContain(
+      "£22.00",
+    );
+  });
+
+  it("survives a product with no recorded cost", () => {
+    expect(
+      vatWarning({
+        costPrice: null,
+        costPriceVatCorrected: null,
+        shippingCost: null,
+      }),
+    ).toContain("£0.00");
   });
 });

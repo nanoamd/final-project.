@@ -438,6 +438,8 @@ Dispatched direct from the supplier. Free UK mainland delivery.
 
 **£589.00** · profit **£150.65** · D.I. Designs · Storage · SKU `KK-COD-ALT-WHT-001`
 
+> ⚠️ Cost basis unconfirmed — this supplier's prices have never been checked for VAT. If they invoice VAT on top, the profit above is £87.60 too high. Check one invoice before pricing this one.
+
 **Title** (56/80 characters — paste as-is)
 
 ```
@@ -1348,6 +1350,8 @@ Dispatched direct from the supplier. Free UK mainland delivery.
 
 **£594.00** · profit **£118.65** · D.I. Designs · Console Tables · SKU `KK-CON-GRA-BLK-001`
 
+> ⚠️ Cost basis unconfirmed — this supplier's prices have never been checked for VAT. If they invoice VAT on top, the profit above is £95.00 too high. Check one invoice before pricing this one.
+
 **Title** (56/80 characters — paste as-is)
 
 ```
@@ -1395,6 +1399,8 @@ Dispatched direct from the supplier. Free UK mainland delivery.
 ## 25. Hampton Grey Bedside Table Faux shagreen Metal Wood Linen Bouclé
 
 **£593.00** · profit **£118.65** · D.I. Designs · Bedside Tables · SKU `KK-BT-HAM-GRY-001`
+
+> ⚠️ Cost basis unconfirmed — this supplier's prices have never been checked for VAT. If they invoice VAT on top, the profit above is £94.80 too high. Check one invoice before pricing this one.
 
 **Title** (64/80 characters — paste as-is)
 

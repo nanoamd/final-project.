@@ -37,6 +37,22 @@
  * built on it was wrong, which is why the number is spelled out here rather
  * than buried in a helper.
  *
+ * ## The cost basis, and the one place it is not trustworthy
+ *
+ * `costPrice` is the **landed** cost: Kaiku is not VAT-registered, so VAT a
+ * supplier charges is money that never comes back, and the field holds the
+ * trade price with that VAT already added. Hill Interiors publishes a dropship
+ * price of £266.80 for the Avia Mist Armchair and Sanity stores £320.16 —
+ * exactly ×1.2, and correct. All 140 Hill products carry
+ * `costPriceVatCorrected`.
+ *
+ * **D.I. Designs products do not.** Not one of the 54 has been corrected, so
+ * either that supplier genuinely invoices VAT-inclusive prices, or every
+ * D.I. Designs profit figure here is overstated by 20% of its cost — which on
+ * the Alton chest is the difference between £150.65 and £63.05. The script
+ * cannot tell which from the data, so it marks those rows instead of quietly
+ * averaging two different cost bases into one table.
+ *
  *   pnpm tsx scripts/build-ebay-tonight.ts
  *   pnpm tsx scripts/build-ebay-tonight.ts --min-profit=100 --max-price=900
  */
@@ -79,6 +95,8 @@ interface Row {
   category: string | null;
   price: number;
   costPrice: number | null;
+  /** Whether `costPrice` already has the supplier's unreclaimable VAT in it. */
+  costPriceVatCorrected: boolean | null;
   shippingCost: number | null;
   summary: string | null;
   body: string | null;
@@ -108,6 +126,7 @@ const QUERY = /* groq */ `
   "category": category->title,
   price,
   costPrice,
+  costPriceVatCorrected,
   shippingCost,
   summary,
   "body": pt::text(description),
@@ -184,6 +203,28 @@ function dimensionLine(row: Row): string | null {
   return parts.map(([k, v]) => `${k} ${v}${unit}`).join(" · ");
 }
 
+/**
+ * The VAT warning for one row, or null if its cost basis is sound.
+ *
+ * Exported so the test can pin it: a row whose profit is computed on an
+ * ex-VAT cost while the rest of the table is inclusive is not a rounding
+ * difference, it is a fifth of the cost missing, and it belongs on the row
+ * rather than in a footnote nobody reads before pasting.
+ */
+export function vatWarning(row: {
+  costPrice: number | null;
+  costPriceVatCorrected: boolean | null;
+  shippingCost: number | null;
+}): string | null {
+  if (row.costPriceVatCorrected === true) return null;
+  const worst = (row.costPrice ?? 0) * 0.2 + (row.shippingCost ?? 0) * 0.2;
+  return (
+    `Cost basis unconfirmed — this supplier's prices have never been checked ` +
+    `for VAT. If they invoice VAT on top, the profit above is £` +
+    `${worst.toFixed(2)} too high. Check one invoice before pricing this one.`
+  );
+}
+
 async function main() {
   const rows = await client.fetch<Row[]>(QUERY);
 
@@ -246,6 +287,11 @@ async function main() {
         `${row.supplier} · ${row.category ?? "—"} · SKU \`${row.sku ?? "—"}\``,
     );
     lines.push("");
+    const warning = vatWarning(row);
+    if (warning) {
+      lines.push(`> ⚠️ ${warning}`);
+      lines.push("");
+    }
     lines.push(`**Title** (${title.length}/80 characters — paste as-is)`);
     lines.push("```");
     lines.push(title);
@@ -312,6 +358,15 @@ async function main() {
 
   console.log(`${priced.length} qualify, wrote top ${picked.length} to ${out}`);
   console.log(`Combined profit if all sell: £${totalProfit.toFixed(2)}`);
+  const unconfirmed = picked.filter(({ row }) => vatWarning(row));
+  if (unconfirmed.length) {
+    console.log(
+      `${unconfirmed.length} of ${picked.length} have an unconfirmed cost basis: ` +
+        unconfirmed
+          .map(({ row }) => `${row.sku ?? row.slug} (${row.supplier})`)
+          .join(", "),
+    );
+  }
 }
 
 main().catch((error) => {

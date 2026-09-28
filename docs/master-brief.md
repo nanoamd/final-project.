@@ -16,6 +16,55 @@ Status key:
 
 ---
 
+## Sanity's cost prices are right; D.I. Designs' are unverified (28 September)
+
+Damien, looking at Hill Interiors' own trade page for the Avia Mist Armchair —
+Dropship Price £266.80, Wholesale £230.00 — against the £320.16 this repo
+stores: _"sanity is completely wrong then"_.
+
+It is not. £266.80 × 1.2 = £320.16 exactly, and that ×1.2 is deliberate:
+`vatRegistered: false` in `src/config/site.ts`, so VAT a supplier charges is
+money Kaiku never gets back, and `costPrice` is documented in the product
+schema as the **landed** cost with that VAT already in it. Hill's published
+dropship price is ex-VAT; the invoice is £320.16. The Avia carries
+`costPriceVatCorrected: true`, as do all 140 Hill products.
+
+So the eBay pack's £237.50 profit on that chair stands.
+
+### What the check did turn up
+
+Three suppliers have never had their cost basis confirmed either way:
+
+| Supplier           | Products | VAT-corrected |
+| ------------------ | -------- | ------------- |
+| Premier Housewares | 546      | 542           |
+| Hill Interiors     | 140      | 140           |
+| Aosom              | 103      | **0**         |
+| AW Dropship        | 56       | **0**         |
+| D.I. Designs       | 54       | **0**         |
+| SaunaPlunge        | 8        | **0**         |
+
+D.I. Designs matters immediately, because `docs/ebay-tonight.md` draws from
+Hill and D.I. Designs, and 3 of its 25 rows are D.I. Designs. If that supplier
+also invoices VAT on top, those three profits are overstated by a fifth of
+their cost — the Alton chest goes from £150.65 to £63.05. The data cannot say
+which; only an invoice can.
+
+`vatWarning()` in `scripts/build-ebay-tonight.ts` now prints the exposure on
+any row built on an unconfirmed basis, rather than averaging two different
+cost bases into one table and calling the total profit a number. Four tests
+pin it.
+
+- [x] Confirmed `costPrice` is landed cost, not an error
+- [x] Uncorrected rows marked in the eBay pack with the sum at risk
+- [!] **Check one D.I. Designs invoice.** If the trade prices are ex-VAT, the
+  54 products need the +VAT button, and three listings need repricing
+  before they go up
+- [!] Same question for Aosom (103), AW Dropship (56), SaunaPlunge (8) — these
+  are live on the site, so the HQ gross-profit figures inherit it
+
+---
+
 ## Half an hour on the feed, and two bugs found by looking at the live one (24 September)
 
 Damien: _"Work for half an hour pls"_.
@@ -1681,11 +1730,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                                      | --- | --- | --- |
-                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                                              | --- | --- | --- |
+                                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5448,11 +5497,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
