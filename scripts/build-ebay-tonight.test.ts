@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ebayTitle, vatWarning } from "./build-ebay-tonight";
+import { ebayTitle, roundRobin, vatWarning } from "./build-ebay-tonight";
 
 describe("ebayTitle", () => {
   const base = {
@@ -97,5 +97,47 @@ describe("vatWarning", () => {
         shippingCost: null,
       }),
     ).toContain("£0.00");
+  });
+});
+
+describe("roundRobin", () => {
+  it("deals one at a time, keeping each group's own order", () => {
+    expect(
+      roundRobin(
+        [
+          ["a1", "a2", "a3"],
+          ["b1", "b2", "b3"],
+        ],
+        6,
+      ),
+    ).toEqual(["a1", "b1", "a2", "b2", "a3", "b3"]);
+  });
+
+  // The case the pack actually hits: Hill has 43 qualifying, D.I. Designs 25,
+  // AW Dropship 13. The short lists run out and the long one must simply
+  // continue, not skip a slot or reorder.
+  it("keeps going when a group runs out", () => {
+    expect(roundRobin([["a1", "a2", "a3", "a4"], ["b1"]], 5)).toEqual([
+      "a1",
+      "b1",
+      "a2",
+      "a3",
+      "a4",
+    ]);
+  });
+
+  it("stops at the limit rather than finishing the cycle", () => {
+    expect(roundRobin([["a1", "a2"], ["b1", "b2"], ["c1"]], 4)).toEqual([
+      "a1",
+      "b1",
+      "c1",
+      "a2",
+    ]);
+  });
+
+  it("ignores empty groups and survives having none", () => {
+    expect(roundRobin([[], ["b1"], []], 5)).toEqual(["b1"]);
+    expect(roundRobin([], 5)).toEqual([]);
+    expect(roundRobin([["a1"]], 0)).toEqual([]);
   });
 });

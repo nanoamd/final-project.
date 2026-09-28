@@ -11,11 +11,32 @@
  * The constraint was never whether to list. It was that listing is slow, and
  * deciding what to list is slower. This turns both into copy and paste.
  *
- * ## What it selects, and why that band
+ * ## Who is in it, and why the script no longer decides
  *
- * Only **Hill Interiors and D.I. Designs**, because those are the two suppliers
- * with recorded eBay permission — 194 products, no email to send, no approval
- * to wait for.
+ * The first version named Hill Interiors and D.I. Designs in the source. That
+ * was wrong the moment a third supplier was cleared: a hardcoded pair silently
+ * withholds products that are permitted, and nothing fails to tell you.
+ *
+ * Permission is a fact about a supplier's trade terms, so it is read from the
+ * supplier record — `marketplacesAllowed` containing "eBay". **Unset means
+ * unknown and unknown means no**, which is the schema's own rule and the right
+ * way round: wrongly withholding costs a delayed listing, wrongly listing
+ * costs the trade account.
+ *
+ * `--also=Name` includes a supplier whose permission is not recorded yet, and
+ * says so loudly in the output on every one of their rows. It exists because a
+ * verbal "yes, they allow it" is real, and waiting on a Studio edit to act on
+ * it is silly — but an unrecorded permission must never look like a recorded
+ * one.
+ *
+ * ## Why it round-robins instead of taking the top 25 by profit
+ *
+ * Sorting the whole pool by profit gave 22 Hill Interiors rows out of 25. Hill
+ * genuinely has the best margins, but a pack that is 88% one supplier tests one
+ * supplier's catalogue rather than eBay, and if their listings stall there is
+ * nothing to compare against. So each supplier's qualifying products are ranked
+ * by profit and then dealt out one at a time, best first. A supplier with
+ * fewer qualifying products simply runs out; nothing is padded.
  *
  * Then the band. The full permitted range runs to a £2,328 lounge set making
  * £863 of profit, and listing that first is a trap: four-figure garden
@@ -55,6 +76,7 @@
  *
  *   pnpm tsx scripts/build-ebay-tonight.ts
  *   pnpm tsx scripts/build-ebay-tonight.ts --min-profit=100 --max-price=900
+ *   pnpm tsx scripts/build-ebay-tonight.ts --also="AW Dropship" --limit=40
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
@@ -74,10 +96,21 @@ function flag(name: string, fallback: number): number {
   return Number.isFinite(value) ? value : fallback;
 }
 
+/** Repeatable string flag: `--also=Hill --also="AW Dropship"`. */
+function listFlag(name: string): string[] {
+  return process.argv
+    .filter((a) => a.startsWith(`--${name}=`))
+    .map((a) => a.slice(name.length + 3).trim())
+    .filter(Boolean);
+}
+
 const MIN_PRICE = flag("min-price", 120);
 const MAX_PRICE = flag("max-price", 600);
 const MIN_PROFIT = flag("min-profit", 60);
 const LIMIT = flag("limit", 25);
+
+/** Suppliers Damien has cleared verbally but whose record does not say so yet. */
+const ALSO = listFlag("also");
 
 /** eBay truncates a listing title at 80 characters. */
 const TITLE_LIMIT = 80;
@@ -92,6 +125,10 @@ interface Row {
   categorySlug: string | null;
   sku: string | null;
   supplier: string | null;
+  /** Whether the supplier record itself grants eBay, rather than `--also`. */
+  marketplaceRecorded: boolean;
+  /** The clause or email the permission rests on, for the pack's header. */
+  marketplaceSource: string | null;
   category: string | null;
   price: number;
   costPrice: number | null;
@@ -115,14 +152,16 @@ interface Row {
 const QUERY = /* groq */ `
 *[_type == "product"
   && !(_id in path("drafts.**"))
-  && supplier->name in ["Hill Interiors", "D.I. Designs"]
   && defined(costPrice)
+  && ("eBay" in supplier->marketplacesAllowed || supplier->name in $also)
 ] {
   title,
   "slug": slug.current,
   "categorySlug": category->slug.current,
   sku,
   "supplier": supplier->name,
+  "marketplaceRecorded": "eBay" in supplier->marketplacesAllowed,
+  "marketplaceSource": supplier->marketplacePolicySource,
   "category": category->title,
   price,
   costPrice,
@@ -204,6 +243,27 @@ function dimensionLine(row: Row): string | null {
 }
 
 /**
+ * Deal the suppliers' ranked lists out one at a time, best first.
+ *
+ * Exported for the test, because the property that matters is easy to break
+ * and invisible in the output: a supplier that runs out must not shift the
+ * others' order or cause a slot to be skipped, and the overall sequence must
+ * still be each supplier's own best-first ranking.
+ */
+export function roundRobin<T>(groups: T[][], limit: number): T[] {
+  const out: T[] = [];
+  const queues = groups.filter((g) => g.length > 0).map((g) => [...g]);
+  while (out.length < limit && queues.some((q) => q.length > 0)) {
+    for (const queue of queues) {
+      if (out.length >= limit) break;
+      const next = queue.shift();
+      if (next) out.push(next);
+    }
+  }
+  return out;
+}
+
+/**
  * The VAT warning for one row, or null if its cost basis is sound.
  *
  * Exported so the test can pin it: a row whose profit is computed on an
@@ -226,7 +286,7 @@ export function vatWarning(row: {
 }
 
 async function main() {
-  const rows = await client.fetch<Row[]>(QUERY);
+  const rows = await client.fetch<Row[]>(QUERY, { also: ALSO });
 
   const priced = rows
     .map((row) => ({
@@ -248,16 +308,47 @@ async function main() {
     )
     .sort((a, b) => b.profit - a.profit);
 
-  const picked = priced.slice(0, LIMIT);
+  // Grouped by supplier, each group already best-first because `priced` is
+  // sorted by profit, then dealt out in turn — see `roundRobin`.
+  const groups = new Map<string, typeof priced>();
+  for (const entry of priced) {
+    const key = entry.row.supplier ?? "—";
+    const group = groups.get(key) ?? [];
+    group.push(entry);
+    groups.set(key, group);
+  }
+  const picked = roundRobin([...groups.values()], LIMIT);
 
   const lines: string[] = [];
   lines.push("# eBay listings, ready to paste");
   lines.push("");
+  const supplierCounts = new Map<string, number>();
+  for (const { row } of picked) {
+    const key = row.supplier ?? "—";
+    supplierCounts.set(key, (supplierCounts.get(key) ?? 0) + 1);
+  }
   lines.push(
     `Generated by \`scripts/build-ebay-tonight.ts\`. ${priced.length} products ` +
-      `qualify at £${MIN_PRICE}–${MAX_PRICE} with £${MIN_PROFIT}+ profit; the ` +
-      `top ${picked.length} are below, best profit first.`,
+      `qualify at £${MIN_PRICE}–${MAX_PRICE} with £${MIN_PROFIT}+ profit, ` +
+      `across ${supplierCounts.size} suppliers. The ${picked.length} below are ` +
+      `dealt out a supplier at a time, each one's best first — so this is not ` +
+      `a single catalogue being tested.`,
   );
+  lines.push("");
+  lines.push("| Supplier | In this pack | eBay permission |");
+  lines.push("| --- | --- | --- |");
+  for (const [supplier, count] of [...supplierCounts].sort(
+    (a, b) => b[1] - a[1],
+  )) {
+    const row = picked.find((entry) => entry.row.supplier === supplier)?.row;
+    lines.push(
+      `| ${supplier} | ${count} | ${
+        row?.marketplaceRecorded
+          ? "Recorded on the supplier"
+          : "**Not recorded — verbal only**"
+      } |`,
+    );
+  }
   lines.push("");
   lines.push(
     "**Before listing each one, search its name on eBay.** Ten seconds, and it " +
@@ -287,6 +378,15 @@ async function main() {
         `${row.supplier} · ${row.category ?? "—"} · SKU \`${row.sku ?? "—"}\``,
     );
     lines.push("");
+    if (!row.marketplaceRecorded) {
+      lines.push(
+        `> ⛔ **${row.supplier} has no recorded eBay permission.** Included ` +
+          `only because it was passed with \`--also\`. Tick eBay on the ` +
+          `supplier in Studio, with the clause or email it rests on, before ` +
+          `this goes up — a takedown asks where the permission is in writing.`,
+      );
+      lines.push("");
+    }
     const warning = vatWarning(row);
     if (warning) {
       lines.push(`> ⚠️ ${warning}`);

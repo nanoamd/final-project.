@@ -16,6 +16,54 @@ Status key:
 
 ---
 
+## The eBay pack now spans every permitted supplier, and two of them are empty (28 September)
+
+Damien: _"list me the best products from suppliers that allow it including aw
+dropship, hill interiors di designs if they allow it (aosom dont) and
+furniture100 and furniture to go, not just hill interiors"_.
+
+The script named Hill Interiors and D.I. Designs in its own source, which was
+wrong the moment a third supplier was cleared — a hardcoded pair withholds
+permitted products and nothing tells you. It now reads `marketplacesAllowed`
+from the supplier record, so permission lives where the fact lives.
+
+### Who can actually be listed
+
+| Supplier        | Products | eBay             | Qualifying £120–600 | Cost basis      |
+| --------------- | -------- | ---------------- | ------------------- | --------------- |
+| Hill Interiors  | 140      | recorded         | 43                  | confirmed       |
+| D.I. Designs    | 54       | recorded         | 25                  | **unconfirmed** |
+| AW Dropship     | 56       | **not recorded** | 13                  | **unconfirmed** |
+| Furniture100    | **0**    | recorded         | —                   | —               |
+| Furniture To Go | **0**    | recorded         | —                   | —               |
+| Aosom           | 103      | not permitted    | —                   | —               |
+
+81 products qualify. `docs/ebay-tonight.md` now holds 36 of them, 12 per
+supplier: the old pack sorted the whole pool by profit and came out 22 Hill
+rows of 25, which tests one catalogue rather than eBay. `roundRobin()` deals
+each supplier's ranked list out in turn instead. Four tests cover it, including
+the case that actually occurs — the short lists running out while the long one
+continues.
+
+### Furniture100 and Furniture To Go cannot be listed, and it is not a code problem
+
+Both are approved trade accounts with eBay permission recorded. Both have
+**zero products in Sanity**, because their trade prices sit behind an account
+login. I will not work around either — Furniture To Go serves a bot challenge,
+and the Furniture100 credentials pasted in chat were never used or stored and
+will not be. A trade price export is the only route.
+
+- [x] Permission read from the supplier record, not hardcoded
+- [x] Pack spread across suppliers rather than dominated by one
+- [x] Unrecorded permission marked on every affected row
+- [!] **Tick eBay on AW Dropship in Studio**, with the clause or email it rests
+  on. Until then its 12 rows carry a warning and `--also` is needed
+- [!] **Export the Furniture100 and Furniture To Go trade lists.** Nothing from
+  either supplier can be priced, listed or sold until they exist
+- [-] Aosom excluded — 103 products, no eBay permission, and Damien says no
+
+---
+
 ## Sanity's cost prices are right; D.I. Designs' are unverified (28 September)
 
 Damien, looking at Hill Interiors' own trade page for the Avia Mist Armchair —
@@ -1730,11 +1778,11 @@ Search Console as "Discovered — currently not indexed".
       full one.
 
       | Page | Was | Now |
-                                                                                                                                                                                              | --- | --- | --- |
-                                                                                                                                                                                              | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                                              | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                                              | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                                              | /shop/all | 12.79MB | **2.94MB** |
+                                                                                                                                                                                                      | --- | --- | --- |
+                                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
+                                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
+                                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
+                                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5497,11 +5545,11 @@ apart, and that is what reads as lag.
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
       | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0.18 (now)    | **232ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Roughly halved. Still visibly smooth, but it tracks the wheel.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
