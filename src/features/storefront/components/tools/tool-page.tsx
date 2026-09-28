@@ -45,7 +45,31 @@ export interface ToolPageProps {
    * Sections fix both. Each gets an `h2`, which is what a query matches
    * against, and the page can cover the cluster rather than one query in it.
    */
-  sections?: { heading: string; paragraphs: string[] }[];
+  sections?: {
+    heading: string;
+    paragraphs: string[];
+    /**
+     * An optional size chart, rendered as a real `<table>`.
+     *
+     * Added because the queries these pages already appear for are asking for
+     * one. On `/tools/wall-clock-size-calculator`, which is the best
+     * performing of them, the named queries over 31 days include "wall clock
+     * size chart", "wall clock sizes", "wall clock size in cm" and "clock size
+     * comparison" — and the page contained **zero table elements**. Prose
+     * answers a chart question badly, and a chart is the shape Google lifts
+     * into a featured snippet for a "standard X size" query.
+     *
+     * Deliberately a semantic table with a `<caption>` and `<th scope>` rather
+     * than a styled grid of divs: the accessibility is the same mechanism as
+     * the extractability. A screen reader and a search crawler both need to
+     * know which cell is a heading for which column.
+     */
+    table?: {
+      caption: string;
+      columns: string[];
+      rows: string[][];
+    };
+  }[];
   /** Answered on the page and emitted as FAQPage schema, so they can win the rich result. */
   faqs: ToolFaq[];
   /** Real products the tool is about, so the page passes link equity into stock. */
@@ -160,6 +184,7 @@ export function ToolPage({
                       </p>
                     ))}
                   </div>
+                  {section.table ? <SizeChart {...section.table} /> : null}
                 </section>
               ))}
 
@@ -242,5 +267,66 @@ export function ToolPage({
         </div>
       </Container>
     </>
+  );
+}
+
+/**
+ * A size chart.
+ *
+ * Scrolls horizontally on a phone rather than shrinking the type or wrapping
+ * every cell to three lines — a four-column table at 360px has nowhere else to
+ * go, and an unreadable table is worse than a scrollable one.
+ */
+function SizeChart({
+  caption,
+  columns,
+  rows,
+}: {
+  caption: string;
+  columns: string[];
+  rows: string[][];
+}) {
+  return (
+    <div className="mt-7 overflow-x-auto">
+      <table className="w-full min-w-[34rem] border-collapse text-left text-[14px]">
+        <caption className="text-muted mb-3 text-left text-[13px] italic">
+          {caption}
+        </caption>
+        <thead>
+          <tr className="border-line border-b">
+            {columns.map((column) => (
+              <th
+                key={column}
+                scope="col"
+                className="text-ink py-2.5 pr-4 font-medium"
+              >
+                {column}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row[0]} className="border-line/60 border-b last:border-0">
+              {row.map((cell, i) =>
+                i === 0 ? (
+                  <th
+                    key={cell}
+                    scope="row"
+                    className="text-ink py-2.5 pr-4 font-medium whitespace-nowrap"
+                  >
+                    {cell}
+                  </th>
+                ) : (
+                  <td key={cell} className="text-muted py-2.5 pr-4">
+                    {cell}
+                  </td>
+                ),
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

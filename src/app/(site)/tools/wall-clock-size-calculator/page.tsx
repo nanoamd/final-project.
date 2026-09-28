@@ -7,10 +7,23 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
 
+/**
+ * The title and description are aimed at the words the queries actually use.
+ *
+ * Search Console, 31 days to 28 September, for this page: 508 impressions and
+ * 2 clicks at an average position of about 9. Of the 61 impressions Google
+ * names a query for, **25 contain "standard" or "normal"** — "standard wall
+ * clock size" (6), "normal wall clock size" (6), "standard clock size" (3),
+ * "wall clock standard size", "standard size of wall clock" — and the page
+ * used the word "standard" exactly once in 1,829 words.
+ *
+ * "Size Guide: How to Measure & What Size" answered a question nobody was
+ * asking in those words. This says the thing people type.
+ */
 export const metadata: Metadata = buildMetadata({
-  title: "Wall Clock Size Guide: How to Measure & What Size | Kaiku",
+  title: "Standard Wall Clock Sizes: Chart in cm & Inches | Kaiku",
   description:
-    "Clock size is the whole clock, frame included — not the dial. How to measure one, what size suits your wall or sideboard, and the height to hang it.",
+    "Standard wall clock sizes in centimetres and inches, with a chart of what each one suits. How to measure a clock, and the size that fits your wall or sideboard.",
   path: "/tools/wall-clock-size-calculator",
 });
 
@@ -47,8 +60,40 @@ export default async function WallClockSizeCalculatorPage() {
           ],
         },
         {
-          heading: "Common sizes, and what each one suits",
+          heading: "Standard wall clock sizes",
+          table: {
+            caption:
+              "Standard wall clock sizes, with the wall or furniture each one suits.",
+            columns: ["Size", "Diameter", "In inches", "What it suits"],
+            rows: [
+              [
+                "Small",
+                "20–30cm",
+                '8–12"',
+                "Above kitchen cabinets, a cloakroom, a narrow run between two doors",
+              ],
+              [
+                "Standard",
+                "30–50cm",
+                '12–20"',
+                "The ordinary domestic size. A metre of wall, or furniture 60–75cm wide",
+              ],
+              [
+                "Large",
+                "50–70cm",
+                '20–28"',
+                "A mantelpiece or a wide hallway. Needs 1.5m of clear wall",
+              ],
+              [
+                "Oversized",
+                "70cm and up",
+                '28"+',
+                "The feature of the wall. Wants 2m of usable run and no pictures beside it",
+              ],
+            ],
+          },
           paragraphs: [
+            "The standard wall clock size is 30 to 50cm across — 12 to 20 inches — and that is what most kitchens and living rooms want. Anything under 30cm reads as an accessory rather than a feature, and anything over 70cm becomes the thing the wall is about.",
             "Under 30cm is a desk or shelf clock in all but name. On a wall it reads as an accessory rather than a feature, and it is only legible across a small room. It is the right size in a gap above kitchen cabinets, in a downstairs loo, or on a narrow run of wall between two doors.",
             "30 to 50cm is the ordinary domestic size and the one most kitchens want. It is legible across a normal room, it suits a run of wall around a metre wide, and it sits comfortably above a 60 to 75cm piece of furniture. If you are unsure and the wall is ordinary, this is the band to be in.",
             "50 to 70cm is where a clock stops being functional and starts being a decision. It needs a metre and a half of clear wall or a sideboard of 90cm or more beneath it. This is the size that works over a mantelpiece or in a hallway with real width, and it is where most of the character in a clock range lives.",
