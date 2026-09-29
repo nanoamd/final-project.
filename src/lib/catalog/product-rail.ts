@@ -67,6 +67,44 @@ const VALUE_CEILING = 450;
  */
 const MIN_CATEGORY_TOP = 75;
 
+/**
+ * Nothing on the rail costs more than this.
+ *
+ * Damien: *"I don't want the bookcase there but everything else is okay"* — a
+ * £4,567 bookcase, which is nearly double the next piece and reads as a price
+ * list rather than a shop front. The cap sits above the £2,745 marble dining
+ * table he kept and below the bookcase, so the rail tops out at a figure that
+ * still looks like furniture somebody buys.
+ */
+const RAIL_MAX_PRICE = 3000;
+
+/**
+ * The categories the affordable slots may draw from.
+ *
+ * Damien: *"in between these products add the most aesthetic Premier
+ * Housewares products"*. Aesthetic is a judgement a list cannot make, but the
+ * categories it lives in are knowable: lighting, mirrors, vases, planters,
+ * wall art and occasional tables are things bought because of how they look.
+ * Desks, wardrobes and shelving are bought because of what they hold, and a
+ * veneer desk between a chandelier and a marble table is what made the rail
+ * read as a warehouse.
+ *
+ * The hero slots are unrestricted — a sideboard or a sofa is the right thing
+ * to anchor a rail with, and the constraint is only about what goes between.
+ */
+const AESTHETIC_CATEGORIES: ReadonlySet<string> = new Set([
+  "Lighting",
+  "Mirrors",
+  "Vases",
+  "Planters",
+  "Wall Art",
+  "Candles & Lanterns",
+  "Side Tables",
+  "Coffee Tables",
+  "Console Tables",
+  "Wall Clocks",
+]);
+
 const byPriceAsc = (a: RailCandidate, b: RailCandidate) =>
   (a.price ?? 0) - (b.price ?? 0);
 
@@ -86,7 +124,10 @@ export function selectRailProducts<T extends RailCandidate>(
 ): T[] {
   const usable = products.filter(
     (product) =>
-      product.slug && product.category && typeof product.price === "number",
+      product.slug &&
+      product.category &&
+      typeof product.price === "number" &&
+      product.price <= RAIL_MAX_PRICE,
   );
 
   const byCategory = new Map<string, T[]>();
@@ -132,7 +173,11 @@ export function selectRailProducts<T extends RailCandidate>(
       .filter((product) => (product.price ?? 0) > VALUE_CEILING)
       .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
     const affordable = picks
-      .filter((product) => (product.price ?? 0) <= VALUE_CEILING)
+      .filter(
+        (product) =>
+          (product.price ?? 0) <= VALUE_CEILING &&
+          AESTHETIC_CATEGORIES.has(product.category as string),
+      )
       .sort(byPriceAsc);
 
     const out: T[] = [];

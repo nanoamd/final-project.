@@ -155,12 +155,15 @@ describe("selectRailProducts with a markup index", () => {
   });
 
   it("still alternates dear and affordable so prices are not four deep", () => {
+    // Real category names: the affordable half is restricted to the ones
+    // people buy for how they look, so a fixture of invented names has no
+    // breathers at all and the alternation never happens.
     const chosen = selectRailProducts(
       [
-        p("sofa", "sofas", 1200),
-        p("bed", "beds", 1100),
-        p("vase", "vases", 80),
-        p("clock", "clocks", 130),
+        p("sofa", "Sofas", 1200),
+        p("bed", "Beds", 1100),
+        p("vase", "Vases", 80),
+        p("clock", "Wall Clocks", 130),
       ],
       4,
       { sofa: 1.25, bed: 1.25, vase: 1.25, clock: 1.25 },
@@ -168,6 +171,32 @@ describe("selectRailProducts with a markup index", () => {
     const prices = chosen.map((c) => c.price!);
     expect(prices[0]).toBeGreaterThan(prices[1]!);
     expect(prices[2]).toBeGreaterThan(prices[3]!);
+  });
+
+  it("keeps a desk out of the slots between the heroes", () => {
+    // A veneer desk between a chandelier and a marble table is what made the
+    // rail read as a warehouse. Desks are bought for what they hold.
+    const chosen = selectRailProducts(
+      [
+        p("sofa", "Sofas", 1200),
+        p("desk", "Desks", 149),
+        p("mirror", "Mirrors", 378),
+      ],
+      3,
+      { sofa: 1.25, desk: 1.2, mirror: 1.3 },
+    );
+    expect(chosen.map((c) => c.slug)).not.toContain("desk");
+    expect(chosen.map((c) => c.slug)).toContain("mirror");
+  });
+
+  it("drops anything above the rail price cap", () => {
+    // Damien on a £4,567 bookcase: "I don't want the bookcase there".
+    const chosen = selectRailProducts(
+      [p("bookcase", "Shelving", 4567), p("table", "Furniture", 2745)],
+      4,
+      { bookcase: 1.27, table: 1.23 },
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["table"]);
   });
 
   it("ignores a product with no cost recorded rather than ranking it first", () => {
