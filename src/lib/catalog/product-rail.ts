@@ -44,6 +44,29 @@ export interface RailCandidate {
   price?: number | null;
 }
 
+/**
+ * The most a rail "value" slot may cost.
+ *
+ * High enough that the pick is a real piece rather than the bottom of a range,
+ * low enough that it still reads as a breather beside a four-figure hero.
+ */
+const VALUE_CEILING = 450;
+
+/**
+ * A category whose dearest piece costs less than this is not a range.
+ *
+ * "Accessories" is thirty-five products between £19 and £49, of which the top
+ * seven are the same towel set in different colours. It earned a homepage slot
+ * purely by being deep, and put a £49 peach towel set between a marble dining
+ * table and a chaise sofa.
+ *
+ * Depth alone was the wrong test. A category that cannot field a single piece
+ * worth £75 has nothing to show on a page that opens at £1,561 — so it is
+ * excluded rather than ranked. A floor rather than a name list, because a name
+ * list goes stale the moment a category is renamed in Studio.
+ */
+const MIN_CATEGORY_TOP = 75;
+
 const byPriceAsc = (a: RailCandidate, b: RailCandidate) =>
   (a.price ?? 0) - (b.price ?? 0);
 
@@ -66,6 +89,7 @@ export function selectRailProducts<T extends RailCandidate>(
   // better piece at the top of it wins.
   const ranked = [...byCategory.values()]
     .map((group) => [...group].sort(byPriceAsc))
+    .filter((group) => (group.at(-1)!.price ?? 0) >= MIN_CATEGORY_TOP)
     .sort(
       (a, b) =>
         b.length - a.length || (b.at(-1)!.price ?? 0) - (a.at(-1)!.price ?? 0),
@@ -77,10 +101,28 @@ export function selectRailProducts<T extends RailCandidate>(
   const heroCount = Math.min(Math.ceil(size / 2), Math.ceil(ranked.length / 2));
   const heroes = ranked.slice(0, heroCount).map((group) => group.at(-1)!);
 
-  // The rest is whatever is left over, cheapest first.
+  // The rest is whatever is left over — but the BEST piece in each of those
+  // ranges that is still a breather, not the cheapest thing in it.
+  //
+  // Taking `group[0]` was the previous rule and it is what put a £32 pink wall
+  // clock, a £39 vase, a framed Labrador and a peach towel set on the homepage
+  // between a £2,745 marble dining table and a £2,118 chaise sofa. The cheapest
+  // product in a category is almost never the one worth showing; it is the
+  // filler at the bottom of the range.
+  //
+  // So each remaining category offers up its dearest piece under the ceiling.
+  // The slot still does its job — something affordable between two heavy
+  // prices — while being a piece somebody might actually want. A category with
+  // nothing under the ceiling falls back to its cheapest, because a category
+  // where everything is expensive has no breather to give.
   const value = ranked
     .slice(heroCount)
-    .map((group) => group[0]!)
+    .map((group) => {
+      const affordable = group.filter(
+        (product) => (product.price ?? 0) <= VALUE_CEILING,
+      );
+      return affordable.at(-1) ?? group[0]!;
+    })
     .sort(byPriceAsc);
 
   const chosen: T[] = [];

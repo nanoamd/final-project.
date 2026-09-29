@@ -58,17 +58,52 @@ describe("selectRailProducts", () => {
     }
   });
 
-  it("takes the dearest of a hero category and the cheapest of a value one", () => {
+  it("takes the dearest of a hero category and the best affordable one of a value category", () => {
+    // Not the cheapest. `group[0]` was the old rule and it is what put a £32
+    // pink wall clock and a framed Labrador on the homepage between a £2,745
+    // marble table and a £2,118 sofa.
     const chosen = selectRailProducts(
       [
         p("hero-top", "lighting", 689),
         p("hero-low", "lighting", 400),
-        p("value-low", "baskets", 12),
-        p("value-top", "baskets", 60),
+        p("value-tat", "baskets", 80),
+        p("value-good", "baskets", 300),
       ],
       4,
     );
-    expect(chosen.map((c) => c.slug)).toEqual(["hero-top", "value-low"]);
+    expect(chosen.map((c) => c.slug)).toEqual(["hero-top", "value-good"]);
+  });
+
+  it("falls back to the cheapest when a value category has nothing under the ceiling", () => {
+    // A category where everything is expensive has no breather to give, and a
+    // missing slot is worse than a dear one.
+    const chosen = selectRailProducts(
+      [
+        p("hero-top", "lighting", 2000),
+        p("hero-low", "lighting", 1500),
+        p("dear-low", "sofas", 900),
+        p("dear-top", "sofas", 1800),
+      ],
+      4,
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["hero-top", "dear-low"]);
+  });
+
+  it("excludes a category that cannot field a single piece worth showing", () => {
+    // "Accessories" is 35 products between £19 and £49, the top seven of them
+    // the same towel set in different colours. Deep, and worth nothing to a
+    // page that opens at £1,561.
+    const chosen = selectRailProducts(
+      [
+        p("towels-a", "accessories", 49),
+        p("towels-b", "accessories", 43),
+        p("towels-c", "accessories", 39),
+        p("towels-d", "accessories", 19),
+        p("real", "sofas", 900),
+      ],
+      12,
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["real"]);
   });
 
   it("never repeats a product when the two ends meet", () => {
@@ -86,7 +121,9 @@ describe("selectRailProducts", () => {
         { slug: "", category: "a", price: 10 },
         { slug: "b", category: null, price: 10 },
         { slug: "c", category: "c", price: null },
-        p("ok", "d", 10),
+        // Above MIN_CATEGORY_TOP, so this tests the render filter rather than
+        // the price floor.
+        p("ok", "d", 900),
       ],
       12,
     );
