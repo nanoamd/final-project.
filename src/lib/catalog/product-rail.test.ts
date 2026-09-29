@@ -210,3 +210,48 @@ describe("selectRailProducts with a markup index", () => {
     expect(chosen.map((c) => c.slug)).toEqual(["known"]);
   });
 });
+
+describe("filling the rail", () => {
+  it("draws a second piece from a category rather than stopping short", () => {
+    // One pick per category left the rail at sixteen of twenty-four. Damien:
+    // "Don't reduce product count in new and noteworthy. Only add it in."
+    const many = [
+      p("sofa-1", "Sofas", 1200),
+      p("sofa-2", "Sofas", 1100),
+      p("mirror-1", "Mirrors", 300),
+      p("mirror-2", "Mirrors", 280),
+    ];
+    const chosen = selectRailProducts(many, 4, {
+      "sofa-1": 1.2,
+      "sofa-2": 1.3,
+      "mirror-1": 1.2,
+      "mirror-2": 1.3,
+    });
+    expect(chosen).toHaveLength(4);
+    expect(new Set(chosen.map((c) => c.slug)).size).toBe(4);
+  });
+
+  it("gives every category one slot before any category gets two", () => {
+    // Price-sorting the pool instead collapsed the live rail into four
+    // near-identical sofas and eleven small planters.
+    const chosen = selectRailProducts(
+      [
+        p("sofa-1", "Sofas", 2000),
+        p("sofa-2", "Sofas", 1900),
+        p("mirror-1", "Mirrors", 300),
+        p("mirror-2", "Mirrors", 290),
+      ],
+      3,
+      {
+        "sofa-1": 1.2,
+        "sofa-2": 1.21,
+        "mirror-1": 1.5,
+        "mirror-2": 1.6,
+      },
+    );
+    const categories = chosen.map((c) => c.category);
+    expect(categories.slice(0, 2)).toEqual(
+      expect.arrayContaining(["Sofas", "Mirrors"]),
+    );
+  });
+});

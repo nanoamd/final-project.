@@ -154,6 +154,7 @@ export function selectRailProducts<T extends RailCandidate>(
   // number on the page, but the one where the customer is getting the most for
   // it. Where two are equally keen the dearer wins, because it is the better
   // piece at the same keenness.
+  // Kept for the path with no markup index, where "best" can only mean dearest.
   const keenest = (group: T[]): T =>
     markupBySlug
       ? [...group].sort(
@@ -168,17 +169,46 @@ export function selectRailProducts<T extends RailCandidate>(
   // scrolling meets four four-figure prices in a row. That is rhythm, not
   // selection — both sides are now chosen on price keenness.
   if (markupBySlug) {
-    const picks = ranked.map(keenest);
-    const dear = picks
-      .filter((product) => (product.price ?? 0) > VALUE_CEILING)
-      .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-    const affordable = picks
-      .filter(
-        (product) =>
-          (product.price ?? 0) <= VALUE_CEILING &&
-          AESTHETIC_CATEGORIES.has(product.category as string),
-      )
-      .sort(byPriceAsc);
+    // One pick per category fills about sixteen slots and the rail wants
+    // twenty-four — Damien: *"Don't reduce product count in new and
+    // noteworthy. Only add it in don't remove anything"*.
+    //
+    // So categories are drawn in rounds rather than once: every category's
+    // keenest piece first, then every category's second-keenest, and so on.
+    // The rail still opens with one of each rather than four lamps, and it
+    // keeps filling instead of stopping short when the shallow categories run
+    // out. No product can appear twice, because each round takes a different
+    // index.
+    const keenFirst = (group: T[]): T[] =>
+      [...group].sort(
+        (a, b) =>
+          (markupBySlug[a.slug] ?? Infinity) -
+            (markupBySlug[b.slug] ?? Infinity) ||
+          (b.price ?? 0) - (a.price ?? 0),
+      );
+    const byKeenness = ranked.map(keenFirst);
+    const deepest = Math.max(...byKeenness.map((group) => group.length), 0);
+    const picks: T[] = [];
+    for (let round = 0; round < deepest; round += 1) {
+      for (const group of byKeenness) {
+        const item = group[round];
+        if (item) picks.push(item);
+      }
+    }
+
+    // Deliberately NOT re-sorted by price. Sorting the full pool collapsed the
+    // rail into four near-identical Troyes sofas and eleven small planters,
+    // because price order ignores which round a pick came from. Keeping the
+    // round order means every category is represented once before any category
+    // appears twice, which is the whole reason rounds exist.
+    const dear = picks.filter(
+      (product) => (product.price ?? 0) > VALUE_CEILING,
+    );
+    const affordable = picks.filter(
+      (product) =>
+        (product.price ?? 0) <= VALUE_CEILING &&
+        AESTHETIC_CATEGORIES.has(product.category as string),
+    );
 
     const out: T[] = [];
     for (

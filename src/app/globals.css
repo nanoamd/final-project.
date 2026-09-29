@@ -59,12 +59,14 @@
   }
 }
 
-/* A slow glisten across the wordmark logo every ~10s. Most of the cycle it
-   sits parked off to one side — invisible, since its gradient is
-   transparent there — then glides across the letters at a constant pace
-   over about three seconds. `linear` rather than an eased timing function
-   deliberately: easing concentrates the motion into the middle of its
-   window, which read as a rapid flash-and-snap rather than a glisten.
+/* A continuous glisten across the wordmark logo. It ran every ~10s, parked
+   off to one side for most of the cycle — Damien: *"fix the Kaiku logo shine
+   so it constantly scrolls through with shine not every 10 secs"*. The dwell
+   is gone, so the highlight sweeps without pause. `linear` rather than an
+   eased timing function deliberately: easing concentrates the motion into the
+   middle of its window, which read as a rapid flash-and-snap rather than a
+   glisten — and with no dwell to hide the seam, any easing would make the
+   loop point visible as a stutter.
    Implemented as a separate aria-hidden overlay of the same text rather
    than animating the real link's own color, so a screen reader only ever
    sees the wordmark once and reduced motion can drop the effect entirely
@@ -85,17 +87,13 @@
   background-clip: text;
   color: transparent;
   mix-blend-mode: screen;
-  animation: logo-shine 10s linear infinite;
+  animation: logo-shine 4s linear infinite;
 }
 @keyframes logo-shine {
-  0%,
-  65% {
+  from {
     background-position: -120% 0;
   }
-  95% {
-    background-position: 220% 0;
-  }
-  100% {
+  to {
     background-position: 220% 0;
   }
 }
