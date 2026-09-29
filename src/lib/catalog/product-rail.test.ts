@@ -130,3 +130,54 @@ describe("selectRailProducts", () => {
     expect(chosen.map((c) => c.slug)).toEqual(["ok"]);
   });
 });
+
+describe("selectRailProducts with a markup index", () => {
+  it("takes the keenest-priced piece in a category, not the dearest or cheapest", () => {
+    const chosen = selectRailProducts(
+      [
+        p("dear-but-greedy", "sofas", 2000),
+        p("keen", "sofas", 900),
+        p("cheap-and-greedy", "sofas", 300),
+      ],
+      1,
+      { "dear-but-greedy": 1.9, keen: 1.24, "cheap-and-greedy": 2.4 },
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["keen"]);
+  });
+
+  it("breaks a tie on keenness toward the better piece", () => {
+    const chosen = selectRailProducts(
+      [p("small", "sofas", 400), p("big", "sofas", 1200)],
+      1,
+      { small: 1.25, big: 1.25 },
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["big"]);
+  });
+
+  it("still alternates dear and affordable so prices are not four deep", () => {
+    const chosen = selectRailProducts(
+      [
+        p("sofa", "sofas", 1200),
+        p("bed", "beds", 1100),
+        p("vase", "vases", 80),
+        p("clock", "clocks", 130),
+      ],
+      4,
+      { sofa: 1.25, bed: 1.25, vase: 1.25, clock: 1.25 },
+    );
+    const prices = chosen.map((c) => c.price!);
+    expect(prices[0]).toBeGreaterThan(prices[1]!);
+    expect(prices[2]).toBeGreaterThan(prices[3]!);
+  });
+
+  it("ignores a product with no cost recorded rather than ranking it first", () => {
+    // A missing entry means "cannot rank", not "free". Ranking it first would
+    // put every product without a cost price on the homepage.
+    const chosen = selectRailProducts(
+      [p("unknown-cost", "sofas", 900), p("known", "sofas", 800)],
+      1,
+      { known: 1.4 },
+    );
+    expect(chosen.map((c) => c.slug)).toEqual(["known"]);
+  });
+});

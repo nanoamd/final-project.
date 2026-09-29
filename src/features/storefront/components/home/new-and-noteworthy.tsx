@@ -2,7 +2,10 @@ import { AppLink } from "@/components/ui/app-link";
 import { ProductCardImage } from "@/features/storefront/components/category/product-card-image";
 import { selectRailProducts } from "@/lib/catalog/product-rail";
 import { formatPrice } from "@/lib/format";
-import { getProductsBySupplier } from "@/lib/sanity/queries";
+import {
+  getProductsBySupplier,
+  getRailMarkupIndex,
+} from "@/lib/sanity/queries";
 import { railScroller } from "@/lib/ui/rail";
 import { cn } from "@/lib/utils";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -64,13 +67,14 @@ export async function NewAndNoteworthy() {
   // A wide pool rather than the first N: the selection below needs to see the
   // whole range to pick one of each type, and taking twelve up front is what
   // produced a rail of four near-identical lamps.
-  const pool = (
-    await Promise.all(
+  const [pool, markupBySlug] = await Promise.all([
+    Promise.all(
       RAIL_SUPPLIERS.map((supplier) => getProductsBySupplier(supplier, 200)),
-    )
-  ).flat();
+    ).then((lists) => lists.flat()),
+    getRailMarkupIndex(RAIL_SUPPLIERS),
+  ]);
 
-  const products = selectRailProducts(pool, RAIL_SIZE);
+  const products = selectRailProducts(pool, RAIL_SIZE, markupBySlug);
 
   // Nothing to show is not a section. An empty rail with a heading over it reads
   // as broken, where absence reads as nothing at all.

@@ -25,6 +25,7 @@ export {
   getProductsByDepartment,
   getProductsBySlugs,
   getProductsBySupplier,
+  getRailMarkupIndex,
   getRelatedProducts,
   getToolProducts,
   getTotalProductCount,

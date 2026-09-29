@@ -670,6 +670,46 @@ export async function getProductsByDepartment(
  * URL, so a tile for it would link nowhere.
  */
 /** One supplier's range, cheapest first. */
+/**
+ * How keenly each product is priced: `price ÷ landed cost`, keyed by slug.
+ *
+ * Server-only, and deliberately returns the ratio rather than the cost. Damien
+ * asked for the homepage rail to show the products Kaiku prices best, which
+ * needs cost to work out — but a cost price on a public page is a cost price
+ * a competitor can read, and a ratio printed beside a visible price is the
+ * same thing with one division. So the division happens here, in GROQ, the
+ * ratio never leaves the server, and the rail receives an ordering rather than
+ * any figure it could render.
+ *
+ * Products with no cost, or a nonsensical one, are simply absent — the caller
+ * treats a missing entry as "cannot rank", not as "free".
+ */
+export async function getRailMarkupIndex(
+  supplierNames: string[],
+): Promise<Record<string, number>> {
+  const rows = await sanityFetch<{ slug: string; markup: number }[]>(
+    /* groq */ `*[_type == "product"
+      && !(_id in path("drafts.**"))
+      && supplier->name in $supplierNames
+      && defined(costPrice) && costPrice > 0
+      && defined(price) && price > 0
+    ]{
+      "slug": slug.current,
+      "markup": price / (costPrice + coalesce(shippingCost, 0))
+    }`,
+    { supplierNames },
+    [],
+  );
+
+  const index: Record<string, number> = {};
+  for (const row of rows) {
+    if (row.slug && Number.isFinite(row.markup) && row.markup > 0) {
+      index[row.slug] = row.markup;
+    }
+  }
+  return index;
+}
+
 export async function getProductsBySupplier(
   supplierName: string,
   limit = 12,

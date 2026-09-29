@@ -70,9 +70,19 @@ const MIN_CATEGORY_TOP = 75;
 const byPriceAsc = (a: RailCandidate, b: RailCandidate) =>
   (a.price ?? 0) - (b.price ?? 0);
 
+/**
+ * How keenly each product is priced, by slug: `price ÷ landed cost`.
+ *
+ * Kept as a separate map rather than a field on the product, so no cost figure
+ * is ever attached to an object that renders. A markup ratio beside a visible
+ * price is the cost price with one division, and the rail is a public page.
+ */
+export type MarkupBySlug = Readonly<Record<string, number>>;
+
 export function selectRailProducts<T extends RailCandidate>(
   products: T[],
   size: number,
+  markupBySlug?: MarkupBySlug,
 ): T[] {
   const usable = products.filter(
     (product) =>
@@ -94,6 +104,52 @@ export function selectRailProducts<T extends RailCandidate>(
       (a, b) =>
         b.length - a.length || (b.at(-1)!.price ?? 0) - (a.at(-1)!.price ?? 0),
     );
+
+  // Damien: *"Our products with the best prices should go there"*.
+  //
+  // With a markup map, each category contributes the piece Kaiku prices most
+  // keenly — the lowest `price ÷ landed cost` — rather than its dearest or its
+  // cheapest. That is the honest reading of "best price": not the smallest
+  // number on the page, but the one where the customer is getting the most for
+  // it. Where two are equally keen the dearer wins, because it is the better
+  // piece at the same keenness.
+  const keenest = (group: T[]): T =>
+    markupBySlug
+      ? [...group].sort(
+          (a, b) =>
+            (markupBySlug[a.slug] ?? Infinity) -
+              (markupBySlug[b.slug] ?? Infinity) ||
+            (b.price ?? 0) - (a.price ?? 0),
+        )[0]!
+      : group.at(-1)!;
+
+  // The rail still alternates a dear piece with an affordable one, so nobody
+  // scrolling meets four four-figure prices in a row. That is rhythm, not
+  // selection — both sides are now chosen on price keenness.
+  if (markupBySlug) {
+    const picks = ranked.map(keenest);
+    const dear = picks
+      .filter((product) => (product.price ?? 0) > VALUE_CEILING)
+      .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+    const affordable = picks
+      .filter((product) => (product.price ?? 0) <= VALUE_CEILING)
+      .sort(byPriceAsc);
+
+    const out: T[] = [];
+    for (
+      let i = 0;
+      out.length < size && (dear.length || affordable.length);
+      i += 1
+    ) {
+      const next =
+        i % 2 === 0
+          ? (dear.shift() ?? affordable.shift())
+          : (affordable.shift() ?? dear.shift());
+      if (!next) break;
+      out.push(next);
+    }
+    return out;
+  }
 
   // Half the rail is heroes, taken from the deepest ranges — but never more
   // than half the categories, or a short catalogue would be all heroes and
