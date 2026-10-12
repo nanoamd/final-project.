@@ -493,7 +493,7 @@ local function playIntro()
 				return
 			end
 		end
-		setCaption("Hop in the van and follow the green arrow!")
+		setCaption("Walk up to the van, press F to drive, and follow the green arrow!")
 		local root = getRoot()
 		if root then
 			moveCamera(CFrame.lookAt(root.Position + Vector3.new(0, 8, 16), root.Position), 1.6)
@@ -1691,6 +1691,30 @@ end)
 --------------------------------------------------------------------------------
 
 local introPlayed = false
+
+-- Drive prompts: only the owner sees theirs, and not while already seated.
+local promptClock = 0
+RunService.Heartbeat:Connect(function(dt)
+	promptClock += dt
+	if promptClock < 0.25 then
+		return
+	end
+	promptClock = 0
+	local world = getWorld()
+	local vans = world and world:FindFirstChild("Vans")
+	if not vans then
+		return
+	end
+	local humanoid = getHumanoid()
+	local seated = humanoid ~= nil and humanoid.SeatPart ~= nil
+	for _, van in vans:GetChildren() do
+		local seat = van:FindFirstChild("DriverSeat")
+		local prompt = seat and seat:FindFirstChild("DrivePrompt")
+		if prompt then
+			prompt.Enabled = prompt:GetAttribute("OwnerUserId") == player.UserId and not seated
+		end
+	end
+end)
 
 local function updateKitPrompt()
 	local store = getStore()

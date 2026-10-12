@@ -58,8 +58,9 @@ the main road.
 
 ## Play-test the whole loop in about five minutes
 
-1. A camera fly-over plays. Get in the white Caddy van (walk into the driver's
-   seat) and follow the green arrow to the **Hardware Supply Store**.
+1. A camera fly-over plays. Walk up to the white Caddy van, press **F** (or tap
+   **Drive**) to get in, and follow the green arrow to the **Hardware Supply
+   Store**. W/S drive, A/D steer, Space gets out.
 2. Park in the car park, get out (Space), and hold **E** on the red button for
    the **Starter Detailing Kit**.
 3. Drive back to your plot. The naming window opens: type a company name. It

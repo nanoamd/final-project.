@@ -1961,6 +1961,9 @@ local function buildVan(session)
 		if props.CanQuery == false then
 			part.CanQuery = false
 		end
+		if props.CanCollide == false then
+			part.CanCollide = false
+		end
 		if props.Shape then
 			part.Shape = props.Shape
 		end
@@ -1985,7 +1988,13 @@ local function buildVan(session)
 	body("CabFloor", Vector3.new(6.4, 0.3, 4.9), CFrame.new(0, 0.75, -4.4), { Color = Color3.fromRGB(40, 40, 46) })
 	for _, side in { -1, 1 } do
 		body("CabSide", Vector3.new(0.3, 1.7, 5.6), CFrame.new(side * 3.35, 1.75, -4.75), { Paint = true })
-		body("CabGlass", Vector3.new(0.25, 1.8, 3.45), CFrame.new(side * 3.35, 3.5, -3.675), glass)
+		body("CabGlass", Vector3.new(0.25, 1.8, 3.45), CFrame.new(side * 3.35, 3.5, -3.675), {
+			Color = PALETTE.Glass,
+			Material = Enum.Material.Glass,
+			Transparency = 0.45,
+			CanQuery = false,
+			CanCollide = false,
+		})
 		body("APillar", Vector3.new(0.3, 0.3, 2.3), CFrame.lookAt(Vector3.new(side * 3.35, 3.5, -6.1), Vector3.new(side * 3.35, 5.3, -4.7)), { Paint = true })
 		body("Mirror", Vector3.new(0.9, 0.6, 0.3), CFrame.new(side * 3.9, 3.0, -5.3), trim)
 		body("DoorSeam", Vector3.new(0.05, 3.3, 0.08), CFrame.new(side * 3.51, 2.6, -1.95), trim)
@@ -2024,7 +2033,21 @@ local function buildVan(session)
 	weld(seat, chassis)
 	van.Seat = seat
 
-	local passengerSeat = Instance.new("Seat")
+	-- The cab is enclosed, so getting in is a prompt rather than a walk-in.
+	local drivePrompt = Instance.new("ProximityPrompt")
+	drivePrompt.Name = "DrivePrompt"
+	drivePrompt.ActionText = "Drive"
+	drivePrompt.ObjectText = "Caddy Van"
+	drivePrompt.HoldDuration = 0
+	drivePrompt.MaxActivationDistance = 12
+	drivePrompt.RequiresLineOfSight = false
+	drivePrompt.KeyboardKeyCode = Enum.KeyCode.F
+	drivePrompt.GamepadKeyCode = Enum.KeyCode.ButtonY
+	drivePrompt:SetAttribute("OwnerUserId", session.Player.UserId)
+	drivePrompt.Parent = seat
+	van.DrivePrompt = drivePrompt
+
+	local passengerSeat = Instance.new("Part")
 	passengerSeat.Name = "PassengerSeat"
 	passengerSeat.Size = Vector3.new(2.2, 0.6, 2.2)
 	passengerSeat.CFrame = base * CFrame.new(-1.55, 1.2, -3.7)
@@ -2125,8 +2148,28 @@ local function buildVan(session)
 	end
 	setVanNetworkOwner(van, nil)
 
+	drivePrompt.Triggered:Connect(function(player)
+		if player ~= session.Player then
+			NotifyEvent:FireClient(player, "That's someone else's van.", "error")
+			return
+		end
+		local character = player.Character
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+		local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+		if not humanoid or humanoid.Health <= 0 or humanoid.SeatPart or not rootPart then
+			return
+		end
+		if (rootPart.Position - seat.Position).Magnitude > drivePrompt.MaxActivationDistance + 6 then
+			return
+		end
+		if seat.Occupant == nil then
+			seat:Sit(humanoid)
+		end
+	end)
+
 	-- Only the owner may drive. The server hands physics to the driver so the
 	-- van responds instantly, and takes it back the moment they get out.
+	local lastDriver = nil
 	seat:GetPropertyChangedSignal("Occupant"):Connect(function()
 		local humanoid = seat.Occupant
 		if humanoid then
@@ -2139,9 +2182,21 @@ local function buildVan(session)
 				humanoid.Sit = false
 				return
 			end
+			lastDriver = humanoid
 			setVanNetworkOwner(van, occupant)
 		else
 			setVanNetworkOwner(van, nil)
+			-- Step out beside the driver's door rather than inside the cab.
+			local leaving = lastDriver
+			lastDriver = nil
+			if leaving and leaving.Parent and leaving.Health > 0 then
+				task.defer(function()
+					local character = leaving.Parent
+					if character and character.Parent and seat.Parent then
+						character:PivotTo(CFrame.new((seat.CFrame * CFrame.new(5, 1.5, 0)).Position) * seat.CFrame.Rotation)
+					end
+				end)
+			end
 		end
 	end)
 
