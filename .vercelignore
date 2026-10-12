@@ -25,3 +25,7 @@ docs/
 
 # Playwright specs. They run in CI, not in production.
 e2e/
+
+# Roblox game scripts (Car Detailing Tycoon). Pasted into Roblox Studio, never
+# served by the site.
+roblox/
