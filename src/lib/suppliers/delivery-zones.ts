@@ -151,12 +151,26 @@ export function classifyPostcode(
 }
 
 /**
- * The weight at and above which a piece needs a two-man service rather than a
- * single courier, and therefore inherits the postcode exclusions.
+ * The weight at and above which a piece is assumed to need a two-man service
+ * rather than a single courier, and therefore inherits the postcode exclusions.
  *
- * Matches the split used for Hill's carriage bands in
- * scripts/fix-hill-interiors-carriage.ts. Kept here as well because the
- * storefront needs it and must not import from scripts/.
+ * **This is a stand-in, and it is known to be wrong in both directions.**
+ *
+ * Weight does not decide the service. Hill's `Delivery Size` flag does, and
+ * weight then only picks the band within it — see scripts/lib/hill-carriage.ts,
+ * which models the real rule and is pinned against the two invoices Damien
+ * actually paid. A 15kg sideboard shipped two-man; a 2.6kg framed canvas does
+ * not. No weight threshold can separate those.
+ *
+ * The storefront cannot apply the real rule yet because `Delivery Size` is not
+ * on the product schema, so there is nothing to read. Until it is, this
+ * threshold stands and it mis-reports at both ends: the 39.9kg Sorelle sofa
+ * shows no two-man note although it ships two-man, and anything heavy but
+ * courier-sent would show one it does not need.
+ *
+ * Both errors are customer-facing, so the fix is a schema field populated from
+ * the feed, not a different number here. Changing the number alone just moves
+ * which customers get the wrong answer.
  */
 export const TWO_MAN_FROM_KG = 40;
 

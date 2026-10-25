@@ -16,6 +16,106 @@ Status key:
 
 ---
 
+## The first organic sale, and the stock it was placed against (25 October)
+
+Jennifer Nicholson paid £81 for the Mistora Hand Painted Canvas. Hill had none
+until 26 January 2027. The replacement offered her, the Silvra from the same
+range, was also listed In Stock and also had none. Eleven days earlier Dot
+Turley had emailed an enquiry that went unanswered.
+
+Two buyers from roughly six UK clicks a week. The shop converts. It just told
+both of them something untrue.
+
+### Why the shop was lying
+
+`stockStatus` defaults to "In Stock" in the schema, so every product ever
+imported claims availability until something says otherwise. Nothing ever did.
+`scripts/import-premier-housewares.ts:338` sets it explicitly on every draft it
+creates, which makes 546 Premier products a standing promise nobody checked.
+
+The data to prevent it was already here. Hill's dropship feed carries
+`Available Stock` and `scripts/reprice-hill-from-dropship-feed.ts` has been
+reading that column for weeks — to decide which products may be _promoted_,
+never writing it back to the field the shop shows.
+
+- [x] **`scripts/sync-hill-stock.ts`** — writes Hill's real stock, dry run by
+      default, `--apply` refuses without a write token. 8 tests. Products with
+      no matching feed row are left alone and reported: an absent row is not
+      evidence of absence.
+- [x] **`scripts/sync-premier-stock.ts`** — the same for Premier, which has no
+      dropship CSV and turns out not to need one. 10 tests.
+- [x] **Ledger entry for the Hill script**, which 7e28d7e shipped without. The
+      rule is that items are ticked in the same commit as the work, and that
+      commit broke it.
+- [!] Export Hill's CSV and run both — see
+  `docs/runbook-2026-10-26-stock-and-prices.md`
+- [!] Refund £81, take both canvases off sale, send the two emails
+
+### Premier's stock is public, and three signals on the page disagree
+
+Premier's storefront is BigCommerce. Every product page carries the live figure
+in a script tag, visible without logging in. Checked against
+`allure-chrome-wing-base-end-table-5502580`, which had 16 units:
+
+| Signal                       | Said                    | True?                |
+| ---------------------------- | ----------------------- | -------------------- |
+| `og:availability`            | `instock`               | always says this     |
+| JSON-LD offer `availability` | `schema.org/OutOfStock` | **no — 16 in stock** |
+| `BCData.available_to_sell`   | `16`                    | yes                  |
+
+The JSON-LD block is unusable logged out — its `price` is `""` for the same
+reason, because trade pricing sits behind `/login.php`. Reading the obvious
+schema.org field would have taken a product with sixteen units off sale.
+
+`purchasable` is false on every page sampled, including one with 956 units. It
+tracks the logged-out price, not stock, and is not read.
+
+- [x] **Validated against 14 live pages**, spread across the catalogue: 13 in
+      stock reporting 1 to 956, and one genuinely out —
+      `filta-leopard-face-doormat-1902049`, `stock=0 instock=false`. Both paths
+      confirmed against reality, not only unit tests.
+- [x] `robots.txt` names ClaudeBot, allows product pages, asks `Crawl-delay: 10`.
+      Honoured, and the User-Agent says what it is rather than claiming Chrome.
+      546 products is about 91 minutes.
+- [x] **No long-lived page cache.** `scripts/lib/premier-housewares.ts` caches
+      pages forever, which is right for importing a title and would reproduce
+      this exact bug for stock. Cached per day instead.
+
+### Carriage: wrong twice, in opposite directions, for the same reason
+
+- [x] **`scripts/lib/hill-carriage.ts`** — the whole model in one place, pinned
+      against both invoices Damien actually paid. 27 tests.
+
+`Delivery Size` chooses the service; weight only chooses the band within it.
+Both previous attempts passed one input and neither passed both:
+
+| Attempt                              | 15kg Large sideboard | 2.6kg framed canvas |
+| ------------------------------------ | -------------------- | ------------------- |
+| `reprice-hill-from-dropship-feed.ts` | £9.99 — understated  | £6.99 — right       |
+| `fix-hill-interiors-carriage.ts`     | £49.99 — right       | £49.99 — overstated |
+| `hill-carriage.ts`                   | £49.99               | £6.99               |
+
+Hill charged £49.99 on the first and charges £6.99 on the second. The first
+error understated landed cost by roughly £49 a unit across the range. **The
+second is why 84 of 140 Hill products read as loss-making** — most of them are
+candles, frames and clocks wearing a sofa's delivery cost. That figure is an
+artefact and should collapse once both scripts call `hillCarriage()`.
+
+`scripts/reprice-hill-from-dropship-feed.ts:184` has been reading
+`Delivery Size` into a variable all along, and consulted it only when weight
+was missing.
+
+- [ ] Point both scripts at `hillCarriage()` instead of their own band tables
+- [ ] Dry-run and confirm the loss-making count collapses, then reprice
+- [-] **`TWO_MAN_FROM_KG = 40` left as it is.** It gates the customer-facing
+  two-man warning on weight, and weight cannot decide it — the 39.9kg Sorelle
+  shows no warning although it ships two-man. The fix is a `Delivery Size`
+  field on the product schema, not a different number: changing the number
+  alone only moves which customers get the wrong answer. The comment there now
+  says so instead of pointing at a file that contradicts it.
+
+---
+
 ## The carriage bands were wrong, and it was my judgement that made them wrong (28 September)
 
 Damien sent two real charges. Neither matched what this repo had stored:
@@ -1630,15 +1730,15 @@ being told the site ranked first for it.
   of course he could not find it.
 - [!] **Only 22% of this site's search visibility is UK.** Last 30 days:
 
-      | Market | Impressions | Clicks |
-      | --- | --- | --- |
-      | **United Kingdom** | **297** | **22** |
-      | Netherlands | 197 | 0 |
-      | Germany | 181 | 1 |
-      | United States | 175 | 2 |
-      | Denmark | 51 | 0 |
-      | India | 50 | 1 |
-      | Everything else | ~400 | ~3 |
+| Market             | Impressions | Clicks |
+| ------------------ | ----------- | ------ |
+| **United Kingdom** | **297**     | **22** |
+| Netherlands        | 197         | 0      |
+| Germany            | 181         | 1      |
+| United States      | 175         | 2      |
+| Denmark            | 51          | 0      |
+| India              | 50          | 1      |
+| Everything else    | ~400        | ~3     |
 
 - [!] **THE BASELINE FOR EVERY TARGET IS THE UK NUMBER: 297 impressions and 22
   clicks a month.** Not the ~2,500 impressions and ~60 clicks quoted
@@ -1856,12 +1956,12 @@ Search Console as "Discovered — currently not indexed".
   a product page — full portable-text description, every FAQ, every spec,
   delivery/returns/warranty notes, the SEO object. Measured live:
 
-      | Page | Products | Was | A card needs |
-      | --- | --- | --- | --- |
-      | /shop/lighting | 138 | **2,175KB** | 100KB |
-      | /shop/garden-furniture | 76 | 1,177KB | 57KB |
-      | /shop/planters | 86 | 1,098KB | 66KB |
-      | /shop/all | 908 | **12.79MB** | — |
+| Page                   | Products | Was         | A card needs |
+| ---------------------- | -------- | ----------- | ------------ |
+| /shop/lighting         | 138      | **2,175KB** | 100KB        |
+| /shop/garden-furniture | 76       | 1,177KB     | 57KB         |
+| /shop/planters         | 86       | 1,098KB     | 66KB         |
+| /shop/all              | 908      | **12.79MB** | —            |
 
       `description` alone was **53–63%** of it. The Lighting page shipped over
       two megabytes of HTML to draw 138 thumbnails, at a **2.07s time to first
@@ -1874,12 +1974,12 @@ Search Console as "Discovered — currently not indexed".
       compare page (which reads specs) and the admin supplier query keep the
       full one.
 
-      | Page | Was | Now |
-                                                                                                                                                                                                                      | --- | --- | --- |
-                                                                                                                                                                                                                      | /shop/lighting | 2,175KB | **455KB** |
-                                                                                                                                                                                                                      | /shop/planters | 1,098KB | **290KB** |
-                                                                                                                                                                                                                      | /shop/garden-furniture | 1,177KB | **259KB** |
-                                                                                                                                                                                                                      | /shop/all | 12.79MB | **2.94MB** |
+| Page                   | Was     | Now        |
+| ---------------------- | ------- | ---------- |
+| /shop/lighting         | 2,175KB | **455KB**  |
+| /shop/planters         | 1,098KB | **290KB**  |
+| /shop/garden-furniture | 1,177KB | **259KB**  |
+| /shop/all              | 12.79MB | **2.94MB** |
 
 - [x] **Keys kept, values emptied — not keys dropped.** A dropped key is
       `undefined`, which is a different shape from the `null` GROQ returns for
@@ -5641,12 +5741,12 @@ apart, and that is what reads as lag.
 - [x] **Raised to `lerp: 0.18`.** Measured in a real browser with Playwright,
       one 1200px wheel tick, sampling `scrollY` every 25ms:
 
-      | lerp | time to 90% settled |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ---- | ------------------- |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.09 (before) | **454ms** |
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 0.18 (now)    | **232ms** |
+| lerp          | time to 90% settled |
+| ------------- | ------------------- |
+| 0.09 (before) | **454ms**           |
+| 0.18 (now)    | **232ms**           |
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Roughly halved. Still visibly smooth, but it tracks the wheel.
+Roughly halved. Still visibly smooth, but it tracks the wheel.
 
 - [x] **Reduced-motion is now actually honoured.** The file's own docstring
       claimed it "respects reduced-motion by leaving Lenis effectively
