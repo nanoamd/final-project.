@@ -240,6 +240,42 @@ export const product = defineType({
     defineField({ name: "dimensions", type: "dimensions", group: "logistics" }),
     defineField({ name: "weight", type: "weight", group: "logistics" }),
     /**
+     * Which delivery service the supplier routes this item on.
+     *
+     * This is the input carriage has twice been costed without. Hill Interiors
+     * publish two rate cards — standard courier and two-man — and do not say
+     * which applies to a given product. Their feed's `Delivery Size` column
+     * does: Small goes courier, Large goes two-man. Weight then only picks the
+     * band within whichever service that is.
+     *
+     * Costing on weight alone charged a 15kg sideboard £9.99 when Hill charged
+     * £49.99. Costing everything as two-man charged a 2.6kg framed canvas
+     * £49.99 when Hill charge £6.99. Both errors came from this field not
+     * existing — see scripts/lib/hill-carriage.ts.
+     *
+     * Also what the storefront's two-man delivery warning should key on, since
+     * a two-man service inherits the postcode exclusions in
+     * src/lib/suppliers/delivery-zones.ts and a courier one does not.
+     *
+     * Populated by scripts/fix-hill-interiors-carriage.ts from the supplier
+     * feed. Left unset where no feed says, and unset means unknown — not Small.
+     */
+    defineField({
+      name: "deliverySize",
+      title: "Delivery size",
+      type: "string",
+      group: "logistics",
+      options: {
+        list: [
+          { title: "Small — standard courier", value: "Small" },
+          { title: "Large — two-man delivery", value: "Large" },
+        ],
+        layout: "radio",
+      },
+      description:
+        "The supplier's own routing flag, from their feed. Decides courier vs two-man carriage, and whether the storefront shows the two-man postcode warning. Leave unset if the feed does not say — unset means unknown, not Small.",
+    }),
+    /**
      * How many units the supplier's wholesale pack contains.
      *
      * Only matters because of `splitPackSurchargeRate` on the supplier: a

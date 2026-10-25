@@ -51,6 +51,9 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 import { createClient } from "@sanity/client";
 
+import { columnReader, parseCsv } from "./lib/csv";
+import { hillCarriage } from "./lib/hill-carriage";
+
 const apply = process.argv.includes("--apply");
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (apply && !token) {
@@ -67,9 +70,28 @@ const client = createClient({
   perspective: "raw",
 });
 
-const DROPSHIP_CSV =
-  process.env.HILL_DROPSHIP_CSV ??
-  "/root/.claude/uploads/faaf1922-1604-5b81-b3ee-c4782f0da6af/417a1813-HillInteriorsDropship-2.csv";
+/**
+ * The feed, exported from Hill's trade portal.
+ *
+ * This used to default to a path under /root/.claude/uploads. Container
+ * rebuilds delete those, so the default was a file that no longer exists and
+ * the failure looked like a missing feed rather than a stale constant. Pass
+ * --feed=, or set HILL_DROPSHIP_CSV.
+ */
+function dropshipCsv(): string {
+  const arg = process.argv.find((a) => a.startsWith("--feed="));
+  const path = arg
+    ? arg.slice("--feed=".length)
+    : process.env.HILL_DROPSHIP_CSV;
+  if (!path) {
+    console.error(
+      "No feed. Pass --feed=/path/to/HillInteriorsDropship.csv (export it today),\n" +
+        "or set HILL_DROPSHIP_CSV.",
+    );
+    process.exit(1);
+  }
+  return path;
+}
 
 const VAT = 1.2;
 const CARD_RATE = 0.015;
@@ -83,28 +105,16 @@ const TARGET_MARGIN = 0.2;
 const HARD_FLOOR = 0.17;
 
 /**
- * Hill's published rate card, ex VAT. Standard courier to 40kg; above that this
- * catalogue is sofas and dining sets that a single courier will not carry, so
- * the two-man bands apply.
+ * Carriage ex VAT, from scripts/lib/hill-carriage.ts.
+ *
+ * The previous version of this banded on weight alone and consulted
+ * `Delivery Size` only when weight was missing. That is backwards: the column
+ * chooses the rate card and weight only chooses the band inside it. A 15kg
+ * Large sideboard was costed at £9.99 when Hill charged £49.99, which fed
+ * every margin figure this script produced.
  */
-const BANDS: { maxKg: number; amount: number }[] = [
-  { maxKg: 10, amount: 6.99 },
-  { maxKg: 20, amount: 9.99 },
-  { maxKg: 40, amount: 14.99 },
-  { maxKg: 60, amount: 59.99 },
-  { maxKg: 100, amount: 69.99 },
-  { maxKg: 150, amount: 84.99 },
-  { maxKg: 200, amount: 109.99 },
-];
-
 function carriageExVat(weightKg: number | null, deliverySize: string): number {
-  if (weightKg && weightKg > 0) {
-    const band = BANDS.find((b) => weightKg <= b.maxKg);
-    return band ? band.amount : BANDS[BANDS.length - 1]!.amount;
-  }
-  // No weight in the feed for 210 rows. Hill's own Small/Large flag is the
-  // only other signal, and guessing light would understate the cost.
-  return deliverySize === "Large" ? 59.99 : 6.99;
+  return hillCarriage({ weightKg, deliverySize }).exVat;
 }
 
 /** The tiers `set-promotion-tier.ts` uses. Kept identical on purpose. */
@@ -123,38 +133,6 @@ const netKeep = (price: number, cost: number, ship: number) =>
 const priceForMargin = (cost: number, ship: number, margin: number) =>
   Math.ceil((cost + ship + CARD_FIXED) / (1 - CARD_RATE - margin));
 
-function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = "";
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i]!;
-    if (inQuotes) {
-      if (char === '"') {
-        if (text[i + 1] === '"') {
-          field += '"';
-          i++;
-        } else inQuotes = false;
-      } else field += char;
-    } else if (char === '"') inQuotes = true;
-    else if (char === ",") {
-      row.push(field);
-      field = "";
-    } else if (char === "\n") {
-      row.push(field);
-      rows.push(row);
-      row = [];
-      field = "";
-    } else if (char !== "\r") field += char;
-  }
-  if (field || row.length) {
-    row.push(field);
-    rows.push(row);
-  }
-  return rows;
-}
-
 interface Feed {
   code: string;
   title: string;
@@ -167,9 +145,8 @@ interface Feed {
 }
 
 function readFeed(): Map<string, Feed> {
-  const rows = parseCsv(readFileSync(DROPSHIP_CSV, "utf8"));
-  const header = rows[0]!;
-  const at = (r: string[], name: string) => r[header.indexOf(name)] ?? "";
+  const rows = parseCsv(readFileSync(dropshipCsv(), "utf8"));
+  const at = columnReader(rows[0]!);
   const out = new Map<string, Feed>();
   for (const r of rows.slice(1)) {
     if (!r[0]) continue;

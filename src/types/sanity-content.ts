@@ -227,6 +227,12 @@ export interface SanityProduct {
   supplier?: SanitySupplier | null;
   dimensions?: SanityDimensions;
   weight?: SanityWeight;
+  /**
+   * The supplier's own routing flag — "Small" (courier) or "Large" (two-man).
+   * Unset means unknown, not Small. Decides whether the two-man postcode
+   * exclusions apply; see src/lib/suppliers/delivery-zones.ts.
+   */
+  deliverySize?: string | null;
   deliveryLeadTime?: string;
   /**
    * Null on 127 published products, which arrived through the importers rather

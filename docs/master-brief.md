@@ -16,6 +16,169 @@ Status key:
 
 ---
 
+## The Sanity dataset is public, and it is not only content in there (25 October)
+
+Found while looking for the newsletter numbers, which is the only reason it was
+found at all. **An anonymous HTTP request returns Kaiku's entire cost base and
+every customer record the forms have ever captured.**
+
+`scripts/audit-public-dataset.ts`, run with no credentials from outside:
+
+|                        | Records | What it is                                  |
+| ---------------------- | ------: | ------------------------------------------- |
+| `product.costPrice`    | **908** | trade cost per product, so Kaiku's margin   |
+| `product.shippingCost` |     268 | what each supplier charges Kaiku to ship    |
+| `newsletterSubscriber` |   **4** | **personal data — email addresses**         |
+| `contactSubmission`    |   **6** | **personal data — names, emails, messages** |
+| `supplier`             |      11 | supplier names, terms, internal notes       |
+| `priceAdjustment`      |     786 | the pricing history behind every product    |
+
+Six of six checks open. Fields on an exposed contact submission: `name`,
+`email`, `message`, `submittedAt`.
+
+### How this was reasoned past
+
+`src/lib/sanity/config.ts` already records, in its own comment, that "a
+tokenless GROQ query against `huh1e45n.apicdn.sanity.io` returns HTTP 200 with
+the real catalogue". That was written as a note about the project ID not being
+a secret — which is true and unavoidable, since it is in every
+`cdn.sanity.io/images/huh1e45n/production/…` URL the site serves.
+
+The catalogue being public is fine; it is meant to be read. **Nobody asked what
+else lives in the same dataset.**
+
+And note what it does to work already done: `getRailMarkupIndex()` computes its
+markup ratio inside GROQ precisely so a cost price never reaches the browser.
+That was the right instinct and it was beside the point, because the whole cost
+table was one unauthenticated request away the entire time.
+
+### Order of seriousness
+
+1. **Ten records with email addresses, world-readable.** A UK GDPR matter
+   rather than a competitive one, and it does not depend on anyone having
+   looked.
+2. **Trade prices published.** Any competitor can read Kaiku's margin on all
+   908 products. Hill Interiors and Premier Housewares can read what Kaiku
+   resells their goods at. Given the scraper traffic already in Search Console
+   — `… | kaiku` queries sitting at position 1 — assuming nobody has looked is
+   not safe.
+
+### The fix
+
+- [x] **`SANITY_API_READ_TOKEN` is now actually used.** It has been declared in
+      `src/env.ts` and read by nothing since it was added.
+      `src/lib/sanity/client.ts` passes it when present. Harmless while the
+      dataset is still public, which is what lets the token ship first and the
+      dataset flip second, with no window where the site has no content.
+- [x] **Verified safe to add**: every importer of that client is under
+      `src/server` or `src/lib` and runs server-side. None is a `"use client"`
+      module, so the token is not inlined into the browser bundle.
+- [x] **`scripts/audit-public-dataset.ts`** — asks the question a stranger
+      would ask, needs no credentials, writes nothing, and prints counts and
+      field names only, never a name or an address. Run it after the flip; all
+      six lines should read CLOSED.
+- [!] **Create a Viewer token in Sanity and put it in Vercel** as
+  `SANITY_API_READ_TOKEN`. Mine to use, yours to create.
+- [!] **Then Sanity → API → Datasets → set `production` to private.** In that
+  order.
+- [ ] **Move the form submissions out of Sanity.** A CMS dataset is not where
+      customer records belong, and Supabase already has `subscribers` and
+      `tickets`. Private is correct regardless, so this is the better answer
+      rather than the urgent one.
+- [ ] Decide whether the 786 `priceAdjustment` documents need to exist in the
+      same dataset as public content at all.
+
+### And it answers the question that led here
+
+**4 newsletter sign-ups and 6 contact submissions**, total, ever. Counted
+without reading anyone's details. The ledger's earlier note that both were last
+seen on 6 August stands.
+
+---
+
+## Carriage now reads both of its inputs, everywhere (25 October, later)
+
+`scripts/lib/hill-carriage.ts` modelled the rule earlier tonight. Nothing was
+calling it. Both scripts that cost carriage still had their own band tables,
+wrong in opposite directions, and Sanity had no field to hold the input that
+decides it. All three are now fixed and interlock.
+
+- [x] **`deliverySize` on the product schema**, in the logistics group next to
+      `weight`. Small or Large, radio, no default. **Unset means unknown, not
+      Small** — that distinction is the whole reason the field exists.
+- [x] **`scripts/fix-hill-interiors-carriage.ts` rewired.** Takes `--feed=`,
+      reads `Delivery Size` and `Weight` from the CSV, costs through
+      `hillCarriage()`, and writes `deliverySize` alongside `shippingCost` so
+      the storefront can use it. Rows it cannot resolve are reported and
+      skipped rather than filled; rows resolved from a partial feed row are
+      written but listed separately for checking.
+- [x] **`scripts/reprice-hill-from-dropship-feed.ts` rewired.** Its
+      `carriageExVat()` banded on weight alone and consulted `Delivery Size`
+      only when weight was missing — exactly backwards. Now a one-line call to
+      `hillCarriage()`.
+- [x] **The supplier record now carries both rate cards**, generated from the
+      band tables rather than hand-typed, with the two invoices named in the
+      notes and a line in capitals saying the service is not a function of
+      weight. The old notes described the two-man bands as applying at every
+      weight.
+
+### The dead feed path, which made a stale constant look like a missing file
+
+`reprice-hill-from-dropship-feed.ts` defaulted to
+`/root/.claude/uploads/.../HillInteriorsDropship-2.csv`. Container rebuilds
+delete those, so that file has not existed for some time and the failure read
+as "no feed" rather than "the constant is stale".
+
+- [x] Replaced with `--feed=`, falling back to `HILL_DROPSHIP_CSV`, and a
+      message that says to export the feed today.
+
+### One CSV parser instead of three
+
+Three scripts had their own, with three sets of edge cases.
+
+- [x] **`scripts/lib/csv.ts`** — `parseCsv` plus `columnReader`, which indexes
+      the header once instead of `header.indexOf(name)` per cell. The old
+      inline version silently returned the first match when a header name
+      repeated. `sync-hill-stock.ts` re-exports `parseCsv` so its existing
+      tests keep importing it from where they always did.
+
+### The two-man warning believes the supplier now, not the scales
+
+- [x] **`needsTwoManDelivery(weightKg, deliverySize)`** prefers the flag and
+      falls back to weight only where there is none. Threaded through
+      `SanityProduct`, both storefront GROQ projections and
+      `product-summary.tsx`.
+
+The case this fixes: **the Sorelle sofa is 39.9kg and ships two-man.** Under a
+40kg threshold it fell 0.1kg short and showed no warning at all, so a customer
+in Belfast could have bought it and had the sale unwound after payment. A 2.6kg
+framed canvas had the opposite problem waiting for it.
+
+`TWO_MAN_FROM_KG = 40` survives as the fallback for products with no flag yet,
+and its comment now explains which way it deliberately errs: a warning nobody
+needed costs a question, a missing warning costs the order.
+
+- [x] 5 new tests on the helper, including the 39.9kg case
+- [ ] Populate `deliverySize` for the other suppliers. Only Hill publishes the
+      flag; Premier, AW Dropship and D.I. Designs products still fall back to
+      weight
+
+### Correction: the calculators were not the problem I said they were
+
+Earlier tonight I told Damien the `/tools` pages "link to nothing you sell" and
+proposed wiring them into products. **17 of the 18 already pass products
+through to the page.** The grep that said otherwise only looked for
+`getToolProducts`; the sauna and cold-plunge pages use
+`getProductsByDepartment` and were always linked.
+
+- [x] **The one real exception: `/tools/contrast-therapy-planner`.** Now links
+      saunas and cold plunges interleaved, because a contrast session needs one
+      of each, and this is the page about the two departments returning the most
+      cash per sale in the catalogue. A reader told to do three rounds of heat
+      and cold had nowhere to go next.
+
+---
+
 ## The first organic sale, and the stock it was placed against (25 October)
 
 Jennifer Nicholson paid £81 for the Mistora Hand Painted Canvas. Hill had none

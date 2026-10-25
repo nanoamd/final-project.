@@ -32,25 +32,53 @@
  * the Scottish Highlands & Islands, and two-man is not available at all in BT,
  * HS, IM, IV26-99, KA27, KA28, KW, PA15-78, PH19-50 and ZE.
  *
- * WHICH ROUTE. Hill state both tables and do not say which applies to a given
- * product; their Capri Outdoor Large Corner Set page quotes £69.99, which is the
- * two-man 61–100kg band, so furniture goes two-man. The rule below therefore
- * uses the standard bands up to 40kg and the two-man bands above it, because
- * above 40kg the pieces in this catalogue are sofas, dining sets and shelf units
- * that a single courier will not take. That is the one judgement left in here,
- * and it is the expensive direction: if Hill will send a 52kg dining set by
- * standard courier at £24.99 rather than two-man at £59.99, the margin improves
- * by £35 and the band should be changed.
+ * WHICH ROUTE — settled, and it is not weight.
+ *
+ * This file spent two revisions guessing. First the standard bands up to 40kg
+ * and two-man above, with the 40kg threshold flagged in these comments as "the
+ * one judgement left in here". Then, when two invoices proved that wrong,
+ * two-man at every weight.
+ *
+ * Both were wrong, because carriage was never a function of weight alone:
+ *
+ *   Contour sideboard   15kg    Large   £49.99 ex   (two-man, up to 35kg)
+ *   Sorelle sofa        39.9kg  Large   £59.99 ex   (two-man, 35-60kg)
+ *
+ * Hill's feed carries a `Delivery Size` column — Small or Large — and that is
+ * what picks the rate card. Weight then picks the band inside it. Guessing on
+ * weight alone understated a 15kg sideboard by £40. Treating everything as
+ * two-man overstated a 2.6kg framed canvas by £43, which is why 84 of 140 Hill
+ * products read as loss-making: candles and picture frames were wearing a
+ * sofa's delivery cost.
+ *
+ * The rule now lives in scripts/lib/hill-carriage.ts, pinned against both
+ * invoices, and this script reads `Delivery Size` from the feed rather than
+ * inferring it. Rows the model cannot resolve are reported and skipped, not
+ * filled in the flattering direction.
  *
  * The customer pays £0 shipping by Damien's rule, so every one of these numbers
  * comes out of Kaiku's margin.
  *
- *   pnpm tsx --env-file=.env.local scripts/fix-hill-interiors-carriage.ts
- *   pnpm tsx --env-file=.env.local scripts/fix-hill-interiors-carriage.ts --apply
+ * Pass the feed exported that morning. Without it the script falls back to the
+ * `deliverySize` already stored in Sanity, which is only useful on a re-run:
+ *
+ *   pnpm tsx --env-file=.env.local scripts/fix-hill-interiors-carriage.ts --feed=/path/to/HillInteriorsDropship.csv
+ *   pnpm tsx --env-file=.env.local scripts/fix-hill-interiors-carriage.ts --feed=... --apply
+ *
+ * Writes `deliverySize` as well as `shippingCost`, so the storefront's two-man
+ * postcode warning can key on the service rather than on a weight threshold.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 import { createClient } from "@sanity/client";
+
+import { columnReader, parseCsv } from "./lib/csv";
+import {
+  COURIER_BANDS,
+  hillCarriage,
+  type Service,
+  TWO_MAN_BANDS,
+} from "./lib/hill-carriage";
 
 const apply = process.argv.includes("--apply");
 const token = process.env.SANITY_API_WRITE_TOKEN;
@@ -70,142 +98,199 @@ const client = createClient({
 const SUPPLIER_ID = "supplier-hill-interiors";
 
 /**
- * Two-man at every weight — corrected 28 September, from two invoices.
+ * `Delivery Size` and `Weight` per supplier code, read from the feed.
  *
- * The previous version of this file used the standard courier bands up to 40kg
- * and two-man above, and said in as many words that the 40kg threshold was the
- * one judgement left in it. The judgement was wrong, and it was wrong in the
- * direction that flatters the margin. Damien's actual charges:
- *
- *   Contour sideboard, 15kg   -> £59.99 inc = £49.99 ex = two-man, up to 35kg
- *   Sorelle two seater, 39.9kg -> £71.99 inc = £59.99 ex = two-man, 35–60kg
- *
- * Under the old rule those were £9.99 and £14.99 ex — understating the landed
- * cost by £40 and £45 a unit, on every Hill product in the catalogue. That fed
- * the margin report, the eBay pack and the shop's own pricing.
- *
- * A 15kg sideboard going two-man is the point: Hill do not route this catalogue
- * by weight, they route it by what it is. If a genuinely small item ever does
- * come by standard courier, it will show up as an invoice that does not match
- * these bands, and that invoice — not an inference — is what should change them.
- *
- * Amounts are ex-VAT, as printed on the rate card. The +VAT pass adds the 20%
- * Kaiku cannot reclaim, which is why Sanity ends up holding £59.99 rather than
- * £49.99.
+ * The feed is authoritative over Sanity here: `deliverySize` in Sanity is
+ * whatever a previous run of this script put there, so trusting it on a fresh
+ * run would make the first wrong answer permanent.
  */
-export const HILL_BANDS: { maxKg: number; amount: number; label: string }[] = [
-  { maxKg: 35, amount: 49.99, label: "two-man, up to 35kg" },
-  { maxKg: 60, amount: 59.99, label: "two-man, 35–60kg" },
-  { maxKg: 100, amount: 69.99, label: "two-man, 61–100kg" },
-  { maxKg: 150, amount: 84.99, label: "two-man, 101–150kg" },
-  { maxKg: 200, amount: 109.99, label: "two-man, 151–200kg" },
-];
+function readFeed(path: string): Map<string, { size: string; kg: number }> {
+  const rows = parseCsv(readFileSync(path, "utf8"));
+  const at = columnReader(rows[0]!);
+  const out = new Map<string, { size: string; kg: number }>();
+  for (const r of rows.slice(1)) {
+    const code = (r[0] ?? "").trim();
+    if (!code) continue;
+    out.set(code, {
+      size: at(r, "Delivery Size").trim(),
+      kg: Number(at(r, "Weight")) || 0,
+    });
+  }
+  return out;
+}
 
-/** Carriage for one unit, or null above 200kg where Hill quote per consignment. */
-export function hillCarriage(
-  kg: number,
-): { amount: number; label: string } | null {
-  const band = HILL_BANDS.find((b) => kg <= b.maxKg);
-  return band ? { amount: band.amount, label: band.label } : null;
+function feedPath(): string | null {
+  const arg = process.argv.find((a) => a.startsWith("--feed="));
+  return arg ? arg.slice("--feed=".length) : null;
+}
+
+/** Both rate cards, written into the supplier record for whoever reads it next. */
+function rateCardNotes(): string {
+  const card = (
+    label: string,
+    bands: readonly { maxKg: number; amount: number }[],
+  ) =>
+    label +
+    ": " +
+    bands
+      .map(
+        (b) =>
+          `£${b.amount.toFixed(2)} ${Number.isFinite(b.maxKg) ? `to ${b.maxKg}kg` : "above"}`,
+      )
+      .join(", ");
+  return (
+    "Hill Interiors published rate card, ex VAT. " +
+    card("Standard courier", COURIER_BANDS) +
+    ". " +
+    card("Two-man (room of choice, packaging removed)", TWO_MAN_BANDS) +
+    ". WHICH ONE APPLIES IS NOT A FUNCTION OF WEIGHT: Hill's feed carries a " +
+    "`Delivery Size` column, Small routes to courier and Large to two-man, and " +
+    "weight only picks the band inside the chosen service. Pinned against two " +
+    "invoices: a 15kg Large Contour sideboard charged £49.99 ex, and a 39.9kg " +
+    "Large Sorelle sofa charged £59.99 ex. Costing on weight alone understated " +
+    "the first by £40; costing everything as two-man overstates a 2.6kg framed " +
+    "canvas by £43. Add £10 for Isle of Man, Isle of Wight, Northern Ireland " +
+    "and the Scottish Highlands & Islands; two-man is unavailable in BT, HS, " +
+    "IM, IV26-99, KA27, KA28, KW, PA15-78, PH19-50, ZE. Kaiku's own trade " +
+    "orders are separate: carriage free over £500 by Palletways, £20 between " +
+    "£200 and £499.99, and £200 is the minimum Hill will despatch at all."
+  );
 }
 
 async function main() {
+  const path = feedPath();
+  const feed = path ? readFeed(path) : null;
+  if (!feed) {
+    console.log(
+      "No --feed= given. Falling back to the deliverySize already in Sanity,\n" +
+        "which is only meaningful if a previous run wrote it. Export today's\n" +
+        "feed and pass it for a first run.\n",
+    );
+  }
+
   const products = await client.fetch<
     {
       _id: string;
       title: string;
+      code: string | null;
       shippingCost?: number;
+      deliverySize?: string;
       weight?: { value?: number };
     }[]
   >(
     `*[_type=="product" && !(_id in path("drafts.**")) && supplier->name=="Hill Interiors"]{
-      _id,title,shippingCost,weight
+      _id,title,"code":coalesce(supplierSku,sku),shippingCost,deliverySize,weight
     }`,
   );
 
   const transaction = client.transaction();
   let queued = 0;
   const results: Record<string, unknown>[] = [];
-  const unknown: string[] = [];
+  const unresolved: string[] = [];
+  const estimated: string[] = [];
+  const byService = new Map<Service, number>();
   const byBand = new Map<string, number>();
 
   if (apply) {
-    transaction.patch(SUPPLIER_ID, (p) =>
-      p.set({
+    transaction.patch(SUPPLIER_ID, (patcher) =>
+      patcher.set({
         carriageIncludedInCost: false,
         shippingRule: {
           _type: "shippingRule",
-          kind: "weightBands",
-          bands: HILL_BANDS.map((b, i) => ({
-            _type: "shippingBand",
-            _key: `b${i}`,
-            maxKg: b.maxKg,
-            amount: b.amount,
-          })),
-          notes:
-            "Hill Interiors published rate card. Standard courier: £6.99 to 10kg, " +
-            "£9.99 to 20kg, £14.99 to 40kg, £24.99 over 40kg. Two-man (room of " +
-            "choice, packaging removed): £49.99 to 35kg, £59.99 to 60kg, £69.99 to " +
-            "100kg, £84.99 to 150kg, £109.99 to 200kg, POA above. These bands are " +
-            "the TWO-MAN ones at every weight, corrected 28 September from two " +
-            "invoices: a 15kg Contour sideboard charged £49.99 ex and a 39.9kg " +
-            "Sorelle sofa charged £59.99 ex. Hill route this catalogue by what the " +
-            "item is, not by its weight. Both invoices were furniture, so the small " +
-            "decorative range is NOT evidenced — one invoice for a candle or a " +
-            "photo frame should settle whether those go standard instead. " +
-            "Add £10 for Isle of Man, Isle of Wight, Northern Ireland and the " +
-            "Scottish Highlands & Islands; two-man is unavailable in BT, HS, IM, " +
-            "IV26-99, KA27, KA28, KW, PA15-78, PH19-50, ZE. Kaiku's own trade orders " +
-            "are separate: carriage free over £500 by Palletways, £20 between £200 " +
-            "and £499.99, and £200 is the minimum Hill will despatch at all.",
+          kind: "deliverySizeThenWeight",
+          bands: TWO_MAN_BANDS.filter((b) => Number.isFinite(b.maxKg)).map(
+            (b, i) => ({
+              _type: "shippingBand",
+              _key: `b${i}`,
+              maxKg: b.maxKg,
+              amount: b.amount,
+            }),
+          ),
+          notes: rateCardNotes(),
         },
       }),
     );
     queued += 1;
   }
 
-  for (const p of products) {
-    const kg = p.weight?.value;
-    if (typeof kg !== "number" || kg <= 0) {
-      unknown.push(`no weight recorded — ${p.title}`);
+  for (const product of products) {
+    const row = product.code ? feed?.get(product.code.trim()) : undefined;
+    const deliverySize = row ? row.size : (product.deliverySize ?? "");
+    const weightKg = row?.kg || product.weight?.value;
+
+    const carriage = hillCarriage({ weightKg, deliverySize });
+    const clean = product.title.replace(/ \| Kaiku$/, "");
+
+    // Neither input. The lib returns no figure on purpose and neither do we:
+    // a guess here is worth between £6.99 and £109.99.
+    if (carriage.exVat === 0) {
+      unresolved.push(`${carriage.reason} — ${clean}`);
       continue;
     }
-    const band = hillCarriage(kg);
-    if (!band) {
-      unknown.push(`${kg}kg, over 200kg so POA — ${p.title}`);
-      continue;
-    }
-    byBand.set(band.label, (byBand.get(band.label) ?? 0) + 1);
-    if (p.shippingCost === band.amount) continue;
+    if (carriage.estimated) estimated.push(`${carriage.reason} — ${clean}`);
+
+    byService.set(carriage.service, (byService.get(carriage.service) ?? 0) + 1);
+    byBand.set(carriage.label, (byBand.get(carriage.label) ?? 0) + 1);
+
+    const sizeChanged =
+      Boolean(row?.size) && product.deliverySize !== row!.size;
+    if (product.shippingCost === carriage.incVat && !sizeChanged) continue;
+
     results.push({
-      id: p._id,
-      title: p.title,
-      kg,
-      was: p.shippingCost ?? null,
-      now: band.amount,
-      band: band.label,
+      id: product._id,
+      title: product.title,
+      kg: weightKg ?? null,
+      deliverySize: deliverySize || null,
+      service: carriage.service,
+      was: product.shippingCost ?? null,
+      now: carriage.incVat,
+      band: carriage.label,
+      estimated: carriage.estimated,
     });
+
     if (apply) {
-      transaction.patch(p._id, (patcher) =>
-        patcher.set({ shippingCost: band.amount }),
+      transaction.patch(product._id, (patcher) =>
+        patcher.set(
+          row?.size
+            ? { shippingCost: carriage.incVat, deliverySize: row.size }
+            : { shippingCost: carriage.incVat },
+        ),
       );
       queued += 1;
     }
   }
 
   console.log(`Hill Interiors products: ${products.length}`);
-  console.log(`  shippingCost corrected: ${results.length}`);
-  console.log(`\n  Products per band:`);
-  for (const b of HILL_BANDS) {
-    const n = byBand.get(b.label) ?? 0;
+  if (feed) console.log(`Feed rows: ${feed.size}`);
+  console.log(`  carriage changed: ${results.length}`);
+
+  console.log(`\n  By service:`);
+  for (const [service, n] of byService)
+    console.log(`    ${String(n).padStart(4)}  ${service}`);
+
+  console.log(`\n  By band (inc VAT, as Sanity stores it):`);
+  for (const band of [...COURIER_BANDS, ...TWO_MAN_BANDS]) {
+    const n = byBand.get(band.label) ?? 0;
     if (n)
       console.log(
-        `    ${String(n).padStart(4)}  £${b.amount.toFixed(2).padStart(6)}  ${b.label}`,
+        `    ${String(n).padStart(4)}  £${(band.amount * 1.2).toFixed(2).padStart(7)}  ${band.label}`,
       );
   }
-  if (unknown.length) {
-    console.log(`\n  Carriage left unknown (${unknown.length}):`);
-    unknown.forEach((u) => console.log(`    ${u}`));
+
+  if (estimated.length) {
+    console.log(
+      `\n  Written, but from an incomplete row (${estimated.length}) — check these:`,
+    );
+    estimated.slice(0, 20).forEach((e) => console.log(`    ${e}`));
+    if (estimated.length > 20)
+      console.log(`    ... and ${estimated.length - 20} more`);
+  }
+
+  if (unresolved.length) {
+    console.log(`\n  Left alone, nothing to go on (${unresolved.length}):`);
+    unresolved.slice(0, 20).forEach((u) => console.log(`    ${u}`));
+    if (unresolved.length > 20)
+      console.log(`    ... and ${unresolved.length - 20} more`);
   }
 
   if (apply && queued > 0) {
@@ -218,7 +303,18 @@ async function main() {
   mkdirSync("docs/change-log", { recursive: true });
   writeFileSync(
     "docs/change-log/2026-09-02-fix-hill-interiors-carriage.json",
-    JSON.stringify({ apply, bands: HILL_BANDS, results }, null, 2),
+    JSON.stringify(
+      {
+        apply,
+        courierBands: COURIER_BANDS,
+        twoManBands: TWO_MAN_BANDS,
+        results,
+        estimated,
+        unresolved,
+      },
+      null,
+      2,
+    ),
   );
 }
 

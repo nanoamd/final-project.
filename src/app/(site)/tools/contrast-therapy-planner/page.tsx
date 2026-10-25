@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { ContrastTherapyBuilder } from "@/components/shared/contrast-therapy-builder";
 import { ToolPage } from "@/features/storefront/components/tools/tool-page";
+import { getProductsByDepartment } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const revalidate = 86400;
@@ -13,7 +14,29 @@ export const metadata: Metadata = buildMetadata({
   path: "/tools/contrast-therapy-planner",
 });
 
-export default function ContrastTherapyPlannerPage() {
+export default async function ContrastTherapyPlannerPage() {
+  /**
+   * Both departments, because contrast therapy needs one of each.
+   *
+   * The seventeen other tools under /tools pass their products through to the
+   * page; this one was the only exception, and it is the one page about the
+   * two departments returning the most cash per sale in the catalogue. A
+   * reader who has just been told to do three rounds of heat and cold had
+   * nowhere to go next.
+   */
+  const [saunas, plunges] = await Promise.all([
+    getProductsByDepartment("sauna"),
+    getProductsByDepartment("cold-plunge"),
+  ]);
+  // Interleaved rather than concatenated, so the rail does not read as four
+  // saunas followed by four plunges when a session needs both.
+  const products = [
+    ...saunas.slice(0, 4).flatMap((sauna, i) => {
+      const plunge = plunges[i];
+      return plunge ? [sauna, plunge] : [sauna];
+    }),
+  ];
+
   return (
     <ToolPage
       path="/tools/contrast-therapy-planner"
@@ -55,6 +78,8 @@ export default function ContrastTherapyPlannerPage() {
             "For healthy adults, used sensibly, yes. It is not safe to combine with alcohol, and it is not the place to test your limits alone. If you are pregnant, have a cardiovascular condition, or take medication affecting blood pressure or temperature regulation, speak to a doctor first. Nothing on this page is medical advice.",
         },
       ]}
+      products={products}
+      productsHeading="What you need for a contrast session"
       guides={[
         {
           slug: "choosing-a-sauna",

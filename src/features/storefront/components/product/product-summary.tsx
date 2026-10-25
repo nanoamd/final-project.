@@ -330,7 +330,7 @@ export function ProductSummary({
               address, so without this a customer in Belfast could buy a 63kg
               bookcase and we would have to unwind the sale after taking the
               money. Said before the order rather than after it. */}
-          {needsTwoManDelivery(product.weight?.value) ? (
+          {needsTwoManDelivery(product.weight?.value, product.deliverySize) ? (
             <p className="text-graphite mt-2 text-[13px] leading-relaxed">
               {TWO_MAN_EXCLUSION_NOTE}
             </p>

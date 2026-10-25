@@ -148,23 +148,6 @@ export function selectRailProducts<T extends RailCandidate>(
 
   // Damien: *"Our products with the best prices should go there"*.
   //
-  // With a markup map, each category contributes the piece Kaiku prices most
-  // keenly — the lowest `price ÷ landed cost` — rather than its dearest or its
-  // cheapest. That is the honest reading of "best price": not the smallest
-  // number on the page, but the one where the customer is getting the most for
-  // it. Where two are equally keen the dearer wins, because it is the better
-  // piece at the same keenness.
-  // Kept for the path with no markup index, where "best" can only mean dearest.
-  const keenest = (group: T[]): T =>
-    markupBySlug
-      ? [...group].sort(
-          (a, b) =>
-            (markupBySlug[a.slug] ?? Infinity) -
-              (markupBySlug[b.slug] ?? Infinity) ||
-            (b.price ?? 0) - (a.price ?? 0),
-        )[0]!
-      : group.at(-1)!;
-
   // The rail still alternates a dear piece with an affordable one, so nobody
   // scrolling meets four four-figure prices in a row. That is rhythm, not
   // selection — both sides are now chosen on price keenness.
@@ -179,6 +162,11 @@ export function selectRailProducts<T extends RailCandidate>(
     // keeps filling instead of stopping short when the shallow categories run
     // out. No product can appear twice, because each round takes a different
     // index.
+    // Keenest first means the lowest `price / landed cost`, not the lowest
+    // price. That is the honest reading of "our products with the best
+    // prices": not the smallest number on the page, but the one where the
+    // customer is getting the most for it. Where two are equally keen the
+    // dearer wins, because it is the better piece at the same keenness.
     const keenFirst = (group: T[]): T[] =>
       [...group].sort(
         (a, b) =>

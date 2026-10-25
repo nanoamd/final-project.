@@ -151,33 +151,42 @@ export function classifyPostcode(
 }
 
 /**
- * The weight at and above which a piece is assumed to need a two-man service
- * rather than a single courier, and therefore inherits the postcode exclusions.
+ * The weight at and above which a piece is ASSUMED to need a two-man service,
+ * used only where the supplier has not told us.
  *
- * **This is a stand-in, and it is known to be wrong in both directions.**
+ * Weight does not decide the service. The supplier's own routing flag does —
+ * Hill's feed calls it `Delivery Size`, Small for courier and Large for
+ * two-man — and weight then only picks the band within it. A 15kg sideboard
+ * ships two-man; a 2.6kg framed canvas does not. No weight threshold separates
+ * those, which is why both of Kaiku's carriage costings were wrong before
+ * scripts/lib/hill-carriage.ts modelled both inputs.
  *
- * Weight does not decide the service. Hill's `Delivery Size` flag does, and
- * weight then only picks the band within it — see scripts/lib/hill-carriage.ts,
- * which models the real rule and is pinned against the two invoices Damien
- * actually paid. A 15kg sideboard shipped two-man; a 2.6kg framed canvas does
- * not. No weight threshold can separate those.
+ * So this is a fallback for products whose `deliverySize` is still unset, and
+ * it is deliberately on the cautious side of the two errors available:
  *
- * The storefront cannot apply the real rule yet because `Delivery Size` is not
- * on the product schema, so there is nothing to read. Until it is, this
- * threshold stands and it mis-reports at both ends: the 39.9kg Sorelle sofa
- * shows no two-man note although it ships two-man, and anything heavy but
- * courier-sent would show one it does not need.
+ *   warning shown when it need not be  -> a customer in Belfast checks first
+ *                                         on an item that would have been fine
+ *   warning missing when it is needed  -> we take the money, then unwind the
+ *                                         sale we cannot deliver
  *
- * Both errors are customer-facing, so the fix is a schema field populated from
- * the feed, not a different number here. Changing the number alone just moves
- * which customers get the wrong answer.
+ * The second is the one that loses a customer, so an unknown heavy item warns.
  */
 export const TWO_MAN_FROM_KG = 40;
 
-/** Whether this product will ship on a two-man service. */
+/**
+ * Whether this product ships on a two-man service, and so inherits the
+ * postcode exclusions.
+ *
+ * Prefers the supplier's flag and falls back to weight only where there is no
+ * flag. Populated by scripts/fix-hill-interiors-carriage.ts from the feed.
+ */
 export function needsTwoManDelivery(
   weightKg: number | null | undefined,
+  deliverySize?: string | null,
 ): boolean {
+  const flag = (deliverySize ?? "").trim().toLowerCase();
+  if (flag === "large") return true;
+  if (flag === "small") return false;
   return typeof weightKg === "number" && weightKg >= TWO_MAN_FROM_KG;
 }
 

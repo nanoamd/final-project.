@@ -4,6 +4,7 @@ import {
   classifyPostcode,
   needsTwoManDelivery,
   REMOTE_SURCHARGE,
+  TWO_MAN_FROM_KG,
 } from "./delivery-zones";
 
 describe("classifyPostcode", () => {
@@ -86,6 +87,45 @@ describe("needsTwoManDelivery", () => {
   });
 
   it("is false when the weight is unknown", () => {
+    expect(needsTwoManDelivery(null)).toBe(false);
+    expect(needsTwoManDelivery(undefined)).toBe(false);
+  });
+});
+
+describe("needsTwoManDelivery", () => {
+  it("believes the supplier's flag over the weight", () => {
+    // The Sorelle sofa is 39.9kg and ships two-man. Under the weight-only
+    // rule it fell 0.1kg short of the threshold and showed no warning at all,
+    // so a customer in Belfast could buy it and we would unwind the sale.
+    expect(needsTwoManDelivery(39.9, "Large")).toBe(true);
+
+    // A 2.6kg framed canvas goes by courier. Flagging it two-man would put a
+    // Northern Ireland exclusion on a picture frame.
+    expect(needsTwoManDelivery(2.6, "Small")).toBe(false);
+
+    // And a flag beats the threshold in the other direction too.
+    expect(needsTwoManDelivery(120, "Small")).toBe(false);
+  });
+
+  it("ignores case and padding on the flag", () => {
+    expect(needsTwoManDelivery(1, " large ")).toBe(true);
+    expect(needsTwoManDelivery(99, "SMALL")).toBe(false);
+  });
+
+  it("falls back to weight when there is no flag", () => {
+    for (const absent of [undefined, null, "", "   ", "Medium"]) {
+      expect(needsTwoManDelivery(63, absent)).toBe(true);
+      expect(needsTwoManDelivery(5, absent)).toBe(false);
+    }
+  });
+
+  it("warns on an unknown heavy item rather than staying quiet", () => {
+    // Of the two available errors, a warning nobody needed costs a question
+    // and a missing warning costs the order.
+    expect(needsTwoManDelivery(TWO_MAN_FROM_KG)).toBe(true);
+  });
+
+  it("does not warn when there is no weight and no flag", () => {
     expect(needsTwoManDelivery(null)).toBe(false);
     expect(needsTwoManDelivery(undefined)).toBe(false);
   });
