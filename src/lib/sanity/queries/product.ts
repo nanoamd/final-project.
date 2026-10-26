@@ -770,6 +770,63 @@ export async function getProductsBySlugs(
 const PRICE_BAND_LOW = 0.4;
 const PRICE_BAND_HIGH = 2.5;
 
+/**
+ * Cheap, profitable things to add to a basket that already exists.
+ *
+ * ## Why the thresholds are in the query
+ *
+ * The margin test runs inside GROQ so that **no cost price ever leaves
+ * Sanity**. The same reasoning as `getRailMarkupIndex`: a markup ratio beside a
+ * visible price is a cost price with one division, and a cost price in a
+ * response is a cost price a competitor can read. Only display fields come
+ * back.
+ *
+ * ## Why these thresholds
+ *
+ * An add-on does not have to pay for its own acquisition — that was paid by
+ * whatever is already in the basket — so it is judged on what it keeps once
+ * carriage is excluded, because carriage is per consignment and a second piece
+ * from the same supplier ships on the first one's. £15 kept at 25%, under £100.
+ * The reasoning in full is in `scripts/lib/promotion-tier.ts`, which scores the
+ * same rule into `promotionTier`.
+ *
+ * This deliberately does not filter on the stored `promotionTier` field.
+ * Deriving it here means the rail is right the moment a price changes, rather
+ * than the next time somebody remembers to re-run the scoring script — and it
+ * also means a cheap product already in a higher tier is still offered, which
+ * it should be: anything cheap and profitable is a good thing to add.
+ *
+ * ## Same supplier, on purpose
+ *
+ * Carriage is only free on the second item when it ships in the same
+ * consignment. Suppliers are resolved from the basket's own slugs rather than
+ * passed in, so the client cannot widen the set.
+ */
+const BASKET_ADD_ONS_QUERY = /* groq */ `
+*[_type == "product" && !(_id in path("drafts.**"))
+  && defined(slug.current) && defined(category->slug.current)
+  && !(slug.current in $slugs)
+  && stockStatus == "In Stock"
+  && defined(costPrice) && price <= $maxPrice
+  && (price - costPrice - (price * 0.015 + 0.2)) >= $minKept
+  && (price - costPrice - (price * 0.015 + 0.2)) / price >= $minMargin
+  && supplier->name in *[_type == "product" && slug.current in $slugs].supplier->name]
+  | order(price asc) [0...$limit]
+  ${PRODUCT_CARD_PROJECTION}`;
+
+export async function getBasketAddOns(
+  slugs: string[],
+  limit = 4,
+): Promise<SanityProduct[]> {
+  if (!slugs.length) return [];
+  const raw = await sanityFetch<RawProduct[]>(
+    BASKET_ADD_ONS_QUERY,
+    { slugs, limit, maxPrice: 100, minKept: 15, minMargin: 0.25 },
+    [],
+  );
+  return normalizeProducts(raw);
+}
+
 export async function getRelatedProducts(
   product: SanityProduct,
   limit = 4,

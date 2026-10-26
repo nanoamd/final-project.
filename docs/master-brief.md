@@ -206,9 +206,29 @@ basket builders.
   **The cart page has none at all** — 225 lines, no add-on rail. That is the
   gap between 91 labelled products and 91 products that sell.
 
-- [ ] **Cart add-on rail, same supplier, priced under the basket cap.** The one
-      place a customer has already decided to buy, and it currently offers
-      nothing. Not built — it is customer-facing and worth agreeing first.
+- [x] **Cart add-on rail — built 26 October.**
+      `src/features/storefront/components/cart/basket-add-ons.tsx`, four
+      products, same supplier, under £100, in stock, cheapest first. The basket
+      was the only page in the funnel offering nothing; product pages already
+      carry four related items.
+
+      Three decisions worth keeping:
+
+              - **The margin test runs inside GROQ**, so no cost price leaves Sanity.
+                Same reasoning as `getRailMarkupIndex` — a markup beside a visible
+                price is a cost price with one division.
+              - **It derives the rule rather than reading `promotionTier`**, so the
+                rail is right the moment a price changes instead of the next time
+                somebody remembers to re-run the scoring script. It also means a cheap
+                product already in a higher tier is still offered, which it should be.
+              - **Suppliers are resolved server-side from the basket's own slugs**, not
+                accepted from the client, so the carriage-sharing claim cannot be
+                widened by whoever is calling.
+
+              Renders nothing when there is nothing to show. Verified against live
+              data: a basket holding the Mistora canvas returns six Hill Interiors
+              candidates at £33–£43.
+
 - [ ] Re-run `set-promotion-tier.ts --apply` to write the 91. Needs a token.
 - [ ] Exclude `basket` from Performance Max via `custom_label_0`. A basket
       builder bought alone at £53 loses money on the clicks.

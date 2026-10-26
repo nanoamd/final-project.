@@ -7,6 +7,7 @@ import * as React from "react";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { BasketAddOns } from "@/features/storefront/components/cart/basket-add-ons";
 import { useCart } from "@/hooks/use-cart";
 import { trackBeginCheckout } from "@/lib/analytics/events";
 import { formatPriceExact } from "@/lib/format";
@@ -241,6 +242,12 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+
+      {/* The one page where the decision to buy is already made and the only
+          open question is how much. Same-supplier pieces under £100 ride the
+          carriage already being paid, which is what makes them worth showing
+          here and nowhere else — see the component for the full reasoning. */}
+      <BasketAddOns slugs={items.map((item) => item.slug)} />
 
       {/* Mobile only — on a long basket the summary card above ends up
           below every item in the stacked single-column layout, burying
