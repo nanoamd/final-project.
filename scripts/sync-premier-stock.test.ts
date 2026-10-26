@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   indexSitemapBySku,
   parseStock,
+  retryAfterMs,
   statusFor,
   type StockAttributes,
 } from "./sync-premier-stock";
@@ -105,5 +106,38 @@ describe("indexSitemapBySku", () => {
       <url><loc>https://www.premierhousewares.com/garden-furniture</loc></url>
       <url><loc>https://www.premierhousewares.com/about-us</loc></url>`;
     expect(indexSitemapBySku(xml).size).toBe(0);
+  });
+});
+
+describe("retryAfterMs", () => {
+  const withHeader = (value: string | null) => ({
+    headers: { get: () => value },
+  });
+
+  it("reads a plain seconds value", () => {
+    expect(retryAfterMs(withHeader("45"))).toBe(45_000);
+  });
+
+  it("reads an HTTP date", () => {
+    const soon = new Date(Date.now() + 20_000).toUTCString();
+    const ms = retryAfterMs(withHeader(soon));
+    // Second precision in the header, so allow a second either side.
+    expect(ms).toBeGreaterThan(18_000);
+    expect(ms).toBeLessThanOrEqual(21_000);
+  });
+
+  it("caps a long wait so a rate limit cannot park the run", () => {
+    expect(retryAfterMs(withHeader("86400"))).toBe(300_000);
+  });
+
+  it("falls back to the caller's backoff when there is no usable header", () => {
+    // undefined means "use BACKOFF_MS", not "retry immediately".
+    for (const value of [null, "", "soon", "-5", "0"])
+      expect(retryAfterMs(withHeader(value))).toBeUndefined();
+  });
+
+  it("ignores a date already in the past", () => {
+    const past = new Date(Date.now() - 60_000).toUTCString();
+    expect(retryAfterMs(withHeader(past))).toBeUndefined();
   });
 });

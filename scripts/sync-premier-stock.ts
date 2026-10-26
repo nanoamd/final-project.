@@ -72,7 +72,13 @@
  * `robots.txt` names ClaudeBot explicitly, allows product pages, and asks for
  * `Crawl-delay: 10`. That is honoured, and the User-Agent says what this is
  * rather than claiming to be Chrome. Ten seconds times the catalogue is about
- * an hour and a half, so give it the time or use --limit:
+ * an hour and a half, so give it the time or use --limit.
+ *
+ * Premier still return the occasional 429 at that pace. Those are waited out
+ * and retried — 30s, 60s, 120s, or whatever `Retry-After` asks — rather than
+ * skipped, because a skipped product stays unverified and unverified is the
+ * state this exists to get out of. So the run can take longer than 91 minutes;
+ * it should not come back with holes in it.
  *
  *   pnpm tsx --env-file=.env.local scripts/sync-premier-stock.ts
  *   pnpm tsx --env-file=.env.local scripts/sync-premier-stock.ts --limit 20
@@ -121,17 +127,56 @@ const UA = "ClaudeBot/1.0 (+https://www.anthropic.com/claude-bot)";
  */
 const REQUEST_TIMEOUT_MS = 30_000;
 
+/**
+ * Backoff for a 429, which Premier do send even at the crawl delay their
+ * own robots.txt asks for.
+ *
+ * Skipping on 429 is the wrong default here. A skipped product is an
+ * unverified product, and unverified is the state this whole script exists to
+ * get out of — so a rate limit should cost time, not coverage. Waiting is also
+ * what the status code is asking for, so this is the polite reading as well as
+ * the useful one.
+ */
+const BACKOFF_MS = [30_000, 60_000, 120_000];
+
 async function getWithTimeout(url: string): Promise<Response | null> {
-  try {
-    return await fetch(url, {
-      headers: { "User-Agent": UA },
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-  } catch (error) {
-    const why = error instanceof Error ? error.name : "failed";
-    console.warn(`   ${why} fetching ${url} — left alone`);
-    return null;
+  for (let attempt = 0; ; attempt += 1) {
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        headers: { "User-Agent": UA },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+    } catch (error) {
+      const why = error instanceof Error ? error.name : "failed";
+      console.warn(`   ${why} fetching ${url} — left alone`);
+      return null;
+    }
+
+    if (res.status !== 429) return res;
+
+    const wait = retryAfterMs(res) ?? BACKOFF_MS[attempt];
+    if (wait === undefined) {
+      console.warn(`   429 after ${BACKOFF_MS.length} backoffs — left alone`);
+      return res;
+    }
+    console.warn(`   429 — waiting ${Math.round(wait / 1000)}s then retrying`);
+    await sleep(wait);
   }
+}
+
+/** `Retry-After`, in seconds or as an HTTP date. Capped so it cannot park the run. */
+export function retryAfterMs(res: {
+  headers: { get(name: string): string | null };
+}): number | undefined {
+  const header = res.headers.get("retry-after");
+  if (!header) return undefined;
+  const seconds = Number(header);
+  const ms = Number.isFinite(seconds)
+    ? seconds * 1000
+    : Date.parse(header) - Date.now();
+  if (!Number.isFinite(ms) || ms <= 0) return undefined;
+  return Math.min(ms, 300_000);
 }
 
 const client = createClient({
