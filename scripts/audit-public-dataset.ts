@@ -33,12 +33,20 @@
  *
  * ## The fix, in order
  *
- *  1. Deploy a `SANITY_API_READ_TOKEN` (Viewer role) to Vercel. Harmless while
- *     the dataset is still public — `src/lib/sanity/client.ts` just passes it.
- *  2. Sanity → project → API → Datasets → set `production` to **private**.
- *  3. Run this script again. Every line should read CLOSED.
+ *  1. Sanity → API → Tokens → create a token with the **Viewer** role.
+ *  2. Set it in Vercel as `SANITY_API_READ_TOKEN`.
+ *  3. **Add `token` back to `src/lib/sanity/client.ts`** — it is deliberately
+ *     not passed today, see that file.
+ *  4. **On a preview deployment, run `scripts/verify-live-catalogue.ts
+ *     --site=<preview url>` and confirm it reports products.** Do not skip
+ *     this and do not promote until it passes.
+ *  5. Only then promote, and set the dataset to **private**.
+ *  6. Run this script again. Every line should read CLOSED.
  *
- * Doing it in that order means no window where the site has no content.
+ * Step 4 is the one that was missing on 26 October, and skipping it blanked
+ * the live sitemap and the product feed for a day. `sanityFetch` is fail-soft,
+ * so a token that is present but wrong raises nothing anywhere: it renders an
+ * empty site and a 200, and every test, typecheck and build stays green.
  *
  * Moving the form submissions out of Sanity altogether is the better long-term
  * answer — a CMS dataset is not where customer records belong, and Supabase
@@ -152,9 +160,21 @@ async function main() {
   );
   if (open > 0) {
     console.log("\nFix, in this order so the site never goes contentless:");
-    console.log("  1. Deploy SANITY_API_READ_TOKEN (Viewer) to Vercel");
-    console.log("  2. Sanity -> API -> Datasets -> set this dataset private");
-    console.log("  3. Run this again; every line should read CLOSED");
+    console.log("  1. Create a Viewer token in Sanity");
+    console.log("  2. Set it in Vercel as SANITY_API_READ_TOKEN");
+    console.log("  3. Add `token` back to src/lib/sanity/client.ts");
+    console.log(
+      "  4. On a PREVIEW deploy: pnpm tsx scripts/verify-live-catalogue.ts --site=<preview>",
+    );
+    console.log("     Do not promote until that reports products.");
+    console.log("  5. Promote, then set the dataset private");
+    console.log("  6. Run this again; every line should read CLOSED");
+    console.log(
+      "\nStep 4 is the one missed on 26 October. It blanked the live catalogue",
+    );
+    console.log(
+      "for a day with every test, typecheck and build still passing.",
+    );
   }
 }
 

@@ -73,14 +73,22 @@ Check it yourself, no credentials needed:
 pnpm tsx scripts/audit-public-dataset.ts
 ```
 
-**Fix, in this order, or the site goes contentless between steps:**
+**Fix, in this order. Step 4 is the one I skipped, and skipping it blanked
+your catalogue for a day:**
 
 1. Sanity → API → Tokens → create a token with the **Viewer** role
-2. Put it in Vercel as `SANITY_API_READ_TOKEN` and redeploy.
-   `src/lib/sanity/client.ts` already uses it when present, and it is harmless
-   while the dataset is still public
-3. Sanity → API → Datasets → set `production` to **private**
-4. Run the audit again. All six lines should read **CLOSED**
+2. Put it in Vercel as `SANITY_API_READ_TOKEN`
+3. Add `token` back to `src/lib/sanity/client.ts` — it is deliberately not
+   passed right now, and that file says why
+4. **On a preview deployment**, run
+   `pnpm tsx scripts/verify-live-catalogue.ts --site=<preview url>` and confirm
+   it reports products. **Do not promote until it does.**
+5. Promote, then set the dataset to **private**
+6. Run the audit again. All six lines should read **CLOSED**
+
+`sanityFetch` is fail-soft, so a token that is present but wrong raises nothing
+at all — it serves an empty site and a 200, with every test, typecheck and
+build still green. That is why the preview check is not optional.
 
 The ten personal records are the urgent half — that is a UK GDPR matter and it
 does not depend on anyone having looked. The trade prices are the commercial
