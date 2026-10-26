@@ -152,31 +152,53 @@ customer.
 7. **Discontinued lines** — see above; a discontinued product is permanently out
    of stock and should stop being a live URL.
 
-### Where we stand
+### Where we stand — recounted 26 October
 
-|                                                   |  Count |
-| ------------------------------------------------- | -----: |
-| Published products                                |    237 |
-| With a stock **quantity** recorded                |    182 |
-| With **no** quantity — status only                | **55** |
-| Marked "In Stock"                                 |    228 |
-| Marked Out of Stock / Coming Soon / Made to Order |      9 |
+The August figures below were against 237 published products. There are now
+**908**, and two suppliers have since become checkable.
 
-Checkout already enforces both: Out of Stock and Coming Soon are refused, and a
-basket quantity above the recorded stock quantity is refused with a real message
-(`src/server/actions/checkout.ts`). **That guard is only as good as the number
-behind it, and every one of those numbers was typed by a human at import.** No
-supplier stock feed is connected. Nothing refreshes.
+| Supplier                         | Products | Claims In Stock | Verifiable                       |
+| -------------------------------- | -------: | --------------: | -------------------------------- |
+| Premier Housewares               |      546 |             419 | **yes** — their own public pages |
+| Hill Interiors                   |      140 |             133 | **yes** — dropship CSV           |
+| Aosom                            |      103 |             103 | **no route**                     |
+| AW Dropship                      |       56 |              55 | **no route**                     |
+| D.I. Designs                     |       54 |              54 | no — bot challenges              |
+| SaunaPlunge (Outdoor Living 365) |        8 |               3 | no — 8 products, ask Kelly       |
+| Mercia Garden Products           |        1 |               1 | no                               |
+| **Total**                        |  **908** |         **768** | **552 of 768**                   |
 
-The 55 products with no quantity have no quantity guard at all — they pass
-checkout on status alone.
+**Four products in the whole catalogue are marked Out of Stock.** `stockStatus`
+defaults to In Stock and almost nothing has ever been set against it, which is
+how a canvas was sold on 25 October that Hill had none of until January 2027.
 
-**Lead times are inconsistent in a way worth flagging but not worth silently
-fixing:** Hill Interiors carries `7–14 days` on 57 products and `7-14 days` on
-13 more, plus `3-4 weeks ` with a trailing space on 43. Same lead time, four
-spellings. Standing constraint says lead times are not to be changed, so I have
-not touched them — `scripts/normalise-lead-time-punctuation.ts` already exists
-and would fix only the punctuation, on your say-so.
+Two of the five asks in this document turned out not to need asking:
+
+- **Hill Interiors** — `scripts/sync-hill-stock.ts` reads `Available Stock` and
+  `Status` from the dropship CSV. Channel 4 in the table above, so it needs a
+  human to export it, but it works today.
+- **Premier Housewares** — needs nothing from Premier at all.
+  `scripts/sync-premier-stock.ts` reads `BCData.available_to_sell` from their
+  own public product pages, honouring the `Crawl-delay: 10` their `robots.txt`
+  asks of ClaudeBot by name. **This is not a workaround of anything**: the
+  figure is published, logged out, to any visitor, and the delay is respected.
+  546 products takes about 91 minutes.
+
+That leaves **212 products — Aosom, AW Dropship and D.I. Designs — claiming
+availability with no way to check any of them.** 28% of what the shop promises.
+That is the gap section F now exists to close.
+
+The checkout guard still holds for what it can see: Out of Stock and Coming
+Soon are refused, and a basket above the recorded quantity is refused
+(`src/server/actions/checkout.ts`). It is only as good as the number behind it,
+and for those 212 the number was typed by a human at import.
+
+**Lead times remain inconsistent and deliberately untouched:** Hill carries
+`7–14 days` on 57 products, `7-14 days` on 13, and `3-4 weeks ` with a trailing
+space on 43. Same lead time, four spellings. Standing constraint says lead
+times are not to be changed, so they have not been —
+`scripts/normalise-lead-time-punctuation.ts` exists and would fix only the
+punctuation, on your say-so.
 
 ---
 
@@ -298,22 +320,72 @@ an open one.
 > Thanks,
 > Damien — Kaiku
 
-### The order to send them in
+### A narrower email, for the one thing that is now urgent
 
-1. **Hill Interiors** — 136 products, no email on file, carriage only inferred.
-   Biggest single unlock. The pipeline notes already flag "ask for the CSV/XML
-   feed URL for our account"; `import-supplier-products.ts --csv` takes it
-   directly.
-2. **AW Dropship** — 38 products, no email, and the **weight-band table** is the
-   one fact that makes 6 unknown margins knowable.
-3. **SaunaPlunge (Kelly)** — 8 products, no email, and all 8 lack a supplier
-   SKU, so none of them can be ordered by code.
-4. **D.I. Designs** — the only reachable one. Ask only for the 4 missing
-   carriage figures and the GTINs. **Their pricing is untouchable — do not
-   raise prices with them.**
-5. **Aosom** — newly accepted. Ask what access type the account gives (feed,
-   CSV, API, portal) before importing the 24 drafts. Whatever the answer,
-   **their bot protection stays untouched.**
+The five-point template above is for opening a relationship. What is urgent is
+one question, and a warehouse inbox answers one question far more often than
+five. Send this to Aosom, AW Dropship and SaunaPlunge:
+
+> Subject: Stock feed for our trade account
+>
+> Hi,
+>
+> We dropship your [SUPPLIER] range and our site is currently showing items as
+> available without being able to check them against your stock, which means we
+> occasionally take an order you cannot fill. We would rather not do that to a
+> customer.
+>
+> Is there any way we can see live stock for our account? In order of what
+> would help most:
+>
+> 1. A CSV or XML at a URL we can fetch — SKU and quantity is all we need
+> 2. An API, if you have one
+> 3. A daily or weekly CSV emailed to us
+> 4. Failing all three, an export we can download from the trade portal
+>
+> Anything at all is better than what we have now. Happy to work to whatever
+> format is easiest for you.
+>
+> Thanks,
+> Damien — Kaiku
+
+### Before any of that can be sent
+
+**None of the three has an email address on file.** Checked 26 October: Aosom
+and AW Dropship have nothing on their supplier record at all, SaunaPlunge has
+Kelly Marsden's name and no address. Only D.I. Designs has an email, a phone
+and a contact.
+
+The addresses exist in Damien's inbox — these are live trade accounts. So the
+first step is recovering them from his own mail, and **putting them on the
+supplier record in Studio while he is there**, so the next person asking this
+question does not have to go digging again.
+
+### The order to send them in — revised 26 October
+
+Ranked by products at risk against effort to ask.
+
+1. **Aosom — 103 products, all claiming In Stock.** The largest unverified
+   block in the catalogue, and the supplier note still reads "Wholesale cost
+   estimated at ~58% of Aosom sale until B2B feed connected", so the cost base
+   is an estimate as well as the stock. If the answer is no, the real question
+   is whether 103 products should stay listed on that basis.
+   **Their bot protection stays untouched either way.**
+2. **AW Dropship — 56 products.** Nothing on file: no email, no website, no
+   portal URL. We do not currently know where their stock is published, or
+   whether it is.
+3. **SaunaPlunge — 8 products.** Smallest ask, biggest consequence per unit:
+   **£793 mean cash kept per sale, the highest in the catalogue.** Kelly
+   Marsden is the contact. Eight products is small enough that a weekly email
+   would do, and worth asking first if only one gets sent this week.
+4. **D.I. Designs — 54 products.** The only one reachable by email today
+   (`trade@didesigns.co.uk`, +44 1962 771725). Ask for a feed or a trade login.
+   Their site serves bot challenges and **that is not something to work
+   around**, so without an answer these 54 stay unverifiable permanently.
+   **Their pricing is untouchable — do not raise prices with them.**
+
+**Hill Interiors and Premier Housewares are no longer on this list.** Both are
+solved in code; see section C.
 
 ---
 
