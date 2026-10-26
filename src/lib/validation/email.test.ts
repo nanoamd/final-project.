@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { cleanEmail } from "./checkout";
+import { cleanEmail } from "./email";
 
 /**
  * This exists to stop one thing: handing Stripe a `customer_email` it rejects,

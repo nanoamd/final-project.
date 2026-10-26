@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { siteUrl } from "@/config/site";
 import { sanityClient } from "@/lib/sanity/client";
 import { createClient } from "@/lib/supabase/server";
+import { cleanEmail } from "@/lib/validation/email";
 import { getStripe } from "@/server/stripe/client";
 
 export interface CheckoutLineInput {
@@ -52,20 +53,6 @@ const UNORDERABLE_STOCK_STATUSES = new Set(["Out of Stock", "Coming Soon"]);
  * never trusted for payment amounts. Builds Stripe line items dynamically via
  * `price_data` rather than requiring a pre-synced Stripe product catalog.
  */
-/**
- * A trimmed, lightly validated email, or undefined.
- *
- * Deliberately permissive — this is a convenience, not an identity check, and
- * Stripe validates properly on its own page. The job here is only to make sure
- * a typo or a pasted sentence cannot be handed to the Stripe API, which rejects
- * a malformed `customer_email` and would turn a checkout into an error.
- */
-export function cleanEmail(value: string | undefined): string | undefined {
-  const email = value?.trim();
-  if (!email || email.length > 254) return undefined;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : undefined;
-}
-
 export async function createCheckoutSession(
   lines: CheckoutLineInput[],
   /**
