@@ -16,6 +16,97 @@ Status key:
 
 ---
 
+## What tomorrow's carriage correction will actually cost (26 October)
+
+Modelled before running it, from the live dataset, so the number is not a
+surprise when the CSV lands.
+
+### First, the "84 of 140 loss-making" figure is an artefact, confirmed
+
+Reproduced exactly — 84 of 140 Hill products do go loss-making if every one is
+costed two-man. Here is what the 84 are:
+
+| Loss per unit | Price | Product                                |
+| ------------: | ----: | -------------------------------------- |
+|       −£46.73 |   £23 | Large Frosted Eucalyptus Candle Wreath |
+|       −£46.56 |   £19 | Large Rustic Metal Hanging Bell        |
+|       −£46.04 |   £23 | Small Blue Flora Planter Pot           |
+|       −£45.09 |   £33 | Tristan Mirror And Wood 5x7 Frame      |
+
+Candle wreaths, hanging bells, planter pots and picture frames at £19 to £33.
+Hill do not send a £19 bell on a two-man, room-of-choice, packaging-removed
+service. Both verified invoices were furniture. **These should come back
+`Small`, carriage stays at £8.39, and nothing changes for them.** If the feed
+says otherwise on a £19 bell, that is a reason to doubt the column, not the
+range.
+
+### Second, what is currently stored is the understated side
+
+Hill `shippingCost` in Sanity today, inc VAT:
+
+| Stored | Count | Which band that is |
+| -----: | ----: | ------------------ |
+|  £8.39 |   108 | courier, to 10kg   |
+| £11.99 |    21 | courier, 10–20kg   |
+| £17.99 |     7 | courier, 20–40kg   |
+| £71.99 |     3 | two-man, 35–60kg   |
+| £83.99 |     1 | two-man, 61–100kg  |
+
+So **136 of 140 hold courier rates.** The two-man-everywhere version was never
+applied — it was left in dry run, which turns out to have been lucky. The
+stored figures are the old weight-banded model, understating carriage on
+anything Hill actually routes two-man. The Contour sideboard holds £11.99
+against a real £59.99.
+
+That is also why nothing currently reads as loss-making: **0 of 908 products
+are priced below landed cost, 0 have a margin under 10%, and 0 lack a cost
+price.** True on today's numbers, and today's numbers are too kind on the
+furniture.
+
+### Third, the bounded cost of putting it right
+
+48 Hill products sit at £200+, which is where the furniture is. If every one
+comes back `Large`:
+
+|                       |        Cash kept |
+| --------------------- | ---------------: |
+| On carriage as stored |           £9,502 |
+| If all 48 are two-man |           £7,340 |
+| **At risk**           | **£2,162 (23%)** |
+
+**Not one of the 48 goes loss-making.** The worst is the Romanby Stone Round
+Coffee Table — £228, 60kg — which falls to £2.89 kept and is not worth
+selling. Five or six others at the £200–260 end drop under £45.
+
+And the six headline lines are unmoved, because the ledger already costed them
+two-man:
+
+| Product           | Kept if Large |
+| ----------------- | ------------: |
+| Sorelle sofa      |       £470.81 |
+| Delphine top      |       £235.41 |
+| Ark chair         |       £182.17 |
+| Alto shelf        |       £170.69 |
+| Contour sideboard |       £110.49 |
+| Oura coffee table |        £85.25 |
+
+Those match the figures already in this ledger to the penny, which is the
+check that the model and the earlier analysis agree.
+
+### So the expectation to hold tomorrow
+
+- The decorative range should be unaffected. If it is not, suspect the column.
+- The furniture loses about 23% of its margin and stays viable.
+- A handful at the bottom of the furniture range stop being worth listing.
+- **The "cheapest in the market and still makes 24–34%" claim survives intact.**
+
+- [x] Modelled from public data, no credentials needed
+- [ ] Compare against the real `Delivery Size` once the feed is in. A wide
+      divergence from the expectations above means the column is not what we
+      think it is.
+
+---
+
 ## 768 products claim In Stock and only 552 can ever be checked (26 October)
 
 Counted from the live dataset, not recalled. Four products in the entire

@@ -206,8 +206,29 @@ Read three things in the output before applying:
 Then `--apply`. It writes `deliverySize` as well as `shippingCost`, which is
 what makes the product-page two-man warning correct.
 
-Expect the loss-making count to collapse. 84 of 140 was mostly candles and
-picture frames carrying a sofa's carriage.
+### What to expect, modelled overnight
+
+Three things, so a surprise is a signal rather than a shock:
+
+1. **The decorative range should come back `Small` and not change.** The 84
+   "loss-making" products are candle wreaths, hanging bells, planter pots and
+   picture frames at £19–£33. Hill do not send a £19 bell on a two-man
+   room-of-choice service. They already hold £8.39 and should keep it. **If the
+   feed says a £19 bell is `Large`, doubt the column, not the range** — tell me
+   before applying.
+2. **The furniture gets dearer to ship and stays viable.** 136 of 140 products
+   currently hold courier rates, so the stored figures are the understated
+   side. Of the 48 products at £200+, if every one comes back `Large`, cash
+   kept falls from **£9,502 to £7,340 — £2,162, about 23%**. Not one goes
+   loss-making.
+3. **Your six headline lines do not move at all** — Sorelle £470.81, Delphine
+   £235.41, Ark £182.17, Alto £170.69, Contour £110.49, Oura £85.25. Those
+   already assumed two-man. "Cheapest in the market and still makes 24–34%"
+   survives.
+
+One casualty worth knowing about: the **Romanby Stone Round Coffee Table**
+(£228, 60kg) falls to £2.89 kept. That one stops being worth selling, and five
+or six others at the £200–260 end drop under £45.
 
 ---
 
