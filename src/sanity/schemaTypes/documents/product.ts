@@ -335,9 +335,9 @@ export const product = defineType({
       type: "string",
       group: "commerce",
       readOnly: true,
-      options: { list: ["strong", "viable", "cash", "below"] },
+      options: { list: ["strong", "viable", "cash", "basket", "below"] },
       description:
-        "Set by scripts/set-promotion-tier.ts from the real margin. strong = 35%+ and £25+. viable = 30%+ and £20+. cash = £250+ and 15%+. below = not worth advertising.",
+        "Set by scripts/set-promotion-tier.ts from the real margin. strong = 35%+ and £25+. viable = 30%+ and £20+. cash = £250+ and 15%+. basket = not worth advertising alone, but worth adding to an order already won (£15+ kept excluding carriage, 25%+, under £100). below = neither.",
     }),
     defineField({
       name: "displayOrder",

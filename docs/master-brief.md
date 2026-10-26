@@ -16,6 +16,97 @@ Status key:
 
 ---
 
+## Cheap decor can pay — but not by being advertised (26 October)
+
+Damien: _"We can't be having only 15% of our products promotable. I want some
+cheaper products like decor etc from different suppliers which can be promoted
+also."_
+
+The figure is **31%, not 15%** — 278 of 908, up from the 22% this ledger last
+recorded, because of the repricing since. But the shape underneath it is the
+real answer, and it is not one a supplier fixes.
+
+### Nothing cheap passes, and nothing cheap can
+
+| Price band | Products | Worth advertising | Median cash kept |
+| ---------- | -------: | ----------------: | ---------------: |
+| £0–25      |       39 |             **0** |            £8.01 |
+| £25–50     |      110 |          11 (10%) |           £12.67 |
+| £50–100    |      153 |          36 (24%) |           £18.60 |
+| £100–200   |      167 |          87 (52%) |           £44.48 |
+| £200–400   |      179 |          61 (34%) |           £72.60 |
+| £400+      |      260 |          82 (32%) |          £189.07 |
+
+`viable` needs 30% margin **and** £20 cash. Keeping £20 on a £35 item takes a
+60% margin and dropship wholesale runs 25–40%, so **no decor supplier on earth
+makes a £35 product pass this test.** A cheaper supplier delivers more products
+keeping £8 to £13, which fail identically. Onboarding more of them to fix the
+promotable share would have been weeks of work for nothing.
+
+### The test was being asked the wrong question
+
+`set-promotion-tier.ts` says in its own header that the tier marks what is
+**"worth advertising"**. The cash floors exist to answer one thing: can this
+product fund the £50–£200 of clicks it takes to find its buyer?
+
+For a cheap decorative piece that is the wrong question, because that is not
+how one sells. It is added to an order already won — where acquisition cost is
+zero, paid by the sofa. And **carriage is per consignment, not per item**, so a
+second piece from the same supplier ships on the first one's carriage.
+
+- [x] **`scripts/lib/promotion-tier.ts`** — the rules in one place, with a new
+      `basket` route: **£15+ kept with carriage excluded, 25%+ on that, under
+      £100.** Lower floors than `viable` deliberately — no acquisition to fund,
+      only the risk of a return to cover. The £100 cap is where a thing stops
+      being an add-on and becomes a purchase that should face the full test.
+- [x] Both copies of the tier logic now share it. The Hill reprice script
+      carried a second one under a comment reading "kept identical on purpose",
+      which is exactly how two copies stop being identical. Its `netKeep` now
+      delegates too, so a reprice and a tier cannot disagree.
+- [x] `basket` added to the schema option list. No exhaustive `Record<Tier,…>`
+      lookup anywhere, checked — this is the bug class that shipped an Offer
+      with no availability when `stockStatus` gained a null.
+- [x] 12 tests, including that nothing already paying its own way is demoted,
+      and that sub-£25 still fails.
+
+### What it produces, run through the shipped function
+
+| Tier       |  Count |
+| ---------- | -----: |
+| strong     |    118 |
+| viable     |    106 |
+| cash       |     54 |
+| **basket** | **91** |
+| below      |    539 |
+
+**278 worth advertising (31%), plus 91 basket builders — 369 of 908 (41%)
+against 278 before.** The 91 run £29 to £100, median £53, and they are exactly
+the categories asked for:
+
+Lighting 23, Wall Clocks 13, Water Features 10, Vases 9, Planters 7, Candles &
+Lanterns 6, Wall Art 4, Mirrors 3.
+
+Vases were **0 of 23 promotable** in the September audit. Nine of them are
+basket builders.
+
+### What this does not do
+
+- It does not rescue the 539. Most of the catalogue still makes too little.
+- **Sub-£25 remains impossible** — 0 of 39, and that is arithmetic, not effort.
+- It does not add a penny on its own. A tier is a label; **the money needs
+  somewhere for a customer to add one.** Product pages show 4 related items.
+  **The cart page has none at all** — 225 lines, no add-on rail. That is the
+  gap between 91 labelled products and 91 products that sell.
+
+- [ ] **Cart add-on rail, same supplier, priced under the basket cap.** The one
+      place a customer has already decided to buy, and it currently offers
+      nothing. Not built — it is customer-facing and worth agreeing first.
+- [ ] Re-run `set-promotion-tier.ts --apply` to write the 91. Needs a token.
+- [ ] Exclude `basket` from Performance Max via `custom_label_0`. A basket
+      builder bought alone at £53 loses money on the clicks.
+
+---
+
 ## 28 of the first 75 Premier products checked were wrong about stock (26 October)
 
 Ran `scripts/sync-premier-stock.ts` as a dry run overnight. It needs no

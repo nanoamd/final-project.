@@ -7,7 +7,12 @@
  *   strong  35%+ margin and £25+ cash
  *   viable  30%+ margin and £20+ cash
  *   cash    £250+ cash at 15%+  — a sauna at 18% is still £600 a sale
- *   below   everything else, and it is most of the catalogue
+ *   basket  not worth advertising, but worth adding to an order already won:
+ *           £15+ kept with carriage excluded, 25%+ on that, under £100
+ *   below   everything else
+ *
+ * The rules live in scripts/lib/promotion-tier.ts, which explains why `basket`
+ * exists and why no cheaper supplier would have produced the same effect.
  *
  * Two things consume it. The Merchant feed emits it as `custom_label_0`, which
  * is how a Performance Max campaign targets the products that pay instead of
@@ -20,6 +25,8 @@
  *   pnpm tsx --env-file=.env.local scripts/set-promotion-tier.ts --apply
  */
 import { createClient } from "@sanity/client";
+
+import { type PromotionTier, promotionTier } from "./lib/promotion-tier";
 
 const apply = process.argv.includes("--apply");
 const token = process.env.SANITY_API_WRITE_TOKEN;
@@ -37,24 +44,8 @@ const client = createClient({
   perspective: "raw",
 });
 
-const CARD_RATE = 0.015;
-const CARD_FIXED = 0.2;
-
-export type PromotionTier = "strong" | "viable" | "cash" | "below";
-
-export function promotionTier(
-  price: number,
-  costPrice: number,
-  shippingCost: number | null,
-): PromotionTier {
-  const keep =
-    price - costPrice - (shippingCost ?? 0) - (price * CARD_RATE + CARD_FIXED);
-  const margin = keep / price;
-  if (margin >= 0.35 && keep >= 25) return "strong";
-  if (margin >= 0.3 && keep >= 20) return "viable";
-  if (keep >= 250 && margin >= 0.15) return "cash";
-  return "below";
-}
+/** Re-exported so anything importing them from here keeps working. */
+export { type PromotionTier, promotionTier };
 
 interface Row {
   _id: string;
@@ -74,6 +65,7 @@ async function main() {
     strong: 0,
     viable: 0,
     cash: 0,
+    basket: 0,
     below: 0,
   };
   const changes: { _id: string; tier: PromotionTier }[] = [];
@@ -85,10 +77,17 @@ async function main() {
   }
 
   console.log(`\n${rows.length} products`);
-  for (const tier of ["strong", "viable", "cash", "below"] as PromotionTier[])
+  for (const tier of [
+    "strong",
+    "viable",
+    "cash",
+    "basket",
+    "below",
+  ] as PromotionTier[])
     console.log(`  ${tier.padEnd(7)} ${String(counts[tier]).padStart(4)}`);
   console.log(
-    `\n  ${counts.strong + counts.viable + counts.cash} worth advertising`,
+    `\n  ${counts.strong + counts.viable + counts.cash} worth advertising` +
+      `, ${counts.basket} worth adding to an order already won`,
   );
   console.log(`  ${changes.length} to update\n`);
 

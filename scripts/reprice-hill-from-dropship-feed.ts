@@ -53,6 +53,7 @@ import { createClient } from "@sanity/client";
 
 import { columnReader, parseCsv } from "./lib/csv";
 import { hillCarriage } from "./lib/hill-carriage";
+import { cashKept, promotionTier } from "./lib/promotion-tier";
 
 const apply = process.argv.includes("--apply");
 const token = process.env.SANITY_API_WRITE_TOKEN;
@@ -117,17 +118,17 @@ function carriageExVat(weightKg: number | null, deliverySize: string): number {
   return hillCarriage({ weightKg, deliverySize }).exVat;
 }
 
-/** The tiers `set-promotion-tier.ts` uses. Kept identical on purpose. */
-function promotionTier(price: number, keep: number): string {
-  const margin = keep / price;
-  if (margin >= 0.35 && keep >= 25) return "strong";
-  if (margin >= 0.3 && keep >= 20) return "viable";
-  if (price >= 250 && margin >= 0.15) return "cash";
-  return "below";
-}
+/**
+ * The tiers, from scripts/lib/promotion-tier.ts.
+ *
+ * This file used to carry its own copy under a comment saying it was "kept
+ * identical on purpose". It was, until the shared version gained the `basket`
+ * route — which is exactly how two copies stop being identical.
+ */
 
+/** Same formula the tiers use, so a reprice and a tier cannot disagree. */
 const netKeep = (price: number, cost: number, ship: number) =>
-  price - cost - ship - (price * CARD_RATE + CARD_FIXED);
+  cashKept(price, cost, ship);
 
 /** Lowest price clearing `margin` once cost and carriage are paid. */
 const priceForMargin = (cost: number, ship: number, margin: number) =>
@@ -237,7 +238,10 @@ async function main() {
     }
 
     const keep = netKeep(price, cost, ship);
-    const tier = promotionTier(price, keep);
+    // The shared tier takes cost and carriage rather than the already-netted
+    // keep, because the basket route has to re-derive the figure with carriage
+    // excluded — a second item in a consignment does not pay it again.
+    const tier = promotionTier(price, cost, ship);
     const before = p.promotionTier ?? "unset";
     tiersBefore[before] = (tiersBefore[before] ?? 0) + 1;
     tiersAfter[tier] = (tiersAfter[tier] ?? 0) + 1;
