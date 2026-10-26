@@ -16,6 +16,110 @@ Status key:
 
 ---
 
+## 28 of the first 75 Premier products checked were wrong about stock (26 October)
+
+Ran `scripts/sync-premier-stock.ts` as a dry run overnight. It needs no
+credentials at all — Sanity reads are public and so are Premier's product pages
+— so this is the Jennifer problem measured rather than estimated.
+
+**Stopped early and deliberately at 75 products**, because Premier's own site
+started showing _"we are currently experiencing network issues and our systems
+are down"_ and returning 429s. Hammering a supplier's broken site is neither
+useful nor polite.
+
+### The number
+
+**28 of 75 read — 37% — carry a `stockStatus` that does not match what Premier
+report.** 99 pages are cached from the attempt.
+
+Two cautions on reading that too hard:
+
+- The query is `order(title asc)`, so these are the first 75 alphabetically,
+  not a random sample. The true rate could be higher or lower.
+- It is a status mismatch in either direction. Some will be items back in stock
+  that the shop says are unavailable, which costs sales rather than trust.
+
+But 419 Premier products currently claim In Stock, and if anything like 37%
+holds, **roughly 150 of them are wrong.** That is the scale of what one feed
+would have prevented.
+
+### Re-run it when Premier are back up
+
+The page cache is stamped with the date, so a re-run today reuses all 99
+already-fetched pages instantly and only fetches the rest. The script has since
+been given 429 backoff and a 30-second request ceiling, so the next run waits
+rate limits out instead of leaving holes:
+
+```
+pnpm tsx scripts/sync-premier-stock.ts
+```
+
+- [x] Dry run proves the mechanism end to end on live data
+- [x] 429 backoff and request timeout added after this run hit both
+- [!] Re-run when Premier's systems recover, then `--apply`
+- [ ] The same measurement for Hill, which needs the CSV
+
+---
+
+## Premier do charge carriage below £350, and that was the open question (26 October)
+
+Two blocked items said this could not be assessed until the supplier answered.
+Their own public FAQ answers half of it, and it is the half that was in doubt.
+
+> **How much does delivery cost?** Delivery is free for orders over £350 exc
+> VAT (within UK Mainland), £600 exc VAT (Northern Ireland) or £850 exc VAT
+> (Ireland and International). **For orders below this carriage charges will be
+> applied at checkout.**
+
+### What that changes
+
+The ledger's standing theory was "possibly dropship carriage is inside the
+trade price". **It is not.** Carriage is charged separately below the
+threshold, and **all 546 Premier products currently store `shippingCost` of
+£0**, with `carriageIncludedInCost` unset and no `shippingRule` on the supplier
+record at all.
+
+390 of 546 (71%) have a trade cost under £350, so for those the stored £0 is
+wrong rather than unknown. The impact is already modelled in this ledger: at
+£0 nothing is negative and the median margin is 22.3%; **at +£9.95, 41 products
+go negative and the median falls to 14.5%**.
+
+Premier is 60% of the catalogue and the second-highest cash per sale at £157.
+This is now the largest known-wrong number in the cost base.
+
+### What it does not settle
+
+**The rate.** The only money figures anywhere on their FAQ are the three
+thresholds — £350, £600, £850. No carriage table is published; it appears at
+checkout, behind the trade login. So the amount still needs one checkout test
+with a real postcode, or one email.
+
+And dropship may not even use the standard table: _"If you are interested in
+dropshipping with us, please contact your account rep... we will be happy to
+discuss options"_. Dropship terms are negotiated per account, so Damien's may
+differ from the published one either way.
+
+### A contact address, which the supplier record does not have
+
+Published on their own site: **info@premierhousewares.co.uk**,
+helpdesk@premierhousewares.co.uk, **0141 579 2000**. The Premier supplier
+document in Sanity has no email, no phone and no contact name.
+
+Also on their site right now, which is worth knowing before tomorrow's sync
+run: two banners, one saying card payments are failing and one saying _"we are
+currently experiencing network issues and our systems are down"_. That is the
+likeliest explanation for the 429s the stock sync hit overnight.
+
+- [x] "Carriage might be inside the trade price" — ruled out from their own FAQ
+- [!] **Ask Premier what dropship carriage is on a sub-£350 order**, to
+  info@premierhousewares.co.uk. One question, and it decides ~100 products.
+- [!] Put the email, phone and the £350/£600/£850 thresholds on the Premier
+  supplier record. Needs a write token.
+- [ ] Until the rate is known, treat Premier margins as overstated on the 390
+      products under £350 — not by an unknown amount, by at least something
+
+---
+
 ## What tomorrow's carriage correction will actually cost (26 October)
 
 Modelled before running it, from the live dataset, so the number is not a

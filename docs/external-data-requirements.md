@@ -349,9 +349,39 @@ five. Send this to Aosom, AW Dropship and SaunaPlunge:
 > Thanks,
 > Damien — Kaiku
 
-### Before any of that can be sent
+### Premier now has a published address, and a question worth asking
 
-**None of the three has an email address on file.** Checked 26 October: Aosom
+Found on their own public FAQ, 26 October: **info@premierhousewares.co.uk**,
+helpdesk@premierhousewares.co.uk, **0141 579 2000**. None of it is on their
+supplier record.
+
+Their carriage terms are now half-answered without asking: free over £350 ex
+VAT UK mainland, £600 Northern Ireland, £850 international, and **"for orders
+below this carriage charges will be applied at checkout"**. So carriage is
+charged — the standing "possibly inside the trade price" theory is dead — but
+the rate is not published anywhere, only shown at checkout behind the trade
+login.
+
+Worth its own email, because it decides roughly 100 products:
+
+> Subject: Dropship carriage on sub-£350 orders
+>
+> Hi,
+>
+> We dropship your range and every order we place is a single item, so we are
+> always below the £350 free-delivery threshold. Could you tell me what
+> carriage is charged on a dropship order of one item — a flat rate, by weight,
+> or by order value?
+>
+> Your FAQ mentions dropship terms are agreed per account, so if ours differs
+> from the standard table I would rather know which one applies to us.
+>
+> Thanks,
+> Damien — Kaiku
+
+### Before the other three can be sent
+
+**None of the other three has an email address on file.** Checked 26 October: Aosom
 and AW Dropship have nothing on their supplier record at all, SaunaPlunge has
 Kelly Marsden's name and no address. Only D.I. Designs has an email, a phone
 and a contact.

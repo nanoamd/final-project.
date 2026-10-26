@@ -102,8 +102,17 @@ pnpm tsx --env-file=.env.local scripts/sync-premier-stock.ts
 
 **This takes about an hour and a half.** Premier's `robots.txt` asks for a
 10-second crawl delay and the script honours it. Start it, leave it, come back.
-Use `--limit 20` first if you want to see the shape of the output in three
-minutes.
+
+**Already part-run overnight: 28 of the first 75 products — 37% — had the wrong
+stock status.** If that holds across the 419 Premier products claiming In
+Stock, around 150 are wrong.
+
+It stopped at 75 on purpose. Premier's site began showing _"we are currently
+experiencing network issues and our systems are down"_ and returning 429s, and
+hammering a supplier's broken site is neither useful nor polite. **Check their
+site is up before you start this.** 99 pages are already cached from the
+attempt and a re-run today reuses them instantly, so picking up where it left
+off is cheap.
 
 Then `--apply` once the dry run reads right.
 
