@@ -25,6 +25,14 @@
  *   Available Stock = 0, Status ACT   -> Out of Stock
  *   Status is not ACT                 -> Out of Stock
  *
+ * `Available Stock` is also written to `stockQuantity`. The checkout guard in
+ * `src/server/actions/checkout.ts` only enforces a basket limit where a
+ * quantity exists, and 304 of the 768 products claiming In Stock have none, so
+ * they pass on status alone. It also makes the product page's "Only N left in
+ * stock" line real — that component deliberately stays silent without a
+ * quantity rather than invent urgency, and the supplier's own figure is what it
+ * was waiting for.
+ *
  * Nothing is marked Backorder or Coming Soon. The feed carries a stock number
  * and a status, not a restock date, and "Backorder" to a shopper implies one
  * is known. Out of Stock is the honest word for "we cannot send this today".
@@ -135,6 +143,7 @@ interface Product {
   title: string;
   code: string | null;
   stockStatus: string | null;
+  stockQuantity: number | null;
 }
 
 async function main() {
@@ -142,7 +151,7 @@ async function main() {
   const products = await client.fetch<Product[]>(
     `*[_type == "product" && !(_id in path("drafts.**"))
       && supplier->name == "Hill Interiors"]{
-      _id, title, "code": coalesce(supplierSku, sku), stockStatus
+      _id, title, "code": coalesce(supplierSku, sku), stockStatus, stockQuantity
     }`,
   );
 
@@ -151,6 +160,7 @@ async function main() {
     from: string;
     to: string;
     stock: number;
+    qtyFrom: number | null;
   }[] = [];
   const unmatched: Product[] = [];
 
@@ -162,7 +172,16 @@ async function main() {
     }
     const to = statusFor(row.stock, row.status);
     const from = product.stockStatus ?? "(unset)";
-    if (from !== to) changes.push({ product, from, to, stock: row.stock });
+    // A quantity change counts even when the status holds: "In Stock, 1 left"
+    // and "In Stock, 400 left" are not the same promise to a customer.
+    if (from !== to || product.stockQuantity !== row.stock)
+      changes.push({
+        product,
+        from,
+        to,
+        stock: row.stock,
+        qtyFrom: product.stockQuantity,
+      });
   }
 
   console.log(`Feed rows: ${feed.size}`);
@@ -170,8 +189,12 @@ async function main() {
   console.log(`No matching code in the feed: ${unmatched.length}`);
   console.log(`Would change: ${changes.length}\n`);
 
-  const nowOut = changes.filter((c) => c.to === "Out of Stock");
-  const nowIn = changes.filter((c) => c.to === "In Stock");
+  const nowOut = changes.filter(
+    (c) => c.to === "Out of Stock" && c.from !== c.to,
+  );
+  const nowIn = changes.filter((c) => c.to === "In Stock" && c.from !== c.to);
+  const qtyOnly = changes.filter((c) => c.from === c.to);
+  const lowStock = changes.filter((c) => c.to === "In Stock" && c.stock <= 5);
 
   console.log(`=== ${nowOut.length} being sold that Hill cannot send ===`);
   for (const c of nowOut.slice(0, 40))
@@ -185,6 +208,28 @@ async function main() {
     console.log(
       `   ${c.from.padEnd(13)} -> ${c.to.padEnd(13)} stock ${String(c.stock).padStart(4)}  ${c.product.title.replace(/ \| Kaiku$/, "")}`,
     );
+
+  if (qtyOnly.length) {
+    console.log(
+      `\n=== ${qtyOnly.length} right about availability, wrong about how many ===`,
+    );
+    for (const c of qtyOnly.slice(0, 10))
+      console.log(
+        `   qty ${String(c.qtyFrom ?? "unset").padStart(6)} -> ${String(c.stock).padEnd(6)}  ${c.product.title.replace(/ \| Kaiku$/, "")}`,
+      );
+    if (qtyOnly.length > 10)
+      console.log(`   ... and ${qtyOnly.length - 10} more`);
+  }
+
+  if (lowStock.length) {
+    console.log(
+      `\n=== ${lowStock.length} in stock but down to 5 or fewer — these will now say "Only N left" ===`,
+    );
+    for (const c of lowStock.slice(0, 15))
+      console.log(
+        `   ${String(c.stock).padStart(3)} left  ${c.product.title.replace(/ \| Kaiku$/, "")}`,
+      );
+  }
 
   if (unmatched.length) {
     console.log(
@@ -203,9 +248,11 @@ async function main() {
 
   const tx = client.transaction();
   for (const c of changes)
-    tx.patch(c.product._id, (p) => p.set({ stockStatus: c.to }));
+    tx.patch(c.product._id, (p) =>
+      p.set({ stockStatus: c.to, stockQuantity: c.stock }),
+    );
   await tx.commit();
-  console.log(`\nWrote ${changes.length} stock statuses.`);
+  console.log(`\nWrote ${changes.length} stock statuses and quantities.`);
 }
 
 if (process.argv[1]?.endsWith("sync-hill-stock.ts")) {

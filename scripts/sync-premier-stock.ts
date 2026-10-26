@@ -41,6 +41,15 @@
  *   instock true  and available_to_sell > 0   -> In Stock
  *   anything else                             -> Out of Stock
  *
+ * `available_to_sell` is also written to `stockQuantity`, which does two
+ * things. It restores the checkout quantity guard — `src/server/actions/
+ * checkout.ts` only enforces a basket limit where a quantity exists, and 304
+ * of the 768 products claiming In Stock have none, so they pass on status
+ * alone. And it makes the "Only N left in stock" line on the product page
+ * real: that component deliberately stays silent without a quantity rather
+ * than invent urgency, and a supplier's own figure is the thing it was waiting
+ * for.
+ *
  * No Backorder, no Coming Soon — same reasoning as the Hill script. The page
  * gives a number, not a restock date, and "Backorder" tells a shopper a date is
  * known when it is not.
@@ -100,6 +109,30 @@ const arg = (name: string): string | undefined => {
 
 /** Says what this is. robots.txt allows it by name, so there is nothing to hide. */
 const UA = "ClaudeBot/1.0 (+https://www.anthropic.com/claude-bot)";
+
+/**
+ * Per-request ceiling.
+ *
+ * `fetch` has no default timeout, and this script is meant to be started and
+ * left for an hour and a half. One request that never answers would stall the
+ * whole run silently, with the last thing printed being a progress line from
+ * twenty minutes earlier. A request that times out is treated exactly like a
+ * 503: the product is left alone and reported, which is the same safe default.
+ */
+const REQUEST_TIMEOUT_MS = 30_000;
+
+async function getWithTimeout(url: string): Promise<Response | null> {
+  try {
+    return await fetch(url, {
+      headers: { "User-Agent": UA },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+  } catch (error) {
+    const why = error instanceof Error ? error.name : "failed";
+    console.warn(`   ${why} fetching ${url} — left alone`);
+    return null;
+  }
+}
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "huh1e45n",
@@ -198,8 +231,9 @@ async function fetchFresh(url: string, key: string): Promise<string | null> {
   } catch {
     // not cached today — fetch it
   }
-  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  const res = await getWithTimeout(url);
   await sleep(PH_DELAY_MS);
+  if (!res) return null;
   if (!res.ok) {
     console.warn(`   ${res.status} fetching ${url} — left alone`);
     return null;
@@ -220,11 +254,13 @@ async function sitemapXml(): Promise<string> {
   }
   const pages: string[] = [];
   for (const page of [1, 2]) {
-    const res = await fetch(
+    const res = await getWithTimeout(
       `${PH_HOST}/xmlsitemap.php?type=products&page=${page}`,
-      { headers: { "User-Agent": UA } },
     );
     await sleep(PH_DELAY_MS);
+    // The sitemap is different from a product page: without it there is nothing
+    // to match on at all, so this one does fail the run rather than carry on.
+    if (!res) throw new Error(`sitemap page ${page} did not respond`);
     if (!res.ok) throw new Error(`sitemap page ${page} returned ${res.status}`);
     pages.push(await res.text());
   }
@@ -238,6 +274,7 @@ interface Product {
   title: string;
   code: string | null;
   stockStatus: string | null;
+  stockQuantity: number | null;
 }
 
 const clean = (title: string) => title.replace(/ \| Kaiku$/, "");
@@ -251,7 +288,7 @@ async function main() {
   const products = await client.fetch<Product[]>(
     `*[_type == "product" && !(_id in path("drafts.**"))
       && supplier->name == "Premier Housewares"]{
-      _id, title, "code": coalesce(supplierSku, sku), stockStatus
+      _id, title, "code": coalesce(supplierSku, sku), stockStatus, stockQuantity
     } | order(title asc)`,
   );
 
@@ -265,8 +302,13 @@ async function main() {
     `Checking ${queue.length} at ${PH_DELAY_MS / 1000}s apart — about ${Math.ceil((queue.length * PH_DELAY_MS) / 60000)} minutes.\n`,
   );
 
-  const changes: { product: Product; from: string; to: string; qty: number }[] =
-    [];
+  const changes: {
+    product: Product;
+    from: string;
+    to: string;
+    qty: number;
+    qtyFrom: number | null;
+  }[] = [];
   const noUrl: Product[] = [];
   const unreadable: Product[] = [];
   let checked = 0;
@@ -291,14 +333,26 @@ async function main() {
     checked += 1;
     const to = statusFor(attrs);
     const from = product.stockStatus ?? "(unset)";
-    if (from !== to)
-      changes.push({ product, from, to, qty: attrs.availableToSell });
+    // A quantity change counts as a change even when the status is unmoved:
+    // "In Stock, 1 left" and "In Stock, 956 left" are not the same promise.
+    if (from !== to || product.stockQuantity !== attrs.availableToSell)
+      changes.push({
+        product,
+        from,
+        to,
+        qty: attrs.availableToSell,
+        qtyFrom: product.stockQuantity,
+      });
     if (checked % 25 === 0)
       console.log(`   … ${checked} read, ${changes.length} differ so far`);
   }
 
-  const nowOut = changes.filter((c) => c.to === "Out of Stock");
-  const nowIn = changes.filter((c) => c.to === "In Stock");
+  const nowOut = changes.filter(
+    (c) => c.to === "Out of Stock" && c.from !== c.to,
+  );
+  const nowIn = changes.filter((c) => c.to === "In Stock" && c.from !== c.to);
+  const qtyOnly = changes.filter((c) => c.from === c.to);
+  const lowStock = changes.filter((c) => c.to === "In Stock" && c.qty <= 5);
 
   console.log(`\nPages read: ${checked}`);
   console.log(`No URL for the code: ${noUrl.length}`);
@@ -318,6 +372,28 @@ async function main() {
       `   ${c.from.padEnd(13)} -> ${c.to.padEnd(13)} qty ${String(c.qty).padStart(4)}  ${clean(c.product.title)}`,
     );
 
+  if (qtyOnly.length) {
+    console.log(
+      `\n=== ${qtyOnly.length} right about availability, wrong about how many ===`,
+    );
+    for (const c of qtyOnly.slice(0, 10))
+      console.log(
+        `   qty ${String(c.qtyFrom ?? "unset").padStart(6)} -> ${String(c.qty).padEnd(6)}  ${clean(c.product.title)}`,
+      );
+    if (qtyOnly.length > 10)
+      console.log(`   ... and ${qtyOnly.length - 10} more`);
+  }
+
+  if (lowStock.length) {
+    console.log(
+      `\n=== ${lowStock.length} in stock but down to 5 or fewer — these will now say "Only N left" ===`,
+    );
+    for (const c of lowStock.slice(0, 15))
+      console.log(
+        `   ${String(c.qty).padStart(3)} left  ${clean(c.product.title)}`,
+      );
+  }
+
   if (noUrl.length) {
     console.log(
       `\n=== ${noUrl.length} with no matching URL — left alone, check by hand ===`,
@@ -335,9 +411,11 @@ async function main() {
 
   const tx = client.transaction();
   for (const c of changes)
-    tx.patch(c.product._id, (p) => p.set({ stockStatus: c.to }));
+    tx.patch(c.product._id, (p) =>
+      p.set({ stockStatus: c.to, stockQuantity: c.qty }),
+    );
   await tx.commit();
-  console.log(`\nWrote ${changes.length} stock statuses.`);
+  console.log(`\nWrote ${changes.length} stock statuses and quantities.`);
 }
 
 if (process.argv[1]?.endsWith("sync-premier-stock.ts")) {
