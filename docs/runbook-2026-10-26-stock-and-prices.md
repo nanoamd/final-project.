@@ -10,6 +10,48 @@ carriage figures that are wrong in both directions.
 
 ---
 
+## What changed overnight, 26 October
+
+Four things are live that were not there yesterday, and one thing broke and was
+fixed.
+
+**Broke and fixed.** My read-token change blanked the live sitemap and the
+product feed for about a day — 31 URLs instead of 1,031, a feed with no items.
+That is also why Merchant Center says "Provided by you: 0": it fetched the
+empty feed and withdrew everything, exactly as the feed route's own comment
+warns. Reverted and verified: **1,031 URLs, 954 products, 908 feed items.**
+Nothing to do, but it is why your product count moved.
+
+Check it any time, no credentials needed:
+
+```
+pnpm tsx scripts/verify-live-catalogue.ts
+```
+
+**Run that after any deploy.** The whole failure was invisible from inside the
+repo — tests, typecheck and build were all green. A build that cannot see the
+catalogue now fails outright rather than publishing an empty one.
+
+**Live now:**
+
+- **An optional email box on the basket page**, passed to Stripe. Twelve of
+  your thirteen abandoned baskets recorded no email because those people left
+  Stripe's page before typing one. Now we ask first, and it pre-fills Stripe.
+- **An add-on rail on the basket page** — four same-supplier pieces under £100.
+  They ride the carriage already being paid, which is the only reason cheap
+  decor is worth anything. Worth looking at on your phone.
+- **The two-man delivery warning** now believes the supplier's flag rather than
+  a weight threshold.
+- **A `basket` promotion tier** — 91 products that are worth having but were
+  never worth advertising.
+
+**One thing to know about your analytics:** GA4 only counts visitors who accept
+the cookie banner, so "13 add to baskets" is a floor, not a total. Vercel
+Analytics is not gated and counts everyone — comparing the two gives you the
+multiplier. Details in the ledger.
+
+---
+
 ## 0. Do this first — your cost base and your customers' emails are public
 
 Found late on the 25th, by accident, looking for the newsletter numbers. An
