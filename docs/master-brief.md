@@ -207,27 +207,22 @@ basket builders.
   gap between 91 labelled products and 91 products that sell.
 
 - [x] **Cart add-on rail — built 26 October.**
-      `src/features/storefront/components/cart/basket-add-ons.tsx`, four
+      `src/features/storefront/components/cart/basket-add-ons.tsx`. Four
       products, same supplier, under £100, in stock, cheapest first. The basket
       was the only page in the funnel offering nothing; product pages already
-      carry four related items.
-
-      Three decisions worth keeping:
-
-              - **The margin test runs inside GROQ**, so no cost price leaves Sanity.
-                Same reasoning as `getRailMarkupIndex` — a markup beside a visible
-                price is a cost price with one division.
-              - **It derives the rule rather than reading `promotionTier`**, so the
-                rail is right the moment a price changes instead of the next time
-                somebody remembers to re-run the scoring script. It also means a cheap
-                product already in a higher tier is still offered, which it should be.
-              - **Suppliers are resolved server-side from the basket's own slugs**, not
-                accepted from the client, so the carriage-sharing claim cannot be
-                widened by whoever is calling.
-
-              Renders nothing when there is nothing to show. Verified against live
-              data: a basket holding the Mistora canvas returns six Hill Interiors
-              candidates at £33–£43.
+      carry four related items. Renders nothing when there is nothing to show.
+- [x] **The margin test runs inside GROQ**, so no cost price leaves Sanity.
+      Same reasoning as `getRailMarkupIndex` — a markup ratio beside a visible
+      price is a cost price with one division.
+- [x] **The rule is derived, not read from `promotionTier`.** The rail is then
+      right the moment a price changes rather than the next time somebody
+      re-runs the scoring script, and a cheap product already in a higher tier
+      is still offered, which it should be.
+- [x] **Suppliers resolved server-side from the basket's own slugs**, not
+      accepted from the client, so the carriage-sharing claim cannot be widened
+      by whoever is calling.
+- [x] Verified against live data: a basket holding the Mistora canvas returns
+      six Hill Interiors pieces between £33 and £43.
 
 - [ ] Re-run `set-promotion-tier.ts --apply` to write the 91. Needs a token.
 - [ ] Exclude `basket` from Performance Max via `custom_label_0`. A basket
