@@ -16,6 +16,114 @@ Status key:
 
 ---
 
+## I blanked the live catalogue for a day, and the guard that stops it recurring (26 October)
+
+**My fault, start to finish.** Recording it in full because the failure mode is
+the interesting part, not the mistake.
+
+On 25 October I added a read token to `src/lib/sanity/client.ts` so the dataset
+could be flipped to private without the site losing content. `SANITY_API_READ_TOKEN`
+is unset locally, so it was a no-op in every test, in the typecheck, and in a
+local production build. In Vercel it is set, to something stale. Every Sanity
+read in the production build came back 401.
+
+**Nothing failed.** `sanityFetch` is fail-soft by design — it catches
+everything and returns the caller's fallback — so each query resolved to an
+empty array and the build completed green.
+
+|                     |                  Local build |              Production |
+| ------------------- | ---------------------------: | ----------------------: |
+| sitemap.xml         | **1,031 URLs, 954 products** | **31 URLs, 0 products** |
+| google-merchant.xml |       n/a (feed off locally) |             **0 items** |
+
+Identical code. The only difference was an environment variable.
+
+### What it cost
+
+Merchant Center did exactly what the feed route's own comment says it does:
+
+> "an empty feed makes Merchant Center withdraw the items it already holds,
+> while a failed fetch leaves the last successful set live and just logs an
+> error."
+
+So **"Provided by you: 0"** on Damien's Merchant Center screen. The 681 showing
+as "More found by Google" are Google's own crawl of product pages, which kept
+rendering from ISR cache — which is also why he could still see products on
+Google and could not square that with Merchant Center saying nothing was shown.
+Organic web results and Shopping are separate surfaces.
+
+### Fixed and verified
+
+- [x] Token removed. The sitemap went from 31 URLs to **1,031 (954 products)**
+      and the feed from 0 to **908 items** on the first request after the
+      deploy.
+- [x] The order when the dataset is actually made private: create the Viewer
+      token, set it in Vercel, **confirm a preview deployment still renders
+      products**, then add the token back, then flip the dataset. The missing
+      step last time was the third one.
+
+### The guard, because this is the second time
+
+`src/lib/sanity/config.ts` already recorded the first: a token pasted into
+`NEXT_PUBLIC_SANITY_PROJECT_ID`, where "the only visible symptom was a site
+with no content". Same shape, different cause, eleven weeks apart.
+
+- [x] **`src/lib/sanity/require-content.ts`** — throws rather than publishing
+      an empty catalogue. Deliberately **not** inside `sanityFetch`: most
+      callers genuinely should degrade quietly, and only the artefacts that
+      speak for the whole catalogue should refuse. A build that cannot see the
+      catalogue now fails instead of shipping a lie about it, and a
+      revalidation that throws leaves the last good version serving. 5 tests.
+- [x] Wired into `sitemap.ts` and the merchant feed. Production build verified
+      green with the guard in place — it must not break deploys, and it does
+      not.
+- [x] **`scripts/verify-live-catalogue.ts`** — the other half, from outside,
+      with no credentials: does the live sitemap have product URLs, does the
+      feed have items, and is each actually XML rather than a firewall
+      interstitial. The whole failure was invisible from inside the repo;
+      every signal said fine. Takes `--site=` so a preview can be checked
+      before promoting it.
+
+---
+
+## Twelve of thirteen abandoned baskets had no email, and why (26 October)
+
+Damien's admin screen, 28 September to 22 October: **13 abandoned baskets,
+about £2,539**, from £19 to £533. **Twelve recorded "no email given."** The one
+that did was his own test.
+
+That is the same 13 as GA4's "add to baskets", so the two agree.
+
+### It is not a recording bug
+
+`abandoned_checkouts` rows are written from `checkout.session.expired` and take
+the address from `session.customer_details.email`. "No email given" therefore
+means something precise: **the visitor reached Stripe's hosted page and left
+before typing anything.** Stripe never had an address either. The lead was lost
+at the handover, not in the recording.
+
+`customer_email` was only ever set for a signed-in visitor. Every guest
+checkout — which is all of them — handed Stripe nothing.
+
+- [x] **Optional email field on the basket page**, passed to Stripe as
+      `customer_email`. Stripe populates `customer_details.email` from it
+      immediately, so an expired session now carries the address and **the
+      existing webhook records it with no new storage.** It also pre-fills
+      Stripe's own field, so there is one less thing to type on the page they
+      are already hesitating on.
+- [x] **Optional, not required.** A mandatory field in front of a payment
+      button is a conversion cost paid by every customer to recover some of
+      the ones who leave.
+- [x] `cleanEmail()` validates server-side before it reaches Stripe, which
+      rejects a malformed `customer_email` and would turn a checkout into an
+      error. 5 tests.
+- [-] **The recovery email stays unarmed.** Capturing an address is not consent
+  to be marketed to, and the ledger already records that reading that copy
+  before arming it is the safeguard, not a formality. Capture first, decide
+  separately.
+
+---
+
 ## Cheap decor can pay — but not by being advertised (26 October)
 
 Damien: _"We can't be having only 15% of our products promotable. I want some

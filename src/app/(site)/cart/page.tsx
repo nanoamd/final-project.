@@ -16,6 +16,21 @@ export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart();
   const [checkingOut, setCheckingOut] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  /**
+   * Optional, and passed to Stripe as `customer_email`.
+   *
+   * Thirteen baskets were abandoned between 28 September and 22 October, worth
+   * about £2,539, and twelve of the thirteen recorded no email — because the
+   * row is written from Stripe's expired session and those visitors left
+   * Stripe's page before typing anything. Asking here is the only point at
+   * which there is anything to capture.
+   *
+   * It also pre-fills Stripe's own email field, so the visitor types one thing
+   * fewer on the page they are already hesitating on. Never required: a
+   * mandatory field in front of a payment button is a cost paid by every
+   * customer to recover some of the ones who leave.
+   */
+  const [email, setEmail] = React.useState("");
 
   async function handleCheckout() {
     setError(null);
@@ -38,6 +53,7 @@ export default function CartPage() {
           quantity: item.quantity,
           selectedOptions: item.selectedOptions,
         })),
+        email,
       );
     } catch (err) {
       setError(
@@ -180,6 +196,28 @@ export default function CartPage() {
           <p className="text-muted mt-2 text-[13px]">
             Tax included. Free UK delivery.
           </p>
+          <div className="mt-6">
+            <label
+              htmlFor="checkout-email"
+              className="text-ink block text-[13px] font-medium"
+            >
+              Email <span className="text-muted font-normal">(optional)</span>
+            </label>
+            <input
+              id="checkout-email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="border-line bg-canvas text-ink placeholder:text-muted/70 focus:border-ink mt-2 h-11 w-full rounded-lg border px-3 text-[15px] transition-colors outline-none"
+            />
+            <p className="text-muted mt-2 text-[13px]">
+              We&rsquo;ll send your order confirmation here. You can also leave
+              it blank and enter it on the next page.
+            </p>
+          </div>
           {error ? (
             <p className="text-brass mt-4 text-[13px]">{error}</p>
           ) : null}

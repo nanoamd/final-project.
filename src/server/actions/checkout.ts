@@ -52,7 +52,49 @@ const UNORDERABLE_STOCK_STATUSES = new Set(["Out of Stock", "Coming Soon"]);
  * never trusted for payment amounts. Builds Stripe line items dynamically via
  * `price_data` rather than requiring a pre-synced Stripe product catalog.
  */
-export async function createCheckoutSession(lines: CheckoutLineInput[]) {
+/**
+ * A trimmed, lightly validated email, or undefined.
+ *
+ * Deliberately permissive — this is a convenience, not an identity check, and
+ * Stripe validates properly on its own page. The job here is only to make sure
+ * a typo or a pasted sentence cannot be handed to the Stripe API, which rejects
+ * a malformed `customer_email` and would turn a checkout into an error.
+ */
+export function cleanEmail(value: string | undefined): string | undefined {
+  const email = value?.trim();
+  if (!email || email.length > 254) return undefined;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : undefined;
+}
+
+export async function createCheckoutSession(
+  lines: CheckoutLineInput[],
+  /**
+   * Optional, from the basket page, for a visitor who is not signed in.
+   *
+   * ## Why this is collected before Stripe rather than left to Stripe
+   *
+   * Thirteen baskets were abandoned between 28 September and 22 October, worth
+   * about £2,539. **Twelve of the thirteen recorded no email at all.**
+   *
+   * The abandoned-basket row is written from `checkout.session.expired` and
+   * takes its address from `session.customer_details.email`, so "no email
+   * given" means something specific: the visitor reached Stripe's hosted page
+   * and left before typing anything. Stripe never had an address either, so
+   * there was nothing to capture — the lead was lost at the handover, not in
+   * the recording.
+   *
+   * Passing `customer_email` fixes both ends of that. Stripe populates
+   * `customer_details.email` from it immediately, so an expired session now
+   * carries the address and the existing webhook records it with no new
+   * storage; and the field arrives pre-filled, so the visitor has one less
+   * thing to type on a page they are already hesitating on.
+   *
+   * It stays optional. A required field in front of a payment button is a
+   * conversion cost paid by every customer to recover some of the ones who
+   * leave, and nothing here is worth that trade.
+   */
+  email?: string,
+) {
   if (!lines.length) {
     throw new Error("Cannot check out an empty cart.");
   }
@@ -185,7 +227,13 @@ export async function createCheckoutSession(lines: CheckoutLineInput[]) {
     // persistOrder resolves an account from that email after payment instead.
     ...(user
       ? { client_reference_id: user.id, customer_email: user.email }
-      : {}),
+      : // A guest who gave an address on the basket page. Validated above, so a
+        // bad value becomes undefined and Stripe collects it as before rather
+        // than rejecting the whole session.
+        (() => {
+          const guestEmail = cleanEmail(email);
+          return guestEmail ? { customer_email: guestEmail } : {};
+        })()),
   });
 
   if (!session.url) {

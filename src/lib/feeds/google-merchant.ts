@@ -25,6 +25,7 @@ import { googleProductCategory } from "@/lib/catalog/google-product-category";
 import { resolveIdentity } from "@/lib/catalog/manufacturer-brand";
 import { variantGroups } from "@/lib/catalog/variant-group";
 import { getMerchantFeedProducts } from "@/lib/sanity/queries";
+import { requireContent } from "@/lib/sanity/require-content";
 import type { SanityProduct } from "@/types/sanity-content";
 
 /**
@@ -162,7 +163,16 @@ export async function buildMerchantFeedResponse(): Promise<Response> {
     );
   }
 
-  const products = await getMerchantFeedProducts();
+  /**
+   * An empty feed is worse than no feed, and this route's own comment above
+   * says why: Merchant Center withdraws the items it already holds. On 26
+   * October it did exactly that, because a stale read token made every Sanity
+   * query resolve to its fallback and the build shipped a feed with no items.
+   */
+  const products = requireContent(
+    await getMerchantFeedProducts(),
+    "google-merchant.xml",
+  );
 
   /**
    * Which products are the same thing in another colour or size, worked out

@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { TOOL_GROUPS } from "@/lib/content/tools";
 import { getSitemapContent } from "@/lib/sanity/queries/sitemap";
+import { requireContent } from "@/lib/sanity/require-content";
 
 /**
  * The pages that always exist, with how often each is worth re-crawling.
@@ -94,6 +95,14 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const content = await getSitemapContent();
+
+  /**
+   * A sitemap of 31 static routes and no products is not a smaller sitemap, it
+   * is a different claim about the shop — and on 26 October that claim went
+   * live for a day. Fail the build instead; a revalidation that throws leaves
+   * the last good sitemap serving.
+   */
+  requireContent(content.products, "sitemap.xml products");
 
   const newest = (entries: { updatedAt: string }[]) =>
     entries.length

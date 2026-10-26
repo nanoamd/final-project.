@@ -67,7 +67,7 @@ async function anon(query: string): Promise<unknown> {
   return (await res.json()).result;
 }
 
-interface Check {
+export interface Check {
   label: string;
   query: string;
   /** What an exposed result means, in one line. */
