@@ -15,35 +15,27 @@ import {
  * the comment there for why they're shape-checked first.
  */
 /**
- * The token is optional, and whether it is set decides whether this project's
- * trade data is public.
+ * No token, deliberately, until the dataset is made private.
  *
- * `./config.ts` records that a tokenless GROQ query against this project
- * returns HTTP 200 with the real catalogue, and treats that as fine because the
- * catalogue is meant to be public. It is — but it is not the only thing in the
- * dataset. The same unauthenticated endpoint also returns `costPrice` and
- * `shippingCost` on all 908 products, every supplier's name against them, and
- * the `contactSubmission` and `newsletterSubscriber` documents the forms write,
- * which carry real names and email addresses.
+ * A read token was wired in here on 26 October so the dataset could be flipped
+ * to private without the site losing content — see the audit script for why
+ * that flip is needed. It was taken straight back out, because `sanityFetch`
+ * is fail-soft: it catches everything and returns the caller's fallback, so a
+ * token that is present but wrong does not raise anything. It renders an empty
+ * site and a 200.
  *
- * So the dataset needs to be private, and a private dataset needs this token.
- * Reading it here costs nothing while the dataset is still public, which means
- * the token can be deployed first and the dataset flipped second, with no
- * window where the site has no content.
+ * That makes an untested token change uniquely dangerous here. Passing
+ * `process.env.SANITY_API_READ_TOKEN` is a no-op when the variable is unset and
+ * a silent sitewide blanking when it is set to anything stale — and nothing in
+ * the deployment says which of those is true.
  *
- * Every importer of this client is under src/server or src/lib and runs
- * server-side — checked, none is a "use client" module — so the token is not
- * inlined into the browser bundle. Read straight from `process.env` for the
- * same reason ./config.ts does: `@t3-oss/env-nextjs` skips its transforms
- * under SKIP_ENV_VALIDATION, and content should still load when an unrelated
- * variable is missing.
+ * When the dataset is made private, the order is: create the Viewer token, set
+ * it in Vercel, confirm a preview deployment still renders products, and only
+ * then add `token` back here and flip the dataset. Not before.
  */
-const readToken = process.env.SANITY_API_READ_TOKEN?.trim() || undefined;
-
 export const sanityClient = createClient({
   projectId: sanityProjectId,
   dataset: sanityDataset,
   apiVersion: sanityApiVersion,
   useCdn: true,
-  token: readToken,
 });
