@@ -16,6 +16,65 @@ Status key:
 
 ---
 
+## GA4 only sees consenting visitors, so its numbers are a floor (26 October)
+
+Damien's GA4 snapshot reads **13 add to baskets, 0 purchases, £0.00 revenue**,
+against a real £81 Stripe payment on 25 October. That looks like broken
+tracking. It is not.
+
+### The purchase event is wired correctly
+
+`/checkout/success` renders `<TrackPurchase>`, which fires GA4 `purchase` and
+Meta `Purchase`, de-duplicated on the Stripe session id so a refresh cannot
+book a second sale. Nothing is missing.
+
+Two documented reasons it can legitimately miss a real order, both already
+written into the component:
+
+1. It fires from the browser on the confirmation page, not from the webhook —
+   deliberately, because a webhook has no cookies and a purchase reported from
+   there cannot be attributed to the session that produced it. A customer who
+   closes the tab on Stripe's page is not counted. **The order still exists**;
+   the webhook is what writes it.
+2. Consent. `GoogleAnalytics` returns `null` unless
+   `status === "accepted"`, so a visitor who declines **or simply ignores the
+   banner has no `gtag` on the page at all.**
+
+### What that means for every GA4 number
+
+**Everything in GA4 is a count of consenting visitors only.** 13 add-to-baskets
+is a floor, not a total. 62 active users is a floor. A conversion rate
+calculated from GA4 sessions is calculated on a subset of unknown size.
+
+This is correct behaviour — UK PECR requires consent before analytics cookies —
+so it is not a thing to fix. It is a thing to **correct for**, and right now
+nothing does.
+
+### The measurement that costs nothing
+
+Vercel Analytics is **deliberately not gated** on consent, because it is
+cookieless by design and does not fall under the same requirement — the
+reasoning is in `use-cookie-consent.tsx`. So it counts everybody.
+
+- [!] **Compare Vercel Analytics pageviews against GA4 pageviews for the same
+  window.** The ratio is the consent rate, and it is the multiplier that
+  turns every GA4 figure into a real one. Needs the Vercel link, same as
+  the billing question.
+- [ ] Until that ratio is known, treat GA4 counts as lower bounds and do not
+      compute conversion rates from them.
+
+### And it retires a worry
+
+"£0 revenue in analytics despite a real sale" has been read here as a possible
+webhook failure. It is more likely that Jennifer never accepted the banner, in
+which case nothing about her visit was ever sent. The order itself is
+unaffected — Stripe took the money and the webhook wrote the row.
+
+- [ ] Still worth confirming the Stripe webhook wrote her order to Supabase,
+      but it is no longer the leading explanation for the £0.
+
+---
+
 ## I blanked the live catalogue for a day, and the guard that stops it recurring (26 October)
 
 **My fault, start to finish.** Recording it in full because the failure mode is
