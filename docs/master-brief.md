@@ -282,7 +282,18 @@ basket builders.
       by whoever is calling.
 - [x] Verified against live data: a basket holding the Mistora canvas returns
       six Hill Interiors pieces between £33 and £43.
-
+- [x] **Verified rendered, not just compiled.** Built the site, served it
+      locally and drove it with the project's own Playwright at 390×844. Email
+      field present; rail renders four tiles — Tristan frame £33, Rhea tealight
+      holder £33, LED cluster lights £33, Garda vase £40 — and **horizontal
+      overflow is 0px**, which is the regression a new grid usually causes on a
+      phone.
+- [x] Images do not load in that environment, but the basket's own line-item
+      image fails identically, so it is the container's HTTPS proxy
+      (`ERR_CERT_AUTHORITY_INVALID`) rather than the component.
+- [-] Worth keeping as a habit: this was customer-facing UI on a branch that
+  deploys straight to production, and until that check it had only ever
+  been typechecked.
 - [ ] Re-run `set-promotion-tier.ts --apply` to write the 91. Needs a token.
 - [ ] Exclude `basket` from Performance Max via `custom_label_0`. A basket
       builder bought alone at £53 loses money on the clicks.
