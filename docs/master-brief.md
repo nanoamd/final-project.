@@ -16,6 +16,57 @@ Status key:
 
 ---
 
+## 768 products claim In Stock and only 552 can ever be checked (26 October)
+
+Counted from the live dataset, not recalled. Four products in the entire
+catalogue are marked Out of Stock — four, out of 908, after a sale was lost to
+an out-of-stock item.
+
+| Supplier                         | Products | In Stock |   Out |   Unset | Can we verify?                     |
+| -------------------------------- | -------: | -------: | ----: | ------: | ---------------------------------- |
+| Premier Housewares               |      546 |      419 |     0 |     127 | **yes** — public BigCommerce pages |
+| Hill Interiors                   |      140 |      133 |     1 |       0 | **yes** — dropship CSV             |
+| Aosom                            |      103 |      103 |     0 |       0 | **no route**                       |
+| AW Dropship                      |       56 |       55 |     1 |       0 | **no route**                       |
+| D.I. Designs                     |       54 |       54 |     0 |       0 | **no** — serves bot challenges     |
+| SaunaPlunge (Outdoor Living 365) |        8 |        3 |     2 |       0 | no — 8 products, ask Kelly         |
+| Mercia Garden Products           |        1 |        1 |     0 |       0 | no                                 |
+| **Total**                        |  **908** |  **768** | **4** | **127** |                                    |
+
+So tomorrow's two syncs cover **552 of the 768 claims**. The remaining **212 —
+Aosom 103, AW Dropship 55, D.I. Designs 54 — stay unverified guesses**, every
+one of them currently telling a customer the item is available.
+
+That is the honest ceiling on "our stock needs to be accurate". It will be
+accurate for 72% of what the shop promises, and the other 28% is a supplier
+relationship problem rather than a scripting one.
+
+- [x] Hill: `scripts/sync-hill-stock.ts`, needs the CSV
+- [x] Premier: `scripts/sync-premier-stock.ts`, needs nothing — reads their own
+      public product pages
+- [!] **Aosom (103).** No B2B feed; the supplier note still says cost is
+  "estimated at ~58% of Aosom sale until B2B feed connected". Ask for a
+  feed, or accept that a third of the unverified block is Aosom and
+  consider whether 103 products are worth keeping on that basis.
+- [!] **AW Dropship (56).** No website or portal recorded on the supplier doc
+  at all. Ask whether they publish stock anywhere.
+- [-] **D.I. Designs (54).** Deliberately not pursued. Their site serves bot
+  challenges and defeating those is outside what this project will do. Ask
+  for a feed or a login instead.
+- [!] **SaunaPlunge (8).** Small enough to ask by email, and the highest cash
+  per sale in the catalogue, so worth asking first. Kelly Marsden is the
+  contact on the supplier record.
+
+### Two things checked while counting, both fine
+
+- The 4 Out of Stock figure is not a bug in the count — it is the real state.
+  `stockStatus` defaults to In Stock and almost nothing has ever been set
+  against it.
+- The 127 blanks are Premier's, and they do not claim availability — see the
+  note under the public-dataset entry below.
+
+---
+
 ## The Sanity dataset is public, and it is not only content in there (25 October)
 
 Found while looking for the newsletter numbers, which is the only reason it was
@@ -87,6 +138,36 @@ table was one unauthenticated request away the entire time.
       rather than the urgent one.
 - [ ] Decide whether the 786 `priceAdjustment` documents need to exist in the
       same dataset as public content at all.
+
+### Also exposed: supplier contacts, and what the storefront was careful about
+
+The supplier documents carry `contactName`, `email` and `phone`, and they are
+in the same public dataset. Readable anonymously right now: a trade email
+address, a direct phone number, and a named individual at SaunaPlunge.
+
+The ledger already records narrowing the storefront's supplier projection
+because "contactName" was readable in the page source of every public product
+page, and moving contact reads server-side into
+`src/server/suppliers/contacts.ts`. That fix was correct for the page source
+and did nothing about the dataset, which has been serving the same fields to
+anyone who asked the whole time.
+
+### Checked and clean, so it is not on the list
+
+Finding one exposure of this class is a reason to look for others. Two were
+looked at and both are fine:
+
+- [x] **Supabase is properly secured.** There is a browser-side client using
+      the anon key, so RLS is the only boundary — and all 16 tables across the
+      six migrations have `enable row level security`. `profiles`, `addresses`,
+      `orders` and `returns` carry policies scoping to `auth.uid()`; the other
+      twelve have RLS on with no policy at all, which is default-deny for anon.
+      No `grant ... to anon` anywhere. Nothing to do.
+- [x] **Unset `stockStatus` does not claim availability.** 127 Premier products
+      have it blank. `canonicalAvailability()` maps blank to `backorder` and
+      `availabilityLine()` to "Availability confirmed when you order", so the
+      page and the Merchant feed both stay conservative. Already deliberate —
+      the comment in `src/lib/catalog/delivery.ts` says so.
 
 ### And it answers the question that led here
 

@@ -112,6 +112,40 @@ import default.
 
 ---
 
+## 3b. What the two syncs cannot reach
+
+Counted from the live dataset overnight. **768 of 908 products currently claim
+In Stock. Only 4 in the whole catalogue are marked Out of Stock.**
+
+| Supplier           | In Stock | Verifiable                               |
+| ------------------ | -------: | ---------------------------------------- |
+| Premier Housewares |      419 | yes — step 3                             |
+| Hill Interiors     |      133 | yes — step 2                             |
+| Aosom              |      103 | **no route**                             |
+| AW Dropship        |       55 | **no route**                             |
+| D.I. Designs       |       54 | no — serves bot challenges               |
+| SaunaPlunge        |        3 | no — but only 8 products, just ask Kelly |
+
+Steps 2 and 3 cover **552 of the 768**. The other **212 stay guesses**, each one
+telling a customer the item is available.
+
+So when you say stock needs to be accurate: after tomorrow it is accurate for
+72% of what the shop promises. The remaining 28% is a supplier conversation,
+not a script. Three emails to write:
+
+- [ ] **Aosom** — ask for a B2B/stock feed. 103 products rest on it, and their
+      cost is still recorded as "estimated at ~58% of Aosom sale".
+- [ ] **AW Dropship** — 56 products and no website or portal recorded on the
+      supplier record at all. Ask where stock is published.
+- [ ] **SaunaPlunge** — 8 products, highest cash per sale in the catalogue
+      (£793). Worth asking first because it is the smallest ask with the
+      biggest consequence.
+
+D.I. Designs I would leave. Their site serves bot challenges, I will not work
+around those, so it needs a feed or a trade login from them.
+
+---
+
 ## 4. What the two scripts will not do
 
 Neither marks anything **Backorder** or **Coming Soon**. Both feeds give a
