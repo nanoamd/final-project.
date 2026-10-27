@@ -136,6 +136,13 @@ with no content". Same shape, different cause, eleven weeks apart.
 - [x] Wired into `sitemap.ts` and the merchant feed. Production build verified
       green with the guard in place — it must not break deploys, and it does
       not.
+- [x] **What fail-closed actually costs, measured.** Across sixteen pushes that
+      night, the guard failed **one** build, on a commit that changed only a
+      markdown file — and the commits either side of it, with the guard in
+      place, both passed. So it was Sanity briefly unreachable from the runner,
+      not a defect. One flaky build in sixteen, against never publishing an
+      empty catalogue again, is the trade; the error message now names a retry
+      as a legitimate response so nobody works around it instead of reading it.
 - [x] **`scripts/verify-live-catalogue.ts`** — the other half, from outside,
       with no credentials: does the live sitemap have product URLs, does the
       feed have items, and is each actually XML rather than a firewall
