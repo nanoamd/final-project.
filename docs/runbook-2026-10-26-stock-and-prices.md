@@ -160,9 +160,13 @@ Stock, around 150 are wrong.
 It stopped at 75 on purpose. Premier's site began showing _"we are currently
 experiencing network issues and our systems are down"_ and returning 429s, and
 hammering a supplier's broken site is neither useful nor polite. **Check their
-site is up before you start this.** 99 pages are already cached from the
-attempt and a re-run today reuses them instantly, so picking up where it left
-off is cheap.
+site is up before you start this.**
+
+**I have since re-run it overnight** — see the result below if it finished, and
+the log either way. Pages are cached for twelve hours, so if you start it
+yourself within that window it only fetches what is missing rather than all 546. It also waits out a 429 now rather than skipping the product, because a
+skipped product stays unverified and unverified is the state this exists to get
+out of.
 
 Then `--apply` once the dry run reads right.
 
