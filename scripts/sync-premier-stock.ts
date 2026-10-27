@@ -63,9 +63,9 @@
  * `scripts/lib/premier-housewares.ts` caches each fetched page to disk forever,
  * which is right for importing a title and wrong for reading stock: a page
  * cached last month would reproduce the exact bug this script exists to stop.
- * Pages here are cached under a directory stamped with today's date, so a
- * re-run after a crash resumes without re-fetching, and tomorrow's run starts
- * clean.
+ * Pages here expire after twelve hours instead, so a crashed or interrupted
+ * run resumes without re-fetching while yesterday's figures can never pass for
+ * today's.
  *
  * ## Running it
  *
@@ -98,7 +98,7 @@
  * `purchasable` was false on all fourteen, including one with 956 units. It
  * tracks the logged-out price, not stock, and is why it is not read here.
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { createClient } from "@sanity/client";
@@ -261,21 +261,41 @@ export function indexSitemapBySku(xml: string): Map<string, string> {
   return map;
 }
 
-/** Today's cache directory. Tomorrow's run gets a different one, on purpose. */
+/**
+ * How long a cached page may be reused.
+ *
+ * This was a date-stamped directory, which was wrong in a way that only showed
+ * up once a run crossed midnight: a run started at 23:50 threw away its own
+ * first ten minutes of work at 00:00 and began re-fetching pages it had just
+ * paid ten seconds each for. 211 pages were lost that way.
+ *
+ * An age is what was actually meant. Twelve hours is comfortably inside a day
+ * — the point of the cache is to make a crashed or interrupted run cheap to
+ * resume, not to let yesterday's stock figures masquerade as today's.
+ */
+const CACHE_MAX_AGE_MS = 12 * 60 * 60 * 1000;
+
 function cacheDir(): string {
-  const day = new Date().toISOString().slice(0, 10);
-  return path.join(process.cwd(), ".image-work/premier-stock", day);
+  return path.join(process.cwd(), ".image-work/premier-stock");
+}
+
+/** The cached file, if it exists and is young enough to still be true. */
+async function readIfFresh(file: string): Promise<string | null> {
+  try {
+    const info = await stat(file);
+    if (Date.now() - info.mtimeMs > CACHE_MAX_AGE_MS) return null;
+    return await readFile(file, "utf8");
+  } catch {
+    return null;
+  }
 }
 
 async function fetchFresh(url: string, key: string): Promise<string | null> {
   const dir = cacheDir();
   await mkdir(dir, { recursive: true });
   const file = path.join(dir, `${key}.html`);
-  try {
-    return await readFile(file, "utf8");
-  } catch {
-    // not cached today — fetch it
-  }
+  const cached = await readIfFresh(file);
+  if (cached !== null) return cached;
   const res = await getWithTimeout(url);
   await sleep(PH_DELAY_MS);
   if (!res) return null;
@@ -292,11 +312,8 @@ async function sitemapXml(): Promise<string> {
   const dir = cacheDir();
   await mkdir(dir, { recursive: true });
   const file = path.join(dir, "sitemap.xml");
-  try {
-    return await readFile(file, "utf8");
-  } catch {
-    // not cached today — fetch it
-  }
+  const cached = await readIfFresh(file);
+  if (cached !== null) return cached;
   const pages: string[] = [];
   for (const page of [1, 2]) {
     const res = await getWithTimeout(
