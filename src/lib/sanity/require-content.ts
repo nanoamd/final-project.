@@ -47,9 +47,17 @@ export function requireContent<T>(
 
   throw new Error(
     `${what}: expected at least ${min} item(s) from Sanity, got ${items.length}. ` +
-      "Refusing to publish an empty catalogue. This is almost always credentials " +
-      "or connection settings rather than the data — check SANITY_API_READ_TOKEN " +
-      "and the NEXT_PUBLIC_SANITY_* variables in the deployment, and compare " +
-      "against a direct query to the dataset. See src/lib/sanity/require-content.ts.",
+      "REFUSING TO PUBLISH AN EMPTY CATALOGUE.\n\n" +
+      "This fails the build on purpose. The alternative is what happened on 26 " +
+      "October: a green build that shipped a 31-URL sitemap and a feed with no " +
+      "items, after which Merchant Center withdrew the products it held.\n\n" +
+      "Two causes, in order of likelihood:\n" +
+      "  1. Credentials or connection settings. Check SANITY_API_READ_TOKEN and " +
+      "the NEXT_PUBLIC_SANITY_* variables in this deployment, and compare " +
+      "against a direct query to the dataset.\n" +
+      "  2. Sanity was briefly unreachable or rate-limited. This build is " +
+      "fail-closed, so a transient outage fails it rather than publishing " +
+      "emptiness — if nothing has changed, retry the build.\n\n" +
+      "See src/lib/sanity/require-content.ts.",
   );
 }

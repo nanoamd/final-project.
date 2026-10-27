@@ -12,7 +12,7 @@ describe("requireContent", () => {
     // sanityFetch returns [] when the request fails. That is indistinguishable
     // from a genuinely empty dataset, and both should stop a deploy.
     expect(() => requireContent([], "merchant feed")).toThrow(
-      /Refusing to publish an empty catalogue/,
+      /REFUSING TO PUBLISH AN EMPTY CATALOGUE/,
     );
   });
 
@@ -24,6 +24,13 @@ describe("requireContent", () => {
     expect(() => requireContent([], "sitemap")).toThrow(
       /SANITY_API_READ_TOKEN/,
     );
+  });
+
+  it("says a transient outage is the other cause, and to retry", () => {
+    // Fail-closed means a brief Sanity outage fails a build that would
+    // otherwise have shipped an empty site. Whoever reads the log at 3am
+    // should not have to guess whether retrying is reasonable.
+    expect(() => requireContent([], "sitemap")).toThrow(/retry the build/);
   });
 
   it("honours a higher floor for an artefact that should never be nearly empty", () => {
