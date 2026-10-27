@@ -153,9 +153,40 @@ pnpm tsx --env-file=.env.local scripts/sync-premier-stock.ts
 **This takes about an hour and a half.** Premier's `robots.txt` asks for a
 10-second crawl delay and the script honours it. Start it, leave it, come back.
 
-**Already part-run overnight: 28 of the first 75 products — 37% — had the wrong
-stock status.** If that holds across the 419 Premier products claiming In
-Stock, around 150 are wrong.
+**Done overnight — the full dry run finished.** 440 pages read, nothing
+unreadable, 8 rate limits all waited out. The result corrects the 37% figure I
+gave you from the partial run, which was overstated:
+
+| What changed                                   | Count |
+| ---------------------------------------------- | ----: |
+| **Claiming In Stock, Premier has none**        | **6** |
+| Zero stock, status unset (claims nothing)      |     4 |
+| Unset → In Stock with a real quantity          |    94 |
+| Right about availability, wrong about how many |   215 |
+
+**Six products are actively saying something untrue**, not 150. They are the
+Boho bedside table, Miami rattan patio set, Mize over-door mirror, Ordona
+curved sofa, Palermo marble coffee table and Ulmus bookshelf. **Take those off
+sale today even if you run nothing else.**
+
+The bigger number is the opposite problem: **94 products had no status at all**
+and were rendering "Availability confirmed when you order" — honest but vague,
+and vague does not sell a £40 soap dish. And **37 are down to five or fewer**,
+so they will start saying "Only N left". One is the Black Garden Chair with 1
+left, which is in your abandoned-basket list at £83.
+
+**106 of 546 are not in Premier's sitemap at all** — Addison, Anglet, Avignon,
+the whole Babel range. Valid-looking sequential codes, so probably too new to
+be published. Left alone, not guessed at. Worth asking Premier about.
+
+To apply it:
+
+```
+pnpm tsx --env-file=.env.local scripts/sync-premier-stock.ts --apply
+```
+
+Pages are cached twelve hours, so within that window it costs minutes rather
+than an hour.
 
 It stopped at 75 on purpose. Premier's site began showing _"we are currently
 experiencing network issues and our systems are down"_ and returning 429s, and

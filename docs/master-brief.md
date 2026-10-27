@@ -307,6 +307,65 @@ basket builders.
 
 ---
 
+## The full Premier stock run, and a correction to my own figure (27 October)
+
+The run finished. **440 pages read, nothing unreadable, 8 rate limits all
+waited out rather than skipped.**
+
+### First, the correction
+
+From the partial run I reported "28 of the first 75 — 37% — have a stock status
+that does not match" and said roughly 150 of the 419 claiming In Stock were
+probably wrong. **That was overstated, and the extrapolation was the wrong
+shape.**
+
+"Differ" counts any change, and most of them are not false claims:
+
+| What changed                                   |   Count |
+| ---------------------------------------------- | ------: |
+| **Claiming In Stock, Premier has none**        |   **6** |
+| Zero stock, status was unset (claims nothing)  |       4 |
+| Unset → In Stock, with a real quantity         |      94 |
+| Right about availability, wrong about how many |     215 |
+| **Total changes**                              | **319** |
+
+**Six products are actively telling customers something untrue.** Not 150.
+
+The six: Boho Two Drawer Bedside Table, Miami Dual Tone Rattan 3 Piece Patio
+Set, Mize Black Over Door Mirror, Ordona Cream Linen 3 Seater Curved Sofa,
+Palermo Round White Marble Top Coffee Table, Ulmus Grey Elm 4 Tier Bookshelf.
+
+### Second, the bigger number is the opposite problem
+
+**94 products had no status at all** and now get In Stock with a real quantity
+— 1,198 of one chopping board, 200 soap dispensers. Those were rendering as
+"Availability confirmed when you order", which is honest but vague, and vague
+does not sell a £40 soap dish. That is 94 products presented worse than the
+truth, against 6 presented better than it.
+
+**37 are down to five or fewer** and will now say "Only N left in stock" — a
+real scarcity signal rather than an invented one, which is exactly what
+`product-summary.tsx` says it was waiting for. One of them is the Black Garden
+Chair, **1 left**, which appears in the abandoned-basket list at £83 on 22
+October.
+
+### Third, 106 cannot be matched at all
+
+106 of 546 Premier SKUs are not in Premier's public sitemap — Addison, Anglet,
+Avignon, Azalea, the whole Babel range. The codes look valid and sequential
+(5530011–5530014), so these read as lines too new for the sitemap or not
+published publicly at all. They are left alone, not guessed at.
+
+- [x] Full dry run completed against live data
+- [x] 429 backoff proven: 8 rate limits, 0 products lost
+- [!] **Run it again with `--apply`** — needs `SANITY_API_WRITE_TOKEN`. Pages
+  are cached 12 hours, so if you do it within that window it costs minutes
+  rather than an hour.
+- [!] **Take those 6 off sale today** even if nothing else is run
+- [ ] Ask Premier why 106 SKUs are absent from the sitemap
+
+---
+
 ## 28 of the first 75 Premier products checked were wrong about stock (26 October)
 
 Ran `scripts/sync-premier-stock.ts` as a dry run overnight. It needs no
