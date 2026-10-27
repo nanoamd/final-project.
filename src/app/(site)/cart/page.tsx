@@ -1,6 +1,6 @@
 "use client";
 
-import { Lock, Minus, Plus, RotateCcw, Trash2 } from "lucide-react";
+import { Lock, Minus, Plus, RotateCcw, Trash2, Truck } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -12,6 +12,10 @@ import { useCart } from "@/hooks/use-cart";
 import { trackBeginCheckout } from "@/lib/analytics/events";
 import { formatPriceExact } from "@/lib/format";
 import { createCheckoutSession } from "@/server/actions/checkout";
+import {
+  type BasketDeliveryAnswer,
+  checkDeliverability,
+} from "@/server/actions/deliverability";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart();
@@ -32,6 +36,60 @@ export default function CartPage() {
    * customer to recover some of the ones who leave.
    */
   const [email, setEmail] = React.useState("");
+  /**
+   * Optional delivery postcode, and what the server makes of it.
+   *
+   * Asked here because this is the last page Kaiku controls. Stripe Checkout
+   * accepts every GB postcode — there is no allow-list to configure — and a
+   * two-person delivery service does not reach Northern Ireland, the Isle of
+   * Man, the Outer Hebrides, Orkney, Shetland or the remoter Highlands and
+   * Argyll. Without this, an order for a 63kg bookcase to a BT address is
+   * taken, paid and then unwound.
+   *
+   * Optional for the same reason the email field is: a required field in
+   * front of a payment button is a cost paid by every customer. The server
+   * refuses the impossible combination either way — see
+   * server/actions/checkout.ts — so leaving it blank delays the news to the
+   * Checkout press rather than skipping the check.
+   */
+  const [postcode, setPostcode] = React.useState("");
+  const [answer, setAnswer] = React.useState<BasketDeliveryAnswer | null>(null);
+  const blocked = answer?.verdict.deliverable === false;
+
+  const slugKey = items.map((item) => item.slug).join(",");
+
+  React.useEffect(() => {
+    if (!slugKey) return;
+    let cancelled = false;
+    /**
+     * Asked with whatever postcode has been typed, including none.
+     *
+     * One effect rather than two because the answer carries both facts and
+     * they come from one query: the arrival window, which does not depend on
+     * the address and so must appear without one, and the postcode verdict,
+     * which only says anything once there is a postcode to judge. A short or
+     * empty entry is a deliverable verdict by construction — see
+     * checkBasketDeliverability — so there is nothing to special-case here,
+     * and nothing to set synchronously in the effect body.
+     *
+     * Debounced because it fires on keystrokes, and the answer for "IV2" is
+     * not the answer for "IV27". The last one typed is the only one counted.
+     */
+    const timer = setTimeout(() => {
+      checkDeliverability(slugKey.split(","), postcode.trim())
+        .then((result) => {
+          if (!cancelled) setAnswer(result);
+        })
+        .catch(() => {
+          // Silent: this is a courtesy, and createCheckoutSession runs the
+          // same test where it cannot fail open.
+        });
+    }, 400);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [postcode, slugKey]);
 
   async function handleCheckout() {
     setError(null);
@@ -55,6 +113,7 @@ export default function CartPage() {
           selectedOptions: item.selectedOptions,
         })),
         email,
+        postcode,
       );
     } catch (err) {
       setError(
@@ -195,8 +254,26 @@ export default function CartPage() {
             </span>
           </div>
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Free UK delivery.
+            Free UK delivery, included in the price.
           </p>
+          {/* The arrival estimate, on the page where someone is deciding to
+              pay. It was previously stated on the product page and then not
+              again until the confirmation email, so a basket with a 3-4 week
+              piece in it read as though it were about to be dispatched.
+              Always the slowest line in the basket — see slowestWindow. */}
+          {answer?.window ? (
+            <p className="text-graphite mt-3 flex items-start gap-2 text-[13px]">
+              <Truck
+                className="text-ink/50 mt-px size-[15px] shrink-0"
+                strokeWidth={1.5}
+                aria-hidden
+              />
+              <span>
+                {items.length > 1 ? "Everything arrives" : "Arrives"} in{" "}
+                {answer.window}
+              </span>
+            </p>
+          ) : null}
           <div className="mt-6">
             <label
               htmlFor="checkout-email"
@@ -219,13 +296,56 @@ export default function CartPage() {
               it blank and enter it on the next page.
             </p>
           </div>
+          <div className="mt-5">
+            <label
+              htmlFor="checkout-postcode"
+              className="text-ink block text-[13px] font-medium"
+            >
+              Delivery postcode{" "}
+              <span className="text-muted font-normal">(optional)</span>
+            </label>
+            <input
+              id="checkout-postcode"
+              type="text"
+              inputMode="text"
+              autoComplete="postal-code"
+              autoCapitalize="characters"
+              spellCheck={false}
+              maxLength={12}
+              value={postcode}
+              onChange={(e) => setPostcode(e.target.value)}
+              placeholder="e.g. BT1 5GS"
+              aria-describedby="postcode-note"
+              aria-invalid={blocked || undefined}
+              className="border-line bg-canvas text-ink placeholder:text-muted/70 focus:border-ink mt-2 h-11 w-full rounded-lg border px-3 text-[15px] uppercase transition-colors outline-none"
+            />
+            <p id="postcode-note" className="text-muted mt-2 text-[13px]">
+              Some larger pieces travel on a two-person service that
+              doesn&rsquo;t reach every part of the UK. We&rsquo;ll check before
+              you pay rather than after.
+            </p>
+          </div>
+          {/* Shown in place of a refund. The same test runs server-side in
+              createCheckoutSession, so a blank or edited postcode does not
+              get an impossible order through — it only moves the news to the
+              Checkout press. */}
+          {blocked && answer?.verdict.message ? (
+            <div
+              role="alert"
+              className="border-brass/40 bg-brass/5 mt-5 rounded-lg border p-4"
+            >
+              <p className="text-ink text-[13px] leading-relaxed">
+                {answer.verdict.message}
+              </p>
+            </div>
+          ) : null}
           {error ? (
             <p className="text-brass mt-4 text-[13px]">{error}</p>
           ) : null}
           <button
             type="button"
             onClick={handleCheckout}
-            disabled={checkingOut}
+            disabled={checkingOut || blocked}
             className="bg-ink hover:bg-ink/90 text-canvas mt-6 flex h-13 w-full items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors disabled:opacity-60"
           >
             {checkingOut ? "Redirecting…" : "Checkout"}
@@ -259,7 +379,7 @@ export default function CartPage() {
         <button
           type="button"
           onClick={handleCheckout}
-          disabled={checkingOut}
+          disabled={checkingOut || blocked}
           className="bg-ink hover:bg-ink/90 text-canvas flex h-12 flex-1 items-center justify-center rounded-lg text-[12px] font-semibold tracking-[0.14em] uppercase transition-colors disabled:opacity-60"
         >
           {checkingOut ? "Redirecting…" : "Checkout"}

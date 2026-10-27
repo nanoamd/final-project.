@@ -16,6 +16,87 @@ Status key:
 
 ---
 
+## The basket now refuses an order Kaiku cannot deliver (27 October)
+
+Found by building the site and driving it at 390px — the first rendered audit of
+Kaiku rather than a reading of its code.
+
+### The hole
+
+Checkout collects a GB address and charges **£0 carriage to all of it**:
+`shipping_address_collection: { allowed_countries: ["GB"] }` plus a single
+fixed `amount: 0` rate named "Free UK Delivery". **Stripe Checkout has no
+postcode allow-list**, so every GB postcode is accepted by construction.
+
+But a two-person delivery service does not reach BT, HS, IM, KW or ZE at all,
+nor IV26-99, KA27-28, PA15-78 or PH19-50 — `delivery-zones.ts` has taken those
+ranges from Hill's own rate card since September. So an order from Belfast for
+the 63kg Light Up Bookcase completed, took the money, and then had to be
+unwound: the highest-carriage piece in the range, refunded, on a new customer's
+first contact with the shop.
+
+The product page already printed `TWO_MAN_EXCLUSION_NOTE` asking the buyer to
+check first. That is a request, not a guard — it relies on someone reading a
+paragraph and acting against their own momentum.
+
+- [x] **`src/lib/catalog/deliverability.ts`** — `checkBasketDeliverability`,
+      pure, one verdict for every surface that asks. 17 tests.
+- [x] **Refused server-side in `createCheckoutSession`** before the Stripe
+      session exists, so there is no payment to reverse. Reads the carriage flags
+      from the live Sanity record via `sanityClient.fetch`, which throws — the
+      guard cannot fail open.
+- [x] **Optional postcode field on the basket**, debounced, so the buyer learns
+      before pressing Checkout rather than after paying. Both Checkout buttons
+      disable while blocked. The advisory goes through `sanityFetch`, which fails
+      soft, and that is safe precisely because it is not the guard.
+- [x] **A test asserts the prose still matches the classifier.** Every excluded
+      area is checked against the sentence that names it, so adding a postcode
+      range to `delivery-zones.ts` fails the suite until the copy is updated.
+
+### The basket now says when it arrives
+
+- [x] `slowestWindow()` in `delivery.ts` — a basket arrives when its slowest
+      piece arrives, compared on parsed handling days so "7-14 days" loses to
+      "3-4 weeks". Shown on the basket card. It was previously stated on the
+      product page and then not again until the confirmation email, so a basket
+      holding a 3-4 week piece read as though it were about to be dispatched.
+
+### Three surfaces said three different things about one price
+
+- [x] "Tax included. Free UK delivery." is gone from the product page and the
+      basket. **Kaiku is not VAT registered**, so there is no tax component in the
+      price to include, and saying there is invites a VAT receipt request that
+      cannot be answered. Both now read "Free UK delivery, included in the price."
+- [x] The order-confirmation email said delivery was free "across the UK
+      mainland" in six places — narrowing a promise Stripe does not narrow, since
+      it charges £0 to any GB address including Northern Ireland. Now "anywhere in
+      the UK", which is what is actually honoured.
+
+### Fixed: 79px of horizontal scroll on every product page
+
+- [x] A grid item defaults to `min-width: auto`, so it refuses to shrink below
+      its content. Measured on the Roza clock at 390px: container 390, both columns 444. `[&>*]:min-w-0` on the product grid. Every audited route now measures 0.
+
+### Blocked on you
+
+- [!] **The footer blurb still says "free UK mainland delivery."** It lives in
+  Sanity `siteSettings.description`, not in code, so I cannot change it.
+  Studio -> Site Settings -> Description, replace "free UK mainland delivery"
+  with "free UK delivery". One line, 30 seconds.
+- [!] **Your call on the £10 remote surcharge.** Kaiku absorbs it on every
+  BT/HS/IM/IV/KW/ZE, Isle of Wight and Highlands order, silently, out of
+  margin. The site promising free delivery there is consistent with what
+  Stripe charges, so nothing is lying — but it is a cost you have not chosen.
+  Say the word and carriage can be charged on those postcodes instead.
+- [!] **The `| Kaiku` suffix is in the on-page H1, not just the tab title.**
+  All 908 product names carry it in Sanity, so the visible heading reads
+  "Roza Panelled Wall Clock | Kaiku", and so does the basket line and every
+  add-on card. Standing constraints say do not strip it, so I have not. It is
+  a one-line render-time change in `product-summary.tsx` that would leave the
+  Sanity names, the feed titles and the Shopping ads untouched, if you want it.
+
+---
+
 ## GA4 only sees consenting visitors, so its numbers are a floor (26 October)
 
 Damien's GA4 snapshot reads **13 add to baskets, 0 purchases, £0.00 revenue**,

@@ -89,7 +89,12 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           </span>
         </nav>
 
-        <div className="mt-8 grid gap-10 pb-16 lg:grid-cols-2 lg:gap-14">
+        {/* `[&>*]:min-w-0` because a grid item defaults to `min-width: auto`, so it
+            refuses to shrink below its content and pushes the track wider than the
+            viewport. Measured on /shop/wall-clocks/roza-panelled-wall-clock at
+            390px: the container was 390 and both columns were 444, giving the
+            whole page 79px of horizontal scroll on a phone. */}
+        <div className="mt-8 grid gap-10 pb-16 lg:grid-cols-2 lg:gap-14 [&>*]:min-w-0">
           <ProductDetailInteractive product={product} />
         </div>
       </div>

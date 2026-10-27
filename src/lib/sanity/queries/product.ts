@@ -827,6 +827,43 @@ export async function getBasketAddOns(
   return normalizeProducts(raw);
 }
 
+const BASKET_CARRIAGE_QUERY = /* groq */ `
+*[_type == "product" && slug.current in $slugs] {
+  "slug": slug.current,
+  title,
+  price,
+  "weightKg": weight.value,
+  deliverySize,
+  deliveryLeadTime,
+  "supplierName": supplier->name
+}`;
+
+/** What the basket page cannot work out for itself: carriage and lead time. */
+export interface BasketDeliveryFact {
+  slug: string;
+  title: string;
+  price: number | null;
+  weightKg: number | null;
+  deliverySize: string | null;
+  deliveryLeadTime: string | null;
+  supplierName: string | null;
+}
+
+/**
+ * The delivery inputs for the things in a basket.
+ *
+ * Deliberately narrow: what decides the service (`deliverySize`, `weight`)
+ * and what decides the window (`price`, `deliveryLeadTime`, supplier). The
+ * basket already holds names and prices for display, and nothing here — least
+ * of all a cost price — needs to be fetched to answer either question.
+ */
+export async function getBasketCarriage(
+  slugs: string[],
+): Promise<BasketDeliveryFact[]> {
+  if (!slugs.length) return [];
+  return sanityFetch(BASKET_CARRIAGE_QUERY, { slugs }, []);
+}
+
 export async function getRelatedProducts(
   product: SanityProduct,
   limit = 4,

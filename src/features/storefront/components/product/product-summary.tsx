@@ -289,8 +289,14 @@ export function ProductSummary({
               {formatPriceExact(product.price)}
             </p>
           )}
+          {/* Not "Tax included" — Kaiku is not VAT registered, so there is no
+              tax component in the price to include, and saying there is
+              invites a VAT receipt request that cannot be answered. What the
+              line needs to say is that the price is the whole price, which is
+              the delivery half of it. Matches the basket and the
+              confirmation email word for word; all three used to differ. */}
           <p className="text-muted mt-2 text-[13px]">
-            Tax included. Free UK delivery.
+            Free UK delivery, included in the price.
           </p>
           <div className="text-graphite mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px]">
             <span className="flex items-center gap-2">

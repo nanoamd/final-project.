@@ -5,6 +5,7 @@ import "server-only";
 import { redirect } from "next/navigation";
 
 import { siteUrl } from "@/config/site";
+import { checkBasketDeliverability } from "@/lib/catalog/deliverability";
 import { sanityClient } from "@/lib/sanity/client";
 import { createClient } from "@/lib/supabase/server";
 import { cleanEmail } from "@/lib/validation/email";
@@ -27,6 +28,10 @@ interface PriceLookup {
   supplier: string | null;
   stockStatus: string | null;
   stockQuantity: number | null;
+  /** Kilograms, the fallback input to needsTwoManDelivery. */
+  weightKg: number | null;
+  /** The supplier's own routing flag — "Small" courier, "Large" two-man. */
+  deliverySize: string | null;
 }
 
 const PRICE_LOOKUP_QUERY = /* groq */ `
@@ -40,7 +45,9 @@ const PRICE_LOOKUP_QUERY = /* groq */ `
   "category": category->slug.current,
   "supplier": supplier->name,
   stockStatus,
-  stockQuantity
+  stockQuantity,
+  "weightKg": weight.value,
+  deliverySize
 }`;
 
 // stockStatus values that mean "not actually orderable right now" — Backorder
@@ -81,6 +88,16 @@ export async function createCheckoutSession(
    * leave, and nothing here is worth that trade.
    */
   email?: string,
+  /**
+   * Optional delivery postcode, from the basket page.
+   *
+   * Checked here as well as on the basket because the basket's own check is a
+   * client-side courtesy and this is the only point money is about to move.
+   * See lib/catalog/deliverability.ts: Stripe Checkout cannot filter by
+   * postcode, so an order a two-person service cannot reach has to be refused
+   * before the session is created or unwound after it is paid.
+   */
+  postcode?: string,
 ) {
   if (!lines.length) {
     throw new Error("Cannot check out an empty cart.");
@@ -124,6 +141,23 @@ export async function createCheckoutSession(
           : `${product.title} is out of stock — please remove it from your basket.`,
       );
     }
+  }
+
+  // Refused before the Stripe session exists, so there is no payment to
+  // reverse and no customer wondering why their money came back. Uses the
+  // live Sanity carriage flags rather than anything the basket sent, for the
+  // same reason prices and stock are re-read above.
+  const verdict = checkBasketDeliverability(
+    products.map((product) => ({
+      slug: product.slug,
+      title: product.title,
+      weightKg: product.weightKg,
+      deliverySize: product.deliverySize,
+    })),
+    postcode,
+  );
+  if (!verdict.deliverable && verdict.message) {
+    throw new Error(verdict.message);
   }
 
   const lineItems = lines.map((line) => {

@@ -9,6 +9,7 @@ import {
   handlingDays,
   leadTimeLine,
   schemaOrgAvailability,
+  slowestWindow,
   standardWindowForPrice,
 } from "./delivery";
 
@@ -218,5 +219,55 @@ describe("availabilityDate", () => {
     const handling = handlingDays("3–4 weeks");
     expect(handling).toEqual({ min: 21, max: 28 });
     expect(availabilityDate(handling, noon)).toBe("2026-10-22T00:00+0000");
+  });
+});
+
+/**
+ * A basket arrives when its slowest piece arrives. Quoting anything else on
+ * the basket page is a promise the shop cannot keep.
+ */
+describe("slowestWindow", () => {
+  it("returns null for an empty basket", () => {
+    expect(slowestWindow([])).toBeNull();
+  });
+
+  it("picks the longest window, not the first or the dearest", () => {
+    expect(
+      slowestWindow([
+        { price: 1200, deliveryLeadTime: null },
+        { price: 30, deliveryLeadTime: null },
+      ]),
+    ).toBe(standardWindowForPrice(1200));
+  });
+
+  /**
+   * Compared on parsed days rather than on the strings, so weeks beat days
+   * however they are worded — "7-14 days" must lose to "3-4 weeks".
+   */
+  it("compares across units", () => {
+    expect(
+      slowestWindow([
+        // SaunaPlunge, because that is the only supplier whose recorded
+        // lead time survives resolveDeliveryWindow — see
+        // CONFIRMED_LEAD_TIME_SUPPLIERS. Any other name falls back to the
+        // price band and this would compare two identical windows.
+        {
+          price: 0,
+          supplierName: "SaunaPlunge",
+          deliveryLeadTime: "7-14 days",
+        },
+        {
+          price: 0,
+          supplierName: "SaunaPlunge",
+          deliveryLeadTime: "3-4 weeks",
+        },
+      ]),
+    ).toBe("3-4 weeks");
+  });
+
+  it("states something for a single item", () => {
+    expect(slowestWindow([{ price: 40, deliveryLeadTime: null }])).toBe(
+      standardWindowForPrice(40),
+    );
   });
 });

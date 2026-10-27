@@ -270,6 +270,35 @@ export function resolveDeliveryWindow(input: {
   return standardWindowForPrice(input.price ?? 0);
 }
 
+/**
+ * The slowest delivery window in a basket, which is the one that matters.
+ *
+ * A basket of three things arrives when the last of them arrives, so quoting
+ * anything but the longest window on the basket page is a promise the shop
+ * cannot keep. Picked by `handlingDays().max` rather than by reading the
+ * strings, so "7-14 days" and "3-4 weeks" compare correctly; a window
+ * `handlingDays` cannot parse loses to one it can, and an all-unparseable
+ * basket returns the first window rather than nothing, because a basket
+ * always has some window to state.
+ *
+ * Returns null only for an empty basket.
+ */
+export function slowestWindow(
+  items: {
+    price: number | null | undefined;
+    supplierName?: string | null;
+    deliveryLeadTime?: string | null;
+  }[],
+): string | null {
+  let best: { window: string; max: number } | null = null;
+  for (const item of items) {
+    const window = resolveDeliveryWindow(item);
+    const max = handlingDays(window)?.max ?? 0;
+    if (!best || max > best.max) best = { window, max };
+  }
+  return best?.window ?? null;
+}
+
 export function deliveryWindow(product: SanityProduct): string {
   return resolveDeliveryWindow({
     price: product.price,

@@ -85,7 +85,7 @@ export function buildOrderConfirmationEmail(order: OrderEmailData): BuiltEmail {
         ...itemRows,
         {
           title: `<span style="font-size:14px;">Delivery</span>`,
-          detail: "Free, UK mainland",
+          detail: "Free, anywhere in the UK",
           amount: escapeHtml(formatMoney(0, order.currency)),
         },
       ]),
@@ -96,8 +96,8 @@ export function buildOrderConfirmationEmail(order: OrderEmailData): BuiltEmail {
       subheading("Delivery"),
       paragraph(
         shared
-          ? `${escapeHtml(describeLeadTime(shared))}. Delivery is free across the UK mainland and is included in the price you have paid.`
-          : "Delivery is free across the UK mainland and is included in the price you have paid. Each piece carries its own lead time, shown against it above.",
+          ? `${escapeHtml(describeLeadTime(shared))}. Delivery is free anywhere in the UK and is included in the price you have paid.`
+          : "Delivery is free anywhere in the UK and is included in the price you have paid. Each piece carries its own lead time, shown against it above.",
       ),
       paragraph(
         anyUnknownLeadTime
@@ -151,12 +151,12 @@ export function buildOrderConfirmationEmail(order: OrderEmailData): BuiltEmail {
     greeting,
     "Your payment has gone through and the order is with us. Here is what you bought.",
     order.items.map((item) => textLine(item, order.currency)).join("\n"),
-    `Delivery: free, UK mainland — ${formatMoney(0, order.currency)}`,
+    `Delivery: free, anywhere in the UK — ${formatMoney(0, order.currency)}`,
     `Total paid: ${total}`,
     "DELIVERY",
     shared
-      ? `${describeLeadTime(shared)}. Delivery is free across the UK mainland and is included in the price you have paid.`
-      : "Delivery is free across the UK mainland and is included in the price you have paid. Each piece carries its own lead time, shown against it above.",
+      ? `${describeLeadTime(shared)}. Delivery is free anywhere in the UK and is included in the price you have paid.`
+      : "Delivery is free anywhere in the UK and is included in the price you have paid. Each piece carries its own lead time, shown against it above.",
     anyUnknownLeadTime
       ? "Where no lead time is shown above, we will confirm it by email once the piece is booked with the maker. We will email you to arrange a delivery date."
       : "We will email you to arrange a delivery date.",
