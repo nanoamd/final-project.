@@ -1,8 +1,17 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import {
+  facetPagesFor,
+  facetPath,
+  LISTING_CEILING,
+} from "@/lib/catalog/facet-pages";
 import { TOOL_GROUPS } from "@/lib/content/tools";
-import { getSitemapContent } from "@/lib/sanity/queries/sitemap";
+import { getProductsByCategory } from "@/lib/sanity/queries/product";
+import {
+  getSitemapContent,
+  type SitemapEntry,
+} from "@/lib/sanity/queries/sitemap";
 import { requireContent } from "@/lib/sanity/require-content";
 
 /**
@@ -158,8 +167,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...lastModified(item.updatedAt),
     }));
 
+  /**
+   * Every curated facet page, resolved from the catalogue.
+   *
+   * Generated rather than listed, from the same function the routes use, so
+   * the sitemap cannot advertise a page that does not exist or omit one that
+   * does. A tag that falls out of use drops out of both on the next build.
+   */
+  const facetRoutes: SitemapEntry[] = [];
+  for (const category of content.categories) {
+    const slug = category.path.replace(/^\/shop\//, "");
+    const products = await getProductsByCategory(slug, {
+      limit: LISTING_CEILING,
+    });
+    for (const page of facetPagesFor(products)) {
+      facetRoutes.push({
+        path: facetPath(slug, page.kind, page.value),
+        updatedAt: category.updatedAt,
+      });
+    }
+  }
+
   return [
     ...staticEntries,
+    // The curated facet pages, which exist precisely because the query-string
+    // versions are blocked. Below products, above posts: each is a way into
+    // several products, but a product is what someone ultimately buys.
+    ...entries(facetRoutes, "weekly", 0.5),
     // Above categories: a room page is the parent of several of them.
     ...entries(content.departments, "weekly", 0.7),
     ...entries(content.categories, "daily", 0.8),

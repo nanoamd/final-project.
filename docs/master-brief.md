@@ -16,6 +16,83 @@ Status key:
 
 ---
 
+## 83 curated landing pages, built from the catalogue (28 October)
+
+The other half of blocking the facet query strings. Those URLs were a
+combinatorial crawl trap returning byte-identical HTML, so they are now
+refused in robots.txt — but the _intent_ behind them is real. "Rattan garden
+furniture" and "black lighting" are searches with their own competition; a
+category page answers "garden furniture" and nothing narrower.
+
+**83 real pages**, each holding at least eight products, each a search
+somebody types. Which ones exist is decided from the catalogue itself, so a
+tag that falls out of use stops generating a page on the next build.
+
+### The four rules that stop this being the same trap again
+
+- [x] **A floor of 8 products.** A page with three products has nothing to
+      rank for.
+- [x] **A ceiling of 85% of the category.** If a tag covers nearly everything,
+      its page _is_ the category page with a different heading — duplicate
+      content, which is the thing being escaped.
+- [x] **Colour and material only. Style tags are excluded deliberately:**
+      "Modern" and "Contemporary" are each applied to **115 of the 138 lighting
+      products**, so those two pages would duplicate each other _and_ the
+      category. A vocabulary applied to everything describes nothing.
+- [x] **Price bands are hand-written** — "under £100", "under £500" — so the
+      boundaries are the ones shoppers use rather than wherever the data clumps.
+
+17 tests pin all four.
+
+### What the pages carry
+
+- [x] A heading in the order the search is typed: **"Rattan Garden
+      Furniture"**, not "Garden Furniture — Rattan".
+- [x] An intro **computed, never written**: how many of the category qualify,
+      the price range, and what else is available. 83 pages of written copy would
+      be 83 pages of filler, and this catalogue has had that problem before.
+- [x] The same product tile as the category grid, exported rather than
+      copied — it carries the editor's alt text, the no-"From" price line and the
+      variant-photo lookup, and a duplicate would be fixed once and broken twice.
+- [x] `BreadcrumbList` and `ItemList`, a visible trail, and self-canonical
+      metadata.
+
+### Why the URLs look like that
+
+`/shop/sofas/grey` cannot work — three segments is already a product URL, and
+Next refuses two different slug names at one position (`[facet]` vs
+`[product]`). So the kind is a **literal** segment, the same thing
+`/shop/[category]/all` already does: `/shop/garden-furniture/material/rattan`.
+
+### The linking, which is the point
+
+- [x] Every category page now links to its facet pages — without that they
+      exist only in the sitemap, which is a weak way to be found.
+- [x] Every facet page links back to its category and sideways to its
+      siblings.
+- [x] All 83 are in the sitemap.
+
+Verified on the built site: `/shop/garden-furniture` links to all 8 of its
+facet pages; `/shop/garden-furniture/material/rattan` returns 200 with 35
+products, and links back, sideways, and to 35 individual product pages.
+Measured at 375, 390 and 430px: 0 overflow, 0 uncontained scroll strips.
+
+**This is the lever on the thing that is actually wrong.** Search Console for
+the last 7 days: the calculators take 8 of 16 organic clicks and the product
+pages take 4, because almost nothing links to products with intent behind it.
+83 pages pointing at products with a buying query attached is a different
+shape of internal link graph.
+
+### Checked, and not a defect
+
+A dead URL under /shop returns **200 with `<meta name="robots" content="noindex">`**
+rather than a 404 status. That looked like a soft 404 worth fixing; it is
+Next 16 behaving as its own documentation describes for `notFound()`, and the
+noindex is the mechanism that keeps it out of the index. Pre-existing on the
+product route too, and left alone.
+
+---
+
 ## The sideways scroll, the empty frames, and a near-miss (28 October)
 
 ### The product page really does scroll sideways, and it is not overflow

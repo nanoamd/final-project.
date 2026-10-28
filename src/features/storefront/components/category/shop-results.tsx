@@ -345,7 +345,16 @@ function ProductGrid({
   );
 }
 
-function ShopAllTile({
+/**
+ * One product tile.
+ *
+ * Exported so the facet landing pages render the same tile as the category
+ * grid rather than a second copy of it. There is real history behind that:
+ * this tile carries the editor's alt text, the no-"From" price line and the
+ * variant-photo lookup, and a duplicate would have to be fixed twice and
+ * would be fixed once.
+ */
+export function ShopAllTile({
   product,
   query,
 }: {

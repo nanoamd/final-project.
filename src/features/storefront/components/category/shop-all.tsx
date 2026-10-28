@@ -5,6 +5,11 @@ import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/shared/json-ld";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
 import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
+import {
+  facetHeading,
+  facetPagesFor,
+  facetPath,
+} from "@/lib/catalog/facet-pages";
 import { EMPTY_QUERY } from "@/lib/catalog/shop-query";
 import { toolsForCategory } from "@/lib/content/tools";
 import { categoryInRoom } from "@/lib/sanity/category-rooms";
@@ -140,6 +145,9 @@ export async function ShopAll({
    * in between. `/shop/all` gets the two-step trail, which is correct — it
    * has no parent beyond the shop.
    */
+  // Only for a real category: /shop/all and the room pages span several.
+  const facetLinks = category ? facetPagesFor(products) : [];
+
   const breadcrumbItems = [
     { name: "Home", url: "/" },
     { name: "All Collections", url: "/shop" },
@@ -275,6 +283,37 @@ export async function ShopAll({
             here wants the products first — but it is in the same document, which is
             all a crawler cares about. Outside the boundary, so the buying guidance
             and its FAQ schema are in the static HTML unconditionally. */}
+        {/**
+         * The curated facet pages for this category.
+         *
+         * Their entry point. Without this they exist only in the sitemap,
+         * which is a weak way to be found — a crawler follows links, and so
+         * does a shopper who wants "the rattan ones" rather than all 76.
+         *
+         * Only rendered on a real category page: /shop/all and the room
+         * pages have no single category to narrow.
+         */}
+        {category && facetLinks.length ? (
+          <section className="border-line mt-14 border-t pt-10">
+            <h2 className="font-display text-ink text-xl tracking-tight">
+              Narrow {category.name.toLowerCase()}
+            </h2>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {facetLinks.map((facet) => (
+                <li key={`${facet.kind}-${facet.value}`}>
+                  <AppLink
+                    href={facetPath(category.slug, facet.kind, facet.value)}
+                    className="border-line hover:border-ink text-graphite hover:text-ink inline-flex min-h-11 items-center rounded-full border px-4 text-[13px] transition-colors"
+                  >
+                    {facetHeading(category.name, facet.kind, facet.label)}
+                    <span className="text-muted ml-2">{facet.count}</span>
+                  </AppLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <CategoryContent category={category} />
       </div>
     </div>
