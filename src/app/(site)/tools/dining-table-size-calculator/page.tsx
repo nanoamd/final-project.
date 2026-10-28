@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
-  title: "What Size Dining Table Fits My Room? Size & Seating Calculator",
+  title: "What Size Dining Table Fits My Room?",
   description:
     "What size dining table fits your dining room, and how many it really seats. Works from the space you have and the clearance a chair actually needs.",
   path: "/tools/dining-table-size-calculator",

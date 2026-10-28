@@ -8,9 +8,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
-  title: "Planter Size & Compost Calculator — How Much Compost Do I Need?",
+  title: "Planter Size & Compost Calculator",
   description:
-    "How much compost fills your planter, and what size pot a plant actually wants. Enter the planter's dimensions and get litres, plus drainage advice for indoors or out.",
+    "How much compost fills your planter, and what size pot a plant wants. Enter its dimensions for the volume in litres, plus drainage advice for in or out.",
   path: "/tools/planter-size-calculator",
 });
 

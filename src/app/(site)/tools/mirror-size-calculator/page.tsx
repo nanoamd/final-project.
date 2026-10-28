@@ -8,9 +8,9 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
-  title: "What Size Mirror Above a Console Table? Size Calculator",
+  title: "What Size Mirror Above a Console Table?",
   description:
-    "Work out what size mirror to hang above a console table, sideboard or fireplace, and how high to hang it. Enter the width of the furniture and get the size that will look right.",
+    "What size mirror to hang above a console table, sideboard or fireplace, and how high. Enter the furniture width and get the size that will look right.",
   path: "/tools/mirror-size-calculator",
 });
 

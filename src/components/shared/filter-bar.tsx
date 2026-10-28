@@ -157,6 +157,14 @@ export function FilterBar({
                 { ...query, inStockOnly: !query.inStockOnly },
                 query.sort,
               )}
+              /* nofollow because these URLs are a crawl trap: every one
+              returns byte-identical HTML (filtering is client-side, see
+              shop-results-client) while toggleFacetHref/sortHref preserve
+              every other selection, so the link graph is the power set of
+              the facet vocabulary. robots.ts blocks the parameters; this
+              stops the links being followed from the HTML in the first
+              place. Still real hrefs, so no-JS filtering still works. */
+              rel="nofollow"
               className={`flex items-center gap-2 text-[13px] transition-colors ${
                 query.inStockOnly
                   ? "text-ink font-medium"
@@ -185,6 +193,7 @@ export function FilterBar({
                   <AppLink
                     key={option.key}
                     href={sortHref(pathname, query, option.key)}
+                    rel="nofollow" /* see the note on the facet links above */
                     className={`text-[13px] transition-colors ${
                       query.sort === option.key
                         ? "text-ink font-medium underline underline-offset-4"
@@ -240,6 +249,14 @@ function ColourSwatches({
             <AppLink
               key={colour.tag}
               href={toggleFacetHref(pathname, query, "colour", colour.tag)}
+              /* nofollow because these URLs are a crawl trap: every one
+              returns byte-identical HTML (filtering is client-side, see
+              shop-results-client) while toggleFacetHref/sortHref preserve
+              every other selection, so the link graph is the power set of
+              the facet vocabulary. robots.ts blocks the parameters; this
+              stops the links being followed from the HTML in the first
+              place. Still real hrefs, so no-JS filtering still works. */
+              rel="nofollow"
               // The name and the count are the accessible label. A circle of
               // colour alone tells a screen reader nothing, and "Black" is also
               // what someone with any degree of colour blindness needs.
@@ -308,6 +325,14 @@ function ChipFacet({
             <AppLink
               key={tag}
               href={toggleFacetHref(pathname, query, facetKey, tag)}
+              /* nofollow because these URLs are a crawl trap: every one
+              returns byte-identical HTML (filtering is client-side, see
+              shop-results-client) while toggleFacetHref/sortHref preserve
+              every other selection, so the link graph is the power set of
+              the facet vocabulary. robots.ts blocks the parameters; this
+              stops the links being followed from the HTML in the first
+              place. Still real hrefs, so no-JS filtering still works. */
+              rel="nofollow"
               aria-pressed={isOn}
               className={`flex items-center gap-1.5 rounded-none border px-3 py-1.5 text-[13px] transition-colors ${
                 isOn

@@ -11,7 +11,7 @@ import { QuoteForm } from "@/features/quote/quote-form";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Request a Quote | Saunas, Outdoor Kitchens & Furniture | Kaiku",
+  title: "Request a Quote | Saunas & Outdoor Living | Kaiku",
   description:
     "Tell us about your space and we will prepare an itemised written quotation, with the lead time stated against every line. No obligation.",
   path: "/quote",

@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = buildMetadata({
   title: "What Size TV and TV Unit Do I Need? Size Calculator",
   description:
-    "What size TV your seating distance actually calls for, and how wide a TV unit needs to be under it — worked from THX's own cinema-immersion figures and the everyday range most rooms use instead.",
+    "What size TV your seating distance calls for, and how wide a TV unit needs to be under it — worked from THX's cinema-immersion figures and real room sizes.",
   path: "/tools/tv-unit-size-calculator",
 });
 

@@ -22,7 +22,10 @@ const STATIC_ROUTES: {
   { path: "/shop", changeFrequency: "daily", tracks: true },
   { path: "/learn", changeFrequency: "weekly", tracks: true },
   { path: "/journal", changeFrequency: "weekly", tracks: true },
-  { path: "/blog", changeFrequency: "weekly" },
+  // /blog is deliberately absent: the Holo embed renders posts client-side,
+  // so it is one URL for a whole publication with ~60 words of server HTML.
+  // It is noindexed at the page too. Put it back when Holo serves
+  // /blog/<slug> as real HTML.
   { path: "/tools", changeFrequency: "monthly" },
   /**
    * Every tool, derived rather than listed.
@@ -41,6 +44,20 @@ const STATIC_ROUTES: {
       changeFrequency: "monthly" as Change,
     })),
   ),
+  /**
+   * Indexable, self-canonical, linked from every page — and absent from the
+   * sitemap until now.
+   *
+   * /quote is the highest-intent page on the site: it is linked from every
+   * product page and from the home page's featured product, and it is where
+   * someone asks about a £2,000 sauna rather than putting it in a basket.
+   * /shop/all is the only route from which all 908 products are one click
+   * away. /warranty and /cookies are reachable from the footer on every page.
+   */
+  { path: "/shop/all", changeFrequency: "daily" },
+  { path: "/quote", changeFrequency: "monthly" },
+  { path: "/warranty", changeFrequency: "yearly" },
+  { path: "/cookies", changeFrequency: "yearly" },
   { path: "/about", changeFrequency: "monthly" },
   { path: "/contact", changeFrequency: "monthly" },
   { path: "/faq", changeFrequency: "monthly" },
@@ -143,6 +160,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticEntries,
+    // Above categories: a room page is the parent of several of them.
+    ...entries(content.departments, "weekly", 0.7),
     ...entries(content.categories, "daily", 0.8),
     ...entries(content.products, "weekly", 0.6),
     ...entries(content.posts, "monthly", 0.4),

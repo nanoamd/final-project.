@@ -4,15 +4,25 @@ import type Stripe from "stripe";
 
 import { siteConfig } from "@/config/site";
 import { env } from "@/env";
+import type { AbandonedLineItem } from "@/lib/commerce/abandoned-checkout";
 import {
   formatMinimum,
   SECOND_ORDER_MINIMUM_PENCE,
   shouldOfferSecondOrderDiscount,
 } from "@/lib/commerce/second-order-offer";
 import { getProductsBySlugs } from "@/lib/sanity/queries";
-import { absoluteUrl, type OrderEmailData } from "@/server/emails/format";
+import {
+  buildAbandonedCheckoutEmail,
+  summariseBasket,
+} from "@/server/emails/abandoned-checkout";
+import {
+  absoluteUrl,
+  formatMoney,
+  type OrderEmailData,
+} from "@/server/emails/format";
 import { buildOrderAlertEmail } from "@/server/emails/order-alert";
 import {
+  resolveAbandonedCheckoutEmail,
   resolveConfirmationEmail,
   resolveSecondOrderOfferEmail,
 } from "@/server/emails/resolve-email";
@@ -116,21 +126,95 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<void> {
           );
         }
 
+        const supabase = createAdminClient();
+
+        /**
+         * Whether this lead is already on file, read BEFORE the upsert.
+         *
+         * Stripe redelivers webhooks, and the upsert below cannot tell an
+         * insert from an update — so without this, a redelivery a minute
+         * later sends the same person the same recovery email again. The
+         * email's whole defence is that it goes once (see
+         * buildAbandonedCheckoutEmail), so sending it twice is not a cosmetic
+         * bug, it is the thing that would make it a nag.
+         *
+         * A read failure counts as "already seen", because not sending is the
+         * cheaper of the two mistakes available here.
+         */
+        const seen = await supabase
+          .from("abandoned_checkouts")
+          .select("stripe_session_id")
+          .eq("stripe_session_id", session.id)
+          .maybeSingle();
+        const alreadyRecorded = Boolean(seen.error) || Boolean(seen.data);
+
         // Upsert on the session id — Stripe can redeliver a webhook, and a
         // duplicated lead is a duplicated recovery email to the same person.
-        const { error } = await createAdminClient()
-          .from("abandoned_checkouts")
-          .upsert(
-            {
-              stripe_session_id: session.id,
-              email,
-              amount_total: session.amount_total ?? null,
-              line_items: lineItems,
-            },
-            { onConflict: "stripe_session_id" },
-          );
+        const { error } = await supabase.from("abandoned_checkouts").upsert(
+          {
+            stripe_session_id: session.id,
+            email,
+            amount_total: session.amount_total ?? null,
+            line_items: lineItems,
+          },
+          { onConflict: "stripe_session_id" },
+        );
         if (error) {
           console.error("[stripe] failed to record abandoned checkout:", error);
+        }
+
+        /**
+         * Send the recovery email.
+         *
+         * It has existed, fully written and tested across fourteen cases and
+         * previewable in /admin/emails, since before the £2,539 of baskets
+         * abandoned between 28 September and 22 October — and it had no
+         * caller. The row was being written and nothing read it. This is the
+         * line that was missing.
+         *
+         * Lawful on the PECR soft opt-in: the address was given in the course
+         * of negotiations for a sale, the email is about the very thing they
+         * were buying, and it goes once with no sequence behind it.
+         *
+         * Swallowed like everything else in this branch — this hangs off a
+         * webhook whose real job is payments, and it must never be why Stripe
+         * sees a 500 and retries the whole event.
+         */
+        if (email && !alreadyRecorded) {
+          try {
+            const items = Array.isArray(lineItems)
+              ? (lineItems as AbandonedLineItem[])
+              : [];
+            const data = {
+              customerName: session.customer_details?.name ?? null,
+              items,
+              amountTotal: session.amount_total ?? null,
+              siteUrl: siteConfig.url,
+            };
+            const { built } = await resolveAbandonedCheckoutEmail(
+              {
+                customerName:
+                  session.customer_details?.name?.trim().split(/\s+/)[0] ??
+                  "there",
+                itemSummary: summariseBasket(items),
+                basketTotal: formatMoney(session.amount_total ?? 0, "gbp"),
+                returnUrl: `${siteConfig.url}/cart`,
+                shopUrl: `${siteConfig.url}/shop`,
+              },
+              () => buildAbandonedCheckoutEmail(data),
+            );
+            const sent = await sendBuiltEmail(email, built);
+            console.log(
+              `[stripe] abandoned basket recovery email ${
+                sent ? "sent" : "not sent"
+              }: session=${session.id}`,
+            );
+          } catch (sendError) {
+            console.error(
+              "[stripe] abandoned checkout email failed:",
+              sendError,
+            );
+          }
         }
       } catch (error) {
         console.error("[stripe] abandoned checkout capture failed:", error);

@@ -14,14 +14,26 @@ function jsonLdScript(data: object) {
 }
 
 /**
- * Sitewide Organization schema — rendered once in the root layout. `logo`
- * is deliberately omitted: there's no real logo file in the repo yet, and
- * Google explicitly recommends against pointing this at a placeholder.
+ * Sitewide Organization schema — rendered once in the root layout.
+ *
+ * `logo` now points at `/apple-icon`, the 180x180 lettermark `app/apple-icon.tsx`
+ * renders. The comment here used to say there was no real logo file and that
+ * Google recommends against a placeholder — the second half is right, but the
+ * first half went stale when that route was added: 180px clears Google's
+ * 112x112 minimum and it is the mark the site actually uses, not a stand-in.
+ *
+ * It matters more than it looks. The brand name is contested — "kaiku"
+ * returns this site at about position 17 — and the logo is part of what
+ * Google uses to tell one Kaiku from another.
+ *
+ * `sameAs` stays omitted, and that reasoning is still good: it is for real
+ * external profiles, and inventing them is worse than leaving it out.
  */
 export function OrganizationJsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    logo: `${siteConfig.url}/apple-icon`,
     name: siteConfig.name,
     /**
      * The names people actually search, because "Kaiku" alone is contested.

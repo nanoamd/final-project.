@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = buildMetadata({
   title: "Best Garden Furniture Material for the UK Climate",
   description:
-    "Teak, aluminium, rattan or steel — which outdoor furniture material survives a British winter, which needs oiling, and which can stay out uncovered. Answer three questions.",
+    "Teak, aluminium, rattan or steel — which outdoor furniture material survives a British winter, which needs oiling, and which can stay out uncovered.",
   path: "/tools/garden-furniture-material-selector",
 });
 

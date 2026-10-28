@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/config/site";
 import { GoogleCustomerReviews } from "@/features/storefront/components/analytics/google-customer-reviews";
 import { TrackPurchase } from "@/features/storefront/components/analytics/track-purchase";
 import { ClearCartOnMount } from "@/features/storefront/components/content/clear-cart-on-mount";
 import type { AnalyticsItem } from "@/lib/analytics/events";
-import { handlingDays } from "@/lib/catalog/delivery";
+import { handlingDays, slowestWindow } from "@/lib/catalog/delivery";
 import { formatPriceExact } from "@/lib/format";
 import { getProductsBySlugs } from "@/lib/sanity/queries";
 import { getStripe } from "@/server/stripe/client";
@@ -104,6 +105,7 @@ export default async function CheckoutSuccessPage({
    */
   let gtins: string[] = [];
   let deliveryWindows: (string | null)[] = [];
+  let arrival: string | null = null;
   if (items.length) {
     try {
       const products = await getProductsBySlugs(items.map((i) => i.slug));
@@ -111,6 +113,16 @@ export default async function CheckoutSuccessPage({
         .map((p) => p.gtin)
         .filter((g): g is string => Boolean(g));
       deliveryWindows = products.map((p) => p.deliveryLeadTime ?? null);
+      // The same window the basket quoted, from the same rule. This page
+      // already loaded the products to time the Google survey and then told
+      // the buyer none of it.
+      arrival = slowestWindow(
+        products.map((product) => ({
+          price: product.price,
+          supplierName: product.supplier?.name,
+          deliveryLeadTime: product.deliveryLeadTime,
+        })),
+      );
     } catch (error) {
       console.error("[checkout/success] failed to load product data:", error);
     }
@@ -141,11 +153,84 @@ export default async function CheckoutSuccessPage({
         Thank you for your order
       </h1>
       <p className="text-muted mx-auto mt-3 max-w-md">
-        {email
-          ? `A confirmation has been sent to ${email}.`
-          : "Your order has been placed."}
-        {amount ? ` Total: ${formatPriceExact(amount)}.` : ""}
+        Your order is placed and your payment has gone through
+        {amount ? ` — ${formatPriceExact(amount)}` : ""}.
       </p>
+
+      {/**
+       * What this page used to say was "A confirmation has been sent to
+       * {email}", unconditionally, on a page that has no idea whether one
+       * was: `sendBuiltEmail` is fail-soft by contract, and it logs and
+       * swallows when `RESEND_API_KEY` is unset. Telling a buyer an email is
+       * on its way and then sending nothing is the worst version of this
+       * page, because the one thing they will do about it is wait.
+       *
+       * So it now says what is certainly true, gives them the reference to
+       * quote, and tells them what to do if nothing arrives. Confirmation on
+       * a durable medium is required (CCR 2013 reg. 16) — this is what makes
+       * the obligation recoverable when the send fails.
+       */}
+      <div className="border-line bg-paper mx-auto mt-10 max-w-md rounded-xl border p-6 text-left">
+        <dl className="flex flex-col gap-4 text-[14px]">
+          {session_id ? (
+            <div>
+              <dt className="text-muted text-[12px] tracking-[0.1em] uppercase">
+                Order reference
+              </dt>
+              {/* The Stripe session id, which is what Damien searches on to
+                  find the order, so it is the only reference worth printing.
+                  break-all because it is long and must not overflow a 390px
+                  screen. */}
+              <dd className="text-ink mt-1 font-mono text-[13px] break-all">
+                {session_id}
+              </dd>
+            </div>
+          ) : null}
+          {arrival ? (
+            <div>
+              <dt className="text-muted text-[12px] tracking-[0.1em] uppercase">
+                Expected to arrive
+              </dt>
+              <dd className="text-ink mt-1">
+                In {arrival}. We will email you when it is dispatched.
+              </dd>
+            </div>
+          ) : null}
+          <div>
+            <dt className="text-muted text-[12px] tracking-[0.1em] uppercase">
+              What happens next
+            </dt>
+            <dd className="text-graphite mt-1 leading-relaxed">
+              {email ? (
+                <>
+                  A confirmation should reach {email} shortly. If it has not
+                  arrived within an hour, email us and quote the reference above
+                  — the order is placed either way.
+                </>
+              ) : (
+                <>
+                  We will be in touch by email to confirm the order and arrange
+                  delivery. Quote the reference above in anything you send us.
+                </>
+              )}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-muted text-[12px] tracking-[0.1em] uppercase">
+              Any questions
+            </dt>
+            <dd className="mt-1">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="text-ink underline decoration-[0.5px] underline-offset-4"
+              >
+                {siteConfig.email}
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
       <AppLink
         href="/shop"
         className="bg-ink text-canvas mt-8 inline-flex h-12 items-center justify-center rounded-lg px-8 text-[12px] font-semibold tracking-[0.14em] uppercase"

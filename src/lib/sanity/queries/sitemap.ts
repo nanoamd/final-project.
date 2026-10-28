@@ -29,6 +29,8 @@ export interface SitemapEntry {
 }
 
 export interface SitemapContent {
+  /** The 11 room pages — /shop/room/<slug>. */
+  departments: SitemapEntry[];
   categories: SitemapEntry[];
   products: SitemapEntry[];
   posts: SitemapEntry[];
@@ -44,6 +46,10 @@ export interface SitemapContent {
  * src/app/sitemap.ts.
  */
 const SITEMAP_QUERY = /* groq */ `{
+  "departments": *[_type == "department" && defined(slug.current)] | order(order asc) {
+    "path": "/shop/room/" + slug.current,
+    "updatedAt": _updatedAt
+  },
   "categories": *[_type == "category" && defined(slug.current)
     && count(*[_type == "product" && references(^._id)]) > 0] | order(order asc) {
     "path": "/shop/" + slug.current,
@@ -67,6 +73,7 @@ const SITEMAP_QUERY = /* groq */ `{
 }`;
 
 const EMPTY: SitemapContent = {
+  departments: [],
   categories: [],
   products: [],
   posts: [],

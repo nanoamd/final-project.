@@ -23,7 +23,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = buildMetadata({
   title: "Standard Wall Clock Sizes: Chart in cm & Inches | Kaiku",
   description:
-    "Standard wall clock sizes in centimetres and inches, with a chart of what each one suits. How to measure a clock, and the size that fits your wall or sideboard.",
+    "Standard wall clock sizes in centimetres and inches, with a chart of what each suits. How to measure a clock, and the size that fits your wall or sideboard.",
   path: "/tools/wall-clock-size-calculator",
 });
 

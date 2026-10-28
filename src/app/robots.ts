@@ -46,6 +46,45 @@ export default function robots(): MetadataRoute.Robots {
         "/checkout",
         "/search",
         "/compare",
+        /**
+         * The facet and sort parameters, which were a crawl trap.
+         *
+         * `FilterBar` is a server component and every control in it is a real
+         * `<a href>` — deliberately, so filtering works without JavaScript and
+         * the links stay crawlable. It renders on every listing with six or
+         * more products, and `toggleFacetHref` preserves every other
+         * selection, so the link graph is the power set of the facet
+         * vocabulary: about 20 colours, 16 materials, 8 styles, 7 rooms and 18
+         * types, times 4 sorts, times `in-stock`, times `under`.
+         *
+         * Across roughly 22 stocked categories, 11 rooms and /shop/all that is
+         * tens of thousands of crawlable URLs, **every one of which returns
+         * byte-identical HTML** — filtering moved to the client to keep the
+         * route prerendered, so the parameters change nothing the server
+         * sends. The only thing pointing a crawler back at the clean path was
+         * the canonical tag, and a canonical is a hint, not an instruction.
+         *
+         * Kaiku earns about one organic click a day with 908 product URLs in
+         * its sitemap. Crawl budget spent re-fetching
+         * `?colour=grey&material=oak&sort=price-asc` is crawl budget not spent
+         * on a product, and this is the most plausible single reason those
+         * product URLs are not being fetched.
+         *
+         * Named one parameter at a time rather than as a blanket `/*?` so the
+         * `/api/feeds/` allow above is not disturbed. No indexable canonical
+         * on this site carries a query string, so nothing rankable is lost.
+         */
+        "/*?colour=",
+        "/*?material=",
+        "/*?style=",
+        "/*?room=",
+        "/*?type=",
+        "/*?sort=",
+        "/*?in-stock=",
+        "/*?under=",
+        // Client-only wishlist with no canonical and no metadata export of its
+        // own — it cannot be noindexed from the page, so it is blocked here.
+        "/saved",
       ],
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,

@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "The Becoming",
   description:
     "A preview build of Kaiku's cinematic scroll experience — not yet linked from the main site.",
+  // Its own description says it is not linked from the main site, which is
+  // exactly the page Google should not be indexing. It had no canonical and
+  // no inbound links either, so it was an orphan competing with real pages.
+  robots: { index: false, follow: false },
 };
 
 /**

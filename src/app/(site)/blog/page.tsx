@@ -63,6 +63,19 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Writing from Kaiku on furniture, lighting, garden and the rooms they go in.",
   path: "/blog",
+  /**
+   * Noindex until Holo serves `/blog/<slug>` as real HTML.
+   *
+   * The posts arrive from the Holo embed after load, so Google is offered one
+   * URL for the whole publication and about sixty words of server-rendered
+   * text. Asking it to index that competes with /learn and /journal, which do
+   * the same job at one indexable URL per article. buildMetadata's `noindex`
+   * emits `follow: true` alongside it, so any links Holo does render are
+   * still crawled.
+   *
+   * Also removed from the sitemap for the same reason — see app/sitemap.ts.
+   */
+  noindex: true,
 });
 
 const HOLO_EMBED =

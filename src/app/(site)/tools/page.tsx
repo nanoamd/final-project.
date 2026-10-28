@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildMetadata({
   title: "Tools",
   description:
-    "Seventeen free calculators for the questions that come before a purchase — mirror and pendant sizing, dining table fit, bed and sofa size, TV and wall art sizing, planter volume, patio heat output, sauna capacity.",
+    "Free calculators for the questions that come before a purchase: mirror and pendant sizing, dining table fit, sofa and TV size, planter volume, patio heat.",
   path: "/tools",
 });
 

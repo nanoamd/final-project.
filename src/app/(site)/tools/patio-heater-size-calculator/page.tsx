@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
-  title: "Patio Heater Size Calculator — kW to BTU, and What You Need",
+  title: "Patio Heater Size Calculator — kW and BTU",
   description:
     "How many kW or BTU your patio heater or gas fire pit needs for your seating area, and what those ratings actually mean. Converts both ways.",
   path: "/tools/patio-heater-size-calculator",

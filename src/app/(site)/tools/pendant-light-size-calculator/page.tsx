@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 export const revalidate = 86400;
 
 export const metadata: Metadata = buildMetadata({
-  title: "How High to Hang a Pendant Light — Size & Height Calculator",
+  title: "How High to Hang a Pendant Light",
   description:
     "What size pendant light for your room or dining table, and how low to hang it. Enter your measurements and get the diameter and drop height that work.",
   path: "/tools/pendant-light-size-calculator",

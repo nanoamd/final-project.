@@ -405,7 +405,32 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
           <h3 className={panelHeading}>Returns</h3>
           <FormattedNotes
             text={product.returnsNotes}
-            fallback="14 days from delivery to change your mind. Tell us and we will arrange collection — the piece needs to be unused and in its original packaging."
+            /**
+             * Must match /returns and the `returnFees` in the product's
+             * JSON-LD, which both say the customer arranges and pays for a
+             * change-of-mind return.
+             *
+             * It previously read "Tell us and we will arrange collection",
+             * and that is not a wording difference. Under the Consumer
+             * Contracts Regulations 2013 reg. 19(1) with Sch. 2 (m), the cost
+             * of return falls on the trader **unless the consumer was told
+             * before the contract that they bear it** — and the product page
+             * is the pre-contract statement the consumer actually saw. Since
+             * `returnsNotes` is documented as "fill only where this piece
+             * differs", this fallback was the statement on most of the
+             * catalogue. On a 63kg bookcase to Scotland it is the margin
+             * several times over.
+             *
+             * The second 14 days is statutory too (reg. 35(4)): 14 days to
+             * tell us, then 14 more to send it back. Neither surface said so.
+             *
+             * The three working days on damage is Hill's, not ours: they
+             * refuse a damage claim reported later than that, so a customer
+             * who tells us on day five leaves Kaiku carrying it. Asking for
+             * prompt notification of damage is ordinary and lawful, and it is
+             * separate from the 14-day cancellation right above it.
+             */
+            fallback="You have 14 days from delivery to tell us you have changed your mind, and 14 days after that to send the piece back. It needs to be unused and in its original packaging, and you arrange and pay for the return carriage — we will email you the return address. Anything faulty, damaged or not what you ordered is ours to put right, and we pay the carriage on those — tell us within three working days of delivery so we can claim it."
           />
           <Link href="/returns" className={`${linkClass} mt-3 inline-block`}>
             Returns policy →
@@ -416,7 +441,21 @@ function DeliveryPanel({ product }: { product: SanityProduct }) {
           <h3 className={panelHeading}>Warranty</h3>
           <FormattedNotes
             text={product.warrantyNotes}
-            fallback="Comprehensive manufacturer warranty — exact terms confirmed at quotation."
+            /**
+             * Not "Comprehensive manufacturer warranty — exact terms
+             * confirmed at quotation."
+             *
+             * Two separate problems with that sentence. "Comprehensive" is a
+             * quality claim about a warranty Kaiku has not read, on a
+             * dropship catalogue — a misleading action under the CPRs. And
+             * "confirmed at quotation" described a sales process that does
+             * not exist: the buyer pays through Stripe Checkout and there is
+             * no quotation stage. It also contradicted /warranty, which says
+             * plainly that Kaiku offers no warranty of its own.
+             *
+             * This is that page's sentence, so the two agree.
+             */
+            fallback="Kaiku doesn't offer a separate warranty of its own — every product is covered by whatever warranty its manufacturer or supplier provides, for the length they specify. Email us before you buy if you need the exact terms for this piece and we will get them for you."
           />
           <Link href="/warranty" className={`${linkClass} mt-3 inline-block`}>
             Warranty policy →

@@ -16,6 +16,132 @@ Status key:
 
 ---
 
+## Four parallel audits, and the likely reason nobody visits (28 October)
+
+Ran four audits at once over the rendered site and the source: image SEO,
+organic discoverability, mobile usability and accessibility, and conversion
+and trust. Two of them corrected me, which is worth recording as much as what
+they found.
+
+### The crawl trap
+
+`FilterBar` is a server component and every control in it is a real `<a href>` —
+deliberately, so filtering works without JavaScript. It renders on every
+listing with six or more products, and `toggleFacetHref` preserves every other
+selection, so the link graph is the **power set** of the facet vocabulary:
+about 20 colours, 16 materials, 8 styles, 7 rooms and 18 types, times 4 sorts,
+times `in-stock`, times `under`.
+
+Across roughly 22 stocked categories, 11 rooms and `/shop/all`, that is tens of
+thousands of crawlable URLs — and **every one returns byte-identical HTML**,
+because filtering moved to the client to keep the route prerendered. The only
+thing pointing a crawler back at the clean path was the canonical tag, and a
+canonical is a hint, not an instruction.
+
+Kaiku earns about one organic click a day with 908 product URLs in its sitemap.
+Crawl budget spent re-fetching `?colour=grey&material=oak&sort=price-asc` is
+crawl budget not spent on a product. This is the most plausible single reason
+those product URLs are not being fetched.
+
+- [x] **Eight facet parameters blocked in `robots.ts`**, named one at a time so
+      the `/api/feeds/` allow is not disturbed. No indexable canonical on the site
+      carries a query string, so nothing rankable is lost.
+- [x] **`rel="nofollow"` on all four facet and sort link sites.** Still real
+      hrefs, so no-JS filtering still works.
+
+### Titles Google was cutting off
+
+Seven of the calculators and `/quote` had titles over 60 characters. These are
+the pages that already have impressions — average position 6 to 8, almost no
+clicks — and a title cut at 60 loses its tail. Six descriptions ran to 160-213
+characters.
+
+- [x] **Seven titles and six descriptions rewritten**, keyword first so a
+      truncation loses the tail rather than the term.
+- [x] **`route-metadata.test.ts` now measures every hand-written page** against
+      the limits the catalogue already enforces on Sanity-driven ones.
+      `audit-seo-metadata.ts` only ever saw products, categories, posts and guides,
+      which is how 18 calculators and ~20 static pages went unmeasured. 52 cases.
+- [-] **`wall-art-size-calculator` is exempted, on purpose.** It is the single
+  best-performing page. Google truncates it after "...on a Bare Wall?" and
+  loses only the word "Calculator", so the question — which is the query —
+  still shows. Shortening means dropping either the furniture clause or the
+  bare-wall clause, and those are two different query clusters. Change that one
+  as a measured test, not on a rule.
+
+### 27 MB of images on the home page
+
+Measured by loading it in Chromium at 390x844 and summing `encodedBodySize`:
+**26,973 KB across 94 requests.** `next.config.ts` uses a custom Sanity loader
+(because Vercel's optimiser answered 402 once the transformation allowance ran
+out), and that loader passes a non-Sanity source **through untouched** — so
+every file in `public/` was served at original size in its original format.
+
+    7,258 KB  design-philosophy-hero.png   2896x1880, rendered ~700px wide
+    5,530 KB  sauna-collection-hero.png
+    2,393 KB  garden-before.jpg            PNG bytes in a .jpg name
+    2,350 KB  garden-after.jpg             PNG bytes in a .jpg name
+
+Both "hero PNGs" are photographs stored losslessly, and both garden files are
+PNGs wearing a `.jpg` extension, so nothing downstream could guess their weight
+from the filename.
+
+- [x] **`scripts/optimise-public-images.ts`**, re-encoding to whatever each
+      extension honestly claims, capped at 1920px. **29 MB -> 7.2 MB, -78%**, no
+      code change and no Vercel transformation cost.
+
+### Other fixes
+
+- [x] **Sitemap:** the 11 room pages, `/shop/all`, `/quote`, `/warranty` and
+      `/cookies` were indexable, self-canonical and absent from it. `/quote` is the
+      highest-intent page on the site.
+- [x] **`/blog` out of the sitemap and noindexed** until Holo serves
+      `/blog/<slug>` as real HTML — today it is one URL for a whole publication.
+- [x] **`/experience` noindexed.** Its own description says it is not linked
+      from the main site, which is exactly the page Google should not index.
+- [x] **`/saved` blocked in robots.** Client-only, so it cannot export metadata
+      and could not be noindexed from the page.
+- [x] **`Organization.logo`** now points at `/apple-icon`. The comment saying
+      there was no logo went stale when that route was added, and the brand name is
+      contested — "kaiku" returns this site at about position 17.
+
+### Where I was wrong
+
+- **"18 images with no alt on the home page" was wrong.** No image on the site
+  is missing an `alt` attribute; next/image's types require one. My probe counted
+  `alt=""` as absent, and about two thirds of those are correct decorative usage
+  that should stay. The real defect is the opposite: on category grids every
+  image has an alt and it is `product.name` verbatim, suffix and size string
+  included, across ~908 products. The good alt text already exists in Sanity
+  (5,531 written) and is already fetched — the components throw it away.
+- **"46 tap targets too small" overstated it.** WCAG AA is 24x24 with a spacing
+  exemption, not 44x44 — 44 is Apple guidance and WCAG AAA. And the ten 32x32
+  chevrons already carry an `::after` expansion making them 40x48 on touch,
+  which `getBoundingClientRect()` cannot see.
+
+### Still to do from these audits
+
+Real failures found that are not yet fixed: the global focus ring resolves to
+1.38:1 on light pages (effectively invisible site-wide); there is no
+`prefers-reduced-motion` block; the drill-nav chevron toggle is one-way on
+touch and reports the wrong `aria-expanded`; the shop mega-menu is unreachable
+by keyboard; `text-brass` is 3.83:1 on light grounds at five sites.
+
+### Blocked on you
+
+- [!] **Verify `RESEND_API_KEY` is set in production.** This is the most
+  important item on this page. `sendBuiltEmail` is fail-soft by contract — it
+  logs and swallows — and the confirmation page was asserting an email had been
+  sent with no idea whether one was. If the key is unset, every order since
+  launch took money and sent nothing. I could not check: Vercel returns 403
+  until you approve team access. Consent link below.
+- [!] **Vercel team access** (billing, firewall and env vars all blocked on it):
+  https://vercel.com/sso/session-requests/jtYGVdtSW9F2d2i5kO2EYyc3UiKrO7hx
+  That link is one-use and expires 10 minutes after it was issued, so ask me for
+  a fresh one if it has gone stale.
+
+---
+
 ## The basket now refuses an order Kaiku cannot deliver (27 October)
 
 Found by building the site and driving it at 390px — the first rendered audit of
