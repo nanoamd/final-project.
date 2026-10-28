@@ -252,6 +252,33 @@ html.lenis body {
   }
 
   /*
+   * Stop the document itself sliding sideways on iOS.
+   *
+   * Damien, on a real iPhone: "product pages can be scrolled left and right
+   * instead of only up and down". A headless sweep of six iPhone widths
+   * across sixteen routes measured **zero** horizontal overflow, and both
+   * things are true — because this is not overflow.
+   *
+   * On iOS Safari a horizontal swipe inside a scrollable child that reaches
+   * its end CHAINS to the parent and drags the whole page sideways.
+   * `scrollWidth` still equals `clientWidth` throughout, so a layout probe
+   * sees nothing. The product page has two such strips — the gallery
+   * thumbnails and the tab bar — and neither contained its scroll, which is
+   * why that page in particular does it.
+   *
+   * Each strip is fixed at its own call site. This is the backstop for any
+   * that gets added later, and for the rubber-band itself.
+   *
+   * `contain`, not `none`: `none` on the document can also swallow Safari's
+   * edge swipe-back gesture, and losing Back is a worse bug than the one
+   * being fixed. `contain` stops the chain and keeps the gesture.
+   */
+  html,
+  body {
+    overscroll-behavior-x: contain;
+  }
+
+  /*
    * The keyboard focus ring.
    *
    * This used to be `outline-ring/50` on the universal selector, which

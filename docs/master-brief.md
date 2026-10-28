@@ -16,6 +16,81 @@ Status key:
 
 ---
 
+## The sideways scroll, the empty frames, and a near-miss (28 October)
+
+### The product page really does scroll sideways, and it is not overflow
+
+Damien, on a real iPhone: _"product pages can be scrolled left and right
+instead of only up and down"_. I swept **six iPhone widths across sixteen
+routes — 96 page loads — and measured zero horizontal overflow.** Both were
+true, because this is not overflow.
+
+On iOS Safari a horizontal swipe inside a scrollable child that reaches its
+end **chains to the parent** and drags the whole document sideways.
+`scrollWidth` equals `clientWidth` throughout, so a layout probe sees nothing,
+and headless Chromium does not reproduce the gesture at all.
+
+The product page has two such strips — the gallery thumbnails and the tab bar
+— and **neither contained its scroll**, which is why that page in particular
+does it. `shop-drill-nav`, `related-products`, `recently-viewed` and `compare`
+all already had `overscroll-x-contain`; six more did not.
+
+- [x] All six fixed: gallery thumbnails, product tab bar, header sub-bar
+      (every page), collection filter strip, lightbox thumbnails, tool table.
+- [x] A document-level backstop in `globals.css`. `contain`, not `none` —
+      `none` can swallow Safari's edge swipe-back gesture, and losing Back is a
+      worse bug than the one being fixed.
+- [x] Verified: 10 of 10 scrollable strips now contain their scroll.
+
+### "So many empty image placeholders" — the premise was half wrong
+
+Measured against the live dataset: **0 of 908 products are missing an image.**
+Not one product placeholder renders anywhere on the site. The empty frames are
+all editorial, and they are real:
+
+- 43 of 43 buying guides and 3 of 3 journal posts have **no cover image**, so
+  `/learn` was a 43-card grid of empty bordered boxes, every article opened
+  with no hero, and the 80px "Read next" frame on every product page was an
+  empty square.
+- 10 of 11 departments have no hero, so every room page shows the same
+  `garden-after.jpg`.
+- 10 of 49 categories have no hero — worst is `mirrors`, 60 products.
+
+- [x] **Fixed with real photography, not generated images.** All 46 articles
+      carry `relatedProducts`, so an article with no cover now shows the first
+      photo of the first product it is actually about: relevant, on-brand, already
+      paid for, and it covers 46 of 46. Kept as a separate field so an editor
+      adding a real cover always wins.
+- [x] `/learn` went from 0 images to 24, `/journal` 0 to 3, a guide page 0 to 9.
+
+### 17 of 18 calculator pages had no photography at all
+
+The product rail on every tool page fetched eight real products and rendered
+them as **bordered text rows — name and price, no image.** That matters more
+here than anywhere: your last 7 days of Search Console show the calculators
+taking 8 of 16 organic clicks, and this rail is the one bridge from a tool to
+something buyable.
+
+- [x] Now a four-across grid of photographs. Verified: that page went from 0
+      images to 8. Nothing needed from Sanity — every product already has a photo.
+
+### The near-miss, recorded because it nearly shipped
+
+Adding the fallback field, I wrote a `/** ... */` block to explain it **inside
+the GROQ template literal.** GROQ has no block comments. The query became a
+syntax error, Sanity rejected it, `sanityFetch` swallowed the rejection and
+returned its fallback — and `/learn` silently became an **empty grid**.
+
+`tsc`, `eslint`, 1,369 tests and `next build` were all green. I caught it by
+loading the page and counting the cards.
+
+- [x] **`groq-syntax.test.ts`** now checks every GROQ query in the repo for
+      block comments, unbalanced braces and brackets, and unquoted projection
+      aliases — 201 checks. Verified by reintroducing the exact bug and watching
+      it fail, then removing it again.
+
+---
+
 ## The home page was linking to nothing, and /shop had a duplicate (28 October)
 
 ### Nine invented guides, three invented articles, nine unlinked categories

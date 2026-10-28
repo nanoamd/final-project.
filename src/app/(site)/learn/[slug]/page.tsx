@@ -77,6 +77,8 @@ export default async function BuyingGuidePage({
         backHref="/learn"
         title={guide.title}
         coverImage={guide.coverImage}
+        fallbackImage={guide.fallbackImage}
+        fallbackImageAlt={guide.fallbackImageAlt}
         author={guide.author}
         publishedAt={guide.publishedAt}
         body={guide.body}

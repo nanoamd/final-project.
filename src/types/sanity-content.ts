@@ -318,6 +318,9 @@ export interface SanityPost {
   title: string;
   excerpt?: string;
   coverImage?: string | null;
+  /** A related product photo, for an article with no cover of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
   body: PortableTextBlock[];
   author?: SanityAuthor | null;
   publishedAt: string;
@@ -331,6 +334,9 @@ export interface SanityBuyingGuide {
   title: string;
   excerpt?: string;
   coverImage?: string | null;
+  /** A related product photo, for an article with no cover of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
   body: PortableTextBlock[];
   author?: SanityAuthor | null;
   publishedAt: string;

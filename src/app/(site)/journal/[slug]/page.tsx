@@ -64,6 +64,8 @@ export default async function JournalArticlePage({
       backHref="/journal"
       title={post.title}
       coverImage={post.coverImage}
+      fallbackImage={post.fallbackImage}
+      fallbackImageAlt={post.fallbackImageAlt}
       author={post.author}
       publishedAt={post.publishedAt}
       body={post.body}

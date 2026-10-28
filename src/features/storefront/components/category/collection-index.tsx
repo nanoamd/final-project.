@@ -134,7 +134,7 @@ export async function CollectionIndex({
                     switch to another except backing out to the header nav. */}
                 <div
                   data-lenis-prevent
-                  className="-mx-6 mt-6 flex [scrollbar-width:none] gap-2 overflow-x-auto px-6 pb-1 sm:-mx-8 sm:px-8 lg:hidden [&::-webkit-scrollbar]:hidden"
+                  className="-mx-6 mt-6 flex touch-pan-x [scrollbar-width:none] gap-2 overflow-x-auto overscroll-x-contain px-6 pb-1 sm:-mx-8 sm:px-8 lg:hidden [&::-webkit-scrollbar]:hidden"
                 >
                   <MobileCategoryPill
                     href={allHref}

@@ -23,6 +23,8 @@ export function ArticleDetail({
   backHref,
   title,
   coverImage,
+  fallbackImage,
+  fallbackImageAlt,
   author,
   publishedAt,
   body,
@@ -37,6 +39,9 @@ export function ArticleDetail({
   backHref: string;
   title: string;
   coverImage?: string | null;
+  /** A related product photo, for an article with no cover of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
   author?: SanityAuthor | null;
   publishedAt: string;
   body: PortableTextBlock[];
@@ -59,6 +64,7 @@ export function ArticleDetail({
   // A reference is only useful if it resolves to a URL, and the URL needs the
   // category segment. Anything missing one is dropped rather than linked to a path
   // that would 404.
+  const hero = coverImage ?? fallbackImage ?? null;
   const products = (relatedProducts ?? []).filter(
     (product) => product.title && product.category,
   );
@@ -85,7 +91,7 @@ export function ArticleDetail({
           <ArticleJsonLd
             headline={title}
             url={path}
-            image={coverImage}
+            image={hero}
             authorName={author?.name}
             datePublished={publishedAt}
             dateModified={updatedAt}
@@ -115,15 +121,20 @@ export function ArticleDetail({
         </div>
       </Container>
 
-      {coverImage ? (
+      {/* All 46 articles have an empty coverImage, so every one opened with
+          no hero at all. `fallbackImage` is the first photo of the first
+          product the article is about — real photography rather than a
+          generated image on a retail site. object-contain for it, since a
+          product shot cover-cropped to 16:9 loses most of the piece. */}
+      {hero ? (
         <Container>
-          <div className="border-line relative aspect-[16/9] w-full overflow-hidden rounded-2xl border">
+          <div className="border-line bg-paper relative aspect-[16/9] w-full overflow-hidden rounded-2xl border">
             <Image
-              src={coverImage}
-              alt=""
+              src={hero}
+              alt={coverImage ? "" : (fallbackImageAlt ?? title)}
               fill
               sizes="100vw"
-              className="object-cover"
+              className={coverImage ? "object-cover" : "object-contain p-8"}
             />
           </div>
         </Container>

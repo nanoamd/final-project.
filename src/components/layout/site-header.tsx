@@ -345,7 +345,7 @@ export function SiteHeader({
                 shop-drill-nav.tsx. */}
             <div
               data-lenis-prevent
-              className="mx-auto flex h-11 max-w-[1440px] [scrollbar-width:none] items-center gap-7 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden"
+              className="mx-auto flex h-11 max-w-[1440px] touch-pan-x [scrollbar-width:none] items-center gap-7 overflow-x-auto overscroll-x-contain [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)] px-6 sm:[mask-image:none] sm:px-8 lg:px-12 [&::-webkit-scrollbar]:hidden"
             >
               {roomLinks.map((item) => {
                 const active = item.href === activeRoom;

@@ -193,7 +193,7 @@ export function ProductGallery({
 
           <div
             data-lenis-prevent
-            className="flex flex-1 gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap max-sm:[&::-webkit-scrollbar]:hidden"
+            className="flex flex-1 touch-pan-x gap-3 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto max-sm:overscroll-x-contain max-sm:[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] sm:flex-wrap max-sm:[&::-webkit-scrollbar]:hidden"
           >
             {slides.map((slide, index) => (
               <button

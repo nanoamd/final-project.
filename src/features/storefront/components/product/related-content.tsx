@@ -11,6 +11,9 @@ interface ContentItem {
   title: string;
   excerpt?: string;
   coverImage?: string | null;
+  /** A related product photo, for an article with no cover of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
 }
 
 interface ToolItem {
@@ -137,11 +140,19 @@ function ContentColumn({
               href={`${basePath}/${item.slug}`}
               className="group flex items-center gap-4"
             >
+              {/* Every article has an empty coverImage today, so this 80px
+                  frame was always an empty bordered square on every product
+                  page. The fallback is a photo of what the article is
+                  about. */}
               <div className="border-line bg-canvas relative aspect-square w-20 shrink-0 overflow-hidden rounded-lg border">
-                {item.coverImage ? (
+                {(item.coverImage ?? item.fallbackImage) ? (
                   <Image
-                    src={item.coverImage}
-                    alt=""
+                    src={(item.coverImage ?? item.fallbackImage)!}
+                    alt={
+                      item.coverImage
+                        ? ""
+                        : (item.fallbackImageAlt ?? item.title)
+                    }
                     fill
                     sizes="80px"
                     className="object-contain transition-transform duration-700 group-hover:scale-[1.04]"

@@ -298,7 +298,7 @@ export function ImageLightbox({
 
       {/* Thumbnails, so a long gallery is navigable without stepping through it. */}
       {many ? (
-        <div className="flex shrink-0 justify-center gap-2 overflow-x-auto px-4 py-3">
+        <div className="flex shrink-0 touch-pan-x justify-center gap-2 overflow-x-auto overscroll-x-contain px-4 py-3">
           {images.map((image, i) => (
             <button
               key={image.url}

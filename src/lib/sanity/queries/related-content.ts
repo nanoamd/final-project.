@@ -11,6 +11,10 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   title,
   excerpt,
   "coverImage": coverImage.asset->url,
+  // See the note in buying-guide.ts: every article has an empty coverImage,
+  // so the 80px frame on the product page was always an empty box.
+  "fallbackImage": relatedProducts[0]->gallery[0].asset->url,
+  "fallbackImageAlt": relatedProducts[0]->gallery[0].alt,
   body,
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
@@ -24,6 +28,10 @@ const POST_PROJECTION = /* groq */ `{
   title,
   excerpt,
   "coverImage": coverImage.asset->url,
+  // See the note in buying-guide.ts: every article has an empty coverImage,
+  // so the 80px frame on the product page was always an empty box.
+  "fallbackImage": relatedProducts[0]->gallery[0].asset->url,
+  "fallbackImageAlt": relatedProducts[0]->gallery[0].alt,
   body,
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,

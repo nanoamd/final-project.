@@ -104,7 +104,7 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
           role="tablist"
           aria-label="Product information"
           data-lenis-prevent
-          className="flex [scrollbar-width:none] gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+          className="flex touch-pan-x [scrollbar-width:none] gap-8 overflow-x-auto overscroll-x-contain [&::-webkit-scrollbar]:hidden"
         >
           {tabs.map((tab) => {
             const isActive = active === tab.id;

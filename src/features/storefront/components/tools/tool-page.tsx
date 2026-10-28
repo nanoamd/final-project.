@@ -1,8 +1,12 @@
+import Image from "next/image";
+
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ArticleSidebar } from "@/features/storefront/components/content/article-sidebar";
+import { usableAlt } from "@/lib/catalog/image-alt";
+import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
 import type { ArticleSidebarData } from "@/lib/sanity/queries";
 import type { SanityProduct } from "@/types/sanity-content";
@@ -213,19 +217,60 @@ export function ToolPage({
                   <h2 className="font-display text-ink text-2xl tracking-tight">
                     {productsHeading ?? "The products this applies to"}
                   </h2>
-                  <ul className="mt-6 flex flex-col gap-3">
+                  {/**
+                   * Photographs, not a text list.
+                   *
+                   * This rail fetched eight real products per tool and
+                   * rendered each as a bordered row of name and price with no
+                   * image — on 17 of the 18 calculator pages, none of which
+                   * carried any photography at all.
+                   *
+                   * That matters more here than anywhere else on the site.
+                   * Search Console for the last 7 days: the calculators take
+                   * 8 of 16 organic clicks, with the wall-clock tool shown 69
+                   * times and the vase tool 120. The tools are where the
+                   * traffic already lands — and this rail is the one bridge
+                   * from a tool to something buyable. A list of text rows is
+                   * a poor bridge for furniture, which is bought with the
+                   * eyes.
+                   *
+                   * Every product reaching this component has a photo: 0 of
+                   * 908 have an empty gallery. So this is a rendering gap,
+                   * not a content gap, and needs nothing from Sanity.
+                   */}
+                  <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
                     {products.slice(0, 8).map((product) => (
                       <li key={product.slug}>
                         <AppLink
                           href={`/shop/${product.category}/${product.slug}`}
-                          className="border-line hover:border-ink flex items-baseline justify-between gap-4 rounded-lg border px-4 py-3 transition-colors"
+                          className="group block"
                         >
-                          <span className="text-ink text-[15px]">
+                          <div className="border-line bg-paper group-hover:border-ink/30 relative aspect-square overflow-hidden rounded-lg border transition-colors">
+                            {(product.cardImageSquare ??
+                            product.cardImage ??
+                            product.image) ? (
+                              <Image
+                                src={
+                                  (product.cardImageSquare ??
+                                    product.cardImage ??
+                                    product.image)!
+                                }
+                                alt={
+                                  usableAlt(product.gallery?.[0]?.alt) ??
+                                  productDisplayName(product.name)
+                                }
+                                fill
+                                sizes="(max-width: 640px) 45vw, 22vw"
+                                className="object-contain"
+                              />
+                            ) : null}
+                          </div>
+                          <p className="text-ink group-hover:text-brass-deep mt-2 line-clamp-2 text-[13px] leading-snug transition-colors">
                             {product.name}
-                          </span>
-                          <span className="text-muted shrink-0 text-[13px]">
+                          </p>
+                          <p className="text-muted mt-1 text-[13px]">
                             {formatPrice(product.price)}
-                          </span>
+                          </p>
                         </AppLink>
                       </li>
                     ))}
@@ -287,7 +332,7 @@ function SizeChart({
   rows: string[][];
 }) {
   return (
-    <div className="mt-7 overflow-x-auto">
+    <div className="mt-7 overflow-x-auto overscroll-x-contain">
       <table className="w-full min-w-[34rem] border-collapse text-left text-[14px]">
         <caption className="text-muted mb-3 text-left text-[13px] italic">
           {caption}

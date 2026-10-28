@@ -14,6 +14,23 @@ const BUYING_GUIDE_PROJECTION = /* groq */ `{
   title,
   excerpt,
   "coverImage": coverImage.asset->url,
+  // A real photograph for an article that has no cover of its own.
+  //
+  // Every one of the 43 buying guides and all 3 journal posts has an empty
+  // coverImage, so /learn was a 43-card grid of empty bordered boxes and every
+  // article opened with no hero. This is the first photo of the first product
+  // the article is actually about: real product photography rather than a
+  // generated image on a retail site, and all 46 articles carry
+  // relatedProducts so it covers every one.
+  //
+  // Kept separate from coverImage rather than coalesced, so an editor adding a
+  // real cover always wins and a later audit can still count the stand-ins.
+  //
+  // NOTE: line comments only. GROQ has no block comments, and a JSDoc block
+  // here is a syntax error that sanityFetch catches and turns into an empty
+  // result — see lib/sanity/groq-syntax.test.ts.
+  "fallbackImage": relatedProducts[0]->gallery[0].asset->url,
+  "fallbackImageAlt": relatedProducts[0]->gallery[0].alt,
   "body": body ${RICH_TEXT_PROJECTION},
   "author": author-> ${AUTHOR_PROJECTION},
   publishedAt,
