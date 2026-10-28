@@ -59,6 +59,7 @@ export default async function JournalArticlePage({
 
   return (
     <ArticleDetail
+      path={`/journal/${slug}`}
       eyebrowLabel="The Journal"
       backHref="/journal"
       title={post.title}

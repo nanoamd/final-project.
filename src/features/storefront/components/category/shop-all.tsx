@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { Suspense } from "react";
 
+import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/shared/json-ld";
 import { ShopDrillNav } from "@/components/shared/shop-drill-nav";
 import { AppLink } from "@/components/ui/app-link";
 import { SiteBanner } from "@/features/storefront/components/shared/site-banner";
@@ -124,8 +125,49 @@ export async function ShopAll({
     siblingRoom: siblingRoom ?? null,
   };
 
+  /**
+   * The breadcrumb trail, and the products as a list.
+   *
+   * `/shop/[category]` is the main commercial template on the site, and it
+   * had neither. It lost its `BreadcrumbList` — and its visible breadcrumb
+   * nav — when the route switched from `CollectionIndex` to `ShopAll`, and it
+   * never had an `ItemList`: no listing route on the site emitted one, so
+   * nothing told Google these pages are sets of products rather than pages
+   * about a product.
+   *
+   * Built from what the page actually resolved, so a room page gets
+   * Home / All Collections / <Room> and a category page gets the owning room
+   * in between. `/shop/all` gets the two-step trail, which is correct — it
+   * has no parent beyond the shop.
+   */
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "All Collections", url: "/shop" },
+    ...(room ? [{ name: room.name, url: `/shop/room/${room.slug}` }] : []),
+    ...(category
+      ? [
+          ...(siblingRoom && !room
+            ? [
+                {
+                  name: siblingRoom.name,
+                  url: `/shop/room/${siblingRoom.slug}`,
+                },
+              ]
+            : []),
+          { name: category.name, url: `/shop/${category.slug}` },
+        ]
+      : []),
+  ];
+
   return (
     <div className="bg-canvas text-ink min-h-screen">
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <ItemListJsonLd
+        items={products.map((product) => ({
+          name: product.name,
+          url: `/shop/${product.category}/${product.slug}`,
+        }))}
+      />
       {/* The claim, with its evidence attached.
        *
        * Damien: *"we can say the uks most helpful/informative home
@@ -170,6 +212,48 @@ export async function ShopAll({
       />
 
       <div className="mx-auto max-w-[1480px] px-6 py-10 sm:px-8 lg:px-12">
+        {/*
+         * The visible trail, matching the BreadcrumbList above.
+         *
+         * It went missing when this route switched from CollectionIndex to
+         * ShopAll, and the structured data went with it. The drill nav tells
+         * a visitor where they can go; this tells them where they are, which
+         * is a different question and the one a crawler also asks.
+         *
+         * Only rendered when there is somewhere above this page to point at —
+         * /shop/all has no parent beyond the shop, so a one-crumb trail there
+         * would be furniture.
+         */}
+        {breadcrumbItems.length > 2 ? (
+          <nav
+            aria-label="Breadcrumb"
+            className="text-muted mb-6 flex flex-wrap items-center gap-2 text-[12px]"
+          >
+            {breadcrumbItems.map((crumb, index) => {
+              const isLast = index === breadcrumbItems.length - 1;
+              return (
+                <span key={crumb.url} className="flex items-center gap-2">
+                  {isLast ? (
+                    <span className="text-ink" aria-current="page">
+                      {crumb.name}
+                    </span>
+                  ) : (
+                    <>
+                      <AppLink
+                        href={crumb.url}
+                        className="hover:text-ink -my-[13px] inline-flex min-h-11 items-center transition-colors"
+                      >
+                        {crumb.name}
+                      </AppLink>
+                      <span aria-hidden>/</span>
+                    </>
+                  )}
+                </span>
+              );
+            })}
+          </nav>
+        ) : null}
+
         {/*
          * The grid, the filter bar and the counts — everything that depends on
          * the query string.

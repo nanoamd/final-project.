@@ -16,6 +16,40 @@ Status key:
 
 ---
 
+## Structured data on the page types that were emitting none (28 October)
+
+- [x] **`/shop/[category]` has its breadcrumbs back.** It is the main
+      commercial template on the site, and it lost both the `BreadcrumbList` and
+      the visible breadcrumb nav when the route switched from `CollectionIndex` to
+      `ShopAll`. The drill nav tells a visitor where they can go; a trail tells
+      them where they are, which is a different question and the one a crawler
+      also asks.
+- [x] **`ItemList` on every listing route**, which none of them emitted. It is
+      what tells Google a page is a set of products rather than a page about a
+      product. Capped at 100 entries — a listing can hold 908 tiles and a
+      908-entry list is hundreds of kilobytes of JSON for no extra benefit. Only
+      position, name and url: prices and availability belong on the product page's
+      own `Product` node, where they are kept correct.
+- [x] **`Article` and `BreadcrumbList` on both editorial routes.**
+      `/journal/<slug>` emitted **nothing** beyond the sitewide nodes and
+      `/learn/<slug>` emitted only `FAQPage` — so on the two routes whose entire
+      job is to rank for a question, nothing said the page was an article, who
+      wrote it, or when. Every field was already a prop.
+- [x] **`dateModified` is omitted rather than invented.** An article Sanity
+      has never re-edited has no modified date, and claiming it changed today is
+      the kind of signal Google learns to distrust across a whole site.
+
+Verified against the built site:
+
+```
+/shop/sofas          BreadcrumbList ItemList FAQPage
+/journal/<post>      Article BreadcrumbList Person WebPage
+/learn/<guide>       Article BreadcrumbList FAQPage Person WebPage
+/shop/<cat>/<prod>   Product Offer BreadcrumbList FAQPage MerchantReturnPolicy
+```
+
+---
+
 ## Alt text, invented ratings, and who the buyer is contracting with (28 October)
 
 ### The grids were describing their images with the raw feed title

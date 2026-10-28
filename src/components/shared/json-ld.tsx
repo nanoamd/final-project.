@@ -395,6 +395,111 @@ export function ProductJsonLd({ product }: { product: ProductJsonLdInput }) {
   );
 }
 
+/**
+ * Article schema for a buying guide or a journal post.
+ *
+ * `/journal/<slug>` emitted nothing at all and `/learn/<slug>` emitted only
+ * FAQPage, so on the two routes whose entire job is to rank for a question,
+ * nothing told Google the page was an article, who wrote it, or when.
+ *
+ * `Article` rather than `BlogPosting` for both: a buying guide is not a blog
+ * post, the two share this component, and `Article` is the type Google's own
+ * documentation treats as the general case.
+ *
+ * Every field is omitted rather than guessed. No `publisher.logo` fallback, no
+ * invented `dateModified` — an article Sanity has never re-edited simply has
+ * no modified date, and saying it changed today when it did not is the kind of
+ * signal Google learns to ignore across a whole site.
+ */
+export function ArticleJsonLd({
+  headline,
+  url,
+  image,
+  authorName,
+  datePublished,
+  dateModified,
+}: {
+  headline: string;
+  url: string;
+  image?: string | null;
+  authorName?: string | null;
+  datePublished?: string | null;
+  dateModified?: string | null;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}${url}`,
+    },
+    url: `${siteConfig.url}${url}`,
+    ...(image ? { image: [image] } : {}),
+    ...(authorName ? { author: { "@type": "Person", name: authorName } } : {}),
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/apple-icon`,
+      },
+    },
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={jsonLdScript(data)}
+    />
+  );
+}
+
+/**
+ * ItemList schema for a listing page — the products actually rendered, in the
+ * order they are rendered.
+ *
+ * Google uses this to understand that a page is a list of products rather than
+ * one product, and it is what makes a listing eligible to show as a set in
+ * search. Every listing route on the site emitted none: /shop/[category],
+ * /shop/all, /shop/room/[room] and both /all variants.
+ *
+ * Only `position`, `name` and `url`, which is the shape Google documents for a
+ * summary page. No prices and no availability here — those belong on the
+ * product page's own `Product` node, where they are kept correct, and
+ * duplicating them on a listing is two places to go stale.
+ *
+ * Capped, because a listing can hold 908 tiles and a 908-entry ItemList is
+ * hundreds of kilobytes of JSON in the HTML for no extra benefit.
+ */
+export function ItemListJsonLd({
+  items,
+  limit = 100,
+}: {
+  items: { name: string; url: string }[];
+  limit?: number;
+}) {
+  if (!items.length) return null;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    numberOfItems: items.length,
+    itemListElement: items.slice(0, limit).map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${siteConfig.url}${item.url}`,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={jsonLdScript(data)}
+    />
+  );
+}
+
 /** FAQPage schema — pass the same real Sanity FAQ data already rendered on
  * the page. Never call this with placeholder/fallback copy. */
 export function FaqJsonLd({

@@ -2,6 +2,7 @@ import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import Image from "next/image";
 
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -29,6 +30,8 @@ export function ArticleDetail({
   relatedProducts,
   faqs,
   sidebar,
+  path,
+  updatedAt,
 }: {
   eyebrowLabel: string;
   backHref: string;
@@ -42,6 +45,16 @@ export function ArticleDetail({
   faqs?: { question: string; answer: string }[];
   /** Related reading for the left rail. Absent on pages that have none. */
   sidebar?: ArticleSidebarData | null;
+  /**
+   * This article's own path, e.g. "/learn/how-to-choose-a-sauna".
+   *
+   * Needed for the structured data below. Optional so the component still
+   * renders without it, but both routes pass it — an article with no schema
+   * is the state this prop exists to end.
+   */
+  path?: string;
+  /** When the article was last edited, for `dateModified`. */
+  updatedAt?: string | null;
 }) {
   // A reference is only useful if it resolves to a URL, and the URL needs the
   // category segment. Anything missing one is dropped rather than linked to a path
@@ -51,6 +64,34 @@ export function ArticleDetail({
   );
   return (
     <article>
+      {/**
+       * The article's own schema.
+       *
+       * `/journal/<slug>` emitted **nothing** beyond the sitewide Organization
+       * and WebSite nodes, and `/learn/<slug>` emitted only FAQPage — so on
+       * the two routes whose entire job is to rank for a question, Google was
+       * told neither that the page is an article, nor who wrote it, nor when,
+       * nor where it sits in the site. Every field here is already a prop.
+       */}
+      {path ? (
+        <>
+          <BreadcrumbJsonLd
+            items={[
+              { name: "Home", url: "/" },
+              { name: eyebrowLabel, url: backHref },
+              { name: title, url: path },
+            ]}
+          />
+          <ArticleJsonLd
+            headline={title}
+            url={path}
+            image={coverImage}
+            authorName={author?.name}
+            datePublished={publishedAt}
+            dateModified={updatedAt}
+          />
+        </>
+      ) : null}
       <Container className="pt-12 pb-8 md:pt-16">
         <AppLink
           href={backHref}

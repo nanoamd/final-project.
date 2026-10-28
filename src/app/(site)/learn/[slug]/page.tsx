@@ -72,6 +72,7 @@ export default async function BuyingGuidePage({
     <>
       {faqs.length ? <FaqJsonLd faqs={faqs} /> : null}
       <ArticleDetail
+        path={`/learn/${slug}`}
         eyebrowLabel="Buying Guides"
         backHref="/learn"
         title={guide.title}
