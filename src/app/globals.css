@@ -242,12 +242,61 @@ html.lenis body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
+  }
+
+  /*
+   * The keyboard focus ring.
+   *
+   * This used to be `outline-ring/50` on the universal selector, which
+   * compiles to a 50%-alpha mix of `--ring` (oklch(0.708 0 0), about #adadad)
+   * and resolves to **1.38:1 on --color-canvas** and 2.94:1 on
+   * --color-basalt. WCAG asks for 3:1, and nothing in the storefront
+   * overrides the outline — so that near-invisible ring was the focus state
+   * for almost every control on the site: the header icons, every footer and
+   * drill-nav link, every FilterBar control, Compare/Share/Save, the cart's
+   * Remove, the lightbox buttons.
+   *
+   * `--color-ink` on canvas is 15.4:1 and `--color-canvas` on basalt about
+   * 19:1, so this is explicit and theme-aware instead. `:focus-visible` only,
+   * so a mouse click still shows nothing and no resting state changes.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* The dark surfaces: the home page, /shop, room pages and the footer. */
+  .bg-basalt :focus-visible,
+  .bg-basalt-deep :focus-visible,
+  footer :focus-visible {
+    outline-color: var(--color-canvas);
+  }
+}
+
+/*
+ * Motion, for people who have asked their system for less of it.
+ *
+ * Lenis is already gated in smooth-scroll.tsx and .logo-shine is already
+ * hidden, but about twenty-five image zooms, the drill-nav tier slide, the
+ * filter-drawer handle, the chevron rotations and three spinners were not —
+ * there was no global block at all. Everything is reduced to a near-zero
+ * duration rather than `none` so that transitionend and animationend
+ * listeners still fire and nothing waits forever on a callback.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

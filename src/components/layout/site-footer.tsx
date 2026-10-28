@@ -56,7 +56,7 @@ export function SiteFooter({
               {description}
             </p>
             <div className="mt-2 flex flex-col gap-3">
-              <p className="text-canvas/45 text-[12px] tracking-[0.18em] uppercase">
+              <p className="text-canvas/55 text-[12px] tracking-[0.18em] uppercase">
                 Considered writing, occasionally
               </p>
               <Newsletter tone="dark" onSubscribe={onNewsletterSubscribe} />
@@ -73,7 +73,7 @@ export function SiteFooter({
                   <li key={`${group.title}-${link.label}`}>
                     <AppLink
                       href={link.href}
-                      className="text-canvas/75 hover:text-canvas text-sm transition-colors"
+                      className="text-canvas/75 hover:text-canvas -my-2 inline-block py-2 text-sm transition-colors"
                     >
                       {link.label}
                     </AppLink>

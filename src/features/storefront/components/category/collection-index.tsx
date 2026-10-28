@@ -1,4 +1,3 @@
-import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -115,10 +114,14 @@ export async function CollectionIndex({
                   </AppLink>
                 ) : null}
               </p>
+              {/* No ChevronDown. This is a label, not a control — there is
+                  no handler behind it and nothing here is focusable — and a
+                  chevron beside static text reads unmistakably as a dropdown
+                  a visitor can open. The real sort links live in FilterBar on
+                  every listing with six or more products. */}
               <div className="text-canvas/70 flex items-center gap-2 text-[13px]">
-                <span className="text-canvas/45">Sort by:</span>
+                <span className="text-canvas/55">Sorted by:</span>
                 Featured
-                <ChevronDown className="size-4" strokeWidth={1.6} aria-hidden />
               </div>
             </div>
 

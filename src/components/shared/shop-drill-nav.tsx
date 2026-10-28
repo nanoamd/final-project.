@@ -116,6 +116,26 @@ export function ShopDrillNav({
       : undefined) ??
     (pathname === "/shop" ? "outdoor-living" : undefined);
 
+  /**
+   * Whether this is a real pointer that can hover, checked at event time.
+   *
+   * Phones fire a **synthetic `mouseenter`** on the first tap of a clickable
+   * element. That tap set `hoveredRoom`, and `hoveredRoom` wins over
+   * `clickedRoom` in `effectiveRoom` below — while `onMouseLeave`, the only
+   * thing that ever cleared it, never fires on touch. So tapping a chevron
+   * opened the tier, and tapping it again set `clickedRoom` to null and
+   * changed nothing visible, because the hover shadow was still holding it
+   * open. The control was one-way on a phone, and `aria-expanded` (derived
+   * from the same `effectiveRoom`) reported the wrong state to a screen
+   * reader the whole time.
+   *
+   * Read at event time rather than in render, so there is no hydration
+   * mismatch between a server with no `window` and a client with one.
+   */
+  const canHover = () =>
+    typeof window === "undefined" ||
+    window.matchMedia("(hover: hover)").matches;
+
   const effectiveRoom = hoveredRoom ?? clickedRoom ?? activeRoomSlug;
   const tier2Categories = categories.filter(
     (c) => effectiveRoom != null && categoryInRoom(c, effectiveRoom),
@@ -167,7 +187,9 @@ export function ShopDrillNav({
             href={room.href}
             label={room.name}
             hasChildren={categories.some((c) => categoryInRoom(c, room.slug))}
-            onMouseEnter={() => setHoveredRoom(room.slug)}
+            onMouseEnter={() => {
+              if (canHover()) setHoveredRoom(room.slug);
+            }}
             onToggle={() =>
               setClickedRoom((prev) => (prev === room.slug ? null : room.slug))
             }
@@ -189,6 +211,7 @@ export function ShopDrillNav({
                 label={category.name}
                 hasChildren={knownTags === undefined || knownTags.length > 0}
                 onMouseEnter={() => {
+                  if (!canHover()) return;
                   setHoveredCategory(category.slug);
                   loadTags(category.slug);
                 }}
@@ -388,7 +411,7 @@ function DrillItem({
              doesn't need the help. */
           className={cn(
             "relative flex size-8 items-center justify-center rounded-full transition-colors",
-            "max-sm:after:absolute max-sm:after:-inset-x-1 max-sm:after:-inset-y-2",
+            "after:absolute after:-inset-x-1.5 after:-inset-y-2",
             theme.chevron,
           )}
         >
@@ -416,8 +439,8 @@ const dark = {
 
 const light = {
   subBar: "border-ink/10 bg-canvas/70",
-  subLink: "text-ink/50 hover:text-ink",
+  subLink: "text-ink/65 hover:text-ink",
   skewFill: "bg-ink/[0.03]",
-  chevron: "text-ink/40 hover:text-ink hover:bg-ink/10",
+  chevron: "text-ink/60 hover:text-ink hover:bg-ink/10",
   tagPill: "border-ink/15 text-ink/70 hover:border-brass/50 hover:text-ink",
 };

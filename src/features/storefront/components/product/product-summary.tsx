@@ -151,7 +151,7 @@ export function ProductSummary({
     <>
       <div className="flex flex-col gap-6">
         <div>
-          <p className="text-brass text-[12px] font-semibold tracking-[0.18em] uppercase">
+          <p className="text-brass-deep text-[12px] font-semibold tracking-[0.18em] uppercase">
             {product.categoryName}
           </p>
           <h1 className="text-ink font-display mt-2 text-4xl leading-[1.04] tracking-tight text-balance sm:text-[2.75rem]">
@@ -409,14 +409,14 @@ export function ProductSummary({
               comparison lives entirely in the URL — see /compare. */}
           <AppLink
             href={`/compare?products=${encodeURIComponent(product.slug)}`}
-            className="hover:text-ink flex items-center gap-2 transition-colors"
+            className="hover:text-ink -my-[13px] flex items-center gap-2 py-[13px] transition-colors"
           >
             <Scale className="size-4" strokeWidth={1.5} aria-hidden /> Compare
           </AppLink>
           <button
             type="button"
             onClick={handleShare}
-            className="hover:text-ink flex items-center gap-2 transition-colors"
+            className="hover:text-ink -my-[13px] flex items-center gap-2 py-[13px] transition-colors"
           >
             <Share2 className="size-4" strokeWidth={1.5} aria-hidden />
             {shareState === "copied" ? "Link copied ✓" : "Share"}
@@ -425,7 +425,7 @@ export function ProductSummary({
             type="button"
             onClick={handleSaveForLater}
             aria-pressed={saved}
-            className="hover:text-ink flex items-center gap-2 transition-colors"
+            className="hover:text-ink -my-[13px] flex items-center gap-2 py-[13px] transition-colors"
           >
             <Heart
               className={saved ? "fill-brass text-brass size-4" : "size-4"}

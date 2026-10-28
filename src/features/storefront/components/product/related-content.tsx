@@ -97,7 +97,7 @@ export function RelatedContent({
             </p>
             <AppLink
               href="/learn"
-              className="text-brass mt-3 inline-block text-[13px] font-medium underline underline-offset-4"
+              className="text-brass-deep mt-3 inline-block text-[13px] font-medium underline underline-offset-4"
             >
               Browse all buying guides →
             </AppLink>

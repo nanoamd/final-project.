@@ -69,17 +69,23 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           aria-label="Breadcrumb"
           className="text-muted flex flex-wrap items-center gap-2 text-[12px]"
         >
-          <AppLink href="/" className="hover:text-ink transition-colors">
+          <AppLink
+            href="/"
+            className="hover:text-ink -my-[13px] inline-flex min-h-11 items-center transition-colors"
+          >
             Home
           </AppLink>
           <span aria-hidden>/</span>
-          <AppLink href="/shop" className="hover:text-ink transition-colors">
+          <AppLink
+            href="/shop"
+            className="hover:text-ink -my-[13px] inline-flex min-h-11 items-center transition-colors"
+          >
             All Collections
           </AppLink>
           <span aria-hidden>/</span>
           <AppLink
             href={`/shop/${product.category}`}
-            className="hover:text-ink transition-colors"
+            className="hover:text-ink -my-[13px] inline-flex min-h-11 items-center transition-colors"
           >
             {product.categoryName}
           </AppLink>

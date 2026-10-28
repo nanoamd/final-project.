@@ -74,6 +74,15 @@ export function SiteHeader({
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    /**
+     * Where focus was when the panel opened, so it can go back there.
+     *
+     * Without this, closing the menu drops focus to the top of the document
+     * and a keyboard user has to tab back through the whole header to get
+     * where they were. ImageLightbox already does this; the menu did not.
+     */
+    const opener = document.activeElement;
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
@@ -83,6 +92,7 @@ export function SiteHeader({
       lenis?.start();
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
+      if (opener instanceof HTMLElement) opener.focus();
     };
   }, [open, lenis]);
 
@@ -175,7 +185,7 @@ export function SiteHeader({
         <div className="mx-auto flex h-18 max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-8 lg:px-12">
           <AppLink
             href="/"
-            className="text-brass font-display relative text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase"
+            className="text-brass font-display relative inline-flex items-center py-2.5 text-[1.5rem] leading-none font-medium tracking-[0.34em] uppercase"
           >
             {brandName}
             {/* Decorative-only duplicate of the wordmark for the periodic
@@ -200,6 +210,34 @@ export function SiteHeader({
                   className="relative"
                   onMouseEnter={() => isShop && setShopMenuOpen(true)}
                   onMouseLeave={() => isShop && setShopMenuOpen(false)}
+                  /**
+                   * Focus opens it as well as hover.
+                   *
+                   * `mouseenter` was the only trigger, and the menu's ~60
+                   * room and category links are not rendered at all when it
+                   * is closed — so a keyboard user tabbing to "Shop" could
+                   * not reach any of them (WCAG 2.1.1). Touch users get
+                   * MobileMenu instead, so this was desktop-keyboard-only,
+                   * which is also why it went unnoticed.
+                   *
+                   * onFocus/onBlur rather than focus/blur on the link itself,
+                   * because these bubble from the menu's own links too, which
+                   * is what keeps it open while tabbing through it.
+                   */
+                  onFocus={() => isShop && setShopMenuOpen(true)}
+                  onBlur={(event) => {
+                    if (!isShop) return;
+                    // Only when focus has actually left the whole group —
+                    // moving between links inside it fires blur as well.
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      setShopMenuOpen(false);
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    if (isShop && event.key === "Escape") {
+                      setShopMenuOpen(false);
+                    }
+                  }}
                 >
                   <AppLink
                     href={item.href}
@@ -353,7 +391,7 @@ const dark = {
   navActive: "text-canvas",
   icon: "text-canvas/80 hover:text-canvas hover:bg-white/10",
   subBar: "border-white/10 bg-graphite/60",
-  subLink: "text-canvas/50 hover:text-canvas",
+  subLink: "text-canvas/60 hover:text-canvas",
 };
 
 const light = {
@@ -362,7 +400,7 @@ const light = {
   navActive: "text-ink",
   icon: "text-ink/70 hover:text-ink hover:bg-ink/5",
   subBar: "border-ink/10 bg-canvas/70",
-  subLink: "text-ink/50 hover:text-ink",
+  subLink: "text-ink/65 hover:text-ink",
 };
 
 function MobileMenu({

@@ -61,7 +61,7 @@ export default async function ComparePage({
   return (
     <div className="bg-canvas text-ink min-h-screen">
       <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-8 lg:px-12 lg:py-16">
-        <p className="text-brass text-[11px] font-medium tracking-[0.24em] uppercase">
+        <p className="text-brass-deep text-[11px] font-medium tracking-[0.24em] uppercase">
           Compare
         </p>
         <h1 className="font-display mt-3 text-[1.9rem] leading-tight tracking-tight sm:text-[2.5rem]">

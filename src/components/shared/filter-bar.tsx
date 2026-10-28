@@ -76,7 +76,7 @@ export function FilterBar({
           {!isEmptyQuery(query) ? (
             <AppLink
               href={pathname}
-              className="text-brass text-[13px] underline underline-offset-4"
+              className="text-brass-deep text-[13px] underline underline-offset-4"
             >
               Clear all
             </AppLink>
@@ -176,7 +176,11 @@ export function FilterBar({
                 className={`flex size-4 items-center justify-center border ${
                   query.inStockOnly
                     ? "border-ink bg-ink text-canvas"
-                    : "border-line"
+                    : // Not border-line: at #e6e2d9 on canvas that is 1.16:1,
+                      // and this border is the whole of the unchecked state —
+                      // there is nothing else to see. A control boundary
+                      // needs 3:1 (WCAG 1.4.11); border-ink/60 is 4.35:1.
+                      "border-ink/60"
                 }`}
               >
                 {query.inStockOnly ? "✓" : ""}

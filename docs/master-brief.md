@@ -16,6 +16,85 @@ Status key:
 
 ---
 
+## The accessibility failures, fixed and verified in a browser (28 October)
+
+All of these were found by audit and then confirmed by driving the built site
+in Chromium at 390x844, so the numbers below are measured rather than reasoned.
+
+### The focus ring was invisible
+
+`globals.css` applied `outline-ring/50` to the universal selector. That
+compiles to a 50%-alpha mix of `--ring` and resolves to **1.38:1 on the light
+canvas** and 2.94:1 on basalt, against a 3:1 requirement — and nothing in the
+storefront overrode the outline, so that ring was the focus state for almost
+every control on the site: header icons, every footer and drill-nav link,
+every FilterBar control, Compare/Share/Save, the cart's Remove, the lightbox.
+
+- [x] Replaced with an explicit theme-aware `:focus-visible` ring. Measured
+      after the fix: `rgba(27, 27, 29, 0.7)` at 2px solid, about **6:1**.
+- [x] **A `prefers-reduced-motion` block, which did not exist.** Lenis and
+      `.logo-shine` were already gated, but ~25 image zooms, the drill-nav tier
+      slide, the filter-drawer handle, the chevron rotations and three spinners
+      were not. Verified: `transition-duration` reads `1e-05s` under reduce.
+
+### The drill-nav toggle was one-way on a phone
+
+Phones fire a **synthetic `mouseenter`** on the first tap. That set
+`hoveredRoom`, which wins over `clickedRoom` in `effectiveRoom`, while
+`onMouseLeave` — the only thing that cleared it — never fires on touch. So
+tapping a chevron opened the tier and tapping it again did nothing visible,
+and `aria-expanded` reported the wrong state to a screen reader throughout.
+About 60 listing pages.
+
+- [x] Hover state now only set when `(hover: hover)` matches, read at event
+      time so there is no hydration mismatch.
+
+### The shop mega-menu could not be reached by keyboard
+
+`mouseenter` was its only trigger, and its ~60 room and category links are not
+in the DOM when it is closed — so a keyboard user tabbing to "Shop" could
+reach none of them (WCAG 2.1.1). Touch users get MobileMenu, which is why it
+went unnoticed.
+
+- [x] Opens on focus, closes when focus leaves the group or on Escape.
+- [x] **MobileMenu now returns focus to whatever opened it.** It was dropping
+      focus to the top of the document, so a keyboard user had to tab through the
+      whole header again.
+
+### Contrast failures
+
+- [x] `text-brass` is 3.83:1 on canvas and 4.29:1 on paper — switched to
+      `text-brass-deep` (5.33:1) at the five light-surface sites. The token itself
+      is unchanged: `brass` on basalt is 4.59:1 and correct.
+- [x] Drill-nav `text-ink/50` (3.24:1) to `/65`, chevron `text-ink/40`
+      (2.45:1) to `/60`; header sub-bar the same; footer headings and the sort
+      label `text-canvas/45` (4.09:1) to `/55`.
+- [x] The unchecked "In stock only" box was `border-line` at **1.16:1**, and
+      that border is the entire unchecked state — nothing else to see. Now
+      `border-ink/60` (4.35:1).
+
+### Touch targets, without fattening the UI
+
+Every one of these uses padding cancelled by a negative margin, so the hit box
+grows to 44px while the margin box does not move a pixel.
+
+- [x] 22 footer links per page, the footer wordmark and email, the header
+      wordmark, Compare/Share/Save, the cart's Remove, the three product
+      breadcrumbs.
+- [x] The drill-nav chevrons already had an `::after` expansion giving 40x48 —
+      4px short on width, and `getBoundingClientRect()` cannot see it, which is
+      why my own probe reported 32x32. `-inset-x-1.5` takes it to 44. Verified.
+
+### Two honesty fixes
+
+- [x] **The "Sort by: Featured ⌄" on /shop was not a control.** A plain div
+      with a chevron, no handler, nothing focusable. The chevron is gone and it
+      reads "Sorted by:" — the real sort links are in FilterBar.
+- [x] **The product page skipped h1 to h3**, and h1 to h3 to h2 whenever
+      RelatedContent renders nothing. An `sr-only` h2 now owns the tabbed band.
+
+---
+
 ## Four parallel audits, and the likely reason nobody visits (28 October)
 
 Ran four audits at once over the rendered site and the source: image SEO,

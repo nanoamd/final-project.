@@ -93,6 +93,12 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
   return (
     <div className="border-line border-t">
       <div className="mx-auto max-w-[1280px] px-6 sm:px-8 lg:px-12">
+        {/* The tabbed band's panels use <h3>, so without this the page
+            went h1 -> h3 — and h1 -> h3 -> h2 whenever RelatedContent
+            renders nothing, which is a skip and a step backwards at
+            once. sr-only, so nothing moves, and it gives the tablist a
+            real heading as well as its aria-label. */}
+        <h2 className="sr-only">Product information</h2>
         <div
           role="tablist"
           aria-label="Product information"
@@ -347,7 +353,7 @@ function SpecsPanel({ product }: { product: SanityProduct }) {
 // reach the site's actual policy pages, not just whatever free-text an
 // editor did or didn't fill in for this one product.
 const linkClass =
-  "text-brass text-[13px] font-medium underline underline-offset-4";
+  "text-brass-deep text-[13px] font-medium underline underline-offset-4";
 
 /**
  * One heading style for all three sections, so DELIVERY, RETURNS and WARRANTY

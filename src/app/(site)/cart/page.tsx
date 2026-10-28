@@ -234,7 +234,7 @@ export default function CartPage() {
                         removeItem(item.slug, item.selectedOptions)
                       }
                       aria-label="Remove item"
-                      className="text-muted hover:text-ink flex items-center gap-1.5 text-[12px] transition-colors"
+                      className="text-muted hover:text-ink -my-[13px] flex items-center gap-1.5 py-[13px] text-[12px] transition-colors"
                     >
                       <Trash2 className="size-3.5" strokeWidth={1.8} />
                       Remove
