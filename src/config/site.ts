@@ -5,6 +5,20 @@
  * rename is a one-line change. Treat `siteConfig.name` as the only place the
  * brand string should ever appear.
  */
+/**
+ * The room whose page `/shop` duplicates.
+ *
+ * `app/(site)/shop/page.tsx` renders `<CollectionIndex roomSlug="..." />` with
+ * this slug, so `/shop` and `/shop/room/<this>` are byte-identical pages. Both
+ * declared themselves canonical, which is a real duplicate pair: /shop is in
+ * the sitemap and has the better claim to the traffic, so the room page points
+ * at it and the sitemap leaves that room out.
+ *
+ * Named here rather than hardcoded in three files so changing what `/shop`
+ * shows updates the canonical and the sitemap with it.
+ */
+export const SHOP_MIRRORS_ROOM = "outdoor-living";
+
 export const siteConfig = {
   name: "Kaiku",
   // Kaiku trades as a sole trader, so the legal name is the trader's own name.

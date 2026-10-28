@@ -1,3 +1,4 @@
+import { SHOP_MIRRORS_ROOM } from "@/config/site";
 import { sanityFetch } from "@/lib/sanity/fetch";
 
 /**
@@ -46,7 +47,8 @@ export interface SitemapContent {
  * src/app/sitemap.ts.
  */
 const SITEMAP_QUERY = /* groq */ `{
-  "departments": *[_type == "department" && defined(slug.current)] | order(order asc) {
+  "departments": *[_type == "department" && defined(slug.current)
+    && slug.current != $shopMirrorsRoom] | order(order asc) {
     "path": "/shop/room/" + slug.current,
     "updatedAt": _updatedAt
   },
@@ -82,5 +84,11 @@ const EMPTY: SitemapContent = {
 };
 
 export async function getSitemapContent(limit = 1000): Promise<SitemapContent> {
-  return sanityFetch<SitemapContent>(SITEMAP_QUERY, { limit }, EMPTY);
+  // The room /shop duplicates is excluded: it canonicalises to /shop, and a
+  // sitemap entry for a URL that points elsewhere is a contradiction.
+  return sanityFetch<SitemapContent>(
+    SITEMAP_QUERY,
+    { limit, shopMirrorsRoom: SHOP_MIRRORS_ROOM },
+    EMPTY,
+  );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SHOP_MIRRORS_ROOM } from "@/config/site";
 import { CollectionIndex } from "@/features/storefront";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -11,5 +12,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ShopPage() {
-  return <CollectionIndex roomSlug="outdoor-living" />;
+  // SHOP_MIRRORS_ROOM, not a literal: /shop/room/<this> is the same page
+  // and canonicalises here, so the two must not drift apart.
+  return <CollectionIndex roomSlug={SHOP_MIRRORS_ROOM} />;
 }

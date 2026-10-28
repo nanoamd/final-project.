@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SHOP_MIRRORS_ROOM } from "@/config/site";
 import { siteConfig } from "@/config/site";
 import { CollectionIndex } from "@/features/storefront/components/category/collection-index";
 import { getDepartments } from "@/lib/sanity/queries";
@@ -45,13 +46,31 @@ export async function generateMetadata({
       department?.description ??
       "The UK's most helpful home store, room by room.",
     /**
-     * Self-canonical. This page and /shop/room/<room>/all list the same
-     * products, and neither declared a preference — so Search Console reports
-     * them as duplicates without a user-selected canonical and picks one
-     * itself, which is how eleven rooms became twenty-two competing URLs.
-     * Declaring the editorial page as canonical consolidates the pair.
+     * Self-canonical, except for Outdoor Living.
+     *
+     * This page and /shop/room/<room>/all list the same products, and neither
+     * declared a preference — so Search Console reported them as duplicates
+     * with no user-selected canonical and picked one itself, which is how
+     * eleven rooms became twenty-two competing URLs. Declaring the editorial
+     * page as canonical consolidates the pair.
+     *
+     * Outdoor Living is a third copy of the same page: `/shop` renders
+     * `<CollectionIndex roomSlug="outdoor-living" />`, so /shop and
+     * /shop/room/outdoor-living are **byte-identical** with different
+     * self-canonicals — a genuine duplicate pair, with /shop in the sitemap
+     * and the better claim to the traffic. So that one points at /shop rather
+     * than at itself, and the sitemap leaves it out (see app/sitemap.ts).
+     *
+     * Not fixed by changing what /shop renders: that is the second most
+     * important page on the site and what it shows is Damien's call, not a
+     * side effect of a canonical fix.
      */
-    alternates: { canonical: `${siteConfig.url}/shop/room/${room}` },
+    alternates: {
+      canonical:
+        room === SHOP_MIRRORS_ROOM
+          ? `${siteConfig.url}/shop`
+          : `${siteConfig.url}/shop/room/${room}`,
+    },
   };
 }
 

@@ -16,6 +16,60 @@ Status key:
 
 ---
 
+## The home page was linking to nothing, and /shop had a duplicate (28 October)
+
+### Nine invented guides, three invented articles, nine unlinked categories
+
+The home page is the strongest internal link source on the site, and it
+passed **no link to any individual guide, post or category.** Six buying-guide
+cards were invented titles all pointing at `/learn`; three journal cards were
+invented titles all pointing at `/journal`; nine category names were plain
+`<span>`s with no href at all. So the page advertised nine pieces of writing
+that do not exist, and sent its link equity nowhere.
+
+- [x] **`BuyingGuides` and `EditorialJournal` now fetch from Sanity** and link
+      the real slugs. The invented sets survive only as the no-content fallback,
+      because an empty band on the home page is worse than a signpost.
+- [x] **`HomeCategories` links the names that resolve to a real department**,
+      matched against Sanity rather than hardcoded. The others stay as text on
+      purpose: that section exists to state the wider vision "without ever saying
+      coming soon", and Architecture and Storage are ambition rather than stock —
+      linking those would send a visitor to an empty page. As a department is
+      added its tile starts linking on the next build with no edit.
+- [x] **The journal cover images now carry their article's title as alt.**
+      `alt=""` was defensible while they were stock photos behind invented titles;
+      they are now the indexable image of a real post.
+
+Verified on the built home page — it previously emitted none of these:
+
+```
+/journal/building-a-sauna-ritual        /learn/bathroom-or-bedroom-mirror
+/journal/extending-the-garden-season    /learn/garden-privacy-screens-how-many
+/journal/fire-pit-safety                /learn/how-to-keep-a-garden-warm
+/shop/room/decor  /shop/room/lighting   /learn/what-size-hurricane-lantern
+/shop/room/office /shop/room/outdoor-living
+```
+
+### /shop and /shop/room/outdoor-living were the same page
+
+`/shop` renders `<CollectionIndex roomSlug="outdoor-living" />`, and so does
+`/shop/room/outdoor-living` — **byte-identical bodies, each declaring itself
+canonical.** A genuine duplicate pair, with `/shop` in the sitemap and the
+better claim to the traffic.
+
+- [x] That one room now canonicalises to `/shop`, and the sitemap leaves it
+      out — a sitemap entry for a URL that points elsewhere is a contradiction.
+- [x] The slug is a shared `SHOP_MIRRORS_ROOM` constant across all three
+      files, so changing what `/shop` shows updates the canonical and the sitemap
+      with it. **Not fixed by changing what `/shop` renders:** that is the second
+      most important page on the site and what it shows is your call, not a side
+      effect of a canonical fix.
+
+Verified: `/shop/room/outdoor-living` now serves
+`<link rel="canonical" href="https://www.kaikuhome.com/shop">`.
+
+---
+
 ## Structured data on the page types that were emitting none (28 October)
 
 - [x] **`/shop/[category]` has its breadcrumbs back.** It is the main

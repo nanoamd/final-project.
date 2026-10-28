@@ -1,8 +1,19 @@
 import Image from "next/image";
 
 import { AppLink } from "@/components/ui/app-link";
+import { getPosts } from "@/lib/sanity/queries";
 
-const ARTICLES = [
+/**
+ * The three cards shown when Sanity has no posts.
+ *
+ * These used to be the whole component: three invented titles, all three
+ * linking to `/journal` rather than to an article. The home page is the
+ * strongest internal link source on the site and it passed nothing to any
+ * individual post — while advertising three that were never written.
+ *
+ * Kept as the no-content fallback only.
+ */
+const FALLBACK_ARTICLES = [
   {
     title: "Designing Spaces You'll Love for Years",
     excerpt:
@@ -30,7 +41,17 @@ const ARTICLES = [
  * Editorial Journal — a taste of the writing, not a blog index. Three
  * articles, generously spaced, photography-led.
  */
-export function EditorialJournal() {
+export async function EditorialJournal() {
+  const posts = await getPosts({ limit: 3 });
+  const articles = posts.length
+    ? posts.map((post) => ({
+        title: post.title,
+        excerpt: post.excerpt ?? "",
+        image: post.coverImage ?? "/images/steam-lake.jpg",
+        href: `/journal/${post.slug}`,
+      }))
+    : FALLBACK_ARTICLES;
+
   return (
     <section className="bg-canvas">
       <div className="mx-auto max-w-[1440px] px-6 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
@@ -52,7 +73,7 @@ export function EditorialJournal() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3 sm:gap-8">
-          {ARTICLES.map((article) => (
+          {articles.map((article) => (
             <AppLink
               key={article.title}
               href={article.href}
@@ -61,7 +82,11 @@ export function EditorialJournal() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
                 <Image
                   src={article.image}
-                  alt=""
+                  /* The article's own cover. alt="" was defensible while
+                     these were three stock photos behind invented titles;
+                     now it is the indexable image of a real post, and the
+                     journal's images are what Google surfaces for it. */
+                  alt={article.title}
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
