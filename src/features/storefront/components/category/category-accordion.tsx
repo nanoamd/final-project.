@@ -226,7 +226,9 @@ function InlineProductTile({ product }: { product: SanityProduct }) {
           {product.name}
         </p>
         <p className="text-brass mt-1 text-[12px]">
-          From {formatPrice(product.price)}
+          {/* No "From" — nothing in the catalogue has variant
+            pricing, so this is the price. See shop-results.tsx. */}
+          {formatPrice(product.price)}
         </p>
       </div>
     </AppLink>

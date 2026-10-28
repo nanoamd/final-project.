@@ -2,6 +2,8 @@ import { PortableText } from "@portabletext/react";
 
 import { FilterBar } from "@/components/shared/filter-bar";
 import { AppLink } from "@/components/ui/app-link";
+import { usableAlt } from "@/lib/catalog/image-alt";
+import { productDisplayName } from "@/lib/catalog/product-name";
 import {
   applyShopQuery,
   describeQuery,
@@ -47,8 +49,19 @@ export type ShopTileProduct = Pick<
   | "roomTags"
   | "useTags"
 > & {
-  /** Only the fields the colour-variant photo lookup reads. */
-  gallery: Pick<SanityProductGalleryImage, "url" | "optionValue">[];
+  /**
+   * The colour-variant photo lookup's fields, plus `alt`.
+   *
+   * `alt` was deliberately stripped here, and that was the one thing stopping
+   * the busiest grid on the site from describing its own images: every tile
+   * fell back to `product.name`, which is the raw Sanity title — brand suffix,
+   * size string and all ("… | 30 x 20 x 5cm | Kaiku"). Across ~908 products on
+   * every listing route that is the worst image-SEO surface Kaiku has, and the
+   * good alt text already existed: 5,531 written into Sanity by
+   * scripts/set-image-alt.ts, projected by PRODUCT_CARD_PROJECTION, and thrown
+   * away three lines below.
+   */
+  gallery: Pick<SanityProductGalleryImage, "url" | "optionValue" | "alt">[];
 };
 
 /** Drops everything the grid and the facets never look at. */
@@ -73,6 +86,7 @@ export function toShopTile(product: SanityProduct): ShopTileProduct {
     gallery: (product.gallery ?? []).map((image) => ({
       url: image.url,
       optionValue: image.optionValue,
+      alt: image.alt,
     })),
   };
 }
@@ -369,7 +383,34 @@ function ShopAllTile({
             hoverSrc={
               variant ? null : (product.hoverImageSquare ?? product.hoverImage)
             }
-            alt={product.name}
+            /**
+             * The editor's own alt text, not the raw title.
+             *
+             * `product.name` is the Sanity title verbatim — brand suffix and,
+             * on many products, a size string: "… | 30 x 20 x 5cm | Kaiku".
+             * As an alt attribute that is noise to Google Images and reads
+             * terribly aloud, on the page type that carries more product
+             * photographs than any other.
+             *
+             * The gallery's `alt` is what scripts/set-image-alt.ts wrote for
+             * exactly this, 5,531 of them, and it is already projected by
+             * PRODUCT_CARD_PROJECTION. `productDisplayName` is the fallback
+             * for anything it missed — the same helper the article and
+             * visualiser surfaces already use. Only the alt attribute changes
+             * here; the visible name and the title stay exactly as they are.
+             *
+             * `usableAlt` filters the stored value first. Some of them carry
+             * the supplier composition line — one sofa rendered "in polyester,
+             * velvet, cotton 0%, eucalyptus wood 0% cart weight" — which is
+             * worse as alt text than the product's name.
+             */
+            alt={
+              usableAlt(
+                product.gallery?.find((image) => image.url === base)?.alt,
+              ) ??
+              usableAlt(product.gallery?.[0]?.alt) ??
+              productDisplayName(product.name)
+            }
             /* Three columns on mobile, three at sm, five at lg, six at xl
                inside a 1480px container. This said 50vw below 640px, which is
                a two-column grid's figure — so every phone fetched an image
@@ -388,8 +429,13 @@ function ShopAllTile({
       <p className="text-ink group-hover:text-brass mt-2 line-clamp-2 text-[12px] leading-snug font-medium transition-colors sm:mt-3 sm:line-clamp-none sm:text-[14px]">
         {product.name}
       </p>
+      {/* Not "From £x". A product option is `{ label, values }` with no price
+          on it — nothing in the catalogue has variant pricing — so
+          `product.price` is the price, and it is exactly what Stripe charges.
+          "From" in front of a fixed price reads as a hook, which is the
+          opposite of what a tile on a new shop needs to do. */}
       <p className="text-muted mt-1 text-[11px] sm:text-[13px]">
-        From {formatPrice(product.price)}
+        {formatPrice(product.price)}
       </p>
     </AppLink>
   );

@@ -1,4 +1,8 @@
-import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/shared/json-ld";
+import {
+  BreadcrumbJsonLd,
+  FaqJsonLd,
+  ProductJsonLd,
+} from "@/components/shared/json-ld";
 import { AppLink } from "@/components/ui/app-link";
 import { ProductDetailInteractive } from "@/features/storefront/components/product/product-detail-interactive";
 import { ProductTabs } from "@/features/storefront/components/product/product-tabs";
@@ -64,6 +68,26 @@ export async function ProductDetail({ product }: { product: SanityProduct }) {
           deliveryWindow: deliveryWindow(product),
         }}
       />
+      {/**
+       * The product's own FAQs, marked up.
+       *
+       * They were already rendered in the tabbed band and emitted no
+       * structured data at all, while /faq and all 18 tool pages emit
+       * FAQPage from the same component. A product page with real answers to
+       * real buying questions is the best candidate on the site for an
+       * expanded result, and it was the one page type not asking for one.
+       *
+       * Real editor-written Sanity data only — nothing here is the tab's
+       * fallback copy, and an empty list emits nothing.
+       */}
+      {product.faqs?.length ? (
+        <FaqJsonLd
+          faqs={product.faqs.filter(
+            (faq): faq is { question: string; answer: string } =>
+              Boolean(faq.question && faq.answer),
+          )}
+        />
+      ) : null}
       <div className="mx-auto max-w-[1280px] px-6 pt-8 sm:px-8 lg:px-12">
         <nav
           aria-label="Breadcrumb"

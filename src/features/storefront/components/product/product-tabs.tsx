@@ -14,6 +14,7 @@ import Link from "next/link";
 import * as React from "react";
 
 import { ProductArtPanel } from "@/components/shared/product-artwork";
+import { siteConfig } from "@/config/site";
 import {
   availabilityLine,
   DOORSTEP_DELIVERY_NOTE,
@@ -74,7 +75,7 @@ function bandFeatures(
   features.push({
     icon: Headset,
     title: "Expert support",
-    copy: "Questions answered before you buy",
+    copy: `Email ${siteConfig.email} before you buy`,
   });
 
   return features;
@@ -614,10 +615,18 @@ function ReviewsPanel({ product }: { product: SanityProduct }) {
 
 function FaqsPanel({ product }: { product: SanityProduct }) {
   if (!product.faqs.length) {
+    // "get in touch" with no way to get in touch was the whole of this
+    // sentence: the buyer had to go and find the address.
     return (
       <p className="text-muted text-[14px]">
-        No questions answered for this product yet — get in touch and
-        we&rsquo;ll help directly.
+        No questions answered for this product yet — email{" "}
+        <a
+          href={`mailto:${siteConfig.email}`}
+          className="text-ink underline decoration-[0.5px] underline-offset-4"
+        >
+          {siteConfig.email}
+        </a>{" "}
+        and we&rsquo;ll help directly.
       </p>
     );
   }

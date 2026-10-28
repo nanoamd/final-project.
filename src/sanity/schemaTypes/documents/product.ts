@@ -640,6 +640,12 @@ export const product = defineType({
       name: "rating",
       type: "number",
       group: "merchandising",
+      description:
+        "Only ever fill this in from real customer reviews. It is marked up " +
+        "as AggregateRating in the product's structured data, so an invented " +
+        "figure is a fabricated review shown to Google — against its " +
+        "review-snippet policy, and a misleading commercial practice. Leave " +
+        "both fields empty and the page says 'No reviews yet', which is true.",
       validation: (rule) => rule.min(0).max(5),
     }),
     defineField({
@@ -647,6 +653,9 @@ export const product = defineType({
       title: "Review count",
       type: "number",
       group: "merchandising",
+      description:
+        "The number of real reviews behind the rating above. Both fields are " +
+        "needed before anything is shown or marked up.",
     }),
 
     defineField({ name: "seo", type: "seo", group: "seo" }),

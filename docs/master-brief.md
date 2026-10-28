@@ -16,6 +16,119 @@ Status key:
 
 ---
 
+## Alt text, invented ratings, and who the buyer is contracting with (28 October)
+
+### The grids were describing their images with the raw feed title
+
+Every image on a category grid carried an alt, and it was `product.name`
+verbatim — brand suffix and, on many products, a size string: "… | 30 x 20 x
+5cm | Kaiku". Across ~908 products on the page type that holds more product
+photographs than any other, that is the worst image-SEO surface on the site,
+and the page my own probe scored as perfect.
+
+The good alt text already existed: **5,531 strings written into Sanity**,
+already projected by `PRODUCT_CARD_PROJECTION`, and thrown away by
+`toShopTile` before the grid ever saw them.
+
+- [x] `alt` added to `ShopTileProduct.gallery` and to `toShopTile`.
+- [x] Both grids now use the editor's alt, falling back to
+      `productDisplayName` — the helper the article and visualiser surfaces
+      already use. **Only the alt attribute changed; the visible name and the
+      `<title>` are untouched.**
+- [x] **`usableAlt()`, found by rendering the page rather than reading it.**
+      Not every stored value survived the supplier data it came from. /shop/sofas
+      was serving this, live:
+
+```
+"Hayton Black Velvet Sofa Bed, in polyester, velvet, cotton 0%,
+ eucalyptus wood 0% cart weight — main product image"
+```
+
+That is the composition-line junk `dominantMaterial` exists to strip, baked
+into a stored alt by whichever generator ran before it did. As the one piece
+of text Google reads about an image it is worse than the product's name, so
+a stored alt is now rejected if it carries a percentage, the "cart weight"
+artefact, or a comma list long enough to be a spec dump. 7 tests.
+
+- [x] **Duplicate hover alts fixed** in three components. The hover-swap image
+      carried the same alt as the image underneath it: a duplicate image+alt pair
+      to a crawler and the product announced twice to a screen reader.
+- [x] **"Product of the week" had `alt=""`** — a product photograph in a
+      sidebar on every /shop, /shop/<category> and /shop/room/* page.
+
+Verified on the built site at 390px: 32 of 32 alts are real descriptions, 0
+carry the suffix, 0 carry a size string or composition junk.
+
+### "From £323" on a price that is exactly £323
+
+A product option is `{ label, values }` with no price on it — **nothing in the
+catalogue has variant pricing** — so `product.price` is the price, and it is
+exactly what Stripe charges. "From" in front of it reads as a hook, which is
+the opposite of what a tile on a new shop needs to do.
+
+- [x] Dropped at all three live tile components. Verified: 0 tiles say "From".
+
+### Nine invented ratings, one command from going live again
+
+`scripts/seed-sanity.ts` held nine `rating` 4.7-4.9 / `reviewCount` 11-63
+pairs and wrote them with `createOrReplace`. One `pnpm tsx scripts/seed-sanity.ts`
+would have put fabricated `AggregateRating` back into nine product pages,
+overwriting exactly what `clear-seeded-ratings.ts` was written to remove — and
+in the same run set `legalName: "Project Kaiku Ltd"`, a **false
+limited-company claim**, into the footer of every page, since the footer
+prefers Sanity over config.
+
+- [x] All nine pairs removed from the seed data and from the write.
+- [x] `legalName` now reads `siteConfig.legalName`, so it cannot drift again.
+- [x] Nine more removed from `src/features/storefront/data/catalog.ts` — dead
+      code today, confirmed no route imports it, but a loaded gun in `src/`.
+- [x] **The Studio fields now say so.** `rating` and `reviewCount` had no
+      description, so nothing told an editor these must come from real customers.
+
+Worth recording what was already right: nothing live emits a fake rating. The
+fields reach the page from Sanity with no default and no coalesce, and every
+render site and the JSON-LD are strictly conditional on both being truthy.
+
+### Who the buyer is actually contracting with
+
+CCR 2013 Sch. 2 (b),(c) require the trader's identity and geographic address
+before the consumer is bound. It was on /terms, /contact and in the order
+emails — and nowhere on the basket, the last page Kaiku controls before Stripe
+takes the card.
+
+- [x] **The basket now states it**, small and at the bottom, with a Terms
+      link. On a sole-trader shop a named person with a real address is also the
+      strongest trust signal available, and four screens of the journey carried
+      none of it.
+- [x] **"14-day returns" and Delivery are now links**, not assertions. The
+      policy was four tab-clicks and a scroll away on the product page, and a
+      buyer deciding on £1,500 hunts for returns hardest.
+- [x] **"get in touch" now gives the address.** Three strings asked the buyer
+      to contact us without saying how.
+- [x] **The comment in `site.ts` claiming the address is rendered in the
+      footer** is corrected. It is not — the footer renders the legal name, the
+      tagline and the email. Anyone trusting it would have believed the sitewide
+      obligation was already discharged.
+- [x] **Product pages now emit `FAQPage`.** Their FAQs were rendered and
+      marked up nowhere, while /faq and all 18 tool pages emit it from the same
+      component. Real editor-written answers only; an empty list emits nothing.
+
+### Deliberately not shipped
+
+- [-] **`consent_collection: { terms_of_service: "required" }` on the Stripe
+  session.** It is the right thing — Stripe renders a required checkbox and
+  records a timestamped acceptance per order. But Stripe **rejects session
+  creation outright** unless a Terms of Service URL is set on the account's
+  public business details, and that is a dashboard setting this code cannot
+  read. Shipping it unverified would not degrade checkout, it would break it
+  for every customer. The line is in `checkout.ts`, commented, with the
+  dashboard path.
+- [!] **Set the Terms of service URL to https://www.kaikuhome.com/terms** in
+  Stripe -> Settings -> Business -> Public details, then tell me and I will
+  uncomment the line above.
+
+---
+
 ## The accessibility failures, fixed and verified in a browser (28 October)
 
 All of these were found by audit and then confirmed by driving the built site

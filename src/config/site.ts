@@ -47,9 +47,18 @@ export const siteConfig = {
  * advertising instead, and incorporating becomes a decision for when revenue allows.
  *
  * What the law requires of a sole trader selling online is the trader's own name,
- * a geographic address and contact details — all present below and rendered in the
- * footer. If Kaiku does incorporate later, restore `registeredName`,
- * `companyNumber` and `registeredIn` and the footer wording changes with them.
+ * a geographic address and contact details. All three are below.
+ *
+ * **They are NOT rendered in the footer**, which this comment used to claim.
+ * `site-footer.tsx` renders the legal name, the tagline and the email, and
+ * nothing reads `tradingAddressLine()`. The address appears on /terms,
+ * /contact, the basket and in order emails — a deliberate choice, so a home
+ * address does not turn up in a search snippet for a calculator page — and
+ * /terms is linked from the footer of every page. Anyone trusting the old
+ * wording would have believed the sitewide obligation was already discharged.
+ *
+ * If Kaiku does incorporate later, restore `registeredName`, `companyNumber`
+ * and `registeredIn` and the footer wording changes with them.
  */
 export const companyDetails = {
   /**

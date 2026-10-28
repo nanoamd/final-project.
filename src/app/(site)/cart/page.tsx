@@ -7,6 +7,7 @@ import * as React from "react";
 import { AppLink } from "@/components/ui/app-link";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { companyDetails, siteConfig, tradingAddressLine } from "@/config/site";
 import { BasketAddOns } from "@/features/storefront/components/cart/basket-add-ons";
 import { useCart } from "@/hooks/use-cart";
 import { trackBeginCheckout } from "@/lib/analytics/events";
@@ -355,11 +356,51 @@ export default function CartPage() {
               <Lock className="size-3.5" strokeWidth={1.5} aria-hidden />
               Secure checkout
             </span>
-            <span className="flex items-center gap-1.5">
+            {/* Linked, not just asserted. "14-day returns" was plain text and
+                the policy it refers to was four tab-clicks and a scroll away
+                on the product page — a buyer deciding on £1,500 hunts for
+                returns hardest, and the words were here without the door. */}
+            <AppLink
+              href="/returns"
+              className="hover:text-ink -my-[13px] flex items-center gap-1.5 py-[13px] underline decoration-[0.5px] underline-offset-4 transition-colors"
+            >
               <RotateCcw className="size-3.5" strokeWidth={1.5} aria-hidden />
               14-day returns
-            </span>
+            </AppLink>
+            <AppLink
+              href="/delivery"
+              className="hover:text-ink -my-[13px] flex items-center gap-1.5 py-[13px] underline decoration-[0.5px] underline-offset-4 transition-colors"
+            >
+              <Truck className="size-3.5" strokeWidth={1.5} aria-hidden />
+              Delivery
+            </AppLink>
           </div>
+
+          {/**
+           * Who the buyer is actually contracting with.
+           *
+           * The Consumer Contracts Regulations 2013 (Sch. 2 (b), (c)) require
+           * the trader's identity and geographic address to be given **before
+           * the consumer is bound**, and the Ecommerce Regulations want it
+           * "easily, directly and permanently accessible". It was on /terms
+           * and /contact and in the order emails, and nowhere on the basket —
+           * the last page Kaiku controls before Stripe takes the card.
+           *
+           * Deliberately small and at the bottom: it is a disclosure, not a
+           * selling point. But on a sole-trader shop a named person with a
+           * real address is also the strongest trust signal available, and
+           * four screens of the buying journey were carrying none of it.
+           */}
+          <p className="text-muted mt-5 text-[11px] leading-relaxed">
+            {siteConfig.name} is a trading name of {companyDetails.traderName}.{" "}
+            {tradingAddressLine()}.{" "}
+            <AppLink
+              href="/terms"
+              className="hover:text-ink underline decoration-[0.5px] underline-offset-4 transition-colors"
+            >
+              Terms
+            </AppLink>
+          </p>
         </div>
       </div>
 

@@ -22,6 +22,8 @@ import { fileURLToPath } from "node:url";
 
 import { createClient } from "@sanity/client";
 
+import { siteConfig } from "../src/config/site";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 
@@ -309,8 +311,6 @@ const PRODUCTS = [
       "The Auroom Vista Sauna combines panoramic views with Nordic craftsmanship. Designed for ultimate relaxation and built to last in all outdoor conditions.",
     price: 7995,
     sku: "AUR-VISTA",
-    rating: 4.9,
-    reviewCount: 28,
     badges: ["Thermowood", "Panoramic glass"],
     image: "images/cedar.jpg",
     highlights: [
@@ -381,8 +381,6 @@ const PRODUCTS = [
       "A cabin sauna with a full-width glazed gable that turns the garden into part of the ritual — the architectural centrepiece of an outdoor wellness space.",
     price: 6995,
     sku: "AUR-HRZN",
-    rating: 4.8,
-    reviewCount: 19,
     badges: ["4–6 person", "Panoramic glass"],
     image: "images/steam-lake.jpg",
     highlights: [
@@ -428,8 +426,6 @@ const PRODUCTS = [
       "A compact cabin sauna in slow-grown Nordic spruce, designed for smaller gardens without compromising on the bench depth and ceiling height that make a session feel generous.",
     price: 8900,
     sku: "KAI-AALTO",
-    rating: 4.9,
-    reviewCount: 34,
     badges: ["2–3 person", "Electric"],
     image: "images/cedar.jpg",
     highlights: [
@@ -478,8 +474,6 @@ const PRODUCTS = [
       "A barrel sauna whose curved profile heats quickly and evenly — a natural choice for gardens where a cabin would feel too architectural.",
     price: 6900,
     sku: "KAI-NORDR",
-    rating: 4.7,
-    reviewCount: 22,
     badges: ["4 person", "Electric or wood"],
     image: "images/steam-lake.jpg",
     highlights: [
@@ -524,8 +518,6 @@ const PRODUCTS = [
       "A cylindrical electric heater with a generous stone capacity for a soft, enveloping heat. Sized to your cabin volume, glass area and the löyly you want.",
     price: 1095,
     sku: "HAR-CIL",
-    rating: 4.8,
-    reviewCount: 41,
     badges: ["9kW", "Electric"],
     highlights: [
       "Large stone capacity for a softer löyly",
@@ -560,8 +552,6 @@ const PRODUCTS = [
       "An insulated cold plunge with an integrated chiller and filtration, holding a precise temperature year-round without ice — the recovery half of the sauna ritual.",
     price: 4750,
     sku: "CHL-ORIG",
-    rating: 4.9,
-    reviewCount: 52,
     badges: ["1–2 person", "Integrated chiller"],
     image: "images/dark-water.jpg",
     highlights: [
@@ -598,8 +588,6 @@ const PRODUCTS = [
       "An insulated cold plunge with a clean, architectural profile. Filtration-ready and chiller-compatible for a precise temperature all year.",
     price: 4200,
     sku: "KAI-STILL",
-    rating: 4.7,
-    reviewCount: 16,
     badges: ["1 person", "Insulated"],
     image: "images/cold-ripple.jpg",
     highlights: [
@@ -634,8 +622,6 @@ const PRODUCTS = [
       "A curated set of the essentials — ladle, bucket, sand timer, thermometer/hygrometer and a pair of pure essential oils — chosen to complete a new sauna.",
     price: 195,
     sku: "KAI-ESSNT",
-    rating: 4.8,
-    reviewCount: 63,
     badges: ["Bundle", "Aspen & steel"],
     highlights: [
       "Aspen ladle and bucket with steel liner",
@@ -669,8 +655,6 @@ const PRODUCTS = [
       "A slatted Thermowood privacy screen that carves a private zone around a sauna or seating area while keeping sightlines soft and the palette warm.",
     price: 1250,
     sku: "AUR-TERASS",
-    rating: 4.7,
-    reviewCount: 11,
     badges: ["Thermowood", "Modular"],
     highlights: [
       "Thermowood slats, matched to the sauna range",
@@ -715,8 +699,20 @@ async function seedProducts() {
       price: p.price,
       currency: "GBP",
       sku: p.sku,
-      rating: p.rating,
-      reviewCount: p.reviewCount,
+      /**
+       * No `rating` or `reviewCount`.
+       *
+       * They used to be here, with nine invented pairs between 4.7 and 4.9
+       * and 11 to 63 reviews, written with `createOrReplace` — so one run of
+       * this script put fabricated `AggregateRating` back into the product
+       * JSON-LD on nine pages, overwriting exactly what
+       * scripts/clear-seeded-ratings.ts was written to remove.
+       *
+       * The shop has had very few customers and none of them left a review.
+       * Marking up invented ones breaches Google's review-snippet policy and
+       * is a misleading commercial practice besides. The fields stay in the
+       * schema for real reviews; nothing seeds them.
+       */
       badges: p.badges,
       highlights: p.highlights,
       specs: p.specs,
@@ -1147,7 +1143,16 @@ async function seedSiteSettings() {
     _id: "siteSettings",
     _type: "siteSettings",
     siteName: "Kaiku",
-    legalName: "Project Kaiku Ltd",
+    /**
+     * Read from config, not hardcoded.
+     *
+     * This said "Project Kaiku Ltd". Kaiku trades as a **sole trader**, so
+     * that is a false limited-company claim — and `site-footer.tsx` prefers
+     * `settings?.legalName` over `siteConfig.legalName`, so one run of this
+     * script put it into the footer of every page on the site, undoing
+     * scripts/set-sole-trader-identity.ts.
+     */
+    legalName: siteConfig.legalName,
     tagline: "Premium home improvement, considered",
     description:
       "Kaiku is a premium home improvement brand — curated architectural products, wellness structures and considered pieces for indoor and outdoor living, chosen with expert guidance and built to last a lifetime.",

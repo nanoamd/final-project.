@@ -6,6 +6,8 @@ import { AppLink } from "@/components/ui/app-link";
 import { buttonVariants } from "@/components/ui/button";
 import { CategoryAccordion } from "@/features/storefront/components/category/category-accordion";
 import { TrustBar } from "@/features/storefront/components/home/trust-bar";
+import { usableAlt } from "@/lib/catalog/image-alt";
+import { productDisplayName } from "@/lib/catalog/product-name";
 import { formatPrice } from "@/lib/format";
 import {
   categoryInRoom,
@@ -369,7 +371,13 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
             product.image ??
             "/images/garden-after.jpg"
           }
-          alt=""
+          // A product photograph, in a sidebar card on every /shop,
+          // /shop/<category> and /shop/room/* page — not decoration. Its
+          // hover twin below stays alt="" because it is the same product.
+          alt={
+            usableAlt(product.gallery?.[0]?.alt) ??
+            productDisplayName(product.name)
+          }
           fill
           sizes="248px"
           className="object-contain transition-transform duration-700 group-hover:scale-[1.05]"
@@ -388,7 +396,9 @@ function ProductOfTheWeekCard({ product }: { product: SanityProduct }) {
         {product.name}
       </p>
       <p className="text-brass mt-1 text-[13px]">
-        From {formatPrice(product.price)}
+        {/* No "From" — nothing in the catalogue has variant
+            pricing, so this is the price. See shop-results.tsx. */}
+        {formatPrice(product.price)}
       </p>
     </AppLink>
   );
@@ -435,7 +445,12 @@ function ProductTile({ product }: { product: SanityProduct }) {
         {(product.cardImage ?? product.image) ? (
           <Image
             src={product.cardImage ?? product.image!}
-            alt={product.name}
+            // The editor's alt text, not the raw Sanity title with its brand
+            // suffix and size string. Same reasoning as shop-results.tsx.
+            alt={
+              usableAlt(product.gallery?.[0]?.alt) ??
+              productDisplayName(product.name)
+            }
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"
             className="object-contain transition-transform duration-700 group-hover:scale-[1.05]"
@@ -450,7 +465,10 @@ function ProductTile({ product }: { product: SanityProduct }) {
         {product.hoverImage ? (
           <Image
             src={product.hoverImage}
-            alt={product.name}
+            // The hover swap carried the same alt as the image underneath it:
+            // a duplicate image+alt pair to a crawler, and the product
+            // announced twice to a screen reader.
+            alt=""
             fill
             sizes="(max-width: 1024px) 50vw, 30vw"
             className="absolute inset-0 object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"

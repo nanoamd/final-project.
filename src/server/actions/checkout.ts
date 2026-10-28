@@ -233,6 +233,26 @@ export async function createCheckoutSession(
     // which is why the original 10% first-order promise could never actually
     // be honoured at checkout.
     allow_promotion_codes: true,
+    /**
+     * `consent_collection: { terms_of_service: "required" }` belongs here and
+     * is deliberately NOT set yet.
+     *
+     * Stripe renders a required terms checkbox and records the acceptance on
+     * the session, which is the timestamped pre-contract acknowledgement the
+     * Consumer Contracts Regulations want — much better than assuming the
+     * buyer found /terms in the footer.
+     *
+     * But Stripe **rejects session creation outright** unless a Terms of
+     * Service URL is set on the account's public business details, and that
+     * is a dashboard setting this code cannot read. Shipping it unverified
+     * would not degrade checkout, it would break it for every customer.
+     *
+     * So: set the Terms of service URL to https://www.kaikuhome.com/terms in
+     * Stripe -> Settings -> Business -> Public details, then uncomment the
+     * line below. The basket already states the trader's name and address, so
+     * the identity disclosure is on the journey either way.
+     */
+    // consent_collection: { terms_of_service: "required" },
     shipping_options: [
       {
         shipping_rate_data: {

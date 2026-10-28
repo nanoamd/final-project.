@@ -169,7 +169,12 @@ export function FeaturedProductSection({
               {(product.hoverImageWide ?? product.hoverImage) ? (
                 <Image
                   src={(product.hoverImageWide ?? product.hoverImage)!}
-                  alt={product.name}
+                  /* The hover swap, so alt="" — same product, and the image
+                  below already describes it. Two <img> carrying the same
+                  alt is a duplicate image+alt pair to a crawler and a
+                  second announcement to a screen reader. This is the
+                  pattern product-card-image.tsx already uses. */
+                  alt=""
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
