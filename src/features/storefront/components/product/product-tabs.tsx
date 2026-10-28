@@ -14,7 +14,12 @@ import Link from "next/link";
 import * as React from "react";
 
 import { ProductArtPanel } from "@/components/shared/product-artwork";
+import { toRoute } from "@/components/ui/app-link";
 import { siteConfig } from "@/config/site";
+import {
+  hasFitTool,
+  ProductFitTool,
+} from "@/features/storefront/components/product/product-fit-tool";
 import {
   availabilityLine,
   DOORSTEP_DELIVERY_NOTE,
@@ -22,6 +27,7 @@ import {
   leadTimeLine,
 } from "@/lib/catalog/delivery";
 import { formatMaterialSpec } from "@/lib/catalog/percentages";
+import { toolsForCategory } from "@/lib/content/tools";
 import { productDescriptionComponents } from "@/lib/sanity/product-description-components";
 import type { SanityProduct } from "@/types/sanity-content";
 
@@ -82,9 +88,27 @@ function bandFeatures(
 }
 
 export function ProductTabs({ product }: { product: SanityProduct }) {
+  /**
+   * The calculator for this product's category, if there is one.
+   *
+   * 703 of the 908 products are in a category with a matching calculator and
+   * not one of them showed it — `toolsForCategory` existed and no product
+   * component called it. The calculators are the only pages on this site that
+   * reliably earn organic clicks, and "will it fit" is the question standing
+   * between a visitor and the basket, so this is where it belongs.
+   *
+   * First match only. Two calculators in a tab is a menu, not an answer.
+   */
+  const fitTool = toolsForCategory(product.category).find((tool) =>
+    hasFitTool(tool.href),
+  );
+
   const tabs = [
     { id: "description", label: "Description" },
     { id: "specifications", label: "Specifications" },
+    // Third, not last: it is the most useful thing in this band for anyone
+    // still deciding, and the two before it are what they came to read.
+    ...(fitTool ? ([{ id: "fit", label: "Will it fit?" }] as const) : []),
     { id: "delivery", label: "Delivery, Returns & Warranty" },
     { id: "faqs", label: "FAQs" },
     { id: "reviews", label: "Reviews" },
@@ -167,6 +191,27 @@ export function ProductTabs({ product }: { product: SanityProduct }) {
               {tab.id === "specifications" ? (
                 <WithSideArt product={product}>
                   <SpecsPanel product={product} />
+                </WithSideArt>
+              ) : null}
+              {tab.id === "fit" && fitTool ? (
+                <WithSideArt product={product}>
+                  <div>
+                    <h3 className={panelHeading}>{fitTool.title}</h3>
+                    <p className="text-muted mt-2 max-w-prose text-[14px]">
+                      Work it out against your own room before you order. The
+                      full tool has more detail; this is the part that answers
+                      the question on this page.
+                    </p>
+                    <div className="mt-6 max-w-xl">
+                      <ProductFitTool href={fitTool.href} />
+                    </div>
+                    <Link
+                      href={toRoute(fitTool.href)}
+                      className={`${linkClass} mt-6 inline-block`}
+                    >
+                      Open the full {fitTool.title.toLowerCase()} →
+                    </Link>
+                  </div>
                 </WithSideArt>
               ) : null}
               {tab.id === "delivery" ? (

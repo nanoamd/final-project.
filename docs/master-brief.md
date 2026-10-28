@@ -16,6 +16,53 @@ Status key:
 
 ---
 
+## The calculators are now on the product pages (28 October)
+
+`toolsForCategory` has existed for a while and **no product component ever
+called it**. 703 of the 908 products are in a category with a matching
+calculator and not one of them showed it — not even a link.
+
+That is the wrong way round. The calculators are the only pages on this site
+that reliably earn organic clicks: 8 of the last 16, with the wall-clock tool
+shown 69 times and the vase tool 120. The 908 product pages took 4 between
+them. A dropship product page competes with every other shop selling the same
+piece, from the same supplier, with the same photographs and nearly the same
+words — and a calculator is the one thing on it none of them have.
+
+- [x] **A "Will it fit?" tab on 703 product pages**, carrying the live
+      calculator for that category, not a link to it. Third in the band, because
+      the two before it are what someone came to read and this is what they need
+      before they can order.
+- [x] **Server-rendered, so it is crawlable.** Verified: "Over furniture",
+      "On a bare wall" and "Above kitchen units" are all in the HTML of the clock
+      page. The tab band already renders every panel and hides the inactive ones
+      for exactly this reason.
+- [x] **Lazy-loaded, one per page.** Thirteen calculators behind one shared
+      `[product]` route would put all thirteen in that route's bundle on every
+      product page to use one. Measured: a product page with a tool ships 376 KB
+      of JS against 302 KB for a page without one — one calculator, not thirteen.
+- [x] Still links through to the full tool underneath it.
+
+### Deliberately left out
+
+- [-] **Saunas and cold plunges.** Their calculator takes a product list and a
+  noun rather than standing alone — it matches a party size against real
+  stock. Embedding it would mean fetching a category's products inside a
+  product page to answer a question that page has already answered. Those
+  categories keep their link to the full tool, which is the right place for
+  it.
+
+Verified at 375px: the sixth tab fits, 0 overflow before and after opening
+it, and the calculator hydrates with all six of its controls.
+
+### Checked and found healthy
+
+Site search is fine — "rattan", "wall clock", "grey sofa" and "oak" all
+return relevant products and "xyzzy" correctly returns none. It had been
+flagged as possibly returning nothing; it does not.
+
+---
+
 ## 83 curated landing pages, built from the catalogue (28 October)
 
 The other half of blocking the facet query strings. Those URLs were a
