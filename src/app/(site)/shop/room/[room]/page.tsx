@@ -40,11 +40,29 @@ export async function generateMetadata({
   const { room } = await params;
   const departments = await getDepartments();
   const department = departments.find((d) => d.slug === room);
+  /**
+   * The room's own photograph for a shared link.
+   *
+   * This route builds its Metadata by hand rather than through
+   * `buildMetadata`, so it inherited the root layout's Open Graph image —
+   * meaning every room link shared on WhatsApp, Slack or LinkedIn showed the
+   * same generic garden photo. 10 of the 11 rooms have no `heroImage`, so the
+   * flagship product's photo is what there is, and it is a picture of the
+   * room rather than of nothing in particular.
+   */
+  const ogImage = department?.image ?? department?.fallbackImage;
+
   return {
     title: department?.name ?? "Shop",
     description:
       department?.description ??
       "The UK's most helpful home store, room by room.",
+    ...(ogImage
+      ? {
+          openGraph: { images: [{ url: ogImage }] },
+          twitter: { card: "summary_large_image", images: [ogImage] },
+        }
+      : {}),
     /**
      * Self-canonical, except for Outdoor Living.
      *

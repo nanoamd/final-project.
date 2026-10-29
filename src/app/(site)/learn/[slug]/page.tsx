@@ -39,7 +39,10 @@ export async function generateMetadata({
     title: guide?.title ?? "Buying Guides",
     description: guide?.excerpt ?? "Considered buying guides from Kaiku.",
     path: `/learn/${slug}`,
-    image: guide?.coverImage ?? undefined,
+    // All 43 guides have an empty coverImage, so every shared guide link
+    // showed the generic garden photo. fallbackImage is a photo of the
+    // product the guide is about.
+    image: guide?.coverImage ?? guide?.fallbackImage ?? undefined,
     seo: guide?.seo,
   });
 }

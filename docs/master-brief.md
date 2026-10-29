@@ -16,6 +16,40 @@ Status key:
 
 ---
 
+## Every shared link showed the same garden photo (29 October)
+
+Product pages had a proper Open Graph image. **Nothing else did** — the home
+page, all 49 category pages, all 11 room pages, all 83 facet pages and all 46
+articles shared `/images/garden-after.jpg`.
+
+So every Kaiku link shared on WhatsApp, Slack, Facebook or LinkedIn, and every
+link an interior designer or landscaper might be sent during outreach, showed
+a generic garden photo instead of the thing being linked to. `buildMetadata`
+has always accepted an `image`; those routes simply never passed one.
+
+- [x] **Category pages** fall through to the flagship product photo.
+- [x] **Room pages** too — that route builds its `Metadata` by hand rather
+      than through `buildMetadata`, so it had inherited the root layout's image
+      and had no Open Graph of its own at all.
+- [x] **Facet pages** use the first product on the facet, so all 83 differ.
+- [x] **Buying guides and journal posts** use the same `fallbackImage` that
+      fixed their empty hero frames.
+
+Verified: five page types, five distinct photographs, where there had been
+one. The home page keeps the garden shot deliberately — there it is the brand
+image rather than a stand-in.
+
+### Measured, and not the problem it was assumed to be
+
+I expected to spend this batch on `describe.ts`, the template copy generator.
+Measured against the live catalogue first: **only 3 sentences repeat across
+10 or more products, and they affect 38 of 908.** The most repeated is an
+18-times "this lamp is intended for indoor use only", which is a safety line
+and belongs there. The template generator's output is not what is on the
+site, so rewriting it would have been a wasted batch.
+
+---
+
 ## Every room shows its own flagship, and categories link to their guides (29 October)
 
 ### One garden photo was standing in for nineteen pages

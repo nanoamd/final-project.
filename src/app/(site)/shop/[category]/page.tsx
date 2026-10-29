@@ -40,7 +40,9 @@ export async function generateMetadata({
       found?.description ??
       "Browse the full Kaiku collection — premium outdoor living and wellness pieces.",
     path: `/shop/${category}`,
-    image: found?.image ?? undefined,
+    // Falls through to the flagship product photo rather than the generic
+    // garden shot, which is what every shared link used to show.
+    image: found?.image ?? found?.fallbackImage ?? undefined,
     seo: found?.seo,
     // An empty category is a thin page. `noindex, follow` keeps it reachable and
     // keeps link equity flowing through it, while keeping it out of the index

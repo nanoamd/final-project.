@@ -34,7 +34,8 @@ export async function generateMetadata({
     title: post?.title ?? "Journal",
     description: post?.excerpt ?? "Stories and ideas from Kaiku.",
     path: `/journal/${slug}`,
-    image: post?.coverImage ?? undefined,
+    // Same as /learn: all 3 posts have no cover of their own.
+    image: post?.coverImage ?? post?.fallbackImage ?? undefined,
     seo: post?.seo,
   });
 }

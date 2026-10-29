@@ -107,6 +107,14 @@ export function facetMetadata(data: FacetRouteData | null): Metadata {
 
   return buildMetadata({
     title: heading,
+    // The first product on this facet. Without it an 83-page set of shared
+    // links all showed the same generic garden photo.
+    image:
+      products[0]?.cardImage ??
+      products[0]?.image ??
+      category.image ??
+      category.fallbackImage ??
+      undefined,
     description:
       `${products.length} ${heading.toLowerCase()} at Kaiku` +
       (from ? `, from £${from}` : "") +
