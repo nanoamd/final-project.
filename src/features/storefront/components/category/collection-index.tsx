@@ -20,6 +20,7 @@ import {
   getHomepage,
   getProduct,
   getProductsByCategory,
+  getRoomOverview,
 } from "@/lib/sanity/queries";
 import type {
   SanityCategory,
@@ -44,10 +45,16 @@ export async function CollectionIndex({
   roomSlug?: string;
   styleTag?: string;
 }) {
-  const [allCategories, departments, homepage] = await Promise.all([
+  const [allCategories, departments, homepage, overview] = await Promise.all([
     getCategories(),
     roomSlug ? getDepartments() : Promise.resolve([]),
     getHomepage(),
+    // What a room page can say about itself. A department has no body field
+    // in Sanity, so these pages carried 35 words of prose against 366 on a
+    // category page — see getRoomOverview.
+    roomSlug && !categorySlug
+      ? getRoomOverview(roomSlug)
+      : Promise.resolve(null),
   ]);
   const productOfTheWeek = homepage?.curatedFeaturedProductSlug
     ? await getProduct(homepage.curatedFeaturedProductSlug)
@@ -173,6 +180,13 @@ export async function CollectionIndex({
             ) : categories.length ? (
               <div className="mt-8">
                 <CategoryAccordion categories={categories} room={room} />
+                {room && overview ? (
+                  <RoomOverview
+                    room={room}
+                    categories={categories}
+                    overview={overview}
+                  />
+                ) : null}
               </div>
             ) : (
               <EmptyCollection name={room?.name ?? "This room"} />
@@ -183,6 +197,89 @@ export async function CollectionIndex({
 
       <TrustBar />
     </div>
+  );
+}
+
+/**
+ * What a room page can say about itself.
+ *
+ * A `department` has no body field in Sanity — a title, a two-row
+ * description, a hero and an order — so these eleven indexable,
+ * self-canonical pages carried **35 words of prose** against 366 on a
+ * category page, measured in the browser. On terms as commercial as
+ * "Bedroom" and "Lighting", that is eleven pages asking to rank while saying
+ * nothing.
+ *
+ * Every sentence below is computed from the room's own contents, like the
+ * facet pages: how many pieces, across how many categories, at what prices.
+ * Not written, because eleven pieces of hand-written room copy is eleven
+ * pieces of filler waiting to go stale, and the true version cannot.
+ *
+ * The guides underneath do the other half of the job. 43 buying guides are
+ * tagged to a category, and until now the room above that category linked to
+ * none of them — so the writing that would actually help someone furnishing
+ * a bedroom was invisible from the bedroom page.
+ */
+function RoomOverview({
+  room,
+  categories,
+  overview,
+}: {
+  room: SanityDepartment;
+  categories: SanityCategory[];
+  overview: {
+    priceLow: number | null;
+    priceHigh: number | null;
+    guides: { slug: string; title: string; excerpt?: string }[];
+  };
+}) {
+  const pieces = categories.reduce(
+    (total, category) => total + (category.productCount ?? 0),
+    0,
+  );
+  if (!pieces) return null;
+
+  const { priceLow, priceHigh, guides } = overview;
+  return (
+    <section className="mt-14 border-t border-white/10 pt-10">
+      <h2 className="text-canvas font-display text-xl tracking-tight">
+        {room.name} at Kaiku
+      </h2>
+      <p className="text-canvas/70 mt-4 max-w-2xl text-[15px] leading-relaxed">
+        {pieces} {pieces === 1 ? "piece" : "pieces"} across {categories.length}{" "}
+        {categories.length === 1 ? "category" : "categories"}
+        {priceLow !== null && priceHigh !== null && priceLow !== priceHigh
+          ? `, from ${formatPrice(priceLow)} to ${formatPrice(priceHigh)}`
+          : ""}
+        . Every piece lists its dimensions, materials and delivery window before
+        you order, and UK delivery is included in the price.
+      </p>
+
+      {guides.length ? (
+        <>
+          <h3 className="text-canvas font-display mt-10 text-[17px] tracking-tight">
+            Read before you buy
+          </h3>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+            {guides.map((guide) => (
+              <li key={guide.slug}>
+                <AppLink
+                  href={`/learn/${guide.slug}`}
+                  className="group block h-full rounded-xl border border-white/10 p-5 transition-colors hover:border-white/30"
+                >
+                  <p className="text-canvas/50 text-[11px] tracking-[0.12em] uppercase">
+                    Buying guide
+                  </p>
+                  <p className="text-canvas font-display group-hover:text-brass mt-2 text-[16px] leading-snug tracking-tight transition-colors">
+                    {guide.title}
+                  </p>
+                </AppLink>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
   );
 }
 

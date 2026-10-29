@@ -16,6 +16,42 @@ Status key:
 
 ---
 
+## The eleven room pages were the thinnest on the site (29 October)
+
+Measured in the browser: a room page carried **35 words of prose**, against
+366 on a category page and 65 on a facet page. Eleven indexable,
+self-canonical pages on terms as commercial as "Bedroom" and "Lighting",
+each saying almost nothing.
+
+The cause is structural. A `department` in Sanity has a title, a two-row
+description, a hero and an order — **no body field at all** — so no amount of
+editing could have fixed it from Studio.
+
+- [x] **A computed overview on every room page**, stating what is true of its
+      own contents: how many pieces, across how many categories, at what prices.
+      Bedroom now reads _"72 pieces across 5 categories, from £53 to £1,524"_.
+      Computed rather than written, because eleven pieces of hand-written room
+      copy is eleven pieces of filler waiting to go stale, and the true version
+      cannot.
+- [x] **The guides for the room's categories**, which is the other half. 43
+      guides are tagged to a category and the room above that category linked to
+      none of them — so the writing that would actually help somebody furnishing
+      a bedroom was invisible from the bedroom page.
+- [x] One query for both, since a room page already makes four and the price
+      range and the guides are both one-line aggregates.
+
+Measured after: **prose 35 → 62-80 words, guide links 0 → 2-3 per room.**
+
+### Not done, and why
+
+- [-] **Adding `intro`, `buyingGuide` and `faqs` to the department schema**,
+  mirroring `category`. It is the right long-term fix and it would render
+  nothing until eleven pieces of copy are written — so the computed overview
+  goes in first, and the schema change is worth doing when you want to write
+  them.
+
+---
+
 ## Every shared link showed the same garden photo (29 October)
 
 Product pages had a proper Open Graph image. **Nothing else did** — the home

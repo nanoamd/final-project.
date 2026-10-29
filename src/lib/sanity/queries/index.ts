@@ -9,7 +9,10 @@ export {
 } from "@/lib/sanity/queries/buying-guide";
 export { getCategories, getCategory } from "@/lib/sanity/queries/category";
 export { getCollection, getCollections } from "@/lib/sanity/queries/collection";
-export { getDepartments } from "@/lib/sanity/queries/department";
+export {
+  getDepartments,
+  getRoomOverview,
+} from "@/lib/sanity/queries/department";
 export { getFaqs } from "@/lib/sanity/queries/faq";
 export { getHomepage } from "@/lib/sanity/queries/homepage";
 export { getNavigation } from "@/lib/sanity/queries/navigation";
