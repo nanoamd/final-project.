@@ -22,6 +22,7 @@ import {
   getProductsByDepartment,
   LISTING_QUERY_CEILING,
 } from "@/lib/sanity/queries";
+import { getBuyingGuidesForCategory } from "@/lib/sanity/queries/related-content";
 import type { SanityCategory } from "@/types/sanity-content";
 
 import { ShopResults, toShopTile } from "./shop-results";
@@ -47,7 +48,7 @@ export async function ShopAll({
   roomSlug?: string;
   categorySlug?: string;
 }) {
-  const [rooms, categories, products] = await Promise.all([
+  const [rooms, categories, products, guides] = await Promise.all([
     getDepartments(),
     getCategories(),
     categorySlug
@@ -59,6 +60,12 @@ export async function ShopAll({
       : roomSlug
         ? getProductsByDepartment(roomSlug)
         : getAllProducts(),
+    // The guides written about this category. 43 of 43 guides carry a
+    // relatedCategory and no commercial page used it — see
+    // getBuyingGuidesForCategory.
+    categorySlug
+      ? getBuyingGuidesForCategory(categorySlug)
+      : Promise.resolve([]),
   ]);
   const room = roomSlug ? rooms.find((r) => r.slug === roomSlug) : undefined;
   const category = categorySlug
@@ -283,6 +290,44 @@ export async function ShopAll({
             here wants the products first — but it is in the same document, which is
             all a crawler cares about. Outside the boundary, so the buying guidance
             and its FAQ schema are in the static HTML unconditionally. */}
+        {/**
+         * What to read before buying from this category.
+         *
+         * A shopper comparing six sideboards has questions the grid cannot
+         * answer, and Kaiku has written the answers — 43 buying guides, each
+         * tagged to a category, none of them linked from the page where the
+         * decision is actually being made.
+         */}
+        {category && guides.length ? (
+          <section className="border-line mt-14 border-t pt-10">
+            <h2 className="font-display text-ink text-xl tracking-tight">
+              Read before you buy
+            </h2>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-3">
+              {guides.map((guide) => (
+                <li key={guide.slug}>
+                  <AppLink
+                    href={`/learn/${guide.slug}`}
+                    className="group border-line hover:border-ink block h-full rounded-xl border p-5 transition-colors"
+                  >
+                    <p className="text-muted text-[11px] tracking-[0.12em] uppercase">
+                      Buying guide
+                    </p>
+                    <p className="text-ink font-display group-hover:text-brass-deep mt-2 text-[17px] leading-snug tracking-tight transition-colors">
+                      {guide.title}
+                    </p>
+                    {guide.excerpt ? (
+                      <p className="text-muted mt-2 line-clamp-3 text-[13px] leading-relaxed">
+                        {guide.excerpt}
+                      </p>
+                    ) : null}
+                  </AppLink>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         {/**
          * The curated facet pages for this category.
          *

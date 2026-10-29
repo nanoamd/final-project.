@@ -16,6 +16,47 @@ Status key:
 
 ---
 
+## Every room shows its own flagship, and categories link to their guides (29 October)
+
+### One garden photo was standing in for nineteen pages
+
+10 of the 11 departments and 9 of the 49 categories have no `heroImage`, so
+every one of those pages fell back to the same `/images/garden-after.jpg` —
+a single garden standing in for Bedroom, Kitchen, Lighting and Sauna alike.
+The home page's category rail did worse: a brass flame icon on a dark card.
+
+- [x] **The dearest photographed product in the room or category** is now the
+      hero when there is no editor's hero. Real photography, already paid for, of
+      something actually in the room.
+- [x] **The dearest, not the first** — and that distinction mattered. Taking
+      the first product gave Sauna a _Himalayan salt cooking plate_ and Bathroom a
+      _wire basket_. Ordering by price picks the flagship. Measured after the
+      change: Sauna shows the SaunaPlunge Pennine Barrel 6-Person Outdoor Sauna,
+      Bathroom the Hampton Ivory Octagonal Wall Mirror, Bedroom the Lyon Rattan
+      and Oak Wardrobe, Kitchen the Saronno Grey Marble Dining Table.
+- [x] `object-contain` for a product shot rather than `object-cover`, since
+      one composed for a square loses most of itself cropped into a tall frame.
+- [x] Six rooms checked: **6 distinct photographs**, where there had been one.
+
+The remaining `garden-after.jpg` on a room page is the Open Graph meta image
+and a decorative promo card — both correct, both left alone.
+
+### 43 buying guides nothing commercial linked to
+
+All 43 guides carry a `relatedCategory`, and the only thing that ever used
+that link was a product page falling back when it had no guide of its own. So
+the category pages — where someone is comparing six sideboards and has
+questions the grid cannot answer — linked to none of them.
+
+That costs twice: a shopper gets no help, and 43 pieces of genuinely useful
+writing sit with almost no internal links from anywhere that ranks.
+
+- [x] **A "Read before you buy" block on every category page** that has
+      guides, using the inverse index that already existed and was never called.
+      Verified: `/shop/mirrors` now links `/learn/what-shape-mirror`.
+
+---
+
 ## The calculators are now on the product pages (28 October)
 
 `toolsForCategory` has existed for a while and **no product component ever

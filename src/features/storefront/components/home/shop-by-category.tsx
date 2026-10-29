@@ -82,7 +82,12 @@ export async function ShopByCategory({
       .map((category) => ({
         categorySlug: category.slug,
         categoryName: category.name,
-        image: category.image ?? null,
+        // The editor's hero, then a photograph of something in the category.
+        // Nine categories have no heroImage, and before the fallback those
+        // tiles showed a brass flame icon on a dark card — a shop telling a
+        // visitor nothing about the range behind the tile.
+        image: category.image ?? category.fallbackImage ?? null,
+        imageIsProduct: !category.image && Boolean(category.fallbackImage),
       })),
   ];
 
@@ -142,7 +147,11 @@ export async function ShopByCategory({
                       alt={tile.categoryName}
                       fill
                       sizes="(max-width: 640px) 44vw, (max-width: 1024px) 30vw, 19vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      className={`transition-transform duration-700 group-hover:scale-[1.04] ${
+                        tile.imageIsProduct
+                          ? "object-contain p-5"
+                          : "object-cover"
+                      }`}
                     />
                   ) : (
                     <div className="bg-basalt-card absolute inset-0 flex items-center justify-center">

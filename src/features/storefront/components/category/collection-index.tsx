@@ -193,6 +193,32 @@ function CollectionHero({
   category?: SanityCategory;
   room?: SanityDepartment;
 }) {
+  /**
+   * The picture at the top of a room or category page.
+   *
+   * Order: the editor's own hero, then a photograph of something actually in
+   * this room, then the static garden shot. Ten of the eleven departments and
+   * nine of the forty-nine categories have no `heroImage`, so before the
+   * middle step every one of those pages showed the same garden — one photo
+   * standing in for Bedroom, Kitchen, Lighting and Sauna alike.
+   *
+   * `usableAlt` because some stored alts carry the supplier's composition
+   * line, which is worse than no alt at all.
+   */
+  const editorHero = category?.image ?? room?.image ?? null;
+  const productHero = category?.fallbackImage ?? room?.fallbackImage ?? null;
+  const hero = editorHero
+    ? { src: editorHero, alt: "", isProduct: false }
+    : productHero
+      ? {
+          src: productHero,
+          alt:
+            usableAlt(category?.fallbackImageAlt ?? room?.fallbackImageAlt) ??
+            `${category?.name ?? room?.name ?? "Kaiku"} at Kaiku`,
+          isProduct: true,
+        }
+      : { src: "/images/garden-after.jpg", alt: "", isProduct: false };
+
   const title = category?.name ?? room?.name ?? "Premium outdoor living";
   const crumb = category?.name ?? room?.name ?? "All Collections";
   const shopHref = room ? `/shop/room/${room.slug}` : "/shop";
@@ -294,12 +320,16 @@ function CollectionHero({
               inside a display:none box. On desktop it is in the initial
               viewport, so it still loads immediately; only the preload hint is
               gone. `sizes` drops the mobile branch for the same reason. */}
+          {/* The room's own photography before the static stand-in — see the
+              `hero` note above. object-contain for a product shot, because one
+              composed for a square loses most of itself cover-cropped into
+              this tall frame. */}
           <Image
-            src={category?.image ?? room?.image ?? "/images/garden-after.jpg"}
-            alt=""
+            src={hero.src}
+            alt={hero.alt}
             fill
             sizes="45vw"
-            className="object-cover"
+            className={hero.isProduct ? "object-contain p-8" : "object-cover"}
           />
           <div className="from-basalt/50 absolute inset-0 bg-gradient-to-r to-transparent" />
         </div>

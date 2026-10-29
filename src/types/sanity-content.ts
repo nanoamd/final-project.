@@ -98,6 +98,9 @@ export interface SanityDepartment {
   name: string;
   description?: string;
   image?: string | null;
+  /** A product photo, for a department with no hero of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
   order: number;
   /**
    * Whether this room occupies a top-level navigation slot.
@@ -157,6 +160,9 @@ export interface SanityCategory {
       } | null)[]
     | null;
   image?: string | null;
+  /** A product photo, for a category with no hero of its own. */
+  fallbackImage?: string | null;
+  fallbackImageAlt?: string | null;
 }
 
 export interface SanityProduct {
@@ -370,6 +376,13 @@ export interface CategoryTile {
   categorySlug: string;
   categoryName: string;
   image?: string | null;
+  /**
+   * Whether `image` is a product photograph standing in for a missing hero.
+   *
+   * The tile crops a hero to fill and contains a product shot instead — one
+   * composed for a square loses most of itself cover-cropped to 4:5.
+   */
+  imageIsProduct?: boolean;
 }
 
 export interface LivingCard {

@@ -105,3 +105,28 @@ export async function getRelatedContentForProduct({
 
   return { buyingGuides, posts };
 }
+
+/**
+ * The buying guides written about a category, for the category page.
+ *
+ * The inverse of what this file already does for products, and it was the
+ * missing direction. 43 of the 43 guides carry a `relatedCategory`, and the
+ * only page that ever used that link was a product page falling back when it
+ * had no guide of its own — so the commercial pages, which are where someone
+ * is deciding, linked to none of them.
+ *
+ * That costs twice. A shopper comparing six sideboards gets no help, and 43
+ * pieces of genuinely useful writing sit with almost no internal links
+ * pointing at them from anywhere that ranks.
+ */
+export async function getBuyingGuidesForCategory(
+  categorySlug: string,
+  limit = 3,
+): Promise<SanityBuyingGuide[]> {
+  if (!categorySlug) return [];
+  return sanityFetch<SanityBuyingGuide[]>(
+    BUYING_GUIDES_BY_CATEGORY_QUERY,
+    { categorySlug, limit },
+    [],
+  );
+}

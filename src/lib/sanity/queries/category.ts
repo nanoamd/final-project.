@@ -21,6 +21,15 @@ const CATEGORY_PROJECTION = /* groq */ `{
   comingSoon,
   "productCount": count(*[_type == "product" && references(^._id)]),
   "image": heroImage.asset->url,
+  // A real photograph for a category with no hero of its own — 9 of the 49
+  // have none, and all 9 have products. The dearest, for the same reason as
+  // department.ts: the first product in a category is whatever Sanity returns.
+  "fallbackImage": *[_type == "product" && count(gallery) > 0
+    && references(^._id)]
+    | order(price desc)[0].gallery[0].asset->url,
+  "fallbackImageAlt": *[_type == "product" && count(gallery) > 0
+    && references(^._id)]
+    | order(price desc)[0].gallery[0].alt,
   intro,
   buyingGuide,
   "faqs": faqs[]{ question, answer },
