@@ -4,6 +4,7 @@ import { ComingSoon } from "@/components/shared/coming-soon";
 import { FaqJsonLd } from "@/components/shared/json-ld";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { PageOnwardLinks } from "@/features/storefront/components/content/page-onward-links";
 import { getFaqs } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -63,6 +64,8 @@ export default async function FaqPage() {
             </div>
           ))}
         </div>
+
+        <PageOnwardLinks slug="faq" />
       </div>
     </Container>
   );

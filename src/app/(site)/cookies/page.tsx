@@ -19,6 +19,7 @@ export default async function CookiesPage() {
   const page = await getPageBySlug("cookies");
   return (
     <GenericPage
+      slug="cookies"
       page={page}
       fallbackTitle="Cookie Policy"
       fallbackIntro="How Kaiku uses cookies on this website."

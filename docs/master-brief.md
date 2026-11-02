@@ -16,6 +16,58 @@ Status key:
 
 ---
 
+## The policy pages were dead ends, and /delivery said almost nothing (2 November)
+
+Audited every route I had never looked at. Two real findings, and two things
+that looked like findings and were my own measurement error.
+
+### Eight pages that received link equity and passed none on
+
+Measured in the browser: `/about`, `/faq`, `/delivery`, `/returns`,
+`/warranty`, `/terms` and `/privacy` rendered **zero links between them**.
+Every one sits in the footer of every page on the site, so each receives link
+equity from all 900+ of them and passes none on — and a person who has just
+read the returns policy, which is what a £1,500 buyer reads hardest, is left
+with the browser back button.
+
+- [x] **Contextual onward links on all eight**, through `GenericPage` so one
+      component fixed them at once, plus `/faq` and `/contact` which have their
+      own templates. Not a link block for its own sake: delivery and returns
+      answer each other, warranty follows returns, and every one ends at a way to
+      reach a human.
+- [x] Measured after: **links 0 → 2-4 on every page**.
+
+### /delivery carried 153 words about the thing that decides the purchase
+
+The page a buyer checks before spending £1,900 on something that has to fit
+through their front door. Meanwhile the site already encodes the model
+precisely — lead times banded by price, a courier service and a two-person
+service with different reach, and the postcodes the second cannot serve.
+
+- [x] **The rules are now on the page, generated from the same constants the
+      product page, basket, checkout guard and Merchant feed use.** Writing them
+      out in Sanity would have made a second copy that can drift from the first,
+      and the first is the one that decides what happens to an order.
+- [x] The lead-time table is produced by calling `standardWindowForPrice`
+      itself, so it cannot disagree with the product pages. Verified rendering:
+      under £50 → 7–14 days, £50–£120 → 2–3 weeks, over £120 → 3–4 weeks.
+- [x] Covers what it costs, when it arrives, how it arrives and the one limit,
+      and where it is left. **153 → 415 words.**
+
+### Two findings that were my own error
+
+- `/faq` measured as 0 words and 0 links, which read as a broken page. It is
+  not: its six answers are in `<dd>` elements and my selector only counted
+  `<p>`. The page renders fine.
+- `/account` showed "We hit a snag". That is `NEXT_PUBLIC_SUPABASE_URL` being
+  unset **in this container**, not in production — which I cannot check from
+  here, since Vercel access is still pending.
+
+Recording both because a wrong finding costs more than a missed one: I nearly
+reported two working pages as broken.
+
+---
+
 ## The eleven room pages were the thinnest on the site (29 October)
 
 Measured in the browser: a room page carried **35 words of prose**, against

@@ -2,6 +2,7 @@ import { PortableText } from "@portabletext/react";
 
 import { ComingSoon } from "@/components/shared/coming-soon";
 import { Container } from "@/components/ui/container";
+import { PageOnwardLinks } from "@/features/storefront/components/content/page-onward-links";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import type { SanityPage } from "@/types/sanity-content";
 
@@ -15,10 +16,14 @@ export function GenericPage({
   page,
   fallbackTitle,
   fallbackIntro,
+  slug,
 }: {
   page: SanityPage | null;
   fallbackTitle: string;
   fallbackIntro: string;
+  /** The route's own slug, for the onward links. Optional so a caller that
+   *  has not been updated still renders exactly as before. */
+  slug?: string;
 }) {
   if (!page) {
     return <ComingSoon title={fallbackTitle} intro={fallbackIntro} />;
@@ -43,6 +48,7 @@ export function GenericPage({
             />
           </div>
         ) : null}
+        {slug ? <PageOnwardLinks slug={slug} /> : null}
       </div>
     </Container>
   );

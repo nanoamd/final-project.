@@ -19,6 +19,7 @@ export default async function WarrantyPage() {
   const page = await getPageBySlug("warranty");
   return (
     <GenericPage
+      slug="warranty"
       page={page}
       fallbackTitle="Warranty"
       fallbackIntro="How product warranties work at Kaiku."

@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { companyDetails, tradingAddressLine } from "@/config/site";
 import { ContactForm } from "@/features/storefront/components/content/contact-form";
+import { PageOnwardLinks } from "@/features/storefront/components/content/page-onward-links";
 import { portableTextComponents } from "@/lib/sanity/portable-text-components";
 import { getPageBySlug, getSiteSettings } from "@/lib/sanity/queries";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -89,6 +90,8 @@ export default async function ContactPage() {
         </div>
 
         <ContactForm />
+
+        <PageOnwardLinks slug="contact" />
       </div>
     </Container>
   );

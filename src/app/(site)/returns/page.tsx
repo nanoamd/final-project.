@@ -21,6 +21,7 @@ export default async function ReturnsPage() {
   const page = await getPageBySlug("returns");
   return (
     <GenericPage
+      slug="returns"
       page={page}
       fallbackTitle="Our returns policy"
       fallbackIntro="Unused items in their original packaging can be returned within 14 days of delivery for a full refund. Made-to-order and bespoke items are non-returnable unless faulty — get in touch and we'll confirm the details for your order directly."

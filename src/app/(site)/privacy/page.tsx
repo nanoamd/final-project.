@@ -20,6 +20,7 @@ export default async function PrivacyPage() {
   const page = await getPageBySlug("privacy");
   return (
     <GenericPage
+      slug="privacy"
       page={page}
       fallbackTitle="Privacy Policy"
       fallbackIntro="How we collect, use and protect your information."

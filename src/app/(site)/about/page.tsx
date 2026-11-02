@@ -21,6 +21,7 @@ export default async function AboutPage() {
   const page = await getPageBySlug("about");
   return (
     <GenericPage
+      slug="about"
       page={page}
       fallbackTitle="A knowledge-first retailer"
       fallbackIntro="We're building the UK's most helpful home store — one where the advice is as carefully made as the products. More on our approach, and the people behind it, soon."

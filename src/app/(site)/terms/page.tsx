@@ -46,6 +46,7 @@ export default async function TermsPage() {
   return (
     <>
       <GenericPage
+        slug="terms"
         page={page}
         fallbackTitle="Terms & Conditions"
         fallbackIntro="The terms that apply when you order from Kaiku."
